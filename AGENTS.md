@@ -10,7 +10,7 @@ Military operations, armed conflicts and territorial control are important compo
 
 The precise balance between these systems and their gameplay mechanics will be defined progressively in `GAME_DESIGN.md`. Codex must not invent or implement these mechanics without explicit approval.
 
-The primary target is iPhone, using a browser-based Progressive Web App (PWA).
+Heartland is a cross-platform browser-based game, designed primarily for iPhone but also accessible on iPad, desktop computers (Windows and Mac) and Android devices. The interface should adapt to different screen sizes and input methods. The application is intended to become a Progressive Web App (PWA).
 
 The long-term goal is to support fully offline gameplay on the device.
 
@@ -45,7 +45,7 @@ The project is developed by a non-programmer with assistance from Codex. Develop
 
 ## 5. Mobile and Offline Requirements
 
-- Design for iPhone screens and touch interactions first.
+- Prioritize iPhone usability while maintaining responsive layouts and compatibility with tablets and desktop browsers. Support both touch and mouse interactions where relevant.
 - Respect iPhone safe areas and responsive layouts.
 - Avoid desktop-only interactions.
 - Offline gameplay is a long-term requirement, not a claim that it is already implemented.
