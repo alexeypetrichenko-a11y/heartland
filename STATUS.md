@@ -1,7 +1,7 @@
 # Heartland — Implementation Status
 
 **Snapshot date:** 2026-11-07  
-**Source:** Repository inspection and local T01 build/browser checks on 2026-11-07.
+**Source:** Repository inspection, prior T01 build/browser checks, and local T02 tests/build on 2026-11-07.
 
 ## Verified existing scaffold
 
@@ -29,14 +29,31 @@
 - [x] Keyboard navigation, focus on view changes, touch-sized buttons and responsive safe-area spacing.
 - [x] No game engine, map data or additional gameplay features added.
 
+## T02 — Typed state and fictional test world
+
+- [x] Pure TypeScript models in `src/game/models.ts` for countries, regions, economy, relations, divisions, week, player selection, AI ownership and seed; no React imports.
+- [x] `createInitialState()` in `src/game/initialState.ts` returns fresh, deterministic JSON-compatible data: Alden, Belora and Cyrin, six named regions with reciprocal adjacency, three neutral relations and three divisions.
+- [x] Initial week is 1, seed is 2401, and player selection is null. Countries have AI ownership labels only; no AI behavior runs.
+- [x] Economy numbers and division headcounts are explicitly temporary fixture values; no economic, combat or diplomatic rules are implemented.
+- [x] Six focused tests in `src/game/initialState.test.ts` verify references/ownership, unique IDs, connected reciprocal adjacency, complete neutral relations, stable initialization, independent copies and JSON round trips (including a manually represented player selection).
+- [x] `npm test` uses Node's built-in test runner and TypeScript stripping; no dependencies added. TypeScript permits explicit `.ts` imports for this runner.
+- [x] T01 application/UI files and GitHub Pages configuration unchanged.
+
 ## Immediate next step
 
-T01 is complete on its dedicated branch. T02 remains pending and requires a separate assignment.
+T02 is implemented on `task/t02` and locally verified; owner review/approval is required before merging. T03 remains pending and requires a separate assignment. No interactive map or country-selection UI has been added.
 
-## Verification required
+## Verification
 
 - `npm run build`: passed (TypeScript check and Vite production build).
 - Chromium checks at 320×568, 390×844 and 1440×900: title/prototype round trip, HUD labels, keyboard focus/navigation, touch return, minimum 44px button height, no horizontal overflow and no runtime errors all passed.
 - Browser checks used the production preview at `/heartland/`. Real iPhone/Safari testing remains for the owner.
 - The first dependency install failed because the default npm cache was not writable; installation succeeded with a temporary cache. No dependency files changed.
 - GitHub Pages workflow and Vite base path are unchanged. Live deployment was not independently verified.
+
+### T02 validation
+
+- `npm test`: passed, 6 tests, 0 failures on Node 24.22.1.
+- `npm run build`: passed (TypeScript check, including tests, and Vite production build).
+- No new browser/iPhone checks were run for T02 because UI source is unchanged; prior T01 checks above remain historical evidence, not a new device verification.
+- Serialization is verified in memory only; save/load storage, runtime validation of imported saves, simulation and gameplay remain unimplemented.
