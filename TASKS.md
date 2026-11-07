@@ -52,6 +52,8 @@
 
 ### T03 — Render tappable region map using existing stack
 
+- [x] Completed and locally verified: six-region SVG using the T02 fixture, country colors, touch/mouse selection, region/owner/neighbor details, keyboard activation, responsive production-preview checks and build. Pull request awaits owner review.
+
 **Scope:** Show a **small, simple illustrative map** (SVG or similarly low-complexity approach) tied to game-state regions, with country colors, region selection and details. Avoid new mapping libraries unless approved.
 
 **Acceptance:** Region selection works with touch, visible owner/details update, map fits small iPhone viewport and desktop, keyboard accessibility if practical; build passes.
@@ -142,4 +144,4 @@ Each item above is a **feature family** to be broken into small PRs before imple
 
 ## Next task (requires a separate assignment)
 
-T02 is implemented and locally verified; its pull request awaits owner review. T03 is next in the backlog. Do not implement it until assigned.
+T03 is implemented on `task/t03-interactive-map` and locally verified; its pull request awaits owner review. T04 is next in the backlog and requires a separate assignment. Do not merge without owner approval.

@@ -1,7 +1,7 @@
 # Heartland — Implementation Status
 
 **Snapshot date:** 2026-11-07  
-**Source:** Repository inspection, prior T01 build/browser checks, and local T02 tests/build on 2026-11-07.
+**Source:** Repository inspection, prior T01/T02 verification, and local T03 tests/build/Chromium checks on 2026-11-07.
 
 ## Verified existing scaffold
 
@@ -13,7 +13,8 @@
 
 ## Not verified as implemented / pending
 
-- [ ] Region map and country selection.
+- [x] Illustrative region map with region selection (T03).
+- [ ] Player country selection (T04).
 - [ ] Weekly simulation and autonomous AI.
 - [ ] Economy, ground forces and diplomacy.
 - [ ] Actual playable match and final score.
@@ -41,7 +42,7 @@
 
 ## Immediate next step
 
-T02 is implemented on `task/t02` and locally verified; owner review/approval is required before merging. T03 remains pending and requires a separate assignment. No interactive map or country-selection UI has been added.
+T03 is implemented on `task/t03-interactive-map` and locally verified; owner review/approval is required before merging. Test it on a real iPhone/Safari. T04 requires a separate assignment; player country selection remains unimplemented.
 
 ## Verification
 
@@ -57,3 +58,22 @@ T02 is implemented on `task/t02` and locally verified; owner review/approval is 
 - `npm run build`: passed (TypeScript check, including tests, and Vite production build).
 - No new browser/iPhone checks were run for T02 because UI source is unchanged; prior T01 checks above remain historical evidence, not a new device verification.
 - Serialization is verified in memory only; save/load storage, runtime validation of imported saves, simulation and gameplay remain unimplemented.
+
+## T03 — Interactive fictional region map
+
+- [x] `App.tsx` creates the existing T02 fixture once and passes it through `PrototypePage.tsx` to the new `src/ui/RegionMap.tsx`. Game models and fixture data are unchanged.
+- [x] Six labeled SVG polygons use distinct colors for Alden, Belora and Cyrin, with a named country legend. Illustrative shared edges match the fixture's adjacency; no mapping library or dependency added.
+- [x] Touch or mouse selection marks one region with a dashed border. The details panel displays its name, owning country and neighboring region names from the fixture. No demographic/resource details were invented.
+- [x] Each region is a focusable button with an accessible name and pressed state. Tab/Shift+Tab navigate; Enter/Space select. Keyboard focus has a visible border, and details have a polite live region.
+- [x] Map scales to the available width. Details stack below it on small screens and sit beside it on desktop; existing iPhone safe-area spacing, title navigation and placeholder HUD are preserved.
+- [x] Only T03 implemented. No player-country selection, turns, economic simulation, combat, AI behavior, multiplayer, PWA or deployment changes.
+
+### T03 validation and limitations
+
+- `npm test`: passed, all 6 existing fixture tests, 0 failures.
+- `npm run build`: passed (TypeScript check and Vite production build).
+- Automated Playwright/Chromium checks against the production preview at `/heartland/`: passed at 320×568, 390×844, 844×390 and 1440×900. Every region was selected using touch emulation on the first three sizes and mouse on desktop; names, owners, neighbor lists, country colors, single selection, minimum 44px target bounds, map width and absence of horizontal overflow were checked.
+- Keyboard checks at all four sizes passed: complete region Tab order, visible focus, Enter/Space activation, focus alone preserving selection, return to title and focus restoration. Existing HUD labels and fresh empty selection after reopening the prototype were checked.
+- No JavaScript runtime errors or application asset failures. Chromium reported the existing missing `/favicon.ico` (404); the baseline has no favicon. This warning remains unchanged.
+- Screenshots were visually inspected at small-screen and desktop sizes. Browser checks use Chromium touch emulation, not a physical iPhone or Safari/WebKit; real-device touch, safe areas and VoiceOver remain unverified.
+- The map is a static fictional illustration with native page scrolling/browser zoom, no custom pan/zoom. Selection is inspection only and resets when leaving the prototype. Details are limited to the region fields available in T02; no simulation or persistence is implemented.

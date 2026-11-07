@@ -1,12 +1,16 @@
+import type { GameState } from '../game/models';
+import { RegionMap } from './RegionMap';
+
 type PrototypePageProps = {
+  state: GameState;
   onBack: () => void;
 };
 
-export function PrototypePage({ onBack }: PrototypePageProps) {
+export function PrototypePage({ state, onBack }: PrototypePageProps) {
   return (
     <div className="prototype-content">
       <h1 id="view-title">Local prototype</h1>
-      <p>This is a game-view placeholder, not a working game. Gameplay is not implemented.</p>
+      <p>Explore a small illustrative, fictional test world. Gameplay is not implemented.</p>
       <section aria-labelledby="hud-title" className="hud">
         <h2 id="hud-title">Game overview</h2>
         <dl>
@@ -16,6 +20,7 @@ export function PrototypePage({ onBack }: PrototypePageProps) {
           <div><dt>Status</dt><dd>UI prototype only</dd></div>
         </dl>
       </section>
+      <RegionMap state={state} />
       <button type="button" onClick={onBack}>Back to title screen</button>
     </div>
   );

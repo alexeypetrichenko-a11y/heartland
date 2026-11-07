@@ -104,3 +104,114 @@ button:focus-visible {
   color: #c8d0c5;
   line-height: 1.5;
 }
+
+.region-map {
+  margin-top: 2rem;
+}
+
+.region-map h2,
+.region-details h3 {
+  margin: 0;
+}
+
+.map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  padding: 0;
+  margin: 1rem 0;
+  list-style: none;
+}
+
+.map-legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.country-swatch {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.2rem;
+}
+
+.map-layout {
+  display: grid;
+  gap: 1rem;
+  align-items: start;
+}
+
+.map-svg {
+  display: block;
+  width: 100%;
+  max-width: 28rem;
+  margin-inline: auto;
+  background: #1b352c;
+  border-radius: 0.5rem;
+}
+
+.map-region {
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.map-region polygon {
+  stroke: #12251e;
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.map-region text {
+  fill: #12251e;
+  font-size: 18px;
+  font-weight: 600;
+  text-anchor: middle;
+  pointer-events: none;
+  user-select: none;
+}
+
+.map-region[aria-pressed='true'] polygon {
+  stroke: #12251e;
+  stroke-width: 8;
+  stroke-dasharray: 10 4;
+}
+
+.map-region:focus-visible {
+  outline: none;
+}
+
+.map-region:focus-visible polygon {
+  stroke: #ffffff;
+  stroke-width: 6;
+}
+
+.region-details {
+  padding: 1rem;
+  border: 1px solid #c8d0c5;
+  border-radius: 0.5rem;
+}
+
+.region-details dl {
+  margin-bottom: 0;
+}
+
+.region-details dt {
+  font-weight: 600;
+}
+
+.region-details dd {
+  margin: 0.25rem 0 1rem;
+  color: #c8d0c5;
+  line-height: 1.5;
+}
+
+.region-details div:last-child dd {
+  margin-bottom: 0;
+}
+
+@media (min-width: 42rem) {
+  .map-layout {
+    grid-template-columns: 1.2fr 1fr;
+  }
+}
