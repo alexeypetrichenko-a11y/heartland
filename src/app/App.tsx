@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { HomePage } from '../ui/HomePage';
 import { PrototypePage } from '../ui/PrototypePage';
+import { createInitialState } from '../game/initialState';
 
 export function App() {
   const [view, setView] = useState<'home' | 'prototype'>('home');
+  const [gameState] = useState(createInitialState);
   const mainRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -20,7 +22,7 @@ export function App() {
       {view === 'home' ? (
         <HomePage onOpenPrototype={() => setView('prototype')} />
       ) : (
-        <PrototypePage onBack={() => setView('home')} />
+        <PrototypePage state={gameState} onBack={() => setView('home')} />
       )}
     </main>
   );
