@@ -36,6 +36,8 @@
 
 ### T01 — Inspect existing UI and add an accessible game-view placeholder
 
+- [x] Completed and verified: title/prototype navigation, placeholder HUD and build.
+
 **Scope:** Preserve title screen. Add a clearly labeled local prototype/play view with a basic game HUD container (country/week/orders/status). No real game logic or map library yet.
 
 **Acceptance:** Title and prototype screen can be reached on iPhone and desktop; nothing falsely presented as a working game; build passes.

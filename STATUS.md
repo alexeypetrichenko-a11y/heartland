@@ -1,7 +1,7 @@
 # Heartland — Implementation Status
 
 **Snapshot date:** 2026-11-07  
-**Source:** Read-only inspection of the current GitHub `main` repository and `README.md`. This file is an initial proposed status baseline, not a code audit or executed test report.
+**Source:** Repository inspection and local T01 build/browser checks on 2026-11-07.
 
 ## Verified existing scaffold
 
@@ -21,11 +21,22 @@
 - [ ] Multiplayer invite links, synchronization, pause.
 - [ ] Offline-capable installable PWA.
 
+## T01 — Accessible prototype view
+
+- [x] Existing title and subtitle preserved, with an Open local prototype button.
+- [x] Local prototype view includes Country, Week, Orders and Status placeholders.
+- [x] Clear notice that gameplay is not implemented; return button reaches the title screen.
+- [x] Keyboard navigation, focus on view changes, touch-sized buttons and responsive safe-area spacing.
+- [x] No game engine, map data or additional gameplay features added.
+
 ## Immediate next step
 
-1. Complete T00: add `GAME_DESIGN.md`, `TASKS.md` and this `STATUS.md` to the repository in a dedicated PR.
-2. Then assign **T01 only** to Codex.
+T01 is complete on its dedicated branch. T02 remains pending and requires a separate assignment.
 
 ## Verification required
 
-`npm run build` was **not** executed for this documentation snapshot. Last live site deployment status was **not** independently checked during this preparation.
+- `npm run build`: passed (TypeScript check and Vite production build).
+- Chromium checks at 320×568, 390×844 and 1440×900: title/prototype round trip, HUD labels, keyboard focus/navigation, touch return, minimum 44px button height, no horizontal overflow and no runtime errors all passed.
+- Browser checks used the production preview at `/heartland/`. Real iPhone/Safari testing remains for the owner.
+- The first dependency install failed because the default npm cache was not writable; installation succeeded with a temporary cache. No dependency files changed.
+- GitHub Pages workflow and Vite base path are unchanged. Live deployment was not independently verified.
