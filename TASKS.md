@@ -44,6 +44,8 @@
 
 ### T02 — Define small typed game-state data and a fictional test world
 
+- [x] Completed and verified: pure TypeScript models, fixed three-country/six-region fixture, consistency and JSON serialization tests, and production build.
+
 **Scope:** Pure TypeScript data models for countries, regions, numeric economy, relations, divisions, game week, player selection, AI ownership and seed. Create **three fictional countries** and a handful of named fictional regions with explicit adjacency; do not import real global borders.
 
 **Acceptance:** Initial state is valid, testable and serializable; no React imports in game models; explicit data are stable across reloads; tests for consistency.
@@ -138,6 +140,6 @@ Each item above is a **feature family** to be broken into small PRs before imple
 - No implementation of all design systems in one prompt.
 - No arbitrary final victory formulas, crisis probabilities, military constants or territorial-policy decisions disguised as approved rules.
 
-## Exact next Codex assignment (copy/paste)
+## Next task (requires a separate assignment)
 
-> Read `AGENTS.md`, `GAME_DESIGN.md`, `TASKS.md` and `STATUS.md` (if present) and inspect the repository. Work **only on T01**: preserve the current landing page and add the smallest accessible prototype game-view placeholder for iPhone and desktop. Do not implement game logic, map data, AI, networking, PWA installation or new mechanics. Keep UI and future engine separate. Work on a dedicated branch, run `npm run build`, report changed files and test results, create a PR if supported, and do not merge. If the design docs have not yet been committed, stop and request that T00 be completed first.
+T02 is implemented and locally verified; its pull request awaits owner review. T03 is next in the backlog. Do not implement it until assigned.
