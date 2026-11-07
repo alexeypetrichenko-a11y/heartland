@@ -15,7 +15,8 @@ body {
   margin: 0;
 }
 
-.home {
+.home,
+.prototype {
   min-height: 100vh;
   min-height: 100svh;
   display: grid;
@@ -41,5 +42,65 @@ p {
   margin: 1rem 0 0;
   color: #c8d0c5;
   font-size: clamp(1rem, 3.5vw, 1.25rem);
+  line-height: 1.5;
+}
+
+button {
+  min-height: 44px;
+  max-width: 100%;
+  margin-top: 1.5rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #c8d0c5;
+  border-radius: 0.5rem;
+  font: inherit;
+  color: #12251e;
+  background: #f3efdf;
+  cursor: pointer;
+}
+
+button:focus-visible {
+  outline: 3px solid #f5cc75;
+  outline-offset: 4px;
+}
+
+.prototype {
+  text-align: left;
+}
+
+.prototype-content {
+  width: 100%;
+  max-width: 56rem;
+}
+
+.prototype h1 {
+  font-size: clamp(2rem, 7vw, 3rem);
+}
+
+.hud {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border: 1px solid #c8d0c5;
+  border-radius: 0.5rem;
+}
+
+.hud h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.hud dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0 0;
+}
+
+.hud dt {
+  font-weight: 600;
+}
+
+.hud dd {
+  margin: 0.5rem 0 0;
+  color: #c8d0c5;
   line-height: 1.5;
 }
