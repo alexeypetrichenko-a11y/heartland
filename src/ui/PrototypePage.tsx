@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
-import type { CountryId, EconomicPolicy, GameState, TurnCommand } from '../game/models';
+import type { CountryId, EconomicPolicy, GameState, MilitaryCommand, TurnCommand } from '../game/models';
 import { calculateWeeklyBudget, ECONOMIC_POLICIES, isEconomicPolicy } from '../game/economy';
 import { RegionMap } from './RegionMap';
+import { MilitaryPanel } from './MilitaryPanel';
 
 type PrototypePageProps = {
   state: GameState;
   onSelectCountry: (id: CountryId) => void;
-  onAdvanceTurn: (commands: readonly TurnCommand[]) => void;
+  onAdvanceTurn: (commands: readonly TurnCommand[]) => boolean;
   turnError: string | null;
   onBack: () => void;
 };
@@ -14,12 +15,19 @@ type PrototypePageProps = {
 export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, turnError, onBack }: PrototypePageProps) {
   const [choice, setChoice] = useState('');
   const [policyChoice, setPolicyChoice] = useState<EconomicPolicy | null>(null);
+  const [pendingMilitaryOrders, setPendingMilitaryOrders] = useState<MilitaryCommand[]>([]);
   const dashboardRef = useRef<HTMLHeadingElement>(null);
   const country = state.countries.find(country => country.id === state.playerCountryId);
   const regions = state.regions.filter(region => region.ownerId === country?.id);
-  const divisions = state.divisions.filter(division => division.ownerId === country?.id);
   const budget = country ? calculateWeeklyBudget(country.economy, country.economicPolicy) : null;
   const nextPolicy = policyChoice ?? country?.economicPolicy ?? 'standard';
+
+  function advanceWeek() {
+    if (!country) return;
+    const commands: TurnCommand[] = [...pendingMilitaryOrders];
+    if (nextPolicy !== country.economicPolicy) commands.push({ type: 'set-economic-policy', countryId: country.id, policy: nextPolicy });
+    if (onAdvanceTurn(commands)) setPendingMilitaryOrders([]);
+  }
 
   useEffect(() => {
     if (state.playerCountryId) dashboardRef.current?.focus();
@@ -28,7 +36,7 @@ export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, turnError
   return (
     <div className="prototype-content">
       <h1 id="view-title">Local prototype</h1>
-      <p>Explore a small illustrative, fictional test world in a local single-player scenario. Advance one week at a time with a provisional economy. Military and AI behavior are not implemented.</p>
+      <p>Explore a small illustrative, fictional test world in a local single-player scenario. Advance one week at a time with a provisional economy and land combat. AI decisions are not implemented.</p>
       {!country && (
         <section className="hud" aria-labelledby="country-choice-title">
           <h2 id="country-choice-title">Choose your country</h2>
@@ -51,23 +59,21 @@ export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, turnError
         <dl>
           <div><dt>Country</dt><dd>{country?.name ?? 'Not selected'}</dd></div>
           <div><dt>Week</dt><dd aria-live="polite" aria-atomic="true">{country ? `Week ${state.week}` : 'Not started — choose a country'}</dd></div>
-          <div><dt>Orders</dt><dd>{state.standingOrders.length} placeholder standing orders. Economic policy stays active until changed.</dd></div>
-          <div><dt>Status</dt><dd>{country ? 'Local scenario — provisional weekly economy' : 'Choose a country to start'}</dd></div>
+          <div><dt>Orders</dt><dd>{pendingMilitaryOrders.length} staged military orders; {state.standingOrders.length} placeholder standing orders. Active military orders appear below.</dd></div>
+          <div><dt>Status</dt><dd>{country ? 'Local scenario — provisional economy and land combat' : 'Choose a country to start'}</dd></div>
         </dl>
         {country && (
           <>
-            <button type="button" onClick={() => onAdvanceTurn(nextPolicy === country.economicPolicy ? [] : [
-              { type: 'set-economic-policy', countryId: country.id, policy: nextPolicy },
-            ])}>Next week</button>
-            <p>Each successful press settles all three countries’ budgets and advances one week. If funds are insufficient, the whole week is rejected without changes.</p>
-            {turnError && <p role="alert">{turnError} Choose a policy with an affordable budget below and try again.</p>}
+            <button type="button" onClick={advanceWeek}>Next week</button>
+            <p>Each successful press settles budgets, resolves military orders and advances one week. Invalid orders or insufficient funds reject the whole week without changes.</p>
+            {turnError && <p role="alert">{turnError} Week not advanced. Review your staged orders and tax policy below, then try again.</p>}
           </>
         )}
       </section>
       {country && budget && (
         <section className="hud" aria-labelledby="dashboard-title">
           <h2 id="dashboard-title" ref={dashboardRef} tabIndex={-1}>{country.name} national dashboard</h2>
-          <p>Temporary fictional statistics, not balanced game values. Military data stay fixed. This local scenario lasts until the page is reloaded.</p>
+          <p>Temporary fictional statistics and rules, not balanced game values. This local scenario lasts until the page is reloaded.</p>
           <h3>Country control</h3>
           <ul>
             {state.countries.map(country => (
@@ -97,13 +103,9 @@ export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, turnError
           </form>
           <h3>Your regions</h3>
           <ul>{regions.map(region => <li key={region.id}>{region.name}</li>)}</ul>
-          <h3>Military</h3>
-          <p>Divisions: {divisions.length}. Headcounts are temporary fixture values.</p>
-          <ul>{divisions.map(division => (
-            <li key={division.id}>
-              {division.name} — {division.manpower} personnel; located in {state.regions.find(region => region.id === division.regionId)?.name}.
-            </li>
-          ))}</ul>
+          <MilitaryPanel state={state} pendingOrders={pendingMilitaryOrders}
+            onStageOrder={command => setPendingMilitaryOrders(orders => [...orders.filter(order => order.divisionId !== command.divisionId), command])}
+            onDiscardOrders={() => setPendingMilitaryOrders([])} />
         </section>
       )}
       <RegionMap state={state} />

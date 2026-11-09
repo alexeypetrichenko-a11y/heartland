@@ -1,5 +1,6 @@
 import type { GameState, TurnCommand } from './models.ts';
 import { isEconomicPolicy, resolveWeeklyEconomy } from './economy.ts';
+import { parseMilitaryOrder, resolveMilitary, validateMilitaryOrder } from './military.ts';
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -12,6 +13,9 @@ function isText(value: unknown): value is string {
 /** Validate runtime input too, rather than relying on TypeScript at call sites. */
 function validateCommand(value: unknown): TurnCommand {
   if (isRecord(value)) {
+    if (value.type === 'set-military-order' && isText(value.countryId) && isText(value.divisionId)) {
+      return { type: value.type, countryId: value.countryId, divisionId: value.divisionId, order: parseMilitaryOrder(value.order) };
+    }
     if (value.type === 'set-economic-policy' && isText(value.countryId) && isEconomicPolicy(value.policy)) {
       return { type: value.type, countryId: value.countryId, policy: value.policy };
     }
@@ -35,6 +39,8 @@ function validateCommand(value: unknown): TurnCommand {
  * Placeholder orders persist without effects. Economic policy persists on each
  * country; policy commands apply before resolving every country's weekly budget.
  * Insufficient funds or invalid amounts reject the entire week, including commands.
+ * Military commands are validated before settlement; military outcomes resolve
+ * after budgets, within the same atomic turn.
  * No clock, randomness, React, storage or network access; the seed is untouched.
  */
 export function advanceTurn(state: GameState, commands: readonly TurnCommand[] = []): GameState {
@@ -49,10 +55,16 @@ export function advanceTurn(state: GameState, commands: readonly TurnCommand[] =
 
   let orders = state.standingOrders.map(order => ({ ...order }));
   let countries = state.countries.map(country => ({ ...country }));
+  let divisions = state.divisions;
   for (const input of commands) {
     const command = validateCommand(input);
     const countryId = command.type === 'set-standing-order' ? command.order.countryId : command.countryId;
     if (countryId !== player.id) throw new Error('Commands must belong to the selected player country.');
+    if (command.type === 'set-military-order') {
+      validateMilitaryOrder({ ...state, divisions }, countryId, command.divisionId, command.order);
+      divisions = divisions.map(division => division.id === command.divisionId ? { ...division, order: command.order } : division);
+      continue;
+    }
     if (command.type === 'set-economic-policy') {
       countries = countries.map(country => country.id === countryId ? { ...country, economicPolicy: command.policy } : country);
       continue;
@@ -78,5 +90,6 @@ export function advanceTurn(state: GameState, commands: readonly TurnCommand[] =
       throw new Error(`${country.name}: ${error instanceof Error ? error.message : 'Economic resolution failed.'} Week not advanced; no changes applied.`);
     }
   });
-  return { ...state, week: state.week + 1, standingOrders: orders, countries };
+  const military = resolveMilitary({ ...state, divisions });
+  return { ...state, week: state.week + 1, standingOrders: orders, countries, ...military };
 }

@@ -76,13 +76,15 @@
 
 ### T06 — Add minimal economy and treasury feedback
 
-- [x] Completed and locally verified: deterministic weekly budgets for all three fictional countries, one persistent tax policy with a measurable income effect, dashboard feedback, explicit atomic insufficient-funds rejection and recovery, focused economic/persistence/replay tests, responsive Chromium checks and production build. Provisional parameters/formulas are documented in `STATUS.md`; dedicated branch `task/t06-weekly-economy` awaits owner review.
+- [x] Completed and locally verified: deterministic weekly budgets for all three fictional countries, one persistent tax policy with a measurable income effect, dashboard feedback, explicit atomic insufficient-funds rejection and recovery, focused economic/persistence/replay tests, responsive Chromium checks and production build. Provisional parameters/formulas are documented in `STATUS.md`. Merged into `main` in PR #10.
 
 **Scope:** For the fictional test world only, track small illustrative resource/income/expense/budget variables and one government policy/order that affects them weekly. No full market, debt or industry simulation yet.
 
 **Acceptance:** A visible policy choice changes next week's measurable numbers; no negative resources without explicit handling; calculations covered by tests; parameters marked as prototype-only.
 
 ### T07 — Add a minimal land-division order and outcome
+
+- [x] Completed and locally verified: player-owned division selection and staged move/defend/attack orders, ownership/availability/adjacency validation with atomic rejection, deterministic weekly casualties and territorial capture, persistent attacks, active orders/results in the dashboard, existing map ownership updates, preserved economy/policies, 14 focused military tests and mobile/desktop Chromium checks. Provisional combat rules are documented in `STATUS.md`; production build passes. Dedicated branch `task/t07-land-orders` awaits owner review.
 
 **Scope:** Add land divisions to fictional regions and one or two actions (move, defend, attack) with a small deterministic resolution model. Don't implement air, naval, manpower training, technology or full supply chains yet.
 
@@ -150,4 +152,4 @@ Each item above is a **feature family** to be broken into small PRs before imple
 
 ## Next task (requires a separate assignment)
 
-T05 is merged into `main` (PR #9). T06 is implemented on `task/t06-weekly-economy` and locally verified; its pull request awaits owner review. T07 is next in the backlog and requires a separate assignment. Do not merge without owner approval.
+T06 is merged into `main` (PR #10). T07 is implemented on `task/t07-land-orders` and locally verified; its pull request awaits owner review. T08 requires a separate assignment. The mobile-first interface redesign is deferred until after T08. Do not merge without owner approval.

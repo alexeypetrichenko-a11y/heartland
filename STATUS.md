@@ -1,7 +1,7 @@
 # Heartland — Implementation Status
 
 **Snapshot date:** 2026-11-09
-**Source:** Repository inspection, prior T01–T05 verification, and local T06 tests/build/Chromium checks on 2026-11-09.
+**Source:** Repository inspection, prior T01–T06 verification, and local T07 tests/build/Chromium checks on 2026-11-09.
 
 ## Verified existing scaffold
 
@@ -17,7 +17,8 @@
 - [x] Player country selection and national dashboard (T04, economy updated in T06).
 - [x] Manual weekly turn progression and inert standing-order persistence (T05).
 - [x] Minimal weekly treasury simulation and persistent tax policy (T06).
-- [ ] Full economy, military simulation, diplomacy and autonomous AI.
+- [x] Minimal land-division movement, defence, combat and territorial capture (T07).
+- [ ] Full economy/military systems, diplomacy and autonomous AI.
 - [ ] Actual playable match and final score.
 - [ ] Save/resume gameplay.
 - [ ] Multiplayer invite links, synchronization, pause.
@@ -43,9 +44,9 @@
 
 ## Immediate next step
 
-T05 is merged into `main` (PR #9). T06 is implemented on `task/t06-weekly-economy` and locally verified; owner review is required before merging. Test it on a real iPhone/Safari. T07 requires a separate assignment; division movement/combat remains unimplemented.
+T06 is merged into `main` (PR #10). T07 is implemented on `task/t07-land-orders` and locally verified; owner review is required before merging. Test it on a real iPhone/Safari. T08 requires a separate assignment; diplomacy and autonomous AI remain unimplemented. The interface redesign is deferred until after T08.
 
-The T01–T05 sections below retain their historical verification scope; T06 records the current additions.
+The T01–T06 sections below retain their historical verification scope; T07 records the current additions.
 
 ## Verification
 
@@ -152,3 +153,44 @@ All figures and formulas here are **prototype-only, reversible demo assumptions*
 - Automated Playwright/Chromium against the production preview at `/heartland/`: passed for all three selected countries at **320×568, 390×844, 844×390 and 1440×900**. Touch/mouse policy changes, staged versus active policy, weekly numbers, persistence through turns/title navigation, restoration of standard taxation, keyboard selector and Next week activation, country reset on reload, all six map regions/owners, retained map selection across a turn, unchanged division details, minimum 44px policy/turn controls and no horizontal overflow were checked.
 - At 390×844, 50 tax-relief weeks exhausted Alden's treasury exactly. The next press displayed the shortfall without advancing week 51 or changing treasury/policy; selecting standard taxation then advanced to week 52 with treasury 4 and cleared the error. No JavaScript runtime errors or application asset failures occurred. Small-screen, desktop and insufficient-funds screenshots were visually inspected.
 - These are Chromium touch-emulation checks; physical iPhone/Safari/VoiceOver and live GitHub Pages deployment remain unverified. No markets, resources beyond treasury, industry, debt, military actions, diplomacy, AI behavior, multiplayer, storage or PWA were added. The local prototype remains incomplete beyond T06.
+
+## T07 — Minimal land-division orders and combat
+
+- [x] Reuses the existing TypeScript division/region models and deterministic `advanceTurn` engine. `src/game/models.ts` adds typed move/defend/attack orders, `set-military-order` commands and latest-week military results. `src/game/initialState.ts` reuses the three existing 1,000-person divisions, initially defending their current regions, with no initial combat results.
+- [x] Pure `src/game/military.ts` normalizes runtime orders, validates division ownership/availability, friendly origin, target existence, adjacency and friendly/enemy target ownership, then resolves orders during weekly processing. Invalid new commands reject the entire batch, including earlier policy/order changes, with no change to the input state or commands.
+- [x] Commands are validated and applied to staged state in array order; the last valid command for a division replaces its earlier order. Budgets settle before military outcomes within the same atomic turn. An economic or military failure leaves week, treasury, policies, divisions, territory and results unchanged.
+- [x] Friendly moves complete in one week and become Defend. Defend persists and stops an ongoing attack. Unfinished attacks persist across empty turns; capture or destruction completes the attack. Obsolete standing orders (for example, an attack whose target another friendly unit captured) are cancelled with a visible reason and become Defend.
+- [x] `src/ui/MilitaryPanel.tsx` adds native labeled division/order/adjacent-target selectors, staging/discard controls, division locations/headcounts/active orders, and latest-week movement/combat/cancellation results. Only player-owned divisions can be selected; zero-personnel units are disabled. Staged commands are separate from active orders, retained after a failed turn and cleared after success.
+- [x] `src/ui/PrototypePage.tsx` submits staged military commands and the chosen tax policy together with Next week. `src/app/App.tsx` reports success/failure so rejected turns retain their staged orders. Existing responsive controls, safe-area styles and overall layout are reused without a redesign.
+- [x] Existing `RegionMap.tsx` already reads ownership from game state: captures update country color, accessible owner label, region details and the national region list without changing the map implementation. Country selection, title navigation, economy/policy behavior, placeholder orders and deployment configuration are preserved.
+- [x] Fourteen focused tests added in `src/game/military.test.ts`. No dependencies added; no aviation, navy, advanced logistics, recruitment, technology, autonomous AI decisions, diplomacy, multiplayer or timers implemented. T08 and later tasks remain pending.
+
+### Provisional combat parameters and rules
+
+These are **prototype-only, reversible demo rules**, not final combat balance or implementation of the full military design. Constants live in `COMBAT_PARAMETERS` in `src/game/military.ts`.
+
+| Parameter/behavior | Provisional value or rule |
+|---|---|
+| Starting manpower | Existing T02 fixture: 1,000 per division; no new forces |
+| Move | One adjacent friendly region per completed week; no casualties or extra cost |
+| Defend | Hold current region; no numerical bonus; also the default for idle units |
+| Attacker damage budget | `max(1, floor(attacker manpower / 2))` |
+| Return damage | `ceil(total living enemy defenders in target / 4)` |
+| Loss application | Both sides use pre-round manpower; losses are simultaneous within each combat, capped at available manpower |
+| Capture | Only if attacker survives and every enemy defender in the target is at zero; attacker enters and changes ownership |
+| Undefended target | Captured without casualties |
+| Zero manpower | Retained as an unavailable/destroyed division record at its last location; cannot receive orders, move, defend or capture |
+| Resolution order | Player divisions by stable string ID; defender damage allocated by stable defender ID until the damage budget is exhausted |
+
+- Each division acts at most once per week. Multiple combats resolve sequentially by division ID; this is a deterministic local prototype, not full simultaneous multiplayer resolution. All living enemy divisions in a target contribute to return damage. Defence in place is passive, with no autonomous AI movement or attack decisions.
+- With the fixture's 1,000 versus 1,000, repeated attacks produce attacker/defender survivors of **750/500**, **625/125**, then **593/0** with capture. Attackers stay at the origin until capture. Both sides reaching zero leaves ownership unchanged; there is no retreat, surrender, occupation, reinforcement or regime-defeat system.
+- Capturing territory does not change fixed national income/expenses or create additional military expenses in T07. The T06 provisional budget formulas and insufficient-funds behavior remain unchanged. No clock or randomness is used; the seed is preserved.
+- Military results show only the latest resolved week, labeled with the week just completed; a quiet turn clears the previous results. Active orders, casualties and ownership remain in memory through title navigation; unapplied form/staged choices are discarded on leaving the prototype. Reload resets the scenario; no save/load feature is implied.
+
+### T07 validation and limitations
+
+- `npm test`: passed, **39 tests, 0 failures** (all 25 existing tests plus 14 focused military tests). Covers valid friendly movement for all countries, defend persistence/attack replacement, wrong ownership/unavailable units/unfriendly origins, self/nonadjacent/missing targets, friendly/enemy target rules, malformed runtime commands, atomic rejection of mixed batches, exact simultaneous casualties, multiweek capture, undefended capture, defeat/both sides destroyed, nonnegative manpower, multiple defenders and stable resolution order, obsolete-order cancellation, no autonomous AI attacks, policy settlement during combat, insufficient-funds rollback, invalid/unsafe manpower, and deterministic replay including invalid turns and JSON round trips.
+- `npm run build`: passed (TypeScript checking includes the new tests; Vite production build). `git diff --check`: passed.
+- Production-preview Playwright/Chromium at `/heartland/`: all three player countries passed at **320×568, 390×844, 844×390 and 1440×900**. Touch/mouse checks cover own-division selection, staged versus active orders, move/defend/attack, discarding drafts, exact casualties, standing attack persistence, territorial capture with map color/owner/detail updates, all six map regions, national economy/policy values during combat, title navigation preserving active state, reload reset, keyboard map/Next week activation, minimum 44px controls and absence of horizontal overflow.
+- At 390×844, an attack against stronger defenders exhausted a division and correctly disabled further orders without capturing territory. A separate keyboard-staging/budget check exhausted treasury with 50 tax-relief weeks, staged a move, verified the rejected week kept location/treasury/week unchanged and retained the draft, then restored standard taxation and completed the move with treasury 4. No JavaScript runtime errors or application asset failures were observed. Mobile/desktop military and captured-map screenshots were visually inspected.
+- Physical iPhone/Safari/VoiceOver and live GitHub Pages deployment remain unverified. Combat is a small headcount-only demonstration with fixed national budgets, no geographic defence modifiers, no retreat/supply/equipment/morale systems and no combat history beyond the latest week. The wider playable match remains incomplete; interface redesign is intentionally deferred.
