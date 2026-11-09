@@ -1,4 +1,5 @@
 import type { GameState, TurnCommand } from './models.ts';
+import { isEconomicPolicy, resolveWeeklyEconomy } from './economy.ts';
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -11,6 +12,9 @@ function isText(value: unknown): value is string {
 /** Validate runtime input too, rather than relying on TypeScript at call sites. */
 function validateCommand(value: unknown): TurnCommand {
   if (isRecord(value)) {
+    if (value.type === 'set-economic-policy' && isText(value.countryId) && isEconomicPolicy(value.policy)) {
+      return { type: value.type, countryId: value.countryId, policy: value.policy };
+    }
     if (value.type === 'set-standing-order' && isRecord(value.order)) {
       const order = value.order;
       if (isText(order.id) && isText(order.countryId) && order.kind === 'placeholder' && isText(order.label)) {
@@ -28,7 +32,9 @@ function validateCommand(value: unknown): TurnCommand {
  * Resolve one local week, atomically. Commands apply in supplied array order:
  * set inserts/replaces an owned order by ID; cancel removes an owned order.
  * Invalid input throws without changing the supplied state or commands.
- * Orders persist until explicitly changed/cancelled and have no gameplay effects.
+ * Placeholder orders persist without effects. Economic policy persists on each
+ * country; policy commands apply before resolving every country's weekly budget.
+ * Insufficient funds or invalid amounts reject the entire week, including commands.
  * No clock, randomness, React, storage or network access; the seed is untouched.
  */
 export function advanceTurn(state: GameState, commands: readonly TurnCommand[] = []): GameState {
@@ -42,10 +48,15 @@ export function advanceTurn(state: GameState, commands: readonly TurnCommand[] =
   if (!Array.isArray(commands)) throw new Error('Turn commands must be an array.');
 
   let orders = state.standingOrders.map(order => ({ ...order }));
+  let countries = state.countries.map(country => ({ ...country }));
   for (const input of commands) {
     const command = validateCommand(input);
     const countryId = command.type === 'set-standing-order' ? command.order.countryId : command.countryId;
     if (countryId !== player.id) throw new Error('Commands must belong to the selected player country.');
+    if (command.type === 'set-economic-policy') {
+      countries = countries.map(country => country.id === countryId ? { ...country, economicPolicy: command.policy } : country);
+      continue;
+    }
     const orderId = command.type === 'set-standing-order' ? command.order.id : command.orderId;
     const existing = orders.find(order => order.id === orderId);
     if (existing && existing.countryId !== player.id) throw new Error('Cannot change another country’s order.');
@@ -59,6 +70,13 @@ export function advanceTurn(state: GameState, commands: readonly TurnCommand[] =
     }
   }
 
-  // Simulation boundary: only time advances in T05. All world statistics persist.
-  return { ...state, week: state.week + 1, standingOrders: orders };
+  // Fixed budgets also settle for AI-labeled countries; no AI decisions run.
+  countries = countries.map(country => {
+    try {
+      return { ...country, economy: resolveWeeklyEconomy(country.economy, country.economicPolicy) };
+    } catch (error) {
+      throw new Error(`${country.name}: ${error instanceof Error ? error.message : 'Economic resolution failed.'} Week not advanced; no changes applied.`);
+    }
+  });
+  return { ...state, week: state.week + 1, standingOrders: orders, countries };
 }

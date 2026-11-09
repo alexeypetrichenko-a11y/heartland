@@ -68,13 +68,15 @@
 
 ### T05 — Implement pure weekly turn resolution and standing orders
 
-- [x] Completed and locally verified: pure deterministic one-week engine, validated set/cancel commands, persistent inert standing orders, Next week button, progression/validation/persistence/replay tests, responsive Chromium checks and production build. Dedicated PR awaits owner review.
+- [x] Completed and locally verified: pure deterministic one-week engine, validated set/cancel commands, persistent inert standing orders, Next week button, progression/validation/persistence/replay tests, responsive Chromium checks and production build. Merged into `main` in PR #9.
 
 **Scope:** One-week increment via a deterministic `advanceTurn` engine, standing order persistence, action validation and explicit separation of commands from simulation. Use one seeded random source or none initially. No automatic real-time timer yet.
 
 **Acceptance:** Multiple weeks can be advanced; unchanged orders persist; invalid orders rejected; unit tests for replay and turn increments; no UI-specific simulation logic.
 
 ### T06 — Add minimal economy and treasury feedback
+
+- [x] Completed and locally verified: deterministic weekly budgets for all three fictional countries, one persistent tax policy with a measurable income effect, dashboard feedback, explicit atomic insufficient-funds rejection and recovery, focused economic/persistence/replay tests, responsive Chromium checks and production build. Provisional parameters/formulas are documented in `STATUS.md`; dedicated branch `task/t06-weekly-economy` awaits owner review.
 
 **Scope:** For the fictional test world only, track small illustrative resource/income/expense/budget variables and one government policy/order that affects them weekly. No full market, debt or industry simulation yet.
 
@@ -148,4 +150,4 @@ Each item above is a **feature family** to be broken into small PRs before imple
 
 ## Next task (requires a separate assignment)
 
-T04 is merged into `main` (PR #8). T05 is implemented on `task/t05-weekly-turn-engine` and locally verified; its pull request awaits owner review. T06 is next in the backlog and requires a separate assignment. Do not merge without owner approval.
+T05 is merged into `main` (PR #9). T06 is implemented on `task/t06-weekly-economy` and locally verified; its pull request awaits owner review. T07 is next in the backlog and requires a separate assignment. Do not merge without owner approval.

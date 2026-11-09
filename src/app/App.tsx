@@ -4,15 +4,27 @@ import { PrototypePage } from '../ui/PrototypePage';
 import { createInitialState } from '../game/initialState';
 import { selectCountry } from '../game/selectCountry';
 import { advanceTurn } from '../game/advanceTurn';
+import type { TurnCommand } from '../game/models';
 
 export function App() {
   const [view, setView] = useState<'home' | 'prototype'>('home');
   const [gameState, setGameState] = useState(createInitialState);
+  const [turnError, setTurnError] = useState<string | null>(null);
   const mainRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     mainRef.current?.focus();
   }, [view]);
+
+  function handleAdvanceTurn(commands: readonly TurnCommand[]) {
+    try {
+      const nextState = advanceTurn(gameState, commands);
+      setGameState(nextState);
+      setTurnError(null);
+    } catch (error) {
+      setTurnError(error instanceof Error ? error.message : 'Unable to advance this week.');
+    }
+  }
 
   return (
     <main
@@ -27,7 +39,8 @@ export function App() {
         <PrototypePage
           state={gameState}
           onSelectCountry={id => setGameState(state => selectCountry(state, id))}
-          onAdvanceTurn={() => setGameState(state => advanceTurn(state))}
+          onAdvanceTurn={handleAdvanceTurn}
+          turnError={turnError}
           onBack={() => setView('home')}
         />
       )}
