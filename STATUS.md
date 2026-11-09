@@ -1,7 +1,7 @@
 # Heartland — Implementation Status
 
 **Snapshot date:** 2026-11-09
-**Source:** Repository inspection, prior T01–T03 verification, and local T04 tests/build/Chromium checks on 2026-11-09.
+**Source:** Repository inspection, prior T01–T04 verification, and local T05 tests/build/Chromium checks on 2026-11-09.
 
 ## Verified existing scaffold
 
@@ -11,11 +11,12 @@
 - [x] GitHub Pages deployment workflow and `/heartland/` base path configured.
 - [x] Responsive starting screen described in README.
 
-## Not verified as implemented / pending
+## Current implementation and pending work
 
 - [x] Illustrative region map with region selection (T03).
 - [x] Player country selection and static national dashboard (T04).
-- [ ] Weekly simulation and autonomous AI.
+- [x] Manual weekly turn progression and inert standing-order persistence (T05).
+- [ ] Economic/military simulation and autonomous AI.
 - [ ] Economy, ground forces and diplomacy.
 - [ ] Actual playable match and final score.
 - [ ] Save/resume gameplay.
@@ -42,7 +43,9 @@
 
 ## Immediate next step
 
-T03 is merged into `main` (PR #7). T04 is implemented on `task/t04-country-dashboard` and locally verified; its dedicated PR awaits owner review. Test it on a real iPhone/Safari. T05 requires a separate assignment; weekly simulation remains unimplemented.
+T04 is merged into `main` (PR #8). T05 is implemented on `task/t05-weekly-turn-engine` and locally verified; its dedicated PR awaits owner review. Test it on a real iPhone/Safari. T06 requires a separate assignment; economic simulation remains unimplemented.
+
+The T01–T04 sections below retain their historical verification scope; T05 records the current additions.
 
 ## Verification
 
@@ -96,3 +99,22 @@ T03 is merged into `main` (PR #7). T04 is implemented on `task/t04-country-dashb
 - Touch emulation on the first three sizes and mouse on desktop verified all six map regions. Keyboard country selection/start, dashboard focus, map Enter/Space activation, title navigation, in-memory country retention, region-selection reset on reopening, country reset on reload, minimum 44px form/button targets, no horizontal overflow and no JavaScript runtime errors passed.
 - Small-screen and desktop screenshots were visually inspected. These are Chromium checks, not physical iPhone/Safari/VoiceOver verification; owner real-device testing remains pending. Live GitHub Pages deployment was not independently verified.
 - An initial browser-check script used an unreliable native select popup key sequence. The check was corrected to use native keyboard typeahead; the complete suite then passed. No application changes were needed for this test-script issue.
+
+## T05 — Deterministic weekly turns and standing orders
+
+- [x] Pure TypeScript `advanceTurn(state, commands = [])` in `src/game/advanceTurn.ts`, independent of React. Each successful call returns a new state exactly one week later; a selected player country is required. Invalid/overflowing week values are rejected.
+- [x] `StandingOrder` and `TurnCommand` types in `src/game/models.ts`; `createInitialState()` now includes an empty `standingOrders` array. Existing fictional statistics, seed and ownership data are unchanged.
+- [x] Minimal, explicitly temporary `placeholder` orders contain ID, country ID and an inert label. These test order lifecycle only and have no economic, military or other gameplay effects. No gameplay order types or order-editing UI are introduced.
+- [x] `set-standing-order` inserts/replaces an order by ID; `cancel-standing-order` removes it. Commands are processed in array order. Unchanged orders persist across turns; only the selected player can change their orders. Unknown/AI-country commands, malformed/unsupported commands, foreign order IDs and missing cancellation targets are rejected.
+- [x] Rejected command batches throw without advancing time or mutating the input state/commands, even after earlier valid commands. Commands are not stored as standing orders. No random source is used; the seed is preserved.
+- [x] `App.tsx` calls the engine through a functional state update. `PrototypePage.tsx` adds a touch-sized **Next week** button after country selection, shows the current week with a polite live announcement, and explains that only time advances. Existing responsive styles and safe-area spacing are reused.
+- [x] Country selection, dashboard, controller labels and unchanged T03 interactive map are preserved. Country/week remain in memory through title navigation and reset on reload.
+- [x] T05 only: no economic calculations, movement/combat, diplomacy, AI behavior, real-time timer, multiplayer, persistence storage, dependencies or deployment changes.
+
+### T05 validation and limitations
+
+- `npm test`: passed, 16 tests, 0 failures (8 existing tests and 8 focused engine tests). Covers repeated exact one-week increments for all countries, unchanged world statistics, selection/week guards, order persistence/replacement/cancellation, ordered batches, runtime command validation and ownership, atomic rejection, frozen-input immutability and deterministic replay including JSON round trips.
+- `npm run build`: passed (TypeScript check and Vite production build). `git diff --check`: passed.
+- Production-preview Playwright/Chromium checks at `/heartland/`: passed at 320×568, 390×844, 844×390 and 1440×900. All three countries advanced from week 1 to week 8 at every size; touch/mouse and keyboard Enter/Space activation advanced exactly once per activation, with unchanged dashboard statistics and country control.
+- Browser checks also passed for all six map regions, map keyboard activation, selected region retained across a turn, title navigation retaining week/country, reload resetting selection, minimum 44px Next week target height, no horizontal overflow and no JavaScript runtime errors. Small-screen and desktop screenshots were visually inspected.
+- Physical iPhone/Safari/VoiceOver and live GitHub Pages deployment remain unverified. Order lifecycle is tested through the engine API only; no gameplay order controls or effects exist. Turns are manual, local and in memory; this is not yet a complete playable simulation or save/load system.

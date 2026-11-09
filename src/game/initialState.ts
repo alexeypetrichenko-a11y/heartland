@@ -10,6 +10,7 @@ export function createInitialState(): GameState {
     week: 1,
     seed: 2401,
     playerCountryId: null,
+    standingOrders: [],
     countries: [
       { id: 'alden', name: 'Alden', controller: 'ai', economy: { treasury: 100, weeklyIncome: 12, weeklyExpenses: 8 } },
       { id: 'belora', name: 'Belora', controller: 'ai', economy: { treasury: 90, weeklyIncome: 11, weeklyExpenses: 7 } },
