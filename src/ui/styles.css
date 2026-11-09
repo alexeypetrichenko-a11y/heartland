@@ -63,6 +63,44 @@ button:focus-visible {
   outline-offset: 4px;
 }
 
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.hud form {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.hud select {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font: inherit;
+  color: #12251e;
+  background: #f3efdf;
+}
+
+.hud select:focus-visible,
+#dashboard-title:focus {
+  outline: 3px solid #f5cc75;
+  outline-offset: 4px;
+}
+
+.hud form button {
+  margin-top: 0;
+}
+
+.hud li {
+  margin-top: 0.5rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
 .prototype {
   text-align: left;
 }

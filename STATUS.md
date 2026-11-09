@@ -1,7 +1,7 @@
 # Heartland — Implementation Status
 
-**Snapshot date:** 2026-11-07  
-**Source:** Repository inspection, prior T01/T02 verification, and local T03 tests/build/Chromium checks on 2026-11-07.
+**Snapshot date:** 2026-11-09
+**Source:** Repository inspection, prior T01–T03 verification, and local T04 tests/build/Chromium checks on 2026-11-09.
 
 ## Verified existing scaffold
 
@@ -14,7 +14,7 @@
 ## Not verified as implemented / pending
 
 - [x] Illustrative region map with region selection (T03).
-- [ ] Player country selection (T04).
+- [x] Player country selection and static national dashboard (T04).
 - [ ] Weekly simulation and autonomous AI.
 - [ ] Economy, ground forces and diplomacy.
 - [ ] Actual playable match and final score.
@@ -42,7 +42,7 @@
 
 ## Immediate next step
 
-T03 is implemented on `task/t03-interactive-map` and locally verified; owner review/approval is required before merging. Test it on a real iPhone/Safari. T04 requires a separate assignment; player country selection remains unimplemented.
+T03 is merged into `main` (PR #7). T04 is implemented on `task/t04-country-dashboard` and locally verified; its dedicated PR awaits owner review. Test it on a real iPhone/Safari. T05 requires a separate assignment; weekly simulation remains unimplemented.
 
 ## Verification
 
@@ -77,3 +77,22 @@ T03 is implemented on `task/t03-interactive-map` and locally verified; owner rev
 - No JavaScript runtime errors or application asset failures. Chromium reported the existing missing `/favicon.ico` (404); the baseline has no favicon. This warning remains unchanged.
 - Screenshots were visually inspected at small-screen and desktop sizes. Browser checks use Chromium touch emulation, not a physical iPhone or Safari/WebKit; real-device touch, safe areas and VoiceOver remain unverified.
 - The map is a static fictional illustration with native page scrolling/browser zoom, no custom pan/zoom. Selection is inspection only and resets when leaving the prototype. Details are limited to the region fields available in T02; no simulation or persistence is implemented.
+
+## T04 — Player country selection and national dashboard
+
+- [x] Choose Alden, Belora or Cyrin and press **Start local scenario**. A choice is required; exactly one country is player-controlled and the other two are AI-controlled labels, with no AI behavior.
+- [x] `src/game/selectCountry.ts` performs the selection as a pure state update, validates the country ID, preserves fixture/world statistics and leaves the original state unchanged. T02 models and fixture are unchanged.
+- [x] `src/app/App.tsx` holds the selected state in memory. Returning to the title and reopening retains the country; reloading clears it. No save/load feature is implied.
+- [x] `src/ui/PrototypePage.tsx` displays the selected name, initial week, owned regions, treasury, weekly income/expenses, division count, and each owned division's name, location and headcount. Values are explicitly labeled temporary static fixture data with illustrative economic units.
+- [x] Native labeled country selector, disabled start before selection, dashboard focus after starting, touch-sized controls and responsive styles in `src/ui/styles.css`.
+- [x] Existing T03 `RegionMap` is reused unchanged, including country colors, all six tappable/keyboard-accessible regions, owner and neighbor details. Map inspection does not change the player country.
+- [x] Clear local single-player/prototype wording. No weekly simulation, economic calculations, combat, diplomacy, AI behavior, multiplayer or new dependencies. Deployment configuration and base path remain unchanged.
+
+### T04 validation and limitations
+
+- `npm test`: passed, 8 tests, 0 failures (6 existing fixture tests and 2 focused country-selection tests). New tests cover all three choices, exactly one player/two AI controllers, unchanged world/statistics, original-state preservation, JSON serialization, replacement choice and invalid IDs.
+- `npm run build`: passed (TypeScript check and Vite production build).
+- Playwright with installed Chromium against the production preview at `/heartland/`: passed at 320×568, 390×844, 844×390 and 1440×900. All three countries were started at every size; displayed statistics, owned regions, military details and controller labels matched the fixture.
+- Touch emulation on the first three sizes and mouse on desktop verified all six map regions. Keyboard country selection/start, dashboard focus, map Enter/Space activation, title navigation, in-memory country retention, region-selection reset on reopening, country reset on reload, minimum 44px form/button targets, no horizontal overflow and no JavaScript runtime errors passed.
+- Small-screen and desktop screenshots were visually inspected. These are Chromium checks, not physical iPhone/Safari/VoiceOver verification; owner real-device testing remains pending. Live GitHub Pages deployment was not independently verified.
+- An initial browser-check script used an unreliable native select popup key sequence. The check was corrected to use native keyboard typeahead; the complete suite then passed. No application changes were needed for this test-script issue.

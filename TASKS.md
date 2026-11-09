@@ -52,13 +52,15 @@
 
 ### T03 — Render tappable region map using existing stack
 
-- [x] Completed and locally verified: six-region SVG using the T02 fixture, country colors, touch/mouse selection, region/owner/neighbor details, keyboard activation, responsive production-preview checks and build. Pull request awaits owner review.
+- [x] Completed and locally verified: six-region SVG using the T02 fixture, country colors, touch/mouse selection, region/owner/neighbor details, keyboard activation, responsive production-preview checks and build. Merged into `main` in PR #7.
 
 **Scope:** Show a **small, simple illustrative map** (SVG or similarly low-complexity approach) tied to game-state regions, with country colors, region selection and details. Avoid new mapping libraries unless approved.
 
 **Acceptance:** Region selection works with touch, visible owner/details update, map fits small iPhone viewport and desktop, keyboard accessibility if practical; build passes.
 
 ### T04 — Choose a player country and display dashboard
+
+- [x] Completed and locally verified: one player country, two AI-control labels, national regions/economy/division overview using T02 data, preserved T03 map, focused tests, responsive Chromium checks and production build. Dedicated PR awaits owner review.
 
 **Scope:** Select one of the available fictional countries. Show state overview and selected-country regions; other countries are designated AI-controlled. No online lobby.
 
@@ -144,4 +146,4 @@ Each item above is a **feature family** to be broken into small PRs before imple
 
 ## Next task (requires a separate assignment)
 
-T03 is implemented on `task/t03-interactive-map` and locally verified; its pull request awaits owner review. T04 is next in the backlog and requires a separate assignment. Do not merge without owner approval.
+T03 is merged into `main` (PR #7). T04 is implemented on `task/t04-country-dashboard` and locally verified; its pull request awaits owner review. T05 is next in the backlog and requires a separate assignment. Do not merge without owner approval.
