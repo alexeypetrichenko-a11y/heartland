@@ -38,6 +38,19 @@ export interface Division {
   manpower: number;
 }
 
+/** Temporary inert order for testing persistence; no gameplay effects. */
+export interface StandingOrder {
+  id: string;
+  countryId: CountryId;
+  kind: 'placeholder';
+  label: string;
+}
+
+/** Commands change stored orders; they are not themselves persistent orders. */
+export type TurnCommand =
+  | { type: 'set-standing-order'; order: StandingOrder }
+  | { type: 'cancel-standing-order'; countryId: CountryId; orderId: string };
+
 export interface GameState {
   /** Week 1 is the initial week; no turns have been resolved. */
   week: number;
@@ -49,4 +62,5 @@ export interface GameState {
   regions: Region[];
   relations: Relation[];
   divisions: Division[];
+  standingOrders: StandingOrder[];
 }

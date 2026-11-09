@@ -5,10 +5,11 @@ import { RegionMap } from './RegionMap';
 type PrototypePageProps = {
   state: GameState;
   onSelectCountry: (id: CountryId) => void;
+  onAdvanceTurn: () => void;
   onBack: () => void;
 };
 
-export function PrototypePage({ state, onSelectCountry, onBack }: PrototypePageProps) {
+export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, onBack }: PrototypePageProps) {
   const [choice, setChoice] = useState('');
   const dashboardRef = useRef<HTMLHeadingElement>(null);
   const country = state.countries.find(country => country.id === state.playerCountryId);
@@ -22,7 +23,7 @@ export function PrototypePage({ state, onSelectCountry, onBack }: PrototypePageP
   return (
     <div className="prototype-content">
       <h1 id="view-title">Local prototype</h1>
-      <p>Explore a small illustrative, fictional test world in a local single-player scenario. No multiplayer or simulation is implemented.</p>
+      <p>Explore a small illustrative, fictional test world in a local single-player scenario. Advance one week at a time; economic, military and AI simulation are not implemented.</p>
       {!country && (
         <section className="hud" aria-labelledby="country-choice-title">
           <h2 id="country-choice-title">Choose your country</h2>
@@ -44,10 +45,16 @@ export function PrototypePage({ state, onSelectCountry, onBack }: PrototypePageP
         <h2 id="hud-title">Game overview</h2>
         <dl>
           <div><dt>Country</dt><dd>{country?.name ?? 'Not selected'}</dd></div>
-          <div><dt>Week</dt><dd>{country ? `${state.week} — no turns available` : 'Not started — no turns available'}</dd></div>
-          <div><dt>Orders</dt><dd>Unavailable — no game logic yet</dd></div>
-          <div><dt>Status</dt><dd>{country ? 'Local scenario — static overview only' : 'Choose a country to start'}</dd></div>
+          <div><dt>Week</dt><dd aria-live="polite" aria-atomic="true">{country ? `Week ${state.week}` : 'Not started — choose a country'}</dd></div>
+          <div><dt>Orders</dt><dd>{state.standingOrders.length} standing orders — placeholder support only; no gameplay effects or order controls yet</dd></div>
+          <div><dt>Status</dt><dd>{country ? 'Local scenario — time progression only' : 'Choose a country to start'}</dd></div>
         </dl>
+        {country && (
+          <>
+            <button type="button" onClick={onAdvanceTurn}>Next week</button>
+            <p>Each press advances exactly one week. Economic and military statistics stay unchanged. No timer or multiplayer.</p>
+          </>
+        )}
       </section>
       {country && (
         <section className="hud" aria-labelledby="dashboard-title">

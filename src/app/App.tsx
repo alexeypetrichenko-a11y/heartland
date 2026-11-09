@@ -3,6 +3,7 @@ import { HomePage } from '../ui/HomePage';
 import { PrototypePage } from '../ui/PrototypePage';
 import { createInitialState } from '../game/initialState';
 import { selectCountry } from '../game/selectCountry';
+import { advanceTurn } from '../game/advanceTurn';
 
 export function App() {
   const [view, setView] = useState<'home' | 'prototype'>('home');
@@ -26,6 +27,7 @@ export function App() {
         <PrototypePage
           state={gameState}
           onSelectCountry={id => setGameState(state => selectCountry(state, id))}
+          onAdvanceTurn={() => setGameState(state => advanceTurn(state))}
           onBack={() => setView('home')}
         />
       )}

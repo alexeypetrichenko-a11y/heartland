@@ -60,13 +60,15 @@
 
 ### T04 — Choose a player country and display dashboard
 
-- [x] Completed and locally verified: one player country, two AI-control labels, national regions/economy/division overview using T02 data, preserved T03 map, focused tests, responsive Chromium checks and production build. Dedicated PR awaits owner review.
+- [x] Completed and locally verified: one player country, two AI-control labels, national regions/economy/division overview using T02 data, preserved T03 map, focused tests, responsive Chromium checks and production build. Merged into `main` in PR #8.
 
 **Scope:** Select one of the available fictional countries. Show state overview and selected-country regions; other countries are designated AI-controlled. No online lobby.
 
 **Acceptance:** A player can start a local scenario, select a unique country and see relevant stats. No misleading claim of multiplayer.
 
 ### T05 — Implement pure weekly turn resolution and standing orders
+
+- [x] Completed and locally verified: pure deterministic one-week engine, validated set/cancel commands, persistent inert standing orders, Next week button, progression/validation/persistence/replay tests, responsive Chromium checks and production build. Dedicated PR awaits owner review.
 
 **Scope:** One-week increment via a deterministic `advanceTurn` engine, standing order persistence, action validation and explicit separation of commands from simulation. Use one seeded random source or none initially. No automatic real-time timer yet.
 
@@ -146,4 +148,4 @@ Each item above is a **feature family** to be broken into small PRs before imple
 
 ## Next task (requires a separate assignment)
 
-T03 is merged into `main` (PR #7). T04 is implemented on `task/t04-country-dashboard` and locally verified; its pull request awaits owner review. T05 is next in the backlog and requires a separate assignment. Do not merge without owner approval.
+T04 is merged into `main` (PR #8). T05 is implemented on `task/t05-weekly-turn-engine` and locally verified; its pull request awaits owner review. T06 is next in the backlog and requires a separate assignment. Do not merge without owner approval.
