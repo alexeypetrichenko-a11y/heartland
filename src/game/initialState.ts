@@ -12,9 +12,9 @@ export function createInitialState(): GameState {
     playerCountryId: null,
     standingOrders: [],
     countries: [
-      { id: 'alden', name: 'Alden', controller: 'ai', economy: { treasury: 100, weeklyIncome: 12, weeklyExpenses: 8 } },
-      { id: 'belora', name: 'Belora', controller: 'ai', economy: { treasury: 90, weeklyIncome: 11, weeklyExpenses: 7 } },
-      { id: 'cyrin', name: 'Cyrin', controller: 'ai', economy: { treasury: 110, weeklyIncome: 13, weeklyExpenses: 9 } },
+      { id: 'alden', name: 'Alden', controller: 'ai', economicPolicy: 'standard', economy: { treasury: 100, weeklyIncome: 12, weeklyExpenses: 8 } },
+      { id: 'belora', name: 'Belora', controller: 'ai', economicPolicy: 'standard', economy: { treasury: 90, weeklyIncome: 11, weeklyExpenses: 7 } },
+      { id: 'cyrin', name: 'Cyrin', controller: 'ai', economicPolicy: 'standard', economy: { treasury: 110, weeklyIncome: 13, weeklyExpenses: 9 } },
     ],
     regions: [
       { id: 'alden-vale', name: 'Alden Vale', ownerId: 'alden', adjacentRegionIds: ['reed-coast', 'amber-plain'] },

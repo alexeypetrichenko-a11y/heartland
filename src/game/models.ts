@@ -1,10 +1,12 @@
 /** Plain data only; IDs refer to entries in the corresponding GameState arrays. */
 export type CountryId = string;
 export type RegionId = string;
+export type EconomicPolicy = 'standard' | 'tax-relief';
 
 /** Illustrative test values, not approved economic units or balance rules. */
 export interface Economy {
   treasury: number;
+  /** Base income before the provisional policy adjustment. */
   weeklyIncome: number;
   weeklyExpenses: number;
 }
@@ -14,6 +16,7 @@ export interface Country {
   name: string;
   controller: 'player' | 'ai';
   economy: Economy;
+  economicPolicy: EconomicPolicy;
 }
 
 export interface Region {
@@ -46,10 +49,11 @@ export interface StandingOrder {
   label: string;
 }
 
-/** Commands change stored orders; they are not themselves persistent orders. */
+/** Commands change persistent orders/policy; commands themselves are not stored. */
 export type TurnCommand =
   | { type: 'set-standing-order'; order: StandingOrder }
-  | { type: 'cancel-standing-order'; countryId: CountryId; orderId: string };
+  | { type: 'cancel-standing-order'; countryId: CountryId; orderId: string }
+  | { type: 'set-economic-policy'; countryId: CountryId; policy: EconomicPolicy };
 
 export interface GameState {
   /** Week 1 is the initial week; no turns have been resolved. */

@@ -1,20 +1,25 @@
 import { useEffect, useRef, useState } from 'react';
-import type { CountryId, GameState } from '../game/models';
+import type { CountryId, EconomicPolicy, GameState, TurnCommand } from '../game/models';
+import { calculateWeeklyBudget, ECONOMIC_POLICIES, isEconomicPolicy } from '../game/economy';
 import { RegionMap } from './RegionMap';
 
 type PrototypePageProps = {
   state: GameState;
   onSelectCountry: (id: CountryId) => void;
-  onAdvanceTurn: () => void;
+  onAdvanceTurn: (commands: readonly TurnCommand[]) => void;
+  turnError: string | null;
   onBack: () => void;
 };
 
-export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, onBack }: PrototypePageProps) {
+export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, turnError, onBack }: PrototypePageProps) {
   const [choice, setChoice] = useState('');
+  const [policyChoice, setPolicyChoice] = useState<EconomicPolicy | null>(null);
   const dashboardRef = useRef<HTMLHeadingElement>(null);
   const country = state.countries.find(country => country.id === state.playerCountryId);
   const regions = state.regions.filter(region => region.ownerId === country?.id);
   const divisions = state.divisions.filter(division => division.ownerId === country?.id);
+  const budget = country ? calculateWeeklyBudget(country.economy, country.economicPolicy) : null;
+  const nextPolicy = policyChoice ?? country?.economicPolicy ?? 'standard';
 
   useEffect(() => {
     if (state.playerCountryId) dashboardRef.current?.focus();
@@ -23,7 +28,7 @@ export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, onBack }:
   return (
     <div className="prototype-content">
       <h1 id="view-title">Local prototype</h1>
-      <p>Explore a small illustrative, fictional test world in a local single-player scenario. Advance one week at a time; economic, military and AI simulation are not implemented.</p>
+      <p>Explore a small illustrative, fictional test world in a local single-player scenario. Advance one week at a time with a provisional economy. Military and AI behavior are not implemented.</p>
       {!country && (
         <section className="hud" aria-labelledby="country-choice-title">
           <h2 id="country-choice-title">Choose your country</h2>
@@ -46,20 +51,23 @@ export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, onBack }:
         <dl>
           <div><dt>Country</dt><dd>{country?.name ?? 'Not selected'}</dd></div>
           <div><dt>Week</dt><dd aria-live="polite" aria-atomic="true">{country ? `Week ${state.week}` : 'Not started — choose a country'}</dd></div>
-          <div><dt>Orders</dt><dd>{state.standingOrders.length} standing orders — placeholder support only; no gameplay effects or order controls yet</dd></div>
-          <div><dt>Status</dt><dd>{country ? 'Local scenario — time progression only' : 'Choose a country to start'}</dd></div>
+          <div><dt>Orders</dt><dd>{state.standingOrders.length} placeholder standing orders. Economic policy stays active until changed.</dd></div>
+          <div><dt>Status</dt><dd>{country ? 'Local scenario — provisional weekly economy' : 'Choose a country to start'}</dd></div>
         </dl>
         {country && (
           <>
-            <button type="button" onClick={onAdvanceTurn}>Next week</button>
-            <p>Each press advances exactly one week. Economic and military statistics stay unchanged. No timer or multiplayer.</p>
+            <button type="button" onClick={() => onAdvanceTurn(nextPolicy === country.economicPolicy ? [] : [
+              { type: 'set-economic-policy', countryId: country.id, policy: nextPolicy },
+            ])}>Next week</button>
+            <p>Each successful press settles all three countries’ budgets and advances one week. If funds are insufficient, the whole week is rejected without changes.</p>
+            {turnError && <p role="alert">{turnError} Choose a policy with an affordable budget below and try again.</p>}
           </>
         )}
       </section>
-      {country && (
+      {country && budget && (
         <section className="hud" aria-labelledby="dashboard-title">
           <h2 id="dashboard-title" ref={dashboardRef} tabIndex={-1}>{country.name} national dashboard</h2>
-          <p>Temporary fictional statistics, not balanced game values. Economy and military data do not advance. Selection lasts until the page is reloaded.</p>
+          <p>Temporary fictional statistics, not balanced game values. Military data stay fixed. This local scenario lasts until the page is reloaded.</p>
           <h3>Country control</h3>
           <ul>
             {state.countries.map(country => (
@@ -67,12 +75,26 @@ export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, onBack }:
             ))}
           </ul>
           <h3>Economy</h3>
-          <p>Illustrative units; income and expenses are weekly fixture values only.</p>
+          <p>Provisional whole illustrative units. Income and expenses below reflect the active policy each week.</p>
           <dl>
             <div><dt>Treasury</dt><dd>{country.economy.treasury}</dd></div>
-            <div><dt>Weekly income</dt><dd>{country.economy.weeklyIncome}</dd></div>
-            <div><dt>Weekly expenses</dt><dd>{country.economy.weeklyExpenses}</dd></div>
+            <div><dt>Weekly income</dt><dd>{budget.income}</dd></div>
+            <div><dt>Weekly expenses</dt><dd>{budget.expenses}</dd></div>
+            <div><dt>Weekly balance</dt><dd>{budget.balance > 0 ? '+' : ''}{budget.balance}</dd></div>
+            <div><dt>Active policy</dt><dd>{ECONOMIC_POLICIES[country.economicPolicy].label}</dd></div>
+            <div><dt>Weekly policy effect on income</dt><dd>{budget.income - country.economy.weeklyIncome}</dd></div>
           </dl>
+          <form onSubmit={event => event.preventDefault()}>
+            <label htmlFor="economic-policy">Tax policy for next week</label>
+            <select id="economic-policy" value={nextPolicy} aria-describedby="policy-help" onChange={event => {
+              if (isEconomicPolicy(event.target.value)) setPolicyChoice(event.target.value);
+            }}>
+              <option value="standard">Standard taxation</option>
+              <option value="tax-relief">Tax relief</option>
+            </select>
+            <p id="policy-help">Standard taxation uses base income ({country.economy.weeklyIncome}). Tax relief reduces income by up to {ECONOMIC_POLICIES['tax-relief'].incomeReduction} each week, with a floor of zero. Expenses stay fixed. Your choice takes effect with Next week and stays active until changed.</p>
+            {nextPolicy !== country.economicPolicy && <p role="status">Pending policy: {ECONOMIC_POLICIES[nextPolicy].label}. Press Next week to apply.</p>}
+          </form>
           <h3>Your regions</h3>
           <ul>{regions.map(region => <li key={region.id}>{region.name}</li>)}</ul>
           <h3>Military</h3>

@@ -1,7 +1,7 @@
 # Heartland — Implementation Status
 
 **Snapshot date:** 2026-11-09
-**Source:** Repository inspection, prior T01–T04 verification, and local T05 tests/build/Chromium checks on 2026-11-09.
+**Source:** Repository inspection, prior T01–T05 verification, and local T06 tests/build/Chromium checks on 2026-11-09.
 
 ## Verified existing scaffold
 
@@ -14,10 +14,10 @@
 ## Current implementation and pending work
 
 - [x] Illustrative region map with region selection (T03).
-- [x] Player country selection and static national dashboard (T04).
+- [x] Player country selection and national dashboard (T04, economy updated in T06).
 - [x] Manual weekly turn progression and inert standing-order persistence (T05).
-- [ ] Economic/military simulation and autonomous AI.
-- [ ] Economy, ground forces and diplomacy.
+- [x] Minimal weekly treasury simulation and persistent tax policy (T06).
+- [ ] Full economy, military simulation, diplomacy and autonomous AI.
 - [ ] Actual playable match and final score.
 - [ ] Save/resume gameplay.
 - [ ] Multiplayer invite links, synchronization, pause.
@@ -43,9 +43,9 @@
 
 ## Immediate next step
 
-T04 is merged into `main` (PR #8). T05 is implemented on `task/t05-weekly-turn-engine` and locally verified; its dedicated PR awaits owner review. Test it on a real iPhone/Safari. T06 requires a separate assignment; economic simulation remains unimplemented.
+T05 is merged into `main` (PR #9). T06 is implemented on `task/t06-weekly-economy` and locally verified; owner review is required before merging. Test it on a real iPhone/Safari. T07 requires a separate assignment; division movement/combat remains unimplemented.
 
-The T01–T04 sections below retain their historical verification scope; T05 records the current additions.
+The T01–T05 sections below retain their historical verification scope; T06 records the current additions.
 
 ## Verification
 
@@ -118,3 +118,37 @@ The T01–T04 sections below retain their historical verification scope; T05 rec
 - Production-preview Playwright/Chromium checks at `/heartland/`: passed at 320×568, 390×844, 844×390 and 1440×900. All three countries advanced from week 1 to week 8 at every size; touch/mouse and keyboard Enter/Space activation advanced exactly once per activation, with unchanged dashboard statistics and country control.
 - Browser checks also passed for all six map regions, map keyboard activation, selected region retained across a turn, title navigation retaining week/country, reload resetting selection, minimum 44px Next week target height, no horizontal overflow and no JavaScript runtime errors. Small-screen and desktop screenshots were visually inspected.
 - Physical iPhone/Safari/VoiceOver and live GitHub Pages deployment remain unverified. Order lifecycle is tested through the engine API only; no gameplay order controls or effects exist. Turns are manual, local and in memory; this is not yet a complete playable simulation or save/load system.
+
+## T06 — Minimal weekly economy and treasury feedback
+
+- [x] Reuses the deterministic `advanceTurn` engine. Each successful week settles all three countries' fixed budgets once, including AI-labeled countries without adding AI decisions. Country selection, regions, map, divisions, controller labels and placeholder order lifecycle are preserved.
+- [x] Pure `src/game/economy.ts` calculates effective income, expenses and balance, and resolves treasury. `src/game/models.ts` adds one `EconomicPolicy` setting to each country and a validated `set-economic-policy` turn command; `src/game/initialState.ts` starts every country at standard taxation.
+- [x] Only the selected player can change their policy. Commands apply in array order before budget settlement; the final policy persists across empty turns and JSON round trips. Existing `weeklyIncome` remains base income, so the policy adjustment never compounds.
+- [x] `src/ui/PrototypePage.tsx` displays treasury, effective weekly income, expenses, weekly balance, active policy and its numeric income effect. A labeled, touch-sized native selector stages the next week's policy; a pending-policy message distinguishes it from the active policy. The choice applies when **Next week** successfully resolves.
+- [x] Insufficient funds explicitly reject the entire turn: week, all countries, active policy and standing orders stay unchanged. The error names the country, treasury, income, expenses and shortfall. `src/app/App.tsx` catches errors and shows an alert, allowing a retry with an affordable policy. Zero treasury is valid. No negative treasury, borrowing, unpaid bills or automatic policy reset.
+- [x] Updated `src/game/advanceTurn.test.ts` for weekly economic changes while preserving its progression, order lifecycle, validation, immutability and replay coverage. Added nine focused tests in `src/game/economy.test.ts`.
+- [x] No dependencies, deployment configuration, GitHub Pages base path or approved `GAME_DESIGN.md` rules changed. Only T06 is implemented.
+
+### Provisional economic parameters and rules
+
+All figures and formulas here are **prototype-only, reversible demo assumptions** for the fictional test world, not final balance, real currency, or implementation of the full economic design.
+
+| Country | Starting treasury | Base weekly income | Fixed weekly expenses | Standard weekly balance | Tax-relief income | Tax-relief weekly balance |
+|---|---:|---:|---:|---:|---:|---:|
+| Alden | 100 | 12 | 8 | +4 | 6 | -2 |
+| Belora | 90 | 11 | 7 | +4 | 5 | -2 |
+| Cyrin | 110 | 13 | 9 | +4 | 7 | -2 |
+
+- The starting treasury, income and expenses reuse the T02 fixture without rebalance. Amounts use whole illustrative units; invalid negative, fractional, non-finite or unsafe integer inputs and treasury overflow are explicitly rejected.
+- One tax policy has two settings: **Standard taxation** reduces base income by 0; **Tax relief** reduces it by 6 units each week, with a floor of zero. The reduction is defined in `ECONOMIC_POLICIES` in `src/game/economy.ts`. There is no separate social, growth or political benefit in T06.
+- Effective income = `max(0, base weekly income - policy reduction)`; weekly balance = `effective income - fixed weekly expenses`; next treasury = `current treasury + weekly balance`. The same week's income can pay that week's expenses; there is no rounding or randomness.
+- If any country's calculated treasury would be negative, the whole week fails atomically. This is a temporary no-debt rule for T06, not a sovereign default or defeat mechanic. Standard taxation yields +4 for each fixture country and permits recovery from an exhausted treasury. The AI-labeled countries retain their standard policy without decisions.
+- The active policy, treasury and week survive title navigation in memory. Reload resets the scenario. An unapplied selector choice is only a draft and resets to the active policy when leaving the prototype; it is not a saved order.
+
+### T06 validation and limitations
+
+- `npm test`: passed, **25 tests, 0 failures** (16 existing tests, with the progression expectation updated, plus 9 new economic tests). Covers all three countries' standard and tax-relief budgets, non-compounding policy persistence/replacement, income floor, current-week income funding, exact-zero treasury, insufficient funds and recovery, atomic rejection including pending commands and another country's shortfall, invalid amounts/overflow, runtime command validation/ownership, and deterministic replay including failed turns and JSON round trips.
+- `npm run build`: passed (TypeScript check and Vite production build). `git diff --check`: passed.
+- Automated Playwright/Chromium against the production preview at `/heartland/`: passed for all three selected countries at **320×568, 390×844, 844×390 and 1440×900**. Touch/mouse policy changes, staged versus active policy, weekly numbers, persistence through turns/title navigation, restoration of standard taxation, keyboard selector and Next week activation, country reset on reload, all six map regions/owners, retained map selection across a turn, unchanged division details, minimum 44px policy/turn controls and no horizontal overflow were checked.
+- At 390×844, 50 tax-relief weeks exhausted Alden's treasury exactly. The next press displayed the shortfall without advancing week 51 or changing treasury/policy; selecting standard taxation then advanced to week 52 with treasury 4 and cleared the error. No JavaScript runtime errors or application asset failures occurred. Small-screen, desktop and insufficient-funds screenshots were visually inspected.
+- These are Chromium touch-emulation checks; physical iPhone/Safari/VoiceOver and live GitHub Pages deployment remain unverified. No markets, resources beyond treasury, industry, debt, military actions, diplomacy, AI behavior, multiplayer, storage or PWA were added. The local prototype remains incomplete beyond T06.
