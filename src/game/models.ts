@@ -32,14 +32,37 @@ export interface Relation {
   value: number;
 }
 
-/** Location and headcount only; no orders, combat or supply rules yet. */
+export type MilitaryOrder =
+  | { kind: 'defend' }
+  | { kind: 'move' | 'attack'; targetRegionId: RegionId };
+
+/** T07 prototype headcounts/orders; no equipment, morale or supply simulation. */
 export interface Division {
   id: string;
   name: string;
   ownerId: CountryId;
   regionId: RegionId;
   manpower: number;
+  order: MilitaryOrder;
 }
+
+export type MilitaryCommand = {
+  type: 'set-military-order';
+  countryId: CountryId;
+  divisionId: string;
+  order: MilitaryOrder;
+};
+
+/** Outcomes from the most recently resolved week, not an accumulating history. */
+export type MilitaryResult =
+  | { kind: 'moved'; divisionId: string; fromRegionId: RegionId; targetRegionId: RegionId }
+  | { kind: 'cancelled'; divisionId: string; reason: string }
+  | {
+    kind: 'combat'; divisionId: string; targetRegionId: RegionId;
+    attackerCasualties: number;
+    defenderCasualties: { divisionId: string; losses: number }[];
+    captured: boolean;
+  };
 
 /** Temporary inert order for testing persistence; no gameplay effects. */
 export interface StandingOrder {
@@ -53,7 +76,8 @@ export interface StandingOrder {
 export type TurnCommand =
   | { type: 'set-standing-order'; order: StandingOrder }
   | { type: 'cancel-standing-order'; countryId: CountryId; orderId: string }
-  | { type: 'set-economic-policy'; countryId: CountryId; policy: EconomicPolicy };
+  | { type: 'set-economic-policy'; countryId: CountryId; policy: EconomicPolicy }
+  | MilitaryCommand;
 
 export interface GameState {
   /** Week 1 is the initial week; no turns have been resolved. */
@@ -67,4 +91,5 @@ export interface GameState {
   relations: Relation[];
   divisions: Division[];
   standingOrders: StandingOrder[];
+  militaryResults: MilitaryResult[];
 }

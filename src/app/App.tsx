@@ -21,8 +21,10 @@ export function App() {
       const nextState = advanceTurn(gameState, commands);
       setGameState(nextState);
       setTurnError(null);
+      return true;
     } catch (error) {
       setTurnError(error instanceof Error ? error.message : 'Unable to advance this week.');
+      return false;
     }
   }
 

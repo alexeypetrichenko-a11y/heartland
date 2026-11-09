@@ -11,6 +11,7 @@ export function createInitialState(): GameState {
     seed: 2401,
     playerCountryId: null,
     standingOrders: [],
+    militaryResults: [],
     countries: [
       { id: 'alden', name: 'Alden', controller: 'ai', economicPolicy: 'standard', economy: { treasury: 100, weeklyIncome: 12, weeklyExpenses: 8 } },
       { id: 'belora', name: 'Belora', controller: 'ai', economicPolicy: 'standard', economy: { treasury: 90, weeklyIncome: 11, weeklyExpenses: 7 } },
@@ -30,9 +31,9 @@ export function createInitialState(): GameState {
       { countryIds: ['belora', 'cyrin'], value: 0 },
     ],
     divisions: [
-      { id: 'alden-first', name: 'Alden First Division', ownerId: 'alden', regionId: 'alden-vale', manpower: 1000 },
-      { id: 'belora-first', name: 'Belora First Division', ownerId: 'belora', regionId: 'amber-plain', manpower: 1000 },
-      { id: 'cyrin-first', name: 'Cyrin First Division', ownerId: 'cyrin', regionId: 'cedar-basin', manpower: 1000 },
+      { id: 'alden-first', name: 'Alden First Division', ownerId: 'alden', regionId: 'alden-vale', manpower: 1000, order: { kind: 'defend' } },
+      { id: 'belora-first', name: 'Belora First Division', ownerId: 'belora', regionId: 'amber-plain', manpower: 1000, order: { kind: 'defend' } },
+      { id: 'cyrin-first', name: 'Cyrin First Division', ownerId: 'cyrin', regionId: 'cedar-basin', manpower: 1000, order: { kind: 'defend' } },
     ],
   };
 }
