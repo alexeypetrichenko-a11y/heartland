@@ -26,11 +26,28 @@ export interface Region {
   adjacentRegionIds: RegionId[];
 }
 
-/** One unordered country pair; neutral starts at 0. No diplomatic behavior yet. */
+/** One shared, unordered bilateral score; provisional range -100 to +100. */
 export interface Relation {
   countryIds: [CountryId, CountryId];
   value: number;
 }
+
+export type DiplomaticCommand =
+  | { type: 'declare'; countryId: CountryId; targetId: CountryId; stance: 'goodwill' | 'condemnation' }
+  | { type: 'offer-cooperation'; countryId: CountryId; targetId: CountryId }
+  | { type: 'respond-offer'; countryId: CountryId; offerId: string; response: 'accept' | 'reject' };
+
+/** The complete local state retains private records; consumers must use the visibility selector. */
+export type DiplomaticMessage =
+  | {
+    id: string; week: number; visibility: 'public'; fromId: CountryId; toId: CountryId;
+    stance: 'goodwill' | 'condemnation'; relationshipChange: number; reason: string;
+  }
+  | {
+    id: string; week: number; visibility: 'private'; fromId: CountryId; toId: CountryId;
+    status: 'pending' | 'accepted' | 'rejected'; relationshipChange: number; reason: string;
+    resolvedWeek?: number; responseReason?: string;
+  };
 
 export type MilitaryOrder =
   | { kind: 'defend' }
@@ -77,12 +94,13 @@ export type TurnCommand =
   | { type: 'set-standing-order'; order: StandingOrder }
   | { type: 'cancel-standing-order'; countryId: CountryId; orderId: string }
   | { type: 'set-economic-policy'; countryId: CountryId; policy: EconomicPolicy }
-  | MilitaryCommand;
+  | MilitaryCommand
+  | DiplomaticCommand;
 
 export interface GameState {
   /** Week 1 is the initial week; no turns have been resolved. */
   week: number;
-  /** Reserved for future deterministic simulation; not consumed in T02. */
+  /** Preserved; the current deterministic rules need no random draws. */
   seed: number;
   /** Null before selection; all countries are then AI-owned placeholders. */
   playerCountryId: CountryId | null;
@@ -92,4 +110,5 @@ export interface GameState {
   divisions: Division[];
   standingOrders: StandingOrder[];
   militaryResults: MilitaryResult[];
+  diplomaticMessages: DiplomaticMessage[];
 }

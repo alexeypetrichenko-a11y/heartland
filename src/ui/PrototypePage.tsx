@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import type { CountryId, EconomicPolicy, GameState, MilitaryCommand, TurnCommand } from '../game/models';
+import type { CountryId, DiplomaticCommand, EconomicPolicy, GameState, MilitaryCommand, TurnCommand } from '../game/models';
 import { calculateWeeklyBudget, ECONOMIC_POLICIES, isEconomicPolicy } from '../game/economy';
 import { RegionMap } from './RegionMap';
 import { MilitaryPanel } from './MilitaryPanel';
+import { DiplomacyPanel } from './DiplomacyPanel';
+import { AI_PRIORITIES } from '../game/ai';
 
 type PrototypePageProps = {
   state: GameState;
@@ -16,6 +18,7 @@ export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, turnError
   const [choice, setChoice] = useState('');
   const [policyChoice, setPolicyChoice] = useState<EconomicPolicy | null>(null);
   const [pendingMilitaryOrders, setPendingMilitaryOrders] = useState<MilitaryCommand[]>([]);
+  const [pendingDiplomacy, setPendingDiplomacy] = useState<DiplomaticCommand | null>(null);
   const dashboardRef = useRef<HTMLHeadingElement>(null);
   const country = state.countries.find(country => country.id === state.playerCountryId);
   const regions = state.regions.filter(region => region.ownerId === country?.id);
@@ -25,8 +28,12 @@ export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, turnError
   function advanceWeek() {
     if (!country) return;
     const commands: TurnCommand[] = [...pendingMilitaryOrders];
+    if (pendingDiplomacy) commands.push(pendingDiplomacy);
     if (nextPolicy !== country.economicPolicy) commands.push({ type: 'set-economic-policy', countryId: country.id, policy: nextPolicy });
-    if (onAdvanceTurn(commands)) setPendingMilitaryOrders([]);
+    if (onAdvanceTurn(commands)) {
+      setPendingMilitaryOrders([]);
+      setPendingDiplomacy(null);
+    }
   }
 
   useEffect(() => {
@@ -36,11 +43,11 @@ export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, turnError
   return (
     <div className="prototype-content">
       <h1 id="view-title">Local prototype</h1>
-      <p>Explore a small illustrative, fictional test world in a local single-player scenario. Advance one week at a time with a provisional economy and land combat. AI decisions are not implemented.</p>
+      <p>Explore a small illustrative, fictional test world in a local single-player scenario. Advance one week at a time with a provisional economy, land combat and diplomacy. AI countries make simple local diplomatic decisions.</p>
       {!country && (
         <section className="hud" aria-labelledby="country-choice-title">
           <h2 id="country-choice-title">Choose your country</h2>
-          <p>Choose one country to control. The other two will be marked AI-controlled; AI behavior is not implemented.</p>
+          <p>Choose one country to control. The other two make one autonomous diplomatic decision each week.</p>
           <form onSubmit={event => {
             event.preventDefault();
             if (choice) onSelectCountry(choice);
@@ -59,13 +66,13 @@ export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, turnError
         <dl>
           <div><dt>Country</dt><dd>{country?.name ?? 'Not selected'}</dd></div>
           <div><dt>Week</dt><dd aria-live="polite" aria-atomic="true">{country ? `Week ${state.week}` : 'Not started — choose a country'}</dd></div>
-          <div><dt>Orders</dt><dd>{pendingMilitaryOrders.length} staged military orders; {state.standingOrders.length} placeholder standing orders. Active military orders appear below.</dd></div>
-          <div><dt>Status</dt><dd>{country ? 'Local scenario — provisional economy and land combat' : 'Choose a country to start'}</dd></div>
+          <div><dt>Orders</dt><dd>{pendingMilitaryOrders.length} staged military orders; {pendingDiplomacy ? 1 : 0} staged diplomatic actions; {state.standingOrders.length} placeholder standing orders. Active military orders appear below.</dd></div>
+          <div><dt>Status</dt><dd>{country ? 'Local scenario — provisional economy, land combat and diplomacy' : 'Choose a country to start'}</dd></div>
         </dl>
         {country && (
           <>
             <button type="button" onClick={advanceWeek}>Next week</button>
-            <p>Each successful press settles budgets, resolves military orders and advances one week. Invalid orders or insufficient funds reject the whole week without changes.</p>
+            <p>Each successful press applies diplomacy, runs AI diplomatic decisions, settles budgets, resolves military orders and advances one week. Invalid orders or insufficient funds reject the whole week without changes.</p>
             {turnError && <p role="alert">{turnError} Week not advanced. Review your staged orders and tax policy below, then try again.</p>}
           </>
         )}
@@ -77,7 +84,7 @@ export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, turnError
           <h3>Country control</h3>
           <ul>
             {state.countries.map(country => (
-              <li key={country.id}>{country.name}: {country.controller === 'player' ? 'Player-controlled (you)' : 'AI-controlled (no behavior yet)'}</li>
+              <li key={country.id}>{country.name}: {country.controller === 'player' ? 'Player-controlled (you)' : `AI-controlled — ${AI_PRIORITIES[country.id].label}`}</li>
             ))}
           </ul>
           <h3>Economy</h3>
@@ -106,6 +113,7 @@ export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, turnError
           <MilitaryPanel state={state} pendingOrders={pendingMilitaryOrders}
             onStageOrder={command => setPendingMilitaryOrders(orders => [...orders.filter(order => order.divisionId !== command.divisionId), command])}
             onDiscardOrders={() => setPendingMilitaryOrders([])} />
+          <DiplomacyPanel state={state} pendingAction={pendingDiplomacy} onStageAction={setPendingDiplomacy} />
         </section>
       )}
       <RegionMap state={state} />

@@ -18,14 +18,15 @@ function freeze<T>(value: T): T {
   return value;
 }
 
-test('every completed turn advances exactly one week for each selected country, preserving non-economic world data', () => {
+test('every completed turn advances exactly one week, preserving geography, military and base economics', () => {
   for (const country of createInitialState().countries) {
     const initial = freeze(selectCountry(createInitialState(), country.id));
     let state = initial;
     for (let week = 2; week <= 21; week++) {
       state = advanceTurn(state);
       assert.equal(state.week, week);
-      assert.deepEqual({ ...state, week: initial.week, countries: initial.countries }, initial);
+      assert.deepEqual({ ...state, week: initial.week, countries: initial.countries,
+        relations: initial.relations, diplomaticMessages: initial.diplomaticMessages }, initial);
       assert.deepEqual(state.countries, initial.countries.map(country => ({
         ...country,
         economy: { ...country.economy, treasury: country.economy.treasury + (week - 1) * 4 },
