@@ -26,7 +26,7 @@ export function DiplomacyPanel({ state, pendingAction, onStageAction }: Props) {
   const duplicateOffer = offers.some(offer => offer.status === 'pending' && [offer.fromId, offer.toId].includes(targetId));
 
   return <section aria-labelledby="diplomacy-title">
-    <h3 id="diplomacy-title">Diplomacy</h3>
+    <h2 id="diplomacy-title" tabIndex={-1}>Diplomacy</h2>
     <p>Provisional relationships: {DIPLOMACY_PARAMETERS.minRelationship} (hostile) to +{DIPLOMACY_PARAMETERS.maxRelationship} (friendly); 0 is neutral. Scores are public and shared by each pair.</p>
     <ul aria-label="Bilateral relationships">{state.relations.map(relation => <li key={relation.countryIds.join(':')}>
       {relation.countryIds.map(countryName).join(' ↔ ')}: {signed(relation.value)}
@@ -60,12 +60,12 @@ export function DiplomacyPanel({ state, pendingAction, onStageAction }: Props) {
       <button type="button" onClick={() => onStageAction(null)}>Discard staged diplomatic action</button>
     </div>}
     <div aria-live="polite">
-      <h4>Public declarations</h4>
+      <h3>Public declarations</h3>
       {declarations.length === 0 ? <p>No public declarations yet.</p> : <ul aria-label="Public declarations">{declarations.slice(-12).map(message => <li key={message.id}>
         Week {message.week}: {countryName(message.fromId)} → {countryName(message.toId)}: {message.stance}.
         {' '}Relationship change: {signed(message.relationshipChange)}. {message.reason}
       </li>)}</ul>}
-      <h4>Your private bilateral offers</h4>
+      <h3>Your private bilateral offers</h3>
       <p>Only offers involving your country appear here. Pending offers remain until answered.</p>
       {offers.length === 0 ? <p>No private offers involving your country.</p> : <ul aria-label="Your private offers">{offers.filter(offer => offer.status === 'pending' || recentResolved.includes(offer)).map(offer => <li key={offer.id}>
         Week {offer.week}: {countryName(offer.fromId)} → {countryName(offer.toId)}: cooperation offer — {offer.status}.

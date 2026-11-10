@@ -1,7 +1,7 @@
 # Heartland — Implementation Status
 
 **Snapshot date:** 2026-11-10
-**Source:** Repository inspection, prior T01–T07 verification, and local T08 tests/build/Chromium checks on 2026-11-10.
+**Source:** Repository inspection at merged T08 (`main`, PR #12), prior T01–T08 verification, and local UI-01A tests/build/Chromium checks on 2026-11-10.
 
 ## Verified existing scaffold
 
@@ -19,6 +19,8 @@
 - [x] Minimal weekly treasury simulation and persistent tax policy (T06).
 - [x] Minimal land-division movement, defence, combat and territorial capture (T07).
 - [x] Basic public/private diplomacy, bilateral relationships and autonomous rule-based diplomatic AI (T08).
+- [x] Compact map-first interface with Map, Economy, Military and Diplomacy navigation (UI-01A).
+- [ ] Interface redesign phases UI-01B and UI-01C (separate requirements/assignments pending).
 - [ ] Full economy/military systems, comprehensive diplomacy and advanced AI.
 - [ ] Actual playable match and final score.
 - [ ] Save/resume gameplay.
@@ -45,9 +47,9 @@
 
 ## Immediate next step
 
-T07 is merged into `main` (PR #11). T08 is implemented and locally verified on `task/t08-diplomacy-ai`; owner review and approval are required before merging its pull request. Physical iPhone/Safari playtesting remains pending. T09 and the separate mobile-first interface redesign require new assignments; neither is included here.
+T08 is merged into `main` (PR #12). UI-01A is implemented on `task/ui-01a-map-first` for owner review through a pull request targeting `main`. Do not merge without owner approval. Physical iPhone/Safari playtesting remains pending. UI-01B, UI-01C and T09 require separate assignments and are not implemented.
 
-The T01–T07 sections below retain their historical verification scope; the T08 section records the current additions.
+The T01–T08 sections below retain their historical verification scope; the UI-01A section records the current interface changes.
 
 ## Verification
 
@@ -239,3 +241,19 @@ All choices below are **temporary, reversible T08 demonstration rules**, not fin
 - Additional mobile/desktop checks passed for AI-generated private offers, player acceptance/rejection, player-initiated private offers, accepted neutral versus rejected post-condemnation offers, and exclusion of AI-to-AI private offers. At 390×844, 50 tax-relief weeks exhausted treasury; the failed next week preserved both diplomatic/military drafts and resolved messages, and standard taxation successfully retried the week. No browser runtime errors or application asset failures occurred. Mobile/desktop diplomacy and private-offer screenshots were visually inspected.
 - A browser-script assertion initially expected country selection directly after reload; corrected it to reopen the prototype from the existing title screen. The full browser suite then passed. During implementation, the new action-count test was corrected to count an AI reply to an offer created earlier in the same week; a TypeScript test narrowing error was also corrected. All final checks above passed.
 - Physical iPhone/Safari/VoiceOver and live GitHub Pages deployment remain unverified. Turns/state are local and in memory; no networking, multiplayer, save/load, PWA, advanced negotiation, treaty framework or new military systems were added. The separate mobile-first redesign and T09 remain unimplemented.
+
+## UI-01A — Compact map-first interface
+
+- [x] Replaces the stacked dashboard with a sticky country/week/treasury top bar and an always-accessible **Next week** action. Map is the default view. A compact bottom bar switches phone-sized screens (including landscape) between Map, Economy, Military and Diplomacy; desktop uses side navigation, a wider map/details layout and side-by-side economic figures/policy controls.
+- [x] Exactly one section is visible and keyboard-accessible at a time. Hidden sections remain mounted, preserving selected regions, unfinished forms and staged commands while navigating or resizing. A shared draft summary makes pending changes visible from every section; Next week continues to submit the existing military, diplomatic and policy commands together.
+- [x] Existing economy, military and diplomacy controls/results remain functional. The country selector and title screen are preserved. Active game state survives title navigation; leaving the prototype discards drafts and map selection, and reload resets the scenario, as before. Country-control labels, owned regions, provisional-rule explanations and placeholder-order counts are available under Map's **Scenario information** disclosure.
+- [x] Native buttons/selectors, at least 44px control targets, visible focus, focused section headings, labeled navigation with a current-section indicator and iPhone safe-area padding. Hidden controls are excluded from keyboard traversal. A rejected turn focuses the shared error and retains drafts for correction from any section.
+- [x] UI files only: `PrototypePage.tsx`, `styles.css`, and heading/focus adjustments in `RegionMap.tsx`, `MilitaryPanel.tsx` and `DiplomacyPanel.tsx`. Updated `TASKS.md` with a separate UI-01A/UI-01B/UI-01C milestone before T09. No engine, model, economy/combat/diplomacy/AI rule, dependency, approved `GAME_DESIGN.md`, title-screen component or deployment configuration changes. UI-01B, UI-01C and T09 remain unimplemented.
+
+### UI-01A validation and limitations
+
+- `npm test`: passed, **57 existing tests, 0 failures**. `npm run build`: passed (TypeScript and Vite production build). `git diff --check`: passed. Source comparison against `origin/main` confirms `src/game`, `GAME_DESIGN.md`, dependency files and deployment configuration are unchanged.
+- Production-preview Playwright with installed Chromium at `/heartland/`: all three countries passed at **320×568, 390×844, 844×390, 1024×768 and 1440×900**. Touch emulation at the first three sizes and mouse on desktop covered country selection, all six map regions, single-section navigation, selection/form/draft retention, policy changes, staged/discarded military and diplomatic commands, combined weekly submission, exact multiweek casualties/capture, map ownership updates, friendly movement, title navigation and reload reset.
+- Keyboard checks at all five sizes passed for country selection/start, navigation with Enter/Space, native policy/military/diplomatic controls, map selection and Next week. Repeated Tab traversal skipped hidden panels and kept focused controls clear of the persistent bars. Resizing preserved the active section and unfinished form. No horizontal overflow or targets below 44px at normal or 200% root text size; the enlarged-text check prompted a correction to prevent the desktop details column shrinking the map targets.
+- Additional checks at **390×844 and 1440×900** passed for incoming private offers, acceptance/rejection, outgoing cooperation offers and exclusion of other countries' private records. Fifty tax-relief weeks exhausted Alden's treasury; the rejected week preserved time, treasury, military position, diplomatic records and both staged actions, focused the shared error, and then successfully applied both drafts after restoring standard taxation. No JavaScript runtime errors or failed application assets were observed. Mobile and desktop screenshots were visually inspected.
+- These are Chromium checks with touch emulation, not physical iPhone/Safari/VoiceOver verification. Real-device safe areas and assistive-technology behavior remain for owner playtesting. Live GitHub Pages deployment is unchanged and was not independently verified. The existing fictional map has no custom pan/zoom; local state is still in memory with no save/load, PWA or match endpoint added.

@@ -92,11 +92,33 @@
 
 ### T08 — Add basic diplomacy and proactive AI decisions
 
-- [x] Completed and locally verified: public goodwill/condemnation declarations, private bilateral cooperation offers and replies, shared relationship indicators and visible consequences, one deterministic rule-based diplomatic decision per AI country per week, player-action reactions, preserved economy/combat/map and existing responsive layout, 18 focused diplomacy/AI tests, mobile/desktop Chromium checks and production build. All parameters and limitations are documented in `STATUS.md`. Dedicated branch `task/t08-diplomacy-ai` awaits owner review; do not merge without approval.
+- [x] Completed and locally verified: public goodwill/condemnation declarations, private bilateral cooperation offers and replies, shared relationship indicators and visible consequences, one deterministic rule-based diplomatic decision per AI country per week, player-action reactions, preserved economy/combat/map and existing responsive layout, 18 focused diplomacy/AI tests, mobile/desktop Chromium checks and production build. All parameters and limitations are documented in `STATUS.md`. Merged into `main` in PR #12.
 
 **Scope:** Add simple public declaration or bilateral offer, a relationship indicator and **one meaningful autonomous AI action per turn based on basic national priorities**. Keep private/public distinction in the model even if the UI is minimal. Do not invent a comprehensive treaty framework.
 
 **Acceptance:** Non-player country does not remain inert; AI decision is deterministic for a given state/seed; visible reaction to player choices; no cloud APIs required; tests for AI action and bilateral visibility.
+
+## Interface redesign milestone — Mobile-first interface (before T09)
+
+This is a separate UI milestone. Preserve the existing engine, models, economy, combat, diplomacy and AI rules throughout. UI-01A is the only phase authorized by the current assignment; the later phases need their own requirements and approval.
+
+### UI-01A — Compact map-first navigation
+
+- [x] Implemented and locally verified on `task/ui-01a-map-first`: compact top bar, primary map, four section views, mobile bottom navigation, responsive desktop layout, preserved gameplay controls/drafts, touch/keyboard checks, 57 passing existing tests and production build. See `STATUS.md` for validation and limitations. Awaiting owner review; do not merge without approval.
+
+**Scope:** Replace the stacked prototype dashboard with a compact country/week/treasury top bar, a primary interactive map and navigation between Map, Economy, Military and Diplomacy. Use bottom navigation on phone-sized screens and a responsive desktop layout. Keep Next week available in every section, preserve the existing controls, country selection and title screen, and retain drafts and map selection across section navigation. Maintain touch and keyboard access and iPhone safe-area spacing without adding dependencies.
+
+**Acceptance:** Only the selected section is displayed; the existing gameplay workflows work at mobile and desktop sizes, with no horizontal overflow or inaccessible controls. Run `npm test` and `npm run build`; record browser checks and device limitations in `STATUS.md`. Do not implement UI-01B, UI-01C or T09, change approved gameplay rules or merge without owner approval.
+
+### UI-01B — Interface redesign, second phase
+
+- [ ] Deferred. Detailed scope and acceptance criteria require a separate owner assignment. No implementation is included in UI-01A.
+
+### UI-01C — Interface redesign, third phase
+
+- [ ] Deferred. Detailed scope and acceptance criteria require a separate owner assignment. No implementation is included in UI-01A.
+
+## Milestone 1 (continued) — Complete the solo loop
 
 ### T09 — Playable game loop, lightweight result and small-screen QA
 
@@ -154,4 +176,4 @@ Each item above is a **feature family** to be broken into small PRs before imple
 
 ## Next task (requires a separate assignment)
 
-T07 is merged into `main` (PR #11). T08 is implemented on `task/t08-diplomacy-ai` and locally verified; its pull request requires owner review and explicit approval before merging. T09 and the separate mobile-first interface redesign require new assignments. Neither is included in T08. Do not merge without owner approval.
+T08 is merged into `main` (PR #12). UI-01A is implemented and locally verified on `task/ui-01a-map-first` for owner review; validation is recorded in `STATUS.md`. UI-01B, UI-01C and T09 remain deferred and require separate assignments. Do not merge without owner approval.
