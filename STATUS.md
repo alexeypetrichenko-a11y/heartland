@@ -1,7 +1,7 @@
 # Heartland — Implementation Status
 
 **Snapshot date:** 2026-11-10
-**Source:** Repository inspection at `cd13d82` on `main` (UI-01A merged in PR #13 and approved mockup uploaded), historical T01–T08/UI-01A verification, and local UI-01A.2 tests/build/Chromium checks on 2026-11-10.
+**Source:** Repository inspection at `0a16931` on `main` (UI-01A/UI-01A.2 merged in PRs #13/#14), the approved `design/Heartland-interface.html`, historical T01–T08/UI-01A/UI-01A.2 verification, and local UI-01B.1 tests/build/browser checks on 2026-11-10.
 
 ## Verified existing scaffold
 
@@ -21,7 +21,8 @@
 - [x] Basic public/private diplomacy, bilateral relationships and autonomous rule-based diplomatic AI (T08).
 - [x] Compact map-first navy interface with World, Politics, Economy, Diplomacy and Military navigation; Politics is a placeholder (UI-01A).
 - [x] Viewport-fitted compact overviews and on-demand detail panels based on the actual approved HTML mockup (UI-01A.2).
-- [ ] Interface redesign phases UI-01B and UI-01C (separate requirements/assignments pending).
+- [x] Interactive map zoom/pan, bounded camera and in-frame controls (UI-01B.1).
+- [ ] Map overlays (UI-01B.2), unit interaction/geographical positioning (UI-01B.3), and UI-01C (separate assignments pending).
 - [ ] Full economy/military systems, comprehensive diplomacy and advanced AI.
 - [ ] Actual playable match and final score.
 - [ ] Save/resume gameplay.
@@ -48,9 +49,9 @@
 
 ## Immediate next step
 
-UI-01A is merged into `main` in PR #13. UI-01A.2 is implemented on `task/ui-01a-2-compact` for owner review through a dedicated PR targeting `main`. Do not merge without owner approval. Physical iPhone/Safari playtesting remains pending. UI-01B, UI-01C and T09 require separate assignments and are not implemented.
+UI-01A and UI-01A.2 are merged into `main` (PRs #13/#14). UI-01B.1 is implemented on `task/ui-01b1-map-zoom-pan` for owner review through a dedicated PR targeting `main`. Do not merge without owner approval. Physical iPhone/Safari playtesting remains pending. UI-01B.2, UI-01B.3, UI-01C and T09 require separate assignments and are not implemented.
 
-The T01–T08 and UI-01A sections below retain their historical verification scope; UI-01A.2 records the current interface changes.
+The earlier sections retain their historical verification scope. UI-01B.1 at the end records the current map interaction and validation.
 
 ## Verification
 
@@ -275,7 +276,7 @@ All choices below are **temporary, reversible T08 demonstration rules**, not fin
 - World keeps the original six-region geometry, adjacency, ownership and touch/keyboard selection. A player's first owned region is selected for immediate real region/owner information. Muted country fills and a gold selection follow the reference's visual treatment; the named legend and accessible owner labels remain. Neighbor names and instructions open on demand. Selection persists through turns and section navigation.
 - Economy shows treasury, income, expenses and weekly balance immediately. `EconomyPanel.tsx` moves the existing tax selector, active policy/effect and rules into a secondary panel. Diplomacy shows public bilateral scores and incoming-offer count/counterparts; composition, public declarations and private offers/replies open separately. Military shows divisions, personnel, locations, active orders and latest-operation summary; all order/discard controls and full combat/movement results remain available in secondary panels. Politics stays a placeholder with no invented data or mechanics.
 - `DetailPanel.tsx` provides a back action, focused heading and keyboard-scrollable body. Panels and forms stay mounted behind `hidden`, retaining drafts and unfinished selections across tabs and detail changes. Navigation remains available while editing. Scenario explanations, country controllers/AI priorities, owned regions, placeholder-order count and Back to title are in the header's Scenario menu. Title navigation/reload retain their existing in-memory/reset behavior.
-- No `src/game` files, models, economic/combat/diplomacy/AI rules, `GAME_DESIGN.md`, dependencies, deployment settings or design reference files changed. UI-01B, UI-01C and T09 remain unimplemented. Dedicated branch: `task/ui-01a-2-compact`; owner approval is required before merging its PR to `main`.
+- No `src/game` files, models, economic/combat/diplomacy/AI rules, `GAME_DESIGN.md`, dependencies, deployment settings or design reference files changed. UI-01B, UI-01C and T09 were unimplemented in this phase. Dedicated branch: `task/ui-01a-2-compact`, subsequently merged into `main` in PR #14.
 
 ### UI-01A.2 validation and limitations
 
@@ -285,3 +286,25 @@ All choices below are **temporary, reversible T08 demonstration rules**, not fin
 - Keyboard Enter/Space navigation, native selectors, map activation, focused detail headings/back return, exclusion of hidden controls, focus visibility, internal detail scrolling and 44px-or-larger touch targets passed at all five sizes. Resizing, including a shorter 390×620 viewport, preserved unfinished orders and kept the bars accessible. At 200% text, panels may scroll internally; the document still has no horizontal/vertical overflow and tab labels stay within the viewport.
 - Additional mobile/desktop checks passed for private incoming/outgoing offers, acceptance/rejection and private-feed isolation. Fifty tax-relief weeks exhausted treasury; a rejected week retained military/diplomatic drafts, position, week, treasury and diplomatic records, focused the error, and then resolved both drafts after restoring standard taxation. A destroyed-division check verified zero personnel and disabled new orders. No JavaScript runtime errors or failed app assets. Reference and application screenshots were visually inspected.
 - Unavoidable compact-screen tradeoff: expanded orders, explanations, long diplomatic histories and enlarged text require internal panel scrolling, especially at 320×568 or short landscape heights. Primary views fit at the tested normal text size. Title/country setup retain ordinary page flow; the fixed viewport applies after starting the scenario. Chromium touch emulation does not verify physical iPhone/Safari/VoiceOver, real browser chrome or device safe areas; those remain owner playtest items. Live deployment was not independently checked. No save/load, custom map pan/zoom, PWA or match endpoint was added.
+
+## UI-01B.1 — Interactive map zoom and pan
+
+- Pinch-to-zoom and one-finger pan use Pointer Events; desktop supports mouse drag and wheel zoom. The moving pinch midpoint and wheel pointer anchor the zoom. Wheel deltas are normalized and capped; continuous gestures update directly without animation lag or inertia. Zoom is limited to **100–400% of the fitted map**. Panning keeps the world covering each enlarged axis and centers axes that fit. Resizing reclamps the view without changing geographical coordinates or the selected region.
+- Compact **+, − and reset** controls sit in a 44px-wide rail inside the existing map frame. They have 44×44px targets, accessible names, visible focus and a live zoom readout. The rail leaves all six labels visible, including at 320px wide. Reset fits the entire map and retains the selected region. The approved header, region sheet, five bottom tabs, navy palette, country fills and gold selection are retained.
+- A **6 CSS-pixel movement threshold** distinguishes a tap/click from a drag. Any two-finger gesture suppresses selection until all contacts end. Captured pointers continue outside the map, and compatibility clicks from gestures are blocked. Cancellation, lost capture, window blur, hidden views and resizing clear active gestures. Ordinary taps/clicks, small pointer jitter and keyboard region activation remain supported.
+- Keyboard: focus the map or a region; **+/−** zoom, **arrows** pan, **Shift+arrows** take larger steps, and **0/Home** reset. Tab still reaches each region, and Enter/Space selects. Focusing an offscreen region brings it into view without changing selection. Browser keyboard zoom shortcuts are left available. Selection and camera state survive section/detail navigation and weekly turns; leaving the prototype resets the map view as before.
+- `mapViewport.ts` holds presentation-only camera math; `useMapNavigation.ts` handles input and resize/capture lifecycle. A single SVG group transforms the existing fixed world geometry and grid together, so future geographic overlays can share the camera. No overlay renderer, layer controls, markers, unit coordinates or game-state changes were added. Future units must have meaningful positions inside regions, with border proximity eventually affecting movement/engagement time; those simulation rules are explicitly deferred.
+- Changed files: `src/ui/RegionMap.tsx`, `src/ui/styles.css`, new `src/ui/mapViewport.ts`, `src/ui/useMapNavigation.ts` and `src/ui/mapViewport.test.ts`, `package.json` (test command only), `TASKS.md` and `STATUS.md`. No dependencies added. Compared with `origin/main`: `src/game`, `AGENTS.md`, `GAME_DESIGN.md`, the design reference, dependency versions and deployment configuration are unchanged. Dedicated branch: `task/ui-01b1-map-zoom-pan`; PR targets `main` and must remain unmerged pending owner approval.
+
+### UI-01B.1 validation and limitations
+
+- `npm test`: **63 passed, 0 failures** — all 57 existing gameplay tests plus 6 camera tests covering fitted centering, cursor anchoring, moving pinch anchoring, all pan boundaries, zoom-limit drift and resize behavior. `npm run build`: passed (TypeScript and Vite production build). `git diff --check`: passed.
+- Production-preview Playwright/Chromium at `/heartland/`: passed at **320×568, 390×844, 844×390, 1024×768 and 1440×900**. Checked all six region taps/clicks, mouse drag with release outside the frame, wheel/pinch anchoring, minimum/maximum zoom, limits on both pan axes, reset, sub-threshold jitter, gesture selection suppression, one-finger drag, two-finger pinch, transition back to one finger, touch cancellation and subsequent selection. Touch checks used browser multi-touch input in touch-emulated Chromium, not synthetic clicks alone. No document scrolling/overflow; the selected-region summary and bottom navigation stayed visible at normal text size. Controls stayed inside the frame with 44px targets.
+- Keyboard map zoom/pan/reset, control activation, all six regions' Tab/Enter/Space behavior, revealing offscreen focus, detail back navigation, retained camera/selection through tabs and portrait/landscape/desktop resizing all passed. Extra checks passed for line/page wheel-delta modes, blur/capture recovery, 200% root text and repeated keyboard traversal at all five sizes. At enlarged text sizes the existing region sheet/details can require **internal scrolling**, particularly on small or short screens; header/navigation and the document remain fixed.
+- Gameplay checks passed for **all three countries at all five sizes**: tax-policy drafts/settlement, staged/discarded military and diplomatic commands, cross-section form retention, public declarations and AI reactions, combined weekly submission, exact three-week casualties/capture (750 → 625 → 593 survivors), map ownership/summary updates while zoomed, friendly movement, title round trips and reload reset. Mobile/desktop checks also exhausted treasury after 50 tax-relief weeks, verified atomic rejection retained both drafts and existing diplomatic records, then restored standard taxation and successfully applied both drafts. No JavaScript runtime or application-asset errors were observed. Production-preview screenshots were visually inspected.
+- Initial checks exposed a floating-point centering error and a small pinch-anchor drift from processing contacts sequentially. Both were corrected, and final unit/browser checks passed. WebKit launch was attempted but its executable is not installed in this environment. Physical iPhone/Safari/VoiceOver, real browser chrome/safe areas and live GitHub Pages remain unverified; owner device playtesting is still required.
+
+### Deferred UI-01B.2 / UI-01B.3
+
+- **UI-01B.2 — Map overlays:** not implemented. Cities, divisions, fortifications, roads, railways, ports and airports, their data/visibility and any layer controls require a separate assignment.
+- **UI-01B.3 — Unit interaction/geographical positioning:** not implemented. No draggable units, positions inside regions, border-distance calculations, movement/engagement timing or military mechanics changed. Future position-sensitive behavior requires separately approved mechanics and model changes. UI-01C and T09 also remain deferred.
