@@ -1,7 +1,15 @@
 :root {
+  --color-background: #0E1620;
+  --color-surface: #16222F;
+  --color-surface-secondary: #1D2D3E;
+  --color-border: #2A3B4E;
+  --color-text: #EAE6DA;
+  --color-muted: #A9B8C7;
+  --color-accent: #E3B15C;
+  color-scheme: dark;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: #f3efdf;
-  background: #12251e;
+  color: var(--color-text);
+  background: var(--color-background);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -48,7 +56,7 @@ h1 {
 
 p {
   margin: 1rem 0 0;
-  color: #c8d0c5;
+  color: var(--color-muted);
   font-size: clamp(1rem, 3.5vw, 1.25rem);
   line-height: 1.5;
 }
@@ -58,16 +66,16 @@ button {
   max-width: 100%;
   margin-top: 1.5rem;
   padding: 0.75rem 1rem;
-  border: 1px solid #c8d0c5;
+  border: 1px solid var(--color-border);
   border-radius: 0.5rem;
   font: inherit;
-  color: #12251e;
-  background: #f3efdf;
+  color: var(--color-text);
+  background: var(--color-surface-secondary);
   cursor: pointer;
 }
 
 button:focus-visible {
-  outline: 3px solid #f5cc75;
+  outline: 3px solid var(--color-accent);
   outline-offset: 4px;
 }
 
@@ -87,10 +95,11 @@ button:disabled {
   min-width: 0;
   min-height: 44px;
   padding: 0.75rem;
+  border: 1px solid var(--color-border);
   border-radius: 0.5rem;
   font: inherit;
-  color: #12251e;
-  background: #f3efdf;
+  color: var(--color-text);
+  background: var(--color-surface-secondary);
 }
 
 .hud select:focus-visible,
@@ -98,7 +107,7 @@ button:disabled {
 .prototype h2:focus,
 .turn-error:focus,
 summary:focus-visible {
-  outline: 3px solid #f5cc75;
+  outline: 3px solid var(--color-accent);
   outline-offset: 4px;
 }
 
@@ -136,8 +145,9 @@ summary:focus-visible {
 .hud {
   margin-top: 1.5rem;
   padding: 1rem;
-  border: 1px solid #c8d0c5;
-  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background: var(--color-surface);
 }
 
 .hud h2 {
@@ -158,7 +168,7 @@ summary:focus-visible {
 
 .hud dd {
   margin: 0.5rem 0 0;
-  color: #c8d0c5;
+  color: var(--color-muted);
   line-height: 1.5;
 }
 
@@ -203,8 +213,8 @@ summary:focus-visible {
   width: 100%;
   max-width: 28rem;
   margin-inline: auto;
-  background: #1b352c;
-  border-radius: 0.5rem;
+  background: var(--color-surface);
+  border-radius: 0.75rem;
 }
 
 .map-region {
@@ -214,13 +224,13 @@ summary:focus-visible {
 }
 
 .map-region polygon {
-  stroke: #12251e;
+  stroke: var(--color-background);
   stroke-width: 3;
   stroke-linejoin: round;
 }
 
 .map-region text {
-  fill: #12251e;
+  fill: var(--color-background);
   font-size: 18px;
   font-weight: 600;
   text-anchor: middle;
@@ -229,7 +239,7 @@ summary:focus-visible {
 }
 
 .map-region[aria-pressed='true'] polygon {
-  stroke: #12251e;
+  stroke: var(--color-background);
   stroke-width: 8;
   stroke-dasharray: 10 4;
 }
@@ -239,14 +249,15 @@ summary:focus-visible {
 }
 
 .map-region:focus-visible polygon {
-  stroke: #ffffff;
+  stroke: var(--color-text);
   stroke-width: 6;
 }
 
 .region-details {
   padding: 1rem;
-  border: 1px solid #c8d0c5;
-  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background: var(--color-surface);
 }
 
 .region-details dl {
@@ -259,7 +270,7 @@ summary:focus-visible {
 
 .region-details dd {
   margin: 0.25rem 0 1rem;
-  color: #c8d0c5;
+  color: var(--color-muted);
   line-height: 1.5;
 }
 
@@ -292,8 +303,8 @@ summary:focus-visible {
   padding-top: max(0.75rem, env(safe-area-inset-top));
   padding-right: max(0.75rem, env(safe-area-inset-right));
   padding-left: max(0.75rem, env(safe-area-inset-left));
-  border-bottom: 1px solid #496257;
-  background: #12251e;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
 }
 
 .game-title p {
@@ -316,14 +327,15 @@ summary:focus-visible {
 
 .title-button {
   justify-self: end;
-  color: #c8d0c5;
+  color: var(--color-muted);
   background: transparent;
-  border-color: #496257;
+  border-color: var(--color-border);
 }
 
 .next-week {
-  border-color: #f5cc75;
-  background: #f5cc75;
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-background);
   font-weight: 600;
 }
 
@@ -337,7 +349,7 @@ summary:focus-visible {
 
 .game-meta dt {
   font-size: 0.75rem;
-  color: #c8d0c5;
+  color: var(--color-muted);
 }
 
 .game-meta dd {
@@ -350,32 +362,34 @@ summary:focus-visible {
   inset: auto 0 0;
   z-index: 3;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.25rem;
-  padding: 0.4rem 0.5rem;
-  padding-right: max(0.5rem, env(safe-area-inset-right));
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr) minmax(0, 1.1fr) minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 0.125rem;
+  padding: 0.4rem 0.25rem;
+  padding-right: max(0.25rem, env(safe-area-inset-right));
   padding-bottom: max(0.4rem, env(safe-area-inset-bottom));
-  padding-left: max(0.5rem, env(safe-area-inset-left));
-  border-top: 1px solid #496257;
-  background: #12251e;
+  padding-left: max(0.25rem, env(safe-area-inset-left));
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
 }
 
 .game-nav button {
   min-width: 0;
   min-height: 48px;
   margin: 0;
-  padding: 0.5rem 0.2rem;
+  padding: 0.5rem 0;
   border: 1px solid transparent;
-  color: #c8d0c5;
+  color: var(--color-muted);
   background: transparent;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   overflow-wrap: anywhere;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .game-nav button[aria-current='page'] {
-  border-color: #f5cc75;
-  color: #f5cc75;
-  background: #253b2d;
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: var(--color-surface-secondary);
   font-weight: 600;
 }
 
@@ -406,10 +420,10 @@ summary:focus-visible {
 .turn-error {
   margin: 0 0 1rem;
   padding: 1rem;
-  border: 1px solid #f5cc75;
+  border: 1px solid var(--color-accent);
   border-radius: 0.5rem;
-  background: #3a3020;
-  color: #f3efdf;
+  background: var(--color-surface-secondary);
+  color: var(--color-text);
 }
 
 .section-view {
@@ -461,8 +475,9 @@ summary:focus-visible {
 .scenario-info {
   margin-top: 1rem;
   padding: 0.75rem 1rem;
-  border: 1px solid #496257;
-  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background: var(--color-surface);
 }
 
 summary {

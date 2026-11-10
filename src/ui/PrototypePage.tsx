@@ -15,16 +15,17 @@ type PrototypePageProps = {
 };
 
 const sections = [
-  { id: 'map', label: 'Map' },
+  { id: 'world', label: 'World' },
+  { id: 'politics', label: 'Politics' },
   { id: 'economy', label: 'Economy' },
-  { id: 'military', label: 'Military' },
   { id: 'diplomacy', label: 'Diplomacy' },
+  { id: 'military', label: 'Military' },
 ] as const;
 type Section = typeof sections[number]['id'];
 
 export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, turnError, onBack }: PrototypePageProps) {
   const [choice, setChoice] = useState('');
-  const [activeSection, setActiveSection] = useState<Section>('map');
+  const [activeSection, setActiveSection] = useState<Section>('world');
   const [policyChoice, setPolicyChoice] = useState<EconomicPolicy | null>(null);
   const [pendingMilitaryOrders, setPendingMilitaryOrders] = useState<MilitaryCommand[]>([]);
   const [pendingDiplomacy, setPendingDiplomacy] = useState<DiplomaticCommand | null>(null);
@@ -120,7 +121,7 @@ export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, turnError
 
         {/* Keep views mounted so navigation preserves map selection and unfinished forms. */}
         <div className="game-workspace" ref={workspaceRef}>
-          <div id="section-map" className="section-view" hidden={activeSection !== 'map'}>
+          <div id="section-world" className="section-view" hidden={activeSection !== 'world'}>
             <RegionMap state={state} />
             <details className="scenario-info">
               <summary>Scenario information</summary>
@@ -134,6 +135,13 @@ export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, turnError
               <h3>Your regions</h3>
               <ul>{regions.map(region => <li key={region.id}>{region.name}</li>)}</ul>
             </details>
+          </div>
+
+          <div id="section-politics" className="section-view hud" hidden={activeSection !== 'politics'}>
+            <section aria-labelledby="politics-title">
+              <h2 id="politics-title" tabIndex={-1}>Politics</h2>
+              <p>Domestic stability and regime management are planned for a future update. Political mechanics are not implemented yet.</p>
+            </section>
           </div>
 
           <div id="section-economy" className="section-view hud" hidden={activeSection !== 'economy'}>
@@ -164,14 +172,14 @@ export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, turnError
             </section>
           </div>
 
+          <div id="section-diplomacy" className="section-view hud" hidden={activeSection !== 'diplomacy'}>
+            <DiplomacyPanel state={state} pendingAction={pendingDiplomacy} onStageAction={setPendingDiplomacy} />
+          </div>
+
           <div id="section-military" className="section-view hud" hidden={activeSection !== 'military'}>
             <MilitaryPanel state={state} pendingOrders={pendingMilitaryOrders}
               onStageOrder={command => setPendingMilitaryOrders(orders => [...orders.filter(order => order.divisionId !== command.divisionId), command])}
               onDiscardOrders={() => setPendingMilitaryOrders([])} />
-          </div>
-
-          <div id="section-diplomacy" className="section-view hud" hidden={activeSection !== 'diplomacy'}>
-            <DiplomacyPanel state={state} pendingAction={pendingDiplomacy} onStageAction={setPendingDiplomacy} />
           </div>
         </div>
       </div>
