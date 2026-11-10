@@ -12,6 +12,7 @@ export function createInitialState(): GameState {
     playerCountryId: null,
     standingOrders: [],
     militaryResults: [],
+    diplomaticMessages: [],
     countries: [
       { id: 'alden', name: 'Alden', controller: 'ai', economicPolicy: 'standard', economy: { treasury: 100, weeklyIncome: 12, weeklyExpenses: 8 } },
       { id: 'belora', name: 'Belora', controller: 'ai', economicPolicy: 'standard', economy: { treasury: 90, weeklyIncome: 11, weeklyExpenses: 7 } },

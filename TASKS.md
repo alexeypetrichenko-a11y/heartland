@@ -84,13 +84,15 @@
 
 ### T07 — Add a minimal land-division order and outcome
 
-- [x] Completed and locally verified: player-owned division selection and staged move/defend/attack orders, ownership/availability/adjacency validation with atomic rejection, deterministic weekly casualties and territorial capture, persistent attacks, active orders/results in the dashboard, existing map ownership updates, preserved economy/policies, 14 focused military tests and mobile/desktop Chromium checks. Provisional combat rules are documented in `STATUS.md`; production build passes. Dedicated branch `task/t07-land-orders` awaits owner review.
+- [x] Completed and locally verified: player-owned division selection and staged move/defend/attack orders, ownership/availability/adjacency validation with atomic rejection, deterministic weekly casualties and territorial capture, persistent attacks, active orders/results in the dashboard, existing map ownership updates, preserved economy/policies, 14 focused military tests and mobile/desktop Chromium checks. Provisional combat rules are documented in `STATUS.md`; production build passes. Merged into `main` in PR #11.
 
 **Scope:** Add land divisions to fictional regions and one or two actions (move, defend, attack) with a small deterministic resolution model. Don't implement air, naval, manpower training, technology or full supply chains yet.
 
 **Acceptance:** Player can move or fight across adjacent valid regions; ownership/strength changes according to a documented provisional model; cannot attack nonadjacent region; tests for casualties/ownership where appropriate.
 
 ### T08 — Add basic diplomacy and proactive AI decisions
+
+- [x] Completed and locally verified: public goodwill/condemnation declarations, private bilateral cooperation offers and replies, shared relationship indicators and visible consequences, one deterministic rule-based diplomatic decision per AI country per week, player-action reactions, preserved economy/combat/map and existing responsive layout, 18 focused diplomacy/AI tests, mobile/desktop Chromium checks and production build. All parameters and limitations are documented in `STATUS.md`. Dedicated branch `task/t08-diplomacy-ai` awaits owner review; do not merge without approval.
 
 **Scope:** Add simple public declaration or bilateral offer, a relationship indicator and **one meaningful autonomous AI action per turn based on basic national priorities**. Keep private/public distinction in the model even if the UI is minimal. Do not invent a comprehensive treaty framework.
 
@@ -152,4 +154,4 @@ Each item above is a **feature family** to be broken into small PRs before imple
 
 ## Next task (requires a separate assignment)
 
-T06 is merged into `main` (PR #10). T07 is implemented on `task/t07-land-orders` and locally verified; its pull request awaits owner review. T08 requires a separate assignment. The mobile-first interface redesign is deferred until after T08. Do not merge without owner approval.
+T07 is merged into `main` (PR #11). T08 is implemented on `task/t08-diplomacy-ai` and locally verified; its pull request requires owner review and explicit approval before merging. T09 and the separate mobile-first interface redesign require new assignments. Neither is included in T08. Do not merge without owner approval.

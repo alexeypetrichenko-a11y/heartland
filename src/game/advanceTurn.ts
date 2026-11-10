@@ -1,6 +1,8 @@
 import type { GameState, TurnCommand } from './models.ts';
 import { isEconomicPolicy, resolveWeeklyEconomy } from './economy.ts';
 import { parseMilitaryOrder, resolveMilitary, validateMilitaryOrder } from './military.ts';
+import { applyDiplomaticCommand, DIPLOMACY_PARAMETERS, parseDiplomaticCommand } from './diplomacy.ts';
+import { resolveAIDiplomacy } from './ai.ts';
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -13,6 +15,9 @@ function isText(value: unknown): value is string {
 /** Validate runtime input too, rather than relying on TypeScript at call sites. */
 function validateCommand(value: unknown): TurnCommand {
   if (isRecord(value)) {
+    if (value.type === 'declare' || value.type === 'offer-cooperation' || value.type === 'respond-offer') {
+      return parseDiplomaticCommand(value);
+    }
     if (value.type === 'set-military-order' && isText(value.countryId) && isText(value.divisionId)) {
       return { type: value.type, countryId: value.countryId, divisionId: value.divisionId, order: parseMilitaryOrder(value.order) };
     }
@@ -39,8 +44,8 @@ function validateCommand(value: unknown): TurnCommand {
  * Placeholder orders persist without effects. Economic policy persists on each
  * country; policy commands apply before resolving every country's weekly budget.
  * Insufficient funds or invalid amounts reject the entire week, including commands.
- * Military commands are validated before settlement; military outcomes resolve
- * after budgets, within the same atomic turn.
+ * Player diplomacy applies before one action per AI country, in stable country
+ * ID order. Then budgets and military resolve within the same atomic turn.
  * No clock, randomness, React, storage or network access; the seed is untouched.
  */
 export function advanceTurn(state: GameState, commands: readonly TurnCommand[] = []): GameState {
@@ -56,10 +61,17 @@ export function advanceTurn(state: GameState, commands: readonly TurnCommand[] =
   let orders = state.standingOrders.map(order => ({ ...order }));
   let countries = state.countries.map(country => ({ ...country }));
   let divisions = state.divisions;
+  let diplomacy = state;
+  let diplomaticActions = 0;
   for (const input of commands) {
     const command = validateCommand(input);
     const countryId = command.type === 'set-standing-order' ? command.order.countryId : command.countryId;
     if (countryId !== player.id) throw new Error('Commands must belong to the selected player country.');
+    if (command.type === 'declare' || command.type === 'offer-cooperation' || command.type === 'respond-offer') {
+      if (++diplomaticActions > DIPLOMACY_PARAMETERS.playerActionsPerWeek) throw new Error('Only one diplomatic action is allowed per week.');
+      diplomacy = applyDiplomaticCommand(diplomacy, command);
+      continue;
+    }
     if (command.type === 'set-military-order') {
       validateMilitaryOrder({ ...state, divisions }, countryId, command.divisionId, command.order);
       divisions = divisions.map(division => division.id === command.divisionId ? { ...division, order: command.order } : division);
@@ -82,7 +94,8 @@ export function advanceTurn(state: GameState, commands: readonly TurnCommand[] =
     }
   }
 
-  // Fixed budgets also settle for AI-labeled countries; no AI decisions run.
+  diplomacy = resolveAIDiplomacy(diplomacy);
+  // Diplomacy does not change the fixed economic or military parameters.
   countries = countries.map(country => {
     try {
       return { ...country, economy: resolveWeeklyEconomy(country.economy, country.economicPolicy) };
@@ -91,5 +104,6 @@ export function advanceTurn(state: GameState, commands: readonly TurnCommand[] =
     }
   });
   const military = resolveMilitary({ ...state, divisions });
-  return { ...state, week: state.week + 1, standingOrders: orders, countries, ...military };
+  return { ...state, week: state.week + 1, standingOrders: orders, countries, ...military,
+    relations: diplomacy.relations, diplomaticMessages: diplomacy.diplomaticMessages };
 }

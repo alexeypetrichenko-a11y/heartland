@@ -1,7 +1,7 @@
 # Heartland — Implementation Status
 
-**Snapshot date:** 2026-11-09
-**Source:** Repository inspection, prior T01–T06 verification, and local T07 tests/build/Chromium checks on 2026-11-09.
+**Snapshot date:** 2026-11-10
+**Source:** Repository inspection, prior T01–T07 verification, and local T08 tests/build/Chromium checks on 2026-11-10.
 
 ## Verified existing scaffold
 
@@ -18,7 +18,8 @@
 - [x] Manual weekly turn progression and inert standing-order persistence (T05).
 - [x] Minimal weekly treasury simulation and persistent tax policy (T06).
 - [x] Minimal land-division movement, defence, combat and territorial capture (T07).
-- [ ] Full economy/military systems, diplomacy and autonomous AI.
+- [x] Basic public/private diplomacy, bilateral relationships and autonomous rule-based diplomatic AI (T08).
+- [ ] Full economy/military systems, comprehensive diplomacy and advanced AI.
 - [ ] Actual playable match and final score.
 - [ ] Save/resume gameplay.
 - [ ] Multiplayer invite links, synchronization, pause.
@@ -44,9 +45,9 @@
 
 ## Immediate next step
 
-T06 is merged into `main` (PR #10). T07 is implemented on `task/t07-land-orders` and locally verified; owner review is required before merging. Test it on a real iPhone/Safari. T08 requires a separate assignment; diplomacy and autonomous AI remain unimplemented. The interface redesign is deferred until after T08.
+T07 is merged into `main` (PR #11). T08 is implemented and locally verified on `task/t08-diplomacy-ai`; owner review and approval are required before merging its pull request. Physical iPhone/Safari playtesting remains pending. T09 and the separate mobile-first interface redesign require new assignments; neither is included here.
 
-The T01–T06 sections below retain their historical verification scope; T07 records the current additions.
+The T01–T07 sections below retain their historical verification scope; the T08 section records the current additions.
 
 ## Verification
 
@@ -194,3 +195,47 @@ These are **prototype-only, reversible demo rules**, not final combat balance or
 - Production-preview Playwright/Chromium at `/heartland/`: all three player countries passed at **320×568, 390×844, 844×390 and 1440×900**. Touch/mouse checks cover own-division selection, staged versus active orders, move/defend/attack, discarding drafts, exact casualties, standing attack persistence, territorial capture with map color/owner/detail updates, all six map regions, national economy/policy values during combat, title navigation preserving active state, reload reset, keyboard map/Next week activation, minimum 44px controls and absence of horizontal overflow.
 - At 390×844, an attack against stronger defenders exhausted a division and correctly disabled further orders without capturing territory. A separate keyboard-staging/budget check exhausted treasury with 50 tax-relief weeks, staged a move, verified the rejected week kept location/treasury/week unchanged and retained the draft, then restored standard taxation and completed the move with treasury 4. No JavaScript runtime errors or application asset failures were observed. Mobile/desktop military and captured-map screenshots were visually inspected.
 - Physical iPhone/Safari/VoiceOver and live GitHub Pages deployment remain unverified. Combat is a small headcount-only demonstration with fixed national budgets, no geographic defence modifiers, no retreat/supply/equipment/morale systems and no combat history beyond the latest week. The wider playable match remains incomplete; interface redesign is intentionally deferred.
+
+
+## T08 — Basic diplomacy and proactive AI decisions
+
+- [x] Reuses the three-country/six-region fixture, existing neutral bilateral relations, seed and atomic weekly engine. `src/game/models.ts` adds serializable public declarations, private cooperation offers/replies and diplomatic commands; `src/game/initialState.ts` starts with an empty diplomatic history.
+- [x] Pure `src/game/diplomacy.ts` validates commands, updates shared bilateral scores, enforces recipient-only replies and one pending offer per unordered pair, and filters public/private records through `visibleDiplomaticMessages`. Offers retain their original channel after acceptance or rejection. Unknown viewers receive no feed. Unknown/self targets, unauthorized/duplicate replies and malformed commands are rejected.
+- [x] Independent `src/game/ai.ts` chooses and applies exactly one diplomatic action per non-player country per successful week. National priorities, acceptance thresholds and stable tie-breaking are explicit. AI reads public declarations and its own bilateral messages; public explanations never announce a pending private offer. No cloud API, randomness, network, long-term planning or new dependency is used.
+- [x] `advanceTurn` validates external player commands, applies player diplomacy, runs AI countries in stable string-ID order, settles the unchanged national budgets, resolves unchanged military rules and advances one week. Later AI countries can react to earlier AI actions in that week. Any failure rolls back the whole turn, including diplomatic records, AI replies, scores, economy and military outcomes.
+- [x] `src/ui/DiplomacyPanel.tsx` adds native labeled action/counterpart selectors, one staged diplomatic draft, accept/reject buttons for incoming offers, shared relationship indicators, public declarations and only the player's private bilateral offers. Actual score changes, response reasons and completed-week labels are visible. The existing layout, responsive styles, map, economy and military panels are retained; no interface redesign.
+- [x] `PrototypePage.tsx` combines diplomatic/military/policy drafts with Next week; successful turns clear applied drafts, failures preserve them. Active diplomacy and scores persist in memory through title navigation; leaving the prototype discards drafts, and reloading resets the scenario, as with existing orders.
+- [x] Added `src/game/diplomacy.test.ts` and `src/game/ai.test.ts`. Updated only the old turn test's assumption that diplomatic state remains inert; its checks for unchanged geography, military data and base economics remain. No deployment, package, combat, economic formula or approved `GAME_DESIGN.md` changes.
+
+### Provisional diplomatic parameters and decisions for owner review
+
+All choices below are **temporary, reversible T08 demonstration rules**, not final balancing or a treaty design. Constants live in `DIPLOMACY_PARAMETERS` (`src/game/diplomacy.ts`) and `AI_PRIORITIES` (`src/game/ai.ts`). Owner review is needed before adopting them as lasting design.
+
+| Parameter/behavior | Provisional value or rule |
+|---|---|
+| Relationship | One shared integer per unordered pair, initially 0; clamp to -100…+100 |
+| Public goodwill / condemnation | +5 / -10 to the targeted bilateral relationship; declaration visible to all three countries |
+| Private cooperation offer | No immediate score change or payment; one pending offer per pair, in either direction |
+| Accept / reject | +10 / -5 to that pair; only the recipient can reply, exactly once; reply remains private |
+| Player action allowance | At most one diplomatic command per successful week, including an offer response; new UI staging replaces the draft |
+| AI action allowance | Exactly one diplomatic command per AI country per successful week |
+| Alden priority | Strengthen its highest relationship; accept offers at a score of at least -10 |
+| Belora priority | Repair its lowest relationship; accept offers at a score of at least -30 |
+| Cyrin priority | Repair its lowest relationship cautiously; accept offers at a score of at least 0 |
+| Offer lifetime | Pending until answered; no expiry, withdrawal, cooldown or negotiation chain |
+| Display/history | All records stay in local memory; show latest 12 public declarations, latest 12 resolved own offers and all pending own offers |
+
+- AI decision priority: answer the oldest-week incoming pending offer (string-ID tie-break), otherwise mirror a player declaration addressed to it in the current week, otherwise select a counterpart by the national priority (string-ID tie-break). Propose cooperation if the score meets its acceptance threshold and no offer is pending for that pair; otherwise issue public goodwill. Offer responses take precedence over declaration reactions. Old player declarations do not trigger repeat retaliation in later weeks.
+- A public goodwill declaration normally receives +5 goodwill back from the targeted AI, producing +10 total that week; condemnation can receive -10 back, producing -20. Other AI decisions can also affect publicly visible scores. Offer acceptance/rejection uses the score at the moment of decision; this makes player diplomacy affect subsequent AI behavior.
+- At relationship bounds, actual changes may be smaller or zero and are reported accurately. Repeated offers/goodwill can saturate relationships; there is no balance against repetitive diplomacy in this small demonstration.
+- Public scores can reveal that a relationship changed, but private offer participants, content, status and reasons are not published to outsiders. This is gameplay visibility in a local single-player app: the complete simulation state still exists in browser memory. It is not a multiplayer security boundary or encrypted messaging.
+- Cooperation means only improving the relationship. There are no treaties, alliances, ceasefires, trust/reputation scores, transfers, trade bonuses, obligations or constraints on attacks. Diplomatic AI does not change taxes, treasury formulas, military orders, damage or territorial ownership. It does not react to military invasions in T08. Military/economic AI and wider strategy remain later work.
+
+### T08 validation and limitations
+
+- `npm test`: passed, **57 tests, 0 failures** (39 existing tests plus 18 focused diplomacy/AI tests). Covers diplomatic validation/ownership, all three public/private country perspectives before and after replies, symmetric bilateral scores, limits and actual deltas, duplicate/persistent offers, autonomous decisions for every player choice, national priorities and threshold boundaries, player-action reactions, private-information isolation, stable AI ordering, frozen-input immutability, mixed-system atomic rollback, unchanged economic/military outcomes and deterministic replay with multiple seeds and JSON round trips. The seed is preserved and no random draw is needed.
+- `npm run build`: passed (TypeScript check including tests and Vite production build). `git diff --check`: passed.
+- Production-preview Playwright/Chromium at `/heartland/`: passed for all three player countries at **320×568, 390×844, 844×390 and 1440×900**. Checks cover country selection, all six map regions, weekly progression, staged/discarded diplomacy, public goodwill and AI replies, shared score updates, combined tax policy and combat, exact casualties and capture, map owner updates, friendly movement, title navigation, reload reset, keyboard Enter/Space Next week activation, at least 44px form/button controls and no horizontal overflow.
+- Additional mobile/desktop checks passed for AI-generated private offers, player acceptance/rejection, player-initiated private offers, accepted neutral versus rejected post-condemnation offers, and exclusion of AI-to-AI private offers. At 390×844, 50 tax-relief weeks exhausted treasury; the failed next week preserved both diplomatic/military drafts and resolved messages, and standard taxation successfully retried the week. No browser runtime errors or application asset failures occurred. Mobile/desktop diplomacy and private-offer screenshots were visually inspected.
+- A browser-script assertion initially expected country selection directly after reload; corrected it to reopen the prototype from the existing title screen. The full browser suite then passed. During implementation, the new action-count test was corrected to count an AI reply to an offer created earlier in the same week; a TypeScript test narrowing error was also corrected. All final checks above passed.
+- Physical iPhone/Safari/VoiceOver and live GitHub Pages deployment remain unverified. Turns/state are local and in memory; no networking, multiplayer, save/load, PWA, advanced negotiation, treaty framework or new military systems were added. The separate mobile-first redesign and T09 remain unimplemented.
