@@ -100,17 +100,25 @@
 
 ## Interface redesign milestone — Mobile-first interface (before T09)
 
-This is a separate UI milestone. Preserve the existing engine, models, economy, combat, diplomacy and AI rules throughout. UI-01A is the only phase authorized by the current assignment; the later phases need their own requirements and approval.
+This is a separate UI milestone. Preserve the existing engine, models, economy, combat, diplomacy and AI rules throughout. UI-01A.2 is the currently assigned compact-layout follow-up to UI-01A; later phases need their own requirements and approval.
 
 ### UI-01A — Compact map-first navigation
 
-- [x] Implemented and locally verified on `task/ui-01a-map-first` in PR #13: compact top bar, primary map, five section views, mobile bottom navigation, responsive desktop layout, preserved gameplay controls/drafts, touch/keyboard checks, 57 passing existing tests and production build. See `STATUS.md` for validation and limitations. Awaiting owner review; do not merge without approval.
+- [x] Implemented and locally verified on `task/ui-01a-map-first` in PR #13: compact top bar, primary map, five section views, mobile bottom navigation, responsive desktop layout, preserved gameplay controls/drafts, touch/keyboard checks, 57 passing existing tests and production build. Merged into `main` in PR #13. See `STATUS.md` for validation and limitations.
 
 **Scope:** Replace the stacked prototype dashboard with a compact country/week/treasury top bar, a primary interactive map and five navigation sections in this exact order: **World, Politics, Economy, Diplomacy, Military**. World contains the existing map; Politics is a placeholder for future domestic stability and regime management, without political mechanics. Use bottom navigation on phone-sized screens and a responsive desktop layout. Keep Next week available in every section, preserve the existing controls, country selection and title screen, and retain drafts and map selection across section navigation. Maintain touch and keyboard access and iPhone safe-area spacing without adding dependencies.
 
-**Visual reference:** The owner-selected `Heartland-interface.html` mockup. If the HTML is unavailable, use the owner's exact navy palette: background `#0E1620`, surface `#16222F`, secondary surface `#1D2D3E`, borders `#2A3B4E`, primary text `#EAE6DA`, muted text `#A9B8C7`, accent `#E3B15C`. Preserve comfortable spacing, rounded cards, restrained colors and clear typography within the existing responsive structure.
+**Visual reference:** The owner-selected `design/Heartland-interface.html`, now committed to the repository. Read the actual HTML before further interface work. Its navy palette is background `#0E1620`, surface `#16222F`, secondary surface `#1D2D3E`, borders `#2A3B4E`, primary text `#EAE6DA`, muted text `#A9B8C7`, accent `#E3B15C`.
 
 **Acceptance:** Only the selected section is displayed; the existing gameplay workflows work at mobile and desktop sizes, with no horizontal overflow or inaccessible controls. Run `npm test` and `npm run build`; record browser checks and device limitations in `STATUS.md`. Do not implement UI-01B, UI-01C or T09, change approved gameplay rules or merge without owner approval.
+
+### UI-01A.2 — Compact interface based on the approved Claude mockup
+
+- [x] Implemented and locally verified on `task/ui-01a-2-compact`: actual mockup inspected, viewport-fitted header/map/overviews/icon tabs, internally scrolling secondary panels, preserved gameplay and drafts, 57 passing existing tests, production build and all requested Chromium sizes. See `STATUS.md` for evidence and compact-screen limits. Awaiting owner review; do not merge without approval.
+
+**Scope:** Adapt the actual `design/Heartland-interface.html` layout and density to the existing React game. Keep header and five icon tabs fixed within the dynamic viewport, with a central map/compact region sheet and concise economy, diplomacy and military overviews. Open tax settings, orders, offers, declarations, results and explanations in secondary panels with internal scrolling. Retain country/title navigation, drafts across sections, keyboard/touch access, safe areas and the permanently accessible Next week action. Use real T01–T08 state only; Politics remains a placeholder. No simulation, dependency, UI-01B/UI-01C or T09 work.
+
+**Acceptance:** At normal text size, initial World, Economy, Diplomacy and Military show essential information without page scrolling at 320×568, 390×844, 844×390, 1024×768 and 1440×900 whenever practical. Verify internal scrolling/focus, resizing, policies, attacks/capture, offers, draft retention and weekly progression. Run `npm test` and `npm run build`; record limitations in `STATUS.md`. Dedicated branch `task/ui-01a-2-compact` and PR targeting `main`; do not merge without owner approval.
 
 ### UI-01B — Interface redesign, second phase
 
@@ -178,4 +186,4 @@ Each item above is a **feature family** to be broken into small PRs before imple
 
 ## Next task (requires a separate assignment)
 
-T08 is merged into `main` (PR #12). UI-01A is implemented and locally verified on `task/ui-01a-map-first` for owner review; validation is recorded in `STATUS.md`. UI-01B, UI-01C and T09 remain deferred and require separate assignments. Do not merge without owner approval.
+UI-01A is merged into `main` (PR #13). UI-01A.2 is implemented and locally verified on `task/ui-01a-2-compact` for owner review; validation is recorded in `STATUS.md`. UI-01B, UI-01C and T09 remain deferred and require separate assignments. Do not merge without owner approval.

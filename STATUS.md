@@ -1,7 +1,7 @@
 # Heartland — Implementation Status
 
 **Snapshot date:** 2026-11-10
-**Source:** Repository inspection at merged T08 (`main`, PR #12), prior T01–T08 verification, and local UI-01A tests/build/Chromium checks on 2026-11-10.
+**Source:** Repository inspection at `cd13d82` on `main` (UI-01A merged in PR #13 and approved mockup uploaded), historical T01–T08/UI-01A verification, and local UI-01A.2 tests/build/Chromium checks on 2026-11-10.
 
 ## Verified existing scaffold
 
@@ -20,6 +20,7 @@
 - [x] Minimal land-division movement, defence, combat and territorial capture (T07).
 - [x] Basic public/private diplomacy, bilateral relationships and autonomous rule-based diplomatic AI (T08).
 - [x] Compact map-first navy interface with World, Politics, Economy, Diplomacy and Military navigation; Politics is a placeholder (UI-01A).
+- [x] Viewport-fitted compact overviews and on-demand detail panels based on the actual approved HTML mockup (UI-01A.2).
 - [ ] Interface redesign phases UI-01B and UI-01C (separate requirements/assignments pending).
 - [ ] Full economy/military systems, comprehensive diplomacy and advanced AI.
 - [ ] Actual playable match and final score.
@@ -47,9 +48,9 @@
 
 ## Immediate next step
 
-T08 is merged into `main` (PR #12). UI-01A is implemented on `task/ui-01a-map-first` for owner review through a pull request targeting `main`. Do not merge without owner approval. Physical iPhone/Safari playtesting remains pending. UI-01B, UI-01C and T09 require separate assignments and are not implemented.
+UI-01A is merged into `main` in PR #13. UI-01A.2 is implemented on `task/ui-01a-2-compact` for owner review through a dedicated PR targeting `main`. Do not merge without owner approval. Physical iPhone/Safari playtesting remains pending. UI-01B, UI-01C and T09 require separate assignments and are not implemented.
 
-The T01–T08 sections below retain their historical verification scope; the UI-01A section records the current interface changes.
+The T01–T08 and UI-01A sections below retain their historical verification scope; UI-01A.2 records the current interface changes.
 
 ## Verification
 
@@ -249,7 +250,7 @@ All choices below are **temporary, reversible T08 demonstration rules**, not fin
 - [x] Exactly one section is visible and keyboard-accessible at a time. Hidden sections remain mounted, preserving selected regions, unfinished forms and staged commands while navigating or resizing. A shared draft summary makes pending changes visible from every section; Next week continues to submit the existing military, diplomatic and policy commands together.
 - [x] Existing economy, military and diplomacy controls/results remain functional. The country selector and title screen are preserved. Active game state survives title navigation; leaving the prototype discards drafts and map selection, and reload resets the scenario, as before. Country-control labels, owned regions, provisional-rule explanations and placeholder-order counts are available under World's **Scenario information** disclosure.
 - [x] Native buttons/selectors, at least 44px control targets, visible focus, focused section headings, labeled navigation with a current-section indicator and iPhone safe-area padding. Hidden controls are excluded from keyboard traversal. A rejected turn focuses the shared error and retains drafts for correction from any section.
-- [x] Presentation changes only: `PrototypePage.tsx`, `styles.css`, `index.html` theme color, and heading/focus adjustments in `RegionMap.tsx`, `MilitaryPanel.tsx` and `DiplomacyPanel.tsx`. Updated `TASKS.md` with a separate UI-01A/UI-01B/UI-01C milestone before T09. No engine, model, economy/combat/diplomacy/AI rule, dependency, approved `GAME_DESIGN.md`, title-screen component or deployment configuration changes. UI-01B, UI-01C and T09 remain unimplemented. Updates remain on the existing PR #13, targeting `main`, unmerged.
+- [x] Presentation changes only: `PrototypePage.tsx`, `styles.css`, `index.html` theme color, and heading/focus adjustments in `RegionMap.tsx`, `MilitaryPanel.tsx` and `DiplomacyPanel.tsx`. Updated `TASKS.md` with a separate UI-01A/UI-01B/UI-01C milestone before T09. No engine, model, economy/combat/diplomacy/AI rule, dependency, approved `GAME_DESIGN.md`, title-screen component or deployment configuration changes. UI-01A was subsequently merged in PR #13; UI-01A.2 supersedes its layout below. UI-01B, UI-01C and T09 remain unimplemented.
 
 ### UI-01A validation and limitations
 
@@ -265,4 +266,22 @@ All choices below are **temporary, reversible T08 demonstration rules**, not fin
 - `npm test`: **57 passed, 0 failures**. `npm run build` and `git diff --check`: passed. Confirmed `src/game`, `GAME_DESIGN.md`, dependency files and deployment configuration are unchanged against `origin/main`.
 - Repeated the existing gameplay browser checks for all three countries at **320×568, 390×844, 844×390, 1024×768 and 1440×900**: map selection, policies, staged military/diplomatic drafts, exact multiweek combat/capture, movement, turn progression and title/reload behavior passed. Additional checks at every size verified the exact computed palette, ordered five-button navigation, World as the initial view, and Politics as a placeholder with no gameplay controls. Advancing from Politics applied the same combined policy/military/diplomatic drafts correctly for each country.
 - Keyboard traversal through all five sections, resizing with an unfinished form, 200% text, minimum 44px targets and absence of horizontal overflow passed. All labels fit on one line at normal text size even at 320px, including the active state. Mobile/desktop private-offer acceptance/rejection and insufficient-funds rollback/recovery also passed. No runtime errors or failed application assets; screenshots were visually inspected.
-- Reference HTML remains unavailable; visual verification follows the exact owner-specified palette and layout principles. Physical iPhone/Safari/VoiceOver and live deployment remain unverified. PR #13 stays open for owner review; no merge performed.
+- At that validation the reference HTML was unavailable, so visual verification followed the owner-specified palette and principles. The HTML has since been uploaded to `design/Heartland-interface.html` and PR #13 merged. Physical iPhone/Safari/VoiceOver and live deployment were unverified; UI-01A.2 below uses the actual reference.
+
+## UI-01A.2 — Compact interface from the approved HTML reference
+
+- Read and visually inspected `design/Heartland-interface.html`. Adapted its dynamic-height app, compact brand/section header, icon tabs, rounded cards, four budget tiles, short rows and map/region sheet to React. The reference HTML and standalone JavaScript are unchanged; no mock data or standalone architecture was copied into gameplay.
+- The active game occupies `100dvh`, with the header and bottom tabs outside the scrolling content. Next week, week, treasury and selected country remain accessible in the compact header. Only an overview/detail panel scrolls when content exceeds its space; the document stays fixed. Safe-area insets are respected. Short landscape and desktop layouts use columns; desktop content is bounded rather than stretched across the whole screen.
+- World keeps the original six-region geometry, adjacency, ownership and touch/keyboard selection. A player's first owned region is selected for immediate real region/owner information. Muted country fills and a gold selection follow the reference's visual treatment; the named legend and accessible owner labels remain. Neighbor names and instructions open on demand. Selection persists through turns and section navigation.
+- Economy shows treasury, income, expenses and weekly balance immediately. `EconomyPanel.tsx` moves the existing tax selector, active policy/effect and rules into a secondary panel. Diplomacy shows public bilateral scores and incoming-offer count/counterparts; composition, public declarations and private offers/replies open separately. Military shows divisions, personnel, locations, active orders and latest-operation summary; all order/discard controls and full combat/movement results remain available in secondary panels. Politics stays a placeholder with no invented data or mechanics.
+- `DetailPanel.tsx` provides a back action, focused heading and keyboard-scrollable body. Panels and forms stay mounted behind `hidden`, retaining drafts and unfinished selections across tabs and detail changes. Navigation remains available while editing. Scenario explanations, country controllers/AI priorities, owned regions, placeholder-order count and Back to title are in the header's Scenario menu. Title navigation/reload retain their existing in-memory/reset behavior.
+- No `src/game` files, models, economic/combat/diplomacy/AI rules, `GAME_DESIGN.md`, dependencies, deployment settings or design reference files changed. UI-01B, UI-01C and T09 remain unimplemented. Dedicated branch: `task/ui-01a-2-compact`; owner approval is required before merging its PR to `main`.
+
+### UI-01A.2 validation and limitations
+
+- `npm test`: **57 existing tests passed, 0 failures**. `npm run build`: passed (TypeScript and production Vite build). `git diff --check`: passed. Compared simulation/design/dependency/deployment paths against `origin/main` to confirm they are unchanged.
+- Production-preview Playwright/Chromium at `/heartland/`: **all three countries passed at 320×568, 390×844, 844×390, 1024×768 and 1440×900**. At normal text size, the complete initial map, selected-region summary, header and bottom tabs fit; Economy, Diplomacy and Military primary cards fit without overview or document scrolling. The initial landscape check prompted side-by-side overview groups and a single row of budget tiles to fit the short viewport.
+- Gameplay checks passed for all six regions/owners and neighbor details, active/pending economic policy, staged/discarded military and diplomatic drafts, cross-tab form/selection retention, combined weekly commands, exact multiweek casualties/capture, changed map ownership, friendly movement, defend staging, title round trips and reload reset. Next week also worked from secondary panels and Politics.
+- Keyboard Enter/Space navigation, native selectors, map activation, focused detail headings/back return, exclusion of hidden controls, focus visibility, internal detail scrolling and 44px-or-larger touch targets passed at all five sizes. Resizing, including a shorter 390×620 viewport, preserved unfinished orders and kept the bars accessible. At 200% text, panels may scroll internally; the document still has no horizontal/vertical overflow and tab labels stay within the viewport.
+- Additional mobile/desktop checks passed for private incoming/outgoing offers, acceptance/rejection and private-feed isolation. Fifty tax-relief weeks exhausted treasury; a rejected week retained military/diplomatic drafts, position, week, treasury and diplomatic records, focused the error, and then resolved both drafts after restoring standard taxation. A destroyed-division check verified zero personnel and disabled new orders. No JavaScript runtime errors or failed app assets. Reference and application screenshots were visually inspected.
+- Unavoidable compact-screen tradeoff: expanded orders, explanations, long diplomatic histories and enlarged text require internal panel scrolling, especially at 320×568 or short landscape heights. Primary views fit at the tested normal text size. Title/country setup retain ordinary page flow; the fixed viewport applies after starting the scenario. Chromium touch emulation does not verify physical iPhone/Safari/VoiceOver, real browser chrome or device safe areas; those remain owner playtest items. Live deployment was not independently checked. No save/load, custom map pan/zoom, PWA or match endpoint was added.

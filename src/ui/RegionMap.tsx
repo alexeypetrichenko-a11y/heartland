@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { DetailPanel } from './DetailPanel';
 import type { GameState, RegionId } from '../game/models';
 
 // Presentation only: shared edges follow the T02 fixture's adjacency.
@@ -13,30 +14,26 @@ const regionShapes: Record<RegionId, { points: string; x: number; y: number }> =
 };
 
 const countryColors: Record<string, string> = {
-  alden: '#8fc8a3',
-  belora: '#e7bd76',
-  cyrin: '#a5b9e5',
+  alden: '#304B60',
+  belora: '#466176',
+  cyrin: '#24384C',
 };
 
 export function RegionMap({ state }: { state: GameState }) {
-  const [selectedId, setSelectedId] = useState<RegionId | null>(null);
+  const [showDetails, setShowDetails] = useState(false);
+  const [selectedId, setSelectedId] = useState<RegionId>(() => (state.regions.find(region => region.ownerId === state.playerCountryId) ?? state.regions[0]).id);
   const selected = state.regions.find(region => region.id === selectedId);
   const owner = state.countries.find(country => country.id === selected?.ownerId);
 
   return (
     <section className="region-map" aria-labelledby="map-title">
-      <h2 id="map-title" tabIndex={-1}>Fictional test map</h2>
-      <p id="map-help">Tap or click a region to inspect it. Keyboard: Tab to a region, then Enter or Space to select.</p>
-      <ul className="map-legend" aria-label="Country colors">
-        {state.countries.map(country => (
-          <li key={country.id}>
-            <span className="country-swatch" style={{ backgroundColor: countryColors[country.id] }} aria-hidden="true" />
-            {country.name}
-          </li>
-        ))}
-      </ul>
-      <div className="map-layout">
+      <h2 id="map-title" className="sr-only">Fictional test map</h2>
+      <p id="map-help" className="sr-only">Select a region by touch or click. Keyboard: Tab to a region, then Enter or Space. Fictional test world.</p>
+      <div className="world-layout" hidden={showDetails}>
+        <div className="map-wrap">
         <svg className="map-svg" viewBox="0 0 360 332" role="group" aria-labelledby="map-title" aria-describedby="map-help">
+          <defs><pattern id="map-grid" width="60" height="48" patternUnits="userSpaceOnUse"><path d="M60 0H0V48" fill="none" stroke="#16222F" /></pattern></defs>
+          <rect width="360" height="332" fill="url(#map-grid)" />
           {state.regions.map(region => {
             const shape = regionShapes[region.id];
             const country = state.countries.find(candidate => candidate.id === region.ownerId)!;
@@ -57,7 +54,7 @@ export function RegionMap({ state }: { state: GameState }) {
                   }
                 }}
               >
-                <polygon points={shape.points} fill={countryColors[country.id]} />
+                <polygon points={shape.points} fill={region.id === selectedId ? '#C99A4A' : countryColors[country.id]} />
                 <text x={shape.x} y={shape.y} aria-hidden="true">
                   {region.name.split(' ').map((word, index) => (
                     <tspan key={index} x={shape.x} dy={index === 0 ? 0 : 22}>{word}</tspan>
@@ -67,20 +64,29 @@ export function RegionMap({ state }: { state: GameState }) {
             );
           })}
         </svg>
-        <section id="region-details" className="region-details" aria-labelledby="region-details-title" aria-live="polite" aria-atomic="true">
-          <h3 id="region-details-title">Region details</h3>
-          {selected ? (
-            <dl>
-              <div><dt>Region</dt><dd>{selected.name}</dd></div>
-              <div><dt>Country</dt><dd>{owner?.name}</dd></div>
-              <div>
-                <dt>Neighboring regions</dt>
-                <dd>{selected.adjacentRegionIds.map(id => state.regions.find(region => region.id === id)!.name).join(', ')}</dd>
-              </div>
-            </dl>
-          ) : <p>Select a region to see its details.</p>}
+        </div>
+        <section id="region-details" className="region-sheet" aria-labelledby="region-details-title">
+          <div className="region-summary" aria-live="polite" aria-atomic="true">
+            <span className="eyebrow">Selected region</span>
+            <h3 id="region-details-title">{selected?.name}</h3>
+            <p>Controlled by {owner?.name}</p>
+          </div>
+          <ul className="map-legend" aria-label="Country colors">
+            {state.countries.map(country => <li key={country.id}><span className="country-swatch" style={{ backgroundColor: countryColors[country.id] }} aria-hidden="true" />{country.name}</li>)}
+          </ul>
+          <button type="button" className="row region-more" onClick={() => setShowDetails(true)} aria-controls="region-more-details" aria-expanded={showDetails}>
+            <span className="row-text"><b>Region details</b><span>Neighbors and map help</span></span><span className="chevron" aria-hidden="true">›</span>
+          </button>
         </section>
       </div>
+      <DetailPanel id="region-more-details" title="Region details" open={showDetails} onClose={() => setShowDetails(false)}>
+        <dl className="data-list">
+          <div><dt>Region</dt><dd>{selected?.name}</dd></div>
+          <div><dt>Country</dt><dd>{owner?.name}</dd></div>
+          <div><dt>Neighboring regions</dt><dd>{selected?.adjacentRegionIds.map(id => state.regions.find(region => region.id === id)!.name).join(', ')}</dd></div>
+        </dl>
+        <p>Tap or click a region to inspect it. Keyboard: Tab to a region, then Enter or Space to select. This is an illustrative fictional test map.</p>
+      </DetailPanel>
     </section>
   );
 }
