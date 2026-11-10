@@ -24,7 +24,7 @@ export function MilitaryPanel({ state, pendingOrders, onStageOrder, onDiscardOrd
 
   return (
     <section aria-labelledby="military-title">
-      <h3 id="military-title">Military</h3>
+      <h2 id="military-title" tabIndex={-1}>Military</h2>
       <p>Divisions: {divisions.length}. Combat and headcounts are provisional. Units at zero personnel are unavailable.</p>
       <ul aria-label="Your divisions">{divisions.map(division => (
         <li key={division.id}>
@@ -74,7 +74,7 @@ export function MilitaryPanel({ state, pendingOrders, onStageOrder, onDiscardOrd
         <button type="button" onClick={onDiscardOrders}>Discard staged military orders</button>
       </div>}
       <div aria-live="polite" aria-atomic="true" id="military-results">
-        <h4>Latest military results{state.week > 1 ? ` (week ${state.week - 1})` : ''}</h4>
+        <h3>Latest military results{state.week > 1 ? ` (week ${state.week - 1})` : ''}</h3>
         {state.militaryResults.length === 0 ? <p>{state.week === 1 ? 'No weeks resolved yet.' : 'No movement or combat this week.'}</p> : <ul>
           {state.militaryResults.map(result => <li key={result.divisionId}>
             {result.kind === 'moved' ? `${divisionName(result.divisionId)} moved from ${regionName(result.fromRegionId)} to ${regionName(result.targetRegionId)}.`

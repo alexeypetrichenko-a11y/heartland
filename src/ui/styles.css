@@ -1,7 +1,15 @@
 :root {
+  --color-background: #0E1620;
+  --color-surface: #16222F;
+  --color-surface-secondary: #1D2D3E;
+  --color-border: #2A3B4E;
+  --color-text: #EAE6DA;
+  --color-muted: #A9B8C7;
+  --color-accent: #E3B15C;
+  color-scheme: dark;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: #f3efdf;
-  background: #12251e;
+  color: var(--color-text);
+  background: var(--color-background);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -11,12 +19,20 @@
   box-sizing: border-box;
 }
 
+[hidden] {
+  display: none !important;
+}
+
+html {
+  scroll-padding-top: calc(9rem + env(safe-area-inset-top));
+  scroll-padding-bottom: calc(5rem + env(safe-area-inset-bottom));
+}
+
 body {
   margin: 0;
 }
 
-.home,
-.prototype {
+.home {
   min-height: 100vh;
   min-height: 100svh;
   display: grid;
@@ -40,7 +56,7 @@ h1 {
 
 p {
   margin: 1rem 0 0;
-  color: #c8d0c5;
+  color: var(--color-muted);
   font-size: clamp(1rem, 3.5vw, 1.25rem);
   line-height: 1.5;
 }
@@ -50,16 +66,16 @@ button {
   max-width: 100%;
   margin-top: 1.5rem;
   padding: 0.75rem 1rem;
-  border: 1px solid #c8d0c5;
+  border: 1px solid var(--color-border);
   border-radius: 0.5rem;
   font: inherit;
-  color: #12251e;
-  background: #f3efdf;
+  color: var(--color-text);
+  background: var(--color-surface-secondary);
   cursor: pointer;
 }
 
 button:focus-visible {
-  outline: 3px solid #f5cc75;
+  outline: 3px solid var(--color-accent);
   outline-offset: 4px;
 }
 
@@ -79,15 +95,19 @@ button:disabled {
   min-width: 0;
   min-height: 44px;
   padding: 0.75rem;
+  border: 1px solid var(--color-border);
   border-radius: 0.5rem;
   font: inherit;
-  color: #12251e;
-  background: #f3efdf;
+  color: var(--color-text);
+  background: var(--color-surface-secondary);
 }
 
 .hud select:focus-visible,
-#dashboard-title:focus {
-  outline: 3px solid #f5cc75;
+.prototype h1:focus,
+.prototype h2:focus,
+.turn-error:focus,
+summary:focus-visible {
+  outline: 3px solid var(--color-accent);
   outline-offset: 4px;
 }
 
@@ -102,12 +122,20 @@ button:disabled {
 }
 
 .prototype {
+  min-height: 100vh;
+  min-height: 100svh;
   text-align: left;
 }
 
 .prototype-content {
   width: 100%;
   max-width: 56rem;
+  margin-inline: auto;
+  padding: 1.25rem;
+  padding-top: max(1.25rem, env(safe-area-inset-top));
+  padding-right: max(1.25rem, env(safe-area-inset-right));
+  padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+  padding-left: max(1.25rem, env(safe-area-inset-left));
 }
 
 .prototype h1 {
@@ -117,8 +145,9 @@ button:disabled {
 .hud {
   margin-top: 1.5rem;
   padding: 1rem;
-  border: 1px solid #c8d0c5;
-  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background: var(--color-surface);
 }
 
 .hud h2 {
@@ -139,7 +168,7 @@ button:disabled {
 
 .hud dd {
   margin: 0.5rem 0 0;
-  color: #c8d0c5;
+  color: var(--color-muted);
   line-height: 1.5;
 }
 
@@ -184,8 +213,8 @@ button:disabled {
   width: 100%;
   max-width: 28rem;
   margin-inline: auto;
-  background: #1b352c;
-  border-radius: 0.5rem;
+  background: var(--color-surface);
+  border-radius: 0.75rem;
 }
 
 .map-region {
@@ -195,13 +224,13 @@ button:disabled {
 }
 
 .map-region polygon {
-  stroke: #12251e;
+  stroke: var(--color-background);
   stroke-width: 3;
   stroke-linejoin: round;
 }
 
 .map-region text {
-  fill: #12251e;
+  fill: var(--color-background);
   font-size: 18px;
   font-weight: 600;
   text-anchor: middle;
@@ -210,7 +239,7 @@ button:disabled {
 }
 
 .map-region[aria-pressed='true'] polygon {
-  stroke: #12251e;
+  stroke: var(--color-background);
   stroke-width: 8;
   stroke-dasharray: 10 4;
 }
@@ -220,14 +249,15 @@ button:disabled {
 }
 
 .map-region:focus-visible polygon {
-  stroke: #ffffff;
+  stroke: var(--color-text);
   stroke-width: 6;
 }
 
 .region-details {
   padding: 1rem;
-  border: 1px solid #c8d0c5;
-  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background: var(--color-surface);
 }
 
 .region-details dl {
@@ -240,7 +270,7 @@ button:disabled {
 
 .region-details dd {
   margin: 0.25rem 0 1rem;
-  color: #c8d0c5;
+  color: var(--color-muted);
   line-height: 1.5;
 }
 
@@ -251,5 +281,277 @@ button:disabled {
 @media (min-width: 42rem) {
   .map-layout {
     grid-template-columns: 1.2fr 1fr;
+  }
+}
+
+.game-shell {
+  width: 100%;
+  max-width: 96rem;
+  margin-inline: auto;
+  padding-bottom: calc(5rem + env(safe-area-inset-bottom));
+}
+
+.game-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  padding: 0.75rem;
+  padding-top: max(0.75rem, env(safe-area-inset-top));
+  padding-right: max(0.75rem, env(safe-area-inset-right));
+  padding-left: max(0.75rem, env(safe-area-inset-left));
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.game-title p {
+  margin: 0 0 0.2rem;
+  font-size: 0.75rem;
+  line-height: 1.3;
+}
+
+.game-title h1 {
+  width: fit-content;
+  max-width: 100%;
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+}
+
+.game-topbar button {
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+}
+
+.title-button {
+  justify-self: end;
+  color: var(--color-muted);
+  background: transparent;
+  border-color: var(--color-border);
+}
+
+.next-week {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-background);
+  font-weight: 600;
+}
+
+.game-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.game-meta dt {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+}
+
+.game-meta dd {
+  margin: 0.1rem 0 0;
+  font-weight: 600;
+}
+
+.game-nav {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr) minmax(0, 1.1fr) minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 0.125rem;
+  padding: 0.4rem 0.25rem;
+  padding-right: max(0.25rem, env(safe-area-inset-right));
+  padding-bottom: max(0.4rem, env(safe-area-inset-bottom));
+  padding-left: max(0.25rem, env(safe-area-inset-left));
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.game-nav button {
+  min-width: 0;
+  min-height: 48px;
+  margin: 0;
+  padding: 0.5rem 0;
+  border: 1px solid transparent;
+  color: var(--color-muted);
+  background: transparent;
+  font-size: 0.75rem;
+  overflow-wrap: anywhere;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.game-nav button[aria-current='page'] {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: var(--color-surface-secondary);
+  font-weight: 600;
+}
+
+.game-nav button:focus-visible {
+  outline-offset: 0;
+}
+
+.game-main {
+  min-width: 0;
+  padding: 0.75rem;
+  padding-right: max(0.75rem, env(safe-area-inset-right));
+  padding-left: max(0.75rem, env(safe-area-inset-left));
+}
+
+.game-shell p {
+  font-size: 1rem;
+}
+
+.game-shell .game-title p,
+.game-shell .turn-status {
+  font-size: 0.75rem;
+}
+
+.turn-status {
+  margin: 0 0 0.75rem;
+}
+
+.turn-error {
+  margin: 0 0 1rem;
+  padding: 1rem;
+  border: 1px solid var(--color-accent);
+  border-radius: 0.5rem;
+  background: var(--color-surface-secondary);
+  color: var(--color-text);
+}
+
+.section-view {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.section-view h2 {
+  width: fit-content;
+  max-width: 100%;
+}
+
+.game-shell .hud {
+  margin: 0;
+}
+
+.game-shell .hud dl {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 0;
+}
+
+.game-shell .hud form {
+  align-content: start;
+}
+
+.game-shell .hud form p {
+  margin-top: 0;
+}
+
+.game-shell .region-map {
+  margin-top: 0;
+}
+
+.game-shell .map-layout {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.game-shell .map-svg {
+  max-width: 42rem;
+  max-height: max(18rem, calc(100svh - 18rem));
+}
+
+.game-shell #map-help {
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+.scenario-info {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background: var(--color-surface);
+}
+
+summary {
+  min-height: 44px;
+  padding-block: 0.65rem;
+  cursor: pointer;
+}
+
+@media (min-width: 60rem) {
+  html {
+    scroll-padding-bottom: 1rem;
+  }
+
+  .game-shell {
+    display: grid;
+    grid-template-columns: 11rem minmax(0, 1fr);
+    align-items: start;
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+
+  .game-topbar {
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 1fr) auto auto auto;
+    gap: 1.5rem;
+    padding-inline: max(1.25rem, env(safe-area-inset-left)) max(1.25rem, env(safe-area-inset-right));
+  }
+
+  .game-meta {
+    grid-column: 2;
+    grid-row: 1;
+    gap: 2rem;
+  }
+
+  .next-week {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .title-button {
+    grid-column: 4;
+    grid-row: 1;
+  }
+
+  .game-nav {
+    position: sticky;
+    top: calc(8rem + env(safe-area-inset-top));
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.5rem;
+    margin: 1rem 0.75rem;
+    padding: 0;
+    border: 0;
+  }
+
+  .game-nav button {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-size: 1rem;
+  }
+
+  .game-main {
+    padding: 1rem 1.25rem;
+    padding-right: max(1.25rem, env(safe-area-inset-right));
+  }
+}
+
+@media (min-width: 64rem) {
+  .game-shell .map-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.45fr);
+  }
+
+  .economy-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
   }
 }

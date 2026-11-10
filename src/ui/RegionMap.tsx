@@ -25,7 +25,7 @@ export function RegionMap({ state }: { state: GameState }) {
 
   return (
     <section className="region-map" aria-labelledby="map-title">
-      <h2 id="map-title">Fictional test map</h2>
+      <h2 id="map-title" tabIndex={-1}>Fictional test map</h2>
       <p id="map-help">Tap or click a region to inspect it. Keyboard: Tab to a region, then Enter or Space to select.</p>
       <ul className="map-legend" aria-label="Country colors">
         {state.countries.map(country => (
