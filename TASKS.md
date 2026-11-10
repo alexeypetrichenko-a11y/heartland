@@ -100,7 +100,7 @@
 
 ## Interface redesign milestone — Mobile-first interface (before T09)
 
-This is a separate UI milestone. Preserve the existing engine, models, economy, combat, diplomacy and AI rules throughout. UI-01A.2 is the currently assigned compact-layout follow-up to UI-01A; later phases need their own requirements and approval.
+This is a separate UI milestone. Preserve the existing engine, models, economy, combat, diplomacy and AI rules throughout. UI-01A and UI-01A.2 are merged. The current assignment is UI-01B.1 only; UI-01B.2, UI-01B.3 and later phases need separate requirements and approval.
 
 ### UI-01A — Compact map-first navigation
 
@@ -114,15 +114,31 @@ This is a separate UI milestone. Preserve the existing engine, models, economy, 
 
 ### UI-01A.2 — Compact interface based on the approved Claude mockup
 
-- [x] Implemented and locally verified on `task/ui-01a-2-compact`: actual mockup inspected, viewport-fitted header/map/overviews/icon tabs, internally scrolling secondary panels, preserved gameplay and drafts, 57 passing existing tests, production build and all requested Chromium sizes. See `STATUS.md` for evidence and compact-screen limits. Awaiting owner review; do not merge without approval.
+- [x] Implemented and locally verified on `task/ui-01a-2-compact`: actual mockup inspected, viewport-fitted header/map/overviews/icon tabs, internally scrolling secondary panels, preserved gameplay and drafts, 57 passing existing tests, production build and all requested Chromium sizes. Merged into `main` in PR #14. See `STATUS.md` for evidence and compact-screen limits.
 
 **Scope:** Adapt the actual `design/Heartland-interface.html` layout and density to the existing React game. Keep header and five icon tabs fixed within the dynamic viewport, with a central map/compact region sheet and concise economy, diplomacy and military overviews. Open tax settings, orders, offers, declarations, results and explanations in secondary panels with internal scrolling. Retain country/title navigation, drafts across sections, keyboard/touch access, safe areas and the permanently accessible Next week action. Use real T01–T08 state only; Politics remains a placeholder. No simulation, dependency, UI-01B/UI-01C or T09 work.
 
 **Acceptance:** At normal text size, initial World, Economy, Diplomacy and Military show essential information without page scrolling at 320×568, 390×844, 844×390, 1024×768 and 1440×900 whenever practical. Verify internal scrolling/focus, resizing, policies, attacks/capture, offers, draft retention and weekly progression. Run `npm test` and `npm run build`; record limitations in `STATUS.md`. Dedicated branch `task/ui-01a-2-compact` and PR targeting `main`; do not merge without owner approval.
 
-### UI-01B — Interface redesign, second phase
+### UI-01B — Map interaction, delivered in separate phases
 
-- [ ] Deferred. Detailed scope and acceptance criteria require a separate owner assignment. No implementation is included in UI-01A.
+#### UI-01B.1 — Interactive map zoom and pan
+
+- [x] Implemented and locally verified on `task/ui-01b1-map-zoom-pan`: pinch zoom, one-finger/mouse pan, mouse wheel zoom, in-frame +/−/reset controls, keyboard navigation, bounded 100–400% zoom, preserved selection and compact World layout. `npm test`: 63 passed (57 existing and 6 camera tests); production build passed. Browser evidence and device limitations are in `STATUS.md`. PR targets `main`; do not merge without owner approval.
+
+**Scope:** Improve the existing six-region fictional map without changing geography, country ownership colors, the approved compact interface or gameplay. Zoom follows the pointer or moving pinch midpoint; panning stops at the world edges and centers axes that fit. Use a small drag threshold and suppress gesture-generated clicks. Keep the selected-region summary, header and bottom navigation accessible without document scrolling. Provide touch, mouse and keyboard access without new dependencies.
+
+**Architecture:** A presentation-only camera transforms fixed SVG world coordinates together. Future cities, divisions, fortifications, roads, railways, ports and airports can use the same coordinates and camera. No overlay system or new geographical game-state fields are implemented here.
+
+**Acceptance:** Run `npm test` and `npm run build`. Verify portrait, landscape, desktop and keyboard interaction, pointer/pinch anchoring, one-to-two-finger transitions, pan/zoom limits, reset, tap/click selection and no accidental selection during gestures. Check economy, military, diplomacy and weekly progression. Preserve `src/game`, approved rules, dependencies and deployment configuration. Physical iPhone/Safari verification remains an owner playtest item.
+
+#### UI-01B.2 — Map overlays (deferred)
+
+- [ ] Not implemented or authorized by UI-01B.1. Future overlays may show cities, divisions, fortifications, roads, railways, ports and airports in shared geographical coordinates. Layer controls, data, visibility and detailed acceptance criteria require a separate owner assignment. No map layers or overlay markers are added now.
+
+#### UI-01B.3 — Unit interaction and geographical positioning (deferred)
+
+- [ ] Not implemented or authorized by UI-01B.1. Future military units must have meaningful positions inside regions; proximity to borders will eventually affect movement and engagement time. Unit positioning, draggable units, movement/engagement timing and all related military rules require a separate assignment and approved mechanics. The current region-based military model and calculations remain unchanged.
 
 ### UI-01C — Interface redesign, third phase
 
@@ -186,4 +202,4 @@ Each item above is a **feature family** to be broken into small PRs before imple
 
 ## Next task (requires a separate assignment)
 
-UI-01A is merged into `main` (PR #13). UI-01A.2 is implemented and locally verified on `task/ui-01a-2-compact` for owner review; validation is recorded in `STATUS.md`. UI-01B, UI-01C and T09 remain deferred and require separate assignments. Do not merge without owner approval.
+UI-01A and UI-01A.2 are merged into `main` (PRs #13 and #14). UI-01B.1 is implemented and locally verified on `task/ui-01b1-map-zoom-pan` for owner review through a dedicated PR to `main`; validation is recorded in `STATUS.md`. UI-01B.2, UI-01B.3, UI-01C and T09 remain deferred and require separate assignments. Do not merge without owner approval.
