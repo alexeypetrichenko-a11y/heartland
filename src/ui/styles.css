@@ -448,6 +448,120 @@ li {
   flex-direction: column;
   overflow: hidden;
 }
+.world-map {
+  flex: none;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.map-layer-toolbar {
+  flex: none;
+  min-width: 0;
+  margin-top: 6px;
+}
+.map-layer-scroll {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  touch-action: pan-x;
+  scrollbar-width: thin;
+  padding: 2px 16px 4px;
+}
+.map-layer-scroll:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}
+.map-layer-button {
+  flex: none;
+  min-width: 88px;
+  min-height: 44px;
+  padding: 4px 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+  background: var(--color-surface);
+  border-radius: 10px;
+}
+.map-layer-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+.map-layer-unavailable {
+  font-size: 0.5625rem;
+  color: var(--color-muted);
+}
+.map-layer-button[aria-pressed='true'] {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: var(--color-surface-secondary);
+}
+.map-layer-note {
+  padding: 2px 16px 0;
+  font-size: 0.6875rem;
+  line-height: 1.4;
+}
+.own-unit-key {
+  color: var(--color-accent);
+}
+.division-marker {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.division-hit-area {
+  pointer-events: all;
+}
+.division-symbol, .division-cross, .division-focus {
+  pointer-events: none;
+}
+.division-symbol {
+  fill: var(--color-surface);
+  stroke: var(--color-muted);
+  stroke-width: 2;
+  stroke-dasharray: 3 2;
+}
+.division-marker[data-visibility='own'] .division-symbol {
+  fill: var(--color-accent);
+  stroke: var(--color-background);
+  stroke-dasharray: none;
+}
+.division-cross {
+  fill: none;
+  stroke: var(--color-text);
+  stroke-width: 1.5;
+}
+.division-marker[data-visibility='own'] .division-cross {
+  stroke: var(--color-background);
+}
+.division-focus {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 2;
+  filter: drop-shadow(0 0 1px var(--color-background));
+  opacity: 0;
+}
+.division-marker:focus-visible {
+  outline: none;
+}
+.division-marker:focus-visible .division-focus, .division-marker[aria-pressed='true'] .division-focus {
+  opacity: 1;
+}
+.division-summary {
+  flex: none;
+  padding: 4px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  font-size: 0.8125rem;
+}
+.division-summary p {
+  font-size: 0.75rem;
+}
 .map-wrap {
   display: flex;
   flex: none;
@@ -696,10 +810,21 @@ li {
     gap: 18px;
     padding: 4px 20px 18px;
   }
-  .map-wrap {
+  .world-map {
+    min-height: 0;
     height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .map-wrap {
+    flex: 1;
+    min-height: 144px;
+    height: auto;
     max-height: 34rem;
     margin: 0;
+  }
+  .map-layer-scroll, .map-layer-note {
+    padding-inline: 0;
   }
   .region-sheet {
     height: auto;

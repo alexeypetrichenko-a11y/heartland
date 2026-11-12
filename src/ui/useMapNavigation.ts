@@ -182,6 +182,8 @@ export function useMapNavigation() {
       onPointerCancel: pointerCancelled, onLostPointerCapture: pointerCancelled,
       onKeyDown: keyDown,
       onClickCapture: (event: ReactMouseEvent<SVGSVGElement>) => {
+        // Interactive overlays own their tap/drag checks and do not enter map gestures.
+        if ((event.target as Element).closest('[data-map-interactive]')) return;
         // Keyboard/assistive clicks have detail 0; drag/pinch compatibility clicks do not.
         if (gestureUsed.current && event.detail !== 0) {
           event.preventDefault();

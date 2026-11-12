@@ -100,7 +100,7 @@
 
 ## Interface redesign milestone — Mobile-first interface (before T09)
 
-This is a separate UI milestone. Preserve the existing engine, models, economy, combat, diplomacy and AI rules throughout. UI-01A and UI-01A.2 are merged. The current assignment is UI-01B.1 only; UI-01B.2, UI-01B.3 and later phases need separate requirements and approval.
+This is a separate UI milestone. Preserve the existing engine, models, economy, combat, diplomacy and AI rules throughout. UI-01A, UI-01A.2 and UI-01B.1 are merged. The current assignment is UI-01B.2 only; UI-01B.3 and later phases need separate requirements and approval.
 
 ### UI-01A — Compact map-first navigation
 
@@ -124,7 +124,7 @@ This is a separate UI milestone. Preserve the existing engine, models, economy, 
 
 #### UI-01B.1 — Interactive map zoom and pan
 
-- [x] Implemented and locally verified on `task/ui-01b1-map-zoom-pan`: pinch zoom, one-finger/mouse pan, mouse wheel zoom, in-frame +/−/reset controls, keyboard navigation, bounded 100–400% zoom, preserved selection and compact World layout. `npm test`: 63 passed (57 existing and 6 camera tests); production build passed. Browser evidence and device limitations are in `STATUS.md`. PR targets `main`; do not merge without owner approval.
+- [x] Implemented and locally verified on `task/ui-01b1-map-zoom-pan`: pinch zoom, one-finger/mouse pan, mouse wheel zoom, in-frame +/−/reset controls, keyboard navigation, bounded 100–400% zoom, preserved selection and compact World layout. `npm test`: 63 passed (57 existing and 6 camera tests); production build passed. Merged into `main` in PR #15. Browser evidence and device limitations are in `STATUS.md`.
 
 **Scope:** Improve the existing six-region fictional map without changing geography, country ownership colors, the approved compact interface or gameplay. Zoom follows the pointer or moving pinch midpoint; panning stops at the world edges and centers axes that fit. Use a small drag threshold and suppress gesture-generated clicks. Keep the selected-region summary, header and bottom navigation accessible without document scrolling. Provide touch, mouse and keyboard access without new dependencies.
 
@@ -132,9 +132,19 @@ This is a separate UI milestone. Preserve the existing engine, models, economy, 
 
 **Acceptance:** Run `npm test` and `npm run build`. Verify portrait, landscape, desktop and keyboard interaction, pointer/pinch anchoring, one-to-two-finger transitions, pan/zoom limits, reset, tap/click selection and no accidental selection during gestures. Check economy, military, diplomacy and weekly progression. Preserve `src/game`, approved rules, dependencies and deployment configuration. Physical iPhone/Safari verification remains an owner playtest item.
 
-#### UI-01B.2 — Map overlays (deferred)
+#### UI-01B.2 — Horizontal overlay toolbar and Divisions layer
 
-- [ ] Not implemented or authorized by UI-01B.1. Future overlays may show cities, divisions, fortifications, roads, railways, ports and airports in shared geographical coordinates. Layer controls, data, visibility and detailed acceptance criteria require a separate owner assignment. No map layers or overlay markers are added now.
+- [x] Implemented and locally verified on `task/ui-01b2-map-overlays`: horizontal icon/label toolbar, independent layer flags, real division region markers under the shared camera, isolated marker input and a separate visibility adapter. `npm test`: 71 passed; production build passed. See `STATUS.md` for browser verification and limitations. PR targets `main`; do not merge without owner approval.
+
+**Scope:** Place a compact navy/gold toolbar directly below the World map, before the region sheet on phones. Prepare **Divisions, Cities, Bunkers / fortifications, Roads, Railways, Ports and Airports** with separate on/off flags. All start off. Only Divisions is available after country selection; the other six controls are visibly disabled because they have no corresponding data/rendering. Independent flags support simultaneous future layers, without making unavailable controls appear functional.
+
+**Divisions:** Show existing living divisions at stable illustrative anchors inside their current region polygons. Anchors share zoom/pan; symbols and hit targets retain readable screen sizes. Markers update from existing turn results/state, without modifying the simulation. Gold solid symbols identify the player's units; outlined symbols identify reported opponents. Tap or Enter/Space inspects the unit and its correct region. Marker drags are ignored. The interface labels these as illustrative region markers, not real geographical military positions.
+
+**Prototype visibility choice:** A UI-only selector shows the player's living divisions and surviving opposing defenders explicitly named in the latest existing player combat report, only while still in the reported region. Other units are not disclosed; replaced reports do not create permanent sightings. Show name, owner and region; show personnel only for the player's own units, never opponents' headcounts/orders. This reuses information already exposed by Military results and adds no detection, fog-of-war, geographical positioning or intelligence mechanics. This conservative display choice is documented for owner review.
+
+**Acceptance:** Run `npm test` and `npm run build`. Check layer toggling, disabled controls, marker visibility/redaction, positions after movement/combat/capture, zoom/pan and region selection with Divisions on/off, marker input isolation, keyboard access, at least 44px targets, iPhone toolbar swiping, gameplay workflows and no document overflow. Keep portrait map height and persistent navigation. Use internal scrolling when short screens/enlarged text require it. Preserve `src/game`, approved rules, dependencies and deployment settings. No UI-01B.3, UI-01C or T09 work.
+
+**Deferred within the layer categories:** Cities, fortifications, roads, railways, ports and airports need separately authorized data and renderers before their controls can be enabled. No objects are invented for them.
 
 #### UI-01B.3 — Unit interaction and geographical positioning (deferred)
 
@@ -202,4 +212,4 @@ Each item above is a **feature family** to be broken into small PRs before imple
 
 ## Next task (requires a separate assignment)
 
-UI-01A and UI-01A.2 are merged into `main` (PRs #13 and #14). UI-01B.1 is implemented and locally verified on `task/ui-01b1-map-zoom-pan` for owner review through a dedicated PR to `main`; validation is recorded in `STATUS.md`. UI-01B.2, UI-01B.3, UI-01C and T09 remain deferred and require separate assignments. Do not merge without owner approval.
+UI-01A, UI-01A.2 and UI-01B.1 are merged into `main` (PRs #13–#15). UI-01B.2 is implemented and locally verified on `task/ui-01b2-map-overlays` for owner review through a dedicated PR to `main`; validation is recorded in `STATUS.md`. Data/rendering for the six unavailable layer categories, UI-01B.3, UI-01C and T09 require separate assignments. Do not merge without owner approval.
