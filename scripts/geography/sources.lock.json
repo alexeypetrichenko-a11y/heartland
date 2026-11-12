@@ -1,0 +1,173 @@
+{
+  "repositoryCommit": "f1890d9f152c896d250a77557a5751a93d494776",
+  "files": [
+    {
+      "path": "110m_cultural/ne_110m_admin_0_countries.shp",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/110m_cultural/ne_110m_admin_0_countries.shp",
+      "bytes": 180924,
+      "sha256": "08e341606e8391e458c3f08deb312de664b56bfae376064c5aa0aee6681a5f55"
+    },
+    {
+      "path": "110m_cultural/ne_110m_admin_0_countries.shx",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/110m_cultural/ne_110m_admin_0_countries.shx",
+      "bytes": 1516,
+      "sha256": "8b0be2ad97dd484aee5c2ebc98697d5372e832b8ae58a35a661aeef6b985668d"
+    },
+    {
+      "path": "110m_cultural/ne_110m_admin_0_countries.dbf",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/110m_cultural/ne_110m_admin_0_countries.dbf",
+      "bytes": 531808,
+      "sha256": "1fee677cd4e03b367876e03861eb10197e4022a846bf92060e0313432863785b"
+    },
+    {
+      "path": "110m_cultural/ne_110m_admin_0_countries.prj",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/110m_cultural/ne_110m_admin_0_countries.prj",
+      "bytes": 147,
+      "sha256": "3259f0e55290a82b1350646f604e8a7ee1e2136c0320a40fad838ab40819fff8"
+    },
+    {
+      "path": "110m_cultural/ne_110m_admin_0_countries.cpg",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/110m_cultural/ne_110m_admin_0_countries.cpg",
+      "bytes": 5,
+      "sha256": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824"
+    },
+    {
+      "path": "110m_cultural/ne_110m_admin_0_countries.VERSION.txt",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/110m_cultural/ne_110m_admin_0_countries.VERSION.txt",
+      "bytes": 6,
+      "sha256": "f9893302cd3158f3b5aea394dcd2a91574869e9e6ff69e9235b10a3bf8c983fb"
+    },
+    {
+      "path": "50m_cultural/ne_50m_admin_0_countries.shp",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/50m_cultural/ne_50m_admin_0_countries.shp",
+      "bytes": 1613020,
+      "sha256": "94799b91827fb9f32c0c517d60281572abcf5e4647d19b7f52217071cc4fd30d"
+    },
+    {
+      "path": "50m_cultural/ne_50m_admin_0_countries.shx",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/50m_cultural/ne_50m_admin_0_countries.shx",
+      "bytes": 2036,
+      "sha256": "1813a4b55c3e9db05b7f5f77adbfe7b8f8ad5bce870dab0f4e5ec937f0e5a791"
+    },
+    {
+      "path": "50m_cultural/ne_50m_admin_0_countries.dbf",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/50m_cultural/ne_50m_admin_0_countries.dbf",
+      "bytes": 786828,
+      "sha256": "4ec70fc63842df719ee1f9f7bb0469b528b1eab8099c44aea6c7339a10cacc4b"
+    },
+    {
+      "path": "50m_cultural/ne_50m_admin_0_countries.prj",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/50m_cultural/ne_50m_admin_0_countries.prj",
+      "bytes": 143,
+      "sha256": "98aaf3d1c0ecadf1a424a4536de261c3daf4e373697cb86c40c43b989daf52eb"
+    },
+    {
+      "path": "50m_cultural/ne_50m_admin_0_countries.cpg",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/50m_cultural/ne_50m_admin_0_countries.cpg",
+      "bytes": 5,
+      "sha256": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824"
+    },
+    {
+      "path": "50m_cultural/ne_50m_admin_0_countries.VERSION.txt",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/50m_cultural/ne_50m_admin_0_countries.VERSION.txt",
+      "bytes": 6,
+      "sha256": "f9893302cd3158f3b5aea394dcd2a91574869e9e6ff69e9235b10a3bf8c983fb"
+    },
+    {
+      "path": "10m_cultural/ne_10m_admin_0_countries.shp",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/10m_cultural/ne_10m_admin_0_countries.shp",
+      "bytes": 8806224,
+      "sha256": "7ce119ef6342e43cff7c0c3004e0911ab7ec1988a14734372031d2012180e7bc"
+    },
+    {
+      "path": "10m_cultural/ne_10m_admin_0_countries.shx",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/10m_cultural/ne_10m_admin_0_countries.shx",
+      "bytes": 2164,
+      "sha256": "ca19ec112d054c77bc8f7ac00e3b110d5dff32cc9bcf4cd1b8b66bdd0f611d32"
+    },
+    {
+      "path": "10m_cultural/ne_10m_admin_0_countries.dbf",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/10m_cultural/ne_10m_admin_0_countries.dbf",
+      "bytes": 878482,
+      "sha256": "c5dbd3dd5fd7e2ef49051fc88562c03819e8ea63a382642df6eadd1243bf4b49"
+    },
+    {
+      "path": "10m_cultural/ne_10m_admin_0_countries.prj",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/10m_cultural/ne_10m_admin_0_countries.prj",
+      "bytes": 145,
+      "sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4"
+    },
+    {
+      "path": "10m_cultural/ne_10m_admin_0_countries.cpg",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/10m_cultural/ne_10m_admin_0_countries.cpg",
+      "bytes": 5,
+      "sha256": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824"
+    },
+    {
+      "path": "10m_cultural/ne_10m_admin_0_countries.VERSION.txt",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/10m_cultural/ne_10m_admin_0_countries.VERSION.txt",
+      "bytes": 6,
+      "sha256": "f9893302cd3158f3b5aea394dcd2a91574869e9e6ff69e9235b10a3bf8c983fb"
+    },
+    {
+      "path": "10m_cultural/ne_10m_admin_1_states_provinces.shp",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/10m_cultural/ne_10m_admin_1_states_provinces.shp",
+      "bytes": 20998780,
+      "sha256": "c6f5c8b4b1320d9417033762419c6df1eb423989cd880fba78ea0b1e3522cbe4"
+    },
+    {
+      "path": "10m_cultural/ne_10m_admin_1_states_provinces.shx",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/10m_cultural/ne_10m_admin_1_states_provinces.shx",
+      "bytes": 36868,
+      "sha256": "37a9e2bc79ed31d3bdea3cb62d928f77281a1c88d645cd33430231c75dbcf350"
+    },
+    {
+      "path": "10m_cultural/ne_10m_admin_1_states_provinces.dbf",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/10m_cultural/ne_10m_admin_1_states_provinces.dbf",
+      "bytes": 15161514,
+      "sha256": "445a8a9bea889634faf0af18081830df0b05b8471fc6af8dc42aecdd7a71bba1"
+    },
+    {
+      "path": "10m_cultural/ne_10m_admin_1_states_provinces.prj",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/10m_cultural/ne_10m_admin_1_states_provinces.prj",
+      "bytes": 145,
+      "sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4"
+    },
+    {
+      "path": "10m_cultural/ne_10m_admin_1_states_provinces.cpg",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/10m_cultural/ne_10m_admin_1_states_provinces.cpg",
+      "bytes": 5,
+      "sha256": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824"
+    },
+    {
+      "path": "10m_cultural/ne_10m_admin_1_states_provinces.VERSION.txt",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/10m_cultural/ne_10m_admin_1_states_provinces.VERSION.txt",
+      "bytes": 6,
+      "sha256": "f9893302cd3158f3b5aea394dcd2a91574869e9e6ff69e9235b10a3bf8c983fb"
+    },
+    {
+      "path": "110m_cultural/ne_110m_admin_1_states_provinces.dbf",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/110m_cultural/ne_110m_admin_1_states_provinces.dbf",
+      "bytes": 63219,
+      "sha256": "70268ef39c77531822311ec9779010531f22b6d8270976add033253bd262c3c9"
+    },
+    {
+      "path": "50m_cultural/ne_50m_admin_1_states_provinces.dbf",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/50m_cultural/ne_50m_admin_1_states_provinces.dbf",
+      "bytes": 682458,
+      "sha256": "1e0fc3231509e2506f26d622dbbadc0f36d0ccbf97862941ac9e98cb9c604223"
+    }
+  ],
+  "repository": "https://github.com/nvkelso/natural-earth-vector",
+  "repositoryTag": "v5.1.2",
+  "datasetVersion": "5.1.1",
+  "license": "Public domain",
+  "licenseUrl": "https://www.naturalearthdata.com/about/terms-of-use/",
+  "boundaryPolicyUrl": "https://www.naturalearthdata.com/about/disputed-boundaries-policy/",
+  "sourcePages": {
+    "ne_110m_admin_0_countries": "https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-countries/",
+    "ne_50m_admin_0_countries": "https://www.naturalearthdata.com/downloads/50m-cultural-vectors/50m-admin-0-countries-2/",
+    "ne_10m_admin_0_countries": "https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/",
+    "ne_10m_admin_1_states_provinces": "https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-1-states-provinces/"
+  }
+}

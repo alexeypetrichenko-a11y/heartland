@@ -10,7 +10,7 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
-    "test": "node --experimental-strip-types --test src/game/*.test.ts src/ui/*.test.ts"
+    "test": "node --experimental-strip-types --test src/game/*.test.ts src/ui/*.test.ts src/geography/*.test.ts"
   },
   "dependencies": {
     "react": "^19.2.0",
