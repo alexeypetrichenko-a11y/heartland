@@ -1,7 +1,7 @@
 # Heartland — Implementation Status
 
-**Snapshot date:** 2026-11-10
-**Source:** Repository inspection at `0a16931` on `main` (UI-01A/UI-01A.2 merged in PRs #13/#14), the approved `design/Heartland-interface.html`, historical T01–T08/UI-01A/UI-01A.2 verification, and local UI-01B.1 tests/build/browser checks on 2026-11-10.
+**Snapshot date:** 2026-11-12
+**Source:** Repository inspection at `4bdfd39` on `main` (UI-01A/UI-01A.2/UI-01B.1 merged in PRs #13–#15), the approved `design/Heartland-interface.html`, historical verification below, and local UI-01B.2 tests/build/browser checks on 2026-11-12.
 
 ## Verified existing scaffold
 
@@ -22,7 +22,9 @@
 - [x] Compact map-first navy interface with World, Politics, Economy, Diplomacy and Military navigation; Politics is a placeholder (UI-01A).
 - [x] Viewport-fitted compact overviews and on-demand detail panels based on the actual approved HTML mockup (UI-01A.2).
 - [x] Interactive map zoom/pan, bounded camera and in-frame controls (UI-01B.1).
-- [ ] Map overlays (UI-01B.2), unit interaction/geographical positioning (UI-01B.3), and UI-01C (separate assignments pending).
+- [x] Horizontal overlay toolbar and real Divisions layer with a separate prototype visibility policy (UI-01B.2).
+- [ ] Data/rendering for Cities, Bunkers, Roads, Railways, Ports and Airports; their toolbar controls are disabled.
+- [ ] Unit interaction/geographical positioning (UI-01B.3) and UI-01C (separate assignments pending).
 - [ ] Full economy/military systems, comprehensive diplomacy and advanced AI.
 - [ ] Actual playable match and final score.
 - [ ] Save/resume gameplay.
@@ -49,9 +51,9 @@
 
 ## Immediate next step
 
-UI-01A and UI-01A.2 are merged into `main` (PRs #13/#14). UI-01B.1 is implemented on `task/ui-01b1-map-zoom-pan` for owner review through a dedicated PR targeting `main`. Do not merge without owner approval. Physical iPhone/Safari playtesting remains pending. UI-01B.2, UI-01B.3, UI-01C and T09 require separate assignments and are not implemented.
+UI-01A, UI-01A.2 and UI-01B.1 are merged into `main` (PRs #13–#15). UI-01B.2 is implemented on `task/ui-01b2-map-overlays` for owner review through a dedicated PR targeting `main`. Do not merge without owner approval. Physical iPhone/Safari playtesting and review of the conservative division-display policy remain pending. The six unavailable layer categories, UI-01B.3, UI-01C and T09 require separate assignments.
 
-The earlier sections retain their historical verification scope. UI-01B.1 at the end records the current map interaction and validation.
+The earlier sections retain their historical verification scope. UI-01B.2 at the end records the current overlay implementation and validation.
 
 ## Verification
 
@@ -294,7 +296,7 @@ All choices below are **temporary, reversible T08 demonstration rules**, not fin
 - A **6 CSS-pixel movement threshold** distinguishes a tap/click from a drag. Any two-finger gesture suppresses selection until all contacts end. Captured pointers continue outside the map, and compatibility clicks from gestures are blocked. Cancellation, lost capture, window blur, hidden views and resizing clear active gestures. Ordinary taps/clicks, small pointer jitter and keyboard region activation remain supported.
 - Keyboard: focus the map or a region; **+/−** zoom, **arrows** pan, **Shift+arrows** take larger steps, and **0/Home** reset. Tab still reaches each region, and Enter/Space selects. Focusing an offscreen region brings it into view without changing selection. Browser keyboard zoom shortcuts are left available. Selection and camera state survive section/detail navigation and weekly turns; leaving the prototype resets the map view as before.
 - `mapViewport.ts` holds presentation-only camera math; `useMapNavigation.ts` handles input and resize/capture lifecycle. A single SVG group transforms the existing fixed world geometry and grid together, so future geographic overlays can share the camera. No overlay renderer, layer controls, markers, unit coordinates or game-state changes were added. Future units must have meaningful positions inside regions, with border proximity eventually affecting movement/engagement time; those simulation rules are explicitly deferred.
-- Changed files: `src/ui/RegionMap.tsx`, `src/ui/styles.css`, new `src/ui/mapViewport.ts`, `src/ui/useMapNavigation.ts` and `src/ui/mapViewport.test.ts`, `package.json` (test command only), `TASKS.md` and `STATUS.md`. No dependencies added. Compared with `origin/main`: `src/game`, `AGENTS.md`, `GAME_DESIGN.md`, the design reference, dependency versions and deployment configuration are unchanged. Dedicated branch: `task/ui-01b1-map-zoom-pan`; PR targets `main` and must remain unmerged pending owner approval.
+- Changed files: `src/ui/RegionMap.tsx`, `src/ui/styles.css`, new `src/ui/mapViewport.ts`, `src/ui/useMapNavigation.ts` and `src/ui/mapViewport.test.ts`, `package.json` (test command only), `TASKS.md` and `STATUS.md`. No dependencies added. Compared with `origin/main`: `src/game`, `AGENTS.md`, `GAME_DESIGN.md`, the design reference, dependency versions and deployment configuration are unchanged. Dedicated branch: `task/ui-01b1-map-zoom-pan`, subsequently merged into `main` in PR #15.
 
 ### UI-01B.1 validation and limitations
 
@@ -304,7 +306,38 @@ All choices below are **temporary, reversible T08 demonstration rules**, not fin
 - Gameplay checks passed for **all three countries at all five sizes**: tax-policy drafts/settlement, staged/discarded military and diplomatic commands, cross-section form retention, public declarations and AI reactions, combined weekly submission, exact three-week casualties/capture (750 → 625 → 593 survivors), map ownership/summary updates while zoomed, friendly movement, title round trips and reload reset. Mobile/desktop checks also exhausted treasury after 50 tax-relief weeks, verified atomic rejection retained both drafts and existing diplomatic records, then restored standard taxation and successfully applied both drafts. No JavaScript runtime or application-asset errors were observed. Production-preview screenshots were visually inspected.
 - Initial checks exposed a floating-point centering error and a small pinch-anchor drift from processing contacts sequentially. Both were corrected, and final unit/browser checks passed. WebKit launch was attempted but its executable is not installed in this environment. Physical iPhone/Safari/VoiceOver, real browser chrome/safe areas and live GitHub Pages remain unverified; owner device playtesting is still required.
 
-### Deferred UI-01B.2 / UI-01B.3
+### Deferred at UI-01B.1
 
 - **UI-01B.2 — Map overlays:** not implemented. Cities, divisions, fortifications, roads, railways, ports and airports, their data/visibility and any layer controls require a separate assignment.
 - **UI-01B.3 — Unit interaction/geographical positioning:** not implemented. No draggable units, positions inside regions, border-distance calculations, movement/engagement timing or military mechanics changed. Future position-sensitive behavior requires separately approved mechanics and model changes. UI-01C and T09 also remain deferred.
+
+## UI-01B.2 — Horizontal overlay toolbar and Divisions layer
+
+- A single horizontally scrolling row of icon buttons sits directly below the map, before the region sheet on phones. It prepares **Divisions, Cities, Bunkers / fortifications, Roads, Railways, Ports and Airports** with separate boolean flags; all start off. Only Divisions is enabled after choosing a country. The six unsupported categories visibly say **Unavailable**, are disabled and render no objects. Separate flags can coexist; there is no exclusive layer mode or simulated functionality for missing data.
+- Uses the approved navy palette, restrained gold active borders/text, short labels, native pressed-state buttons and 44px-or-larger targets. The row supports horizontal touch swipes, normal horizontal scrolling and keyboard Left/Right/Home/End when focused. Horizontal movement stays inside the row. Portrait map-frame height is retained; landscape/desktop keep map and toolbar in the existing left column and region information on the right. The persistent header/bottom navigation remain accessible and the document does not scroll at the verified sizes.
+- Division markers come only from existing game-state records. A region-relative illustrative anchor is derived from its unchanged polygon/label geometry and checked inside all six polygons. It is **not stored in game state**, is not a real military position and never affects movement, borders or combat. Markers follow the shared geographic camera; symbols and 44×44px hit targets keep their screen size. Movement and capture use the division's updated `regionId`; zero-personnel divisions have no active marker.
+- Solid gold symbols with dark borders identify the player's units. Muted outlined/dashed symbols identify reported opponents; the legend and accessible names also distinguish them. Tap/click or Enter/Space selects the marker's actual region and displays its unit summary. Own personnel counts update from game state. Marker drags are ignored rather than repositioning a unit or starting map drag; normal canvas zoom/pan and region selection remain available. Region selection, camera and flags survive section/detail navigation and turns. Hiding the layer clears unit inspection while retaining the currently selected region, including after the selected unit has moved. Title navigation resets map UI as before.
+
+### Exact prototype visibility policy — for owner review
+
+- `selectMapDivisions` is a **UI-only information adapter**, separate from `DivisionLayer` rendering. With a selected valid player, it includes the player's living divisions plus surviving opposing defenders explicitly named in the latest existing player combat result, only while their current region still matches that report. No selected/recognized player means no markers. Units not named in a player report remain undisclosed. Replacing the latest report removes its contacts; these are not permanent sightings or a new detection mechanic.
+- All displayed markers disclose only existing name, owner and region. The player's selected-unit summary additionally shows their personnel, already available in Military. Opposing headcounts and orders are **not passed to the renderer**. The existing Military results already name defenders, their combat region and losses; the overlay reuses those reports without treating every stored enemy division as visible. Destroyed units remain inspectable through the existing Military/results interface, not as active map markers.
+- This is a deliberately conservative prototype display choice for review, **not an approved final military-intelligence or fog-of-war rule**. No detection range, reconnaissance, remembered contacts, equipment information or new visibility state is implemented. The full single-player simulation still exists in local browser memory; the UI adapter is not a networking/security boundary.
+
+### Architecture and scope
+
+- `mapGeometry.ts` extracts the existing six shapes without changing their coordinates. `mapLayers.ts` contains independent UI flags/category metadata. `MapLayerToolbar.tsx` renders controls; `mapDivisions.ts` projects permitted real unit information; `DivisionLayer.tsx` renders markers beneath the existing `map-world` camera. Future city/infrastructure overlays can be additional camera children with their own information adapters. No speculative data objects or unavailable renderers were added.
+- Changed files: `src/ui/RegionMap.tsx`, `src/ui/styles.css`, `src/ui/useMapNavigation.ts`, new `src/ui/mapGeometry.ts`, `src/ui/mapLayers.ts`, `src/ui/MapLayerToolbar.tsx`, `src/ui/mapDivisions.ts`, `src/ui/DivisionLayer.tsx`, `src/ui/mapOverlays.test.ts`, `TASKS.md` and `STATUS.md`. No `src/game`, approved design, package/dependency, deployment or design-reference changes. No geographical unit coordinates, dragging, movement timing, combat changes, military commands, UI-01B.3, UI-01C or T09 implementation. Branch: `task/ui-01b2-map-overlays`; PR targets `main` and must not be merged without owner approval.
+
+### UI-01B.2 validation and limitations
+
+- `npm test`: **71 passed, 0 failures** (57 existing gameplay tests, 6 existing camera tests and 8 overlay tests). New tests cover independent simultaneous flags/immutability, all three player views, absent/unknown viewers, combat-report filtering/expiry, enemy-field redaction, actual engine movement/capture, dead/missing references, anchor containment and stable positions. `npm run build` and `git diff --check`: passed. Compared protected simulation/design/dependency/deployment paths against `origin/main`; unchanged.
+- Production-preview Playwright/Chromium at `/heartland/`, **320×568, 390×844, 844×390, 1024×768 and 1440×900**: layer on/off, six disabled categories, pressed states, keyboard and iPhone-width native horizontal swiping, retained portrait map height, toolbar placement, 44px controls/markers, marker tap/drag isolation, selection, pan/wheel/pinch, camera alignment, offscreen keyboard focus, resizing and view retention passed. The map's existing bounds/reset/selection/gesture checks also passed with the overlay off. No document overflow or runtime/application-asset errors; the selected-region summary, selected unit at normal text size and bottom navigation remained accessible. Screenshots were visually inspected.
+- All three countries passed gameplay checks at all five sizes with Divisions enabled: existing policy/diplomatic/military draft staging/discarding and retention, combined weekly commands, AI declarations, exact combat casualties/capture, visible enemy appearance/removal, unit region/owner/personnel updates, friendly movement, selection retention when hiding the layer after movement, title navigation and reload reset. Separate checks at all five sizes verified reported-opponent styling and inspection without strength/orders, report expiry, destruction of a player division, subsequent marker removal, 200% text/keyboard traversal and fixed document/navigation. Mobile/desktop insufficient-funds rejection and recovery retained both drafts and resolved correctly. Existing gameplay also passed with the layer off.
+- Review caught a selection reverting to its earlier region when hiding the overlay after a selected unit moved; fixed and covered by browser checks. Browser assertions about off-center zoom were corrected to respect the existing rule that a fitted/clamped axis stays centered. Final checks passed.
+- Physical iPhone/Safari/VoiceOver, real browser chrome/safe areas and live GitHub Pages are unverified. WebKit launch was attempted; its executable is absent here. Checks use Chromium with touch/multi-touch emulation. Short landscape, enlarged text, expanded unit information and errors may need **internal** panel/column scrolling; the document and navigation stay fixed. Only one category currently has data/rendering, so multiple functional overlay combinations cannot yet be exercised in the UI; independent simultaneous flags are unit-tested.
+
+### Remaining deferred work
+
+- Cities, fortifications, roads, railways, ports and airports need separately authorized data and rendering before their controls can be enabled. No corresponding objects have been invented.
+- **UI-01B.3:** meaningful geographical positions within regions, unit dragging and position-dependent movement/engagement timing remain deferred pending approved mechanics. Current markers are one illustrative anchor per region for this three-division fixture; they are not a placement or stacking system. UI-01C, T09 and final military-intelligence rules also remain deferred.
