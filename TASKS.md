@@ -100,7 +100,7 @@
 
 ## Interface redesign milestone — Mobile-first interface (before T09)
 
-This is a separate UI milestone. Preserve the existing engine, models, economy, combat, diplomacy and AI rules throughout. UI-01A, UI-01A.2 and UI-01B.1 are merged. The current assignment is UI-01B.2 only; UI-01B.3 and later phases need separate requirements and approval.
+This is a separate UI milestone. Preserve the existing engine, models, economy, combat, diplomacy and AI rules throughout. UI-01A, UI-01A.2, UI-01B.1 and UI-01B.2 are merged. The current assignment is MAP-01A data preparation only; UI-01B.3 and later interface phases need separate requirements and approval.
 
 ### UI-01A — Compact map-first navigation
 
@@ -134,7 +134,7 @@ This is a separate UI milestone. Preserve the existing engine, models, economy, 
 
 #### UI-01B.2 — Horizontal overlay toolbar and Divisions layer
 
-- [x] Implemented and locally verified on `task/ui-01b2-map-overlays`: horizontal icon/label toolbar, independent layer flags, real division region markers under the shared camera, isolated marker input and a separate visibility adapter. `npm test`: 71 passed; production build passed. See `STATUS.md` for browser verification and limitations. PR targets `main`; do not merge without owner approval.
+- [x] Implemented and locally verified on `task/ui-01b2-map-overlays`: horizontal icon/label toolbar, independent layer flags, real division region markers under the shared camera, isolated marker input and a separate visibility adapter. `npm test`: 71 passed; production build passed. Merged into `main` in PR #16. See `STATUS.md` for browser verification and limitations.
 
 **Scope:** Place a compact navy/gold toolbar directly below the World map, before the region sheet on phones. Prepare **Divisions, Cities, Bunkers / fortifications, Roads, Railways, Ports and Airports** with separate on/off flags. All start off. Only Divisions is available after country selection; the other six controls are visibly disabled because they have no corresponding data/rendering. Independent flags support simultaneous future layers, without making unavailable controls appear functional.
 
@@ -153,6 +153,28 @@ This is a separate UI milestone. Preserve the existing engine, models, economy, 
 ### UI-01C — Interface redesign, third phase
 
 - [ ] Deferred. Detailed scope and acceptance criteria require a separate owner assignment. No implementation is included in UI-01A.
+
+## Geographic foundation milestone — Data before rendering
+
+This assignment prepares a separate geographic reference. It does not replace the fictional scenario or authorize political/gameplay ownership decisions. Full source, coverage, processing and size documentation: [docs/geography/README.md](docs/geography/README.md).
+
+### MAP-01A — Real-world geographic data foundation
+
+- [x] Implemented on `task/map-01a-geographic-foundation`: verified and checksum-pinned Natural Earth 5.1.1 layers; 258 Admin-0 entities and 4,596 Admin-1 source features; compact overviews plus country/regional assets; independent WGS84 types and lazy loading; source/quality documentation; 82 passing tests and production build. PR targets `main`; do not merge without owner approval.
+
+**Scope:** Use 110m and 50m Admin-0 overviews, 10m country/territory detail and 10m Admin-1 detail. Preserve source multipolygons, holes, islands, overseas grouping, identifiers, parent references and political classification/notes. Use geographic identity separately from gameplay. No extra shape simplification; document numeric precision and inherited defects. Keep high-resolution assets out of initial loading; provide country indexes and bounded regional chunks.
+
+**Acceptance:** Verify source URLs/version/license/coverage before importing. Test identifiers, exact country/region references, polygon/multipolygon structure, coordinates, continents, representative France/Germany/USA/Russia/China/Brazil/Australia, asset hashes/budgets/lazy requests and preservation of the existing fictional scenario. Run `npm test` and `npm run build`. Document actual administrative coverage, missing/unnamed/unclassified records, disputed/dependent territories and source geometry limitations. Preserve all `src/game`, current map/UI/zoom/pan, deployment settings and dependencies.
+
+### MAP-01B — Render the world map (deferred)
+
+- [ ] Not implemented. A separate assignment may consume the geographic manifest/overview and lazy detail, decide projection/wrapping/level-of-detail rendering and retain the existing fictional game until explicitly authorized otherwise. Review inherited source defects and geographic display policy; no new renderer or controls are included in MAP-01A.
+
+### MAP-01C — Country and region selection (deferred)
+
+- [ ] Not implemented. A separate assignment must decide selection behavior and how source entities, mixed administrative levels, unknown names and disputed/dependent territory groupings are presented. Geographic selection must not automatically create sovereign playable countries or political owners.
+
+MIL-01, UI-01B.3, UI-01C, T09, multiplayer, real military positions, movement/engagement timing and transport-route mechanics remain outside this assignment.
 
 ## Milestone 1 (continued) — Complete the solo loop
 
@@ -190,7 +212,7 @@ Each item above is a **feature family** to be broken into small PRs before imple
 - **T24:** Treaty notice/trust rules, public/private diplomacy refinement, aid/loans, sector sanctions and coalition participation.
 - **T25:** Border visibility: infrastructure within 75 km, probabilistic concentrations/movement sightings, fog of war; never reveal exact unit composition automatically.
 - **T26:** Country-level 0.3% weekly random-event trigger, eligible event consequences and seeded tests.
-- **T27:** Replace the fictional test map stepwise with vetted modern-world data. **Ask for a decision about disputed territories and scope before importing.**
+- **T27:** Replace the fictional test map stepwise with vetted modern-world data. **Ask for a decision about disputed territories and scope before importing.** The owner's MAP-01A assignment separately authorizes Natural Earth reference-data preparation with its source treatment documented and unchanged. That scoped authorization does not settle political/game ownership decisions, authorize scenario replacement or implement T27.
 
 ## Milestone 4 — Internet multiplayer and deployment maturity
 
@@ -212,4 +234,4 @@ Each item above is a **feature family** to be broken into small PRs before imple
 
 ## Next task (requires a separate assignment)
 
-UI-01A, UI-01A.2 and UI-01B.1 are merged into `main` (PRs #13–#15). UI-01B.2 is implemented and locally verified on `task/ui-01b2-map-overlays` for owner review through a dedicated PR to `main`; validation is recorded in `STATUS.md`. Data/rendering for the six unavailable layer categories, UI-01B.3, UI-01C and T09 require separate assignments. Do not merge without owner approval.
+UI-01A through UI-01B.2 are merged into `main` (PRs #13–#16). MAP-01A is implemented and locally verified on `task/map-01a-geographic-foundation` for owner review through a dedicated PR to `main`; coverage and limitations are in `docs/geography/README.md` and `STATUS.md`. MAP-01B rendering and MAP-01C selection require separate assignments. No fictional-scenario replacement, political/game ownership mapping, MIL-01, UI-01B.3, UI-01C, T09 or multiplayer is authorized. Do not merge without owner approval.
