@@ -1,6 +1,6 @@
 # Heartland — Implementation Status
 
-**Snapshot date:** 2026-11-12
+**Snapshot date:** 2026-11-13
 **Source:** Repository inspection at `680a7df` on `main` (UI-01A through UI-01B.2 merged in PRs #13–#16), the approved `design/Heartland-interface.html`, historical verification below, and MAP-01A source/data/loader/gameplay verification on 2026-11-12.
 
 ## Verified existing scaffold
@@ -51,11 +51,11 @@
 - [x] `npm test` uses Node's built-in test runner and TypeScript stripping; no dependencies added. TypeScript permits explicit `.ts` imports for this runner.
 - [x] T01 application/UI files and GitHub Pages configuration unchanged.
 
-## Immediate next step
+## Current delivery
 
-UI-01A through UI-01B.2 are merged into `main` (PRs #13–#16). MAP-01A is implemented on `task/map-01a-geographic-foundation` for owner review through a dedicated PR to `main`. Do not merge without owner approval. MAP-01B/MAP-01C, political ownership decisions, MIL-01, the six unavailable layer categories, UI-01B.3, UI-01C and T09 require separate assignments. Existing physical iPhone/Safari playtesting remains pending; no interface changed in MAP-01A.
+MAP-01A is merged into `main` in PR #17 (`bbd2db7`). MAP-01B is authorized as two PRs: MAP-01B.1 world renderer/country colors, then MAP-01B.2 accurate physical overlays. MAP-01B.1 is implemented and verified on `task/map-01b1-world-renderer`; the fictional scenario remains the default. Open the scenario menu → Open world atlas to inspect the geographic reference. Neither PR may be merged without owner approval. MAP-01C selection and all deferred gameplay/military/interface phases remain outside scope.
 
-The earlier sections retain their historical verification scope. MAP-01A at the end records the current geographic data preparation and validation.
+Historical sections below retain their original verification scope. The latest sections describe the current geographic work.
 
 ## Verification
 
@@ -362,3 +362,12 @@ All choices below are **temporary, reversible T08 demonstration rules**, not fin
 - Real production-preview HTTP loading at `/heartland/` passed for the coarse overview and country/regional detail for France, Germany, USA, Russia, China, Brazil and Australia, including missing-region handling. Existing production app hashes remain **`index-CxTOJuHB.js` / `index-BjWDoYa5.css`**, identical to UI-01B.2. Playwright/Chromium gameplay checks passed for all three fictional countries at **320×568, 390×844, 844×390, 1024×768 and 1440×900**, with division layers, economy, diplomacy/AI, staging/discarding, combat/capture, movement, title/reload and insufficient-funds rollback/recovery. No geographic requests occurred during those normal gameplay workflows.
 - Natural Earth is a cartographic snapshot with mixed administrative levels and its own de facto/overseas/disputed-territory treatment, not live authoritative boundaries or an approved neutral-start political scenario. Small entities can be absent at coarse scales. Deep zoom cannot create ground accuracy beyond source detail; antimeridian/polar rendering and source defects need handling in MAP-01B. Alternate-worldview geometry, current administrative normalization, points, roads/railways and military/transport geography require separate approved data/features.
 - MAP-01B, MAP-01C, MIL-01, UI-01B.3, UI-01C, T09, multiplayer and replacement of the fictional scenario remain unimplemented. Physical iPhone/Safari/VoiceOver and live GitHub Pages were not newly verified; this task changes no interface or production behavior. The PR must not be merged without owner approval.
+
+## MAP-01B.1 — World rendering and stable country colors
+
+- Added a separate, lazy read-only atlas through the scenario menu, with a return to the unchanged fictional map. All continents, islands/holes where source scale supports them, source country groupings and political boundary treatment are retained. The atlas creates no game countries, ownership or selectable regions.
+- A deterministic metadata builder derives 258 unique geographic colors and 344 neighboring pairs from real 10m country geometry. Minimum checked adjacent CIELAB ΔE76: **40.137**. The **66,718-byte** index stores source-derived label positions and coarse polygon-envelope coverage cells. Colors are stable through 110m/50m/10m rendering, independent of military/diplomatic state.
+- Independent equirectangular lon/lat camera: world fit through **128×**, touch pinch/one-finger pan, wheel/mouse pan, keyboard, +/−/reset. A quarter-viewport edge margin preserves anchors from portrait letterboxing while bounding pan. Existing fictional camera, controls and unit visibility are unchanged. Clear country outlines and collision-checked labels remain compact in the navy/gold shell.
+- Geographic assets load only in the atlas: 110m initially, 50m at 2.5×, viewport-country 10m at 8×; 220ms debounce, two concurrent detail requests and 12-country cache. Failed/cancelled requests do not affect gameplay. Full loading, color, source and projection limitations are in [docs/geography/RENDERING.md](docs/geography/RENDERING.md).
+- `npm test`: **89 passed**; `npm run build` and `git diff --check`: passed. Production Chromium checks at **320×568, 390×844, 844×390, 1024×768 and 1440×900** cover world/close LODs, colors, keyboard/wheel/mouse, reset, touch pinch/pan at 390px, 44px targets, help/scenario return/selection, turn progression, fixed nav and no document overflow/runtime errors. All three countries at the same five sizes passed existing economy/diplomacy/AI/combat/capture/movement/draft/title/reload checks, plus rollback/recovery. No geographic requests occur during normal scenario play.
+- MAP-01B.2 terrain follows in a separate PR; MAP-01C selection, MIL-01, UI-01B.3, UI-01C, T09, multiplayer and scenario replacement remain deferred. Color separation is not a universal color-vision guarantee; similar distant countries are possible. Polar distortion, bounded/no-wrap date line, tiny entities absent at overview scales, inherited defects and source-scale accuracy are documented. Physical iPhone Safari/VoiceOver and live Pages were not verified. No simulation, dependencies or deployment changes. Do not merge without owner approval.

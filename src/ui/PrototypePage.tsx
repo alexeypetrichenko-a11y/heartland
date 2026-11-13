@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import type { CountryId, DiplomaticCommand, EconomicPolicy, GameState, MilitaryCommand, TurnCommand } from '../game/models';
 import { ECONOMIC_POLICIES } from '../game/economy';
 import { EconomyPanel } from './EconomyPanel';
@@ -7,6 +7,8 @@ import { RegionMap } from './RegionMap';
 import { MilitaryPanel } from './MilitaryPanel';
 import { DiplomacyPanel } from './DiplomacyPanel';
 import { AI_PRIORITIES } from '../game/ai';
+
+const AtlasMap = lazy(() => import('./AtlasMap'));
 
 type PrototypePageProps = {
   state: GameState;
@@ -29,6 +31,8 @@ export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, turnError
   const [choice, setChoice] = useState('');
   const [showScenario, setShowScenario] = useState(false);
   const [activeSection, setActiveSection] = useState<Section>('world');
+  const [showAtlas, setShowAtlas] = useState(false);
+  const [atlasVisited, setAtlasVisited] = useState(false);
   const [policyChoice, setPolicyChoice] = useState<EconomicPolicy | null>(null);
   const [pendingMilitaryOrders, setPendingMilitaryOrders] = useState<MilitaryCommand[]>([]);
   const [pendingDiplomacy, setPendingDiplomacy] = useState<DiplomaticCommand | null>(null);
@@ -109,7 +113,12 @@ export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, turnError
 
         {/* Mounted, hidden views retain map selection, unfinished forms and staged commands. */}
         <div className="game-workspace" hidden={showScenario}>
-          <div id="section-world" className="section-view" hidden={activeSection !== 'world'}><RegionMap state={state} /></div>
+          <div id="section-world" className="section-view" hidden={activeSection !== 'world'}>
+            <div className="section-view" hidden={showAtlas}><RegionMap state={state} /></div>
+            {atlasVisited && <div className="section-view" hidden={!showAtlas}><Suspense fallback={<p className="atlas-caption" role="status">Opening world atlas…</p>}>
+              <AtlasMap active={showAtlas && activeSection === 'world' && !showScenario} onBack={() => setShowAtlas(false)} />
+            </Suspense></div>}
+          </div>
           <div id="section-politics" className="section-view" hidden={activeSection !== 'politics'}>
             <section className="overview" aria-labelledby="politics-title">
               <h2 id="politics-title" className="sr-only">Politics</h2>
@@ -137,6 +146,7 @@ export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, turnError
           <h3>Country control</h3>
           <ul>{state.countries.map(country => <li key={country.id}>{country.name}: {country.controller === 'player' ? 'Player-controlled (you)' : `AI-controlled — ${AI_PRIORITIES[country.id].label}`}</li>)}</ul>
           <h3>Your regions</h3><ul>{regions.map(region => <li key={region.id}>{region.name}</li>)}</ul>
+          <button type="button" onClick={() => { setAtlasVisited(true); setShowAtlas(true); setActiveSection('world'); setShowScenario(false); }}>Open world atlas</button>
           <button type="button" onClick={onBack}>Back to title screen</button>
         </DetailPanel>
       </div>
