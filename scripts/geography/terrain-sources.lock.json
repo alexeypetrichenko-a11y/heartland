@@ -1,0 +1,260 @@
+{
+  "schemaVersion": 1,
+  "license": "Public domain",
+  "licenseUrl": "https://www.naturalearthdata.com/about/terms-of-use/",
+  "vector": {
+    "repository": "nvkelso/natural-earth-vector",
+    "commit": "f1890d9f152c896d250a77557a5751a93d494776",
+    "tag": "v5.1.2",
+    "layerVersion": "5.0.0"
+  },
+  "raster": {
+    "repository": "nvkelso/natural-earth-quick-start",
+    "commit": "856bd7ab3a3a10dbe604eadad843b81b29f627e2",
+    "snapshotDate": "2012-01-22",
+    "version": "Publisher quick-start mixed 1.3/1.4 snapshot; no per-file semantic version",
+    "tiffDate": "2009:09:19 10:01:31"
+  },
+  "files": [
+    {
+      "path": "110m_physical/ne_110m_rivers_lake_centerlines.shp",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/110m_physical/ne_110m_rivers_lake_centerlines.shp",
+      "bytes": 19180,
+      "sha256": "4a5d41e67457fbd3d0c82ef4ca972f42f21faf8a639d0b0368725d38940f72c2"
+    },
+    {
+      "path": "110m_physical/ne_110m_rivers_lake_centerlines.shx",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/110m_physical/ne_110m_rivers_lake_centerlines.shx",
+      "bytes": 204,
+      "sha256": "1df95cdde9bd66307f27c806850227296a94a53ebcf33ec65a6164a93683b82b"
+    },
+    {
+      "path": "110m_physical/ne_110m_rivers_lake_centerlines.dbf",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/110m_physical/ne_110m_rivers_lake_centerlines.dbf",
+      "bytes": 89710,
+      "sha256": "64a480e1e56f12c1603ab7295901923d7376b27df5f6c393d921091fe18b28f7"
+    },
+    {
+      "path": "110m_physical/ne_110m_rivers_lake_centerlines.prj",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/110m_physical/ne_110m_rivers_lake_centerlines.prj",
+      "bytes": 145,
+      "sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4"
+    },
+    {
+      "path": "110m_physical/ne_110m_rivers_lake_centerlines.cpg",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/110m_physical/ne_110m_rivers_lake_centerlines.cpg",
+      "bytes": 5,
+      "sha256": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824"
+    },
+    {
+      "path": "110m_physical/ne_110m_rivers_lake_centerlines.VERSION.txt",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/110m_physical/ne_110m_rivers_lake_centerlines.VERSION.txt",
+      "bytes": 6,
+      "sha256": "1cc3d76ac7c21a664e79848fd481e9791016451b244e7de5feeeb9bea5fd2184"
+    },
+    {
+      "path": "110m_physical/ne_110m_lakes.shp",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/110m_physical/ne_110m_lakes.shp",
+      "bytes": 8884,
+      "sha256": "e65b633578c284776b452bcea07126747d3d6484a507ca43866097059a389dfd"
+    },
+    {
+      "path": "110m_physical/ne_110m_lakes.shx",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/110m_physical/ne_110m_lakes.shx",
+      "bytes": 292,
+      "sha256": "954c018f338248ba6ec6fde3cfe0f8742a4bdb2f886fe888baf6d7b5433c39ab"
+    },
+    {
+      "path": "110m_physical/ne_110m_lakes.dbf",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/110m_physical/ne_110m_lakes.dbf",
+      "bytes": 166530,
+      "sha256": "ee65c43bdb14463f9a31eda58f7245e3ae0796ac606a67bea0e8386080878cbf"
+    },
+    {
+      "path": "110m_physical/ne_110m_lakes.prj",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/110m_physical/ne_110m_lakes.prj",
+      "bytes": 145,
+      "sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4"
+    },
+    {
+      "path": "110m_physical/ne_110m_lakes.cpg",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/110m_physical/ne_110m_lakes.cpg",
+      "bytes": 5,
+      "sha256": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824"
+    },
+    {
+      "path": "110m_physical/ne_110m_lakes.VERSION.txt",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/110m_physical/ne_110m_lakes.VERSION.txt",
+      "bytes": 6,
+      "sha256": "1cc3d76ac7c21a664e79848fd481e9791016451b244e7de5feeeb9bea5fd2184"
+    },
+    {
+      "path": "50m_physical/ne_50m_rivers_lake_centerlines.shp",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/50m_physical/ne_50m_rivers_lake_centerlines.shp",
+      "bytes": 440568,
+      "sha256": "219c1817db97faef76ef239111556cfc3288e377336fa26eb463f9d78514a801"
+    },
+    {
+      "path": "50m_physical/ne_50m_rivers_lake_centerlines.shx",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/50m_physical/ne_50m_rivers_lake_centerlines.shx",
+      "bytes": 3924,
+      "sha256": "d693cdd017d8913604f7ae6a06581fb08f2bf30f58f884cb7e7e267926159136"
+    },
+    {
+      "path": "50m_physical/ne_50m_rivers_lake_centerlines.dbf",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/50m_physical/ne_50m_rivers_lake_centerlines.dbf",
+      "bytes": 3323764,
+      "sha256": "b47e458f77824ce698e3df7b9d28403ba99f9be680d0ede172a1f65f7dfc9a17"
+    },
+    {
+      "path": "50m_physical/ne_50m_rivers_lake_centerlines.prj",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/50m_physical/ne_50m_rivers_lake_centerlines.prj",
+      "bytes": 145,
+      "sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4"
+    },
+    {
+      "path": "50m_physical/ne_50m_rivers_lake_centerlines.cpg",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/50m_physical/ne_50m_rivers_lake_centerlines.cpg",
+      "bytes": 5,
+      "sha256": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824"
+    },
+    {
+      "path": "50m_physical/ne_50m_rivers_lake_centerlines.VERSION.txt",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/50m_physical/ne_50m_rivers_lake_centerlines.VERSION.txt",
+      "bytes": 6,
+      "sha256": "1cc3d76ac7c21a664e79848fd481e9791016451b244e7de5feeeb9bea5fd2184"
+    },
+    {
+      "path": "50m_physical/ne_50m_lakes.shp",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/50m_physical/ne_50m_lakes.shp",
+      "bytes": 339832,
+      "sha256": "0b94256e53f0a252dde49b9c57a7a1461454ac6e248c1fd02874d826dc469254"
+    },
+    {
+      "path": "50m_physical/ne_50m_lakes.shx",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/50m_physical/ne_50m_lakes.shx",
+      "bytes": 3396,
+      "sha256": "8f90881410c4c26d36a976d9663f24e37965a05d34e26f1bf1cb8d609855e7b0"
+    },
+    {
+      "path": "50m_physical/ne_50m_lakes.dbf",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/50m_physical/ne_50m_lakes.dbf",
+      "bytes": 2994462,
+      "sha256": "9c70f3ef0f7175f97ab4a8bc4d249449e95936b1eb75efb5db893c66c80dcdb7"
+    },
+    {
+      "path": "50m_physical/ne_50m_lakes.prj",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/50m_physical/ne_50m_lakes.prj",
+      "bytes": 145,
+      "sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4"
+    },
+    {
+      "path": "50m_physical/ne_50m_lakes.cpg",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/50m_physical/ne_50m_lakes.cpg",
+      "bytes": 5,
+      "sha256": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824"
+    },
+    {
+      "path": "50m_physical/ne_50m_lakes.VERSION.txt",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/50m_physical/ne_50m_lakes.VERSION.txt",
+      "bytes": 6,
+      "sha256": "1cc3d76ac7c21a664e79848fd481e9791016451b244e7de5feeeb9bea5fd2184"
+    },
+    {
+      "path": "10m_physical/ne_10m_rivers_lake_centerlines.shp",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/10m_physical/ne_10m_rivers_lake_centerlines.shp",
+      "bytes": 4208092,
+      "sha256": "f9a1cf6d9f58c0a6f182a7f25771a03e0a48026253d4484aab782b2586354d78"
+    },
+    {
+      "path": "10m_physical/ne_10m_rivers_lake_centerlines.shx",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/10m_physical/ne_10m_rivers_lake_centerlines.shx",
+      "bytes": 11884,
+      "sha256": "ab7b792de019d3a49ab1dd9960249c367cc94e43b8d5f577732892ec6107a3b2"
+    },
+    {
+      "path": "10m_physical/ne_10m_rivers_lake_centerlines.dbf",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/10m_physical/ne_10m_rivers_lake_centerlines.dbf",
+      "bytes": 1991273,
+      "sha256": "68079fde5fde6167d0c7c4f03e498164badcc3b687a93c436278ade83882b564"
+    },
+    {
+      "path": "10m_physical/ne_10m_rivers_lake_centerlines.prj",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/10m_physical/ne_10m_rivers_lake_centerlines.prj",
+      "bytes": 145,
+      "sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4"
+    },
+    {
+      "path": "10m_physical/ne_10m_rivers_lake_centerlines.cpg",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/10m_physical/ne_10m_rivers_lake_centerlines.cpg",
+      "bytes": 5,
+      "sha256": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824"
+    },
+    {
+      "path": "10m_physical/ne_10m_rivers_lake_centerlines.VERSION.txt",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/10m_physical/ne_10m_rivers_lake_centerlines.VERSION.txt",
+      "bytes": 6,
+      "sha256": "1cc3d76ac7c21a664e79848fd481e9791016451b244e7de5feeeb9bea5fd2184"
+    },
+    {
+      "path": "10m_physical/ne_10m_lakes.shp",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/10m_physical/ne_10m_lakes.shp",
+      "bytes": 2682580,
+      "sha256": "11064fa55ed91b56a0d86733643c1a5bfcc137fdf044e83f471978a5b86617e1"
+    },
+    {
+      "path": "10m_physical/ne_10m_lakes.shx",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/10m_physical/ne_10m_lakes.shx",
+      "bytes": 10940,
+      "sha256": "a11ffb02e862b6c4ec8c015e6e0c70502f21bc71dcd79312b8dbc676f7e4c557"
+    },
+    {
+      "path": "10m_physical/ne_10m_lakes.dbf",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/10m_physical/ne_10m_lakes.dbf",
+      "bytes": 9993116,
+      "sha256": "0edaa87f76c2221c986f0796ce0b54b1c418e9032afba46f8e302edc41193495"
+    },
+    {
+      "path": "10m_physical/ne_10m_lakes.prj",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/10m_physical/ne_10m_lakes.prj",
+      "bytes": 145,
+      "sha256": "a02a27b1d1982c8516d83398e85a3c8b1aef1713c13ef4d84d7bde17430c07c4"
+    },
+    {
+      "path": "10m_physical/ne_10m_lakes.cpg",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/10m_physical/ne_10m_lakes.cpg",
+      "bytes": 5,
+      "sha256": "3ad3031f5503a4404af825262ee8232cc04d4ea6683d42c5dd0a2f2a27ac9824"
+    },
+    {
+      "path": "10m_physical/ne_10m_lakes.VERSION.txt",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/f1890d9f152c896d250a77557a5751a93d494776/10m_physical/ne_10m_lakes.VERSION.txt",
+      "bytes": 6,
+      "sha256": "1cc3d76ac7c21a664e79848fd481e9791016451b244e7de5feeeb9bea5fd2184"
+    },
+    {
+      "path": "raster/NE1_50M_SR_W.tif",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-quick-start/856bd7ab3a3a10dbe604eadad843b81b29f627e2/50m_raster/NE1_50M_SR_W/NE1_50M_SR_W.tif",
+      "bytes": 175041354,
+      "sha256": "22a4d66193002df6d4f1fa59655196cde48eba232fd7f60ed2f3bba5004a65ee"
+    },
+    {
+      "path": "raster/NE1_50M_SR_W.tfw",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-quick-start/856bd7ab3a3a10dbe604eadad843b81b29f627e2/50m_raster/NE1_50M_SR_W/NE1_50M_SR_W.tfw",
+      "bytes": 173,
+      "sha256": "7f1cc97126a52814c874ec326a8275c7ded3edc4d7bced417f76d71a995069bd"
+    },
+    {
+      "path": "raster/NE1_50M_SR_W.tif.xml",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-quick-start/856bd7ab3a3a10dbe604eadad843b81b29f627e2/50m_raster/NE1_50M_SR_W/NE1_50M_SR_W.tif.xml",
+      "bytes": 8309,
+      "sha256": "c1e359c169cbad7d8e6d48b91dd4a098e5b4f0a64ce13e01d03edc2a85dbffc9"
+    },
+    {
+      "path": "raster/Read_me.txt",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-quick-start/856bd7ab3a3a10dbe604eadad843b81b29f627e2/50m_raster/NE1_50M_SR_W/Read_me.txt",
+      "bytes": 92,
+      "sha256": "88ecca208b41e4a891484986482bab87fcb8be05c9083ac755a0b4395ee145dd"
+    }
+  ]
+}
