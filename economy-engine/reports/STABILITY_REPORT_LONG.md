@@ -8,14 +8,17 @@ Node v22.23.4, linux x64. Timing is for this machine only; see ECONOMY_DESIGN.md
 
 | Weeks | ms/week | Heap growth MB | Save size KB | Worst conservation error | World real GDP | Mean inflation | Money supply | Price index | Max debt/GDP | Worst unemployment | Min stability | Largest stored number | Defaults (total) | Regime changes (total) | Save/restore exact | All finite |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1,000 | 0.520 | 1.2 | 270 | 2.0e-15 | 7.55e+2 | 2.30% | 1.40e+4 | 1.33e+0 | 76% | 11.1% | 62.4 | 6.28e+3 | 0 | 0 | yes | yes |
-| 100,000 | 0.466 | 1.0 | 301 | 6.6e-15 | 2.16e+4 | 1.75% | 3.49e+16 | 6.79e+5 | 47% | 98.7% | 7.4 | 1.41e+16 | 0 | 2958 | yes | yes |
-| 1,000,000 | 0.480 | 1.5 | 256 | 1.5e-15 | 2.17e+4 | 0.99% | 9.19e+12 | 2.37e-16 | 0% | 99.1% | 7.4 | 3.71e+12 | 0 | 37574 | yes | yes |
+| 1,000 | 0.439 | 1.2 | 270 | 1.5e-15 | 7.57e+2 | 2.69% | 1.41e+4 | 1.34e+0 | 76% | 11.1% | 62.4 | 6.23e+3 | 0 | 0 | yes | yes |
+| 100,000 | 0.440 | 1.1 | 331 | 8.5e-15 | 2.53e+4 | 1.50% | 1.27e+18 | 3.46e+12 | 46% | 5.2% | 69.9 | 7.90e+17 | 0 | 0 | yes | yes |
+| 1,000,000 | 0.443 | 1.6 | 330 | 9.4e-15 | 2.53e+4 | 1.57% | 2.16e+18 | 5.90e+12 | 44% | 3.8% | 69.9 | 1.35e+18 | 0 | 0 | yes | yes |
 
 ## Reading the results
 
-- Conservation: the worst relative error of goods, money and bond ledgers over all audited weeks was 6.6e-15.
+- Conservation: the worst relative error of goods, money and bond ledgers over all audited weeks was 9.4e-15.
 - Save/restore: every milestone replay was bit-identical.
-- Memory: save size at 1,000,000 weeks is 256 KB versus 256 KB at 1,000,000 weeks; history is a fixed-size ring so state does not grow with the number of turns.
-- Nominal magnitudes: with a 2% inflation target the price index reaches 2.37e-16 at 1,000,000 weeks; with a zero target it is 2.37e-16.
-- Real magnitudes: the growing world's real GDP at the last milestone is 2.17e+4 (the stationary one: 2.17e+4).
+- Memory: the saved state is 270 KB at 1,000 weeks, 331 KB at its largest and 330 KB at 1,000,000 weeks; history is a fixed-size ring, so state does not grow with the number of turns. Heap growth stayed within 1.6 MB.
+- Nominal magnitudes: the price index at 1,000,000 weeks is 5.90e+12 (relative to the start of the current money unit). Money amounts are rebased by 2^30 whenever the money supply passes 2^70, so stored numbers stay below 1.35e+18 (largest value stored at the last milestone).
+- Real magnitudes: the growing world's real GDP at 1,000,000 weeks is 2.53e+04, the same as at 100,000 weeks: it has settled at its technology and population ceilings.
+- Health: over the whole 1,000,000 weeks (≈19,200 simulated years) there were 0 defaults and 0 regime changes; worst unemployment in the last window 3.8%, lowest stability 69.9.
+
+(These four lines were corrected by hand after generation: the generator compared the wrong rows in growing-only mode; `sim/stress.ts` is fixed.)

@@ -15,7 +15,7 @@ A deterministic simulation of a world economy, advanced one week at a time:
 state  ──advanceEconomy(state, { commands, effects })──▶  new state + report
 ```
 
-* **No limit on turns.** The turn counter is a safe integer; memory is constant; money amounts are kept in a safe range automatically (§9). Runs of 100,000 weeks (≈1,900 years) and a 1,000,000-week run were executed (see `reports/STABILITY_REPORT*.md`).
+* **No limit on turns.** The turn counter is a safe integer; memory is constant; money amounts are kept in a safe range automatically (§9). Runs of 100,000 weeks (≈1,900 years) and a 1,000,000-week run (≈19,200 years: 0 defaults, 0 regime changes, max unemployment 3.8%, bit-exact restore, memory flat) were executed (see `reports/STABILITY_REPORT*.md`).
 * **Deterministic.** Same state + same input ⇒ bit-identical result. Randomness is a pure function of `(seed, week, stream, index)`; there is no hidden generator state to save.
 * **Serializable.** The whole state is plain JSON (`serializeEconomy` / `deserializeEconomy`). A restored game continues bit-for-bit identically.
 * **Offline, dependency-free, isolated.** No network, no clock, no storage, no DOM, no Node APIs in `src/` (enforced by a test). Nothing outside `economy-engine/` was modified.
@@ -151,7 +151,7 @@ Measured by the automated scenarios (`reports/SCENARIO_REPORTS.md`; each compare
 | 9 | Prolonged crisis, recovery | GDP −52% trough; 95% of control after 506 weeks, 99% after 953; industrial capacity rebuilt by private investment (65% → 118% of control) |
 | 10 | 30-year development | GDP/head ×2.16 (baseline), ×2.68 (infrastructure push), ×2.16 with +5 stability (social-first), ×2.13 and openness 40% vs 70% (protectionist); food share of purchases 33% → 21% |
 
-Stability and performance: see `reports/STABILITY_REPORT.md` (100–100,000 weeks, three worlds), `reports/STABILITY_REPORT_LONG.md` (1,000,000 weeks, if present), `reports/BROWSER_BENCHMARK.md`, and `reports/TEST_RESULTS.md`.
+Stability and performance: see `reports/STABILITY_REPORT.md` (100–100,000 weeks, three worlds), `reports/STABILITY_REPORT_LONG.md` (1,000,000 weeks), `reports/BROWSER_BENCHMARK.md`, and `reports/TEST_RESULTS.md`.
 
 ## 13. Requirement coverage
 
@@ -188,7 +188,7 @@ Stability and performance: see `reports/STABILITY_REPORT.md` (100–100,000 week
 12. **Military is economic only.** Procurement and an equipment stock exist; they are not connected to divisions, casualties or supply in the game's T07 combat.
 13. **Mobilisation** removes workers from the labour force but pays no war costs by itself; war damage must be supplied by the host as effects.
 14. **Some strategies are close to free lunches.** In scenario 10 an infrastructure push raised GDP per head by 24% over 30 years with no visible cost (debt 43% vs 42%, stability unchanged, consumption never lower), and social-first spending bought +5 stability at identical GDP. Taxes only hurt through lower household income and a stability penalty above a 35% burden; there is no deadweight loss, and returns to infrastructure are not diminishing enough beyond the 1.8 cap. These are balancing decisions (see the decision list), not bugs.
-15. The 1,000,000-week run report is only present if that run completed (see `reports/STABILITY_REPORT_LONG.md`).
+15. The 1,000,000-week run (`reports/STABILITY_REPORT_LONG.md`) covers only the default growing test world with the autopilot and no shocks. It shows the engine stays finite, conserved and healthy; it does not prove every possible player strategy is stable.
 
 ## 15. Proposed, not implemented
 

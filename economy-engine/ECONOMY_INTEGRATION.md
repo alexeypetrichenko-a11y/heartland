@@ -19,7 +19,7 @@ Alternatively move the folder under `src/` (e.g. `src/economy/`) when approved; 
 
 ```bash
 cd economy-engine
-npm test               # 81 fast tests (≈20 s) incl. the ten scenarios
+npm test               # 82 fast tests (≈20 s) incl. the ten scenarios
 npm run test:long      # 10,000-week run with save/restore (≈6 s)
 npm run typecheck      # needs TypeScript (the game's node_modules has it)
 npm run scenarios      # regenerates reports/SCENARIO_REPORTS.md
