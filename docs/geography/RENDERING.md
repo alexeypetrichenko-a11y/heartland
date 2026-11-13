@@ -18,9 +18,9 @@ The atlas is a **read-only geographic reference**, alongside the existing fictio
 - Opening the normal scenario requests **no geographic assets**. Atlas code is a separate lazy JS chunk. Changing/closing the atlas cancels outstanding data requests. Failure messages and retry preserve the playable scenario. No map framework, server, runtime third-party tiles, dependency, PWA or deployment configuration was added.
 - The full source has 258 entities, but small countries/territories absent at coarse scales appear only when their available detail is loaded. Zooming further cannot invent source accuracy. 128× is a navigation range, not a ground-precision promise. Admin-1 assets remain ready but unused until MAP-01C.
 
-## Future physical presentation
+## Separate physical presentation
 
-MAP-01B is split into two independently reviewable PRs as authorized by the owner. **MAP-01B.1** provides this renderer and political palette; **MAP-01B.2** adds researched physical raster/hydrology overlays. Political fill, outline, labels and the geographic camera are explicit rendering stages. Future physical and point overlays must use the same lon/lat projection; they must not encode simulation ownership or terrain bonuses. No terrain objects or military positions are invented in MAP-01B.1.
+MAP-01B is split into two independently reviewable PRs as authorized by the owner. **MAP-01B.1** provides this renderer and political palette; **MAP-01B.2** adds researched physical raster/hydrology overlays. Political fill, outline, labels and the geographic camera are explicit rendering stages. Future physical and point overlays must use the same lon/lat projection; they must not encode simulation ownership or terrain bonuses. No terrain objects or military positions are invented in MAP-01B.1. MAP-01B.2 implementation, source limits and verification are now recorded in [TERRAIN.md](TERRAIN.md).
 
 ## Verification
 

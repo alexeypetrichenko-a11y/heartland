@@ -3,6 +3,7 @@ import { ATLAS_MAX_ZOOM, atlasBounds, intersectsGeography, projectGeography, typ
 import { useAtlasCamera } from './useAtlasCamera';
 import { useAtlasData } from './useAtlasData';
 import { DetailPanel } from './DetailPanel';
+import { AtlasTerrain } from './AtlasTerrain';
 
 function labels(catalog: AtlasCatalog | null, view: AtlasView, size: AtlasSize, scale: number) {
   if (!catalog || view.zoom < 2.5) return [];
@@ -28,11 +29,19 @@ export default function AtlasMap({ active, onBack }: { active: boolean; onBack: 
   const navigation = useAtlasCamera();
   const [revision, setRevision] = useState(0);
   const [showHelp, setShowHelp] = useState(false);
+  const [terrainVisible, setTerrainVisible] = useState(true);
+  const [terrainStatus, setTerrainStatus] = useState('');
   const helpButton = useRef<HTMLButtonElement>(null);
   const data = useAtlasData(navigation.view, navigation.size, active && !showHelp, revision);
   const countries = useMemo(() => new Map(data.catalog?.countries.map(c => [c.id, c]) ?? []), [data.catalog]);
   const bounds = atlasBounds(navigation.view, navigation.size);
   const countryLabels = labels(data.catalog, navigation.view, navigation.size, navigation.scale);
+  const visibleShapes = data.shapes.flatMap(shape => {
+    const country = countries.get(shape.id);
+    if (!country || !intersectsGeography(country.bbox, bounds)) return [];
+    const path = shape.parts.filter(p => intersectsGeography(p.bbox, bounds)).map(p => p.path).join('');
+    return path ? [{ id: shape.id, color: country.color, path }] : [];
+  });
   return <section className="atlas-view" aria-label="World atlas">
     <div className="atlas-heading" hidden={showHelp}>
       <button type="button" onClick={onBack}>‹ Scenario</button>
@@ -44,23 +53,24 @@ export default function AtlasMap({ active, onBack }: { active: boolean; onBack: 
         aria-describedby="atlas-help atlas-status" viewBox={`0 0 ${navigation.size.width} ${navigation.size.height}`} {...navigation.events}>
         <defs><pattern id="atlas-graticule" width="30" height="30" patternUnits="userSpaceOnUse">
           <path d="M30 0H0V30" fill="none" stroke="#80a5bd" strokeWidth=".16" opacity=".16" />
-        </pattern></defs>
+        </pattern>
+          {visibleShapes.map(shape => <path key={shape.id} id={`atlas-${shape.id.split(':').at(-1)}`} d={shape.path} vectorEffect="non-scaling-stroke" />)}
+        </defs>
         <g className="atlas-camera" transform={navigation.transform} data-zoom={navigation.view.zoom}>
           <rect width="360" height="180" fill="#182d3d" />
           <rect width="360" height="180" fill="url(#atlas-graticule)" />
           {/* Political color and all future physical/point overlays share this geographic camera. */}
-          <g className="atlas-political" fillRule="evenodd" stroke="#293b45" strokeWidth=".85" strokeLinejoin="round">
-            {data.shapes.map(shape => {
-              const country = countries.get(shape.id);
-              if (!country || !intersectsGeography(country.bbox, bounds)) return null;
-              const path = shape.parts.filter(p => intersectsGeography(p.bbox, bounds)).map(p => p.path).join('');
-              return path && <path key={shape.id} data-country={shape.id} d={path} fill={country.color} vectorEffect="non-scaling-stroke" />;
-            })}
+          <g className="atlas-political" fillRule="evenodd">
+            {visibleShapes.map(shape => <use key={shape.id} href={`#atlas-${shape.id.split(':').at(-1)}`} data-country={shape.id} fill={shape.color} />)}
+          </g>
+          <AtlasTerrain view={navigation.view} size={navigation.size} enabled={terrainVisible} active={active && !showHelp}
+            revision={revision} onStatus={setTerrainStatus} />
+          <g className="atlas-country-borders" fill="none" stroke="#243b42" strokeWidth=".85" strokeLinejoin="round">
+            {visibleShapes.map(shape => <use key={shape.id} href={`#atlas-${shape.id.split(':').at(-1)}`} vectorEffect="non-scaling-stroke" />)}
           </g>
         </g>
         <g className="atlas-labels" aria-hidden="true" pointerEvents="none">
           {countryLabels.map(c => <text key={c.id} x={c.x} y={c.y} textAnchor="middle">{c.name}</text>)}
-          {navigation.view.zoom < 2.5 && <text x="14" y={navigation.size.height - 16}>ALL CONTINENTS · WGS84</text>}
         </g>
       </svg>
       <div className="map-controls atlas-controls" role="group" aria-label="Atlas view controls">
@@ -69,10 +79,13 @@ export default function AtlasMap({ active, onBack }: { active: boolean; onBack: 
         <button type="button" aria-label="Reset atlas view" onClick={navigation.reset}>↺</button>
       </div>
       <output className="atlas-zoom" aria-live="polite" aria-atomic="true">{navigation.view.zoom.toFixed(1)}×</output>
+      <button type="button" className="atlas-terrain-control" aria-label="Physical terrain" aria-pressed={terrainVisible} onClick={() => setTerrainVisible(value => !value)}>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="m2 20 8-15 5 9 3-6 4 12ZM7 11l3 3 3-3" /></svg>Terrain
+      </button>
     </div>
     <div className="atlas-caption" hidden={showHelp}>
-      <p id="atlas-status" role="status">{data.error || (data.loading ? 'Loading map detail…' : `Natural Earth · ${data.resolution} · Colors identify geography`)}</p>
-      {data.error && <button type="button" onClick={() => setRevision(n => n + 1)}>Retry map data</button>}
+      <p id="atlas-status" role="status">{data.error || terrainStatus || (data.loading ? 'Loading map detail…' : `Natural Earth · ${terrainVisible ? 'Political + physical reference' : 'Colors identify geography'}`)}</p>
+      {(data.error || terrainStatus) && <button type="button" onClick={() => setRevision(n => n + 1)}>Retry map data</button>}
       <p id="atlas-help" className="sr-only">Drag to pan, pinch or use the wheel to zoom. Keyboard: plus and minus to zoom, arrows to pan, 0 or Home for the whole world. This reference map has no selection or gameplay effects.</p>
     </div>
     <DetailPanel id="atlas-information" title="About the world atlas" open={showHelp} onClose={() => {
@@ -81,7 +94,9 @@ export default function AtlasMap({ active, onBack }: { active: boolean; onBack: 
       <p>This is a geographic reference alongside the fictional scenario. Country colors identify Natural Earth geographic entities, not military ownership or alliances. These entities are not automatically playable sovereign countries.</p>
       <p>Drag to pan; pinch or use the wheel to zoom. + and − zoom, arrows pan (Shift for larger steps), and 0 or Home fits the whole world. Zoom ranges from 1× to 128×. Borders become more detailed as you zoom; small islands may be absent at overview scales.</p>
       <p>Made with Natural Earth, public-domain cartographic data. The source uses its documented de facto boundary treatment, including disputed and dependent territories; this does not settle future game ownership. Boundaries are a generalized source snapshot, not a current legal or ground-precision map.</p>
-      <p>The equirectangular view includes Antarctica and both poles. Shapes are increasingly stretched near the poles. The map stops at the date line; it does not wrap. Country and region selection, physical terrain and geographical military positions are separate phases.</p>
+      <p>The equirectangular view includes Antarctica and both poles. Shapes are increasingly stretched near the poles. The map stops at the date line; it does not wrap. Country and region selection and geographical military positions are separate phases.</p>
+      <p>Terrain blends real Natural Earth I land-cover coloring and shaded relief with the political colors. It shows broad mountain, forest and arid-land patterns, plus major source rivers and lakes. Terrain can be switched off independently and has no gameplay effects.</p>
+      <p>The terrain raster is the publisher’s older quick-start snapshot (TIFF dated 2009, repository snapshot 2012). It is a generalized reference, not current forest cover, a classified biome map or precise elevation data. Plains and grasslands cannot be reliably distinguished as separate classes here. River/lake data use Natural Earth 5.0.0; the source has alignment gaps and omits some seasonal waterways. More detailed tiles load as you zoom, but deep zoom cannot add ground accuracy.</p>
     </DetailPanel>
   </section>;
 }

@@ -160,7 +160,7 @@ This assignment prepares a separate geographic reference. It does not replace th
 
 ### MAP-01A — Real-world geographic data foundation
 
-- [x] Implemented on `task/map-01a-geographic-foundation`: verified and checksum-pinned Natural Earth 5.1.1 layers; 258 Admin-0 entities and 4,596 Admin-1 source features; compact overviews plus country/regional assets; independent WGS84 types and lazy loading; source/quality documentation; 82 passing tests and production build. PR targets `main`; do not merge without owner approval.
+- [x] Merged in PR #17: verified and checksum-pinned Natural Earth 5.1.1 layers; 258 Admin-0 entities and 4,596 Admin-1 source features; compact overviews plus country/regional assets; independent WGS84 types and lazy loading; source/quality documentation; 82 passing tests and production build. PR targets `main`; do not merge without owner approval.
 
 **Scope:** Use 110m and 50m Admin-0 overviews, 10m country/territory detail and 10m Admin-1 detail. Preserve source multipolygons, holes, islands, overseas grouping, identifiers, parent references and political classification/notes. Use geographic identity separately from gameplay. No extra shape simplification; document numeric precision and inherited defects. Keep high-resolution assets out of initial loading; provide country indexes and bounded regional chunks.
 
@@ -172,11 +172,13 @@ The owner authorized a two-PR split to protect mobile performance, geographic ac
 
 #### MAP-01B.1 — World renderer and country colors
 
-- [x] Implemented on `task/map-01b1-world-renderer`: read-only world atlas, all-continent WGS84 view, independent 1×–128× touch/mouse/keyboard camera, 258 stable unique country/entity colors with 344 checked neighbor pairs, clear national outlines, progressive country detail and bounded loading. Scenario menu opens the atlas; returning preserves the existing fictional map and all game workflows. 89 tests and production build pass; responsive browser/gameplay checks are documented in [docs/geography/RENDERING.md](docs/geography/RENDERING.md). Dedicated PR targets `main`; do not merge without owner approval.
+- [x] Implemented on `task/map-01b1-world-renderer`: read-only world atlas, all-continent WGS84 view, independent 1×–128× touch/mouse/keyboard camera, 258 stable unique country/entity colors with 344 checked neighbor pairs, clear national outlines, progressive country detail and bounded loading. Scenario menu opens the atlas; returning preserves the existing fictional map and all game workflows. 89 tests and production build pass; responsive browser/gameplay checks are documented in [docs/geography/RENDERING.md](docs/geography/RENDERING.md). PR [#18](https://github.com/alexeypetrichenko-a11y/heartland/pull/18) targets `main` and remains unmerged; do not merge without owner approval.
 
 #### MAP-01B.2 — Physical terrain layers
 
-- [ ] Separate PR in progress: verify and pin real relief/land-cover and river/lake datasets, render them independently from political color through the same camera, progressively load viewport detail, document accuracy/unsupported terrain and validate alignment/mobile performance. No decorative invented terrain, military terrain effects or scenario replacement.
+- [x] Implemented on `task/map-01b2-physical-terrain`, based on MAP-01B.1: real Natural Earth I relief/land-cover reference, 110m/50m/10m source rivers and lakes, progressive viewport tiles/chunks, an independent Terrain toggle, political outlines above physical imagery, 96 passing tests, production build and mobile/desktop browser checks. 218 physical assets total 16,952,158 bytes, with only 167,321 physical-data bytes needed for the first atlas world view. Source/accuracy/size/test details: [docs/geography/TERRAIN.md](docs/geography/TERRAIN.md). PR [#19](https://github.com/alexeypetrichenko-a11y/heartland/pull/19) targets `main`, depends on #18, and remains unmerged; do not merge without owner approval.
+
+**Explicit limitations for owner review:** The available pinned publisher raster is an older 2009/2012 snapshot, not current land cover. Broad mountain/wooded/arid patterns are shown; separate classified forest/desert/grassland boundaries and geomorphological plains are not reliably represented or invented. ESA WorldCover and GEBCO were investigated but not imported. One geometry-less river record and two invalid lake polygons are documented. Source-scale alignment and old-device/Safari performance need review. No simulation, terrain bonuses, military commands or fictional-scenario replacement.
 
 ### MAP-01C — Country and region selection (deferred)
 
@@ -242,4 +244,4 @@ Each item above is a **feature family** to be broken into small PRs before imple
 
 ## Current delivery and remaining phases
 
-MAP-01A is merged in PR #17. MAP-01B.1 is implemented for review; MAP-01B.2 follows in a separate PR under the current assignment. MAP-01C selection, fictional-scenario replacement, political/game ownership mapping, MIL-01, UI-01B.3, UI-01C, T09 and multiplayer remain deferred. Do not merge either PR without owner approval.
+MAP-01A is merged in PR #17. MAP-01B.1 is ready for review in PR #18; MAP-01B.2 is implemented for review in a separate dependent PR under the current assignment, with its source/biome limitations explicitly documented. MAP-01C selection, fictional-scenario replacement, political/game ownership mapping, MIL-01, UI-01B.3, UI-01C, T09 and multiplayer remain deferred. Do not merge either PR without owner approval.
