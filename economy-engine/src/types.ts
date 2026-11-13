@@ -127,6 +127,8 @@ export interface EconomyParams {
   maxTradeCost: number;
   // Private investment
   equityPremium: number;
+  sovereignPassThrough: number;
+  maxHurdle: number;
   investGrowthMax: number;
   investSensitivity: number;
   investPressureTrigger: number;
@@ -209,6 +211,7 @@ export interface EconomyParams {
   infraAdjust: number;
   infraProductivity: number;
   infraGrowthEffect: number;
+  infraMax: number;
   // Policy limits accepted from commands
   maxTaxRate: number;
   maxSpendingShare: number;

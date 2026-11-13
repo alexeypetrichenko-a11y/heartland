@@ -92,6 +92,7 @@ function clearGood(s: EconomyState, w: Workspace, m: Model, routes: RouteTable, 
     for (let z = 0; z < Z; z++) {
       const buyer = owner[z];
       const row = z * Z;
+      let bestThroughput = 0;
       for (let j = 0; j < Z; j++) {
         if (j === z) { w.costFactor[row + j] = 1; w.pairLimit[row + j] = Infinity; continue; }
         const seller = owner[j];
@@ -104,9 +105,12 @@ function clearGood(s: EconomyState, w: Workspace, m: Model, routes: RouteTable, 
         w.costFactor[row + j] = factor;
         const throughput = routes.throughput[row + j];
         w.pairLimit[row + j] = throughput < 1 ? throughput * w.zoneDemand[z] : Infinity;
+        if (factor > 0 && throughput > bestThroughput) bestThroughput = throughput;
       }
+      // Restricted routes also cap everything the zone can bring in from abroad.
+      w.foreignLeft[z] = bestThroughput < 1 ? bestThroughput * w.zoneDemand[z] : Infinity;
     }
-  }
+  } else for (let z = 0; z < Z; z++) w.foreignLeft[z] = 0;
 
   // --- 3. Strategic reserves released to domestic buyers only ---------------
   for (let c = 0; c < C; c++) w.countryScratch[c] = 0;
@@ -139,7 +143,7 @@ function clearGood(s: EconomyState, w: Workspace, m: Model, routes: RouteTable, 
       let cheapest = Infinity;
       for (let j = first; j < last; j++) {
         if (!(stockLeft[j] > EPSILON)) continue;
-        if (j !== z && (w.costFactor[row + j] === 0 || !(w.pairLimit[row + j] > EPSILON))) continue;
+        if (j !== z && (w.costFactor[row + j] === 0 || !(w.pairLimit[row + j] > EPSILON) || !(w.foreignLeft[z] > EPSILON))) continue;
         const delivered = zg.price[j * G + g] * (j === z ? 1 : w.costFactor[row + j]);
         if (delivered < cheapest) cheapest = delivered;
       }
@@ -148,7 +152,7 @@ function clearGood(s: EconomyState, w: Workspace, m: Model, routes: RouteTable, 
       let valueTotal = 0;
       const buyerCountry = owner[z];
       for (let j = first; j < last; j++) {
-        if (!(stockLeft[j] > EPSILON) || (j !== z && (w.costFactor[row + j] === 0 || !(w.pairLimit[row + j] > EPSILON)))) {
+        if (!(stockLeft[j] > EPSILON) || (j !== z && (w.costFactor[row + j] === 0 || !(w.pairLimit[row + j] > EPSILON) || !(w.foreignLeft[z] > EPSILON)))) {
           w.attraction[row + j] = 0;
           continue;
         }
@@ -166,13 +170,19 @@ function clearGood(s: EconomyState, w: Workspace, m: Model, routes: RouteTable, 
         w.hasSupplier[z] = 1;
       }
       if (!buying) continue;
+      let foreignOrdered = 0;
       for (let j = first; j < last; j++) {
         const weight = w.attraction[row + j];
         if (!(weight > 0)) continue;
         let quantity = need * weight / weightTotal;
         if (j !== z && quantity > w.pairLimit[row + j]) quantity = w.pairLimit[row + j];
         w.order[row + j] = quantity;
-        w.supplierOrders[j] += quantity;
+        if (j !== z) foreignOrdered += quantity;
+      }
+      const foreignScale = foreignOrdered > 0 && foreignOrdered > w.foreignLeft[z] ? Math.max(0, w.foreignLeft[z]) / foreignOrdered : 1;
+      for (let j = first; j < last; j++) {
+        if (j !== z) w.order[row + j] *= foreignScale;
+        w.supplierOrders[j] += w.order[row + j];
       }
       ordered = true;
     }
@@ -199,7 +209,10 @@ function clearGood(s: EconomyState, w: Workspace, m: Model, routes: RouteTable, 
         remaining[z] -= sent;
         w.received[z] += sent;
         w.paid[z] += sent * zg.price[j * G + g] * (j === z ? 1 : w.costFactor[row + j]);
-        if (j !== z && w.pairLimit[row + j] !== Infinity) w.pairLimit[row + j] -= sent;
+        if (j !== z) {
+          if (w.pairLimit[row + j] !== Infinity) w.pairLimit[row + j] = Math.max(0, w.pairLimit[row + j] - sent);
+          if (w.foreignLeft[z] !== Infinity) w.foreignLeft[z] = Math.max(0, w.foreignLeft[z] - sent);
+        }
       }
     }
     for (let j = 0; j < Z; j++) stockLeft[j] = Math.max(0, stockLeft[j] - w.supplierOrders[j]);

@@ -1,6 +1,6 @@
 import type { CountrySpec, EconomyConfig, EconomyState, WorldSpec } from '../types.ts';
 import { createConfig, validateConfig } from '../config/defaults.ts';
-import { capitalCharge, EPSILON, getModel } from '../core/model.ts';
+import { capitalCharge, EPSILON, getModel, privateHurdle } from '../core/model.ts';
 import { STATE_FORMAT, STATE_VERSION } from '../core/state.ts';
 import { createHistory } from '../core/stats.ts';
 import { advanceEconomyInPlace } from '../core/step.ts';
@@ -30,6 +30,10 @@ export const DEFAULT_COUNTRY_POLICY = {
 
 export const DEFAULT_WARMUP_TURNS = 160;
 const SOLVER_ITERATIONS = 400;
+/** Starting debt above this share of yearly GDP leaves no workable opening position. */
+export const MAX_STARTING_DEBT = 1.5;
+/** Highest income tax the builder will choose when balancing a first budget. */
+const MAX_BALANCING_TAX = 0.45;
 /** Weeks run with normal rules after calibration, to confirm the start is a resting point. */
 const CHECK_TURNS = 12;
 /** Passes of "find prices, then recalibrate"; later passes are a quarter as long. */
@@ -104,7 +108,7 @@ export function createEconomy(spec: WorldSpec): EconomyState {
 
   // --- Policies ------------------------------------------------------------------
   const policy = spec.countries.map((country: CountrySpec) => ({
-    debtToGdp: fraction(country.debtToGdp, DEFAULT_COUNTRY_POLICY.debtToGdp, 5, 'debtToGdp'),
+    debtToGdp: fraction(country.debtToGdp, DEFAULT_COUNTRY_POLICY.debtToGdp, MAX_STARTING_DEBT, 'debtToGdp'),
     taxConsumption: fraction(country.taxConsumption, DEFAULT_COUNTRY_POLICY.taxConsumption, p.maxTaxRate, 'taxConsumption'),
     taxCorporate: fraction(country.taxCorporate, DEFAULT_COUNTRY_POLICY.taxCorporate, p.maxTaxRate, 'taxCorporate'),
     administration: fraction(country.spendAdministration, DEFAULT_COUNTRY_POLICY.spendAdministration, p.maxSpendingShare, 'spendAdministration'),
@@ -351,7 +355,7 @@ export function createEconomy(spec: WorldSpec): EconomyState {
       const corporate = rule.taxCorporate * surplus;
       const taxable = gdp[c] - lossTotal[c] - corporate - investTotal[c];
       const needed = spending + country.debt[c] * country.averageRate[c] / 52 - rule.taxConsumption * privateTotal[c] - corporate;
-      country.taxIncome[c] = taxable > 0 ? Math.min(p.maxTaxRate, Math.max(0, needed / taxable)) : 0;
+      country.taxIncome[c] = taxable > 0 ? Math.min(MAX_BALANCING_TAX, Math.max(0, needed / taxable)) : 0;
     }
     for (let g = 0; g < G; g++) {
       countryGood.tariff[c * G + g] = m.tradable[g] ? rule.tariff : 0;
@@ -482,7 +486,7 @@ function settle(state: EconomyState, turns: number, balanceBudget: boolean[]): v
           const rate = country.taxIncome[c];
           if (!balanceBudget[c] || !(rate > 0) || !(budget.incomeTax > 0)) continue;
           const taxable = budget.incomeTax / rate;
-          country.taxIncome[c] = Math.min(state.config.params.maxTaxRate, Math.max(0, rate - budget.balance / taxable));
+          country.taxIncome[c] = Math.min(MAX_BALANCING_TAX, Math.max(0, rate - budget.balance / taxable));
         }
       }
     }
@@ -522,7 +526,7 @@ export function calibrateEfficiency(state: EconomyState): void {
     const productivity = Math.max(0.05, state.zone.technology[z] * (1 + p.infraProductivity * (state.zone.infrastructure[z] - 1)));
     let capitalPrice = 0;
     for (let g = 0; g < G; g++) capitalPrice += m.investment[g] * zg.buyPrice[base + g];
-    const hurdle = state.country.marketRate[c] + p.equityPremium;
+    const hurdle = privateHurdle(state, c);
     const keep = 1 - state.country.taxCorporate[c];
 
     // Capacity is trimmed to the demand actually observed, so that every

@@ -1,6 +1,6 @@
 import type { EconomyState } from '../types.ts';
 import type { Model, Workspace } from './model.ts';
-import { clamp, EPSILON } from './model.ts';
+import { clamp, EPSILON, privateHurdle } from './model.ts';
 import { RANDOM_STREAM, randomSigned } from './rng.ts';
 
 /**
@@ -140,7 +140,7 @@ export function planPrivateSector(s: EconomyState, w: Workspace, m: Model): void
     // --- Investment: expand where returns beat the cost of capital -----------
     let capitalPrice = 0;
     for (let g = 0; g < G; g++) capitalPrice += m.investment[g] * zg.buyPrice[base + g];
-    const hurdle = s.country.marketRate[c] + p.equityPremium;
+    const hurdle = privateHurdle(s, c);
     const keep = Math.max(0.05, 1 - s.country.taxCorporate[c]);
     let investCost = 0;
     for (let g = 0; g < G; g++) {

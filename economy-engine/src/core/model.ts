@@ -121,7 +121,7 @@ const ZONE_FIELDS = ['productivity', 'laborSupply', 'laborScale', 'employment', 
   'householdIncome', 'householdSpending', 'householdReal', 'householdNeed', 'firmRevenue', 'firmPurchases', 'wageBill',
   'valueAdded', 'valueAddedReal', 'investFill', 'lendable', 'lendAsked', 'lendScale', 'lendGiven', 'zoneDemand',
   'remainingDemand', 'remainingStock', 'supplierOrders', 'supplierFill', 'paid', 'received', 'releaseShipped',
-  'idealPrice'] as const;
+  'idealPrice', 'foreignLeft'] as const;
 const COUNTRY_FIELDS = ['population', 'planAdministration', 'planSocial', 'planMilitaryPay', 'planMilitaryGoods',
   'planInfrastructure', 'planExtras', 'planTotal', 'cashTarget', 'interestDue', 'principalDue', 'fundedShare', 'creditRequest',
   'borrowed', 'repaid', 'revenueIncomeTax', 'revenueConsumptionTax', 'revenueCorporateTax', 'revenueTariffs',
@@ -222,6 +222,16 @@ export function getWorkspace(state: EconomyState): Workspace {
 export function capitalCharge(m: Model, good: number, capitalPrice: number, hurdle: number, keptAfterTax: number): number {
   return (hurdle + m.depreciationWeekly[good] * 52) * m.capitalWeeks[good] * capitalPrice
     / (52 * m.normalUtilization[good] * Math.max(0.05, keptAfterTax));
+}
+
+/**
+ * Return a firm in country `c` demands before it expands: the world interest
+ * rate, part of its government's risk premium, and an equity premium.
+ */
+export function privateHurdle(s: EconomyState, c: number): number {
+  const p = s.config.params;
+  const sovereignPremium = Math.max(0, s.country.marketRate[c] - s.world.interestRate);
+  return Math.min(p.maxHurdle, s.world.interestRate + p.sovereignPassThrough * sovereignPremium + p.equityPremium);
 }
 
 export function clamp(value: number, low: number, high: number): number {

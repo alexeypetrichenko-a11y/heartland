@@ -1,6 +1,6 @@
 import type { EconomyState } from '../types.ts';
 import type { Model, Workspace } from './model.ts';
-import { capitalCharge, clamp, DUST, EPSILON } from './model.ts';
+import { capitalCharge, clamp, DUST, EPSILON, privateHurdle } from './model.ts';
 
 /**
  * Production, incomes and the weekly adjustment of prices, wages,
@@ -35,7 +35,6 @@ export function produce(s: EconomyState, w: Workspace, m: Model): void {
   for (let z = 0; z < Z; z++) {
     const c = s.zone.owner[z];
     const base = z * G;
-    const productivity = w.productivity[z];
     inputRatios(s, w, m, z, available, ratio);
     used.fill(0);
 
@@ -198,7 +197,7 @@ export function adjust(s: EconomyState, w: Workspace, m: Model): void {
     const productivity = w.productivity[z];
     let capitalPrice = 0;
     for (let g = 0; g < G; g++) capitalPrice += m.investment[g] * zg.buyPrice[base + g];
-    const hurdle = s.country.marketRate[c] + p.equityPremium;
+    const hurdle = privateHurdle(s, c);
     const keep = 1 - s.country.taxCorporate[c];
 
     for (let g = 0; g < G; g++) {
@@ -293,7 +292,7 @@ export function develop(s: EconomyState, w: Workspace, m: Model): void {
     // Infrastructure drifts towards what public investment sustains.
     const norm = p.infraNormShare * s.country.realGdp[c];
     const sustained = norm > EPSILON ? clamp(w.infrastructureReal[c] / norm, 0, 3) : 1;
-    zone.infrastructure[z] = clamp(zone.infrastructure[z] + p.infraAdjust * (sustained - zone.infrastructure[z]), 0.2, 2.5);
+    zone.infrastructure[z] = clamp(zone.infrastructure[z] + p.infraAdjust * (sustained - zone.infrastructure[z]), 0.2, p.infraMax);
     // Technology: a slow world trend plus catch-up for zones behind the frontier.
     const lag = frontier > EPSILON ? Math.max(0, 1 - zone.technology[z] / frontier) : 0;
     const growth = (p.techGrowthBase + p.techCatchUp * lag + p.infraGrowthEffect * (zone.infrastructure[z] - 1)) / 52;

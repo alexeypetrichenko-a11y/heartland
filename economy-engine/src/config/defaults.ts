@@ -15,7 +15,7 @@ export const REFERENCE_HURDLE = 0.10;
 export const REFERENCE_CORPORATE_TAX = 0.20;
 /** Normal utilisation of ordinary sectors and of sectors tied to natural resources. */
 export const REFERENCE_UTILIZATION = 0.85;
-export const RESOURCE_UTILIZATION = 0.93;
+export const RESOURCE_UTILIZATION = 0.85;
 
 interface GoodDraft {
   id: string;
@@ -170,7 +170,7 @@ export const DEFAULT_PARAMS: EconomyParams = {
   /** Producers never sell below this share of unit cost. */
   priceFloorCostRatio: 0.5,
   /** Prices cannot exceed this multiple of their two-year average. */
-  priceCapRefMultiple: 8,
+  priceCapRefMultiple: 4,
   refPriceWeeks: 104,
   naturalUnemployment: 0.05,
   /** Weekly wage change per unit of unemployment below/above natural. */
@@ -199,6 +199,10 @@ export const DEFAULT_PARAMS: EconomyParams = {
 
   // --- Private investment ---------------------------------------------------
   equityPremium: 0.06,
+  /** Share of a government's borrowing premium over the world rate that reaches its firms. */
+  sovereignPassThrough: 0.25,
+  /** Cap on the return firms demand (world rate + premiums). */
+  maxHurdle: 0.20,
   /** Fastest weekly growth of a sector's capacity. */
   investGrowthMax: 0.0025,
   investSensitivity: 2.0,
@@ -263,7 +267,7 @@ export const DEFAULT_PARAMS: EconomyParams = {
   moneyRuleGain: 0.5,
   /** Extra weekly money growth per unit of world unemployment above the natural rate. */
   moneyRuleSlackGain: 0.01,
-  moneyGrowthMaxWeekly: 0.002,
+  moneyGrowthMaxWeekly: 0.0012,
   growthSmoothing: 0.02,
 
   // --- Political stability --------------------------------------------------
@@ -301,7 +305,9 @@ export const DEFAULT_PARAMS: EconomyParams = {
   infraNormShare: 0.02,
   infraAdjust: 0.01,
   infraProductivity: 0.15,
-  infraGrowthEffect: 0.01,
+  infraGrowthEffect: 0.004,
+  /** Highest infrastructure index public investment can sustain (1 = normal). */
+  infraMax: 1.8,
 
   // --- Limits on player commands -------------------------------------------
   maxTaxRate: 0.7,
