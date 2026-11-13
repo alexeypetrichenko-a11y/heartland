@@ -100,7 +100,7 @@
 
 ## Interface redesign milestone — Mobile-first interface (before T09)
 
-This is a separate UI milestone. Preserve the existing engine, models, economy, combat, diplomacy and AI rules throughout. UI-01A, UI-01A.2, UI-01B.1 and UI-01B.2 are merged. The current assignment is MAP-01A data preparation only; UI-01B.3 and later interface phases need separate requirements and approval.
+This is a separate UI milestone. Preserve the existing engine, models, economy, combat, diplomacy and AI rules throughout. UI-01A, UI-01A.2, UI-01B.1 and UI-01B.2 are merged. MAP-01A is merged in PR #17. The current assignment is MAP-01B rendering, split into political and physical presentation PRs; UI-01B.3 and later interface phases need separate requirements and approval.
 
 ### UI-01A — Compact map-first navigation
 
@@ -166,9 +166,17 @@ This assignment prepares a separate geographic reference. It does not replace th
 
 **Acceptance:** Verify source URLs/version/license/coverage before importing. Test identifiers, exact country/region references, polygon/multipolygon structure, coordinates, continents, representative France/Germany/USA/Russia/China/Brazil/Australia, asset hashes/budgets/lazy requests and preservation of the existing fictional scenario. Run `npm test` and `npm run build`. Document actual administrative coverage, missing/unnamed/unclassified records, disputed/dependent territories and source geometry limitations. Preserve all `src/game`, current map/UI/zoom/pan, deployment settings and dependencies.
 
-### MAP-01B — Render the world map (deferred)
+### MAP-01B — World political and physical rendering
 
-- [ ] Not implemented. A separate assignment may consume the geographic manifest/overview and lazy detail, decide projection/wrapping/level-of-detail rendering and retain the existing fictional game until explicitly authorized otherwise. Review inherited source defects and geographic display policy; no new renderer or controls are included in MAP-01A.
+The owner authorized a two-PR split to protect mobile performance, geographic accuracy and the playable scenario.
+
+#### MAP-01B.1 — World renderer and country colors
+
+- [x] Implemented on `task/map-01b1-world-renderer`: read-only world atlas, all-continent WGS84 view, independent 1×–128× touch/mouse/keyboard camera, 258 stable unique country/entity colors with 344 checked neighbor pairs, clear national outlines, progressive country detail and bounded loading. Scenario menu opens the atlas; returning preserves the existing fictional map and all game workflows. 89 tests and production build pass; responsive browser/gameplay checks are documented in [docs/geography/RENDERING.md](docs/geography/RENDERING.md). Dedicated PR targets `main`; do not merge without owner approval.
+
+#### MAP-01B.2 — Physical terrain layers
+
+- [ ] Separate PR in progress: verify and pin real relief/land-cover and river/lake datasets, render them independently from political color through the same camera, progressively load viewport detail, document accuracy/unsupported terrain and validate alignment/mobile performance. No decorative invented terrain, military terrain effects or scenario replacement.
 
 ### MAP-01C — Country and region selection (deferred)
 
@@ -232,6 +240,6 @@ Each item above is a **feature family** to be broken into small PRs before imple
 - No implementation of all design systems in one prompt.
 - No arbitrary final victory formulas, crisis probabilities, military constants or territorial-policy decisions disguised as approved rules.
 
-## Next task (requires a separate assignment)
+## Current delivery and remaining phases
 
-UI-01A through UI-01B.2 are merged into `main` (PRs #13–#16). MAP-01A is implemented and locally verified on `task/map-01a-geographic-foundation` for owner review through a dedicated PR to `main`; coverage and limitations are in `docs/geography/README.md` and `STATUS.md`. MAP-01B rendering and MAP-01C selection require separate assignments. No fictional-scenario replacement, political/game ownership mapping, MIL-01, UI-01B.3, UI-01C, T09 or multiplayer is authorized. Do not merge without owner approval.
+MAP-01A is merged in PR #17. MAP-01B.1 is implemented for review; MAP-01B.2 follows in a separate PR under the current assignment. MAP-01C selection, fictional-scenario replacement, political/game ownership mapping, MIL-01, UI-01B.3, UI-01C, T09 and multiplayer remain deferred. Do not merge either PR without owner approval.

@@ -591,6 +591,21 @@ li {
 .map-svg.is-dragging, .map-svg.is-dragging .map-region {
   cursor: grabbing;
 }
+.atlas-view { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
+.atlas-heading { display: flex; flex: none; align-items: center; gap: 10px; padding: 0 16px 8px; }
+.atlas-heading > div { flex: 1; }
+.atlas-heading h2 { margin: 0; font-size: 1.05rem; }
+.atlas-heading p { margin: 2px 0 0; color: var(--color-muted); font-size: .75rem; }
+.atlas-heading button { min-height: 44px; min-width: 44px; padding: 0 12px; font-size: .85rem; border-radius: 12px; }
+.atlas-frame { position: relative; flex: 1; min-height: 0; margin: 0 16px; overflow: hidden; border: 1px solid var(--color-border); border-radius: 20px; background: #122331; }
+.atlas-svg { display: block; width: 100%; height: 100%; touch-action: none; user-select: none; -webkit-user-select: none; cursor: grab; }
+.atlas-svg:focus-visible { outline: 2px solid var(--color-accent); outline-offset: -3px; }
+.atlas-controls { position: absolute; right: 6px; top: 6px; margin: 0; border: 1px solid var(--color-border); box-shadow: 0 2px 8px #0a111966; }
+.atlas-zoom { position: absolute; right: 12px; bottom: 10px; padding: 3px 7px; border-radius: 6px; background: #101b27dd; color: var(--color-muted); font-size: .75rem; pointer-events: none; }
+.atlas-caption { flex: none; padding: 8px 18px; font-size: .72rem; color: var(--color-muted); }
+.atlas-caption p { margin: 0; }
+.atlas-caption button { min-height: 44px; margin-top: 4px; }
+.atlas-labels text { font: 600 11px system-ui, sans-serif; fill: #13202c; stroke: #f3efdc; stroke-width: 2.5px; paint-order: stroke; stroke-linejoin: round; }
 .map-controls {
   flex: none;
   align-self: center;
