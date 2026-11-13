@@ -310,6 +310,11 @@ export const DEFAULT_PARAMS: EconomyParams = {
   infraGrowthEffect: 0.004,
   /** Highest infrastructure index public investment can sustain (1 = normal). */
   infraMax: 1.8,
+  /**
+   * Fastest weekly growth of a resource ceiling (new deposits, land, extraction methods) while demand keeps
+   * pressing against it. Scarcity bites in the short run; it cannot become a permanent cap on growth.
+   */
+  resourceDiscoveryRate: 0.0015,
 
   // --- Limits on player commands -------------------------------------------
   maxTaxRate: 0.7,

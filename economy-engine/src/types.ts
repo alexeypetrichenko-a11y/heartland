@@ -213,6 +213,7 @@ export interface EconomyParams {
   infraProductivity: number;
   infraGrowthEffect: number;
   infraMax: number;
+  resourceDiscoveryRate: number;
   // Policy limits accepted from commands
   maxTaxRate: number;
   maxSpendingShare: number;

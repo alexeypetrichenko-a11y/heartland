@@ -140,23 +140,28 @@ function clearGood(s: EconomyState, w: Workspace, m: Model, routes: RouteTable, 
       const row = z * Z;
       const first = tradable ? 0 : z;
       const last = tradable ? Z : z + 1;
+      // Delivered price of every supplier this buyer may use (Infinity = not available), computed once.
+      const delivery = w.delivered;
+      const openAbroad = w.foreignLeft[z] > EPSILON;
       let cheapest = Infinity;
       for (let j = first; j < last; j++) {
-        if (!(stockLeft[j] > EPSILON)) continue;
-        if (j !== z && (w.costFactor[row + j] === 0 || !(w.pairLimit[row + j] > EPSILON) || !(w.foreignLeft[z] > EPSILON))) continue;
-        const delivered = zg.price[j * G + g] * (j === z ? 1 : w.costFactor[row + j]);
-        if (delivered < cheapest) cheapest = delivered;
+        let price = Infinity;
+        if (stockLeft[j] > EPSILON && (j === z || (w.costFactor[row + j] !== 0 && w.pairLimit[row + j] > EPSILON && openAbroad))) {
+          price = zg.price[j * G + g] * (j === z ? 1 : w.costFactor[row + j]);
+          if (price < cheapest) cheapest = price;
+        }
+        delivery[j] = price;
       }
       if (cheapest === Infinity) continue;
       let weightTotal = 0;
       let valueTotal = 0;
       const buyerCountry = owner[z];
       for (let j = first; j < last; j++) {
-        if (!(stockLeft[j] > EPSILON) || (j !== z && (w.costFactor[row + j] === 0 || !(w.pairLimit[row + j] > EPSILON) || !(w.foreignLeft[z] > EPSILON)))) {
+        const delivered = delivery[j];
+        if (delivered === Infinity) {
           w.attraction[row + j] = 0;
           continue;
         }
-        const delivered = zg.price[j * G + g] * (j === z ? 1 : w.costFactor[row + j]);
         const preference = j === z ? p.homePreference : owner[j] === buyerCountry ? p.nationalPreference : 1;
         // Bigger stocks draw proportionally more orders; dearer offers far fewer.
         const weight = stockLeft[j] * preference * attract(cheapest / delivered, doublings);
@@ -171,6 +176,7 @@ function clearGood(s: EconomyState, w: Workspace, m: Model, routes: RouteTable, 
       }
       if (!buying) continue;
       let foreignOrdered = 0;
+      const uncapped = w.foreignLeft[z] === Infinity;
       for (let j = first; j < last; j++) {
         const weight = w.attraction[row + j];
         if (!(weight > 0)) continue;
@@ -178,11 +184,15 @@ function clearGood(s: EconomyState, w: Workspace, m: Model, routes: RouteTable, 
         if (j !== z && quantity > w.pairLimit[row + j]) quantity = w.pairLimit[row + j];
         w.order[row + j] = quantity;
         if (j !== z) foreignOrdered += quantity;
+        // With no cap on total imports the order is final and can be booked immediately.
+        if (uncapped) w.supplierOrders[j] += quantity;
       }
-      const foreignScale = foreignOrdered > 0 && foreignOrdered > w.foreignLeft[z] ? Math.max(0, w.foreignLeft[z]) / foreignOrdered : 1;
-      for (let j = first; j < last; j++) {
-        if (j !== z) w.order[row + j] *= foreignScale;
-        w.supplierOrders[j] += w.order[row + j];
+      if (!uncapped) {
+        const foreignScale = foreignOrdered > 0 && foreignOrdered > w.foreignLeft[z] ? Math.max(0, w.foreignLeft[z]) / foreignOrdered : 1;
+        for (let j = first; j < last; j++) {
+          if (j !== z) w.order[row + j] *= foreignScale;
+          w.supplierOrders[j] += w.order[row + j];
+        }
       }
       ordered = true;
     }

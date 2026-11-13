@@ -13,7 +13,7 @@
       },
       {
         "label": "World inflation (mean)",
-        "value": "1.4%",
+        "value": "1.5%",
         "note": "monetary rule targets 2%"
       },
       {
@@ -38,7 +38,7 @@
       },
       {
         "label": "Worst conservation error",
-        "value": "2.6e-15",
+        "value": "1.9e-15",
         "note": "goods, money and bonds, every week"
       }
     ],
@@ -71,27 +71,27 @@
         ],
         [
           10,
-          "604.6",
-          "-1.6%",
+          "603.4",
+          "-1.4%",
           "3.2%",
-          "10418",
-          "14155"
+          "10422",
+          "14159"
         ],
         [
           15,
-          "694.4",
-          "1.7%",
+          "693.4",
+          "0.7%",
           "3.2%",
-          "12430",
-          "15305"
+          "12482",
+          "15328"
         ],
         [
           20,
-          "764.7",
+          "765.7",
           "0.8%",
           "3.2%",
-          "14254",
-          "17492"
+          "14322",
+          "17495"
         ]
       ]
     },
@@ -109,7 +109,7 @@
       {
         "name": "Inflation stays moderate",
         "pass": true,
-        "detail": "1.4%"
+        "detail": "1.5%"
       },
       {
         "name": "No sovereign default or regime change without a shock",
@@ -124,11 +124,11 @@
       {
         "name": "Conservation holds every week",
         "pass": true,
-        "detail": "2.6e-15"
+        "detail": "1.9e-15"
       }
     ],
     "observations": [],
-    "runtimeMs": 690.5215739999999
+    "runtimeMs": 708.93603
   },
   {
     "id": 2,
@@ -283,7 +283,7 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 424.7419769999999
+    "runtimeMs": 398.5666859999999
   },
   {
     "id": 3,
@@ -443,7 +443,7 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 198.48312199999987
+    "runtimeMs": 183.03660100000002
   },
   {
     "id": 4,
@@ -598,7 +598,7 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 149.464248
+    "runtimeMs": 148.81251900000007
   },
   {
     "id": 5,
@@ -731,7 +731,7 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 212.8150589999998
+    "runtimeMs": 255.46559800000023
   },
   {
     "id": 6,
@@ -791,12 +791,12 @@
       },
       {
         "label": "B: borrowing rate peak / debt-to-GDP peak",
-        "value": "25.4% / 83%",
+        "value": "26.9% / 83%",
         "note": "control debt 59%"
       },
       {
         "label": "B: Tavros real GDP at the end (vs control)",
-        "value": "96%"
+        "value": "103%"
       }
     ],
     "table": {
@@ -870,9 +870,9 @@
           "23%",
           "yes",
           "3.6%",
-          "98.7%",
-          "71.2",
-          "4.3%"
+          "98.6%",
+          "70.8",
+          "4.6%"
         ]
       ]
     },
@@ -915,7 +915,7 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 1055.443444
+    "runtimeMs": 1055.293795
   },
   {
     "id": 7,
@@ -930,12 +930,12 @@
       },
       {
         "label": "Non-members ↔ Ostmark flow",
-        "value": "11.79 per week",
+        "value": "11.77 per week",
         "note": "was 4.10 before (trade diversion)"
       },
       {
         "label": "Ostmark real GDP (from week 66, vs control)",
-        "value": "-2.7%"
+        "value": "-2.6%"
       },
       {
         "label": "Ostmark total trade",
@@ -944,12 +944,12 @@
       },
       {
         "label": "Ostmark prices: industrial / military",
-        "value": "0.78x / 0.69x",
+        "value": "0.79x / 0.69x",
         "note": "export goods lose their markets, so they get cheaper at home"
       },
       {
         "label": "Industrial price in coalition countries (mean)",
-        "value": "1.094x"
+        "value": "1.095x"
       },
       {
         "label": "Coalition members' real GDP (mean)",
@@ -1011,11 +1011,11 @@
         ],
         [
           260,
-          "99.1%",
-          "99.5%",
-          "98.9%",
-          "107.8%",
-          "108.2%"
+          "99.0%",
+          "100.0%",
+          "99.4%",
+          "107.9%",
+          "108.4%"
         ]
       ]
     },
@@ -1034,31 +1034,31 @@
       {
         "name": "Ostmark is hurt",
         "pass": true,
-        "detail": "-2.7%"
+        "detail": "-2.6%"
       },
       {
         "name": "Trade is diverted to non-members",
         "pass": true,
-        "detail": "4.10 → 11.79"
+        "detail": "4.10 → 11.77"
       },
       {
         "name": "Senders bear some cost, much smaller than the target",
         "pass": true,
-        "detail": "members -1.6% vs target -2.7%"
+        "detail": "members -1.6% vs target -2.6%"
       },
       {
         "name": "Ostmark's terms of trade worsen (its export goods lose their markets and get cheaper at home)",
         "pass": true,
-        "detail": "industrial 0.78x, military 0.69x"
+        "detail": "industrial 0.79x, military 0.69x"
       },
       {
         "name": "Coalition buyers pay more for the goods they used to import",
         "pass": true,
-        "detail": "1.094x"
+        "detail": "1.095x"
       }
     ],
     "observations": [],
-    "runtimeMs": 224.24433899999985
+    "runtimeMs": 237.00143200000002
   },
   {
     "id": 8,
@@ -1073,7 +1073,7 @@
       {
         "label": "A (world energy shock): consumption per head, 18 months",
         "value": "Lirane -1.7%, Sundara -5.3%",
-        "note": "energy is a small share of Lirane's basket, so the world price shock is not what exposes it"
+        "note": "the same price rise hurts the large economy more: Lirane is rich per head, so basic needs absorb less of its budget (inferred from the model structure, not isolated by a separate run)"
       },
       {
         "label": "A: energy price paid (peak)",
@@ -1081,11 +1081,11 @@
       },
       {
         "label": "B (blockade): consumption per head, 18 months",
-        "value": "reserves -2.7%, frozen -11.3%"
+        "value": "reserves -3.2%, frozen -11.6%"
       },
       {
         "label": "B: real GDP, 18 months",
-        "value": "reserves -12.4%, frozen -20.3%"
+        "value": "reserves -13.0%, frozen -20.6%"
       },
       {
         "label": "B: lowest share of household energy / food demand met",
@@ -1093,7 +1093,7 @@
       },
       {
         "label": "B: food / energy price paid in Lirane (peak)",
-        "value": "3.61x / 1.01x"
+        "value": "3.73x / 1.01x"
       },
       {
         "label": "B: reserves released (energy / food)",
@@ -1101,7 +1101,7 @@
       },
       {
         "label": "B: lowest stability",
-        "value": "reserves 20.1, frozen 16.5",
+        "value": "reserves 19.5, frozen 16.4",
         "note": "control 70.2"
       },
       {
@@ -1151,7 +1151,7 @@
           "1.00x",
           "97%",
           "93%",
-          "9.5%",
+          "9.4%",
           "66.0",
           "5.2",
           "4.2"
@@ -1169,12 +1169,12 @@
         ],
         [
           104,
-          "3.61x",
+          "3.73x",
           "1.00x",
-          "80%",
-          "36%",
-          "53.2%",
-          "21.9",
+          "77%",
+          "35%",
+          "54.5%",
+          "21.2",
           "0.2",
           "0.2"
         ],
@@ -1182,11 +1182,11 @@
           130,
           "1.01x",
           "1.00x",
-          "96%",
-          "91%",
-          "13.2%",
-          "59.8",
-          "5.5",
+          "95%",
+          "90%",
+          "13.8%",
+          "58.6",
+          "5.4",
           "5.0"
         ],
         [
@@ -1195,7 +1195,7 @@
           "1.00x",
           "94%",
           "98%",
-          "6.6%",
+          "6.5%",
           "69.9",
           "10.6",
           "10.3"
@@ -1203,7 +1203,7 @@
       ]
     },
     "mechanisms": [
-      "An import-dependent economy has almost no domestic supply to fall back on. A price shock on one commodity is a price-taker problem, but its size depends on that commodity's weight in the basket: energy is small, so Lirane is not much worse hit than a large economy.",
+      "An import-dependent economy has almost no domestic supply to fall back on and is a price-taker. A world price shock still passes through to it, but how much it hurts depends on the commodity's weight in the budget; in this run the rich-per-head island is hit less than the large poorer economy.",
       "What truly exposes it is access: when its only sea link is restricted, supply (not just price) falls, households go short of necessities, its production chain loses inputs, and its high-wage, import-heavy structure makes the adjustment costly.",
       "Strategic reserves are bought when prices are low and released automatically when prices or shortages cross thresholds. They buy time for the first months at the cost of tying up public money in stock."
     ],
@@ -1216,7 +1216,7 @@
       {
         "name": "A blockade hurts the island far more than a price shock hurts a large economy",
         "pass": true,
-        "detail": "blockade -11.3% vs Sundara -5.3%"
+        "detail": "blockade -11.6% vs Sundara -5.3%"
       },
       {
         "name": "Reserves are released in the blockade",
@@ -1226,7 +1226,7 @@
       {
         "name": "Reserves reduce the damage",
         "pass": true,
-        "detail": "-2.7% vs -11.3%"
+        "detail": "-3.2% vs -11.6%"
       },
       {
         "name": "Lirane's necessities go short in the blockade",
@@ -1235,7 +1235,7 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 681.7828380000001
+    "runtimeMs": 645.0690690000001
   },
   {
     "id": 9,
@@ -1249,7 +1249,7 @@
       },
       {
         "label": "Weeks to reach 95% / 99% of control GDP",
-        "value": "506 / 943"
+        "value": "506 / 953"
       },
       {
         "label": "Peak unemployment",
@@ -1270,7 +1270,7 @@
       },
       {
         "label": "Industrial capacity: lowest / end (vs control)",
-        "value": "65% / 115%",
+        "value": "65% / 118%",
         "note": "rebuilt by private investment"
       },
       {
@@ -1279,7 +1279,7 @@
       },
       {
         "label": "World real GDP at the trough (vs control)",
-        "value": "-26.6%"
+        "value": "-27.8%"
       }
     ],
     "table": {
@@ -1339,7 +1339,7 @@
           "73%",
           "35.6%",
           "64%",
-          "25.2"
+          "25.1"
         ],
         [
           "5.00",
@@ -1347,39 +1347,39 @@
           "81%",
           "29.0%",
           "54%",
-          "41.4"
+          "41.3"
         ],
         [
           "8.00",
-          "85%",
-          "104%",
-          "14.8%",
-          "43%",
-          "56.1"
+          "81%",
+          "103%",
+          "18.3%",
+          "44%",
+          "49.6"
         ],
         [
           "12.00",
-          "93%",
-          "129%",
-          "6.3%",
-          "26%",
-          "65.8"
+          "91%",
+          "128%",
+          "7.3%",
+          "27%",
+          "70.6"
         ],
         [
           "16.00",
-          "97%",
-          "129%",
-          "2.2%",
-          "24%",
-          "73.2"
+          "95%",
+          "136%",
+          "4.0%",
+          "25%",
+          "74.2"
         ],
         [
           "19.00",
           "101%",
-          "115%",
-          "0.5%",
+          "118%",
+          "0.7%",
           "25%",
-          "74.6"
+          "74.9"
         ]
       ]
     },
@@ -1403,12 +1403,12 @@
       {
         "name": "Recovery happens (95% of control GDP within the horizon)",
         "pass": true,
-        "detail": "506 weeks to 95%, 943 weeks to 99%"
+        "detail": "506 weeks to 95%, 953 weeks to 99%"
       },
       {
         "name": "Capacity is rebuilt gradually by private investment",
         "pass": true,
-        "detail": "65% → 115%"
+        "detail": "65% → 118%"
       },
       {
         "name": "No runaway debt or inflation after the crisis",
@@ -1417,7 +1417,7 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 540.0585099999998
+    "runtimeMs": 584.0639689999998
   },
   {
     "id": 10,
@@ -1453,7 +1453,7 @@
       },
       {
         "label": "Spread between strategies (GDP per head)",
-        "value": "2.13x – 2.68x"
+        "value": "2.12x – 2.68x"
       }
     ],
     "table": {
@@ -1472,7 +1472,7 @@
         [
           "Baseline (autopilot)",
           "2.16x",
-          "1.95x",
+          "1.94x",
           "0.98x",
           "70.9",
           "42%",
@@ -1482,9 +1482,9 @@
         [
           "Infrastructure push",
           "2.68x",
-          "2.32x",
+          "2.29x",
           "1.00x",
-          "70.8",
+          "70.7",
           "43%",
           "64%",
           "25%"
@@ -1501,12 +1501,12 @@
         ],
         [
           "Protectionist",
-          "2.13x",
+          "2.12x",
           "1.96x",
           "0.95x",
-          "69.2",
+          "69.1",
           "43%",
-          "40%",
+          "41%",
           "34%"
         ]
       ]
@@ -1530,25 +1530,25 @@
       {
         "name": "Production structure changes",
         "pass": true,
-        "detail": "food 33.5% → 23.1%"
+        "detail": "food 33.5% → 23.3%"
       },
       {
         "name": "Several strategies are viable (no strategy collapses)",
         "pass": true,
-        "detail": "2.16x / 2.68x / 2.16x / 2.13x"
+        "detail": "2.16x / 2.68x / 2.16x / 2.12x"
       },
       {
         "name": "Strategies differ measurably",
         "pass": true,
-        "detail": "2.13x – 2.68x"
+        "detail": "2.12x – 2.68x"
       },
       {
         "name": "Protectionism lowers openness",
         "pass": true,
-        "detail": "40% vs 70%"
+        "detail": "41% vs 70%"
       }
     ],
     "observations": [],
-    "runtimeMs": 3046.1963530000003
+    "runtimeMs": 3762.2502269999995
   }
 ]

@@ -261,6 +261,15 @@ export function adjust(s: EconomyState, w: Workspace, m: Model): void {
       if (zg.build2[index] < DUST) zg.build2[index] = 0;
       if (zg.build3[index] < DUST) zg.build3[index] = 0;
 
+      // A resource ceiling that demand keeps pressing against slowly gives way (discovery, better extraction).
+      if (zg.resourceCap[index] > 0 && m.resourceBased[g]) {
+        const installedAll = zg.capacity[index] + zg.build1[index] + zg.build2[index] + zg.build3[index];
+        if (installedAll >= 0.97 * zg.resourceCap[index]) {
+          const urgency = clamp((zg.pressure[index] - m.normalUtilization[g]) / (1 - m.normalUtilization[g]), 0, 1);
+          zg.resourceCap[index] *= 1 + p.resourceDiscoveryRate * urgency;
+        }
+      }
+
       // Temporary production shocks fade.
       if (zg.yieldRecovery[index] > 0) {
         zg.yieldFactor[index] += (1 - zg.yieldFactor[index]) * zg.yieldRecovery[index];

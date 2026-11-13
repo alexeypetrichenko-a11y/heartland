@@ -597,7 +597,7 @@ function scenario8(ctx: Context): ScenarioResult {
     setup: `Lirane (6 million people, almost no energy, food or raw materials) is tested twice, with its 8-week strategic reserves usable and frozen. A: world energy supply falls 50% (Khazir and Halcyon) in week ${SHOCK}; Sundara (large, diversified) is the comparison. B: Lirane's only sea link is partly blockaded (2x freight cost, 50% of normal throughput) for 52 weeks.`,
     indicators: [
       { label: 'Imports / GDP before the shock', value: `Lirane ${pct(dependency(L))}, Sundara ${pct(dependency(S))}` },
-      { label: 'A (world energy shock): consumption per head, 18 months', value: `Lirane ${pct(window(runs.energy, L, 'consumptionPerCapita'))}, Sundara ${pct(window(runs.energy, S, 'consumptionPerCapita'))}`, note: 'energy is a small share of Lirane\'s basket, so the world price shock is not what exposes it' },
+      { label: 'A (world energy shock): consumption per head, 18 months', value: `Lirane ${pct(window(runs.energy, L, 'consumptionPerCapita'))}, Sundara ${pct(window(runs.energy, S, 'consumptionPerCapita'))}`, note: 'the same price rise hurts the large economy more: Lirane is rich per head, so basic needs absorb less of its budget (inferred from the model structure, not isolated by a separate run)' },
       { label: 'A: energy price paid (peak)', value: `Lirane ${f(priceUp(runs.energy, L, 'energy'))}x, Sundara ${f(priceUp(runs.energy, S, 'energy'))}x` },
       { label: 'B (blockade): consumption per head, 18 months', value: `reserves ${pct(window(runs.blockade, L, 'consumptionPerCapita'))}, frozen ${pct(window(runs.blockadeFrozen, L, 'consumptionPerCapita'))}` },
       { label: 'B: real GDP, 18 months', value: `reserves ${pct(window(runs.blockade, L, 'gdpReal'))}, frozen ${pct(window(runs.blockadeFrozen, L, 'gdpReal'))}` },
@@ -616,7 +616,7 @@ function scenario8(ctx: Context): ScenarioResult {
         f(runs.blockade.series.countries[L].reserves.food[w - 1], 1), f(runs.blockade.series.countries[L].reserves.energy[w - 1], 1)]),
     },
     mechanisms: [
-      'An import-dependent economy has almost no domestic supply to fall back on. A price shock on one commodity is a price-taker problem, but its size depends on that commodity\'s weight in the basket: energy is small, so Lirane is not much worse hit than a large economy.',
+      'An import-dependent economy has almost no domestic supply to fall back on and is a price-taker. A world price shock still passes through to it, but how much it hurts depends on the commodity\'s weight in the budget; in this run the rich-per-head island is hit less than the large poorer economy.',
       'What truly exposes it is access: when its only sea link is restricted, supply (not just price) falls, households go short of necessities, its production chain loses inputs, and its high-wage, import-heavy structure makes the adjustment costly.',
       'Strategic reserves are bought when prices are low and released automatically when prices or shortages cross thresholds. They buy time for the first months at the cost of tying up public money in stock.',
     ],

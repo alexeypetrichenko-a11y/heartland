@@ -121,7 +121,7 @@ const ZONE_FIELDS = ['productivity', 'laborSupply', 'laborScale', 'employment', 
   'householdIncome', 'householdSpending', 'householdReal', 'householdNeed', 'firmRevenue', 'firmPurchases', 'wageBill',
   'valueAdded', 'valueAddedReal', 'investFill', 'lendable', 'lendAsked', 'lendScale', 'lendGiven', 'zoneDemand',
   'remainingDemand', 'remainingStock', 'supplierOrders', 'supplierFill', 'paid', 'received', 'releaseShipped',
-  'idealPrice', 'foreignLeft'] as const;
+  'idealPrice', 'foreignLeft', 'delivered'] as const;
 const COUNTRY_FIELDS = ['population', 'planAdministration', 'planSocial', 'planMilitaryPay', 'planMilitaryGoods',
   'planInfrastructure', 'planExtras', 'planTotal', 'cashTarget', 'interestDue', 'principalDue', 'fundedShare', 'creditRequest',
   'borrowed', 'repaid', 'revenueIncomeTax', 'revenueConsumptionTax', 'revenueCorporateTax', 'revenueTariffs',
