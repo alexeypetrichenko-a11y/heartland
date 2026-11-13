@@ -206,6 +206,7 @@ export interface EconomyParams {
   regimeImmunityWeeks: number;
   // Development
   techGrowthBase: number;
+  techCeiling: number;
   techCatchUp: number;
   infraNormShare: number;
   infraAdjust: number;
@@ -256,6 +257,8 @@ export interface ZoneArrays {
   owner: number[];
   population: number[];
   populationGrowth: number[];
+  /** Population the zone can grow towards; growth fades smoothly as it is approached. */
+  populationCap: number[];
   technology: number[];
   infrastructure: number[];
   mobilized: number[];
@@ -377,6 +380,11 @@ export interface WorldScalars {
   realGrowth: number;
   inflation: number;
   realGdp: number;
+  /**
+   * Number of times all money amounts were divided by 2^30 to keep numbers in a safe
+   * range. One money unit now equals 2^(30 * rebases) of the original units.
+   */
+  rebases: number;
 }
 
 export interface HistoryTier {
@@ -619,7 +627,7 @@ export interface TurnReport {
   turn: number;
   countries: CountryReport[];
   goods: GoodReport[];
-  world: { gdpReal: number; gdpNominal: number; inflation: number; interestRate: number; money: number; debt: number; population: number };
+  world: { gdpReal: number; gdpNominal: number; inflation: number; interestRate: number; money: number; debt: number; population: number; rebases: number };
   events: EconomyEvent[];
   audit: AuditReport;
   trade?: TradeFlow[];
@@ -661,8 +669,10 @@ export interface ZoneSpec {
   population: number;
   /** Productivity relative to the reference economy (1 = reference). */
   technology: number;
-  /** Yearly population growth rate. */
+  /** Yearly population growth rate while far below the ceiling. */
   populationGrowth?: number;
+  /** Population ceiling as a multiple of the starting population (default 3). */
+  populationLimit?: number;
   /** Relative strength per tradable good; 0 means the zone cannot produce it. */
   advantage?: Record<GoodId, number>;
   /** Room to expand resource-based sectors above their starting capacity. */

@@ -106,7 +106,7 @@ function idList(value: unknown, label: string): number {
   return value.length;
 }
 
-const ZONE_KEYS = ['owner', 'population', 'populationGrowth', 'technology', 'infrastructure', 'mobilized', 'wage',
+const ZONE_KEYS = ['owner', 'population', 'populationGrowth', 'populationCap', 'technology', 'infrastructure', 'mobilized', 'wage',
   'householdMoney', 'firmMoney', 'expectedIncome', 'firmCosts', 'cpi', 'inflation', 'unemployment', 'livingStandard',
   'livingStandardRef', 'deprivation'] as const;
 const ZONE_GOOD_KEYS = ['capacity', 'build1', 'build2', 'build3', 'stock', 'inputBuffer', 'price', 'buyPrice',
@@ -118,7 +118,7 @@ const COUNTRY_KEYS = ['treasury', 'debt', 'averageRate', 'marketRate', 'marketAc
   'immunityWeeks', 'armsStock', 'taxIncome', 'taxConsumption', 'taxCorporate', 'spendAdministration', 'spendSocial',
   'spendMilitary', 'spendInfrastructure', 'autoBorrow', 'governmentPriority'] as const;
 const COUNTRY_GOOD_KEYS = ['reserves', 'reserveTargetWeeks', 'reserveMode', 'tariff'] as const;
-const WORLD_KEYS = ['baseMoney', 'interestRate', 'creditUtilization', 'realGrowth', 'inflation', 'realGdp'] as const;
+const WORLD_KEYS = ['baseMoney', 'interestRate', 'creditUtilization', 'realGrowth', 'inflation', 'realGdp', 'rebases'] as const;
 const BASELINE_KEYS = ['realGdp', 'realGdpPerCapita', 'consumptionPerCapita', 'population', 'stability'] as const;
 
 /** Throw a descriptive error unless `value` is a structurally sound state. */

@@ -311,7 +311,7 @@ export function finishTurn(s: EconomyState, w: Workspace, m: Model, options: Ste
 
   const world = {
     gdpReal: s.world.realGdp, gdpNominal: worldNominal, inflation: s.world.inflation * 52,
-    interestRate: s.world.interestRate, money: s.world.baseMoney, debt: worldDebt, population: worldPopulation,
+    interestRate: s.world.interestRate, money: s.world.baseMoney, debt: worldDebt, population: worldPopulation, rebases: s.world.rebases,
   };
   if (options.report === 'none') {
     return { turn: s.turn, countries: [], goods: [], world, events, audit: auditReport };

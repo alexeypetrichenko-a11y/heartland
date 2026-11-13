@@ -254,7 +254,7 @@ function scenario3(ctx: Context): ScenarioResult {
   const outputLow = minimum(v.output.food.map((x, i) => x / c.output.food[i]), SHOCK);
   const priceHigh = maximum(v.buyPrice.food.map((x, i) => x / c.buyPrice.food[i]), SHOCK);
   const fillLow = minimum(v.householdFill.food, SHOCK);
-  const importsUp = maximum(v.imports.map((x, i) => x / c.imports[i]), SHOCK, SHOCK + 52);
+  const exportsLow = minimum(v.exports.map((x, i) => x / c.exports[i]), SHOCK, SHOCK + 52);
   const gdpLow = minimum(v.gdpReal.map((x, i) => x / c.gdpReal[i]), SHOCK);
   const stabLow = minimum(v.stability, SHOCK);
   const worldFood = maximum(run.series.goods.food.price.map((x, i) => x / ctl.series.goods.food.price[i]), SHOCK);
@@ -266,8 +266,8 @@ function scenario3(ctx: Context): ScenarioResult {
     indicators: [
       { label: 'Verdania food output (lowest, vs control)', value: pct(outputLow, 0) },
       { label: 'Verdania food price (peak, vs control)', value: `${f(priceHigh)}x` },
-      { label: 'Share of household food demand met (lowest)', value: pct(fillLow, 0), note: 'imports cover the gap' },
-      { label: 'Import bill (peak, vs control)', value: `${f(importsUp)}x` },
+      { label: 'Share of household food demand met (lowest)', value: pct(fillLow, 0), note: 'households are served first' },
+      { label: 'Verdania export earnings (lowest, vs control)', value: pct(exportsLow, 0), note: 'a net food exporter: the shortfall falls on exports' },
       { label: 'Verdania real GDP (lowest, vs control)', value: pct(gdpLow, 0) },
       { label: 'Verdania stability (lowest)', value: f(stabLow, 1), note: `control ${f(mean(c.stability), 1)}` },
       { label: 'World food price (peak, vs control)', value: `${f(worldFood)}x` },
@@ -283,14 +283,14 @@ function scenario3(ctx: Context): ScenarioResult {
     },
     mechanisms: [
       'The shock lowers productivity, not employment: farms keep their workers but harvest half as much, so unit costs double and the sector\'s supply curve shifts left.',
-      'Verdania\'s buyers redirect orders to foreign farms; the import bill rises and the shortage is partly absorbed by trade instead of rationing, so household fill stays high while prices and the trade balance take the hit.',
+      'Verdania is a net food exporter, so the shortfall falls first on exports: domestic households are served from the reduced output (their fill stays near 100%) while export earnings, farm incomes and the trade balance take the hit; importers elsewhere pay more.',
       'Lower farm income, higher food prices and a squeeze on other spending reduce living standards; stability falls, which can open an unrest episode.',
       'Capacity is not destroyed, so as the yield recovers output returns and the economy converges back to the control path.',
     ],
     checks: [
       { name: 'Output falls by roughly half', pass: outputLow < 0.7, detail: pct(outputLow, 0) },
       { name: 'Food gets more expensive locally', pass: priceHigh > 1.05, detail: `${f(priceHigh)}x` },
-      { name: 'Imports rise to fill the gap', pass: importsUp > 1.02, detail: `${f(importsUp)}x` },
+      { name: 'Exports fall while households stay supplied (the exporter absorbs the shock)', pass: exportsLow < 0.9 && fillLow > 0.97, detail: `exports ${pct(exportsLow, 0)}, household fill ${pct(fillLow, 0)}` },
       { name: 'Society feels it (GDP down, stability down)', pass: gdpLow < 0.97 && stabLow < mean(c.stability) - 2, detail: `GDP ${pct(gdpLow, 0)}, stability ${f(stabLow, 1)}` },
       { name: 'Economy recovers', pass: back !== null, detail: back === null ? 'no recovery' : `${back - SHOCK} weeks` },
     ],

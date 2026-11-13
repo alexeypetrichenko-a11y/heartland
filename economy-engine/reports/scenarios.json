@@ -22,7 +22,7 @@
       },
       {
         "label": "Unemployment (worst country-week)",
-        "value": "11.5%"
+        "value": "11.3%"
       },
       {
         "label": "Highest public debt / GDP",
@@ -38,7 +38,7 @@
       },
       {
         "label": "Worst conservation error",
-        "value": "2.0e-15",
+        "value": "2.6e-15",
         "note": "goods, money and bonds, every week"
       }
     ],
@@ -59,39 +59,39 @@
           "1.9%",
           "3.0%",
           "7032",
-          "14026"
+          "14027"
         ],
         [
           5,
-          "526.1",
-          "2.3%",
+          "523.7",
+          "2.2%",
           "3.0%",
-          "8337",
-          "13836"
+          "8325",
+          "13851"
         ],
         [
           10,
-          "611.7",
-          "-0.9%",
-          "3.1%",
-          "10425",
-          "14065"
+          "604.6",
+          "-1.6%",
+          "3.2%",
+          "10418",
+          "14155"
         ],
         [
           15,
-          "696.0",
-          "1.5%",
+          "694.4",
+          "1.7%",
           "3.2%",
-          "12350",
-          "15167"
+          "12430",
+          "15305"
         ],
         [
           20,
-          "767.7",
+          "764.7",
           "0.8%",
           "3.2%",
-          "14182",
-          "17320"
+          "14254",
+          "17492"
         ]
       ]
     },
@@ -124,11 +124,11 @@
       {
         "name": "Conservation holds every week",
         "pass": true,
-        "detail": "2.0e-15"
+        "detail": "2.6e-15"
       }
     ],
     "observations": [],
-    "runtimeMs": 721.0548980000001
+    "runtimeMs": 690.5215739999999
   },
   {
     "id": 2,
@@ -168,7 +168,7 @@
       },
       {
         "label": "Third-country (Sundara) energy exports vs own supply",
-        "value": "291.7 ≤ 945.6",
+        "value": "291.6 ≤ 945.5",
         "note": "no re-export of embargoed energy"
       }
     ],
@@ -203,7 +203,7 @@
           66,
           "1.24x",
           "1.26x",
-          "101.2%",
+          "101.3%",
           "102.8%",
           "4.7%"
         ],
@@ -211,41 +211,41 @@
           105,
           "1.17x",
           "1.20x",
-          "100.8%",
+          "100.9%",
           "93.5%",
-          "12.3%"
+          "12.2%"
         ],
         [
           156,
           "1.14x",
           "1.16x",
-          "100.4%",
-          "92.6%",
+          "100.7%",
+          "92.9%",
           "12.9%"
         ],
         [
           169,
           "1.06x",
           "1.05x",
-          "101.3%",
-          "108.2%",
+          "101.1%",
+          "108.1%",
           "0.3%"
         ],
         [
           208,
           "0.99x",
-          "0.99x",
-          "99.5%",
-          "98.2%",
-          "7.7%"
+          "1.00x",
+          "100.0%",
+          "98.7%",
+          "7.6%"
         ],
         [
           260,
           "0.99x",
           "0.99x",
-          "100.0%",
-          "97.9%",
-          "7.8%"
+          "100.4%",
+          "98.4%",
+          "7.7%"
         ]
       ]
     },
@@ -279,11 +279,11 @@
       {
         "name": "No laundering through a third country",
         "pass": true,
-        "detail": "291.70 ≤ 945.62"
+        "detail": "291.65 ≤ 945.52"
       }
     ],
     "observations": [],
-    "runtimeMs": 405.535797
+    "runtimeMs": 424.7419769999999
   },
   {
     "id": 3,
@@ -302,11 +302,12 @@
       {
         "label": "Share of household food demand met (lowest)",
         "value": "100%",
-        "note": "imports cover the gap"
+        "note": "households are served first"
       },
       {
-        "label": "Import bill (peak, vs control)",
-        "value": "1.07x"
+        "label": "Verdania export earnings (lowest, vs control)",
+        "value": "58%",
+        "note": "a net food exporter: the shortfall falls on exports"
       },
       {
         "label": "Verdania real GDP (lowest, vs control)",
@@ -328,7 +329,7 @@
       },
       {
         "label": "Weeks to return within 2% of control GDP",
-        "value": 164
+        "value": 165
       }
     ],
     "table": {
@@ -384,8 +385,8 @@
         ],
         [
           131,
-          "87%",
-          "1.04x",
+          "86%",
+          "1.03x",
           "91%",
           "8.8%",
           "54.6"
@@ -402,15 +403,15 @@
           260,
           "102%",
           "0.98x",
-          "99%",
-          "6.8%",
-          "71.0"
+          "100%",
+          "6.7%",
+          "71.1"
         ]
       ]
     },
     "mechanisms": [
       "The shock lowers productivity, not employment: farms keep their workers but harvest half as much, so unit costs double and the sector's supply curve shifts left.",
-      "Verdania's buyers redirect orders to foreign farms; the import bill rises and the shortage is partly absorbed by trade instead of rationing, so household fill stays high while prices and the trade balance take the hit.",
+      "Verdania is a net food exporter, so the shortfall falls first on exports: domestic households are served from the reduced output (their fill stays near 100%) while export earnings, farm incomes and the trade balance take the hit; importers elsewhere pay more.",
       "Lower farm income, higher food prices and a squeeze on other spending reduce living standards; stability falls, which can open an unrest episode.",
       "Capacity is not destroyed, so as the yield recovers output returns and the economy converges back to the control path."
     ],
@@ -426,9 +427,9 @@
         "detail": "1.13x"
       },
       {
-        "name": "Imports rise to fill the gap",
+        "name": "Exports fall while households stay supplied (the exporter absorbs the shock)",
         "pass": true,
-        "detail": "1.07x"
+        "detail": "exports 58%, household fill 100%"
       },
       {
         "name": "Society feels it (GDP down, stability down)",
@@ -438,11 +439,11 @@
       {
         "name": "Economy recovers",
         "pass": true,
-        "detail": "164 weeks"
+        "detail": "165 weeks"
       }
     ],
     "observations": [],
-    "runtimeMs": 173.05596200000014
+    "runtimeMs": 198.48312199999987
   },
   {
     "id": 4,
@@ -461,7 +462,7 @@
       },
       {
         "label": "Income tax rate at the end",
-        "value": "26.8% vs 14.5%",
+        "value": "26.8% vs 14.7%",
         "note": "financing the build-up"
       },
       {
@@ -475,16 +476,16 @@
       },
       {
         "label": "Household consumption in the last year",
-        "value": "-8.3%",
+        "value": "-8.4%",
         "note": "crowding out"
       },
       {
         "label": "Real GDP in the last year",
-        "value": "-0.0%"
+        "value": "-0.3%"
       },
       {
         "label": "Debt/GDP change",
-        "value": "+4.3%"
+        "value": "+4.4%"
       },
       {
         "label": "Stability change",
@@ -547,9 +548,9 @@
         [
           157,
           "2.15x",
-          "1.26x",
-          "92%",
-          "99%",
+          "1.27x",
+          "93%",
+          "100%",
           "27.1%",
           "2.4%"
         ],
@@ -560,7 +561,7 @@
           "91%",
           "100%",
           "26.8%",
-          "3.4%"
+          "3.3%"
         ]
       ]
     },
@@ -583,7 +584,7 @@
       {
         "name": "Consumption is crowded out",
         "pass": true,
-        "detail": "-8.3%"
+        "detail": "-8.4%"
       },
       {
         "name": "Industrial inputs get more expensive",
@@ -593,11 +594,11 @@
       {
         "name": "The country pays with taxes and/or debt",
         "pass": true,
-        "detail": "tax 26.8% vs 14.5%, debt 4.3%"
+        "detail": "tax 26.8% vs 14.7%, debt 4.4%"
       }
     ],
     "observations": [],
-    "runtimeMs": 156.20710699999995
+    "runtimeMs": 149.464248
   },
   {
     "id": 5,
@@ -638,7 +639,7 @@
       },
       {
         "label": "World real GDP returns within 1% of control",
-        "value": "52 weeks after reopening"
+        "value": "45 weeks after reopening"
       }
     ],
     "table": {
@@ -662,7 +663,7 @@
         ],
         [
           66,
-          "93%",
+          "94%",
           "97%",
           "97%",
           "0.99x",
@@ -686,7 +687,7 @@
         ],
         [
           182,
-          "97%",
+          "96%",
           "97%",
           "81%",
           "1.07x",
@@ -694,11 +695,11 @@
         ],
         [
           260,
-          "97%",
           "98%",
-          "86%",
+          "99%",
+          "87%",
           "1.01x",
-          "2.6%"
+          "2.5%"
         ]
       ]
     },
@@ -726,11 +727,11 @@
       {
         "name": "Recovery after the routes reopen",
         "pass": true,
-        "detail": "52 weeks"
+        "detail": "45 weeks"
       }
     ],
     "observations": [],
-    "runtimeMs": 217.65042199999993
+    "runtimeMs": 212.8150589999998
   },
   {
     "id": 6,
@@ -785,17 +786,17 @@
       },
       {
         "label": "B: market access lost / forced default (week)",
-        "value": "108 / 116",
+        "value": "107 / 115",
         "note": "12 missed payments before the default"
       },
       {
         "label": "B: borrowing rate peak / debt-to-GDP peak",
-        "value": "24.8% / 83%",
+        "value": "25.4% / 83%",
         "note": "control debt 59%"
       },
       {
         "label": "B: Tavros real GDP at the end (vs control)",
-        "value": "97%"
+        "value": "96%"
       }
     ],
     "table": {
@@ -833,7 +834,7 @@
           "36%",
           "no",
           "7.6%",
-          "93.4%",
+          "93.5%",
           "65.6",
           "6.6%"
         ],
@@ -851,8 +852,8 @@
           "27%",
           "yes",
           "5.6%",
-          "100.3%",
-          "69.2",
+          "100.7%",
+          "69.3",
           "3.4%"
         ],
         [
@@ -860,18 +861,18 @@
           "25%",
           "yes",
           "4.4%",
-          "99.2%",
+          "99.6%",
           "71.4",
-          "4.5%"
+          "4.4%"
         ],
         [
           520,
           "23%",
           "yes",
           "3.6%",
-          "97.4%",
-          "70.8",
-          "4.6%"
+          "98.7%",
+          "71.2",
+          "4.3%"
         ]
       ]
     },
@@ -910,11 +911,11 @@
       {
         "name": "A default can emerge without any command",
         "pass": true,
-        "detail": "lost access week 108, default week 116"
+        "detail": "lost access week 107, default week 115"
       }
     ],
     "observations": [],
-    "runtimeMs": 1072.789651
+    "runtimeMs": 1055.443444
   },
   {
     "id": 7,
@@ -943,12 +944,12 @@
       },
       {
         "label": "Ostmark prices: industrial / military",
-        "value": "0.79x / 0.69x",
+        "value": "0.78x / 0.69x",
         "note": "export goods lose their markets, so they get cheaper at home"
       },
       {
         "label": "Industrial price in coalition countries (mean)",
-        "value": "1.095x"
+        "value": "1.094x"
       },
       {
         "label": "Coalition members' real GDP (mean)",
@@ -987,34 +988,34 @@
         [
           66,
           "103.8%",
-          "101.5%",
+          "101.6%",
           "99.4%",
           "105.5%",
-          "106.3%"
+          "106.4%"
         ],
         [
           105,
-          "93.7%",
-          "98.0%",
-          "97.3%",
+          "93.8%",
+          "98.1%",
+          "97.4%",
           "105.6%",
-          "103.7%"
+          "103.8%"
         ],
         [
           157,
-          "97.9%",
-          "99.5%",
-          "98.8%",
-          "107.2%",
-          "106.0%"
+          "98.3%",
+          "99.8%",
+          "99.0%",
+          "107.6%",
+          "106.2%"
         ],
         [
           260,
-          "98.6%",
           "99.1%",
-          "98.5%",
-          "107.4%",
-          "107.7%"
+          "99.5%",
+          "98.9%",
+          "107.8%",
+          "108.2%"
         ]
       ]
     },
@@ -1048,16 +1049,16 @@
       {
         "name": "Ostmark's terms of trade worsen (its export goods lose their markets and get cheaper at home)",
         "pass": true,
-        "detail": "industrial 0.79x, military 0.69x"
+        "detail": "industrial 0.78x, military 0.69x"
       },
       {
         "name": "Coalition buyers pay more for the goods they used to import",
         "pass": true,
-        "detail": "1.095x"
+        "detail": "1.094x"
       }
     ],
     "observations": [],
-    "runtimeMs": 256.4104309999998
+    "runtimeMs": 224.24433899999985
   },
   {
     "id": 8,
@@ -1105,7 +1106,7 @@
       },
       {
         "label": "B: Sundara consumption per head (unaffected route)",
-        "value": "0.2%"
+        "value": "0.1%"
       }
     ],
     "table": {
@@ -1151,7 +1152,7 @@
           "97%",
           "93%",
           "9.5%",
-          "65.9",
+          "66.0",
           "5.2",
           "4.2"
         ],
@@ -1173,7 +1174,7 @@
           "80%",
           "36%",
           "53.2%",
-          "21.8",
+          "21.9",
           "0.2",
           "0.2"
         ],
@@ -1183,7 +1184,7 @@
           "1.00x",
           "96%",
           "91%",
-          "13.1%",
+          "13.2%",
           "59.8",
           "5.5",
           "5.0"
@@ -1191,11 +1192,11 @@
         [
           260,
           "1.00x",
-          "1.01x",
-          "93%",
+          "1.00x",
+          "94%",
           "98%",
           "6.6%",
-          "69.8",
+          "69.9",
           "10.6",
           "10.3"
         ]
@@ -1234,13 +1235,13 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 687.9617680000001
+    "runtimeMs": 681.7828380000001
   },
   {
     "id": 9,
     "title": "Prolonged economic crisis followed by gradual recovery",
-    "weeks": 780,
-    "setup": "Week 53: Sundara (second-largest economy) loses 35% of all productive capacity and half its stocks, mobilises 6 million workers for two years and takes a -12 stability shock. Mobilisation and the shock end in week 157. Horizon: 15 years.",
+    "weeks": 1040,
+    "setup": "Week 53: Sundara (second-largest economy) loses 35% of all productive capacity and half its stocks, mobilises 6 million workers for two years and takes a -12 stability shock. Mobilisation and the shock end in week 157. Horizon: 20 years.",
     "indicators": [
       {
         "label": "Real GDP trough (vs control)",
@@ -1248,7 +1249,7 @@
       },
       {
         "label": "Weeks to reach 95% / 99% of control GDP",
-        "value": "503 / > horizon"
+        "value": "506 / 943"
       },
       {
         "label": "Peak unemployment",
@@ -1269,12 +1270,12 @@
       },
       {
         "label": "Industrial capacity: lowest / end (vs control)",
-        "value": "65% / 133%",
+        "value": "65% / 115%",
         "note": "rebuilt by private investment"
       },
       {
         "label": "Consumption per head at the end (vs control)",
-        "value": "89.3%"
+        "value": "103.8%"
       },
       {
         "label": "World real GDP at the trough (vs control)",
@@ -1330,39 +1331,55 @@
           "73%",
           "24.2%",
           "71%",
-          "10.2"
+          "10.3"
         ],
         [
           "3.00",
           "68%",
           "73%",
-          "35.7%",
+          "35.6%",
           "64%",
-          "25.0"
+          "25.2"
         ],
         [
           "5.00",
-          "74%",
+          "75%",
           "81%",
-          "29.6%",
+          "29.0%",
           "54%",
-          "40.9"
+          "41.4"
         ],
         [
           "8.00",
-          "86%",
-          "102%",
-          "13.6%",
-          "44%",
-          "54.4"
+          "85%",
+          "104%",
+          "14.8%",
+          "43%",
+          "56.1"
         ],
         [
           "12.00",
-          "92%",
-          "128%",
-          "6.6%",
-          "27%",
-          "67.4"
+          "93%",
+          "129%",
+          "6.3%",
+          "26%",
+          "65.8"
+        ],
+        [
+          "16.00",
+          "97%",
+          "129%",
+          "2.2%",
+          "24%",
+          "73.2"
+        ],
+        [
+          "19.00",
+          "101%",
+          "115%",
+          "0.5%",
+          "25%",
+          "74.6"
         ]
       ]
     },
@@ -1381,17 +1398,17 @@
       {
         "name": "The crisis is prolonged (not a one-quarter blip)",
         "pass": true,
-        "detail": "503 weeks to 95%"
+        "detail": "506 weeks to 95%"
       },
       {
-        "name": "Recovery happens (99% of control GDP within the horizon)",
-        "pass": false,
-        "detail": "no"
+        "name": "Recovery happens (95% of control GDP within the horizon)",
+        "pass": true,
+        "detail": "506 weeks to 95%, 943 weeks to 99%"
       },
       {
         "name": "Capacity is rebuilt gradually by private investment",
         "pass": true,
-        "detail": "65% → 133%"
+        "detail": "65% → 115%"
       },
       {
         "name": "No runaway debt or inflation after the crisis",
@@ -1400,7 +1417,7 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 897.1100880000004
+    "runtimeMs": 540.0585099999998
   },
   {
     "id": 10,
@@ -1415,7 +1432,7 @@
       },
       {
         "label": "Baseline: food share of household purchases",
-        "value": "33.2% → 21.0%",
+        "value": "33.2% → 20.9%",
         "note": "consumption shifts to manufactures and services as incomes rise (Engel effect)"
       },
       {
@@ -1424,7 +1441,7 @@
       },
       {
         "label": "Baseline: services share of output",
-        "value": "33% → 37%"
+        "value": "33% → 38%"
       },
       {
         "label": "Baseline: trade openness (first / last two years)",
@@ -1436,7 +1453,7 @@
       },
       {
         "label": "Spread between strategies (GDP per head)",
-        "value": "2.12x – 2.68x"
+        "value": "2.13x – 2.68x"
       }
     ],
     "table": {
@@ -1455,7 +1472,7 @@
         [
           "Baseline (autopilot)",
           "2.16x",
-          "1.93x",
+          "1.95x",
           "0.98x",
           "70.9",
           "42%",
@@ -1465,9 +1482,9 @@
         [
           "Infrastructure push",
           "2.68x",
-          "2.31x",
+          "2.32x",
           "1.00x",
-          "70.7",
+          "70.8",
           "43%",
           "64%",
           "25%"
@@ -1475,7 +1492,7 @@
         [
           "Social-first",
           "2.16x",
-          "1.94x",
+          "1.95x",
           "0.98x",
           "76.0",
           "44%",
@@ -1484,10 +1501,10 @@
         ],
         [
           "Protectionist",
-          "2.12x",
-          "1.95x",
-          "0.94x",
-          "69.1",
+          "2.13x",
+          "1.96x",
+          "0.95x",
+          "69.2",
           "43%",
           "40%",
           "34%"
@@ -1508,22 +1525,22 @@
       {
         "name": "Household food share falls as incomes rise",
         "pass": true,
-        "detail": "33.2% → 21.0%"
+        "detail": "33.2% → 20.9%"
       },
       {
         "name": "Production structure changes",
         "pass": true,
-        "detail": "food 33.5% → 23.2%"
+        "detail": "food 33.5% → 23.1%"
       },
       {
         "name": "Several strategies are viable (no strategy collapses)",
         "pass": true,
-        "detail": "2.16x / 2.68x / 2.16x / 2.12x"
+        "detail": "2.16x / 2.68x / 2.16x / 2.13x"
       },
       {
         "name": "Strategies differ measurably",
         "pass": true,
-        "detail": "2.12x – 2.68x"
+        "detail": "2.13x – 2.68x"
       },
       {
         "name": "Protectionism lowers openness",
@@ -1532,6 +1549,6 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 3761.5123029999995
+    "runtimeMs": 3046.1963530000003
   }
 ]

@@ -243,6 +243,8 @@ export function createEconomy(spec: WorldSpec): EconomyState {
   }
   for (let i = 0; i < output.length; i++) {
     if (!Number.isFinite(output[i]) || output[i] < 0) fail('no consistent production structure could be found.');
+    // The solver only approaches zero asymptotically: a sector a zone cannot have must be exactly absent.
+    if (output[i] < 1e-9) output[i] = 0;
   }
   // The solution must supply what the world uses, good by good.
   for (let g = 0; g < G; g++) {
@@ -262,7 +264,7 @@ export function createEconomy(spec: WorldSpec): EconomyState {
     efficiency: filled(Z * G, 1), yieldFactor: filled(Z * G, 1), yieldRecovery: zeros(Z * G), shortage: zeros(Z * G), usage: zeros(Z * G),
   };
   const zone = {
-    owner, population, populationGrowth: zeros(Z), technology, infrastructure: filled(Z, 1), mobilized: zeros(Z),
+    owner, population, populationGrowth: zeros(Z), populationCap: population.map(value => value * 3), technology, infrastructure: filled(Z, 1), mobilized: zeros(Z),
     wage: zeros(Z), householdMoney: zeros(Z), firmMoney: zeros(Z), expectedIncome: zeros(Z), firmCosts: zeros(Z),
     cpi: filled(Z, 1), inflation: zeros(Z), unemployment: filled(Z, p.naturalUnemployment), livingStandard: zeros(Z),
     livingStandardRef: zeros(Z), deprivation: zeros(Z),
@@ -279,6 +281,9 @@ export function createEconomy(spec: WorldSpec): EconomyState {
     const base = z * G;
     const spec0 = spec.zones[z];
     zone.populationGrowth[z] = spec0.populationGrowth === undefined ? 0 : spec0.populationGrowth;
+    const limit = spec0.populationLimit === undefined ? 3 : spec0.populationLimit;
+    if (!Number.isFinite(limit) || limit < 1 || limit > 100) fail(`zone ${spec0.id} population limit must be between 1 and 100 times its population.`);
+    zone.populationCap[z] = population[z] * limit;
     if (!Number.isFinite(zone.populationGrowth[z]) || zone.populationGrowth[z] < -0.1 || zone.populationGrowth[z] > 0.1) fail(`zone ${spec0.id} population growth is out of range.`);
     const headroom = spec0.resourceHeadroom === undefined ? 0.3 : spec0.resourceHeadroom;
     if (!Number.isFinite(headroom) || headroom < 0) fail(`zone ${spec0.id} resource headroom is invalid.`);
@@ -417,7 +422,7 @@ export function createEconomy(spec: WorldSpec): EconomyState {
     countryGood,
     sanctions: [],
     tariffOverrides: [],
-    world: { baseMoney, interestRate: p.baseRate, creditUtilization: 0, realGrowth: 0, inflation: 0, realGdp: worldGdp },
+    world: { baseMoney, interestRate: p.baseRate, creditUtilization: 0, realGrowth: 0, inflation: 0, realGdp: worldGdp, rebases: 0 },
     baseline: {
       realGdp: gdp.slice(),
       realGdpPerCapita: gdp.map((value, c) => value / populationTotal[c]),

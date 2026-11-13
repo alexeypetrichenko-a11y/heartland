@@ -301,6 +301,8 @@ export const DEFAULT_PARAMS: EconomyParams = {
 
   // --- Development ----------------------------------------------------------
   techGrowthBase: 0.01,
+  /** Technology level at which exogenous progress has faded to nothing (growth is cubic-smoothly damped). */
+  techCeiling: 20,
   techCatchUp: 0.02,
   infraNormShare: 0.02,
   infraAdjust: 0.01,

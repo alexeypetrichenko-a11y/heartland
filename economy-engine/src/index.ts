@@ -12,6 +12,7 @@ export { advanceEconomy, advanceEconomyInPlace } from './core/step.ts';
 export {
   cloneEconomy, serializeEconomy, deserializeEconomy, validateEconomy, hashEconomy, STATE_FORMAT, STATE_VERSION,
 } from './core/state.ts';
+export { rescaleMoney, REBASE_FACTOR, ROLLOVER_MONEY } from './core/rebase.ts';
 export { getCountry, getZone, listSanctions, getProgress } from './core/selectors.ts';
 export type { CountryPolicy, CountrySnapshot, ZoneSnapshot, ZoneGoodSnapshot, SanctionView, ProgressView } from './core/selectors.ts';
 export {

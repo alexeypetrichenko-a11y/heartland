@@ -295,7 +295,10 @@ export function develop(s: EconomyState, w: Workspace, m: Model): void {
     zone.infrastructure[z] = clamp(zone.infrastructure[z] + p.infraAdjust * (sustained - zone.infrastructure[z]), 0.2, p.infraMax);
     // Technology: a slow world trend plus catch-up for zones behind the frontier.
     const lag = frontier > EPSILON ? Math.max(0, 1 - zone.technology[z] / frontier) : 0;
-    const growth = (p.techGrowthBase + p.techCatchUp * lag + p.infraGrowthEffect * (zone.infrastructure[z] - 1)) / 52;
+    // Exogenous progress fades smoothly (cubically) towards a ceiling, so technology can never grow without bound.
+    const level = zone.technology[z] / p.techCeiling;
+    const room = Math.max(0, 1 - level * level * level);
+    const growth = (p.techGrowthBase + p.techCatchUp * lag + p.infraGrowthEffect * (zone.infrastructure[z] - 1)) * room / 52;
     const rate = Math.max(-0.001, growth);
     zone.technology[z] *= 1 + rate;
     // Better technology also gets more out of the same land and deposits, so
@@ -305,7 +308,10 @@ export function develop(s: EconomyState, w: Workspace, m: Model): void {
         if (m.resourceBased[g] && s.zoneGood.resourceCap[z * G + g] > 0) s.zoneGood.resourceCap[z * G + g] *= 1 + rate;
       }
     }
-    zone.population[z] *= 1 + zone.populationGrowth[z] / 52;
+    // Population approaches its cap smoothly; it can neither explode nor be pushed past the cap by growth alone.
+    const cap = zone.populationCap[z];
+    const fill = cap > 0 ? Math.min(1, zone.population[z] / cap) : 1;
+    zone.population[z] *= 1 + zone.populationGrowth[z] * (zone.populationGrowth[z] > 0 ? 1 - fill * fill * fill : 1) / 52;
     if (zone.mobilized[z] > zone.population[z] * p.laborParticipation * 0.9) {
       zone.mobilized[z] = zone.population[z] * p.laborParticipation * 0.9;
     }

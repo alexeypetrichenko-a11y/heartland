@@ -7,6 +7,7 @@ import { planPrivateSector } from './planning.ts';
 import { updatePolitics } from './politics.ts';
 import { adjust, develop, produce } from './production.ts';
 import { getRoutes } from './routes.ts';
+import { rebaseIfNeeded } from './rebase.ts';
 import { cloneEconomy } from './state.ts';
 import { captureStart, finishTurn } from './stats.ts';
 
@@ -40,6 +41,8 @@ export function advanceEconomyInPlace(state: EconomyState, input?: TurnInput, op
   }
   const model = getModel(state.config);
   const actions = resolveInput(state, input);
+  // Keep money amounts in a safe range however long the game has run (exact, see rebase.ts).
+  rebaseIfNeeded(state);
   const w = getWorkspace(state);
   w.calibrating = options.calibration === true;
   const events: EconomyEvent[] = [];
