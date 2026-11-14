@@ -54,7 +54,7 @@
 
 ## Current delivery
 
-MAP-01A through MAP-01B.2 are merged into `main` (PRs #17–#19). MAP-01B.3 is implemented on `task/map-01b3-spherical-earth` for a dedicated PR to `main`; do not merge without owner approval. Open Scenario menu → Open world atlas for the sphere, rotate/zoom into the detailed map, and use ‹ Scenario to return to the unchanged fictional map. Terrain preference is shared. Native WebGL adds no dependency or geographic import. Crossfade/peripheral/polar-detail limits and unverified physical iPhone/Safari performance are documented in [docs/geography/GLOBE.md](docs/geography/GLOBE.md).
+MAP-01A through MAP-01B.2 are merged into `main` (PRs #17–#19). MAP-01B.3 is implemented on `task/map-01b3-spherical-earth` in PR [#21](https://github.com/alexeypetrichenko-a11y/heartland/pull/21), targeting `main` and unmerged pending owner approval. Open Scenario menu → Open world atlas for the sphere, rotate/zoom into the detailed map, and use ‹ Scenario to return to the unchanged fictional map. Terrain preference is shared. Native WebGL adds no dependency or geographic import. Crossfade/peripheral/polar-detail limits and unverified physical iPhone/Safari performance are documented in [docs/geography/GLOBE.md](docs/geography/GLOBE.md).
 
 MAP-01B.4, MAP-01B.5, MAP-01C, the independent economy engine and all deferred gameplay/military/interface/multiplayer phases remain outside scope.
 

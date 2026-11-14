@@ -70,4 +70,4 @@ node --experimental-strip-types scripts/geography/check_globe.cjs
 
 Review captures: [global globe](images/map-01b3-globe-390.png), [France flat view](images/map-01b3-france-390.png), [date-line globe](images/map-01b3-date-globe-390.png), [date-line flat map](images/map-01b3-date-flat-390.png), [south pole](images/map-01b3-south-pole-390.png), [WebGL fallback](images/map-01b3-fallback-390.png).
 
-MAP-01B.4 (default home), MAP-01B.5 (persistent terrain cache), MAP-01C selection, military positioning, multiplayer and real-time simulation remain deferred. This task is delivered through a dedicated PR to `main`; do not merge without owner approval.
+MAP-01B.4 (default home), MAP-01B.5 (persistent terrain cache), MAP-01C selection, military positioning, multiplayer and real-time simulation remain deferred. This task is delivered through PR [#21](https://github.com/alexeypetrichenko-a11y/heartland/pull/21) to `main`, unmerged pending owner approval.
