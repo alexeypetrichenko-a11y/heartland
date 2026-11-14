@@ -100,7 +100,7 @@
 
 ## Interface redesign milestone — Mobile-first interface (before T09)
 
-This is a separate UI milestone. Preserve the existing engine, models, economy, combat, diplomacy and AI rules throughout. UI-01A, UI-01A.2, UI-01B.1 and UI-01B.2 are merged. MAP-01A is merged in PR #17. The current assignment is MAP-01B rendering, split into political and physical presentation PRs; UI-01B.3 and later interface phases need separate requirements and approval.
+This is a separate UI milestone. Preserve the existing engine, models, economy, combat, diplomacy and AI rules throughout. UI-01A, UI-01A.2, UI-01B.1 and UI-01B.2 are merged. MAP-01A is merged in PR #17. MAP-01B.1 and MAP-01B.2 are merged in PRs #18/#19. The current assignment is MAP-01B.3 spherical navigation only; UI-01B.3 and later interface phases need separate requirements and approval.
 
 ### UI-01A — Compact map-first navigation
 
@@ -172,13 +172,29 @@ The owner authorized a two-PR split to protect mobile performance, geographic ac
 
 #### MAP-01B.1 — World renderer and country colors
 
-- [x] Implemented on `task/map-01b1-world-renderer`: read-only world atlas, all-continent WGS84 view, independent 1×–128× touch/mouse/keyboard camera, 258 stable unique country/entity colors with 344 checked neighbor pairs, clear national outlines, progressive country detail and bounded loading. Scenario menu opens the atlas; returning preserves the existing fictional map and all game workflows. 89 tests and production build pass; responsive browser/gameplay checks are documented in [docs/geography/RENDERING.md](docs/geography/RENDERING.md). PR [#18](https://github.com/alexeypetrichenko-a11y/heartland/pull/18) targets `main` and remains unmerged; do not merge without owner approval.
+- [x] Implemented on `task/map-01b1-world-renderer`: read-only world atlas, all-continent WGS84 view, independent 1×–128× touch/mouse/keyboard camera, 258 stable unique country/entity colors with 344 checked neighbor pairs, clear national outlines, progressive country detail and bounded loading. Scenario menu opens the atlas; returning preserves the existing fictional map and all game workflows. 89 tests and production build pass; responsive browser/gameplay checks are documented in [docs/geography/RENDERING.md](docs/geography/RENDERING.md). Merged by the owner in PR [#18](https://github.com/alexeypetrichenko-a11y/heartland/pull/18).
 
 #### MAP-01B.2 — Physical terrain layers
 
-- [x] Implemented on `task/map-01b2-physical-terrain`, based on MAP-01B.1: real Natural Earth I relief/land-cover reference, 110m/50m/10m source rivers and lakes, progressive viewport tiles/chunks, an independent Terrain toggle, political outlines above physical imagery, 96 passing tests, production build and mobile/desktop browser checks. 218 physical assets total 16,952,158 bytes, with only 167,321 physical-data bytes needed for the first atlas world view. Source/accuracy/size/test details: [docs/geography/TERRAIN.md](docs/geography/TERRAIN.md). PR [#19](https://github.com/alexeypetrichenko-a11y/heartland/pull/19) targets `main`, depends on #18, and remains unmerged; do not merge without owner approval.
+- [x] Implemented on `task/map-01b2-physical-terrain`, based on MAP-01B.1: real Natural Earth I relief/land-cover reference, 110m/50m/10m source rivers and lakes, progressive viewport tiles/chunks, an independent Terrain toggle, political outlines above physical imagery, 96 passing tests, production build and mobile/desktop browser checks. 218 physical assets total 16,952,158 bytes, with only 167,321 physical-data bytes needed for the first atlas world view. Source/accuracy/size/test details: [docs/geography/TERRAIN.md](docs/geography/TERRAIN.md). Merged by the owner in PR [#19](https://github.com/alexeypetrichenko-a11y/heartland/pull/19).
 
 **Explicit limitations for owner review:** The available pinned publisher raster is an older 2009/2012 snapshot, not current land cover. Broad mountain/wooded/arid patterns are shown; separate classified forest/desert/grassland boundaries and geomorphological plains are not reliably represented or invented. ESA WorldCover and GEBCO were investigated but not imported. One geometry-less river record and two invalid lake polygons are documented. Source-scale alignment and old-device/Safari performance need review. No simulation, terrain bonuses, military commands or fictional-scenario replacement.
+
+#### MAP-01B.3 — Interactive spherical Earth and flat-map handoff
+
+- [x] Implemented on `task/map-01b3-spherical-earth`: native WebGL unit-sphere mesh with depth/back-face culling, existing country colors/physical overview, free trackball rotation, pinch/wheel/buttons/keyboard, shared geographic focus/bearing/local scale and a 220ms flat-map crossfade with hysteresis. Date-line wrapping and polar safeguards retain geographic continuity. Terrain preference survives handoffs; unavailable/lost WebGL falls back to the functional flat atlas. No new dependency or geographic assets. 112 tests, production build and six-size Chromium checks passed; details and review captures in [docs/geography/GLOBE.md](docs/geography/GLOBE.md). Dedicated PR targets `main`; do not merge without owner approval.
+
+**Acceptance/verification:** World dezoom displays a genuine 3D sphere, not a circular image. Verify visible hemisphere, rotation/pinch/pan/zoom, retained pointer/focus/scale through both directions, real rendered country colors, physical alignment, date-line/poles/islands/multipolygons, portrait/landscape/desktop/keyboard, 44px controls, no document overflow and preserved gameplay. Run `npm test` and `npm run build`. Keep `src/game`, division overlay, independent economy engine, dependencies and deployment settings unchanged.
+
+**Explicit compromises:** A camera-matched dissolve replaces a full animated projection morph; peripheral features can change shape. The plane retains bearing and uses local equirectangular scale correction. Polar caps stay spherical and retain overview detail; the globe's 2K texture limits close detail. Physical iPhone/Safari/VoiceOver and real mobile GPU performance remain unverified; WebKit executable is absent in the cloud environment. No selection or new military/geographic simulation.
+
+#### MAP-01B.4 — World map as default home (deferred)
+
+- [ ] Not implemented. The fictional scenario remains the default; the scenario menu opens the optional atlas. Requires a separate assignment.
+
+#### MAP-01B.5 — Persistent terrain cache improvements (deferred)
+
+- [ ] Not implemented. This task uses only bounded in-memory renderer/data resources; no persistent terrain cache, IndexedDB, Cache Storage or service worker is added. Requires a separate assignment.
 
 ### MAP-01C — Country and region selection (deferred)
 
@@ -244,4 +260,4 @@ Each item above is a **feature family** to be broken into small PRs before imple
 
 ## Current delivery and remaining phases
 
-MAP-01A is merged in PR #17. MAP-01B.1 is ready for review in PR #18; MAP-01B.2 is implemented for review in a separate dependent PR under the current assignment, with its source/biome limitations explicitly documented. MAP-01C selection, fictional-scenario replacement, political/game ownership mapping, MIL-01, UI-01B.3, UI-01C, T09 and multiplayer remain deferred. Do not merge either PR without owner approval.
+MAP-01A through MAP-01B.2 are merged in PRs #17–#19. MAP-01B.3 is implemented for owner review on its dedicated branch/PR, with rendering/transition/device limitations documented. MAP-01B.4, MAP-01B.5, MAP-01C selection, fictional-scenario replacement, political/game ownership mapping, MIL-01, UI-01B.3, UI-01C, T09 and multiplayer remain deferred. Do not merge the new PR without owner approval.

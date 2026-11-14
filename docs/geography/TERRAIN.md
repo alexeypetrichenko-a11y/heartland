@@ -2,7 +2,7 @@
 
 The world atlas now combines stable political colors with **real Natural Earth shaded relief/land-cover imagery and river/lake geometry**. The Terrain button switches physical rendering independently. Political fills, physical imagery, hydrology, national outlines and labels share the WGS84 camera; national outlines are redrawn above terrain. No terrain bonuses, military positions, routes or simulation effects are implemented. The six-region scenario remains the default, with its existing map and game rules.
 
-**[PR #19](https://github.com/alexeypetrichenko-a11y/heartland/pull/19)** depends on **[MAP-01B.1 / PR #18](https://github.com/alexeypetrichenko-a11y/heartland/pull/18)**. Both PRs target `main`; review/merge #18 first only after owner approval, after which its changes disappear from this PR's diff. Neither PR is merged by Codex.
+MAP-01B.1 and MAP-01B.2 are merged in PRs #18/#19. MAP-01B.3 reuses these unchanged assets for the sphere and retains progressive flat rendering; see [GLOBE.md](GLOBE.md) for current projection, globe-detail and device limits.
 
 ## Sources investigated and selected
 

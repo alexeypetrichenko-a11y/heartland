@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { atlasBounds, intersectsGeography, type AtlasSize, type AtlasView } from '../geography/atlas';
-import { createTerrainData, projectHydrology, terrainImageRect, visibleTerrainTiles, type HydrologyFeature, type TerrainManifest, type TerrainTile } from '../geography/terrain';
+import { createTerrainData, projectHydrology, terrainImageRect, terrainLevel, type HydrologyFeature, type TerrainManifest, type TerrainTile } from '../geography/terrain';
+import type { GeographicBounds } from '../geography/types';
 
-type Props = { view: AtlasView; size: AtlasSize; enabled: boolean; active: boolean; revision: number; onStatus: (status: string) => void };
-export function AtlasTerrain({ view, size, enabled, active, revision, onStatus }: Props) {
+type Props = { view: AtlasView; size: AtlasSize; enabled: boolean; active: boolean; revision: number; onStatus: (status: string) => void;
+  bounds?: GeographicBounds[]; offsets?: number[] };
+export function AtlasTerrain({ view, size, enabled, active, revision, onStatus, bounds: requestedBounds, offsets = [0] }: Props) {
   const source = useRef<ReturnType<typeof createTerrainData> | null>(null);
   source.current ??= createTerrainData(import.meta.env.BASE_URL);
   const [manifest, setManifest] = useState<TerrainManifest | null>(null);
@@ -30,8 +32,9 @@ export function AtlasTerrain({ view, size, enabled, active, revision, onStatus }
     if (!manifest || !enabled || !active) return;
     const controller = new AbortController();
     const timer = window.setTimeout(() => {
-      const bounds = atlasBounds(view, size);
-      const selected = visibleTerrainTiles(manifest, view, size, window.devicePixelRatio);
+      const bounds = requestedBounds ?? [atlasBounds(view, size)];
+      const level = terrainLevel(view, size, window.devicePixelRatio);
+      const selected = manifest.raster.tiles.filter(t => t.level === level && bounds.some(b => intersectsGeography(t.bounds, b)));
       setTiles([]); setError('');
       async function raster() {
         let index = 0;
@@ -51,7 +54,7 @@ export function AtlasTerrain({ view, size, enabled, active, revision, onStatus }
         if (controller.signal.aborted) return;
         setFeatures(overview.features);
         if (view.zoom < 10) return;
-        const chunks = manifest!.hydrology['10m'].filter(c => intersectsGeography(c.bounds, bounds));
+        const chunks = manifest!.hydrology['10m'].filter(c => bounds.some(b => intersectsGeography(c.bounds, b)));
         const records = new Map<string, HydrologyFeature>();
         // Full source features may occur in adjacent chunks; de-duplicate by source ID.
         for (const chunk of chunks) {
@@ -66,14 +69,15 @@ export function AtlasTerrain({ view, size, enabled, active, revision, onStatus }
       hydrology().catch(() => { if (!controller.signal.aborted) setError('Some river/lake detail unavailable.'); });
     }, 240);
     return () => { clearTimeout(timer); controller.abort(); };
-  }, [manifest, view, size, enabled, active, revision]);
+  }, [manifest, view, size, enabled, active, revision, requestedBounds]);
   useEffect(() => { onStatus(enabled ? error : ''); }, [error, enabled, onStatus]);
   useEffect(() => () => source.current?.dispose(), []);
   const paths = useMemo(() => features.map(feature => ({ ...feature, path: projectHydrology(feature) })), [features]);
   if (!enabled || !active) return null;
-  const bounds = atlasBounds(view, size);
-  const visible = paths.filter(f => intersectsGeography(f.bbox, bounds) && f.rank <= (view.zoom < 3 ? 3 : view.zoom < 6 ? 5 : 12));
+  const bounds = requestedBounds ?? [atlasBounds(view, size)];
+  const visible = paths.filter(f => bounds.some(b => intersectsGeography(f.bbox, b)) && f.rank <= (view.zoom < 3 ? 3 : view.zoom < 6 ? 5 : 12));
   return <g className="atlas-physical" aria-hidden="true" pointerEvents="none">
+    {offsets.map(offset => <g key={offset} data-world-offset={offset} transform={`translate(${offset} 0)`}>
     <g className="atlas-relief" opacity=".8" style={{ mixBlendMode: 'multiply' }}>
       {world && manifest && <image className="atlas-terrain-overview" href={world} {...terrainImageRect(manifest.raster.overview.bounds)} preserveAspectRatio="none" />}
       {tiles.map(({ tile, url }) => <image key={tile.path} className="atlas-terrain-tile" data-level={tile.level} data-tile={tile.path} href={url}
@@ -84,5 +88,6 @@ export function AtlasTerrain({ view, size, enabled, active, revision, onStatus }
         fill={feature.kind === 'lake' ? '#518597' : 'none'} stroke={feature.kind === 'lake' ? '#6997a5' : '#72a5b6'}
         strokeWidth={feature.kind === 'lake' ? .45 : .65} vectorEffect="non-scaling-stroke" />)}
     </g>
+    </g>)}
   </g>;
 }

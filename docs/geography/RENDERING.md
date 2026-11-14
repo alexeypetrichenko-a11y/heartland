@@ -1,5 +1,7 @@
 # World atlas rendering — MAP-01B.1
 
+MAP-01B.1/.2 are merged. The current spherical camera, local flat scaling, wrapping and handoff supersede the baseline camera behavior below; see [MAP-01B.3](GLOBE.md). Source identity/colors remain unchanged.
+
 The atlas is a **read-only geographic reference**, alongside the existing fictional scenario. Open the scenario menu → **Open world atlas**; **‹ Scenario** returns to the six-region map with its selection, camera and division-layer state retained. All five navigation sections and Next week remain available. The scenario and all simulation rules remain unchanged. Country/region selection is MAP-01C; this renderer creates no playable countries or political ownership.
 
 ## Political presentation
@@ -10,7 +12,7 @@ The atlas is a **read-only geographic reference**, alongside the existing fictio
 - A restrained, varied palette favors high perceptual separation between neighbors. Each RGB value is unique; the minimum checked neighboring **CIELAB ΔE76 is 40.137**. Colors are keyed by geographic identity, independent of resolution, game ownership, alliances and array order. Similar non-neighbor colors remain possible; 258 colors cannot all be equally perceptually distinct. Labels supplement color at closer zoom. This is not a guarantee of color-vision accessibility for every pair.
 - National outlines remain visible at a constant screen stroke width. Compound paths use even-odd fill to preserve holes. Source islands/multipolygons remain separate parts; viewport culling does not change their coordinates. Labels use source-derived points inside country geometry and collision avoidance. Labels are not new city points or selection controls.
 
-## Camera and detail loading
+## MAP-01B.1 baseline camera and detail loading
 
 - **Equirectangular WGS84** projection, `x = longitude + 180`, `y = 90 − latitude`, independent of game coordinates. It includes all continents, Antarctica, ±180° and both poles without a Mercator cutoff. Polar shapes are stretched; areas/distances must not be measured from screen pixels. Date-line parts remain on their source sides. The view does not wrap.
 - The atlas has its own **1×–128×** camera. Reset fits the whole world. Pinch, one-finger drag, wheel, mouse drag and keyboard (+/−, arrows, Shift+arrows, 0/Home) are supported. Pointer/pinch anchors are maintained until an edge/zoom limit applies. A bounded quarter-viewport margin improves pointer anchoring when leaving portrait letterboxing; the world cannot be panned entirely away. The fictional camera remains 1×–4× with its existing controls.

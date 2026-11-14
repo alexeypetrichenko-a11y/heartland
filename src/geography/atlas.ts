@@ -11,7 +11,7 @@ export type AtlasCountry = { id: GeographicCountryId; name: string; color: strin
   label: GeographicPosition; area: number; path: string; tiles: number[] };
 export type AtlasCatalog = { schemaVersion: 1; datasetId: string; countries: AtlasCountry[];
   neighbors: [GeographicCountryId, GeographicCountryId][]; minimumNeighborDeltaE: number };
-export type AtlasShape = { id: GeographicCountryId; parts: { path: string; bbox: GeographicBounds }[] };
+export type AtlasShape = { id: GeographicCountryId; parts: { path: string; outline: string; bbox: GeographicBounds }[] };
 
 export const initialAtlasView = (): AtlasView => ({ zoom: 1, center: { x: 180, y: 90 } });
 export const projectGeography = ([longitude, latitude]: GeographicPosition): AtlasPoint => ({ x: longitude + 180, y: 90 - latitude });
@@ -56,6 +56,17 @@ export function countryInViewport(country: AtlasCountry, bounds: GeographicBound
   });
 }
 
+/** Prefer source coverage near the focus before spending the bounded detail budget. */
+export function countryDetailPriority(country: AtlasCountry, focus: GeographicPosition): [number, number] {
+  const lonDelta = (a: number, b: number) => Math.abs(((a - b + 180) % 360 + 360) % 360 - 180);
+  const cosine = Math.cos(focus[1] * Math.PI / 180);
+  const coverageDistance = Math.min(...country.tiles.map(tile => {
+    const lon = (tile % 36) * 10 - 175, lat = 85 - Math.floor(tile / 36) * 10;
+    return (Math.max(0, lonDelta(lon, focus[0]) - 5) * cosine) ** 2 + Math.max(0, Math.abs(lat - focus[1]) - 5) ** 2;
+  }));
+  return [coverageDistance, (lonDelta(country.label[0], focus[0]) * cosine) ** 2 + (country.label[1] - focus[1]) ** 2];
+}
+
 export function projectPolygonParts(geometry: GeographicGeometry): AtlasShape['parts'] {
   const polygons = geometry.type === 'Polygon' ? [geometry.coordinates] : geometry.coordinates;
   return polygons.map(polygon => {
@@ -65,8 +76,22 @@ export function projectPolygonParts(geometry: GeographicGeometry): AtlasShape['p
       bbox[2] = Math.max(bbox[2], lon); bbox[3] = Math.max(bbox[3], lat);
       return `${i ? 'L' : 'M'}${+(lon + 180).toFixed(6)},${+(90 - lat).toFixed(6)}`;
     }).join('') + 'Z').join('');
-    return { path, bbox };
+    return { path, outline: polygon.map(geographicOutline).join(''), bbox };
   });
+}
+/** Hide only artificial date-line/pole cuts when wrapping onto a sphere or plane. */
+export function geographicOutline(ring: GeographicPosition[]): string {
+  let result = '', connected = false;
+  for (let i = 1; i < ring.length; i++) {
+    const a = ring[i - 1], b = ring[i];
+    const seam = (Math.abs(Math.abs(a[0]) - 180) < 1e-6 && Math.abs(a[0] - b[0]) < 1e-6)
+      || (Math.abs(Math.abs(a[1]) - 90) < 1e-6 && Math.abs(a[1] - b[1]) < 1e-6);
+    if (seam) { connected = false; continue; }
+    if (!connected) result += `M${+(a[0] + 180).toFixed(6)},${+(90 - a[1]).toFixed(6)}`;
+    result += `L${+(b[0] + 180).toFixed(6)},${+(90 - b[1]).toFixed(6)}`;
+    connected = true;
+  }
+  return result;
 }
 export const projectAtlasFeature = (feature: GeographicFeature): AtlasShape => ({ id: feature.properties.countryId, parts: projectPolygonParts(feature.geometry) });
 

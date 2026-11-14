@@ -598,8 +598,10 @@ li {
 .atlas-heading p { margin: 2px 0 0; color: var(--color-muted); font-size: .75rem; }
 .atlas-heading button { min-height: 44px; min-width: 44px; padding: 0 12px; font-size: .85rem; border-radius: 12px; }
 .atlas-frame { position: relative; flex: 1; min-height: 0; margin: 0 16px; overflow: hidden; border: 1px solid var(--color-border); border-radius: 20px; background: #122331; }
-.atlas-svg { display: block; width: 100%; height: 100%; touch-action: none; user-select: none; -webkit-user-select: none; cursor: grab; }
-.atlas-svg:focus-visible { outline: 2px solid var(--color-accent); outline-offset: -3px; }
+.atlas-viewport { position: absolute; inset: 0; touch-action: none; user-select: none; -webkit-user-select: none; cursor: grab; background: radial-gradient(ellipse at center, #182d43, #0b1724); }
+.atlas-viewport:focus-visible { outline: 2px solid var(--color-accent); outline-offset: -3px; }
+.atlas-viewport:active { cursor: grabbing; }
+.atlas-svg, .atlas-globe, .atlas-globe-layer { position: absolute; inset: 0; display: block; width: 100%; height: 100%; pointer-events: none; }
 .atlas-frame .atlas-controls { position: absolute; right: 6px; top: 6px; margin: 0; border: 1px solid var(--color-border); box-shadow: 0 2px 8px #0a111966; }
 .atlas-zoom { position: absolute; right: 12px; bottom: 10px; padding: 3px 7px; border-radius: 6px; background: #101b27dd; color: var(--color-muted); font-size: .75rem; pointer-events: none; }
 .atlas-terrain-control { position: absolute; left: 8px; bottom: 8px; min-width: 44px; min-height: 44px; display: flex; align-items: center; gap: 6px; padding: 0 10px; font-size: .75rem; border-radius: 12px; background: #16222fee; }

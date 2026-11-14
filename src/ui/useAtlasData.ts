@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { createAtlasData } from '../geography/atlasData';
-import { atlasBounds, countryInViewport, type AtlasCatalog, type AtlasShape, type AtlasSize, type AtlasView } from '../geography/atlas';
+import { atlasBounds, countryDetailPriority, countryInViewport, type AtlasCatalog, type AtlasShape, type AtlasSize, type AtlasView } from '../geography/atlas';
+import type { GeographicBounds, OverviewScale } from '../geography/types';
 
-export function useAtlasData(view: AtlasView, size: AtlasSize, active: boolean, revision: number) {
+export function useAtlasData(view: AtlasView, size: AtlasSize, active: boolean, revision: number,
+  options?: { bounds: GeographicBounds[]; overviewOnly: boolean; overviewScale: OverviewScale }) {
   const source = useRef<ReturnType<typeof createAtlasData> | null>(null);
   source.current ??= createAtlasData(import.meta.env.BASE_URL);
   const [catalog, setCatalog] = useState<AtlasCatalog | null>(null);
@@ -29,13 +31,16 @@ export function useAtlasData(view: AtlasView, size: AtlasSize, active: boolean, 
     const timer = window.setTimeout(async () => {
       setLoading(true); setError('');
       try {
-        const scale = view.zoom >= 2.5 ? '50m' : '110m';
+        const scale = options?.overviewScale ?? (view.zoom >= 2.5 ? '50m' : '110m');
         const shapes = await source.current!.loadOverview(scale, controller.signal);
         if (controller.signal.aborted) return;
         setOverview(shapes); setResolution(scale);
-        if (view.zoom < 8) { setDetail([]); return; }
-        const bounds = atlasBounds(view, size);
-        const countries = catalog.countries.filter(c => countryInViewport(c, bounds)).sort((a, b) => a.area - b.area).slice(0, 12);
+        if (options?.overviewOnly || view.zoom < 8) { setDetail([]); return; }
+        const bounds = options?.bounds ?? [atlasBounds(view, size)];
+        const countries = catalog.countries.filter(c => bounds.some(b => countryInViewport(c, b)))
+          .map(country => ({ country, priority: countryDetailPriority(country, [view.center.x - 180, 90 - view.center.y]) }))
+          .sort((a, b) => a.priority[0] - b.priority[0] || a.priority[1] - b.priority[1] || a.country.id.localeCompare(b.country.id))
+          .slice(0, 12).map(entry => entry.country);
         const next: AtlasShape[] = [];
         let index = 0;
         // Two in-flight detail requests maximum, with cancellation on camera/tab changes.
@@ -55,8 +60,8 @@ export function useAtlasData(view: AtlasView, size: AtlasSize, active: boolean, 
       } finally { if (!controller.signal.aborted) setLoading(false); }
     }, 220);
     return () => { clearTimeout(timer); controller.abort(); };
-  }, [active, catalog, view, size, revision]);
+  }, [active, catalog, view, size, revision, options]);
   const merged = new Map(overview.map(shape => [shape.id, shape]));
   if (view.zoom >= 8) for (const shape of detail) merged.set(shape.id, shape);
-  return { catalog, shapes: [...merged.values()], error, loading, resolution };
+  return { catalog, overview, shapes: [...merged.values()], error, loading, resolution };
 }
