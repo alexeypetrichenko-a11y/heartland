@@ -1,6 +1,7 @@
 import type { AtlasSize } from '../geography/atlas';
 import { createGlobeMesh, globeRenderSize, globeRotationMatrix } from '../geography/globeMesh';
-import { globeRadius, type WorldCamera } from '../geography/worldCamera';
+import { cameraRotation, globeRadius, type WorldCamera } from '../geography/worldCamera';
+import { borderStyle } from '../geography/borderRendering';
 
 const VERTEX = `
 attribute vec3 position;
@@ -31,6 +32,24 @@ void main() {
   float rim = pow(1.0 - max(0.0, n.z), 4.0) * 0.10;
   gl_FragColor = vec4(color * light + vec3(0.12, 0.24, 0.32) * rim, 1.0);
 }`;
+const BORDER_VERTEX = `
+attribute vec3 position;
+uniform mat3 rotation;
+uniform vec2 scale;
+varying float facing;
+void main() {
+  vec3 p = rotation * position;
+  facing = p.z;
+  gl_Position = vec4(p.xy * scale, 0.0, 1.0);
+}`;
+const BORDER_FRAGMENT = `
+precision mediump float;
+varying float facing;
+uniform float opacity;
+void main() {
+  if (facing < 0.0) discard;
+  gl_FragColor = vec4(0.141176, 0.231373, 0.258824, opacity);
+}`;
 
 /** One real 3D sphere, depth-tested and back-face culled. No framework or render loop. */
 export function createGlobeRenderer(canvas: HTMLCanvasElement) {
@@ -49,6 +68,16 @@ export function createGlobeRenderer(canvas: HTMLCanvasElement) {
   gl.attachShader(program, vertex); gl.attachShader(program, fragment); gl.linkProgram(program);
   gl.deleteShader(vertex); gl.deleteShader(fragment);
   if (!gl.getProgramParameter(program, gl.LINK_STATUS)) { gl.deleteProgram(program); throw new Error('Globe program unavailable'); }
+  const borderProgram = gl.createProgram()!;
+  const borderVertex = shader(gl.VERTEX_SHADER, BORDER_VERTEX), borderFragment = shader(gl.FRAGMENT_SHADER, BORDER_FRAGMENT);
+  gl.attachShader(borderProgram, borderVertex); gl.attachShader(borderProgram, borderFragment); gl.linkProgram(borderProgram);
+  gl.deleteShader(borderVertex); gl.deleteShader(borderFragment);
+  if (!gl.getProgramParameter(borderProgram, gl.LINK_STATUS)) throw new Error('Globe borders unavailable');
+  const borderBuffer = gl.createBuffer()!;
+  const borderPosition = gl.getAttribLocation(borderProgram, 'position');
+  const borderRotation = gl.getUniformLocation(borderProgram, 'rotation'), borderScale = gl.getUniformLocation(borderProgram, 'scale');
+  const borderOpacity = gl.getUniformLocation(borderProgram, 'opacity');
+  let borderCount = 0, previousBorderCount = 0;
   const mesh = createGlobeMesh();
   const vertices = gl.createBuffer()!, indices = gl.createBuffer()!, texture = gl.createTexture()!;
   gl.bindBuffer(gl.ARRAY_BUFFER, vertices); gl.bufferData(gl.ARRAY_BUFFER, mesh.vertices, gl.STATIC_DRAW);
@@ -80,22 +109,50 @@ export function createGlobeRenderer(canvas: HTMLCanvasElement) {
     gl!.generateMipmap(gl!.TEXTURE_2D);
     if (gl!.getError() !== gl!.NO_ERROR) throw new Error('Globe texture unavailable');
   }
-  function draw(camera: WorldCamera, size: AtlasSize) {
+  function uploadBorders(vertices: Float32Array, previous?: Float32Array) {
+    const data = previous ? new Float32Array(previous.length + vertices.length) : vertices;
+    if (previous) { data.set(previous); data.set(vertices, previous.length); }
+    gl!.bindBuffer(gl!.ARRAY_BUFFER, borderBuffer); gl!.bufferData(gl!.ARRAY_BUFFER, data, gl!.STATIC_DRAW);
+    borderCount = vertices.length / 3; previousBorderCount = (previous?.length ?? 0) / 3;
+    if (gl!.getError() !== gl!.NO_ERROR) throw new Error('Globe border buffer unavailable');
+  }
+  function surfaceAttributes() {
+    gl!.useProgram(program); gl!.bindBuffer(gl!.ARRAY_BUFFER, vertices);
+    gl!.enableVertexAttribArray(position); gl!.vertexAttribPointer(position, 3, gl!.FLOAT, false, 20, 0);
+    gl!.enableVertexAttribArray(uv); gl!.vertexAttribPointer(uv, 2, gl!.FLOAT, false, 20, 12);
+  }
+  function draw(camera: WorldCamera, size: AtlasSize, borderMix = 1) {
     if (gl!.isContextLost()) return;
     const pixels = globeRenderSize(size.width, size.height, window.devicePixelRatio);
     if (canvas.width !== pixels.width || canvas.height !== pixels.height) { canvas.width = pixels.width; canvas.height = pixels.height; }
     gl!.viewport(0, 0, canvas.width, canvas.height);
     gl!.clear(gl!.COLOR_BUFFER_BIT | gl!.DEPTH_BUFFER_BIT);
-    gl!.uniformMatrix3fv(rotation, false, globeRotationMatrix(camera.rotation));
+    surfaceAttributes();
+    const matrix = globeRotationMatrix(cameraRotation(camera));
+    gl!.uniformMatrix3fv(rotation, false, matrix);
     const radius = globeRadius(camera, size);
     gl!.uniform2f(scale, 2 * radius / size.width, 2 * radius / size.height);
     gl!.drawElements(gl!.TRIANGLES, mesh.indices.length, gl!.UNSIGNED_SHORT, 0);
+    if (borderCount) {
+      gl!.useProgram(borderProgram); gl!.bindBuffer(gl!.ARRAY_BUFFER, borderBuffer);
+      gl!.disableVertexAttribArray(position); gl!.disableVertexAttribArray(uv);
+      gl!.enableVertexAttribArray(borderPosition); gl!.vertexAttribPointer(borderPosition, 3, gl!.FLOAT, false, 12, 0);
+      gl!.uniformMatrix3fv(borderRotation, false, matrix);
+      gl!.uniform2f(borderScale, 2 * radius / size.width, 2 * radius / size.height);
+      const opacity = borderStyle(camera, size, window.devicePixelRatio).opacity;
+      gl!.disable(gl!.DEPTH_TEST); gl!.enable(gl!.BLEND); gl!.blendFunc(gl!.SRC_ALPHA, gl!.ONE_MINUS_SRC_ALPHA);
+      gl!.lineWidth(1);
+      if (previousBorderCount) { gl!.uniform1f(borderOpacity, opacity * (1 - borderMix)); gl!.drawArrays(gl!.LINES, 0, previousBorderCount); }
+      gl!.uniform1f(borderOpacity, opacity * borderMix); gl!.drawArrays(gl!.LINES, previousBorderCount, borderCount);
+      gl!.disable(gl!.BLEND); gl!.enable(gl!.DEPTH_TEST); surfaceAttributes();
+    }
   }
   function dispose() {
     gl!.deleteBuffer(vertices); gl!.deleteBuffer(indices); gl!.deleteTexture(texture); gl!.deleteProgram(program);
+    gl!.deleteBuffer(borderBuffer); gl!.deleteProgram(borderProgram);
     // React's development effect replay keeps the canvas connected; real removal
     // releases the context as well as its resources.
     if (!canvas.isConnected) gl!.getExtension('WEBGL_lose_context')?.loseContext();
   }
-  return { textureWidth, upload, draw, dispose };
+  return { textureWidth, upload, uploadBorders, draw, dispose };
 }

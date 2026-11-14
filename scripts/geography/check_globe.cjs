@@ -12,7 +12,7 @@ let math;
 const distance=(a,b)=>Math.hypot(math.wrapLongitude(a[0]-b[0]),a[1]-b[1]);
 async function settle(page){await page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))))}
 async function pose(page){return page.locator('.atlas-viewport').evaluate(e=>({zoom:+e.dataset.zoom,lon:+e.dataset.longitude,lat:+e.dataset.latitude,bearing:+e.dataset.bearing,mode:e.dataset.projection,blend:+e.dataset.flatBlend,rect:(()=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height}})()}))}
-function asCamera(p){return {zoom:p.zoom,rotation:math.focusRotation([p.lon,p.lat],p.bearing),projection:p.mode==='globe'?'globe':'flat',flatOnly:p.mode==='flat-fallback'}}
+function asCamera(p){return {zoom:p.zoom,focus:[p.lon,p.lat],projection:p.mode==='globe'?'globe':'flat',flatOnly:p.mode==='flat-fallback'}}
 async function overflow(page){assert.deepEqual(await page.evaluate(()=>[document.documentElement.scrollWidth<=innerWidth,document.documentElement.scrollHeight<=innerHeight,scrollX,scrollY]),[true,true,0,0])}
 async function start(browser,width,height,options={}){
  const context=await browser.newContext({viewport:{width,height},isMobile:width<900,hasTouch:width<900,deviceScaleFactor:2,...options});
@@ -21,13 +21,64 @@ async function start(browser,width,height,options={}){
  await page.goto(URL_BASE);await page.getByRole('button',{name:'Open local prototype'}).click();await page.getByLabel('Player country').selectOption('alden');await page.getByRole('button',{name:'Start local scenario'}).click();assert.equal(requests.length,0,'no geographic startup during normal gameplay');return {context,page,requests};
 }
 async function atlas(page){await page.getByRole('button',{name:'Scenario menu'}).click();await page.getByRole('button',{name:'Open world atlas',exact:true}).click();await page.waitForFunction(()=>document.querySelector('.atlas-viewport')&&window.__draws>1);await page.waitForTimeout(650)}
-async function steer(page,lon,lat){await page.getByRole('button',{name:'Reset atlas view',exact:true}).click();await settle(page);for(let n=0;n<12;n++){
- const p=await pose(page);if(Math.acos(Math.max(-1,Math.min(1,math.geographicVector([p.lon,p.lat]).reduce((a,v,i)=>a+v*math.geographicVector([lon,lat])[i],0))))*180/Math.PI<.25)return;
- const camera=asCamera(p),v=math.rotateVector(camera.rotation,math.geographicVector([lon,lat]));const length=Math.hypot(v[0],v[1]);const amount=v[2]>.3?1:.75/Math.max(length,1e-8);const bx=-v[0]*amount,by=-v[1]*amount;const radius=math.globeRadius(camera,p.rect);
- const x=p.rect.x+p.rect.width/2,y=p.rect.y+p.rect.height/2;
- await page.mouse.move(x,y);await page.mouse.down();await page.mouse.move(x+bx*radius,y-by*radius,{steps:8});await page.mouse.up();await settle(page);
- }const p=await pose(page);assert.ok(Math.acos(Math.max(-1,Math.min(1,math.geographicVector([p.lon,p.lat]).reduce((a,v,i)=>a+v*math.geographicVector([lon,lat])[i],0))))*180/Math.PI<.4,`steer ${lon},${lat} got ${p.lon},${p.lat}`)}
+async function steer(page,lon,lat){
+ await page.getByRole('button',{name:'Reset atlas view',exact:true}).click();await settle(page);
+ for(let n=0;n<60;n++){
+  const p=await pose(page),dlon=math.wrapLongitude(lon-p.lon),dlat=Math.max(-89.9,Math.min(89.9,lat))-p.lat;
+  if(Math.abs(dlon)<.05&&Math.abs(dlat)<.05)return;
+  const scale=math.northScale(asCamera(p),p.rect),cosine=Math.max(.1,Math.cos(p.lat*Math.PI/180));
+  const dx=Math.max(-p.rect.width*.35,Math.min(p.rect.width*.35,-dlon*scale*cosine));
+  const dy=Math.max(-p.rect.height*.35,Math.min(p.rect.height*.35,dlat*scale));
+  const x=p.rect.x+p.rect.width/2,y=p.rect.y+p.rect.height/2;
+  await page.mouse.move(x,y);await page.mouse.down();if(Math.hypot(dx,dy)<7)await page.mouse.move(x+8,y);await page.mouse.move(x+dx,y+dy,{steps:5});await page.mouse.up();await settle(page);
+ }throw new Error('steer did not reach requested geographic focus '+JSON.stringify({lon,lat,actual:await pose(page)}));
+}
 async function zoomToFlat(page){for(let n=0;n<15&&(await pose(page)).mode==='globe';n++){await page.getByRole('button',{name:'Zoom in atlas',exact:true}).click();await settle(page)}await page.waitForFunction(()=>document.querySelector('.atlas-viewport').dataset.flatBlend==='1');await page.waitForTimeout(900)}
+async function checkNorthUpAndBorders(page){
+ await steer(page,12,46);
+ const surface=page.locator('.atlas-viewport');
+ await surface.evaluate(e=>e.addEventListener('pointerdown',event=>window.__nativePointer=event.pointerId,{once:true}));
+ let p=await pose(page),cx=p.rect.x+p.rect.width/2,cy=p.rect.y+p.rect.height/2;
+ await page.mouse.move(cx,cy);await page.mouse.down();
+ await page.evaluate(async()=>{
+  const e=document.querySelector('.atlas-viewport'),r=e.getBoundingClientRect(),id=window.__nativePointer,x=r.x+r.width/2,y=r.y+r.height/2;
+  const send=(type,xx,yy)=>e.dispatchEvent(new PointerEvent(type,{bubbles:true,pointerId:id,pointerType:'mouse',button:0,buttons:type==='pointerup'?0:1,clientX:xx,clientY:yy}));
+  send('pointerup',x,y);
+  for(let i=0;i<2000;i++){
+   const dx=i%2?0:15*Math.cos(i*.019),dy=i%2?12*Math.sin(i*.017):0;
+   send('pointerdown',x,y);send('pointermove',x+dx,y+dy);send('pointerup',x+dx,y+dy);
+   if(i%50===0){
+    for(let frame=0;frame<4;frame++)await new Promise(resolve=>requestAnimationFrame(resolve));
+    if(+e.dataset.bearing!==0)throw new Error('camera acquired roll');
+    const gl=document.querySelector('.atlas-globe').getContext('webgl'),program=gl.getParameter(gl.CURRENT_PROGRAM),m=gl.getUniform(program,gl.getUniformLocation(program,'rotation'));
+    const lon=+e.dataset.longitude*Math.PI/180,lat=+e.dataset.latitude*Math.PI/180;
+    const north=[-Math.sin(lat)*Math.sin(lon),Math.cos(lat),-Math.sin(lat)*Math.cos(lon)];
+    const screen=[0,1,2].map(row=>north.reduce((sum,v,axis)=>sum+v*m[axis*3+row],0));
+    if(Math.abs(screen[0])>.0001||Math.abs(screen[1]-1)>.0001||Math.abs(screen[2])>.0001)throw new Error('actual GPU rotation lost north-up '+JSON.stringify({screen,m:[...m],lon,lat}));
+   }
+  }
+ });
+ await page.mouse.up();await settle(page);assert.equal((await pose(page)).bearing,0);
+ await steer(page,12,46);await surface.focus();for(let i=0;i<3;i++){await page.keyboard.press('+');await settle(page)}
+ p=await pose(page);for(let i=0;i<24;i++){const q=await pose(page),x=q.rect.x+q.rect.width/2,y=q.rect.y+q.rect.height/2;await page.mouse.move(x,y);await page.mouse.down();await page.mouse.move(x-35,y);await page.mouse.up();await settle(page);assert.ok(Math.abs((await pose(page)).lat-46)<.001);assert.equal((await pose(page)).bearing,0)}
+ await page.screenshot({path:'globe-asia-north-up-390.png',scale:'css'});
+ await steer(page,2,46);p=await pose(page);const threshold=math.transitionZoom(asCamera(p),p.rect);
+ async function exactZoom(zoom){for(let n=0;n<20;n++){const q=await pose(page);if(Math.abs(q.zoom-zoom)<.00001)return;await surface.evaluate((e,target)=>{const r=e.getBoundingClientRect();e.dispatchEvent(new WheelEvent('wheel',{bubbles:true,cancelable:true,clientX:r.x+r.width/2,clientY:r.y+r.height/2,deltaY:-Math.log(target/+e.dataset.zoom)/.003}))},zoom);await settle(page)}throw new Error('exact zoom did not settle')}
+ await exactZoom(threshold*.98);await page.waitForTimeout(900);const before=await pose(page);assert.equal(before.mode,'globe');assert.equal(await surface.getAttribute('data-detail-blend'),'0');
+ const globeWidth=await surface.getAttribute('data-border-width');
+ const glLine=await page.locator('.atlas-globe').evaluate(c=>{const gl=c.getContext('webgl');return {width:gl.getParameter(gl.LINE_WIDTH),error:gl.getError()}});assert.deepEqual(glLine,{width:1,error:0});
+ await page.screenshot({path:'globe-europe-before-handoff-390.png',scale:'css'});
+ await exactZoom(threshold*1.03);await page.waitForFunction(()=>document.querySelector('.atlas-viewport').dataset.flatBlend==='1');await page.waitForTimeout(350);
+ assert.equal(await surface.getAttribute('data-border-width'),globeWidth);assert.equal(await surface.getAttribute('data-detail-blend'),'0');
+ assert.ok(Math.abs(+(await page.locator('.atlas-country-borders').getAttribute('stroke-width'))-+globeWidth)<.00001);
+ const after=await pose(page),screen=math.projectWorld(asCamera(after),after.rect,[before.lon,before.lat]);assert.ok(Math.hypot(screen.x-after.rect.width/2,screen.y-after.rect.height/2)<.1,'handoff focus differs by less than 0.1 CSS pixel');
+ await page.screenshot({path:'flat-europe-after-handoff-390.png',scale:'css'});
+ await page.evaluate(()=>{window.__detailFrames=[];new MutationObserver(()=>{for(const g of document.querySelectorAll('[data-political-stage]')){const opacity=+(g.getAttribute('opacity')||1);if(opacity>0&&opacity<1)window.__detailFrames.push(opacity)}}).observe(document.querySelector('.atlas-svg'),{attributes:true,subtree:true})});
+ await exactZoom(threshold*1.55);await page.waitForTimeout(1200);const blend=+(await surface.getAttribute('data-detail-blend'));assert.ok(blend>.1&&blend<1);assert.ok((await page.evaluate(()=>window.__detailFrames)).length>0,'source detail has intermediate opacity frames');
+ await page.screenshot({path:'flat-europe-detail-390.png',scale:'css'});await overflow(page);
+ await page.setViewportSize({width:844,height:390});await page.waitForTimeout(450);await overflow(page);assert.equal((await pose(page)).bearing,0);await page.screenshot({path:'globe-europe-landscape-844.png',scale:'css'});const landscape=await pose(page);await exactZoom(math.transitionZoom(asCamera(landscape),landscape.rect)*1.1);await page.waitForFunction(()=>document.querySelector('.atlas-viewport').dataset.flatBlend==='1');await page.waitForTimeout(450);await overflow(page);await page.screenshot({path:'flat-europe-landscape-844.png',scale:'css'});await page.setViewportSize({width:390,height:844});await page.waitForTimeout(200);
+ console.log('PASS 2000 DOM drags keep actual GPU north-up; Europe/Asia, matched vector stroke, staged detail/fade, portrait/landscape captures');
+}
 (async()=>{math=await import(pathToFileURL(path.join(REPO_ROOT,'src/geography/worldCamera.ts')).href);const browser=await chromium.launch({executablePath:process.env.HEARTLAND_CHROMIUM||(fs.existsSync('/usr/bin/chromium')?'/usr/bin/chromium':undefined),headless:true,args:['--no-sandbox','--enable-unsafe-swiftshader']});try{
 for(const [width,height]of (process.env.HEARTLAND_VIEWPORTS?JSON.parse(process.env.HEARTLAND_VIEWPORTS):[[320,568],[390,844],[844,390],[568,320],[1024,768],[1440,900]])){
  const {context,page,requests}=await start(browser,width,height);await atlas(page);let p=await pose(page);assert.equal(p.mode,'globe');assert.equal(p.zoom,1);
@@ -51,8 +102,8 @@ for(const [width,height]of (process.env.HEARTLAND_VIEWPORTS?JSON.parse(process.e
   // Sample actual rendered country colors on the front surface, with terrain disabled.
   await toggle.click();const political=JSON.parse(fs.readFileSync(path.join(REPO_ROOT,'public/atlas/political.json'),'utf8')).countries;
   for(const [code,lon,lat]of [['FRA',2,46],['DEU',10,51],['USA',-100,40],['RUS',100,60],['CHN',105,35],['BRA',-50,-10],['AUS',134,-24]]){await steer(page,lon,lat);await page.waitForTimeout(120);const state=await pose(page);const file=`color-${code}.png`;await page.screenshot({path:file,scale:'css'});const pixel=await page.locator('.atlas-globe').evaluate(c=>{const g=c.getContext('webgl'),pixel=new Uint8Array(4);g.clear(g.COLOR_BUFFER_BIT|g.DEPTH_BUFFER_BIT);g.drawElements(g.TRIANGLES,96*64*6,g.UNSIGNED_SHORT,0);g.readPixels(Math.floor(c.width/2),Math.floor(c.height/2),1,1,g.RGBA,g.UNSIGNED_BYTE,pixel);return [...pixel]});samples.push({code,file,pixel,color:political.find(c=>c.id==='ne:admin0:'+code).color,point:[Math.round(state.rect.x+state.rect.width/2),Math.round(state.rect.y+state.rect.height/2)]})}for(const sample of samples){const expected=[1,3,5].map(i=>parseInt(sample.color.slice(i,i+2),16));assert.ok(sample.pixel[3]===255&&expected.every((v,i)=>Math.abs(v-sample.pixel[i])<18),JSON.stringify(sample))}fs.writeFileSync('color-samples.json',JSON.stringify(samples,null,2));
-  await toggle.click();await steer(page,2,46);await zoomToFlat(page);assert.ok(await page.locator('[data-country="ne:admin0:FRA"]').count()>0);await page.screenshot({path:'map-france-390.png',scale:'css'});await steer(page,179,-18);await page.screenshot({path:'globe-date-line.png',scale:'css'});await zoomToFlat(page);assert.equal(await page.locator('.atlas-political').count(),2);assert.ok(requests.some(r=>r.includes('/countries/FJI.geojson')));await page.waitForTimeout(600);await page.locator('.atlas-viewport').focus();await page.keyboard.press('ArrowRight');await settle(page);assert.ok((await pose(page)).lon<0,'pan crosses date line continuously');await page.keyboard.press('ArrowLeft');await settle(page);await page.waitForTimeout(400);await page.screenshot({path:'map-date-line.png',scale:'css'});const tileIds=await page.locator('.atlas-terrain-tile').evaluateAll(es=>es.map(e=>e.dataset.tile));assert.ok(tileIds.some(id=>/\/0-/.test(id))&&tileIds.some(id=>/\/15-/.test(id)),'terrain uses both date-line sides');
-  await steer(page,0,89);for(let n=0;n<14&&(await pose(page)).zoom<128;n++){const previous=(await pose(page)).zoom;await page.getByRole('button',{name:'Zoom in atlas',exact:true}).click();await page.waitForFunction(z=>+document.querySelector('.atlas-viewport').dataset.zoom>z,previous);await settle(page)}await settle(page);assert.equal((await pose(page)).mode,'globe');assert.equal((await pose(page)).zoom,128);await page.screenshot({path:'globe-north-pole-close.png',scale:'css'});await steer(page,0,-90);await page.screenshot({path:'globe-south-pole.png',scale:'css'});await page.setViewportSize({width:844,height:390});await page.waitForTimeout(300);await overflow(page);assert.equal((await pose(page)).mode,'globe');await page.setViewportSize({width:390,height:844});await page.waitForTimeout(300);
+  await toggle.click();await steer(page,2,46);await zoomToFlat(page);assert.ok(await page.locator('[data-country="ne:admin0:FRA"]').count()>0);await page.screenshot({path:'map-france-390.png',scale:'css'});await steer(page,179,-18);await page.screenshot({path:'globe-date-line.png',scale:'css'});await zoomToFlat(page);await page.getByRole('button',{name:'Zoom in atlas',exact:true}).click();await settle(page);await page.waitForTimeout(900);assert.equal(await page.locator('.atlas-political').count(),2);assert.ok(requests.some(r=>r.includes('/countries/FJI.geojson')));await page.waitForTimeout(600);await page.locator('.atlas-viewport').focus();await page.keyboard.press('Shift+ArrowRight');await settle(page);assert.ok((await pose(page)).lon<0,'pan crosses date line continuously');await page.keyboard.press('Shift+ArrowLeft');await settle(page);await page.waitForTimeout(400);await page.screenshot({path:'map-date-line.png',scale:'css'});const tileIds=await page.locator('.atlas-terrain-tile').evaluateAll(es=>es.map(e=>e.dataset.tile));assert.ok(tileIds.some(id=>/\/0-/.test(id))&&tileIds.some(id=>/\/15-/.test(id)),'terrain uses both date-line sides');
+  await steer(page,0,89);for(let n=0;n<14&&(await pose(page)).zoom<128;n++){const previous=(await pose(page)).zoom;await page.getByRole('button',{name:'Zoom in atlas',exact:true}).click();await page.waitForFunction(z=>+document.querySelector('.atlas-viewport').dataset.zoom>z,previous);await settle(page)}await settle(page);assert.equal((await pose(page)).mode,'globe');assert.equal((await pose(page)).zoom,128);await page.screenshot({path:'globe-north-pole-close.png',scale:'css'});await steer(page,0,-90);await page.screenshot({path:'globe-south-pole.png',scale:'css'});await page.setViewportSize({width:844,height:390});await page.waitForTimeout(300);await overflow(page);assert.equal((await pose(page)).mode,'globe');await page.setViewportSize({width:390,height:844});await page.waitForTimeout(300);await checkNorthUpAndBorders(page);
  }
  await page.getByRole('button',{name:'Reset atlas view',exact:true}).click();await settle(page);assert.equal((await pose(page)).zoom,1);await page.getByRole('button',{name:'About the world atlas',exact:true}).click();assert.match(await page.locator('#atlas-information').textContent(),/not military ownership/);await page.getByRole('button',{name:'Back from About the world atlas',exact:true}).click();await page.getByRole('button',{name:'‹ Scenario',exact:true}).click();assert.equal(await page.locator('.map-region').count(),6);await page.getByRole('button',{name:'Amber Plain, Belora',exact:true}).click();assert.equal(await page.locator('#region-details-title').textContent(),'Amber Plain');await page.getByRole('button',{name:'Next week',exact:true}).click();assert.equal(await page.locator('.game-meta dd').first().textContent(),'Week 2');await overflow(page);console.log(`PASS globe/map ${width}x${height}: sphere, GPU bounds, idle, gestures/keys, focus/scale/fade, terrain, scenario/nav/turns, no overflow`);await context.close();
 }

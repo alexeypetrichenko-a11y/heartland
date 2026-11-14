@@ -3,9 +3,9 @@ import test from 'node:test';
 import { readFileSync } from 'node:fs';
 import { projectPolygonParts } from './atlas.ts';
 import { createGlobeMesh, globeRenderSize, globeRotationMatrix } from './globeMesh.ts';
-import { cameraBearing, cameraFocus, desiredProjection, dragWorldCamera, flatFallback, focusRotation, geographicVector,
+import { cameraFocus, cameraRotation, MAX_FOCUS_LATITUDE, desiredProjection, dragWorldCamera, flatFallback, geographicVector,
   globeRadius, initialWorldCamera, moveWorldCamera, projectWorld, rotateVector, transitionZoom, unprojectWorld,
-  vectorGeography, worldLayout, wrapLongitude, type WorldCamera } from './worldCamera.ts';
+  vectorGeography, worldLayout, wrapLongitude, northScale, type WorldCamera } from './worldCamera.ts';
 import type { GeographicFeature, GeographicPosition } from './types';
 
 const size = { width: 356, height: 610 };
@@ -14,8 +14,8 @@ const close = (a: number, b: number, epsilon = 1e-7) => assert.ok(Math.abs(a - b
 function samePlace(a: GeographicPosition, b: GeographicPosition, epsilon = 1e-7) {
   close(wrapLongitude(a[0] - b[0]), 0, epsilon); close(a[1], b[1], epsilon);
 }
-function camera(focus: GeographicPosition, zoom: number, projection: WorldCamera['projection'] = 'globe', bearing = 0): WorldCamera {
-  return { zoom, rotation: focusRotation(focus, bearing), projection, flatOnly: false };
+function camera(focus: GeographicPosition, zoom: number, projection: WorldCamera['projection'] = 'globe'): WorldCamera {
+  return { zoom, focus, projection, flatOnly: false };
 }
 
 test('sphere coordinates preserve geographic proportions, poles and the date line', () => {
@@ -62,7 +62,7 @@ test('global fit is a round sphere in portrait, landscape and desktop', () => {
 
 test('globe picking and rotated orientations round-trip on the visible hemisphere', () => {
   for (const p of [[0, 0], [178, 33], [-145, -45], [20, 85]] as GeographicPosition[]) {
-    const view = camera(p, 2, 'globe', .7);
+    const view = camera(p, 2);
     for (const delta of [{ x: 0, y: 0 }, { x: 30, y: -25 }, { x: -40, y: 20 }]) {
       const screen = { x: center.x + delta.x, y: center.y + delta.y };
       const geo = unprojectWorld(view, size, screen)!;
@@ -73,17 +73,60 @@ test('globe picking and rotated orientations round-trip on the visible hemispher
   assert.equal(unprojectWorld(initialWorldCamera(), size, { x: 0, y: 0 }), null, 'sky is not a geographic position');
 });
 
-test('one-finger trackball dragging follows the grabbed surface and crosses poles without a reset', () => {
-  const original = camera([0, 83], 1);
-  const to = { x: center.x, y: center.y + 35 };
-  const next = dragWorldCamera(original, size, center, to);
-  const grabbed = projectWorld(next, size, cameraFocus(original))!;
-  close(grabbed.x, to.x); close(grabbed.y, to.y);
-  assert.equal(next.projection, 'globe');
-  let view = initialWorldCamera();
-  for (let i = 0; i < 1000; i++) view = dragWorldCamera(view, size, center, { x: center.x + 20, y: center.y + Math.sin(i) * 5 });
-  close(Math.hypot(...view.rotation), 1, 1e-10);
+function northUp(view: WorldCamera) {
+  const [lon, lat] = cameraFocus(view).map(v => v * Math.PI / 180);
+  const north = rotateVector(cameraRotation(view), [-Math.sin(lat) * Math.sin(lon), Math.cos(lat), -Math.sin(lat) * Math.cos(lon)]);
+  close(north[0], 0, 1e-10); close(north[1], 1, 1e-10); close(north[2], 0, 1e-10);
+  close(Math.hypot(...cameraRotation(view)), 1, 1e-10);
   assert.ok(cameraFocus(view).every(Number.isFinite));
+  assert.ok(Math.abs(cameraFocus(view)[1]) <= MAX_FOCUS_LATITUDE);
+}
+
+test('10,000 geographic drags stay north-up; horizontal and vertical axes stay independent', () => {
+  for (const viewport of [size, { width: 780, height: 170 }]) {
+    let view = initialWorldCamera();
+    const p = { x: viewport.width / 2, y: viewport.height / 2 };
+    for (let i = 0; i < 10000; i++) {
+      const axis = i % 2, before = cameraFocus(view);
+      view = dragWorldCamera(view, viewport, p, { x: p.x + (axis ? 0 : 23), y: p.y + (axis ? Math.sin(i) * 17 : 0) });
+      close(cameraFocus(view)[axis ? 0 : 1], before[axis ? 0 : 1]); northUp(view);
+    }
+  }
+});
+
+test('longitude rotates continuously through the date line and polar drags cannot invert Earth', () => {
+  let view = camera([179, 83], 2);
+  for (let i = 0; i < 2000; i++) {
+    const before = cameraFocus(view);
+    view = dragWorldCamera(view, size, center, { x: center.x - 5, y: center.y });
+    assert.ok(wrapLongitude(cameraFocus(view)[0] - before[0]) > 0); northUp(view);
+  }
+  for (const dy of [100000, -200000, 100000]) {
+    view = dragWorldCamera(view, size, center, { x: center.x, y: center.y + dy }); northUp(view);
+    close(Math.abs(cameraFocus(view)[1]), MAX_FOCUS_LATITUDE);
+  }
+});
+
+test('close Europe-to-Asia navigation preserves latitude and keeps Japan north-up', () => {
+  let view = camera([12, 48], 4);
+  for (let i = 0; i < 240; i++) {
+    const degrees = Math.min(4, Math.max(-4, wrapLongitude(138 - view.focus[0])));
+    view = dragWorldCamera(view, size, center, { x: center.x - degrees * northScale(view, size) * Math.cos(48 * Math.PI / 180), y: center.y });
+    close(cameraFocus(view)[1], 48); northUp(view);
+  }
+  samePlace(cameraFocus(view), [138, 48]);
+  assert.ok(projectWorld(view, size, [138, 37])!.y < projectWorld(view, size, [138, 35])!.y);
+});
+
+test('repeated zoom cycles retain geographic focus north-up through both projections and polar views', () => {
+  for (const focus of [[2, 46], [138, 36], [179.9, -18], [-179.9, 75], [45, 89.9], [0, -89.9]] as GeographicPosition[]) {
+    let view = camera(focus, 1);
+    for (let cycle = 0; cycle < 40; cycle++) for (const zoom of [1.5, 4, 8, 16, 64, 128, 32, 8, 4, 1]) {
+      view = moveWorldCamera(view, size, center, center, zoom);
+      samePlace(cameraFocus(view), focus, 1e-9); northUp(view);
+      assert.equal(worldLayout(view, size).bearing, 0);
+    }
+  }
 });
 
 test('wheel and a translating pinch preserve their geographic anchor on the sphere', () => {
@@ -96,17 +139,17 @@ test('wheel and a translating pinch preserve their geographic anchor on the sphe
 
 test('flat navigation preserves pointer/pinch anchors and bearing across the date line', () => {
   for (const lon of [-179, 15, 179]) {
-    const view = camera([lon, 40], 20, 'flat', .8);
+    const view = camera([lon, 40], 20, 'flat');
     const from = { x: center.x - 40, y: center.y + 25 }, to = { x: center.x + 20, y: center.y + 35 };
     const anchor = unprojectWorld(view, size, from)!;
     const next = moveWorldCamera(view, size, from, to, 25);
     assert.equal(next.projection, 'flat'); samePlace(unprojectWorld(next, size, to)!, anchor);
-    close(cameraBearing(next), cameraBearing(view));
+    northUp(next);
   }
 });
 
 test('globe-to-flat and flat-to-globe handoffs retain focus and pointer location', () => {
-  const original = camera([12, 35], 1, 'globe', .4), threshold = transitionZoom(original, size);
+  const original = camera([12, 35], 1), threshold = transitionZoom(original, size);
   const before = { ...original, zoom: threshold * .98 };
   const p = { x: center.x + 24, y: center.y - 18 };
   const anchor = unprojectWorld(before, size, p)!;
@@ -119,8 +162,8 @@ test('globe-to-flat and flat-to-globe handoffs retain focus and pointer location
 });
 
 test('local scale, orientation and focus agree in both projections at handoff', () => {
-  for (const focus of [[8, 46], [86, 28], [-77, 39], [135, -25], [170, 72]] as GeographicPosition[]) for (const bearing of [0, .6, -1.2]) {
-    const view = camera(focus, 8, 'globe', bearing);
+  for (const focus of [[8, 46], [86, 28], [-77, 39], [135, -25], [170, 72]] as GeographicPosition[]) for (const zoom of [4, 8, 16]) {
+    const view = camera(focus, zoom);
     for (const p of [focus, [focus[0] + .0001, focus[1]], [focus[0], focus[1] + .0001]] as GeographicPosition[]) {
       const globe = projectWorld(view, size, p, 'globe')!, flat = projectWorld(view, size, p, 'flat')!;
       close(globe.x, flat.x, .0001); close(globe.y, flat.y, .0001);
@@ -149,9 +192,9 @@ test('date-line flat views load both source sides and draw continuous world copi
   }
 });
 
-test('a rotated flat viewport never extends beyond a pole during normal WebGL navigation', () => {
-  for (const lat of [60, 72, 78, 81]) for (const bearing of [0, .9, 1.57]) for (const zoom of [4, 8, 16, 32]) {
-    const view = camera([0, lat], zoom, 'flat', bearing);
+test('a north-up flat viewport never extends beyond a pole during normal WebGL navigation', () => {
+  for (const lat of [60, 72, 78, 81]) for (const zoom of [4, 8, 16, 32]) {
+    const view = camera([0, lat], zoom, 'flat');
     if (desiredProjection(view, size) === 'flat') {
       const layout = worldLayout(view, size);
       assert.ok(lat + layout.loadSize.height / (2 * layout.scale) < 89.5);
@@ -173,8 +216,8 @@ test('zoom limits, rotation matrices and GPU pixel budgets remain bounded', () =
     const next = moveWorldCamera(initialWorldCamera(), size, center, center, zoom);
     assert.ok(next.zoom >= 1 && next.zoom <= 128);
   }
-  const view = camera([22, -45], 1, 'globe', .3), matrix = globeRotationMatrix(view.rotation), p = geographicVector([22, -45]);
-  const actual = rotateVector(view.rotation, p);
+  const view = camera([22, -45], 1), matrix = globeRotationMatrix(cameraRotation(view)), p = geographicVector([22, -45]);
+  const actual = rotateVector(cameraRotation(view), p);
   for (let row = 0; row < 3; row++) close(matrix[row] * p[0] + matrix[row + 3] * p[1] + matrix[row + 6] * p[2], actual[row], 1e-6);
   for (const [width, height, dpr] of [[390, 610, 3], [1440, 900, 3], [780, 160, 2]]) {
     const render = globeRenderSize(width, height, dpr);

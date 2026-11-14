@@ -1,8 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { AtlasCatalog, AtlasShape, AtlasSize } from '../geography/atlas';
 import { createTerrainData, projectHydrology, type HydrologyFeature } from '../geography/terrain';
 import type { WorldCamera } from '../geography/worldCamera';
+import { globeBorderVertices } from '../geography/borderRendering';
 import { createGlobeRenderer } from './globeRenderer';
+import { useGeographicFade } from './useGeographicFade';
 
 type Props = { camera: WorldCamera; size: AtlasSize; catalog: AtlasCatalog | null; shapes: AtlasShape[];
   terrain: boolean; active: boolean; revision: number; onUnavailable: () => void; onReady: (ready: boolean) => void; onStatus: (status: string) => void };
@@ -11,7 +13,10 @@ export function AtlasGlobe(props: Props) {
   const canvas = useRef<HTMLCanvasElement>(null);
   const textureCanvas = useRef<HTMLCanvasElement | null>(null);
   const renderer = useRef<ReturnType<typeof createGlobeRenderer> | null>(null);
-  const current = useRef(props); current.current = props;
+  const borders = useGeographicFade(props.shapes, props.active);
+  const borderVertices = useMemo(() => globeBorderVertices(borders.current), [borders.current]);
+  const previousVertices = useMemo(() => borders.previous ? globeBorderVertices(borders.previous) : undefined, [borders.previous]);
+  const current = useRef({ ...props, borderMix: borders.mix }); current.current = { ...props, borderMix: borders.mix };
   const frame = useRef(0);
   const source = useRef<ReturnType<typeof createTerrainData> | null>(null);
   source.current ??= createTerrainData(import.meta.env.BASE_URL);
@@ -22,7 +27,7 @@ export function AtlasGlobe(props: Props) {
     if (!frame.current) frame.current = requestAnimationFrame(() => {
       frame.current = 0;
       const p = current.current;
-      if (p.active) renderer.current?.draw(p.camera, p.size);
+      if (p.active) renderer.current?.draw(p.camera, p.size, p.borderMix);
     });
   }, []);
   useEffect(() => {
@@ -49,7 +54,12 @@ export function AtlasGlobe(props: Props) {
   }, [props.active, props.terrain, props.revision]);
   useEffect(() => { props.onStatus(props.terrain && props.active ? error : ''); }, [props.terrain, props.active, props.onStatus, error]);
   useEffect(() => () => source.current?.dispose(), []);
-  useEffect(() => { schedule(); }, [props.camera, props.size, props.active, schedule]);
+  useEffect(() => { schedule(); }, [props.camera, props.size, props.active, borders.mix, schedule]);
+  useEffect(() => {
+    if (!renderer.current || !borders.current.length || !props.active) return;
+    try { renderer.current.uploadBorders(borderVertices, previousVertices); schedule(); }
+    catch { props.onUnavailable(); }
+  }, [borderVertices, previousVertices, props.active, props.onUnavailable, schedule]);
   useEffect(() => {
     if (!renderer.current || !props.catalog || !props.shapes.length || !props.active) return;
     try {
@@ -75,8 +85,6 @@ export function AtlasGlobe(props: Props) {
           else context.stroke(path);
         }
       }
-      context.strokeStyle = '#243b42'; context.lineWidth = .22; context.lineJoin = 'round';
-      for (const shape of props.shapes) for (const part of shape.parts) context.stroke(new Path2D(part.outline));
       renderer.current.upload(bitmap); schedule(); props.onReady(true);
     } catch { props.onUnavailable(); }
   }, [props.catalog, props.shapes, props.terrain, props.active, image, water, props.onReady, props.onUnavailable, schedule]);
