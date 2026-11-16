@@ -13,7 +13,7 @@
       },
       {
         "label": "World inflation (mean)",
-        "value": "1.5%",
+        "value": "1.4%",
         "note": "monetary rule targets 2%"
       },
       {
@@ -22,7 +22,7 @@
       },
       {
         "label": "Unemployment (worst country-week)",
-        "value": "11.3%"
+        "value": "11.2%"
       },
       {
         "label": "Highest public debt / GDP",
@@ -38,7 +38,7 @@
       },
       {
         "label": "Worst conservation error",
-        "value": "1.9e-15",
+        "value": "3.3e-15",
         "note": "goods, money and bonds, every week"
       }
     ],
@@ -55,43 +55,43 @@
       "rows": [
         [
           1,
-          "487.0",
+          "486.0",
           "1.9%",
           "3.0%",
-          "7032",
-          "14027"
+          "7028",
+          "13992"
         ],
         [
           5,
-          "523.7",
-          "2.2%",
+          "524.2",
+          "2.5%",
           "3.0%",
-          "8325",
-          "13851"
+          "8324",
+          "13794"
         ],
         [
           10,
-          "603.4",
-          "-1.4%",
-          "3.2%",
-          "10422",
-          "14159"
+          "610.2",
+          "-0.9%",
+          "3.1%",
+          "10407",
+          "14072"
         ],
         [
           15,
-          "693.4",
-          "0.7%",
+          "691.2",
+          "1.1%",
           "3.2%",
-          "12482",
-          "15328"
+          "12255",
+          "15275"
         ],
         [
           20,
-          "765.7",
-          "0.8%",
+          "765.1",
+          "0.7%",
           "3.2%",
-          "14322",
-          "17495"
+          "14082",
+          "17356"
         ]
       ]
     },
@@ -109,7 +109,7 @@
       {
         "name": "Inflation stays moderate",
         "pass": true,
-        "detail": "1.5%"
+        "detail": "1.4%"
       },
       {
         "name": "No sovereign default or regime change without a shock",
@@ -124,11 +124,11 @@
       {
         "name": "Conservation holds every week",
         "pass": true,
-        "detail": "1.9e-15"
+        "detail": "3.3e-15"
       }
     ],
     "observations": [],
-    "runtimeMs": 708.93603
+    "runtimeMs": 926.3583969999999
   },
   {
     "id": 2,
@@ -139,17 +139,17 @@
       {
         "label": "Direct energy flow exporters → targets",
         "value": "0.000",
-        "note": "was 10.89 per week before"
+        "note": "was 10.88 per week before"
       },
       {
         "label": "Energy supplied to targets by other countries",
-        "value": "7.13 per week",
+        "value": "7.12 per week",
         "note": "was 1.90 before (redirection)"
       },
       {
         "label": "Exporters' sales to other buyers",
-        "value": "22.14 per week",
-        "note": "was 13.66 before"
+        "value": "22.10 per week",
+        "note": "was 13.64 before"
       },
       {
         "label": "Peak energy price, Norland / Ostmark",
@@ -163,12 +163,12 @@
       },
       {
         "label": "Real GDP of exporters during embargo",
-        "value": "-7.3% / -6.7%",
+        "value": "-7.2% / -6.7%",
         "note": "Khazir / Halcyon vs control"
       },
       {
         "label": "Third-country (Sundara) energy exports vs own supply",
-        "value": "291.6 ≤ 945.5",
+        "value": "291.3 ≤ 944.3",
         "note": "no re-export of embargoed energy"
       }
     ],
@@ -189,7 +189,7 @@
           "1.00x",
           "100.0%",
           "100.0%",
-          "5.3%"
+          "5.2%"
         ],
         [
           57,
@@ -197,55 +197,55 @@
           "1.16x",
           "101.9%",
           "76.8%",
-          "23.3%"
+          "23.2%"
         ],
         [
           66,
           "1.24x",
           "1.26x",
-          "101.3%",
+          "101.2%",
           "102.8%",
-          "4.7%"
+          "4.6%"
         ],
         [
           105,
           "1.17x",
-          "1.20x",
-          "100.9%",
-          "93.5%",
+          "1.19x",
+          "100.7%",
+          "93.4%",
           "12.2%"
         ],
         [
           156,
           "1.14x",
           "1.16x",
-          "100.7%",
-          "92.9%",
-          "12.9%"
+          "100.5%",
+          "92.6%",
+          "13.1%"
         ],
         [
           169,
           "1.06x",
           "1.05x",
-          "101.1%",
-          "108.1%",
-          "0.3%"
+          "101.2%",
+          "108.2%",
+          "0.5%"
         ],
         [
           208,
           "0.99x",
-          "1.00x",
-          "100.0%",
-          "98.7%",
-          "7.6%"
+          "0.99x",
+          "99.9%",
+          "98.4%",
+          "7.9%"
         ],
         [
           260,
           "0.99x",
           "0.99x",
-          "100.4%",
-          "98.4%",
-          "7.7%"
+          "100.1%",
+          "97.8%",
+          "8.6%"
         ]
       ]
     },
@@ -264,7 +264,7 @@
       {
         "name": "Trade is redirected to other suppliers",
         "pass": true,
-        "detail": "1.90 → 7.13 per week"
+        "detail": "1.90 → 7.12 per week"
       },
       {
         "name": "Targets pay more for energy",
@@ -274,21 +274,21 @@
       {
         "name": "Exporters are hurt more than the world is",
         "pass": true,
-        "detail": "-7.3% / -6.7%"
+        "detail": "-7.2% / -6.7%"
       },
       {
         "name": "No laundering through a third country",
         "pass": true,
-        "detail": "291.65 ≤ 945.52"
+        "detail": "291.33 ≤ 944.33"
       }
     ],
     "observations": [],
-    "runtimeMs": 398.5666859999999
+    "runtimeMs": 443.14239699999985
   },
   {
     "id": 3,
     "title": "Sudden 50% collapse of agricultural production in one country",
-    "weeks": 260,
+    "weeks": 364,
     "setup": "Week 53: the yield of Verdania's food sector (its main export) drops by 50% and recovers over 78 weeks.",
     "indicators": [
       {
@@ -315,7 +315,7 @@
       },
       {
         "label": "Verdania stability (lowest)",
-        "value": "50.6",
+        "value": "56.9",
         "note": "control 69.9"
       },
       {
@@ -324,12 +324,12 @@
       },
       {
         "label": "Food price in Lirane (peak, vs control)",
-        "value": "1.07x",
+        "value": "1.08x",
         "note": "import-dependent buyer"
       },
       {
         "label": "Weeks to return within 2% of control GDP",
-        "value": 165
+        "value": 218
       }
     ],
     "table": {
@@ -356,56 +356,56 @@
           "61%",
           "1.13x",
           "82%",
-          "0.2%",
-          "69.4"
+          "0.1%",
+          "69.5"
         ],
         [
           66,
           "68%",
           "1.10x",
-          "83%",
-          "2.3%",
-          "65.2"
+          "84%",
+          "1.6%",
+          "65.5"
         ],
         [
           79,
-          "66%",
+          "67%",
           "1.09x",
-          "79%",
-          "11.9%",
-          "60.2"
+          "81%",
+          "9.7%",
+          "64.3"
         ],
         [
           105,
           "77%",
-          "1.06x",
-          "84%",
-          "12.2%",
-          "51.0"
+          "1.07x",
+          "86%",
+          "10.2%",
+          "59.8"
         ],
         [
           131,
-          "86%",
-          "1.03x",
-          "91%",
-          "8.8%",
-          "54.6"
+          "83%",
+          "1.05x",
+          "90%",
+          "10.0%",
+          "59.3"
         ],
         [
           157,
-          "92%",
-          "1.01x",
-          "94%",
-          "7.6%",
-          "62.9"
+          "86%",
+          "1.03x",
+          "91%",
+          "11.5%",
+          "58.4"
         ],
         [
-          260,
+          364,
           "102%",
-          "0.98x",
-          "100%",
-          "6.7%",
-          "71.1"
+          "0.99x",
+          "101%",
+          "3.9%",
+          "71.8"
         ]
       ]
     },
@@ -434,16 +434,16 @@
       {
         "name": "Society feels it (GDP down, stability down)",
         "pass": true,
-        "detail": "GDP 70%, stability 50.6"
+        "detail": "GDP 70%, stability 56.9"
       },
       {
         "name": "Economy recovers",
         "pass": true,
-        "detail": "165 weeks"
+        "detail": "218 weeks"
       }
     ],
     "observations": [],
-    "runtimeMs": 183.03660100000002
+    "runtimeMs": 541.1720409999998
   },
   {
     "id": 4,
@@ -457,12 +457,12 @@
       },
       {
         "label": "Ostmark military output",
-        "value": "1.42x control",
+        "value": "1.43x control",
         "note": "industry expands, with a construction delay"
       },
       {
         "label": "Income tax rate at the end",
-        "value": "26.8% vs 14.7%",
+        "value": "26.7% vs 14.7%",
         "note": "financing the build-up"
       },
       {
@@ -476,12 +476,12 @@
       },
       {
         "label": "Household consumption in the last year",
-        "value": "-8.4%",
+        "value": "-8.3%",
         "note": "crowding out"
       },
       {
         "label": "Real GDP in the last year",
-        "value": "-0.3%"
+        "value": "-0.1%"
       },
       {
         "label": "Debt/GDP change",
@@ -489,7 +489,7 @@
       },
       {
         "label": "Stability change",
-        "value": "-2.3"
+        "value": "-2.2"
       },
       {
         "label": "Norland arms price (peak, vs control)",
@@ -534,7 +534,7 @@
           "98%",
           "100%",
           "22.3%",
-          "4.7%"
+          "4.6%"
         ],
         [
           105,
@@ -550,18 +550,18 @@
           "2.15x",
           "1.27x",
           "93%",
-          "100%",
+          "99%",
           "27.1%",
-          "2.4%"
+          "2.3%"
         ],
         [
           260,
           "2.53x",
-          "1.42x",
+          "1.43x",
           "91%",
           "100%",
-          "26.8%",
-          "3.3%"
+          "26.7%",
+          "3.5%"
         ]
       ]
     },
@@ -579,12 +579,12 @@
       {
         "name": "Military industry expands",
         "pass": true,
-        "detail": "1.42x"
+        "detail": "1.43x"
       },
       {
         "name": "Consumption is crowded out",
         "pass": true,
-        "detail": "-8.4%"
+        "detail": "-8.3%"
       },
       {
         "name": "Industrial inputs get more expensive",
@@ -594,11 +594,11 @@
       {
         "name": "The country pays with taxes and/or debt",
         "pass": true,
-        "detail": "tax 26.8% vs 14.7%, debt 4.4%"
+        "detail": "tax 26.7% vs 14.7%, debt 4.4%"
       }
     ],
     "observations": [],
-    "runtimeMs": 148.81251900000007
+    "runtimeMs": 203.56439600000022
   },
   {
     "id": 5,
@@ -626,11 +626,11 @@
       },
       {
         "label": "Real GDP: Khazir / Halcyon / Norland",
-        "value": "2.3% / -33.3% / -0.0%"
+        "value": "2.3% / -33.4% / -0.0%"
       },
       {
         "label": "Most affected country",
-        "value": "halcyon (-33.3%)"
+        "value": "halcyon (-33.4%)"
       },
       {
         "label": "Energy price in Sundara",
@@ -639,7 +639,7 @@
       },
       {
         "label": "World real GDP returns within 1% of control",
-        "value": "45 weeks after reopening"
+        "value": "48 weeks after reopening"
       }
     ],
     "table": {
@@ -663,31 +663,31 @@
         ],
         [
           66,
-          "94%",
+          "93%",
           "97%",
           "97%",
           "0.99x",
-          "2.3%"
+          "2.2%"
         ],
         [
           105,
           "92%",
-          "104%",
-          "59%",
+          "105%",
+          "60%",
           "1.07x",
-          "1.7%"
+          "1.8%"
         ],
         [
           156,
           "93%",
           "103%",
-          "62%",
+          "61%",
           "1.11x",
-          "3.0%"
+          "2.9%"
         ],
         [
           182,
-          "96%",
+          "97%",
           "97%",
           "81%",
           "1.07x",
@@ -696,9 +696,9 @@
         [
           260,
           "98%",
-          "99%",
-          "87%",
-          "1.01x",
+          "98%",
+          "86%",
+          "1.00x",
           "2.5%"
         ]
       ]
@@ -717,7 +717,7 @@
       {
         "name": "The country whose only sea lane is cut loses far more than a diversified one",
         "pass": true,
-        "detail": "Halcyon -33.3% vs Norland -0.0%"
+        "detail": "Halcyon -33.4% vs Norland -0.0%"
       },
       {
         "name": "Prices rise for cut-off importers",
@@ -727,11 +727,11 @@
       {
         "name": "Recovery after the routes reopen",
         "pass": true,
-        "detail": "45 weeks"
+        "detail": "48 weeks"
       }
     ],
     "observations": [],
-    "runtimeMs": 255.46559800000023
+    "runtimeMs": 245.43057999999974
   },
   {
     "id": 6,
@@ -741,12 +741,12 @@
     "indicators": [
       {
         "label": "A: debt written off",
-        "value": "3371 (55%)",
-        "note": "debt 6129 → 2758"
+        "value": "3366 (55%)",
+        "note": "debt 6123 → 2754"
       },
       {
         "label": "A: loss borne by foreign creditors",
-        "value": "1446 (55% of their holdings)",
+        "value": "1445 (55% of their holdings)",
         "note": "households abroad hold Norland bonds"
       },
       {
@@ -763,7 +763,7 @@
       },
       {
         "label": "A: Norland stability (lowest)",
-        "value": "60.0 (control 70.8)"
+        "value": "59.9 (control 70.8)"
       },
       {
         "label": "A: regime changes (defeat condition)",
@@ -772,7 +772,7 @@
       },
       {
         "label": "A: world real GDP (lowest, vs control)",
-        "value": "-3.6%",
+        "value": "-3.7%",
         "note": "contagion through creditors and trade"
       },
       {
@@ -782,21 +782,21 @@
       {
         "label": "A: Norland debt/GDP at the end",
         "value": "23%",
-        "note": "control 53%"
+        "note": "control 52%"
       },
       {
         "label": "B: market access lost / forced default (week)",
-        "value": "107 / 115",
+        "value": "108 / 116",
         "note": "12 missed payments before the default"
       },
       {
         "label": "B: borrowing rate peak / debt-to-GDP peak",
-        "value": "26.9% / 83%",
+        "value": "29.0% / 83%",
         "note": "control debt 59%"
       },
       {
         "label": "B: Tavros real GDP at the end (vs control)",
-        "value": "103%"
+        "value": "75%"
       }
     ],
     "table": {
@@ -826,7 +826,7 @@
           "no",
           "5.4%",
           "98.8%",
-          "60.0",
+          "59.9",
           "0.1%"
         ],
         [
@@ -834,8 +834,8 @@
           "36%",
           "no",
           "7.6%",
-          "93.5%",
-          "65.6",
+          "93.4%",
+          "65.5",
           "6.6%"
         ],
         [
@@ -852,8 +852,8 @@
           "27%",
           "yes",
           "5.6%",
-          "100.7%",
-          "69.3",
+          "100.4%",
+          "69.2",
           "3.4%"
         ],
         [
@@ -861,7 +861,7 @@
           "25%",
           "yes",
           "4.4%",
-          "99.6%",
+          "99.4%",
           "71.4",
           "4.4%"
         ],
@@ -869,10 +869,10 @@
           520,
           "23%",
           "yes",
-          "3.6%",
-          "98.6%",
-          "70.8",
-          "4.6%"
+          "3.5%",
+          "99.2%",
+          "71.6",
+          "2.7%"
         ]
       ]
     },
@@ -906,16 +906,16 @@
       {
         "name": "Stability falls after default",
         "pass": true,
-        "detail": "60.0"
+        "detail": "59.9"
       },
       {
         "name": "A default can emerge without any command",
         "pass": true,
-        "detail": "lost access week 107, default week 115"
+        "detail": "lost access week 108, default week 116"
       }
     ],
     "observations": [],
-    "runtimeMs": 1055.293795
+    "runtimeMs": 1271.0457860000001
   },
   {
     "id": 7,
@@ -930,26 +930,26 @@
       },
       {
         "label": "Non-members ↔ Ostmark flow",
-        "value": "11.77 per week",
-        "note": "was 4.10 before (trade diversion)"
+        "value": "11.62 per week",
+        "note": "was 4.09 before (trade diversion)"
       },
       {
         "label": "Ostmark real GDP (from week 66, vs control)",
-        "value": "-2.6%"
+        "value": "-2.5%"
       },
       {
         "label": "Ostmark total trade",
-        "value": "-32%",
+        "value": "-33%",
         "note": "vs control"
       },
       {
         "label": "Ostmark prices: industrial / military",
-        "value": "0.79x / 0.69x",
+        "value": "0.78x / 0.69x",
         "note": "export goods lose their markets, so they get cheaper at home"
       },
       {
         "label": "Industrial price in coalition countries (mean)",
-        "value": "1.095x"
+        "value": "1.099x"
       },
       {
         "label": "Coalition members' real GDP (mean)",
@@ -958,7 +958,7 @@
       },
       {
         "label": "Non-members' real GDP (mean)",
-        "value": "6.0%"
+        "value": "5.9%"
       },
       {
         "label": "Ostmark stability (mean, from week 66)",
@@ -987,35 +987,35 @@
         ],
         [
           66,
-          "103.8%",
-          "101.6%",
+          "103.0%",
+          "101.5%",
           "99.4%",
-          "105.5%",
-          "106.4%"
+          "105.7%",
+          "106.3%"
         ],
         [
           105,
-          "93.8%",
-          "98.1%",
-          "97.4%",
-          "105.6%",
-          "103.8%"
+          "94.5%",
+          "98.5%",
+          "97.8%",
+          "106.4%",
+          "104.6%"
         ],
         [
           157,
-          "98.3%",
-          "99.8%",
-          "99.0%",
-          "107.6%",
-          "106.2%"
+          "98.1%",
+          "99.5%",
+          "98.8%",
+          "106.7%",
+          "106.0%"
         ],
         [
           260,
-          "99.0%",
-          "100.0%",
-          "99.4%",
-          "107.9%",
-          "108.4%"
+          "98.9%",
+          "99.8%",
+          "99.1%",
+          "107.3%",
+          "107.8%"
         ]
       ]
     },
@@ -1034,31 +1034,31 @@
       {
         "name": "Ostmark is hurt",
         "pass": true,
-        "detail": "-2.6%"
+        "detail": "-2.5%"
       },
       {
         "name": "Trade is diverted to non-members",
         "pass": true,
-        "detail": "4.10 → 11.77"
+        "detail": "4.09 → 11.62"
       },
       {
         "name": "Senders bear some cost, much smaller than the target",
         "pass": true,
-        "detail": "members -1.6% vs target -2.6%"
+        "detail": "members -1.6% vs target -2.5%"
       },
       {
         "name": "Ostmark's terms of trade worsen (its export goods lose their markets and get cheaper at home)",
         "pass": true,
-        "detail": "industrial 0.79x, military 0.69x"
+        "detail": "industrial 0.78x, military 0.69x"
       },
       {
         "name": "Coalition buyers pay more for the goods they used to import",
         "pass": true,
-        "detail": "1.095x"
+        "detail": "1.099x"
       }
     ],
     "observations": [],
-    "runtimeMs": 237.00143200000002
+    "runtimeMs": 348.336507
   },
   {
     "id": 8,
@@ -1068,11 +1068,11 @@
     "indicators": [
       {
         "label": "Imports / GDP before the shock",
-        "value": "Lirane 80.6%, Sundara 25.6%"
+        "value": "Lirane 80.5%, Sundara 25.6%"
       },
       {
         "label": "A (world energy shock): consumption per head, 18 months",
-        "value": "Lirane -1.7%, Sundara -5.3%",
+        "value": "Lirane -1.8%, Sundara -5.0%",
         "note": "the same price rise hurts the large economy more: Lirane is rich per head, so basic needs absorb less of its budget (inferred from the model structure, not isolated by a separate run)"
       },
       {
@@ -1081,11 +1081,11 @@
       },
       {
         "label": "B (blockade): consumption per head, 18 months",
-        "value": "reserves -3.2%, frozen -11.6%"
+        "value": "reserves -2.7%, frozen -10.2%"
       },
       {
         "label": "B: real GDP, 18 months",
-        "value": "reserves -13.0%, frozen -20.6%"
+        "value": "reserves -11.7%, frozen -18.2%"
       },
       {
         "label": "B: lowest share of household energy / food demand met",
@@ -1093,7 +1093,7 @@
       },
       {
         "label": "B: food / energy price paid in Lirane (peak)",
-        "value": "3.73x / 1.01x"
+        "value": "3.49x / 1.01x"
       },
       {
         "label": "B: reserves released (energy / food)",
@@ -1101,8 +1101,8 @@
       },
       {
         "label": "B: lowest stability",
-        "value": "reserves 19.5, frozen 16.4",
-        "note": "control 70.2"
+        "value": "reserves 20.6, frozen 11.1",
+        "note": "control 70.3"
       },
       {
         "label": "B: Sundara consumption per head (unaffected route)",
@@ -1129,8 +1129,8 @@
           "1.00x",
           "100%",
           "100%",
-          "4.3%",
-          "69.8",
+          "4.2%",
+          "69.9",
           "12.0",
           "11.4"
         ],
@@ -1140,8 +1140,8 @@
           "1.01x",
           "101%",
           "100%",
-          "3.9%",
-          "69.3",
+          "4.1%",
+          "69.4",
           "9.4",
           "8.2"
         ],
@@ -1149,32 +1149,32 @@
           66,
           "1.11x",
           "1.00x",
-          "97%",
-          "93%",
-          "9.4%",
-          "66.0",
+          "98%",
+          "94%",
+          "8.2%",
+          "66.6",
           "5.2",
           "4.2"
         ],
         [
           79,
-          "1.58x",
+          "1.56x",
           "1.00x",
-          "91%",
-          "91%",
-          "11.3%",
-          "51.2",
+          "90%",
+          "90%",
+          "11.7%",
+          "52.1",
           "1.8",
           "1.4"
         ],
         [
           104,
-          "3.73x",
+          "3.49x",
           "1.00x",
-          "77%",
-          "35%",
-          "54.5%",
-          "21.2",
+          "83%",
+          "38%",
+          "51.4%",
+          "22.4",
           "0.2",
           "0.2"
         ],
@@ -1182,12 +1182,12 @@
           130,
           "1.01x",
           "1.00x",
-          "95%",
-          "90%",
-          "13.8%",
-          "58.6",
-          "5.4",
-          "5.0"
+          "97%",
+          "92%",
+          "12.4%",
+          "61.1",
+          "5.5",
+          "5.1"
         ],
         [
           260,
@@ -1195,8 +1195,8 @@
           "1.00x",
           "94%",
           "98%",
-          "6.5%",
-          "69.9",
+          "6.1%",
+          "70.1",
           "10.6",
           "10.3"
         ]
@@ -1211,12 +1211,12 @@
       {
         "name": "Lirane is far more import-dependent",
         "pass": true,
-        "detail": "80.6% vs 25.6%"
+        "detail": "80.5% vs 25.6%"
       },
       {
         "name": "A blockade hurts the island far more than a price shock hurts a large economy",
         "pass": true,
-        "detail": "blockade -11.6% vs Sundara -5.3%"
+        "detail": "blockade -10.2% vs Sundara -5.0%"
       },
       {
         "name": "Reserves are released in the blockade",
@@ -1226,7 +1226,7 @@
       {
         "name": "Reserves reduce the damage",
         "pass": true,
-        "detail": "-3.2% vs -11.6%"
+        "detail": "-2.7% vs -10.2%"
       },
       {
         "name": "Lirane's necessities go short in the blockade",
@@ -1235,7 +1235,7 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 645.0690690000001
+    "runtimeMs": 773.6106749999999
   },
   {
     "id": 9,
@@ -1249,7 +1249,7 @@
       },
       {
         "label": "Weeks to reach 95% / 99% of control GDP",
-        "value": "506 / 953"
+        "value": "508 / 944"
       },
       {
         "label": "Peak unemployment",
@@ -1270,16 +1270,16 @@
       },
       {
         "label": "Industrial capacity: lowest / end (vs control)",
-        "value": "65% / 118%",
+        "value": "65% / 119%",
         "note": "rebuilt by private investment"
       },
       {
         "label": "Consumption per head at the end (vs control)",
-        "value": "103.8%"
+        "value": "103.9%"
       },
       {
         "label": "World real GDP at the trough (vs control)",
-        "value": "-27.8%"
+        "value": "-25.0%"
       }
     ],
     "table": {
@@ -1299,7 +1299,7 @@
           "100%",
           "6.1%",
           "49%",
-          "70.0"
+          "69.9"
         ],
         [
           "0.25",
@@ -1319,9 +1319,9 @@
         ],
         [
           "1.00",
-          "52%",
+          "53%",
           "69%",
-          "34.7%",
+          "33.5%",
           "75%",
           "6.8"
         ],
@@ -1329,9 +1329,9 @@
           "2.00",
           "61%",
           "73%",
-          "24.2%",
+          "24.0%",
           "71%",
-          "10.3"
+          "10.4"
         ],
         [
           "3.00",
@@ -1339,44 +1339,44 @@
           "73%",
           "35.6%",
           "64%",
-          "25.1"
+          "25.2"
         ],
         [
           "5.00",
           "75%",
-          "81%",
-          "29.0%",
-          "54%",
-          "41.3"
+          "83%",
+          "28.5%",
+          "53%",
+          "41.8"
         ],
         [
           "8.00",
-          "81%",
-          "103%",
-          "18.3%",
-          "44%",
-          "49.6"
+          "89%",
+          "105%",
+          "10.6%",
+          "41%",
+          "59.5"
         ],
         [
           "12.00",
           "91%",
-          "128%",
+          "132%",
           "7.3%",
-          "27%",
-          "70.6"
+          "28%",
+          "70.7"
         ],
         [
           "16.00",
-          "95%",
+          "96%",
           "136%",
-          "4.0%",
+          "3.8%",
           "25%",
           "74.2"
         ],
         [
           "19.00",
           "101%",
-          "118%",
+          "119%",
           "0.7%",
           "25%",
           "74.9"
@@ -1398,17 +1398,17 @@
       {
         "name": "The crisis is prolonged (not a one-quarter blip)",
         "pass": true,
-        "detail": "506 weeks to 95%"
+        "detail": "508 weeks to 95%"
       },
       {
         "name": "Recovery happens (95% of control GDP within the horizon)",
         "pass": true,
-        "detail": "506 weeks to 95%, 953 weeks to 99%"
+        "detail": "508 weeks to 95%, 944 weeks to 99%"
       },
       {
         "name": "Capacity is rebuilt gradually by private investment",
         "pass": true,
-        "detail": "65% → 118%"
+        "detail": "65% → 119%"
       },
       {
         "name": "No runaway debt or inflation after the crisis",
@@ -1417,7 +1417,7 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 584.0639689999998
+    "runtimeMs": 708.12032
   },
   {
     "id": 10,
@@ -1432,7 +1432,7 @@
       },
       {
         "label": "Baseline: food share of household purchases",
-        "value": "33.2% → 20.9%",
+        "value": "33.3% → 21.0%",
         "note": "consumption shifts to manufactures and services as incomes rise (Engel effect)"
       },
       {
@@ -1445,7 +1445,7 @@
       },
       {
         "label": "Baseline: trade openness (first / last two years)",
-        "value": "82% → 70%"
+        "value": "82% → 71%"
       },
       {
         "label": "Best strategy for GDP per head",
@@ -1453,7 +1453,7 @@
       },
       {
         "label": "Spread between strategies (GDP per head)",
-        "value": "2.12x – 2.68x"
+        "value": "2.10x – 2.66x"
       }
     ],
     "table": {
@@ -1472,39 +1472,39 @@
         [
           "Baseline (autopilot)",
           "2.16x",
-          "1.94x",
-          "0.98x",
+          "1.93x",
+          "0.99x",
           "70.9",
           "42%",
-          "70%",
+          "71%",
           "22%"
         ],
         [
           "Infrastructure push",
-          "2.68x",
-          "2.29x",
+          "2.66x",
+          "2.26x",
           "1.00x",
           "70.7",
           "43%",
-          "64%",
-          "25%"
+          "66%",
+          "24%"
         ],
         [
           "Social-first",
           "2.16x",
-          "1.95x",
+          "1.94x",
           "0.98x",
           "76.0",
-          "44%",
-          "70%",
+          "43%",
+          "71%",
           "22%"
         ],
         [
           "Protectionist",
-          "2.12x",
-          "1.96x",
-          "0.95x",
-          "69.1",
+          "2.10x",
+          "1.94x",
+          "0.94x",
+          "68.8",
           "43%",
           "41%",
           "34%"
@@ -1525,30 +1525,30 @@
       {
         "name": "Household food share falls as incomes rise",
         "pass": true,
-        "detail": "33.2% → 20.9%"
+        "detail": "33.3% → 21.0%"
       },
       {
         "name": "Production structure changes",
         "pass": true,
-        "detail": "food 33.5% → 23.3%"
+        "detail": "food 33.5% → 23.8%"
       },
       {
         "name": "Several strategies are viable (no strategy collapses)",
         "pass": true,
-        "detail": "2.16x / 2.68x / 2.16x / 2.12x"
+        "detail": "2.16x / 2.66x / 2.16x / 2.10x"
       },
       {
         "name": "Strategies differ measurably",
         "pass": true,
-        "detail": "2.12x – 2.68x"
+        "detail": "2.10x – 2.66x"
       },
       {
         "name": "Protectionism lowers openness",
         "pass": true,
-        "detail": "41% vs 70%"
+        "detail": "41% vs 71%"
       }
     ],
     "observations": [],
-    "runtimeMs": 3762.2502269999995
+    "runtimeMs": 4884.414896
   }
 ]

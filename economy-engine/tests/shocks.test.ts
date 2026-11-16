@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { getCountry, getProgress, getZone } from '../src/index.ts';
-import { advance, at, commands, effects, goodIdx, idx, once, world, zoneIdx } from './helpers.ts';
+import { advance, at, capacityOf, commands, effects, goodIdx, idx, once, world, zoneIdx } from './helpers.ts';
 
 test('a production shock lowers output and raises the price; an exporter loses export sales first, households stay supplied; then it recovers', () => {
   const ctl = world(), run = world();
@@ -32,15 +32,15 @@ test('shocks propagate through supply chains: less energy raises prices of goods
 
 test('capacity destruction is exact and rebuilt only gradually, by private investment', () => {
   const state = world();
-  const z = zoneIdx(state, 'sundara-delta'), g = goodIdx(state, 'industrial'), G = state.config.goods.length;
-  const before = state.zoneGood.capacity[z * G + g];
+  const z = zoneIdx(state, 'sundara-delta'), g = goodIdx(state, 'industrial');
+  const before = capacityOf(state, z, g);
   once(state, effects({ type: 'destroy-capacity', zoneId: 'sundara-delta', goodId: 'industrial', fraction: 0.5 }));
-  const after = state.zoneGood.capacity[z * G + g];
+  const after = capacityOf(state, z, g);
   assert.ok(Math.abs(after / before - 0.5) < 0.02, `capacity fell by half (${after / before})`);
   advance(state, 26);
-  const mid = state.zoneGood.capacity[z * G + g];
+  const mid = capacityOf(state, z, g);
   advance(state, 300);
-  const late = state.zoneGood.capacity[z * G + g];
+  const late = capacityOf(state, z, g);
   assert.ok(mid < before * 0.8, 'no instant rebuild (construction delay)');
   assert.ok(late > mid * 1.15, `capacity is rebuilt over time (${mid} → ${late})`);
 });

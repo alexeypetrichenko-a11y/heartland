@@ -247,7 +247,10 @@ function scenario2(ctx: Context): ScenarioResult {
 // ---------------------------------------------------------------------------
 function scenario3(ctx: Context): ScenarioResult {
   const t0 = performance.now();
-  const weeks = 260;
+  // Seven years. Since Milestone 1 a sector's losses are borne by its own firm
+  // aggregate and owners instead of every firm in the zone, so recovery takes
+  // longer than the five years this scenario originally ran (165 weeks before, 218 now).
+  const weeks = 364;
   const ctl = ctx.control(weeks);
   const run = scenarioRun(ctx, weeks, w => w === SHOCK ? { effects: [{ type: 'production-shock', zoneId: 'verdania', goodId: 'food', factor: 0.5, recoveryWeeks: 78 }] } : undefined);
   const v = run.series.countries.verdania, c = ctl.series.countries.verdania;

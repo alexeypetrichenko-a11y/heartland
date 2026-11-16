@@ -1,4 +1,6 @@
-import type { CountryId, EconomyState, GoodId, ReserveMode, ZoneId } from '../types.ts';
+import type { CountryId, EconomyState, GoodId, ReserveMode, SectorId, ZoneId } from '../types.ts';
+import type { OwnershipType, PerformanceTier } from './model.ts';
+import { OWNERSHIP_COUNT, OWNERSHIP_TYPES, PERFORMANCE_TIERS, TIER_COUNT, zoneCapacity, zonePipeline } from './model.ts';
 
 /**
  * Read-only views of a state for the host game and its interface.
@@ -161,8 +163,8 @@ export function getZone(state: EconomyState, zoneId: ZoneId): ZoneSnapshot {
     const index = z * G + g;
     list.push({
       goodId: goods[g].id,
-      capacity: zg.capacity[index],
-      underConstruction: zg.build1[index] + zg.build2[index] + zg.build3[index],
+      capacity: zoneCapacity(state, z, g),
+      underConstruction: zonePipeline(state, z, g),
       stock: zg.stock[index],
       price: zg.price[index],
       buyPrice: zg.buyPrice[index],
@@ -185,6 +187,63 @@ export function getZone(state: EconomyState, zoneId: ZoneId): ZoneSnapshot {
     householdMoney: state.zone.householdMoney[z],
     goods: list,
   };
+}
+
+export interface FirmLineView {
+  goodId: GoodId;
+  /** Installed capacity per tier: strong, average, fragile. */
+  capacity: Record<PerformanceTier, number>;
+  underConstruction: number;
+}
+
+/** One firm aggregate: all firms of one sector and one kind of owner in a zone (R57). */
+export interface FirmAggregateView {
+  sectorId: SectorId;
+  ownership: OwnershipType;
+  cash: number;
+  /** Smoothed weekly running costs. */
+  costs: number;
+  /** Workers employed last week. */
+  employment: number;
+  /** Sales revenue last week. */
+  revenue: number;
+  lines: FirmLineView[];
+}
+
+/** Every firm aggregate of a zone that owns capacity, construction or cash. */
+export function getFirmAggregates(state: EconomyState, zoneId: ZoneId): FirmAggregateView[] {
+  const z = state.zones.findIndex(zone => zone.id === zoneId);
+  if (z < 0) throw new Error(`Unknown zone: ${zoneId}.`);
+  const { sectors, goods } = state.config;
+  const G = goods.length;
+  const O = OWNERSHIP_COUNT;
+  const T = TIER_COUNT;
+  const views: FirmAggregateView[] = [];
+  sectors.forEach((sector, k) => {
+    for (let o = 0; o < O; o++) {
+      const a = (z * sectors.length + k) * O + o;
+      const lines: FirmLineView[] = [];
+      for (let g = 0; g < G; g++) {
+        if (goods[g].sectorId !== sector.id) continue;
+        const ownerIndex = (z * G + g) * O + o;
+        const capacity = {} as Record<PerformanceTier, number>;
+        let total = 0;
+        PERFORMANCE_TIERS.forEach((tier, t) => {
+          capacity[tier] = state.firmLine.capacity[ownerIndex * T + t];
+          total += capacity[tier];
+        });
+        const underConstruction = state.firmGood.build1[ownerIndex] + state.firmGood.build2[ownerIndex] + state.firmGood.build3[ownerIndex];
+        if (total > 0 || underConstruction > 0) lines.push({ goodId: goods[g].id, capacity, underConstruction });
+      }
+      const cash = state.firm.cash[a];
+      if (lines.length === 0 && !(cash > 0)) continue;
+      views.push({
+        sectorId: sector.id, ownership: OWNERSHIP_TYPES[o], cash, costs: state.firm.costs[a],
+        employment: state.firm.employment[a], revenue: state.firm.revenue[a], lines,
+      });
+    }
+  });
+  return views;
 }
 
 export interface SanctionView {

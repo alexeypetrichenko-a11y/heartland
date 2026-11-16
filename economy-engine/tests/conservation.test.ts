@@ -15,7 +15,8 @@ test('quiet world: goods, money and bonds balance every week and nothing goes ne
     assert.equal(report.audit.nonFiniteValues, 0);
     // Independent re-check of money: agents' holdings equal the money supply.
     let money = 0;
-    for (let z = 0; z < state.zones.length; z++) money += state.zone.householdMoney[z] + state.zone.firmMoney[z];
+    for (let z = 0; z < state.zones.length; z++) money += state.zone.householdMoney[z];
+    for (const cash of state.firm.cash) money += cash;
     for (let c = 0; c < state.countries.length; c++) money += state.country.treasury[c];
     assert.ok(Math.abs(money - state.world.baseMoney) <= 1e-9 * money, 'money supply equals what agents hold');
     // Debt is, by definition, the sum of bond claims.
@@ -43,9 +44,7 @@ test('goods ledger: closing stock = opening stock + production - use - spoilage 
 
 test('no resource appears from nowhere: with zero productive capacity there is no output', () => {
   const state = world();
-  for (let z = 0; z < state.zones.length; z++) {
-    for (let g = 0; g < state.config.goods.length; g++) { state.zoneGood.capacity[z * state.config.goods.length + g] = 0; }
-  }
+  state.firmLine.capacity.fill(0);
   const report = once(state);
   for (const good of report.goods) assert.equal(good.production, 0, `${good.goodId} cannot be produced without capacity`);
 });

@@ -364,9 +364,9 @@ export function settleFinances(s: EconomyState, w: Workspace, m: Model, events: 
     country.gdp[c] += p.gdpSmoothing * (w.countryNominal[c] - country.gdp[c]);
     country.realGdp[c] = w.countryReal[c];
     const revenue = w.revenueIncomeTax[c] + w.revenueConsumptionTax[c] + w.revenueCorporateTax[c] + w.revenueTariffs[c]
-      + w.revenueSeigniorage[c] + w.revenueReserveSales[c] + w.revenueFunds[c];
+      + w.revenueSeigniorage[c] + w.revenueReserveSales[c] + w.revenueFunds[c] + w.revenueFirmDividends[c];
     const spending = w.spentAdministration[c] + w.spentSocial[c] + w.spentMilitary[c] + w.spentInfrastructure[c]
-      + w.spentReserves[c] + w.spentInterest[c] + w.spentFunds[c];
+      + w.spentReserves[c] + w.spentInterest[c] + w.spentFunds[c] + w.spentFirmSupport[c];
     const deficit = country.gdp[c] > EPSILON ? (spending - revenue) / country.gdp[c] : 0;
     country.deficit[c] += 0.1 * (clamp(deficit, -1, 1) - country.deficit[c]);
 

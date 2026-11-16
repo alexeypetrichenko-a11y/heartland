@@ -1,4 +1,5 @@
 import type { EconomyConfig, EconomyState } from '../types.ts';
+import { madeToOrderOrder } from '../config/defaults.ts';
 
 /**
  * Derived, read-only lookup tables and reusable scratch memory.
@@ -13,9 +14,32 @@ export const EPSILON = 1e-12;
 /** Stocks below this size are removed so values cannot decay into denormals. */
 export const DUST = 1e-9;
 
+/** Kinds of firm ownership (R57), in index order. */
+export const OWNERSHIP_TYPES = ['private', 'public', 'mixed'] as const;
+export type OwnershipType = typeof OWNERSHIP_TYPES[number];
+/** Performance tiers within every aggregate (R58), in index order. */
+export const PERFORMANCE_TIERS = ['strong', 'average', 'fragile'] as const;
+export type PerformanceTier = typeof PERFORMANCE_TIERS[number];
+export const OWNERSHIP_COUNT = 3;
+export const TIER_COUNT = 3;
+export const PRIVATE = 0;
+export const PUBLIC = 1;
+export const MIXED = 2;
+/** New plant always joins the average tier. */
+export const AVERAGE_TIER = 1;
+
 export interface Model {
   goodCount: number;
+  sectorCount: number;
   goodIndex: Map<string, number>;
+  /** Sector of every good. */
+  goodSector: number[];
+  /** Goods of every sector. */
+  sectorGoods: number[][];
+  /** Labour productivity of each performance tier relative to the sector norm. */
+  tierFactor: Float64Array;
+  /** Made-to-order goods in the order they must be cleared (inputs before users). */
+  madeToOrderOrder: number[];
   tradable: boolean[];
   resourceBased: boolean[];
   /** True for goods that cannot be stored and are therefore produced to order. */
@@ -54,8 +78,20 @@ export function getModel(config: EconomyConfig): Model {
   if (cached) return cached;
   const goods = config.goods;
   const G = goods.length;
+  const S = config.sectors.length;
   const goodIndex = new Map<string, number>();
   goods.forEach((good, index) => goodIndex.set(good.id, index));
+  const sectorIndex = new Map<string, number>();
+  config.sectors.forEach((sector, index) => sectorIndex.set(sector.id, index));
+  const goodSector = goods.map(good => {
+    const sector = sectorIndex.get(good.sectorId);
+    if (sector === undefined) throw new Error(`Unknown sector ${good.sectorId}.`);
+    return sector;
+  });
+  const sectorGoods: number[][] = config.sectors.map(() => []);
+  goodSector.forEach((sector, g) => sectorGoods[sector].push(g));
+  const order = madeToOrderOrder(goods);
+  if (order === null) throw new Error('Made-to-order goods depend on each other in a loop.');
   const column = (read: (index: number) => number) => {
     const values = new Float64Array(G);
     for (let g = 0; g < G; g++) values[g] = read(g);
@@ -82,7 +118,12 @@ export function getModel(config: EconomyConfig): Model {
   for (let g = 1; g < G; g++) if (goods[g].militaryShare > goods[armsGood].militaryShare) armsGood = g;
   const model: Model = {
     goodCount: G,
+    sectorCount: S,
     goodIndex,
+    goodSector,
+    sectorGoods,
+    tierFactor: Float64Array.from(config.params.tierProductivity),
+    madeToOrderOrder: order,
     tradable: goods.map(good => good.tradable),
     resourceBased: goods.map(good => good.resourceBased),
     madeToOrder: goods.map(good => good.spoilage >= 1),
@@ -116,17 +157,27 @@ export function getModel(config: EconomyConfig): Model {
 /** Names of the scratch arrays, grouped by their size. */
 const ZONE_GOOD_FIELDS = ['plan', 'want', 'output', 'effectiveCapacity', 'unitCost', 'demandHousehold', 'demandInput',
   'demandInvestment', 'demandGovernment', 'demandReserve', 'gotHousehold', 'gotInput', 'gotInvestment',
-  'gotGovernment', 'gotReserve', 'orders', 'sold', 'newBuild', 'previousConsumerPrice', 'potential', 'staffPerUnit'] as const;
-const ZONE_FIELDS = ['productivity', 'laborSupply', 'laborScale', 'employment', 'wageReserve', 'householdBudget',
-  'householdIncome', 'householdSpending', 'householdReal', 'householdNeed', 'firmRevenue', 'firmPurchases', 'wageBill',
-  'valueAdded', 'valueAddedReal', 'investFill', 'lendable', 'lendAsked', 'lendScale', 'lendGiven', 'zoneDemand',
+  'gotGovernment', 'gotReserve', 'orders', 'sold', 'previousConsumerPrice', 'potential', 'staffPerUnit',
+  'laborCost', 'inputCost', 'inputNeed'] as const;
+/** Per zone, good and ownership. */
+const OWNER_GOOD_FIELDS = ['ownerBuild', 'saleShare'] as const;
+/** Per production line (zone, good, ownership, tier). */
+const LINE_FIELDS = ['linePlan', 'lineSpare'] as const;
+/** Per firm aggregate (zone, sector, ownership). */
+const AGGREGATE_FIELDS = ['aggRevenue', 'aggPurchases', 'aggWageReserve', 'aggEmployment', 'aggOutlay', 'aggInputCost',
+  'aggInvestCost', 'aggCall'] as const;
+/** Per firm aggregate and good. */
+const AGGREGATE_GOOD_FIELDS = ['aggDemandInput', 'aggDemandInvestment', 'aggGotInvestment'] as const;
+const ZONE_FIELDS = ['productivity', 'laborSupply', 'laborScale', 'employment', 'householdBudget',
+  'householdIncome', 'householdSpending', 'householdReal', 'householdNeed', 'wageBill',
+  'valueAdded', 'valueAddedReal', 'lendable', 'lendAsked', 'lendScale', 'lendGiven', 'zoneDemand',
   'remainingDemand', 'remainingStock', 'supplierOrders', 'supplierFill', 'paid', 'received', 'releaseShipped',
   'idealPrice', 'foreignLeft', 'delivered'] as const;
 const COUNTRY_FIELDS = ['population', 'planAdministration', 'planSocial', 'planMilitaryPay', 'planMilitaryGoods',
   'planInfrastructure', 'planExtras', 'planTotal', 'cashTarget', 'interestDue', 'principalDue', 'fundedShare', 'creditRequest',
   'borrowed', 'repaid', 'revenueIncomeTax', 'revenueConsumptionTax', 'revenueCorporateTax', 'revenueTariffs',
   'revenueSeigniorage', 'revenueReserveSales', 'revenueFunds', 'spentAdministration', 'spentSocial', 'spentMilitary',
-  'spentInfrastructure', 'spentReserves', 'spentInterest', 'spentFunds', 'infrastructureReal', 'missedPayment',
+  'spentInfrastructure', 'spentReserves', 'spentInterest', 'spentFunds', 'revenueFirmDividends', 'spentFirmSupport', 'infrastructureReal', 'missedPayment',
   'extraRepayment', 'defaultRequested', 'countryNominal', 'countryReal', 'countryExports', 'countryImports',
   'countryScratch', 'countryInflation', 'countryUnemployment', 'countryDeprivation', 'countryHouseholdShortage',
   'countryLiving', 'reportCpi', 'reportWage', 'reportConsumption', 'reportArms', 'reportRevenue',
@@ -139,13 +190,16 @@ const GOOD_FIELDS = ['ledgerBefore', 'ledgerProduced', 'ledgerUsed', 'ledgerSpoi
 const PAIR_FIELDS = ['costFactor', 'attraction', 'order', 'shipped', 'pairLimit'] as const;
 
 type FloatFields = typeof ZONE_GOOD_FIELDS[number] | typeof ZONE_FIELDS[number] | typeof COUNTRY_FIELDS[number]
-  | typeof COUNTRY_GOOD_FIELDS[number] | typeof GOOD_FIELDS[number] | typeof PAIR_FIELDS[number];
+  | typeof COUNTRY_GOOD_FIELDS[number] | typeof GOOD_FIELDS[number] | typeof PAIR_FIELDS[number]
+  | typeof OWNER_GOOD_FIELDS[number] | typeof LINE_FIELDS[number] | typeof AGGREGATE_FIELDS[number]
+  | typeof AGGREGATE_GOOD_FIELDS[number];
 
 /** Scratch memory for one turn. Reused between turns; never saved. */
 export type Workspace = Record<FloatFields, Float64Array> & {
   zoneCount: number;
   countryCount: number;
   goodCount: number;
+  sectorCount: number;
   rowSize: number;
   /** Value ordered by each government per good and category (administration, military, infrastructure). */
   governmentCategoryShare: Float64Array;
@@ -166,7 +220,7 @@ export type Workspace = Record<FloatFields, Float64Array> & {
 let workspace: Workspace | null = null;
 let workspaceArrays: (Float64Array | Uint8Array)[] = [];
 
-function allocate(Z: number, C: number, G: number, rowSize: number): Workspace {
+function allocate(Z: number, C: number, G: number, S: number, rowSize: number): Workspace {
   const arrays: (Float64Array | Uint8Array)[] = [];
   const fields: Record<string, Float64Array> = {};
   const add = (names: readonly string[], size: number) => {
@@ -178,8 +232,12 @@ function allocate(Z: number, C: number, G: number, rowSize: number): Workspace {
   add(COUNTRY_GOOD_FIELDS, C * G);
   add(GOOD_FIELDS, G);
   add(PAIR_FIELDS, Z * Z);
+  add(OWNER_GOOD_FIELDS, Z * G * OWNERSHIP_COUNT);
+  add(LINE_FIELDS, Z * G * OWNERSHIP_COUNT * TIER_COUNT);
+  add(AGGREGATE_FIELDS, Z * S * OWNERSHIP_COUNT);
+  add(AGGREGATE_GOOD_FIELDS, Z * S * OWNERSHIP_COUNT * G);
   const extra = {
-    zoneCount: Z, countryCount: C, goodCount: G, rowSize,
+    zoneCount: Z, countryCount: C, goodCount: G, sectorCount: S, rowSize,
     governmentCategoryShare: new Float64Array(C * G * 3),
     blocked: new Uint8Array(C * C * G),
     tariff: new Float64Array(C * C * G),
@@ -197,10 +255,11 @@ export function getWorkspace(state: EconomyState): Workspace {
   const Z = state.zones.length;
   const C = state.countries.length;
   const G = state.config.goods.length;
+  const S = state.config.sectors.length;
   const rowSize = state.history.rowSize;
   if (!workspace || workspace.zoneCount !== Z || workspace.countryCount !== C || workspace.goodCount !== G
-    || workspace.rowSize !== rowSize) {
-    workspace = allocate(Z, C, G, rowSize);
+    || workspace.sectorCount !== S || workspace.rowSize !== rowSize) {
+    workspace = allocate(Z, C, G, S, rowSize);
     return workspace;
   }
   for (let i = 0; i < workspaceArrays.length; i++) workspaceArrays[i].fill(0);
@@ -236,4 +295,23 @@ export function privateHurdle(s: EconomyState, c: number): number {
 
 export function clamp(value: number, low: number, high: number): number {
   return value < low ? low : value > high ? high : value;
+}
+
+/** Total installed capacity of one good in one zone, summed over owners and tiers. */
+export function zoneCapacity(s: EconomyState, z: number, g: number): number {
+  const G = s.config.goods.length;
+  const base = (z * G + g) * OWNERSHIP_COUNT * TIER_COUNT;
+  let total = 0;
+  for (let k = 0; k < OWNERSHIP_COUNT * TIER_COUNT; k++) total += s.firmLine.capacity[base + k];
+  return total;
+}
+
+/** Capacity of one good in one zone still under construction, summed over owners. */
+export function zonePipeline(s: EconomyState, z: number, g: number): number {
+  const G = s.config.goods.length;
+  const base = (z * G + g) * OWNERSHIP_COUNT;
+  const fg = s.firmGood;
+  let total = 0;
+  for (let o = 0; o < OWNERSHIP_COUNT; o++) total += fg.build1[base + o] + fg.build2[base + o] + fg.build3[base + o];
+  return total;
 }

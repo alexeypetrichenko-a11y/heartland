@@ -1,6 +1,6 @@
 import type { EconomyState } from '../types.ts';
 import type { Model, Workspace } from './model.ts';
-import { capitalCharge, clamp, DUST, EPSILON, privateHurdle } from './model.ts';
+import { AVERAGE_TIER, capitalCharge, clamp, DUST, EPSILON, MIXED, OWNERSHIP_COUNT, privateHurdle, PUBLIC, TIER_COUNT } from './model.ts';
 
 /**
  * Production, incomes and the weekly adjustment of prices, wages,
@@ -15,8 +15,7 @@ export function inputRatios(s: EconomyState, w: Workspace, m: Model, z: number, 
   const G = m.goodCount;
   const base = z * G;
   for (let g = 0; g < G; g++) {
-    let need = 0;
-    for (let sector = 0; sector < G; sector++) need += m.recipe[sector * G + g] * w.plan[base + sector];
+    const need = w.inputNeed[base + g];
     available[g] = s.zoneGood.inputBuffer[base + g] + w.gotInput[base + g];
     ratio[g] = need > EPSILON ? Math.min(1, available[g] / need) : 1;
   }
@@ -27,14 +26,22 @@ export function produce(s: EconomyState, w: Workspace, m: Model): void {
   const p = s.config.params;
   const Z = s.zones.length;
   const G = m.goodCount;
+  const S = m.sectorCount;
+  const O = OWNERSHIP_COUNT;
+  const T = TIER_COUNT;
   const zg = s.zoneGood;
+  const fg = s.firmGood;
+  const firm = s.firm;
+  const tierFactor = m.tierFactor;
   const available = w.goodScratchA;
   const ratio = w.goodScratchB;
   const used = w.goodScratchC;
+  const ownerOutput = [0, 0, 0];
 
   for (let z = 0; z < Z; z++) {
     const c = s.zone.owner[z];
     const base = z * G;
+    const aggregateBase = z * S * O;
     inputRatios(s, w, m, z, available, ratio);
     used.fill(0);
 
@@ -70,10 +77,43 @@ export function produce(s: EconomyState, w: Workspace, m: Model): void {
         inputValue += quantity * zg.buyPrice[base + inputs[i]];
         inputReal += quantity * m.basePrice[inputs[i]];
       }
-      employment += output * w.staffPerUnit[index];
+      // Output is shared between production lines as planned; each line's staff is
+      // employed (and paid) by its own aggregate. linePlan now holds line output.
+      const done = output / plan;
+      const lineBase = index * O * T;
+      const a = aggregateBase + m.goodSector[sector] * O;
+      for (let o = 0; o < O; o++) {
+        let made = 0;
+        for (let t = 0; t < T; t++) {
+          const l = lineBase + o * T + t;
+          const lineOutput = w.linePlan[l] * done;
+          w.linePlan[l] = lineOutput;
+          made += lineOutput;
+          const staff = lineOutput * w.staffPerUnit[index] / tierFactor[t];
+          w.aggEmployment[a + o] += staff;
+          employment += staff;
+        }
+        ownerOutput[o] = made;
+      }
       valueAdded += output * zg.price[index] - inputValue;
       valueAddedReal += output * m.basePrice[sector] - inputReal;
-      zg.stock[index] = m.madeToOrder[sector] ? 0 : unsold - spoiled + output;
+      if (m.madeToOrder[sector]) zg.stock[index] = 0;
+      else {
+        // Ownership of the stock: what was carried over keeps its owners, new output belongs to its makers.
+        const carried = unsold - spoiled;
+        const stock = carried + output;
+        zg.stock[index] = stock;
+        if (stock > EPSILON) {
+          const shareBase = index * O;
+          let total = 0;
+          for (let o = 0; o < O; o++) {
+            const share = (carried * fg.stockShare[shareBase + o] + ownerOutput[o]) / stock;
+            fg.stockShare[shareBase + o] = share;
+            total += share;
+          }
+          if (total > 0) for (let o = 0; o < O; o++) fg.stockShare[shareBase + o] /= total;
+        }
+      }
       w.ledgerProduced[sector] += output;
     }
     w.employment[z] = employment;
@@ -89,58 +129,102 @@ export function produce(s: EconomyState, w: Workspace, m: Model): void {
       w.useInput[g] += used[g];
       w.ledgerUsed[g] += used[g];
     }
-
-    // Investment goods become capacity under construction.
-    let fill = 1;
-    let invested = false;
     for (let g = 0; g < G; g++) {
-      const demand = w.demandInvestment[base + g];
-      if (demand > EPSILON) {
-        invested = true;
-        fill = Math.min(fill, w.gotInvestment[base + g] / demand);
-      }
       w.useInvestment[g] += w.gotInvestment[base + g];
       w.ledgerUsed[g] += w.gotInvestment[base + g];
     }
-    w.investFill[z] = invested ? fill : 0;
-    if (invested && fill > 0) {
-      for (let g = 0; g < G; g++) zg.build1[base + g] += w.newBuild[base + g] * fill;
+
+    // Investment goods become capacity under construction, aggregate by aggregate.
+    for (let sector = 0; sector < S; sector++) {
+      for (let o = 0; o < O; o++) {
+        const a = aggregateBase + sector * O + o;
+        let fill = 1;
+        let invested = false;
+        for (let g = 0; g < G; g++) {
+          const demand = w.aggDemandInvestment[a * G + g];
+          if (demand > EPSILON) {
+            invested = true;
+            fill = Math.min(fill, w.aggGotInvestment[a * G + g] / demand);
+          }
+        }
+        if (!invested || !(fill > 0)) continue;
+        const goods = m.sectorGoods[sector];
+        for (let i = 0; i < goods.length; i++) {
+          const ownerIndex = (base + goods[i]) * O + o;
+          fg.build1[ownerIndex] += w.ownerBuild[ownerIndex] * fill;
+        }
+      }
     }
 
-    // Wages, with income tax withheld.
+    // Wages (income tax withheld), corporate tax, then owners take out spare
+    // cash or put cash in when an aggregate runs dry.
     const incomeTax = s.country.taxIncome[c];
-    const wages = Math.min(s.zone.wage[z] * employment, Math.max(0, s.zone.firmMoney[z]));
-    s.zone.firmMoney[z] -= wages;
-    s.zone.householdMoney[z] += wages * (1 - incomeTax);
-    s.country.treasury[c] += wages * incomeTax;
-    w.revenueIncomeTax[c] += wages * incomeTax;
-    w.householdIncome[z] += wages * (1 - incomeTax);
-    w.wageBill[z] = wages;
+    const wage = s.zone.wage[z];
+    let wageBill = 0;
+    let privateNeed = 0;
+    let publicNeed = 0;
+    for (let k = 0; k < S * O; k++) {
+      const a = aggregateBase + k;
+      const o = k % O;
+      const wages = Math.min(wage * w.aggEmployment[a], Math.max(0, firm.cash[a]));
+      firm.cash[a] -= wages;
+      wageBill += wages;
+      const surplus = w.aggRevenue[a] - w.aggPurchases[a] - wages;
+      const corporate = Math.min(Math.max(0, surplus) * s.country.taxCorporate[c], Math.max(0, firm.cash[a]));
+      firm.cash[a] -= corporate;
+      s.country.treasury[c] += corporate;
+      w.revenueCorporateTax[c] += corporate;
+      firm.costs[a] += p.costSmoothing * (wages + w.aggPurchases[a] - firm.costs[a]);
+      firm.employment[a] = w.aggEmployment[a];
+      firm.revenue[a] = w.aggRevenue[a];
+      const target = p.workingCapitalWeeks * firm.costs[a];
+      const floor = p.cashFloorWeeks * firm.costs[a];
+      const publicPart = o === PUBLIC ? 1 : o === MIXED ? p.mixedPublicShare : 0;
+      if (firm.cash[a] > target) {
+        const dividend = (firm.cash[a] - target) * p.dividendSpeed;
+        firm.cash[a] -= dividend;
+        const toState = dividend * publicPart;
+        const toPeople = dividend - toState;
+        s.country.treasury[c] += toState + toPeople * incomeTax;
+        w.revenueFirmDividends[c] += toState;
+        w.revenueIncomeTax[c] += toPeople * incomeTax;
+        s.zone.householdMoney[z] += toPeople * (1 - incomeTax);
+        w.householdIncome[z] += toPeople * (1 - incomeTax);
+        w.aggCall[a] = 0;
+      } else if (firm.cash[a] < floor) {
+        const need = floor - firm.cash[a];
+        w.aggCall[a] = need;
+        publicNeed += need * publicPart;
+        privateNeed += need * (1 - publicPart);
+      }
+    }
+    s.zone.householdMoney[z] += wageBill * (1 - incomeTax);
+    s.country.treasury[c] += wageBill * incomeTax;
+    w.revenueIncomeTax[c] += wageBill * incomeTax;
+    w.householdIncome[z] += wageBill * (1 - incomeTax);
+    w.wageBill[z] = wageBill;
     const supply = w.laborSupply[z];
     s.zone.unemployment[z] = supply > EPSILON ? clamp(1 - employment / supply, 0, 1) : 0;
 
-    // Corporate tax on the week's operating surplus.
-    const surplus = w.firmRevenue[z] - w.firmPurchases[z] - wages;
-    const corporate = Math.min(Math.max(0, surplus) * s.country.taxCorporate[c], Math.max(0, s.zone.firmMoney[z]));
-    s.zone.firmMoney[z] -= corporate;
-    s.country.treasury[c] += corporate;
-    w.revenueCorporateTax[c] += corporate;
-
-    // Owners take out spare cash, or put cash in when the firms run dry.
-    s.zone.firmCosts[z] += p.costSmoothing * (wages + w.firmPurchases[z] - s.zone.firmCosts[z]);
-    const target = p.workingCapitalWeeks * s.zone.firmCosts[z];
-    const floor = p.cashFloorWeeks * s.zone.firmCosts[z];
-    if (s.zone.firmMoney[z] > target) {
-      const dividend = (s.zone.firmMoney[z] - target) * p.dividendSpeed;
-      s.zone.firmMoney[z] -= dividend;
-      s.zone.householdMoney[z] += dividend * (1 - incomeTax);
-      s.country.treasury[c] += dividend * incomeTax;
-      w.revenueIncomeTax[c] += dividend * incomeTax;
-      w.householdIncome[z] += dividend * (1 - incomeTax);
-    } else if (s.zone.firmMoney[z] < floor) {
-      const call = Math.min(floor - s.zone.firmMoney[z], p.capitalCallShare * Math.max(0, s.zone.householdMoney[z]));
-      s.zone.firmMoney[z] += call;
-      s.zone.householdMoney[z] -= call;
+    // Rescues are limited to a small share of what the owners hold each week.
+    if (privateNeed > 0 || publicNeed > 0) {
+      const privateLimit = p.capitalCallShare * Math.max(0, s.zone.householdMoney[z]);
+      const publicLimit = p.capitalCallShare * Math.max(0, s.country.treasury[c]);
+      const privateFill = privateNeed > privateLimit ? privateLimit / privateNeed : 1;
+      const publicFill = publicNeed > publicLimit ? publicLimit / publicNeed : 1;
+      for (let k = 0; k < S * O; k++) {
+        const a = aggregateBase + k;
+        const need = w.aggCall[a];
+        if (!(need > 0)) continue;
+        const o = k % O;
+        const publicPart = o === PUBLIC ? 1 : o === MIXED ? p.mixedPublicShare : 0;
+        const fromState = need * publicPart * publicFill;
+        const fromPeople = need * (1 - publicPart) * privateFill;
+        firm.cash[a] += fromState + fromPeople;
+        s.country.treasury[c] -= fromState;
+        w.spentFirmSupport[c] += fromState;
+        s.zone.householdMoney[z] -= fromPeople;
+      }
     }
   }
 }
@@ -150,8 +234,13 @@ export function adjust(s: EconomyState, w: Workspace, m: Model): void {
   const p = s.config.params;
   const Z = s.zones.length;
   const G = m.goodCount;
+  const O = OWNERSHIP_COUNT;
+  const T = TIER_COUNT;
   const zg = s.zoneGood;
   const zone = s.zone;
+  const fg = s.firmGood;
+  const lineCapacity = s.firmLine.capacity;
+  const tierFactor = m.tierFactor;
 
   for (let z = 0; z < Z; z++) {
     const c = zone.owner[z];
@@ -202,7 +291,11 @@ export function adjust(s: EconomyState, w: Workspace, m: Model): void {
 
     for (let g = 0; g < G; g++) {
       const index = base + g;
-      let cost = m.labor[g] * wage / (productivity * zg.efficiency[index]);
+      // Reference unit cost is the average tier's: new plant joins that tier, so it
+      // sets the long-run price and the return on expansion. Strong firms earn more.
+      const laborCost = m.labor[g] * wage / (productivity * zg.efficiency[index]);
+      const averageLabor = laborCost / tierFactor[AVERAGE_TIER];
+      let cost = averageLabor;
       const inputs = m.inputGoods[g];
       const amounts = m.inputAmounts[g];
       for (let i = 0; i < inputs.length; i++) cost += amounts[i] * zg.buyPrice[base + inputs[i]];
@@ -242,28 +335,46 @@ export function adjust(s: EconomyState, w: Workspace, m: Model): void {
       zg.refPrice[index] += (price - zg.refPrice[index]) / p.refPriceWeeks;
       zg.margin[index] += p.profitSmoothing * (clamp((price - cost) / price, -1, 1) - zg.margin[index]);
 
-      // Construction advances one stage; finished plant joins capacity.
+      // Construction advances one stage. Finished plant first renews worn-out plant
+      // of the same owner in its own tier (maintenance keeps a firm's standing);
+      // anything beyond that is expansion and joins the average tier.
       const rate = m.buildRate[g];
-      const done1 = zg.build1[index] * rate;
-      const done2 = zg.build2[index] * rate;
-      const done3 = zg.build3[index] * rate;
-      zg.build1[index] -= done1;
-      zg.build2[index] += done1 - done2;
-      zg.build3[index] += done2 - done3;
-      // Idle or loss-making plant is closed gradually, on top of normal wear.
-      const idle = clamp(1 - zg.pressure[index] / p.scrapPressure, 0, 1);
-      const losing = clamp(-zg.margin[index] * 4, 0, 1);
-      const scrap = p.scrapRateMax * (idle > losing ? idle : losing);
-      let installed = zg.capacity[index] * (1 - m.depreciationWeekly[g] - scrap) + done3;
-      if (installed < DUST) installed = 0;
-      zg.capacity[index] = installed;
-      if (zg.build1[index] < DUST) zg.build1[index] = 0;
-      if (zg.build2[index] < DUST) zg.build2[index] = 0;
-      if (zg.build3[index] < DUST) zg.build3[index] = 0;
+      const ownerBase = index * O;
+      const lineBase = ownerBase * T;
+      let installedAll = 0;
+      for (let o = 0; o < O; o++) {
+        const done1 = fg.build1[ownerBase + o] * rate;
+        const done2 = fg.build2[ownerBase + o] * rate;
+        const done3 = fg.build3[ownerBase + o] * rate;
+        fg.build1[ownerBase + o] -= done1;
+        fg.build2[ownerBase + o] += done1 - done2;
+        fg.build3[ownerBase + o] += done2 - done3;
+        if (fg.build1[ownerBase + o] < DUST) fg.build1[ownerBase + o] = 0;
+        if (fg.build2[ownerBase + o] < DUST) fg.build2[ownerBase + o] = 0;
+        if (fg.build3[ownerBase + o] < DUST) fg.build3[ownerBase + o] = 0;
+        installedAll += fg.build1[ownerBase + o] + fg.build2[ownerBase + o] + fg.build3[ownerBase + o];
+        let ownerCapacity = 0;
+        for (let t = 0; t < T; t++) ownerCapacity += lineCapacity[lineBase + o * T + t];
+        const renewal = Math.min(done3, ownerCapacity * m.depreciationWeekly[g]);
+        const renewalRate = ownerCapacity > EPSILON ? renewal / ownerCapacity : 0;
+        const expansion = done3 - (ownerCapacity > EPSILON ? renewal : 0);
+        for (let t = 0; t < T; t++) {
+          const l = lineBase + o * T + t;
+          // Idle or loss-making plant is closed gradually, on top of normal wear;
+          // each tier's losses are judged at its own costs, so fragile plant goes first.
+          const idle = clamp(1 - zg.pressure[index] / p.scrapPressure, 0, 1);
+          const tierMargin = zg.margin[index] - (laborCost / tierFactor[t] - averageLabor) / price;
+          const losing = clamp(-tierMargin * 4, 0, 1);
+          const scrap = p.scrapRateMax * (idle > losing ? idle : losing);
+          let next = lineCapacity[l] * (1 - m.depreciationWeekly[g] - scrap + renewalRate) + (t === AVERAGE_TIER ? expansion : 0);
+          if (next < DUST) next = 0;
+          lineCapacity[l] = next;
+          installedAll += next;
+        }
+      }
 
       // A resource ceiling that demand keeps pressing against slowly gives way (discovery, better extraction).
       if (zg.resourceCap[index] > 0 && m.resourceBased[g]) {
-        const installedAll = zg.capacity[index] + zg.build1[index] + zg.build2[index] + zg.build3[index];
         if (installedAll >= 0.97 * zg.resourceCap[index]) {
           const urgency = clamp((zg.pressure[index] - m.normalUtilization[g]) / (1 - m.normalUtilization[g]), 0, 1);
           zg.resourceCap[index] *= 1 + p.resourceDiscoveryRate * urgency;

@@ -10,7 +10,10 @@ function stepBoth(a: ReturnType<typeof world>, b: ReturnType<typeof world>, week
   }
 }
 const sameReal = (a: ReturnType<typeof world>, b: ReturnType<typeof world>) => {
-  for (const key of ['capacity', 'stock', 'shortage', 'pressure', 'yieldFactor'] as const) assert.deepEqual(a.zoneGood[key], b.zoneGood[key], key);
+  for (const key of ['stock', 'shortage', 'pressure', 'yieldFactor'] as const) assert.deepEqual(a.zoneGood[key], b.zoneGood[key], key);
+  assert.deepEqual(a.firmLine.capacity, b.firmLine.capacity, 'capacity');
+  assert.deepEqual(a.firmGood.stockShare, b.firmGood.stockShare, 'stock ownership');
+  assert.deepEqual(a.firm.employment, b.firm.employment, 'employment by aggregate');
   for (const key of ['population', 'technology', 'unemployment', 'deprivation', 'inflation'] as const) assert.deepEqual(a.zone[key], b.zone[key], key);
   for (const key of ['stability', 'marketRate', 'regime', 'unrestTier'] as const) assert.deepEqual(a.country[key], b.country[key], key);
 };

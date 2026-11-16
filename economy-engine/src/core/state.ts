@@ -1,5 +1,6 @@
 import type { EconomyConfig, EconomyState, HistoryTier } from '../types.ts';
 import { validateConfig } from '../config/defaults.ts';
+import { OWNERSHIP_COUNT, TIER_COUNT } from './model.ts';
 
 /**
  * Copying, saving, restoring and checking simulation states.
@@ -10,7 +11,8 @@ import { validateConfig } from '../config/defaults.ts';
  */
 
 export const STATE_FORMAT = 'heartland-economy';
-export const STATE_VERSION = 1;
+/** Version 2 (Milestone 1): sectors, firm aggregates and production lines replace per-zone firm cash. */
+export const STATE_VERSION = 2;
 
 function copyGroup<T extends object>(group: T): T {
   const source = group as Record<string, unknown[]>;
@@ -40,6 +42,9 @@ export function cloneEconomy(state: EconomyState): EconomyState {
     lanes: copyGroup(state.lanes),
     zone: copyGroup(state.zone),
     zoneGood: copyGroup(state.zoneGood),
+    firm: copyGroup(state.firm),
+    firmGood: copyGroup(state.firmGood),
+    firmLine: copyGroup(state.firmLine),
     bonds: state.bonds.slice(),
     country: copyGroup(state.country),
     countryGood: copyGroup(state.countryGood),
@@ -107,9 +112,9 @@ function idList(value: unknown, label: string): number {
 }
 
 const ZONE_KEYS = ['owner', 'population', 'populationGrowth', 'populationCap', 'technology', 'infrastructure', 'mobilized', 'wage',
-  'householdMoney', 'firmMoney', 'expectedIncome', 'firmCosts', 'cpi', 'inflation', 'unemployment', 'livingStandard',
+  'householdMoney', 'expectedIncome', 'cpi', 'inflation', 'unemployment', 'livingStandard',
   'livingStandardRef', 'deprivation'] as const;
-const ZONE_GOOD_KEYS = ['capacity', 'build1', 'build2', 'build3', 'stock', 'inputBuffer', 'price', 'buyPrice',
+const ZONE_GOOD_KEYS = ['stock', 'inputBuffer', 'price', 'buyPrice',
   'refPrice', 'expectedDemand', 'margin', 'pressure', 'resourceCap', 'efficiency', 'yieldFactor', 'yieldRecovery',
   'shortage', 'usage'] as const;
 const COUNTRY_KEYS = ['treasury', 'debt', 'averageRate', 'marketRate', 'marketAccess', 'exclusionWeeks',
@@ -117,6 +122,9 @@ const COUNTRY_KEYS = ['treasury', 'debt', 'averageRate', 'marketRate', 'marketAc
   'stabilityModifier', 'unrestTier', 'episodeActive', 'episodePeakTier', 'rolledTier', 'tierWeeks', 'regime',
   'immunityWeeks', 'armsStock', 'taxIncome', 'taxConsumption', 'taxCorporate', 'spendAdministration', 'spendSocial',
   'spendMilitary', 'spendInfrastructure', 'autoBorrow', 'governmentPriority'] as const;
+const FIRM_KEYS = ['cash', 'costs', 'employment', 'revenue'] as const;
+const FIRM_GOOD_KEYS = ['build1', 'build2', 'build3', 'stockShare'] as const;
+const FIRM_LINE_KEYS = ['capacity'] as const;
 const COUNTRY_GOOD_KEYS = ['reserves', 'reserveTargetWeeks', 'reserveMode', 'tariff'] as const;
 const WORLD_KEYS = ['baseMoney', 'interestRate', 'creditUtilization', 'realGrowth', 'inflation', 'realGdp', 'rebases'] as const;
 const BASELINE_KEYS = ['realGdp', 'realGdpPerCapita', 'consumptionPerCapita', 'population', 'stability'] as const;
@@ -128,13 +136,15 @@ export function validateEconomy(value: unknown): asserts value is EconomyState {
   if (value.version !== STATE_VERSION) fail(`version ${String(value.version)} is not supported (expected ${STATE_VERSION}).`);
   if (typeof value.turn !== 'number' || !Number.isSafeInteger(value.turn) || value.turn < 0) fail('turn must be a non-negative whole number.');
   if (typeof value.seed !== 'number' || !Number.isInteger(value.seed) || value.seed < 0 || value.seed > 4294967295) fail('seed must be a whole number from 0 to 4294967295.');
-  if (!isRecord(value.config) || !Array.isArray(value.config.goods) || !isRecord(value.config.params)) fail('configuration is missing.');
+  if (!isRecord(value.config) || !Array.isArray(value.config.goods) || !Array.isArray(value.config.sectors)
+    || !isRecord(value.config.params)) fail('configuration is missing.');
   try {
     validateConfig(value.config as unknown as EconomyConfig);
   } catch (error) {
     fail(error instanceof Error ? error.message : 'configuration is invalid.');
   }
   const G = (value.config.goods as unknown[]).length;
+  const S = (value.config.sectors as unknown[]).length;
   const C = idList(value.countries, 'countries');
   const Z = idList(value.zones, 'zones');
   const W = idList(value.waypoints, 'waypoints');
@@ -150,6 +160,27 @@ export function validateEconomy(value: unknown): asserts value is EconomyState {
   numberGroup(value.zone, ZONE_KEYS, Z, 'zone');
   indexArray((value.zone as Record<string, unknown>).owner, Z, C, 'zone.owner');
   numberGroup(value.zoneGood, ZONE_GOOD_KEYS, Z * G, 'zoneGood');
+  numberGroup(value.firm, FIRM_KEYS, Z * S * OWNERSHIP_COUNT, 'firm');
+  numberGroup(value.firmGood, FIRM_GOOD_KEYS, Z * G * OWNERSHIP_COUNT, 'firmGood');
+  numberGroup(value.firmLine, FIRM_LINE_KEYS, Z * G * OWNERSHIP_COUNT * TIER_COUNT, 'firmLine');
+  // Quantities and money held by firms can never be negative; stock ownership shares are fractions.
+  for (const [label, list] of [['firm.cash', (value.firm as Record<string, number[]>).cash],
+    ['firmLine.capacity', (value.firmLine as Record<string, number[]>).capacity],
+    ['firmGood.build1', (value.firmGood as Record<string, number[]>).build1],
+    ['firmGood.build2', (value.firmGood as Record<string, number[]>).build2],
+    ['firmGood.build3', (value.firmGood as Record<string, number[]>).build3]] as const) {
+    if (list.some(entry => entry < 0)) fail(`${label} holds a negative value.`);
+  }
+  const shares = (value.firmGood as Record<string, number[]>).stockShare;
+  for (let i = 0; i < Z * G; i++) {
+    let total = 0;
+    for (let o = 0; o < OWNERSHIP_COUNT; o++) {
+      const share = shares[i * OWNERSHIP_COUNT + o];
+      if (share < 0 || share > 1 + 1e-9) fail('a stock ownership share is outside 0..1.');
+      total += share;
+    }
+    if (total > 1 + 1e-6) fail('stock ownership shares add up to more than 1.');
+  }
   numberArray(value.bonds, Z * C, 'bonds');
   numberGroup(value.country, COUNTRY_KEYS, C, 'country');
   numberGroup(value.countryGood, COUNTRY_GOOD_KEYS, C * G, 'countryGood');

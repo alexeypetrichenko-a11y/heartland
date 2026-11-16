@@ -9,7 +9,9 @@ import { advanceEconomyInPlace, autopilotCommands, createEconomy, createTestWorl
  * cross-engine determinism: it was identical in Node 22 (V8) and headless Chromium (V8).
  */
 const GOLDEN_WEEKS = 672; // 100 warm-up + 520 + 52, as in sim/browser-bench.cjs
-const GOLDEN = '61f628925444b0e0';
+// Re-pinned in Milestone 1 (was 61f628925444b0e0): the state now holds firm aggregates and production
+// lines, and firm cash is kept per sector and owner instead of per zone, which changes the trajectory.
+const GOLDEN = '6202f97a08efb829';
 
 test(`golden: the default test world after ${GOLDEN_WEEKS} weeks has the pinned fingerprint`, () => {
   const state = createEconomy(createTestWorldSpec());

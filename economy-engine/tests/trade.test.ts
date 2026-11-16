@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import type { TurnInput } from '../src/index.ts';
 import { getZone, listSanctions } from '../src/index.ts';
-import { advance, at, commands, effects, flow, goodIdx, idx, once, tradeFlows, world, zoneIdx } from './helpers.ts';
+import { advance, at, capacityOf, commands, effects, flow, goodIdx, idx, once, tradeFlows, world, zoneIdx } from './helpers.ts';
 
 const ban = (countryId: string, targetId: string, goodIds: string[] | 'all', imports: boolean, exports: boolean) =>
   ({ type: 'set-sanction' as const, countryId, targetId, goodIds, imports, exports });
@@ -33,9 +33,9 @@ test('sanctions are sector specific: other goods still move between the same pai
 test('sanctioned goods cannot be laundered through a third country', () => {
   // Lirane cannot produce energy at all. Whatever it buys, it can only use or store: it must never export energy.
   const state = world();
-  const lirane = idx(state, 'lirane'), g = goodIdx(state, 'energy'), G = state.config.goods.length;
+  const lirane = idx(state, 'lirane'), g = goodIdx(state, 'energy');
   const z = zoneIdx(state, 'lirane');
-  assert.equal(state.zoneGood.capacity[z * G + g], 0, 'precondition: Lirane produces no energy');
+  assert.equal(capacityOf(state, z, g), 0, 'precondition: Lirane produces no energy');
   const script = at(1, commands(ban('khazir', 'norland', ['energy'], true, true), ban('khazir', 'ostmark', ['energy'], true, true),
     ban('halcyon', 'norland', ['energy'], true, true), ban('halcyon', 'ostmark', ['energy'], true, true)));
   const flows = tradeFlows(state, 'energy', 150, script);

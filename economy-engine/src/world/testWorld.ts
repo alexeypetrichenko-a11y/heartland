@@ -1,5 +1,6 @@
 import type { CountrySpec, LaneSpec, WorldSpec, ZoneSpec } from '../types.ts';
 import { RANDOM_STREAM, randomUnit } from '../core/rng.ts';
+import { createCatalogueConfig } from '../config/defaults.ts';
 
 /**
  * Fictional worlds for testing the engine.
@@ -130,4 +131,59 @@ export function createGeneratedWorldSpec(zoneCount: number, seed = 7, zonesPerCo
     if (a !== b) lanes.push({ id: `sea${k}`, from: `z${a}`, to: `z${b}`, distance: 2 + 4 * draw(k * 53 + 13) });
   }
   return { seed, countries, zones, lanes };
+}
+
+/**
+ * Where a catalogue good's regional strength comes from in a seven-good world
+ * description: the average of the listed legacy strengths. Goods not listed
+ * (electricity, technology services) are equally easy to make everywhere.
+ */
+const CATALOGUE_ORIGIN: Record<string, readonly string[]> = {
+  cereals: ['food'], other_agri: ['food'],
+  iron_ore: ['materials'], nonferrous_ore: ['materials'], strategic_minerals: ['materials'], uranium: ['materials'], coal: ['materials'],
+  crude_oil: ['energy'], natural_gas: ['energy'], fuels: ['energy', 'industrial'],
+  steel: ['industrial'], aluminium: ['industrial'], chemicals: ['industrial'], cement: ['materials', 'industrial'],
+  machinery: ['industrial'], electronic_components: ['industrial', 'consumer'], semiconductors: ['industrial'], vehicles: ['industrial', 'consumer'],
+  processed_food: ['food', 'consumer'], everyday_goods: ['consumer'], durable_goods: ['consumer'],
+  small_arms: ['military'], munitions: ['military'], military_vehicles: ['military'], military_aircraft: ['military'], naval_vessels: ['military'],
+  construction_materials: ['materials', 'industrial'],
+};
+/** Legacy reserve targets carried over to the catalogue goods that replace them. */
+const CATALOGUE_RESERVES: Record<string, readonly string[]> = { food: ['cereals', 'processed_food'], energy: ['crude_oil', 'fuels'] };
+
+/**
+ * The same countries, zones and routes described for the ten-sector, 31-good
+ * catalogue (Milestone 1). A fictional test fixture, not proposed game data.
+ */
+export function toCatalogueSpec(legacy: WorldSpec): WorldSpec {
+  const config = createCatalogueConfig();
+  return {
+    ...legacy,
+    config,
+    countries: legacy.countries.map(country => {
+      if (!country.reserveWeeks) return { ...country };
+      const reserveWeeks: Record<string, number> = {};
+      for (const [good, weeks] of Object.entries(country.reserveWeeks)) {
+        for (const target of CATALOGUE_RESERVES[good] ?? []) reserveWeeks[target] = weeks;
+      }
+      return { ...country, reserveWeeks };
+    }),
+    zones: legacy.zones.map(zone => {
+      const advantage: Record<string, number> = {};
+      for (const good of config.goods) {
+        if (!good.tradable) continue;
+        const origin = CATALOGUE_ORIGIN[good.id];
+        if (!origin) continue;
+        let total = 0;
+        for (const id of origin) total += zone.advantage?.[id] ?? 1;
+        advantage[good.id] = total / origin.length;
+      }
+      return { ...zone, advantage };
+    }),
+  };
+}
+
+/** The Meridian test world with the 31-good catalogue. */
+export function createCatalogueWorldSpec(seed = 2401): WorldSpec {
+  return toCatalogueSpec(createTestWorldSpec(seed));
 }

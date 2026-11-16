@@ -3,7 +3,7 @@ import type {
   HistoryTier, StepOptions, TradeFlow, TurnReport,
 } from '../types.ts';
 import type { Model, Workspace } from './model.ts';
-import { EPSILON } from './model.ts';
+import { EPSILON, OWNERSHIP_COUNT, TIER_COUNT } from './model.ts';
 
 /**
  * End-of-week bookkeeping: conservation audit, bounded history and the report
@@ -125,16 +125,19 @@ export function captureStart(s: EconomyState, w: Workspace, m: Model): void {
 
 export function totalMoney(s: EconomyState): number {
   let total = 0;
-  for (let z = 0; z < s.zones.length; z++) total += s.zone.householdMoney[z] + s.zone.firmMoney[z];
+  for (let z = 0; z < s.zones.length; z++) total += s.zone.householdMoney[z];
+  const cash = s.firm.cash;
+  for (let a = 0; a < cash.length; a++) total += cash[a];
   for (let c = 0; c < s.countries.length; c++) total += s.country.treasury[c];
   return total;
 }
 
 /** Arrays that may never hold a negative number. */
 function nonNegativeArrays(s: EconomyState): number[][] {
-  const { zone, zoneGood: zg, country, countryGood } = s;
+  const { zone, zoneGood: zg, country, countryGood, firm, firmGood: fg } = s;
   return [zone.population, zone.technology, zone.infrastructure, zone.mobilized, zone.wage, zone.householdMoney,
-    zone.firmMoney, zone.cpi, zone.unemployment, zone.deprivation, zg.capacity, zg.build1, zg.build2, zg.build3,
+    zone.cpi, zone.unemployment, zone.deprivation, firm.cash, firm.costs, firm.employment, firm.revenue,
+    s.firmLine.capacity, fg.build1, fg.build2, fg.build3, fg.stockShare,
     zg.stock, zg.inputBuffer, zg.price, zg.buyPrice, zg.refPrice, zg.expectedDemand, zg.yieldFactor, zg.shortage,
     zg.usage, s.bonds, country.treasury, country.debt, country.stability, country.gdp, country.armsStock,
     countryGood.reserves];
@@ -144,6 +147,8 @@ function allNumericArrays(s: EconomyState): number[][] {
   const groups: Record<string, number[]>[] = [
     s.zone as unknown as Record<string, number[]>, s.zoneGood as unknown as Record<string, number[]>,
     s.country as unknown as Record<string, number[]>, s.countryGood as unknown as Record<string, number[]>,
+    s.firm as unknown as Record<string, number[]>, s.firmGood as unknown as Record<string, number[]>,
+    s.firmLine as unknown as Record<string, number[]>,
   ];
   const arrays: number[][] = [s.bonds, s.lanes.distance, s.lanes.costMultiplier, s.lanes.throughput];
   for (const group of groups) for (const key of Object.keys(group)) arrays.push(group[key]);
@@ -161,7 +166,7 @@ function audit(s: EconomyState, w: Workspace, m: Model): AuditReport {
   const G = m.goodCount;
   const scale = Math.max(1, w.moneyBefore);
   clearRoundingResidue(s.zone.householdMoney, scale * 1e-12);
-  clearRoundingResidue(s.zone.firmMoney, scale * 1e-12);
+  clearRoundingResidue(s.firm.cash, scale * 1e-12);
   clearRoundingResidue(s.country.treasury, scale * 1e-12);
 
   const goods: GoodLedger[] = [];
@@ -278,9 +283,9 @@ export function finishTurn(s: EconomyState, w: Workspace, m: Model, options: Ste
     const gdp = w.countryNominal[c];
     const smoothed = country.gdp[c];
     const revenue = w.revenueIncomeTax[c] + w.revenueConsumptionTax[c] + w.revenueCorporateTax[c] + w.revenueTariffs[c]
-      + w.revenueSeigniorage[c] + w.revenueReserveSales[c] + w.revenueFunds[c];
+      + w.revenueSeigniorage[c] + w.revenueReserveSales[c] + w.revenueFunds[c] + w.revenueFirmDividends[c];
     const spending = w.spentAdministration[c] + w.spentSocial[c] + w.spentMilitary[c] + w.spentInfrastructure[c]
-      + w.spentReserves[c] + w.spentInterest[c] + w.spentFunds[c];
+      + w.spentReserves[c] + w.spentInterest[c] + w.spentFunds[c] + w.spentFirmSupport[c];
     w.reportRevenue[c] = revenue;
     w.reportSpending[c] = spending;
     const base = c * COUNTRY_METRICS;
@@ -330,7 +335,8 @@ export function finishTurn(s: EconomyState, w: Workspace, m: Model, options: Ste
       buyPrices[c * G + g] += weight * zg.buyPrice[z * G + g];
       householdDemand[c * G + g] += w.demandHousehold[z * G + g];
       householdGot[c * G + g] += w.gotHousehold[z * G + g];
-      capacity[c * G + g] += zg.capacity[z * G + g];
+      const lines = (z * G + g) * OWNERSHIP_COUNT * TIER_COUNT;
+      for (let k = 0; k < OWNERSHIP_COUNT * TIER_COUNT; k++) capacity[c * G + g] += s.firmLine.capacity[lines + k];
       output[c * G + g] += w.output[z * G + g];
     }
   }
@@ -350,10 +356,10 @@ export function finishTurn(s: EconomyState, w: Workspace, m: Model, options: Ste
     const budget: BudgetReport = {
       incomeTax: w.revenueIncomeTax[c], consumptionTax: w.revenueConsumptionTax[c], corporateTax: w.revenueCorporateTax[c],
       tariffs: w.revenueTariffs[c], seigniorage: w.revenueSeigniorage[c], reserveSales: w.revenueReserveSales[c],
-      fundsReceived: w.revenueFunds[c], revenue: w.reportRevenue[c],
+      fundsReceived: w.revenueFunds[c], firmDividends: w.revenueFirmDividends[c], revenue: w.reportRevenue[c],
       administration: w.spentAdministration[c], social: w.spentSocial[c], military: w.spentMilitary[c],
       infrastructure: w.spentInfrastructure[c], reservePurchases: w.spentReserves[c], interest: w.spentInterest[c],
-      fundsSent: w.spentFunds[c], spending: w.reportSpending[c], balance: w.reportRevenue[c] - w.reportSpending[c],
+      fundsSent: w.spentFunds[c], firmSupport: w.spentFirmSupport[c], spending: w.reportSpending[c], balance: w.reportRevenue[c] - w.reportSpending[c],
       borrowed: w.borrowed[c], repaid: w.repaid[c], fundedShare: w.fundedShare[c],
     };
     countries.push({

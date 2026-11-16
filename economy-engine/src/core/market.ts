@@ -1,7 +1,6 @@
 import type { EconomyState } from '../types.ts';
 import type { Model, Workspace } from './model.ts';
-import { EPSILON } from './model.ts';
-import { inputRatios } from './production.ts';
+import { EPSILON, OWNERSHIP_COUNT } from './model.ts';
 import type { RouteTable } from './routes.ts';
 
 /**
@@ -19,6 +18,11 @@ import type { RouteTable } from './routes.ts';
  * straight from the producer's own stock and are consumed, stored in
  * non-exportable buffers or reserves, or turned into a different good, so a
  * sanctioned good can never be re-exported through a third country.
+ *
+ * A zone's market for a good is shared by all its producers. Each firm
+ * aggregate pays for the inputs and investment goods it ordered from its own
+ * cash, and sales revenue is shared between owners in proportion to the
+ * stock (or, for made-to-order goods, the output) that belongs to each.
  */
 
 /** r^(2^doublings) for r in (0, 1], using multiplications only. */
@@ -40,19 +44,46 @@ export function clearMarkets(s: EconomyState, w: Workspace, m: Model, routes: Ro
   }
   if (!madeToOrder) return;
   // Goods that cannot be stored are produced as they are sold, up to what the
-  // week's planned capacity and the inputs now on site allow.
-  const ratio = w.goodScratchB;
-  for (let z = 0; z < Z; z++) {
-    inputRatios(s, w, m, z, w.goodScratchA, ratio);
-    for (let g = 0; g < G; g++) {
-      if (!m.madeToOrder[g]) continue;
-      const inputs = m.inputGoods[g];
+  // week's planned capacity and the inputs now on site allow. They are cleared
+  // after the goods they use (electricity before the services that need it).
+  const order = m.madeToOrderOrder;
+  for (let k = 0; k < order.length; k++) {
+    const g = order[k];
+    const inputs = m.inputGoods[g];
+    for (let z = 0; z < Z; z++) {
+      const base = z * G;
       let scale = 1;
-      for (let i = 0; i < inputs.length; i++) if (ratio[inputs[i]] < scale) scale = ratio[inputs[i]];
-      w.potential[z * G + g] = w.plan[z * G + g] * scale;
+      for (let i = 0; i < inputs.length; i++) {
+        const input = base + inputs[i];
+        const need = w.inputNeed[input];
+        if (!(need > EPSILON)) continue;
+        const ratio = (s.zoneGood.inputBuffer[input] + w.gotInput[input]) / need;
+        if (ratio < scale) scale = ratio;
+      }
+      w.potential[base + g] = w.plan[base + g] * scale;
     }
+    clearGood(s, w, m, routes, g);
   }
-  for (let g = 0; g < G; g++) if (m.madeToOrder[g]) clearGood(s, w, m, routes, g);
+}
+
+/** Pay a seller zone's producers of a good, split by who owns what was sold. */
+function paySellers(s: EconomyState, w: Workspace, m: Model, j: number, g: number, value: number): void {
+  const O = OWNERSHIP_COUNT;
+  const shareIndex = (j * m.goodCount + g) * O;
+  const shares = m.madeToOrder[g] ? w.saleShare : s.firmGood.stockShare;
+  const a = (j * m.sectorCount + m.goodSector[g]) * O;
+  const total = shares[shareIndex] + shares[shareIndex + 1] + shares[shareIndex + 2];
+  if (!(total > 0)) {
+    // Nothing on record (cannot normally happen): the sale belongs to private owners.
+    s.firm.cash[a] += value;
+    w.aggRevenue[a] += value;
+    return;
+  }
+  for (let o = 0; o < O; o++) {
+    const part = value * shares[shareIndex + o] / total;
+    s.firm.cash[a + o] += part;
+    w.aggRevenue[a + o] += part;
+  }
 }
 
 function clearGood(s: EconomyState, w: Workspace, m: Model, routes: RouteTable, g: number): void {
@@ -271,11 +302,32 @@ function clearGood(s: EconomyState, w: Workspace, m: Model, routes: RouteTable, 
     if (householdCost > s.zone.householdMoney[z]) {
       qHousehold *= householdCost > EPSILON ? Math.max(0, s.zone.householdMoney[z]) / householdCost : 0;
     }
-    const firmCost = (qInput + qInvestment) * price;
-    const firmCash = Math.max(0, s.zone.firmMoney[z] - w.wageReserve[z]);
-    if (firmCost > firmCash) {
-      const ratio = firmCost > EPSILON ? firmCash / firmCost : 0;
-      qInput *= ratio; qInvestment *= ratio;
+    // Each firm aggregate pays from its own cash, keeping back what it owes its workers.
+    if (qInput + qInvestment > 0) {
+      const aggregates = m.sectorCount * OWNERSHIP_COUNT;
+      const first = z * aggregates;
+      let input = 0;
+      let investment = 0;
+      for (let a = first; a < first + aggregates; a++) {
+        const row = a * G + g;
+        let ownInput = w.aggDemandInput[row] * fill;
+        let ownInvestment = w.aggDemandInvestment[row] * fill;
+        if (!(ownInput + ownInvestment > 0)) continue;
+        const cost = (ownInput + ownInvestment) * price;
+        const cash = Math.max(0, s.firm.cash[a] - w.aggWageReserve[a]);
+        if (cost > cash) {
+          const ratio = cost > EPSILON ? cash / cost : 0;
+          ownInput *= ratio; ownInvestment *= ratio;
+        }
+        const paid = (ownInput + ownInvestment) * price;
+        s.firm.cash[a] -= paid;
+        w.aggPurchases[a] += ownInput * price;
+        w.aggGotInvestment[row] = ownInvestment;
+        input += ownInput;
+        investment += ownInvestment;
+      }
+      qInput = input;
+      qInvestment = investment;
     }
     const stateCost = (qGovernment + qReserve) * price;
     if (stateCost > s.country.treasury[c]) {
@@ -292,9 +344,6 @@ function clearGood(s: EconomyState, w: Workspace, m: Model, routes: RouteTable, 
     w.revenueConsumptionTax[c] += householdPaid * (taxed - 1);
     w.householdSpending[z] += householdPaid * taxed;
     w.householdReal[z] += qHousehold * m.basePrice[g];
-    const firmPaid = (qInput + qInvestment) * price;
-    s.zone.firmMoney[z] -= firmPaid;
-    w.firmPurchases[z] += qInput * price;
     s.country.treasury[c] -= (qGovernment + qReserve) * price;
 
     // Sellers, carriers and customs are paid.
@@ -305,8 +354,7 @@ function clearGood(s: EconomyState, w: Workspace, m: Model, routes: RouteTable, 
       const quantity = w.shipped[row + j] * keep;
       if (!(quantity > 0)) continue;
       const value = quantity * zg.price[j * G + g];
-      s.zone.firmMoney[j] += value;
-      w.firmRevenue[j] += value;
+      paySellers(s, w, m, j, g, value);
       w.sold[j * G + g] += quantity;
       if (j === z) continue;
       const seller = owner[j];

@@ -1,6 +1,6 @@
 import type { EconomyState, ReserveMode, TurnInput } from '../types.ts';
 import type { Workspace } from './model.ts';
-import { getModel } from './model.ts';
+import { getModel, OWNERSHIP_COUNT, TIER_COUNT } from './model.ts';
 
 /**
  * Runtime validation and application of turn inputs.
@@ -163,7 +163,11 @@ function resolveEffect(state: EconomyState, input: unknown): Action {
       const goods = goodSelection(state, input.goodId, false);
       const keep = 1 - numberIn(input.fraction, 0, 1, 'Fraction');
       if (input.type === 'destroy-capacity') {
-        return s => { for (const g of goods) s.zoneGood.capacity[z * G + g] *= keep; };
+        // Every owner and tier loses the same share; plant under construction is not hit.
+        return s => {
+          const lines = OWNERSHIP_COUNT * TIER_COUNT;
+          for (const g of goods) for (let k = 0; k < lines; k++) s.firmLine.capacity[(z * G + g) * lines + k] *= keep;
+        };
       }
       return (s, w) => {
         for (const g of goods) {

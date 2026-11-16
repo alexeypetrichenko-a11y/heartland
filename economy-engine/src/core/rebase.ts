@@ -27,7 +27,8 @@ function scale(values: number[], factor: number): void {
 /** Multiply every money amount in the state (and its history) by `factor`. Use powers of two. */
 export function rescaleMoney(state: EconomyState, factor: number): void {
   const zone = state.zone;
-  for (const values of [zone.householdMoney, zone.firmMoney, zone.expectedIncome, zone.firmCosts, zone.wage, zone.cpi]) scale(values, factor);
+  for (const values of [zone.householdMoney, zone.expectedIncome, zone.wage, zone.cpi]) scale(values, factor);
+  for (const values of [state.firm.cash, state.firm.costs, state.firm.revenue]) scale(values, factor);
   scale(state.zoneGood.price, factor);
   scale(state.zoneGood.buyPrice, factor);
   scale(state.zoneGood.refPrice, factor);

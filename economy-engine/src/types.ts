@@ -14,6 +14,7 @@ export type GoodId = string;
 export type CountryId = string;
 export type ZoneId = string;
 export type LaneId = string;
+export type SectorId = string;
 
 // ---------------------------------------------------------------------------
 // Static configuration (data, not rules)
@@ -26,12 +27,27 @@ export interface GoodInput {
 }
 
 /**
- * One good and the sector that produces it. Each sector produces exactly one
- * good, so "sector" and "good" share an index.
+ * One of the economic sectors. A sector groups several goods; firms are
+ * aggregated per zone, sector and type of ownership (R57), and every aggregate
+ * is split into three performance tiers (R58).
  */
+export interface SectorDefinition {
+  id: SectorId;
+  name: string;
+  /** Share of starting capacity owned by the state (provisional default for every zone). */
+  publicShare: number;
+  /** Share of starting capacity in mixed (part public, part private) ownership. */
+  mixedShare: number;
+  /** Starting split of capacity between strong, average and fragile firms. */
+  tierShares: [number, number, number];
+}
+
+/** One good. Several goods can belong to the same sector. */
 export interface GoodDefinition {
   id: GoodId;
   name: string;
+  /** Sector whose firms produce this good. */
+  sectorId: SectorId;
   /** False for goods that can only be used in the zone that produced them. */
   tradable: boolean;
   /**
@@ -47,7 +63,7 @@ export interface GoodDefinition {
    * made-to-order goods: spare capacity kept ready, as a share of expected sales.
    */
   coverWeeks: number;
-  /** Intermediate inputs per unit of output (Leontief recipe). */
+  /** Intermediate inputs per unit of output (Leontief recipe; any number of inputs). */
   inputs: GoodInput[];
   /** Worker-weeks per unit of output at technology level 1. */
   laborPerUnit: number;
@@ -101,6 +117,10 @@ export interface EconomyParams {
   dividendSpeed: number;
   capitalCallShare: number;
   costSmoothing: number;
+  /** Labour productivity of strong, average and fragile firms relative to the sector norm. */
+  tierProductivity: [number, number, number];
+  /** Share of a mixed-ownership firm's dividends (and rescues) that belongs to the state. */
+  mixedPublicShare: number;
   // Prices and wages
   priceInventoryGain: number;
   priceShortageGain: number;
@@ -226,6 +246,7 @@ export interface EconomyParams {
 }
 
 export interface EconomyConfig {
+  sectors: SectorDefinition[];
   goods: GoodDefinition[];
   params: EconomyParams;
 }
@@ -265,9 +286,7 @@ export interface ZoneArrays {
   mobilized: number[];
   wage: number[];
   householdMoney: number[];
-  firmMoney: number[];
   expectedIncome: number[];
-  firmCosts: number[];
   cpi: number[];
   inflation: number[];
   unemployment: number[];
@@ -278,10 +297,6 @@ export interface ZoneArrays {
 
 /** Per-zone, per-good values, indexed by zone * goodCount + good. */
 export interface ZoneGoodArrays {
-  capacity: number[];
-  build1: number[];
-  build2: number[];
-  build3: number[];
   /** Producer inventory of local origin; the only stock that can be exported. */
   stock: number[];
   /** Inputs already bought by local firms; can only be used locally. */
@@ -306,6 +321,43 @@ export interface ZoneGoodArrays {
   yieldRecovery: number[];
   shortage: number[];
   usage: number[];
+}
+
+/**
+ * Firm aggregates (R57), indexed by (zone * sectorCount + sector) * 3 + ownership,
+ * with ownership 0 private, 1 public, 2 mixed. An aggregate stands for all
+ * firms of one sector and one kind of owner in one zone; no individual firm
+ * is simulated, openly or hidden.
+ */
+export interface FirmArrays {
+  /** Cash held by the aggregate. Part of the money supply. */
+  cash: number[];
+  /** Smoothed weekly running costs (wages and purchased inputs). */
+  costs: number[];
+  /** Workers employed last week. */
+  employment: number[];
+  /** Sales revenue last week. */
+  revenue: number[];
+}
+
+/**
+ * Per zone, good and ownership, indexed by (zone * goodCount + good) * 3 + ownership.
+ * Construction is owned by whoever pays for it; finished plant joins the average tier.
+ */
+export interface FirmGoodArrays {
+  build1: number[];
+  build2: number[];
+  build3: number[];
+  /** Share of the zone's unsold stock of the good that belongs to each kind of owner. */
+  stockShare: number[];
+}
+
+/**
+ * Production lines (R58), indexed by ((zone * goodCount + good) * 3 + ownership) * 3 + tier,
+ * with tier 0 strong, 1 average, 2 fragile.
+ */
+export interface FirmLineArrays {
+  capacity: number[];
 }
 
 /** Per-country values, indexed by country. */
@@ -374,7 +426,7 @@ export interface TariffOverride {
 }
 
 export interface WorldScalars {
-  /** Total money in existence; households + firms + treasuries always equal it. */
+  /** Total money in existence; households + firm aggregates + treasuries always equal it. */
   baseMoney: number;
   interestRate: number;
   creditUtilization: number;
@@ -431,6 +483,9 @@ export interface EconomyState {
   lanes: LaneArrays;
   zone: ZoneArrays;
   zoneGood: ZoneGoodArrays;
+  firm: FirmArrays;
+  firmGood: FirmGoodArrays;
+  firmLine: FirmLineArrays;
   /** Face value of country c debt held by zone z households: z * C + c. */
   bonds: number[];
   country: CountryArrays;
@@ -517,6 +572,8 @@ export interface BudgetReport {
   seigniorage: number;
   reserveSales: number;
   fundsReceived: number;
+  /** Dividends from public and mixed firm aggregates. */
+  firmDividends: number;
   revenue: number;
   administration: number;
   social: number;
@@ -525,6 +582,8 @@ export interface BudgetReport {
   reservePurchases: number;
   interest: number;
   fundsSent: number;
+  /** Cash injected into struggling public and mixed firm aggregates. */
+  firmSupport: number;
   spending: number;
   /** Revenue minus spending for the week. */
   balance: number;

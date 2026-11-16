@@ -1,6 +1,6 @@
 import type { CountrySpec, EconomyConfig, EconomyState, WorldSpec } from '../types.ts';
 import { createConfig, validateConfig } from '../config/defaults.ts';
-import { capitalCharge, EPSILON, getModel, privateHurdle } from '../core/model.ts';
+import { AVERAGE_TIER, capitalCharge, EPSILON, getModel, OWNERSHIP_COUNT, privateHurdle, TIER_COUNT } from '../core/model.ts';
 import { STATE_FORMAT, STATE_VERSION } from '../core/state.ts';
 import { createHistory } from '../core/stats.ts';
 import { advanceEconomyInPlace } from '../core/step.ts';
@@ -257,15 +257,23 @@ export function createEconomy(spec: WorldSpec): EconomyState {
   // --- Assemble the state ------------------------------------------------------------
   const zeros = (length: number) => new Array<number>(length).fill(0);
   const filled = (length: number, value: number) => new Array<number>(length).fill(value);
+  const S = m.sectorCount;
+  const O = OWNERSHIP_COUNT;
+  const T = TIER_COUNT;
+  const firm = { cash: zeros(Z * S * O), costs: zeros(Z * S * O), employment: zeros(Z * S * O), revenue: zeros(Z * S * O) };
+  const firmGood = { build1: zeros(Z * G * O), build2: zeros(Z * G * O), build3: zeros(Z * G * O), stockShare: zeros(Z * G * O) };
+  const firmLine = { capacity: zeros(Z * G * O * T) };
+  // Provisional starting ownership and tier split of every sector (same in every zone).
+  const ownerShare = config.sectors.map(sector => [1 - sector.publicShare - sector.mixedShare, sector.publicShare, sector.mixedShare]);
   const zoneGood = {
-    capacity: zeros(Z * G), build1: zeros(Z * G), build2: zeros(Z * G), build3: zeros(Z * G), stock: zeros(Z * G),
+    stock: zeros(Z * G),
     inputBuffer: zeros(Z * G), price: zeros(Z * G), buyPrice: zeros(Z * G), refPrice: zeros(Z * G),
     expectedDemand: zeros(Z * G), margin: zeros(Z * G), pressure: zeros(Z * G), resourceCap: zeros(Z * G),
     efficiency: filled(Z * G, 1), yieldFactor: filled(Z * G, 1), yieldRecovery: zeros(Z * G), shortage: zeros(Z * G), usage: zeros(Z * G),
   };
   const zone = {
     owner, population, populationGrowth: zeros(Z), populationCap: population.map(value => value * 3), technology, infrastructure: filled(Z, 1), mobilized: zeros(Z),
-    wage: zeros(Z), householdMoney: zeros(Z), firmMoney: zeros(Z), expectedIncome: zeros(Z), firmCosts: zeros(Z),
+    wage: zeros(Z), householdMoney: zeros(Z), expectedIncome: zeros(Z),
     cpi: filled(Z, 1), inflation: zeros(Z), unemployment: filled(Z, p.naturalUnemployment), livingStandard: zeros(Z),
     livingStandardRef: zeros(Z), deprivation: zeros(Z),
   };
@@ -288,16 +296,24 @@ export function createEconomy(spec: WorldSpec): EconomyState {
     const headroom = spec0.resourceHeadroom === undefined ? 0.3 : spec0.resourceHeadroom;
     if (!Number.isFinite(headroom) || headroom < 0) fail(`zone ${spec0.id} resource headroom is invalid.`);
     zone.wage[z] = technology[z];
-    let costs = 0;
     let wageBill = 0;
     let real = 0;
     for (let g = 0; g < G; g++) {
       const index = base + g;
       const made = output[index];
       const capacity = made / m.normalUtilization[g];
-      zoneGood.capacity[index] = capacity;
+      const sector = m.goodSector[g];
+      const tiers = config.sectors[sector].tierShares;
       const stage = m.depreciationWeekly[g] * capacity / m.buildRate[g];
-      zoneGood.build1[index] = stage; zoneGood.build2[index] = stage; zoneGood.build3[index] = stage;
+      const goodCost = made * (m.basePrice[g] - valueAdded[g]) + made * m.labor[g];
+      for (let o = 0; o < O; o++) {
+        const share = ownerShare[sector][o];
+        const ownerIndex = index * O + o;
+        for (let t = 0; t < T; t++) firmLine.capacity[ownerIndex * T + t] = capacity * share * tiers[t];
+        firmGood.build1[ownerIndex] = stage * share; firmGood.build2[ownerIndex] = stage * share; firmGood.build3[ownerIndex] = stage * share;
+        firmGood.stockShare[ownerIndex] = share;
+        firm.costs[(z * S + sector) * O + o] += goodCost * share;
+      }
       zoneGood.stock[index] = m.madeToOrder[g] ? 0 : made * (1 + m.cover[g]);
       zoneGood.inputBuffer[index] = p.inputBufferWeeks * input[index] * (1 - m.spoilage[g]);
       zoneGood.price[index] = m.basePrice[g];
@@ -309,15 +325,12 @@ export function createEconomy(spec: WorldSpec): EconomyState {
       zoneGood.resourceCap[index] = m.resourceBased[g] ? capacity * (1 + headroom) : -1;
       zoneGood.usage[index] = use[index];
       wageBill += made * m.labor[g];
-      costs += made * (m.basePrice[g] - valueAdded[g]);
       real += household[index] * m.basePrice[g];
     }
-    costs += wageBill;
+    for (let k = 0; k < S * O; k++) firm.cash[z * S * O + k] = p.workingCapitalWeeks * firm.costs[z * S * O + k];
     const spending = privateSpending[z] * (1 + policy[c].taxConsumption);
     zone.expectedIncome[z] = spending;
     zone.householdMoney[z] = (1 - p.consumeIncome) / p.consumeMoney * spending;
-    zone.firmCosts[z] = costs;
-    zone.firmMoney[z] = p.workingCapitalWeeks * costs;
     zone.livingStandard[z] = real / population[z];
     zone.livingStandardRef[z] = zone.livingStandard[z];
     gdp[c] += income[z];
@@ -400,7 +413,8 @@ export function createEconomy(spec: WorldSpec): EconomyState {
   }
 
   let baseMoney = 0;
-  for (let z = 0; z < Z; z++) baseMoney += zone.householdMoney[z] + zone.firmMoney[z];
+  for (let z = 0; z < Z; z++) baseMoney += zone.householdMoney[z];
+  for (let a = 0; a < firm.cash.length; a++) baseMoney += firm.cash[a];
   for (let c = 0; c < C; c++) baseMoney += country.treasury[c];
   let worldGdp = 0;
   for (let c = 0; c < C; c++) worldGdp += gdp[c];
@@ -417,6 +431,9 @@ export function createEconomy(spec: WorldSpec): EconomyState {
     lanes,
     zone,
     zoneGood,
+    firm,
+    firmGood,
+    firmLine,
     bonds,
     country,
     countryGood,
@@ -457,7 +474,7 @@ function settle(state: EconomyState, turns: number, balanceBudget: boolean[]): v
   const zg = state.zoneGood;
   const zone = state.zone;
   const country = state.country;
-  const pinned: number[][] = [zg.capacity, zg.build1, zg.build2, zg.build3, zg.yieldFactor, zg.yieldRecovery,
+  const pinned: number[][] = [state.firmLine.capacity, state.firmGood.build1, state.firmGood.build2, state.firmGood.build3, zg.yieldFactor, zg.yieldRecovery,
     zone.population, zone.technology, zone.infrastructure, zone.mobilized, country.stability, country.unrestTier,
     country.episodeActive, country.episodePeakTier, country.rolledTier, country.tierWeeks, country.regime,
     country.immunityWeeks, country.marketAccess, country.exclusionWeeks, country.reputationSpread,
@@ -523,7 +540,11 @@ export function calibrateEfficiency(state: EconomyState): void {
   const m = getModel(state.config);
   const p = state.config.params;
   const G = m.goodCount;
+  const O = OWNERSHIP_COUNT;
+  const T = TIER_COUNT;
   const zg = state.zoneGood;
+  const lines = state.firmLine.capacity;
+  const fg = state.firmGood;
   const room = new Float64Array(G);
   for (let z = 0; z < state.zones.length; z++) {
     const base = z * G;
@@ -539,13 +560,17 @@ export function calibrateEfficiency(state: EconomyState): void {
     let payroll = 0;
     for (let g = 0; g < G; g++) {
       const index = base + g;
-      const active = zg.capacity[index] > EPSILON;
+      let capacity = 0;
+      for (let k = 0; k < O * T; k++) capacity += lines[index * O * T + k];
+      const active = capacity > EPSILON;
       if (active && zg.pressure[index] > EPSILON) {
         const trim = Math.min(1.25, Math.max(0.8, zg.pressure[index] / m.normalUtilization[g]));
-        zg.capacity[index] *= trim;
-        zg.build1[index] *= trim;
-        zg.build2[index] *= trim;
-        zg.build3[index] *= trim;
+        for (let k = 0; k < O * T; k++) lines[index * O * T + k] *= trim;
+        for (let o = 0; o < O; o++) {
+          fg.build1[index * O + o] *= trim;
+          fg.build2[index * O + o] *= trim;
+          fg.build3[index * O + o] *= trim;
+        }
         if (zg.resourceCap[index] >= 0) zg.resourceCap[index] *= trim;
       }
       zg.pressure[index] = m.normalUtilization[g];
@@ -556,17 +581,25 @@ export function calibrateEfficiency(state: EconomyState): void {
       const price = active ? zg.price[index] : zg.buyPrice[index] * (1 + ENTRY_PRICE_GAP);
       // What one unit can pay for labour while still covering its cost of capital.
       room[g] = price - inputCost - capitalCharge(m, g, capitalPrice, hurdle, keep);
-      if (active && room[g] > 0) payroll += zg.expectedDemand[index] * storageLoss(m, g) * room[g];
+      // Normal output is supplied in merit order (strong tier first), which sets how many
+      // workers it really needs relative to an all-average sector.
+      if (active && room[g] > 0) {
+        const normal = zg.expectedDemand[index] * storageLoss(m, g);
+        payroll += normal * room[g] * meritLabor(m, lines, index, normal);
+      }
     }
     const workers = Math.max(0, state.zone.population[z] * p.laborParticipation - state.zone.mobilized[z]) * (1 - p.naturalUnemployment);
     if (payroll > EPSILON && workers > EPSILON) state.zone.wage[z] = payroll / workers;
     const wage = state.zone.wage[z];
     for (let g = 0; g < G; g++) {
       const index = base + g;
-      const efficiency = room[g] > EPSILON ? m.labor[g] * wage / (productivity * room[g]) : 20;
+      // Efficiency is set so that the average tier, where new plant starts, earns exactly its normal margin.
+      const efficiency = room[g] > EPSILON ? m.labor[g] * wage / (productivity * room[g] * m.tierFactor[AVERAGE_TIER]) : 20;
       zg.efficiency[index] = Math.min(20, Math.max(0.05, efficiency));
-      const price = zg.capacity[index] > EPSILON ? zg.price[index] : zg.buyPrice[index];
-      let cost = m.labor[g] * wage / (productivity * zg.efficiency[index]);
+      let active = false;
+      for (let k = 0; k < O * T; k++) if (lines[index * O * T + k] > 0) { active = true; break; }
+      const price = active ? zg.price[index] : zg.buyPrice[index];
+      let cost = m.labor[g] * wage / (productivity * zg.efficiency[index] * m.tierFactor[AVERAGE_TIER]);
       const inputs = m.inputGoods[g];
       const amounts = m.inputAmounts[g];
       for (let i = 0; i < inputs.length; i++) cost += amounts[i] * zg.buyPrice[base + inputs[i]];
@@ -574,6 +607,27 @@ export function calibrateEfficiency(state: EconomyState): void {
       zg.refPrice[index] = price;
     }
   }
+}
+
+/**
+ * Workers needed for `output` when it is supplied in merit order (strong tier
+ * first), relative to an all-average sector producing the same amount.
+ */
+function meritLabor(m: ReturnType<typeof getModel>, lines: number[], index: number, output: number): number {
+  const O = OWNERSHIP_COUNT;
+  const T = TIER_COUNT;
+  let left = output;
+  let labor = 0;
+  for (let t = 0; t < T && left > 0; t++) {
+    let capacity = 0;
+    for (let o = 0; o < O; o++) capacity += lines[(index * O + o) * T + t];
+    const take = Math.min(left, capacity);
+    left -= take;
+    labor += take * m.tierFactor[AVERAGE_TIER] / m.tierFactor[t];
+  }
+  // Output beyond capacity (not expected at a resting point) is counted at the average rate.
+  labor += left;
+  return output > EPSILON ? labor / output : 1;
 }
 
 /** Output needed per unit sold once warehouse spoilage is replaced. */

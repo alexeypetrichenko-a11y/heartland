@@ -19,6 +19,15 @@ export function zoneIdx(state: EconomyState, id: string): number {
   if (index < 0) throw new Error(`no zone ${id}`);
   return index;
 }
+/** Installed capacity of good g in zone z, summed over owners and performance tiers. */
+export function capacityOf(state: EconomyState, z: number, g: number): number {
+  const lines = 9;
+  const base = (z * state.config.goods.length + g) * lines;
+  let total = 0;
+  for (let k = 0; k < lines; k++) total += state.firmLine.capacity[base + k];
+  return total;
+}
+
 export function goodIdx(state: EconomyState, id: string): number {
   return state.config.goods.findIndex(good => good.id === id);
 }

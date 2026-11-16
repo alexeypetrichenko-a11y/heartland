@@ -38,7 +38,7 @@ function magnitude(state: EconomyState): { largest: number; smallestPositive: nu
     }
   };
   visit(state.bonds);
-  for (const group of [state.zone, state.zoneGood, state.country, state.countryGood] as unknown as Record<string, unknown>[]) {
+  for (const group of [state.zone, state.zoneGood, state.country, state.countryGood, state.firm, state.firmGood, state.firmLine] as unknown as Record<string, unknown>[]) {
     for (const key of Object.keys(group)) { const value = group[key]; if (Array.isArray(value)) visit(value as number[]); }
   }
   return { largest, smallestPositive };
