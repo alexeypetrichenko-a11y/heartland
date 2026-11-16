@@ -188,9 +188,9 @@ The owner authorized a two-PR split to protect mobile performance, geographic ac
 
 **Explicit compromises:** A camera-matched dissolve replaces a full animated projection morph; peripheral features can change shape. Both projections stay north-up, using local equirectangular scale correction in the plane. Focus stops just short of each pole; extreme near-polar/limb pinch anchors can move to their nearest attainable position. Polar caps retain overview detail, and the globe's 2K fill/terrain texture can remain softer than the flat map even though vector borders match. The owner tested the initial build on an iPhone; this revision still requires a fresh physical Safari/mobile-GPU check. WebKit is unavailable in the cloud environment. No selection or new military/geographic simulation.
 
-#### MAP-01B.4 — World map as default home (deferred)
+#### MAP-01B.4 — World map as default home
 
-- [ ] Not implemented. The fictional scenario remains the default; the scenario menu opens the optional atlas. Requires a separate assignment.
+- [x] Implemented under the owner's 2026-11-16 assignment on the current PR #21 branch: the existing 3D globe opens immediately, with loading/error states and no title/scenario/country-selection prerequisite. One atlas renderer and an explicitly requested lazy fictional game stay mounted for state/draft/camera retention. **Fictional game → country setup → Start local scenario** is the only route to starting play; **Return to globe / Resume game** preserve state. Terrain preference uses one safely stored UI boolean. 123 tests, production build, six-size entry/globe checks and gameplay regressions passed; physical iPhone/Home Screen retesting is required. [Entry architecture, captures and validation](docs/geography/HOME.md). No engine, dependency, PWA, dataset or production Pages changes; PR remains unmerged.
 
 #### MAP-01B.5 — Persistent terrain cache improvements (deferred)
 
@@ -260,4 +260,4 @@ Each item above is a **feature family** to be broken into small PRs before imple
 
 ## Current delivery and remaining phases
 
-MAP-01A through MAP-01B.2 are merged in PRs #17–#19. MAP-01B.3 is implemented for owner review on its dedicated branch/PR, with rendering/transition/device limitations documented. MAP-01B.4, MAP-01B.5, MAP-01C selection, fictional-scenario replacement, political/game ownership mapping, MIL-01, UI-01B.3, UI-01C, T09 and multiplayer remain deferred. Do not merge the new PR without owner approval.
+MAP-01A through MAP-01B.2 are merged in PRs #17–#19. MAP-01B.3 and the newly authorized MAP-01B.4 entry update are implemented for owner review in PR #21, with rendering/transition/device limitations documented. MAP-01B.5, MAP-01C selection, fictional-scenario replacement, political/game ownership mapping, MIL-01, UI-01B.3, UI-01C, T09 and multiplayer remain deferred. Do not merge without owner approval.

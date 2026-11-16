@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { ATLAS_MAX_ZOOM, type AtlasCatalog, type AtlasSize, type AtlasView } from '../geography/atlas';
 import { borderStyle, countryDetailAmount } from '../geography/borderRendering';
 import { projectWorld, type WorldCamera } from '../geography/worldCamera';
@@ -11,6 +11,7 @@ import { AtlasTerrain } from './AtlasTerrain';
 import { AtlasGlobe } from './AtlasGlobe';
 import { useGeographicFade } from './useGeographicFade';
 import { AtlasPolitical, politicalLayers } from './AtlasPolitical';
+import { readTerrainPreference, writeTerrainPreference } from './atlasPreferences';
 
 const WORLD_SIZE: AtlasSize = { width: 360, height: 180 };
 const WORLD_VIEW: AtlasView = { zoom: 1, center: { x: 180, y: 90 } };
@@ -31,12 +32,13 @@ function labels(catalog: AtlasCatalog | null, camera: WorldCamera, size: AtlasSi
   });
 }
 
-export default function AtlasMap({ active, onBack }: { active: boolean; onBack: () => void }) {
+export default function AtlasMap({ active }: { active: boolean }) {
   const navigation = useAtlasCamera();
   const { view, size, layout } = navigation;
   const [revision, setRevision] = useState(0);
   const [showHelp, setShowHelp] = useState(false);
-  const [terrainVisible, setTerrainVisible] = useState(true);
+  const [terrainVisible, setTerrainVisible] = useState(readTerrainPreference);
+  useEffect(() => { writeTerrainPreference(terrainVisible); }, [terrainVisible]);
   const [flatTerrainStatus, setFlatTerrainStatus] = useState('');
   const [globeTerrainStatus, setGlobeTerrainStatus] = useState('');
   const [globeReady, setGlobeReady] = useState(false);
@@ -58,13 +60,14 @@ export default function AtlasMap({ active, onBack }: { active: boolean; onBack: 
   const countryLabels = needsFlat ? labels(data.catalog, view, size, layout.scale ** 2 * layout.longitudeScale) : [];
   const terrainStatus = needsFlat ? flatTerrainStatus : globeTerrainStatus;
   const projectionLabel = view.flatOnly ? 'Flat atlas · Globe unavailable' : view.projection === 'globe' ? 'Globe' : 'Map';
+  const initialLoading = !data.error && (!data.catalog || !data.overview.length || (!view.flatOnly && !globeReady));
   return <section className="atlas-view" aria-label="World atlas">
     <div className="atlas-heading" hidden={showHelp}>
-      <button type="button" onClick={onBack}>‹ Scenario</button>
       <div><h2>World atlas</h2><p>Geographic reference</p></div>
       <button type="button" ref={helpButton} onClick={() => setShowHelp(true)} aria-label="About the world atlas">ⓘ</button>
     </div>
-    <div className="atlas-frame" hidden={showHelp}>
+    <div className="atlas-frame" hidden={showHelp} aria-busy={initialLoading}>
+      {(initialLoading || !data.overview.length) && <div className="atlas-loading" role="status">{data.error ? 'Earth data unavailable' : 'Loading Earth…'}</div>}
       <div className="atlas-viewport" ref={navigation.ref} tabIndex={0} role="group" aria-label="World geographic map" aria-describedby="atlas-help atlas-status"
         data-projection={view.flatOnly ? 'flat-fallback' : view.projection} data-zoom={view.zoom} data-longitude={layout.focus[0]} data-latitude={layout.focus[1]} data-bearing={layout.bearing}
         data-flat-blend={flatBlend} data-border-width={borders.width} data-border-opacity={borders.opacity} data-detail-blend={detailAmount} {...navigation.events}>

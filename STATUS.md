@@ -1,7 +1,7 @@
 # Heartland — Implementation Status
 
-**Snapshot date:** 2026-11-14
-**Source:** Repository `bb24387` on `main` (MAP-01B.1/#18 and MAP-01B.2/#19 merged by the owner), approved interface/geographic documentation, and MAP-01B.3 source, browser, GPU and gameplay checks on `task/map-01b3-spherical-earth` on 2026-11-14.
+**Snapshot date:** 2026-11-16
+**Source:** Repository `bb24387` on `main` (MAP-01B.1/#18 and MAP-01B.2/#19 merged by the owner), approved interface/geographic documentation, MAP-01B.3 rendering fixes and MAP-01B.4 entry/navigation checks on `task/map-01b3-spherical-earth`.
 
 ## Verified existing scaffold
 
@@ -23,9 +23,10 @@
 - [x] Viewport-fitted compact overviews and on-demand detail panels based on the actual approved HTML mockup (UI-01A.2).
 - [x] Interactive map zoom/pan, bounded camera and in-frame controls (UI-01B.1).
 - [x] Horizontal overlay toolbar and real Divisions layer with a separate prototype visibility policy (UI-01B.2).
-- [x] Separate Natural Earth longitude/latitude data and optional real-world political/physical atlas (MAP-01A, MAP-01B.1/.2); fictional scenario remains the playable default.
+- [x] Separate Natural Earth longitude/latitude data and real-world political/physical atlas (MAP-01A, MAP-01B.1/.2); fictional scenario remains separately playable.
 - [x] Spherical atlas navigation and camera-matched flat-map handoff (MAP-01B.3), implemented for review; see latest verification below.
-- [ ] Default world-atlas home (MAP-01B.4), persistent terrain cache (MAP-01B.5) and country/region selection (MAP-01C).
+- [x] Default globe exploration screen (MAP-01B.4), explicit game access and retained navigation state.
+- [ ] Persistent terrain cache (MAP-01B.5) and country/region selection (MAP-01C).
 - [ ] Data/rendering for Cities, Bunkers, Roads, Railways, Ports and Airports; their toolbar controls are disabled.
 - [ ] Unit interaction/geographical positioning (UI-01B.3) and UI-01C (separate assignments pending).
 - [ ] Full economy/military systems, comprehensive diplomacy and advanced AI.
@@ -54,9 +55,9 @@
 
 ## Current delivery
 
-MAP-01A through MAP-01B.2 are merged into `main` (PRs #17–#19). MAP-01B.3 is implemented on `task/map-01b3-spherical-earth` in PR [#21](https://github.com/alexeypetrichenko-a11y/heartland/pull/21), targeting `main` and unmerged pending owner approval. Physical iPhone feedback prompted north-up navigation and independent vector borders with progressive detail; the latest revision below records 119 tests and updated captures. Open Scenario menu → Open world atlas for the sphere, navigate/zoom into the detailed map, and use ‹ Scenario to return to the unchanged fictional map. Terrain preference is shared. Native WebGL adds no dependency or geographic import. Remaining source/transition/device limits are documented in [docs/geography/GLOBE.md](docs/geography/GLOBE.md).
+MAP-01A through MAP-01B.2 are merged into `main` (PRs #17–#19). MAP-01B.3 and the now-authorized MAP-01B.4 entry update are implemented on `task/map-01b3-spherical-earth` in PR [#21](https://github.com/alexeypetrichenko-a11y/heartland/pull/21), targeting `main` and unmerged pending owner approval. Heartland now opens directly on the existing north-up 3D globe. **Fictional game** opens explicit country setup; **Return to globe / Resume game** retain game and map state. Terrain preference is shared and retained across refresh where storage is available. Current validation: 123 tests, production build, six-size browser checks and existing gameplay regressions. See [entry/iPhone checks](docs/geography/HOME.md) and [renderer/source limits](docs/geography/GLOBE.md).
 
-MAP-01B.4, MAP-01B.5, MAP-01C, the independent economy engine and all deferred gameplay/military/interface/multiplayer phases remain outside scope.
+MAP-01B.5, MAP-01C, the independent economy engine/Claude's PR #20 and all deferred gameplay/military/interface/multiplayer phases remain outside scope.
 
 Historical sections below retain their original verification scope. The latest sections describe the current geographic work.
 
@@ -413,3 +414,14 @@ Historical first implementation/validation follows. The physical-iPhone-feedback
 - Production Chromium at **320×568, 390×844, 844×390, 568×320, 1024×768 and 1440×900** passed. The 390px stress check performs **2,000 DOM drag sequences** using a captured native pointer and probes the actual GPU rotation matrix after settled frames. It also checks Europe/Asia without roll or latitude drift, matched globe/SVG stroke width, sub-0.1-CSS-pixel handoff focus change, delayed detail and intermediate source-fade frames. Existing touch/pinch, source/color/terrain, date-line/polar, zoom/reset/keyboard, fallback/context-loss/allocation/reduced-motion and no-overflow checks pass. Updated before/after/detail, Asia and portrait/landscape captures are linked in `docs/geography/GLOBE.md`.
 - Gameplay regression passed for all three countries at **390×844 and 1440×900**, including region/division overlays, economy/policy, diplomacy/AI, movement/combat/capture, drafts, turn progression, title/reload and insufficient-funds recovery. No `src/game`, independent economy-engine, division-overlay implementation, dataset, package/dependency, design-reference or production deployment changes. Work remains on PR #21; no merge.
 - **Remaining limits:** cloud Chromium/software-WebGL checks do not establish physical Safari performance. This revision needs a fresh device retest. The 2K color/terrain texture and overview polar source can remain soft; vector borders remain independently thin, with possible driver/SVG antialiasing differences. Projection-periphery and source-LOD shapes can differ; this is a crossfade, not a full morph. Near-polar longitude navigation changes the viewed meridian, and unreachable pinch anchors can slip within geographic constraints. Existing old terrain/geopolitical/source limitations remain. No new mechanics or deferred map phases implemented.
+
+## MAP-01B.4 — Globe-first opening (2026-11-16)
+
+- On fresh entry or refresh, App opens the existing north-up interactive Earth directly. There is no title-button, World-button, scenario or country-selection prerequisite and no fictional-map flash. Loading/error states cover pending or unavailable assets. Atlas and game UI remain lazy; one atlas renderer lives at the application root.
+- **Fictional game** is an always-accessible secondary header option. No game state is created before that explicit action; country choice remains empty and **Start local scenario** requires a choice. **Return to globe / Resume game** keep the game component mounted and retain game week/budget, pending policy/military/diplomacy drafts, unfinished forms, selected region/map/division layer, atlas focus/zoom and Terrain preference. Game rules/callbacks are unchanged.
+- Document restoration and standalone/Home Screen visibility resume return to exploration while retaining current game/camera state. Normal browser-tab visibility changes keep the current view. Cold/refresh entry starts at the global sphere; reloading resets the in-memory fictional game as before. No save-game or PWA system was added.
+- Terrain preference is one guarded localStorage boolean. Blocked storage or quota failures do not break startup/navigation; current-tab state still works. This stores no geographic/terrain assets and does not implement MAP-01B.5. Existing 493,812-byte coarse startup budget with Terrain on is preserved; the hidden atlas stops requests/drawing during gameplay.
+- Build keeps separate atlas (~38.7 KB / 14.3 KB gzip) and game UI (~38.8 KB / 11.9 KB gzip) chunks; main JS is ~239.4 KB / 74.9 KB gzip. No dependency, dataset, `src/game`, `economy-engine/`, Claude PR #20, approved design or production Pages configuration changes.
+- `npm test`: **123 passed** (all previous 119 plus storage preference/failure cases). Production build and `git diff --check`: passed. New `scripts/geography/check_home.cjs` passes at **320×568, 390×844, 844×390, 568×320, 1024×768 and 1440×900**: automatic entry, explicit country setup, refresh, coarse/lazy loading, retained camera/Terrain/selection/drafts/forms/week/budget and no overflow/startup errors. Slow startup, geographic failure/retry, code failure with retained game access and denied storage pass. Standalone flag/visibility-resume and ordinary-tab behavior were tested through emulation.
+- Existing globe checks passed at all six sizes, including touch/pinch, north-up 2,000-DOM-drag GPU checks, zoom/flat transitions, terrain/colors/borders, poles/date line and WebGL/reduced-motion fallbacks. Gameplay regression passed for all three countries at mobile/desktop sizes, including economy, diplomacy/AI, movement/combat/capture, turns, drafts and insufficient-funds recovery.
+- [Entry architecture, screenshots and iPhone instructions](docs/geography/HOME.md). Physical Safari/Home Screen cold/warm launching and VoiceOver remain unverified; no device or WebKit executable is available here. Test the refreshed separate preview URL through Safari → Share → Add to Home Screen. All work remains in open PR #21; no merge or production deployment.
