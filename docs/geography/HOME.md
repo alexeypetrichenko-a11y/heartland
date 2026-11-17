@@ -1,8 +1,8 @@
 # MAP-01B.4 — Globe as the opening screen
 
-Heartland now opens directly on the existing interactive 3D Earth at `/heartland/`. There is no title-button, World-button or scenario-selection prerequisite. A simple **Loading Earth…** indicator covers initial code/geographic loading; the fictional map is never rendered first. This is an exploration screen, not real-world country selection or an automatically started game.
+Heartland opens directly on the interactive 3D Earth at `/heartland/`. A **Loading Earth…** indicator covers initial code and geographic loading. The opening screen supports geographic exploration and inspection. [Country selection](COUNTRY_SELECTION.md)
 
-The owner authorized this entry change on 2026-11-16. It is part of the still-unmerged PR [#21](https://github.com/alexeypetrichenko-a11y/heartland/pull/21), branch `task/map-01b3-spherical-earth`. GitHub `main`, production Pages settings, the simulation, `economy-engine/` and Claude's PR #20 are unchanged.
+The owner authorized this entry change on 2026-11-16 and merged it to `main` in PR #21. The opening globe subsequently passed the owner's physical iPhone check. [PR #21](https://github.com/alexeypetrichenko-a11y/heartland/pull/21)
 
 ## Navigation and retained state
 
@@ -54,4 +54,4 @@ Use the refreshed separate preview at **https://heartland-pr21-globe-preview.sou
 
 For a Home Screen check, open this exact preview URL in Safari → Share → **Add to Home Screen**, then launch that shortcut in portrait and landscape. Also test returning to a running page after switching apps. The app's URL always remains the root `/heartland/`; no game-only route is saved in the shortcut. Cold entry, document restoration and standalone visibility resume open exploration. Native cold/warm Home Screen behavior still needs a physical-device check.
 
-**Physical iPhone/Safari/Home Screen launching and VoiceOver were not available here.** No PWA manifest, standalone installation promise, service worker or offline cache was added. The existing terrain/texture, polar, projection-periphery and near-polar pinch limits remain documented in GLOBE.md. Country selection (MAP-01C), persistent terrain caches (MAP-01B.5), new mechanics and multiplayer remain deferred. Do not merge without owner approval.
+These home-entry browser checks did not cover physical Home Screen launching or VoiceOver. The owner confirmed the globe opens successfully on a physical iPhone. Projection and geographic limits are documented separately. [Globe rendering](GLOBE.md)

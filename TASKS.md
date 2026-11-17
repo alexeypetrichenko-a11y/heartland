@@ -100,7 +100,7 @@
 
 ## Interface redesign milestone — Mobile-first interface (before T09)
 
-This is a separate UI milestone. Preserve the existing engine, models, economy, combat, diplomacy and AI rules throughout. UI-01A, UI-01A.2, UI-01B.1 and UI-01B.2 are merged. MAP-01A is merged in PR #17. MAP-01B.1 and MAP-01B.2 are merged in PRs #18/#19. The current assignment is MAP-01B.3 spherical navigation only; UI-01B.3 and later interface phases need separate requirements and approval.
+This is a separate UI milestone. UI-01A, UI-01A.2, UI-01B.1 and UI-01B.2 are merged. MAP-01A through MAP-01B.4 are merged in PRs #17–#19 and #21. The current assignment covers MAP-01C country inspection. Other interface and simulation work awaits separate approval.
 
 ### UI-01A — Compact map-first navigation
 
@@ -182,7 +182,7 @@ The owner authorized a two-PR split to protect mobile performance, geographic ac
 
 #### MAP-01B.3 — Interactive spherical Earth and flat-map handoff
 
-- [x] Implemented on `task/map-01b3-spherical-earth`, revised after physical iPhone feedback: native WebGL sphere, **north-up geographic navigation** with unrestricted longitude wrapping and ±89.9° latitude limits, pinch/wheel/buttons/keyboard, shared geographic focus/local scale and a 220ms flat-map crossfade with hysteresis. **Separate vector borders** match globe/flat screen thickness; 280ms source fades and post-handoff country-detail staging reduce the sharpness jump. Date-line and polar safeguards, Terrain preference and functional WebGL fallback remain. No new dependency or geographic assets. **119 tests**, production build, six-size Chromium checks, 2,000 DOM drag/GPU-orientation probes and gameplay regressions passed. Updated review captures and limits: [docs/geography/GLOBE.md](docs/geography/GLOBE.md). PR [#21](https://github.com/alexeypetrichenko-a11y/heartland/pull/21) targets `main`; unmerged pending owner approval.
+- [x] Implemented on `task/map-01b3-spherical-earth`, revised after physical iPhone feedback: native WebGL sphere, **north-up geographic navigation** with unrestricted longitude wrapping and ±89.9° latitude limits, pinch/wheel/buttons/keyboard, shared geographic focus/local scale and a 220ms flat-map crossfade with hysteresis. **Separate vector borders** match globe/flat screen thickness; 280ms source fades and post-handoff country-detail staging reduce the sharpness jump. Date-line and polar safeguards, Terrain preference and functional WebGL fallback remain. No new dependency or geographic assets. **119 tests**, production build, six-size Chromium checks, 2,000 DOM drag/GPU-orientation probes and gameplay regressions passed. The owner merged the globe in PR #21. [Rendering details](docs/geography/GLOBE.md) · [PR #21](https://github.com/alexeypetrichenko-a11y/heartland/pull/21)
 
 **Acceptance/verification:** World dezoom displays a genuine 3D sphere, not a circular image. Verify visible hemisphere, rotation/pinch/pan/zoom, retained pointer/focus/scale through both directions, real rendered country colors, physical alignment, date-line/poles/islands/multipolygons, portrait/landscape/desktop/keyboard, 44px controls, no document overflow and preserved gameplay. Run `npm test` and `npm run build`. Keep `src/game`, division overlay, independent economy engine, dependencies and deployment settings unchanged.
 
@@ -190,15 +190,17 @@ The owner authorized a two-PR split to protect mobile performance, geographic ac
 
 #### MAP-01B.4 — World map as default home
 
-- [x] Implemented under the owner's 2026-11-16 assignment on the current PR #21 branch: the existing 3D globe opens immediately, with loading/error states and no title/scenario/country-selection prerequisite. One atlas renderer and an explicitly requested lazy fictional game stay mounted for state/draft/camera retention. **Fictional game → country setup → Start local scenario** is the only route to starting play; **Return to globe / Resume game** preserve state. Terrain preference uses one safely stored UI boolean. 123 tests, production build, six-size entry/globe checks and gameplay regressions passed; physical iPhone/Home Screen retesting is required. [Entry architecture, captures and validation](docs/geography/HOME.md). No engine, dependency, PWA, dataset or production Pages changes; PR remains unmerged.
+- [x] The globe opens by default. **Fictional game → country setup → Start local scenario** is the explicit route to gameplay. **Return to globe / Resume game** preserve state, and Terrain preference survives refresh where browser storage is available. The 123-test suite, production build, six-size browser checks and gameplay regressions passed. The owner merged PR #21 and confirmed successful startup on a physical iPhone. [Entry architecture and captures](docs/geography/HOME.md)
 
 #### MAP-01B.5 — Persistent terrain cache improvements (deferred)
 
 - [ ] Not implemented. This task uses only bounded in-memory renderer/data resources; no persistent terrain cache, IndexedDB, Cache Storage or service worker is added. Requires a separate assignment.
 
-### MAP-01C — Country and region selection (deferred)
+### MAP-01C — Interactive country selection
 
-- [ ] Not implemented. A separate assignment must decide selection behavior and how source entities, mixed administrative levels, unknown names and disputed/dependent territory groupings are presented. Geographic selection must not automatically create sovereign playable countries or political owners.
+- [x] The globe and flat atlas support tap/click and keyboard country inspection. The gold fill and borders follow the selected Natural Earth ID through zoom and projection changes. The compact card shows the name, geographic ID, subregion and undecided playability. A separate ID-keyed flag registry is ready for the owner's future six-country roster. All 129 tests, the production build, viewport checks and gameplay regressions passed. The branch `task/map-01c-country-selection` is for owner review and physical Safari testing. [Implementation, preview and screenshots](docs/geography/COUNTRY_SELECTION.md)
+
+- [ ] Admin-1 region selection and real-country game setup await separate approval.
 
 MIL-01, UI-01B.3, UI-01C, T09, multiplayer, real military positions, movement/engagement timing and transport-route mechanics remain outside this assignment.
 
@@ -260,4 +262,4 @@ Each item above is a **feature family** to be broken into small PRs before imple
 
 ## Current delivery and remaining phases
 
-MAP-01A through MAP-01B.2 are merged in PRs #17–#19. MAP-01B.3 and the newly authorized MAP-01B.4 entry update are implemented for owner review in PR #21, with rendering/transition/device limitations documented. MAP-01B.5, MAP-01C selection, fictional-scenario replacement, political/game ownership mapping, MIL-01, UI-01B.3, UI-01C, T09 and multiplayer remain deferred. Do not merge without owner approval.
+The owner merged MAP-01A through MAP-01B.4 in PRs #17–#19 and #21. MAP-01C Admin-0 inspection is ready for review. The next decision is owner approval of this PR after iPhone validation. The playable roster, Admin-1 selection, terrain caching, scenario replacement and other gameplay phases remain deferred.

@@ -1,6 +1,6 @@
 # MAP-01B.3 — Spherical Earth and flat-map handoff
 
-The World atlas renders a **genuine 3D Earth**, with drag rotation, pinch/wheel zoom and +/−/reset controls. Country colors and terrain preference are shared with the detailed flat map. The subsequent [MAP-01B.4 entry update](HOME.md) makes this globe the default opening screen, with the fictional scenario available separately. No simulation, division overlay, economic engine, multiplayer or country selection change is included.
+The World atlas renders a **genuine 3D Earth**, with drag rotation, pinch/wheel zoom and +/−/reset controls. Country colors and terrain preference are shared with the detailed flat map. The globe is the default opening screen, with the fictional scenario available separately. [Globe-first entry](HOME.md)
 
 Baseline: MAP-01B.1 and MAP-01B.2 were merged by the owner in PRs #18 and #19 (`main` at `bb24387`). Their Natural Earth sources, political treatment and known data limitations remain unchanged. See [source data](README.md), [political rendering](RENDERING.md) and [terrain](TERRAIN.md).
 
@@ -22,7 +22,7 @@ Artificial source-geometry cuts along ±180° and the pole edges are omitted fro
 
 ## Camera and transition
 
-`src/geography/worldCamera.ts` is presentation-only math, independent of `src/game`. It stores zoom and longitude/latitude focus, **not an accumulated quaternion or bearing**. Geographic focus is the Earth point facing the screen center. Globe picking ignores the far hemisphere and sky. Picking is used for navigation anchors, **not** country/region selection.
+`src/geography/worldCamera.ts` stores zoom and longitude/latitude focus. Geographic focus is the Earth point facing the screen center. North-up orientation is derived from that focus. The inverse projection ignores the far hemisphere and sky and provides geographic coordinates for navigation anchors and country picks. [Country selection](COUNTRY_SELECTION.md)
 
 - One-finger/mouse horizontal drag changes longitude along a parallel; vertical drag changes latitude along a meridian. Both views remain north-up. Longitude wraps continuously without an east/west limit; focus latitude stops at **±89.9°**, preventing pole crossing/inversion while keeping both poles visible and navigable. Horizontal sensitivity is bounded near the poles. Two-contact pinch includes a moving midpoint; wheel zoom solves a north-up geographic anchor. Keyboard +/− zoom, arrows navigate, Shift+arrows take larger steps, and 0/Home resets. Zoom remains bounded to 1×–128×.
 - When the globe has expanded to a local view, it hands off to the existing SVG country/terrain renderer with a **220ms crossfade**. Return uses the same process. A threshold adapts to screen aspect ratio and latitude; an **18% hysteresis band** prevents repeated flips around one wheel/pinch value.
@@ -76,4 +76,4 @@ Updated review captures: [global globe](images/map-01b3-globe-390.png), [France 
 
 iPhone-feedback comparisons: [Europe before handoff](images/map-01b3-europe-before-390.png), [Europe after handoff](images/map-01b3-europe-after-390.png), [progressive country detail](images/map-01b3-europe-detail-390.png), [north-up Asia](images/map-01b3-asia-north-up-390.png), [landscape globe](images/map-01b3-europe-globe-844.png), [landscape flat map](images/map-01b3-europe-flat-844.png). Different terrain sharpness remains visible because the globe intentionally uses the overview raster; the vector national border stroke remains consistent.
 
-MAP-01B.4 default home is now implemented in the same PR; see [HOME.md](HOME.md) for the 123-test startup/navigation verification and device limits. MAP-01B.5 persistent terrain cache, MAP-01C selection, military positioning, multiplayer and real-time simulation remain deferred. PR [#21](https://github.com/alexeypetrichenko-a11y/heartland/pull/21) targets `main`, unmerged pending owner approval.
+PR #21 merged the sphere and globe-first home to `main`. MAP-01C builds country inspection on this renderer and camera. [PR #21](https://github.com/alexeypetrichenko-a11y/heartland/pull/21) · [Country selection](COUNTRY_SELECTION.md)

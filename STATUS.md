@@ -1,7 +1,7 @@
 # Heartland — Implementation Status
 
-**Snapshot date:** 2026-11-16
-**Source:** Repository `bb24387` on `main` (MAP-01B.1/#18 and MAP-01B.2/#19 merged by the owner), approved interface/geographic documentation, MAP-01B.3 rendering fixes and MAP-01B.4 entry/navigation checks on `task/map-01b3-spherical-earth`.
+**Snapshot date** 2026-11-17
+**Source** `main` at `3914cde`, including the owner's merge of PR #21, and MAP-01C implementation and validation on `task/map-01c-country-selection`.
 
 ## Verified existing scaffold
 
@@ -24,9 +24,10 @@
 - [x] Interactive map zoom/pan, bounded camera and in-frame controls (UI-01B.1).
 - [x] Horizontal overlay toolbar and real Divisions layer with a separate prototype visibility policy (UI-01B.2).
 - [x] Separate Natural Earth longitude/latitude data and real-world political/physical atlas (MAP-01A, MAP-01B.1/.2); fictional scenario remains separately playable.
-- [x] Spherical atlas navigation and camera-matched flat-map handoff (MAP-01B.3), implemented for review; see latest verification below.
+- [x] Spherical atlas navigation and camera-matched flat-map handoff (MAP-01B.3), merged in PR #21.
 - [x] Default globe exploration screen (MAP-01B.4), explicit game access and retained navigation state.
-- [ ] Persistent terrain cache (MAP-01B.5) and country/region selection (MAP-01C).
+- [x] Geographic country inspection on the globe and flat map (MAP-01C), implemented for review.
+- [ ] Persistent terrain cache (MAP-01B.5), Admin-1 selection and playable-country roster.
 - [ ] Data/rendering for Cities, Bunkers, Roads, Railways, Ports and Airports; their toolbar controls are disabled.
 - [ ] Unit interaction/geographical positioning (UI-01B.3) and UI-01C (separate assignments pending).
 - [ ] Full economy/military systems, comprehensive diplomacy and advanced AI.
@@ -55,9 +56,9 @@
 
 ## Current delivery
 
-MAP-01A through MAP-01B.2 are merged into `main` (PRs #17–#19). MAP-01B.3 and the now-authorized MAP-01B.4 entry update are implemented on `task/map-01b3-spherical-earth` in PR [#21](https://github.com/alexeypetrichenko-a11y/heartland/pull/21), targeting `main` and unmerged pending owner approval. Heartland now opens directly on the existing north-up 3D globe. **Fictional game** opens explicit country setup; **Return to globe / Resume game** retain game and map state. Terrain preference is shared and retained across refresh where storage is available. Current validation: 123 tests, production build, six-size browser checks and existing gameplay regressions. See [entry/iPhone checks](docs/geography/HOME.md) and [renderer/source limits](docs/geography/GLOBE.md).
+The owner merged MAP-01A through MAP-01B.4 into `main` in PRs #17–#19 and #21 and confirmed the globe opens on a physical iPhone. MAP-01C adds tap/click country inspection to both projections. The card and highlight follow the selected geographic ID as the user navigates. The fictional scenario remains available from **Fictional game**. [Country inspection tests and separate preview](docs/geography/COUNTRY_SELECTION.md)
 
-MAP-01B.5, MAP-01C, the independent economy engine/Claude's PR #20 and all deferred gameplay/military/interface/multiplayer phases remain outside scope.
+The playable roster, real-country setup, Admin-1 selection, MAP-01B.5, the independent economy engine and the later gameplay milestones are outside this assignment.
 
 Historical sections below retain their original verification scope. The latest sections describe the current geographic work.
 
@@ -425,3 +426,11 @@ Historical first implementation/validation follows. The physical-iPhone-feedback
 - `npm test`: **123 passed** (all previous 119 plus storage preference/failure cases). Production build and `git diff --check`: passed. New `scripts/geography/check_home.cjs` passes at **320×568, 390×844, 844×390, 568×320, 1024×768 and 1440×900**: automatic entry, explicit country setup, refresh, coarse/lazy loading, retained camera/Terrain/selection/drafts/forms/week/budget and no overflow/startup errors. Slow startup, geographic failure/retry, code failure with retained game access and denied storage pass. Standalone flag/visibility-resume and ordinary-tab behavior were tested through emulation.
 - Existing globe checks passed at all six sizes, including touch/pinch, north-up 2,000-DOM-drag GPU checks, zoom/flat transitions, terrain/colors/borders, poles/date line and WebGL/reduced-motion fallbacks. Gameplay regression passed for all three countries at mobile/desktop sizes, including economy, diplomacy/AI, movement/combat/capture, turns, drafts and insufficient-funds recovery.
 - [Entry architecture, screenshots and iPhone instructions](docs/geography/HOME.md). Physical Safari/Home Screen cold/warm launching and VoiceOver remain unverified; no device or WebKit executable is available here. Test the refreshed separate preview URL through Safari → Share → Add to Home Screen. All work remains in open PR #21; no merge or production deployment.
+
+## MAP-01C — Country selection (2026-11-17)
+
+- Select countries and territories in either atlas projection using existing Natural Earth IDs and polygons. A gold fill and border follow the selected entity, and a compact card displays its name, geographic ID, source subregion or map point, and undecided playability. The camera and selection persist during projection changes and visits to the fictional game.
+- The picker uses the current projection and visible detail stage. Existing even-odd fill paths preserve islands, holes and enclaves. The six-pixel gesture threshold rejects drags, and the pointer lifecycle excludes pinches and cancellations. Touch misses search visible land within six CSS pixels. A direct hit takes precedence. Enter/Space inspects the center, and Escape or the card button clears selection.
+- Selection uses a single on-demand globe mask, a selected outline and the existing SVG paths on the flat map. Startup requests the same coarse assets. Geographic labels load from the existing country catalog only after selection. The separate roster flags remain empty for all 258 entities.
+- `npm test` passed **129 tests** and `npm run build` passed. Browser selection checks passed at five sizes, covering touch/mouse and keyboard, fill and outline, Monaco and Luxembourg, Lesotho, Fiji on both sides of the date line, viewport fit, zoom persistence and WebGL fallback. Opening screen and globe regressions passed at six sizes. All three fictional countries passed the gameplay workflow at mobile and desktop sizes.
+- This release is for owner review in a separate PR and preview. Very small entities require an available detail scale. Physical Safari testing of country inspection is pending. [Architecture, limitations, screenshots and iPhone instructions](docs/geography/COUNTRY_SELECTION.md)

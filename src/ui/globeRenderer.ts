@@ -2,6 +2,9 @@ import type { AtlasSize } from '../geography/atlas';
 import { createGlobeMesh, globeRenderSize, globeRotationMatrix } from '../geography/globeMesh';
 import { cameraRotation, globeRadius, type WorldCamera } from '../geography/worldCamera';
 import { borderStyle } from '../geography/borderRendering';
+import { COUNTRY_HIGHLIGHT, COUNTRY_HIGHLIGHT_OPACITY } from '../geography/countrySelection';
+
+const highlight = [1, 3, 5].map(index => parseInt(COUNTRY_HIGHLIGHT.slice(index, index + 2), 16) / 255) as [number, number, number];
 
 const VERTEX = `
 attribute vec3 position;
@@ -23,6 +26,9 @@ precision highp float;
 precision mediump float;
 #endif
 uniform sampler2D world;
+uniform sampler2D selection;
+uniform bool hasSelection;
+uniform vec3 highlight;
 varying vec2 textureUV;
 varying vec3 surfaceNormal;
 void main() {
@@ -30,7 +36,9 @@ void main() {
   vec3 color = texture2D(world, textureUV).rgb;
   float light = 0.90 + 0.10 * max(0.0, dot(n, normalize(vec3(-0.35, 0.5, 1.0))));
   float rim = pow(1.0 - max(0.0, n.z), 4.0) * 0.10;
-  gl_FragColor = vec4(color * light + vec3(0.12, 0.24, 0.32) * rim, 1.0);
+  color = color * light + vec3(0.12, 0.24, 0.32) * rim;
+  if (hasSelection) color = mix(color, highlight, texture2D(selection, textureUV).a * ${COUNTRY_HIGHLIGHT_OPACITY});
+  gl_FragColor = vec4(color, 1.0);
 }`;
 const BORDER_VERTEX = `
 attribute vec3 position;
@@ -46,9 +54,10 @@ const BORDER_FRAGMENT = `
 precision mediump float;
 varying float facing;
 uniform float opacity;
+uniform vec3 color;
 void main() {
   if (facing < 0.0) discard;
-  gl_FragColor = vec4(0.141176, 0.231373, 0.258824, opacity);
+  gl_FragColor = vec4(color, opacity);
 }`;
 
 /** One real 3D sphere, depth-tested and back-face culled. No framework or render loop. */
@@ -76,8 +85,10 @@ export function createGlobeRenderer(canvas: HTMLCanvasElement) {
   const borderBuffer = gl.createBuffer()!;
   const borderPosition = gl.getAttribLocation(borderProgram, 'position');
   const borderRotation = gl.getUniformLocation(borderProgram, 'rotation'), borderScale = gl.getUniformLocation(borderProgram, 'scale');
-  const borderOpacity = gl.getUniformLocation(borderProgram, 'opacity');
+  const borderOpacity = gl.getUniformLocation(borderProgram, 'opacity'), borderColor = gl.getUniformLocation(borderProgram, 'color');
   let borderCount = 0, previousBorderCount = 0;
+  const selectionBorder = gl.createBuffer()!, selectionTexture = gl.createTexture()!;
+  let hasSelection = false, selectionBorderCount = 0;
   const mesh = createGlobeMesh();
   const vertices = gl.createBuffer()!, indices = gl.createBuffer()!, texture = gl.createTexture()!;
   gl.bindBuffer(gl.ARRAY_BUFFER, vertices); gl.bufferData(gl.ARRAY_BUFFER, mesh.vertices, gl.STATIC_DRAW);
@@ -87,6 +98,16 @@ export function createGlobeRenderer(canvas: HTMLCanvasElement) {
   gl.enableVertexAttribArray(position); gl.vertexAttribPointer(position, 3, gl.FLOAT, false, 20, 0);
   gl.enableVertexAttribArray(uv); gl.vertexAttribPointer(uv, 2, gl.FLOAT, false, 20, 12);
   const rotation = gl.getUniformLocation(program, 'rotation'), scale = gl.getUniformLocation(program, 'scale');
+  const selectionActive = gl.getUniformLocation(program, 'hasSelection');
+  gl.uniform3f(gl.getUniformLocation(program, 'highlight'), ...highlight);
+  gl.uniform1i(gl.getUniformLocation(program, 'selection'), 1);
+  gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, selectionTexture);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.ALPHA, 1, 1, 0, gl.ALPHA, gl.UNSIGNED_BYTE, new Uint8Array(1));
+  gl.generateMipmap(gl.TEXTURE_2D);
   gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, texture);
   gl.uniform1i(gl.getUniformLocation(program, 'world'), 0);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
@@ -116,6 +137,20 @@ export function createGlobeRenderer(canvas: HTMLCanvasElement) {
     borderCount = vertices.length / 3; previousBorderCount = (previous?.length ?? 0) / 3;
     if (gl!.getError() !== gl!.NO_ERROR) throw new Error('Globe border buffer unavailable');
   }
+  function uploadSelection(source: HTMLCanvasElement | null, outline?: Float32Array) {
+    if (gl!.isContextLost() || (!source && !hasSelection)) return;
+    gl!.activeTexture(gl!.TEXTURE1);
+    if (source) gl!.texImage2D(gl!.TEXTURE_2D, 0, gl!.ALPHA, gl!.ALPHA, gl!.UNSIGNED_BYTE, source);
+    else gl!.texImage2D(gl!.TEXTURE_2D, 0, gl!.ALPHA, 1, 1, 0, gl!.ALPHA, gl!.UNSIGNED_BYTE, new Uint8Array(1));
+    gl!.generateMipmap(gl!.TEXTURE_2D);
+    gl!.activeTexture(gl!.TEXTURE0);
+    gl!.bindBuffer(gl!.ARRAY_BUFFER, selectionBorder);
+    if (outline) gl!.bufferData(gl!.ARRAY_BUFFER, outline, gl!.STATIC_DRAW);
+    else gl!.bufferData(gl!.ARRAY_BUFFER, 0, gl!.STATIC_DRAW);
+    hasSelection = source !== null;
+    selectionBorderCount = (outline?.length ?? 0) / 3;
+    if (gl!.getError() !== gl!.NO_ERROR) throw new Error('Globe selection unavailable');
+  }
   function surfaceAttributes() {
     gl!.useProgram(program); gl!.bindBuffer(gl!.ARRAY_BUFFER, vertices);
     gl!.enableVertexAttribArray(position); gl!.vertexAttribPointer(position, 3, gl!.FLOAT, false, 20, 0);
@@ -130,10 +165,11 @@ export function createGlobeRenderer(canvas: HTMLCanvasElement) {
     surfaceAttributes();
     const matrix = globeRotationMatrix(cameraRotation(camera));
     gl!.uniformMatrix3fv(rotation, false, matrix);
+    gl!.uniform1i(selectionActive, Number(hasSelection));
     const radius = globeRadius(camera, size);
     gl!.uniform2f(scale, 2 * radius / size.width, 2 * radius / size.height);
     gl!.drawElements(gl!.TRIANGLES, mesh.indices.length, gl!.UNSIGNED_SHORT, 0);
-    if (borderCount) {
+    if (borderCount || selectionBorderCount) {
       gl!.useProgram(borderProgram); gl!.bindBuffer(gl!.ARRAY_BUFFER, borderBuffer);
       gl!.disableVertexAttribArray(position); gl!.disableVertexAttribArray(uv);
       gl!.enableVertexAttribArray(borderPosition); gl!.vertexAttribPointer(borderPosition, 3, gl!.FLOAT, false, 12, 0);
@@ -142,17 +178,26 @@ export function createGlobeRenderer(canvas: HTMLCanvasElement) {
       const opacity = borderStyle(camera, size, window.devicePixelRatio).opacity;
       gl!.disable(gl!.DEPTH_TEST); gl!.enable(gl!.BLEND); gl!.blendFunc(gl!.SRC_ALPHA, gl!.ONE_MINUS_SRC_ALPHA);
       gl!.lineWidth(1);
+      gl!.uniform3f(borderColor, .141176, .231373, .258824);
       if (previousBorderCount) { gl!.uniform1f(borderOpacity, opacity * (1 - borderMix)); gl!.drawArrays(gl!.LINES, 0, previousBorderCount); }
       gl!.uniform1f(borderOpacity, opacity * borderMix); gl!.drawArrays(gl!.LINES, previousBorderCount, borderCount);
+      if (selectionBorderCount) {
+        gl!.bindBuffer(gl!.ARRAY_BUFFER, selectionBorder);
+        gl!.vertexAttribPointer(borderPosition, 3, gl!.FLOAT, false, 12, 0);
+        gl!.uniform3f(borderColor, ...highlight);
+        gl!.uniform1f(borderOpacity, 1);
+        gl!.drawArrays(gl!.LINES, 0, selectionBorderCount);
+      }
       gl!.disable(gl!.BLEND); gl!.enable(gl!.DEPTH_TEST); surfaceAttributes();
     }
   }
   function dispose() {
     gl!.deleteBuffer(vertices); gl!.deleteBuffer(indices); gl!.deleteTexture(texture); gl!.deleteProgram(program);
     gl!.deleteBuffer(borderBuffer); gl!.deleteProgram(borderProgram);
+    gl!.deleteBuffer(selectionBorder); gl!.deleteTexture(selectionTexture);
     // React's development effect replay keeps the canvas connected; real removal
     // releases the context as well as its resources.
     if (!canvas.isConnected) gl!.getExtension('WEBGL_lose_context')?.loseContext();
   }
-  return { textureWidth, upload, uploadBorders, draw, dispose };
+  return { textureWidth, upload, uploadBorders, uploadSelection, draw, dispose };
 }

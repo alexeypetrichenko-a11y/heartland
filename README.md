@@ -3,7 +3,9 @@
 Mobile-first geopolitical strategy prototype.
 
 Heartland opens directly on an interactive, north-up 3D Earth. Geographic assets
-load progressively; no country is selected and no fictional game starts automatically.
+load progressively. Tap a country on the globe or flat map to inspect its name,
+identifier and geographic subregion. Real-country playability is undecided.
+[Country inspection and iPhone checks](docs/geography/COUNTRY_SELECTION.md).
 Choose **Fictional game** to open the existing three-country scenario, explicitly
 select a country and start playing. **Return to globe** and **Resume game** retain
 the game, drafts and map state in the current page. Reloading opens the globe and

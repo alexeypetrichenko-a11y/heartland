@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { createAtlasData } from '../geography/atlasData';
 import { atlasBounds, countryDetailPriority, countryInViewport, type AtlasCatalog, type AtlasShape, type AtlasSize, type AtlasView } from '../geography/atlas';
-import type { GeographicBounds, OverviewScale } from '../geography/types';
+import type { CountryGeography } from '../geography/countrySelection';
+import type { GeographicBounds, GeographicCountryId, OverviewScale } from '../geography/types';
 
 export function useAtlasData(view: AtlasView, size: AtlasSize, active: boolean, revision: number,
-  options?: { bounds: GeographicBounds[]; overviewOnly: boolean; overviewScale: OverviewScale; detailEnabled?: boolean }) {
+  options: { bounds: GeographicBounds[]; overviewOnly: boolean; overviewScale: OverviewScale; detailEnabled?: boolean }, inspectCountry: boolean) {
   const source = useRef<ReturnType<typeof createAtlasData> | null>(null);
   source.current ??= createAtlasData(import.meta.env.BASE_URL);
   const [catalog, setCatalog] = useState<AtlasCatalog | null>(null);
@@ -14,6 +15,17 @@ export function useAtlasData(view: AtlasView, size: AtlasSize, active: boolean, 
   const [error, setError] = useState('');
   const [resolution, setResolution] = useState('110m');
   const [loading, setLoading] = useState(false);
+  const [countryGeography, setCountryGeography] = useState<Map<GeographicCountryId, CountryGeography>>();
+  useEffect(() => {
+    if (!active || !inspectCountry || countryGeography) return;
+    const controller = new AbortController();
+    source.current!.loadCountryGeography(controller.signal).then(facts => {
+      if (!controller.signal.aborted) setCountryGeography(facts);
+    }).catch(() => {
+      // The panel has the name, ID and label coordinates from the atlas catalog.
+    });
+    return () => controller.abort();
+  }, [active, countryGeography, inspectCountry, revision]);
   useEffect(() => {
     if (!active) return;
     const controller = new AbortController();
@@ -70,5 +82,5 @@ export function useAtlasData(view: AtlasView, size: AtlasSize, active: boolean, 
     for (const shape of detail) merged.set(shape.id, shape);
     return [...merged.values()];
   }, [overview, detail]);
-  return { catalog, overview, shapes, error, loading, resolution };
+  return { catalog, overview, shapes, error, loading, resolution, countryGeography };
 }

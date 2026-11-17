@@ -43,9 +43,9 @@ async function checkNorthUpAndBorders(page){
  await page.evaluate(async()=>{
   const e=document.querySelector('.atlas-viewport'),r=e.getBoundingClientRect(),id=window.__nativePointer,x=r.x+r.width/2,y=r.y+r.height/2;
   const send=(type,xx,yy)=>e.dispatchEvent(new PointerEvent(type,{bubbles:true,pointerId:id,pointerType:'mouse',button:0,buttons:type==='pointerup'?0:1,clientX:xx,clientY:yy}));
-  send('pointerup',x,y);
+  send('pointercancel',x,y);
   for(let i=0;i<2000;i++){
-   const dx=i%2?0:15*Math.cos(i*.019),dy=i%2?12*Math.sin(i*.017):0;
+   const dx=i%2?0:(Math.cos(i*.019)<0?-12:12),dy=i%2?(Math.sin(i*.017)<0?-10:10):0;
    send('pointerdown',x,y);send('pointermove',x+dx,y+dy);send('pointerup',x+dx,y+dy);
    if(i%50===0){
     for(let frame=0;frame<4;frame++)await new Promise(resolve=>requestAnimationFrame(resolve));
@@ -59,6 +59,7 @@ async function checkNorthUpAndBorders(page){
   }
  });
  await page.mouse.up();await settle(page);assert.equal((await pose(page)).bearing,0);
+ assert.equal(await page.locator('.atlas-country-panel').count(),0,'2,000 completed drags never select a country');
  await steer(page,12,46);await surface.focus();for(let i=0;i<3;i++){await page.keyboard.press('+');await settle(page)}
  p=await pose(page);for(let i=0;i<24;i++){const q=await pose(page),x=q.rect.x+q.rect.width/2,y=q.rect.y+q.rect.height/2;await page.mouse.move(x,y);await page.mouse.down();await page.mouse.move(x-35,y);await page.mouse.up();await settle(page);assert.ok(Math.abs((await pose(page)).lat-46)<.001);assert.equal((await pose(page)).bearing,0)}
  await page.screenshot({path:'globe-asia-north-up-390.png',scale:'css'});
