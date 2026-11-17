@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
-import { atlasBounds, atlasScale, colorDeltaE, constrainAtlasView, countryInViewport, initialAtlasView, moveAtlasView,
+import { atlasBounds, atlasScale, colorDeltaE, constrainAtlasView, countryDetailPriority, countryInViewport, initialAtlasView, moveAtlasView,
   projectAtlasFeature, projectGeography, projectPolygonParts, unprojectGeography, type AtlasCatalog } from './atlas.ts';
 import { createAtlasData } from './atlasData.ts';
 import type { CountryCatalog, GeographicCollection, GeographicFeature } from './types';
@@ -88,6 +88,14 @@ test('detail culling uses source polygon coverage instead of spanning overseas-c
   assert.ok(countryInViewport(usa, [-125, 30, -70, 45]));
   assert.ok(!countryInViewport(usa, [5, 45, 10, 50]), 'Europe does not request US detail');
   for (const c of catalog.countries) assert.ok(c.tiles.length && c.tiles.every(t => Number.isInteger(t) && t >= 0 && t < 648));
+});
+
+test('the bounded detail budget prioritizes Fiji and France at the geographic focus over distant tiny entities', () => {
+  for (const [id, focus] of [['FJI', [179, -18]], ['FRA', [2, 46]]] as [string, [number, number]][]) {
+    const sorted = catalog.countries.map(c => ({ c, priority: countryDetailPriority(c, focus) }))
+      .sort((a, b) => a.priority[0] - b.priority[0] || a.priority[1] - b.priority[1]);
+    assert.ok(sorted.slice(0, 12).some(({ c }) => c.id === `ne:admin0:${id}`));
+  }
 });
 
 test('atlas data loads lazily under the Pages base and bounds the detail cache to 12 countries', async () => {

@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { CountryId, DiplomaticCommand, EconomicPolicy, GameState, MilitaryCommand, TurnCommand } from '../game/models';
 import { ECONOMIC_POLICIES } from '../game/economy';
 import { EconomyPanel } from './EconomyPanel';
@@ -8,9 +8,8 @@ import { MilitaryPanel } from './MilitaryPanel';
 import { DiplomacyPanel } from './DiplomacyPanel';
 import { AI_PRIORITIES } from '../game/ai';
 
-const AtlasMap = lazy(() => import('./AtlasMap'));
-
 type PrototypePageProps = {
+  active: boolean;
   state: GameState;
   onSelectCountry: (id: CountryId) => void;
   onAdvanceTurn: (commands: readonly TurnCommand[]) => boolean;
@@ -27,12 +26,10 @@ const sections = [
 ] as const;
 type Section = typeof sections[number]['id'];
 
-export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, turnError, onBack }: PrototypePageProps) {
+export function PrototypePage({ active, state, onSelectCountry, onAdvanceTurn, turnError, onBack }: PrototypePageProps) {
   const [choice, setChoice] = useState('');
   const [showScenario, setShowScenario] = useState(false);
   const [activeSection, setActiveSection] = useState<Section>('world');
-  const [showAtlas, setShowAtlas] = useState(false);
-  const [atlasVisited, setAtlasVisited] = useState(false);
   const [policyChoice, setPolicyChoice] = useState<EconomicPolicy | null>(null);
   const [pendingMilitaryOrders, setPendingMilitaryOrders] = useState<MilitaryCommand[]>([]);
   const [pendingDiplomacy, setPendingDiplomacy] = useState<DiplomaticCommand | null>(null);
@@ -59,8 +56,8 @@ export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, turnError
   }
 
   useEffect(() => {
-    dashboardRef.current?.focus({ preventScroll: true });
-  }, [state.playerCountryId, activeSection]);
+    if (active) dashboardRef.current?.focus({ preventScroll: true });
+  }, [state.playerCountryId, activeSection, active]);
 
   if (!country) return (
     <div className="prototype-content country-setup">
@@ -82,7 +79,7 @@ export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, turnError
         </form>
       </section>
       <RegionMap state={state} />
-      <button type="button" onClick={onBack}>Back to title screen</button>
+      <button type="button" onClick={onBack}>Back to globe</button>
     </div>
   );
 
@@ -114,10 +111,7 @@ export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, turnError
         {/* Mounted, hidden views retain map selection, unfinished forms and staged commands. */}
         <div className="game-workspace" hidden={showScenario}>
           <div id="section-world" className="section-view" hidden={activeSection !== 'world'}>
-            <div className="section-view" hidden={showAtlas}><RegionMap state={state} /></div>
-            {atlasVisited && <div className="section-view" hidden={!showAtlas}><Suspense fallback={<p className="atlas-caption" role="status">Opening world atlas…</p>}>
-              <AtlasMap active={showAtlas && activeSection === 'world' && !showScenario} onBack={() => setShowAtlas(false)} />
-            </Suspense></div>}
+            <RegionMap state={state} />
           </div>
           <div id="section-politics" className="section-view" hidden={activeSection !== 'politics'}>
             <section className="overview" aria-labelledby="politics-title">
@@ -142,12 +136,11 @@ export function PrototypePage({ state, onSelectCountry, onAdvanceTurn, turnError
         <DetailPanel id="scenario-details" title="Scenario information" open={showScenario} onClose={() => setShowScenario(false)}>
           <p>Local single-player prototype · Fictional test world. Temporary statistics and provisional rules, not balanced game values.</p>
           <p>Next week applies all staged diplomacy, runs AI diplomatic decisions, settles budgets and resolves military orders. Invalid orders or insufficient funds reject the whole week without changes.</p>
-          <p>Active state stays in memory through title navigation. Reloading resets it; leaving the prototype discards unapplied drafts. Placeholder standing orders: {state.standingOrders.length}.</p>
+          <p>Your game and drafts stay in memory when you return to the globe. Reloading resets the fictional game. Placeholder standing orders: {state.standingOrders.length}.</p>
           <h3>Country control</h3>
           <ul>{state.countries.map(country => <li key={country.id}>{country.name}: {country.controller === 'player' ? 'Player-controlled (you)' : `AI-controlled — ${AI_PRIORITIES[country.id].label}`}</li>)}</ul>
           <h3>Your regions</h3><ul>{regions.map(region => <li key={region.id}>{region.name}</li>)}</ul>
-          <button type="button" onClick={() => { setAtlasVisited(true); setShowAtlas(true); setActiveSection('world'); setShowScenario(false); }}>Open world atlas</button>
-          <button type="button" onClick={onBack}>Back to title screen</button>
+          <button type="button" onClick={() => { setShowScenario(false); onBack(); }}>Return to globe</button>
         </DetailPanel>
       </div>
 

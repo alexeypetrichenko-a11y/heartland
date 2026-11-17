@@ -1,6 +1,6 @@
 # MAP-01A — Geographic data foundation
 
-This is a separate, unused geographic reference module. The existing fictional three-country/six-region game, map, controls and simulation are unchanged. There is no real-world renderer, selection UI, political ownership mapping, unit positioning or transport simulation here.
+This documents the MAP-01A geographic data foundation, independent of the fictional simulation. The atlas consumes these assets through MAP-01B.1/.2 and the spherical/flat camera in [MAP-01B.3](GLOBE.md). [MAP-01B.4](HOME.md) makes the globe the opening screen; the fictional scenario remains separately playable. No country/region selection, political ownership mapping, unit positioning or transport simulation is added.
 
 ## Sources verified before import
 
@@ -78,7 +78,7 @@ Assets: `public/geography/natural-earth-5.1.1/`. Standard compact GeoJSON uses *
 
 No `.gz` duplicates are shipped and no GitHub Pages compression behavior is assumed: `gzipBytes` is a deterministic local measurement for comparison, not a promised network transfer size. Manifest `dataAssets` totals exclude manifest/inventory metadata and state that scope explicitly.
 
-- Nothing imports or fetches this data in the current application. Its startup geographic transfer is **zero**; existing production JS/CSS hashes are unchanged.
+- Default startup now opens the globe and requests its bounded coarse reference data (493,812 geographic/physical bytes with Terrain on, before compression). The hidden atlas pauses requests/drawing during fictional gameplay; see [entry/loading](HOME.md) and [camera](GLOBE.md). The remaining figures describe the MAP-01A source-data API and asset inventory.
 - A future `loadOverview()` needs only the 1,704-byte manifest and 259,773-byte coarse geometry: **261,477 raw bytes**, without the country catalog or regional data. The optional 2.28 MB medium overview is a separate explicit request.
 - Country metadata, each detailed country outline and regional indexes/chunks are separate requests. Regional chunks target **256 KiB**, grouping whole source features without splitting or flattening multipolygons.
 - Three indivisible source-region features exceed that target and are explicitly listed in `quality.json`: Nunavut (885,091 bytes), Antarctica (486,759), Alaska (457,984). The largest country detail is Canada (1,573,819 bytes). These are requested only as detail, never as an automatic world download.

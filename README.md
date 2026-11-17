@@ -1,10 +1,18 @@
 # Heartland
 
-Offline-first geopolitical strategy game.
+Mobile-first geopolitical strategy prototype.
 
-This initial React, TypeScript and Vite application displays the Heartland title
-and “Geopolitical Strategy Game” subtitle in a responsive layout with iPhone
-safe-area support. Game features are not implemented yet.
+Heartland opens directly on an interactive, north-up 3D Earth. Geographic assets
+load progressively; no country is selected and no fictional game starts automatically.
+Choose **Fictional game** to open the existing three-country scenario, explicitly
+select a country and start playing. **Return to globe** and **Resume game** retain
+the game, drafts and map state in the current page. Reloading opens the globe and
+resets the in-memory fictional game; the Terrain display preference is retained
+when browser storage is available.
+
+Built with React, TypeScript and Vite, with iPhone safe-area support. Offline/PWA
+installation and real-world country selection are future features. See
+[globe entry and iPhone checks](docs/geography/HOME.md) and [implementation status](STATUS.md).
 
 ## Local development
 
@@ -65,8 +73,11 @@ Open http://localhost:4173/heartland/ to check the production build locally.
 ## Structure
 
 - `src/main.tsx`: React entry point and global styles.
-- `src/app/App.tsx`: application composition; future application logic belongs here.
+- `src/app/App.tsx`: globe-first entry and retained fictional-game UI state.
 - `src/ui/`: presentational components and responsive styles.
+- `src/game/`: existing deterministic fictional simulation, unchanged by globe entry.
+- `src/geography/`: independent geographic data and camera/rendering helpers.
 
-There is no gameplay logic at this stage. UI is kept separate from application
-composition so logic can be added without coupling it to presentation.
+The globe and fictional game share navigation, while geographic presentation and
+simulation rules remain separate. Pull-request previews can differ from production
+GitHub Pages until the owner approves a merge.
