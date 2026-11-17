@@ -136,6 +136,18 @@ function resolveCommand(state: EconomyState, input: unknown): Action {
     }
     case 'declare-default':
       return (_s, w) => { w.defaultRequested[c] = 1; };
+    case 'create-money': {
+      // Exceptional money creation (R08, R43): no absolute ceiling, but every unit is recorded,
+      // reduces the central bank's capital and raises the country's risk premium.
+      const amount = numberIn(input.amount, 0, 1e300, 'Amount of money');
+      return (s, w) => {
+        s.country.cbIssued[c] += amount;
+        s.country.cbExceptional[c] += amount;
+        s.country.cbExceptionalRecent[c] += amount;
+        s.country.treasury[c] += amount;
+        w.revenueMoneyCreation[c] += amount;
+      };
+    }
     default:
       throw new Error(`Unknown economy command: ${String(input.type)}.`);
   }

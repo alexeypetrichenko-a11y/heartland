@@ -3,7 +3,8 @@ import type {
   HistoryTier, StepOptions, TradeFlow, TurnReport,
 } from '../types.ts';
 import type { Model, Workspace } from './model.ts';
-import { EPSILON, OWNERSHIP_COUNT, TIER_COUNT } from './model.ts';
+import { EPSILON, firmLoanRate, OWNERSHIP_COUNT, TIER_COUNT } from './model.ts';
+import { bankEquity, firmLoansByBank, lendingCapacity } from './credit.ts';
 
 /**
  * End-of-week bookkeeping: conservation audit, bounded history and the report
@@ -121,6 +122,14 @@ export function captureStart(s: EconomyState, w: Workspace, m: Model): void {
   }
   for (let c = 0; c < C; c++) for (let g = 0; g < G; g++) w.ledgerBefore[g] += s.countryGood.reserves[c * G + g];
   w.moneyBefore = totalMoney(s);
+  w.issuedBefore = totalIssued(s);
+}
+
+/** Money issued and outstanding, summed over all central banks. */
+export function totalIssued(s: EconomyState): number {
+  let total = 0;
+  for (let c = 0; c < s.countries.length; c++) total += s.country.cbIssued[c];
+  return total;
 }
 
 export function totalMoney(s: EconomyState): number {
@@ -136,9 +145,10 @@ export function totalMoney(s: EconomyState): number {
 function nonNegativeArrays(s: EconomyState): number[][] {
   const { zone, zoneGood: zg, country, countryGood, firm, firmGood: fg } = s;
   return [zone.population, zone.technology, zone.infrastructure, zone.mobilized, zone.wage, zone.householdMoney,
-    zone.cpi, zone.unemployment, zone.deprivation, firm.cash, firm.costs, firm.employment, firm.revenue,
+    zone.cpi, zone.unemployment, zone.deprivation, firm.cash, firm.costs, firm.employment, firm.revenue, firm.loan,
+    firm.distress, country.cbReserves, country.cbStateLoans, country.cbExceptional, country.cbRate,
     s.firmLine.capacity, fg.build1, fg.build2, fg.build3, fg.stockShare,
-    zg.stock, zg.inputBuffer, zg.price, zg.buyPrice, zg.refPrice, zg.expectedDemand, zg.yieldFactor, zg.shortage,
+    zg.stock, zg.inputBuffer, zg.price, zg.buyPrice, zg.refPrice, zg.refBuyPrice, zg.expectedDemand, zg.yieldFactor, zg.shortage,
     zg.usage, s.bonds, country.treasury, country.debt, country.stability, country.gdp, country.armsStock,
     countryGood.reserves];
 }
@@ -183,7 +193,10 @@ function audit(s: EconomyState, w: Workspace, m: Model): AuditReport {
   }
 
   const moneyAfter = totalMoney(s);
+  // Money can only be created or withdrawn by central banks, and every such change is in their ledger.
+  w.moneyCreated = totalIssued(s) - w.issuedBefore;
   const moneyError = moneyAfter - w.moneyBefore - w.moneyCreated;
+  const issuedError = Math.abs(moneyAfter - totalIssued(s)) / Math.max(1, moneyAfter);
   // Money in existence is by definition what agents hold: rounding can never accumulate.
   s.world.baseMoney = moneyAfter;
 
@@ -201,13 +214,14 @@ function audit(s: EconomyState, w: Workspace, m: Model): AuditReport {
   for (const values of allNumericArrays(s)) for (let i = 0; i < values.length; i++) if (!Number.isFinite(values[i])) nonFiniteValues++;
   if (!Number.isFinite(s.world.baseMoney) || !Number.isFinite(s.world.interestRate)) nonFiniteValues++;
 
-  return { goods, moneyBefore: w.moneyBefore, moneyCreated: w.moneyCreated, moneyAfter, moneyError, bondError, negativeValues, nonFiniteValues };
+  return { goods, moneyBefore: w.moneyBefore, moneyCreated: w.moneyCreated, moneyAfter, moneyError, bondError, issuedError, negativeValues, nonFiniteValues };
 }
 
 /** Relative size of the largest conservation error in an audit. */
 export function auditError(report: AuditReport): number {
   let worst = Math.abs(report.moneyError) / Math.max(1, report.moneyBefore);
   if (report.bondError > worst) worst = report.bondError;
+  if (report.issuedError > worst) worst = report.issuedError;
   for (const ledger of report.goods) {
     const error = Math.abs(ledger.error) / Math.max(1, ledger.before + ledger.produced);
     if (error > worst) worst = error;
@@ -283,9 +297,9 @@ export function finishTurn(s: EconomyState, w: Workspace, m: Model, options: Ste
     const gdp = w.countryNominal[c];
     const smoothed = country.gdp[c];
     const revenue = w.revenueIncomeTax[c] + w.revenueConsumptionTax[c] + w.revenueCorporateTax[c] + w.revenueTariffs[c]
-      + w.revenueSeigniorage[c] + w.revenueReserveSales[c] + w.revenueFunds[c] + w.revenueFirmDividends[c];
+      + w.revenueCentralBank[c] + w.revenueMoneyCreation[c] + w.revenueReserveSales[c] + w.revenueFunds[c] + w.revenueFirmDividends[c];
     const spending = w.spentAdministration[c] + w.spentSocial[c] + w.spentMilitary[c] + w.spentInfrastructure[c]
-      + w.spentReserves[c] + w.spentInterest[c] + w.spentFunds[c] + w.spentFirmSupport[c];
+      + w.spentReserves[c] + w.spentReserveStorage[c] + w.spentInterest[c] + w.spentFunds[c] + w.spentFirmSupport[c];
     w.reportRevenue[c] = revenue;
     w.reportSpending[c] = spending;
     const base = c * COUNTRY_METRICS;
@@ -294,13 +308,13 @@ export function finishTurn(s: EconomyState, w: Workspace, m: Model, options: Ste
     row[base + 2] = cpi[c];
     row[base + 3] = w.countryInflation[c];
     row[base + 4] = w.countryUnemployment[c];
-    row[base + 5] = smoothed > EPSILON ? country.debt[c] / (52 * smoothed) : 0;
+    row[base + 5] = smoothed > EPSILON ? (country.debt[c] + country.cbStateLoans[c]) / (52 * smoothed) : 0;
     row[base + 6] = gdp > EPSILON ? (revenue - spending) / gdp : 0;
     row[base + 7] = country.stability[c];
     row[base + 8] = gdp > EPSILON ? (w.countryExports[c] - w.countryImports[c]) / gdp : 0;
     row[base + 9] = consumption[c];
     worldNominal += gdp;
-    worldDebt += country.debt[c];
+    worldDebt += country.debt[c] + country.cbStateLoans[c];
     worldPopulation += w.population[c];
   }
   const goodBase = C * COUNTRY_METRICS;
@@ -340,6 +354,13 @@ export function finishTurn(s: EconomyState, w: Workspace, m: Model, options: Ste
       output[c * G + g] += w.output[z * G + g];
     }
   }
+  const bankFirmLoans = new Float64Array(C);
+  firmLoansByBank(s, bankFirmLoans);
+  const firmDebt = new Float64Array(C);
+  const aggregatesPerZone = s.config.sectors.length * OWNERSHIP_COUNT;
+  for (let z = 0; z < Z; z++) {
+    for (let k = 0; k < aggregatesPerZone; k++) firmDebt[s.zone.owner[z]] += s.firm.loan[z * aggregatesPerZone + k];
+  }
   const countries: CountryReport[] = [];
   for (let c = 0; c < C; c++) {
     const slice = (source: ArrayLike<number>) => {
@@ -355,12 +376,13 @@ export function finishTurn(s: EconomyState, w: Workspace, m: Model, options: Ste
     }
     const budget: BudgetReport = {
       incomeTax: w.revenueIncomeTax[c], consumptionTax: w.revenueConsumptionTax[c], corporateTax: w.revenueCorporateTax[c],
-      tariffs: w.revenueTariffs[c], seigniorage: w.revenueSeigniorage[c], reserveSales: w.revenueReserveSales[c],
+      tariffs: w.revenueTariffs[c], centralBankProfit: w.revenueCentralBank[c], moneyCreation: w.revenueMoneyCreation[c],
+      reserveSales: w.revenueReserveSales[c],
       fundsReceived: w.revenueFunds[c], firmDividends: w.revenueFirmDividends[c], revenue: w.reportRevenue[c],
       administration: w.spentAdministration[c], social: w.spentSocial[c], military: w.spentMilitary[c],
-      infrastructure: w.spentInfrastructure[c], reservePurchases: w.spentReserves[c], interest: w.spentInterest[c],
+      infrastructure: w.spentInfrastructure[c], reservePurchases: w.spentReserves[c] + w.spentReserveStorage[c], interest: w.spentInterest[c],
       fundsSent: w.spentFunds[c], firmSupport: w.spentFirmSupport[c], spending: w.reportSpending[c], balance: w.reportRevenue[c] - w.reportSpending[c],
-      borrowed: w.borrowed[c], repaid: w.repaid[c], fundedShare: w.fundedShare[c],
+      borrowed: w.borrowed[c], borrowedFromCentralBank: w.cbLentState[c], repaid: w.repaid[c], fundedShare: w.fundedShare[c],
     };
     countries.push({
       countryId: s.countries[c].id,
@@ -379,8 +401,8 @@ export function finishTurn(s: EconomyState, w: Workspace, m: Model, options: Ste
       tradeBalance: w.countryExports[c] - w.countryImports[c],
       budget,
       treasury: country.treasury[c],
-      debt: country.debt[c],
-      debtToGdp: country.gdp[c] > EPSILON ? country.debt[c] / (52 * country.gdp[c]) : 0,
+      debt: country.debt[c] + country.cbStateLoans[c],
+      debtToGdp: country.gdp[c] > EPSILON ? (country.debt[c] + country.cbStateLoans[c]) / (52 * country.gdp[c]) : 0,
       marketRate: country.marketRate[c],
       averageRate: country.averageRate[c],
       marketAccess: country.marketAccess[c] === 1,
@@ -397,6 +419,14 @@ export function finishTurn(s: EconomyState, w: Workspace, m: Model, options: Ste
       armsStock: country.armsStock[c],
       capacity: slice(capacity),
       output: slice(output),
+      centralBank: {
+        policyRate: country.cbRate[c], firmLoanRate: firmLoanRate(s, c), reserves: country.cbReserves[c],
+        loansToState: country.cbStateLoans[c], loansToFirms: bankFirmLoans[c], moneyIssued: country.cbIssued[c],
+        equity: bankEquity(s, c, bankFirmLoans[c]), lendingCapacity: lendingCapacity(s, c, bankFirmLoans[c]),
+        exceptionalMoney: country.cbExceptional[c],
+      },
+      firmDebt: firmDebt[c],
+      bankruptcies: w.bankruptcies[c],
     });
   }
   const goods: GoodReport[] = [];

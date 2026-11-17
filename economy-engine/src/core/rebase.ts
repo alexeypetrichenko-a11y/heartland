@@ -28,10 +28,15 @@ function scale(values: number[], factor: number): void {
 export function rescaleMoney(state: EconomyState, factor: number): void {
   const zone = state.zone;
   for (const values of [zone.householdMoney, zone.expectedIncome, zone.wage, zone.cpi]) scale(values, factor);
-  for (const values of [state.firm.cash, state.firm.costs, state.firm.revenue]) scale(values, factor);
+  for (const values of [state.firm.cash, state.firm.costs, state.firm.revenue, state.firm.loan]) scale(values, factor);
+  const country = state.country;
+  for (const values of [country.cbReserves, country.cbIssued, country.cbStateLoans, country.cbExceptional, country.cbExceptionalRecent]) {
+    scale(values, factor);
+  }
   scale(state.zoneGood.price, factor);
   scale(state.zoneGood.buyPrice, factor);
   scale(state.zoneGood.refPrice, factor);
+  scale(state.zoneGood.refBuyPrice, factor);
   scale(state.country.treasury, factor);
   scale(state.country.debt, factor);
   scale(state.country.gdp, factor);

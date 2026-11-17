@@ -165,7 +165,7 @@ const OWNER_GOOD_FIELDS = ['ownerBuild', 'saleShare'] as const;
 const LINE_FIELDS = ['linePlan', 'lineSpare'] as const;
 /** Per firm aggregate (zone, sector, ownership). */
 const AGGREGATE_FIELDS = ['aggRevenue', 'aggPurchases', 'aggWageReserve', 'aggEmployment', 'aggOutlay', 'aggInputCost',
-  'aggInvestCost', 'aggCall'] as const;
+  'aggInvestCost', 'aggCall', 'aggCapitalValue', 'aggInterest', 'aggProfit'] as const;
 /** Per firm aggregate and good. */
 const AGGREGATE_GOOD_FIELDS = ['aggDemandInput', 'aggDemandInvestment', 'aggGotInvestment'] as const;
 const ZONE_FIELDS = ['productivity', 'laborSupply', 'laborScale', 'employment', 'householdBudget',
@@ -176,8 +176,10 @@ const ZONE_FIELDS = ['productivity', 'laborSupply', 'laborScale', 'employment', 
 const COUNTRY_FIELDS = ['population', 'planAdministration', 'planSocial', 'planMilitaryPay', 'planMilitaryGoods',
   'planInfrastructure', 'planExtras', 'planTotal', 'cashTarget', 'interestDue', 'principalDue', 'fundedShare', 'creditRequest',
   'borrowed', 'repaid', 'revenueIncomeTax', 'revenueConsumptionTax', 'revenueCorporateTax', 'revenueTariffs',
-  'revenueSeigniorage', 'revenueReserveSales', 'revenueFunds', 'spentAdministration', 'spentSocial', 'spentMilitary',
-  'spentInfrastructure', 'spentReserves', 'spentInterest', 'spentFunds', 'revenueFirmDividends', 'spentFirmSupport', 'infrastructureReal', 'missedPayment',
+  'revenueCentralBank', 'revenueMoneyCreation', 'revenueReserveSales', 'revenueFunds', 'spentAdministration', 'spentSocial', 'spentMilitary',
+  'spentInfrastructure', 'spentReserves', 'spentInterest', 'spentFunds', 'revenueFirmDividends', 'spentFirmSupport',
+  'spentReserveStorage', 'reserveFunded', 'cbIssuedStart', 'domesticMoney', 'cbLentState', 'cbInterestIncome', 'cbWriteOffs', 'cbFirmLoans', 'cbCapacityLeft', 'bankruptcies',
+  'firmLoanRate', 'infrastructureReal', 'missedPayment',
   'extraRepayment', 'defaultRequested', 'countryNominal', 'countryReal', 'countryExports', 'countryImports',
   'countryScratch', 'countryInflation', 'countryUnemployment', 'countryDeprivation', 'countryHouseholdShortage',
   'countryLiving', 'reportCpi', 'reportWage', 'reportConsumption', 'reportArms', 'reportRevenue',
@@ -210,6 +212,8 @@ export type Workspace = Record<FloatFields, Float64Array> & {
   historyRow: Float64Array;
   moneyCreated: number;
   moneyBefore: number;
+  /** Money issued by all central banks at the start of the week. */
+  issuedBefore: number;
   creditRequested: number;
   creditAvailable: number;
   tradeLog: number[] | null;
@@ -243,7 +247,7 @@ function allocate(Z: number, C: number, G: number, S: number, rowSize: number): 
     tariff: new Float64Array(C * C * G),
     hasSupplier: new Uint8Array(Z),
     historyRow: new Float64Array(rowSize),
-    moneyCreated: 0, moneyBefore: 0, creditRequested: 0, creditAvailable: 0, tradeLog: null, calibrating: false,
+    moneyCreated: 0, moneyBefore: 0, issuedBefore: 0, creditRequested: 0, creditAvailable: 0, tradeLog: null, calibrating: false,
   };
   arrays.push(extra.governmentCategoryShare, extra.blocked, extra.tariff, extra.hasSupplier, extra.historyRow);
   workspaceArrays = arrays;
@@ -264,6 +268,7 @@ export function getWorkspace(state: EconomyState): Workspace {
   }
   for (let i = 0; i < workspaceArrays.length; i++) workspaceArrays[i].fill(0);
   workspace.moneyCreated = 0;
+  workspace.issuedBefore = 0;
   workspace.moneyBefore = 0;
   workspace.creditRequested = 0;
   workspace.creditAvailable = 0;
@@ -289,8 +294,14 @@ export function capitalCharge(m: Model, good: number, capitalPrice: number, hurd
  */
 export function privateHurdle(s: EconomyState, c: number): number {
   const p = s.config.params;
+  // Firms borrow at their national central bank's rate; part of the state's own risk premium reaches them too.
   const sovereignPremium = Math.max(0, s.country.marketRate[c] - s.world.interestRate);
-  return Math.min(p.maxHurdle, s.world.interestRate + p.sovereignPassThrough * sovereignPremium + p.equityPremium);
+  return Math.min(p.maxHurdle, s.country.cbRate[c] + p.sovereignPassThrough * sovereignPremium + p.equityPremium);
+}
+
+/** Interest rate firms in country c pay on bank loans. */
+export function firmLoanRate(s: EconomyState, c: number): number {
+  return s.country.cbRate[c] + s.config.params.firmLoanSpread;
 }
 
 export function clamp(value: number, low: number, high: number): number {

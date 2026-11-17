@@ -71,7 +71,7 @@ export function autopilotCommands(
     if (countryIds && !countryIds.includes(countryId)) continue;
     const gdp = country.gdp[c];
     if (!(gdp > 0)) continue;
-    const debtRatio = country.debt[c] / (52 * gdp);
+    const debtRatio = (country.debt[c] + country.cbStateLoans[c]) / (52 * gdp);
     const deficit = country.deficit[c];
     const shutOut = country.marketAccess[c] !== 1;
     const tax = country.taxIncome[c];

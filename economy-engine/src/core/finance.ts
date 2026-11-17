@@ -1,6 +1,7 @@
 import type { EconomyEvent, EconomyState } from '../types.ts';
 import type { Model, Workspace } from './model.ts';
 import { clamp, EPSILON } from './model.ts';
+import { bankLend, bankReceive, settleBanks } from './credit.ts';
 
 /**
  * Public finances: budgets, borrowing, debt service, default and the world
@@ -8,9 +9,16 @@ import { clamp, EPSILON } from './model.ts';
  *
  * Money is conserved. Governments borrow existing money from households (at
  * home and abroad) and the engine records who holds whose debt, so interest,
- * repayment and default losses reach exactly the right holders. The only
- * source of new money is the rule-based world monetary authority.
+ * repayment and default losses reach exactly the right holders. When the bond
+ * market cannot supply enough, a solvent state may borrow from its own central
+ * bank, which is the only source of new money besides the bank's lending to
+ * firms and exceptional creation by explicit command (see credit.ts).
  */
+
+/** Public debt of country c: bonds held by households plus loans from its central bank. */
+export function publicDebt(s: EconomyState, c: number): number {
+  return s.country.debt[c] + s.country.cbStateLoans[c];
+}
 
 /** Pay `amount` from a treasury to the holders of that country's debt. */
 function payHolders(s: EconomyState, w: Workspace, c: number, amount: number, isIncome: boolean): void {
@@ -65,7 +73,9 @@ function summariseCountries(s: EconomyState, w: Workspace, m: Model): void {
     for (let g = 0; g < G; g++) {
       const index = z * G + g;
       w.countryPrice[c * G + g] += weight * s.zoneGood.buyPrice[index];
-      w.countryRefPrice[c * G + g] += weight * s.zoneGood.refPrice[index];
+      // Reserves are judged against what buyers normally pay, freight and tariffs included,
+      // so an importer is not mistaken for a country in permanent scarcity.
+      w.countryRefPrice[c * G + g] += weight * s.zoneGood.refBuyPrice[index];
       w.countryShortage[c * G + g] += weight * s.zoneGood.shortage[index];
       w.countryUse[c * G + g] += s.zoneGood.usage[index];
     }
@@ -76,7 +86,38 @@ function summariseCountries(s: EconomyState, w: Workspace, m: Model): void {
 function planReserves(s: EconomyState, w: Workspace, m: Model): void {
   const p = s.config.params;
   const C = s.countries.length;
+  const Z = s.zones.length;
   const G = m.goodCount;
+  // Stored reserves age (more slowly than producers' stock) and storage costs
+  // real money, paid to the warehouse workers of the country (R13).
+  for (let c = 0; c < C; c++) {
+    let value = 0;
+    for (let g = 0; g < G; g++) {
+      const index = c * G + g;
+      const held = s.countryGood.reserves[index];
+      if (!(held > 0)) continue;
+      const lost = held * m.spoilage[g] * p.reserveSpoilageShare;
+      s.countryGood.reserves[index] = held - lost;
+      w.ledgerSpoiled[g] += lost;
+      value += (held - lost) * w.countryRefPrice[index];
+    }
+    const cost = Math.min(value * p.reserveStorageCost, Math.max(0, s.country.treasury[c]));
+    if (!(cost > 0) || !(w.population[c] > 0)) continue;
+    s.country.treasury[c] -= cost;
+    w.spentReserveStorage[c] += cost;
+    let paid = 0;
+    let last = -1;
+    for (let z = 0; z < Z; z++) {
+      if (s.zone.owner[z] !== c) continue;
+      const part = cost * s.zone.population[z] / w.population[c];
+      s.zone.householdMoney[z] += part;
+      w.householdIncome[z] += part;
+      paid += part;
+      last = z;
+    }
+    // Rounding remainder goes to the last zone so no money is lost.
+    if (last >= 0) { s.zone.householdMoney[last] += cost - paid; w.householdIncome[last] += cost - paid; }
+  }
   for (let c = 0; c < C; c++) {
     for (let g = 0; g < G; g++) {
       const index = c * G + g;
@@ -129,17 +170,21 @@ export function planBudgets(s: EconomyState, w: Workspace, m: Model, events: Eco
     w.planMilitaryGoods[c] = military - w.planMilitaryPay[c];
     w.planInfrastructure[c] = country.spendInfrastructure[c] * base;
     let extras = 0;
+    let reserves = 0;
     for (let g = 0; g < G; g++) {
-      extras += (w.procurement[c * G + g] + w.reserveBuy[c * G + g]) * w.countryPrice[c * G + g];
+      extras += w.procurement[c * G + g] * w.countryPrice[c * G + g];
+      reserves += w.reserveBuy[c * G + g] * w.countryPrice[c * G + g];
     }
-    w.planExtras[c] = extras;
+    w.planExtras[c] = reserves;
+    // Core spending: the four budgets and military procurement. Reserve purchases are paid
+    // only from what is left, so filling stores can never starve schools and hospitals.
     const planned = w.planAdministration[c] + w.planSocial[c] + military + w.planInfrastructure[c] + extras;
     w.planTotal[c] = planned;
     const excluded = country.exclusionWeeks[c] > 0;
-    w.interestDue[c] = country.debt[c] * country.averageRate[c] / 52;
+    w.interestDue[c] = country.debt[c] * country.averageRate[c] / 52 + country.cbStateLoans[c] * country.cbRate[c] / 52;
     w.principalDue[c] = country.marketAccess[c] === 1 || excluded ? 0 : country.debt[c] / p.debtMaturityWeeks;
     // Cash wanted at the start of a week: this week's bills plus a buffer.
-    w.cashTarget[c] = planned * (1 + p.treasuryBufferWeeks);
+    w.cashTarget[c] = (planned + reserves) * (1 + p.treasuryBufferWeeks);
     const need = w.interestDue[c] + w.principalDue[c] + w.cashTarget[c] - country.treasury[c];
     w.creditRequest[c] = country.marketAccess[c] === 1 && country.autoBorrow[c] === 1 && need > 0 ? need : 0;
     w.creditRequested += w.creditRequest[c];
@@ -185,25 +230,57 @@ export function planBudgets(s: EconomyState, w: Workspace, m: Model, events: Eco
     // Lenders hand over the cash only after all requests were computed from the same balances.
     for (let z = 0; z < Z; z++) s.zone.householdMoney[z] = Math.max(0, s.zone.householdMoney[z] - w.lendGiven[z]);
   }
+  // What the bond market could not supply, a solvent state may borrow from its
+  // own central bank, which serves the state before firms (R07) but only within
+  // its lending capacity (R61).
+  for (let c = 0; c < C; c++) {
+    const shortfall = w.creditRequest[c] - w.borrowed[c];
+    if (!(shortfall > 1e-12 * w.creditRequest[c]) || w.calibrating) continue;
+    const granted = bankLend(s, w, c, shortfall);
+    if (!(granted > 0)) continue;
+    country.cbStateLoans[c] += granted;
+    country.treasury[c] += granted;
+    w.borrowed[c] += granted;
+    w.cbLentState[c] += granted;
+  }
 
   // 3. Debt service, then spending with whatever cash is left.
   for (let c = 0; c < C; c++) {
     let missed = false;
     const interestDue = w.interestDue[c];
     if (interestDue > 0) {
-      const paid = Math.min(interestDue, country.treasury[c]);
-      payHolders(s, w, c, paid, true);
+      // Bondholders and the central bank are paid in the same proportion.
+      const paid = Math.min(interestDue, Math.max(0, country.treasury[c]));
+      const bankDue = country.cbStateLoans[c] * country.cbRate[c] / 52;
+      const bankPaid = interestDue > 0 ? paid * bankDue / interestDue : 0;
+      payHolders(s, w, c, paid - bankPaid, true);
+      country.treasury[c] -= bankPaid;
+      bankReceive(s, c, bankPaid);
+      w.cbInterestIncome[c] += bankPaid;
       w.spentInterest[c] += paid;
       const unpaid = interestDue - paid;
       if (unpaid > interestDue * 1e-9) {
         missed = true;
         // Unpaid interest is added to what the country owes.
-        scaleDebt(s, c, (country.debt[c] + unpaid) / country.debt[c]);
+        const unpaidBank = bankDue - bankPaid;
+        if (country.debt[c] > EPSILON) scaleDebt(s, c, (country.debt[c] + unpaid - unpaidBank) / country.debt[c]);
+        country.cbStateLoans[c] += unpaidBank;
       }
     }
     if (w.principalDue[c] > 0) {
       const paid = repay(s, w, c, w.principalDue[c]);
       if (paid < w.principalDue[c] * (1 - 1e-9)) missed = true;
+    }
+    // Central-bank loans to the state roll over like bonds while the state can borrow;
+    // a state that has lost market access must repay them in instalments.
+    const instalment = w.calibrating || country.marketAccess[c] === 1 ? 0 : country.cbStateLoans[c] / p.cbStateLoanWeeks;
+    if (instalment > 0) {
+      const paid = Math.min(instalment, Math.max(0, country.treasury[c]));
+      country.treasury[c] -= paid;
+      country.cbStateLoans[c] -= paid;
+      bankReceive(s, c, paid);
+      w.repaid[c] += paid;
+      if (paid < instalment * (1 - 1e-9)) missed = true;
     }
     if (w.extraRepayment[c] > 0) repay(s, w, c, w.extraRepayment[c]);
     if (missed) {
@@ -221,6 +298,9 @@ export function planBudgets(s: EconomyState, w: Workspace, m: Model, events: Eco
     w.planMilitaryPay[c] *= funded;
     w.planMilitaryGoods[c] *= funded;
     w.planInfrastructure[c] *= funded;
+    // Reserves are bought only with cash beyond this week's core spending.
+    const spare = country.treasury[c] - planned * funded;
+    w.reserveFunded[c] = w.planExtras[c] > 0 ? clamp(spare / w.planExtras[c], 0, 1) : 0;
   }
 
   // 4. Cash transfers to households and orders for goods, zone by zone.
@@ -252,22 +332,26 @@ export function planBudgets(s: EconomyState, w: Workspace, m: Model, events: Eco
         w.governmentCategoryShare[base + 1] += military;
         w.governmentCategoryShare[base + 2] += infrastructure;
       }
-      const reserve = w.reserveBuy[c * G + g] * funded * share;
+      const reserve = w.reserveBuy[c * G + g] * w.reserveFunded[c] * share;
       if (reserve > 0) w.demandReserve[z * G + g] = reserve;
     }
   }
 }
 
 /** Write off part of a country's debt and apply the consequences. */
-function applyDefault(s: EconomyState, m: Model, c: number, forced: boolean, events: EconomyEvent[]): void {
+function applyDefault(s: EconomyState, w: Workspace, m: Model, c: number, forced: boolean, events: EconomyEvent[]): void {
   const p = s.config.params;
   const country = s.country;
   const Z = s.zones.length;
   const G = m.goodCount;
   const before = country.debt[c];
-  if (!(before > EPSILON)) return;
+  if (!(before + country.cbStateLoans[c] > EPSILON)) return;
   scaleDebt(s, c, 1 - p.defaultHaircut);
-  const writtenOff = before - country.debt[c];
+  // The central bank's loans to the defaulting state lose the same share: a loss of its capital.
+  const bankLoss = country.cbStateLoans[c] * p.defaultHaircut;
+  country.cbStateLoans[c] -= bankLoss;
+  w.cbWriteOffs[c] += bankLoss;
+  const writtenOff = before - country.debt[c] + bankLoss;
   country.averageRate[c] = Math.min(country.averageRate[c], p.restructuredRate);
   // Repeat offenders stay locked out of credit markets for longer.
   country.exclusionWeeks[c] = Math.round(p.defaultExclusionWeeks * (1 + 0.5 * country.defaults[c]));
@@ -327,59 +411,45 @@ export function settleFinances(s: EconomyState, w: Workspace, m: Model, events: 
   const tightness = Math.min(0.95, s.world.creditUtilization);
   s.world.interestRate = p.baseRate + p.worldRateSlope * tightness / (1 - tightness);
 
-  // Monetary authority: money grows with real output, leaning against
-  // inflation and against world-wide unemployment.
-  let idle = 0;
-  let workforce = 0;
-  for (let z = 0; z < Z; z++) {
-    idle += s.zone.unemployment[z] * w.laborSupply[z];
-    workforce += w.laborSupply[z];
-  }
-  const slack = workforce > EPSILON ? idle / workforce - p.naturalUnemployment : 0;
-  // Fighting unemployment with new money stops once inflation is at twice its target.
-  const target = p.inflationTarget / 52;
-  const room = target > EPSILON ? clamp((2 * target - s.world.inflation) / target, 0, 1) : (s.world.inflation <= 0 ? 1 : 0);
-  // Trend: enough new money for real growth at the target inflation rate.
-  const moneyGrowth = clamp(
-    target + s.world.realGrowth + p.moneyRuleGain * (target - s.world.inflation) + p.moneyRuleSlackGain * slack * room,
-    0, p.moneyGrowthMaxWeekly);
-  const created = moneyGrowth * s.world.baseMoney;
-  let gdpTotal = 0;
-  for (let c = 0; c < C; c++) gdpTotal += country.gdp[c];
-  if (created > 0 && gdpTotal > EPSILON && !w.calibrating) {
-    for (let c = 0; c < C; c++) {
-      const part = created * country.gdp[c] / gdpTotal;
-      country.treasury[c] += part;
-      w.revenueSeigniorage[c] += part;
-    }
-    s.world.baseMoney += created;
-    w.moneyCreated += created;
-  }
+  // No automatic money creation (R08): central banks only lend within their
+  // capacity, collect interest and pay their profit to the treasury.
+  settleBanks(s, w, events);
 
   for (let c = 0; c < C; c++) {
     // Cash clearly above the target pays down debt.
-    if (country.debt[c] > EPSILON && country.treasury[c] > w.cashTarget[c] * 1.1) {
+    if (country.debt[c] > EPSILON && country.treasury[c] > w.cashTarget[c] * 1.1 && !w.calibrating) {
       repay(s, w, c, (country.treasury[c] - w.cashTarget[c]) * p.surplusRepayShare);
+    }
+    // Cash still well above the target repays the central bank, so money cannot pile up idle in a treasury.
+    if (country.cbStateLoans[c] > 0 && country.treasury[c] > w.cashTarget[c] * 1.1 && !w.calibrating) {
+      const paid = Math.min(country.cbStateLoans[c], (country.treasury[c] - w.cashTarget[c]) * p.surplusRepayShare);
+      country.treasury[c] -= paid;
+      country.cbStateLoans[c] -= paid;
+      bankReceive(s, c, paid);
+      w.repaid[c] += paid;
     }
     country.gdp[c] += p.gdpSmoothing * (w.countryNominal[c] - country.gdp[c]);
     country.realGdp[c] = w.countryReal[c];
     const revenue = w.revenueIncomeTax[c] + w.revenueConsumptionTax[c] + w.revenueCorporateTax[c] + w.revenueTariffs[c]
-      + w.revenueSeigniorage[c] + w.revenueReserveSales[c] + w.revenueFunds[c] + w.revenueFirmDividends[c];
+      + w.revenueCentralBank[c] + w.revenueMoneyCreation[c] + w.revenueReserveSales[c] + w.revenueFunds[c] + w.revenueFirmDividends[c];
     const spending = w.spentAdministration[c] + w.spentSocial[c] + w.spentMilitary[c] + w.spentInfrastructure[c]
-      + w.spentReserves[c] + w.spentInterest[c] + w.spentFunds[c] + w.spentFirmSupport[c];
+      + w.spentReserves[c] + w.spentReserveStorage[c] + w.spentInterest[c] + w.spentFunds[c] + w.spentFirmSupport[c];
     const deficit = country.gdp[c] > EPSILON ? (spending - revenue) / country.gdp[c] : 0;
     country.deficit[c] += 0.1 * (clamp(deficit, -1, 1) - country.deficit[c]);
 
-    if (w.defaultRequested[c] === 1) applyDefault(s, m, c, false, events);
-    else if (country.missedPayments[c] >= p.missedPaymentsToDefault) applyDefault(s, m, c, true, events);
+    if (w.defaultRequested[c] === 1) applyDefault(s, w, m, c, false, events);
+    else if (country.missedPayments[c] >= p.missedPaymentsToDefault) applyDefault(s, w, m, c, true, events);
 
     // Sovereign risk premium.
     const yearly = 52 * country.gdp[c];
-    const ratio = yearly > EPSILON ? country.debt[c] / yearly : (country.debt[c] > EPSILON ? 10 : 0);
+    const debt = publicDebt(s, c);
+    const ratio = yearly > EPSILON ? debt / yearly : (debt > EPSILON ? 10 : 0);
     const over = Math.max(0, ratio - p.spreadQuadThreshold);
     const spread = p.spreadLinear * Math.max(0, ratio - p.spreadDebtThreshold) + p.spreadQuad * over * over
       + p.spreadDeficit * Math.max(0, country.deficit[c] - 0.03) + country.reputationSpread[c]
-      + p.spreadInstability * Math.max(0, (50 - country.stability[c]) / 50);
+      + p.spreadInstability * Math.max(0, (50 - country.stability[c]) / 50)
+      // Lenders fear repayment in money printed for the purpose (R43).
+      + (yearly > EPSILON ? p.exceptionalMoneySpread * country.cbExceptionalRecent[c] / yearly : 0);
     const rate = Math.min(p.maxRate, s.world.interestRate + spread);
     country.marketRate[c] += 0.25 * (rate - country.marketRate[c]);
     country.reputationSpread[c] *= 1 - 1 / p.reputationDecayWeeks;

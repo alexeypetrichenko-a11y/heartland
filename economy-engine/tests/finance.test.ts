@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import type { EconomyEvent } from '../src/index.ts';
 import { advanceEconomyInPlace, createEconomy, createTestWorldSpec, getCountry, hashEconomy } from '../src/index.ts';
-import { advance, at, commands, effects, idx, once, world } from './helpers.ts';
+import { advance, at, commands, effects, idx, once, setTreasury, world } from './helpers.ts';
 
 const C = (state: ReturnType<typeof world>) => state.countries.length;
 
@@ -58,7 +58,7 @@ test('repeat defaults lock a country out for longer; a country regains access af
 test('a government with borrowing disabled and an empty treasury cuts spending instead of going negative', () => {
   const state = world();
   const c = idx(state, 'verdania');
-  state.country.treasury[c] = 0;
+  setTreasury(state, c, 0);
   let worstFunded = 1;
   advance(state, 30, at(1, commands({ type: 'set-borrowing', countryId: 'verdania', enabled: false })), report => {
     worstFunded = Math.min(worstFunded, report.countries[c].budget.fundedShare);
@@ -71,7 +71,7 @@ test('repaying debt moves money from the treasury to the creditors and reduces d
   const state = world();
   const n = idx(state, 'norland');
   advance(state, 3);
-  state.country.treasury[n] += 1000; // enough cash to repay in full
+  setTreasury(state, n, state.country.treasury[n] + 1000); // enough cash to repay in full
   const debt = state.country.debt[n];
   let creditorsBefore = 0;
   for (let z = 0; z < state.zones.length; z++) creditorsBefore += state.zone.householdMoney[z];
@@ -81,7 +81,7 @@ test('repaying debt moves money from the treasury to the creditors and reduces d
   assert.ok(debt - state.country.debt[n] >= 300 - 1e-6, `debt ${debt} → ${state.country.debt[n]}`);
   assert.ok(creditorsBefore > 0 && Math.abs(report.audit.moneyError) < 1e-6 * report.audit.moneyBefore, 'money is moved, not created');
   // With an empty treasury the same command repays only what is available.
-  state.country.treasury[n] = 5;
+  setTreasury(state, n, 5);
   const small = once(state, commands({ type: 'repay-debt', countryId: 'norland', amount: 5000 }));
   assert.ok(small.countries[n].budget.repaid <= 5 + small.countries[n].budget.borrowed + 1e-6);
 });
@@ -95,14 +95,17 @@ test('higher debt means a higher borrowing rate (risk premium rises with the deb
   assert.ok(b.country.marketRate[t] > a.country.marketRate[t] + 0.01, `${b.country.marketRate[t]} vs ${a.country.marketRate[t]}`);
 });
 
-test('money is created only by the monetary rule, within its weekly cap, and never destroyed by rounding', () => {
+test('money changes only through central-bank operations and is never lost to rounding (C1 fixed)', () => {
   const state = world();
-  const cap = state.config.params.moneyGrowthMaxWeekly;
   for (let w = 0; w < 200; w++) {
     const report = once(state);
-    assert.ok(report.audit.moneyCreated >= 0);
-    assert.ok(report.audit.moneyCreated <= cap * report.audit.moneyBefore * 1.0001, 'weekly money growth is capped');
+    // Every change in money in circulation is a change in money issued by central banks.
     assert.ok(Math.abs(report.audit.moneyError) < 1e-9 * report.audit.moneyAfter);
+    assert.ok(report.audit.issuedError < 1e-9, `issued error ${report.audit.issuedError}`);
+    for (const country of report.countries) {
+      assert.equal(country.budget.moneyCreation, 0, 'no exceptional money without a command');
+      assert.equal(country.centralBank.exceptionalMoney, 0);
+    }
   }
 });
 
@@ -112,8 +115,8 @@ test('the weekly budget report is internally consistent', () => {
   const report = once(state);
   for (const country of report.countries) {
     const b = country.budget;
-    const revenue = b.incomeTax + b.consumptionTax + b.corporateTax + b.tariffs + b.seigniorage + b.reserveSales + b.fundsReceived;
-    const spending = b.administration + b.social + b.military + b.infrastructure + b.reservePurchases + b.interest + b.fundsSent;
+    const revenue = b.incomeTax + b.consumptionTax + b.corporateTax + b.tariffs + b.centralBankProfit + b.moneyCreation + b.reserveSales + b.fundsReceived + b.firmDividends;
+    const spending = b.administration + b.social + b.military + b.infrastructure + b.reservePurchases + b.interest + b.fundsSent + b.firmSupport;
     assert.ok(Math.abs(revenue - b.revenue) < 1e-9 * Math.max(1, revenue));
     assert.ok(Math.abs(spending - b.spending) < 1e-9 * Math.max(1, spending));
     assert.ok(Math.abs(b.balance - (b.revenue - b.spending)) < 1e-9 * Math.max(1, revenue));

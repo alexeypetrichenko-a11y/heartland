@@ -440,14 +440,76 @@ export const DEFAULT_PARAMS: EconomyParams = {
   reserveBuyPriceRatio: 1.15,
   reserveReleasePriceRatio: 1.3,
   reserveReleaseShortage: 0.03,
+  /** Weekly cost of storing strategic reserves, as a share of their value (R13: real storage costs). */
+  reserveStorageCost: 0.002,
+  /** Weekly loss of stored reserves relative to the good's normal spoilage (managed storage loses less). */
+  reserveSpoilageShare: 0.5,
 
-  // --- Monetary authority (world level, not player controlled) --------------
+  // --- Central banks (R07-R09, R61; every value provisional) -----------------
+  /** Inflation the automatic policy rate aims at. */
   inflationTarget: 0.02,
-  moneyRuleGain: 0.5,
-  /** Extra weekly money growth per unit of world unemployment above the natural rate. */
-  moneyRuleSlackGain: 0.01,
-  moneyGrowthMaxWeekly: 0.0012,
   growthSmoothing: 0.02,
+  /** Capital a central bank must hold per unit of loans: lending capacity = capital / ratio (R61). */
+  cbCapitalRatio: 0.10,
+  /** Room to lend beyond the starting loans, as a share of yearly GDP. */
+  cbStartingHeadroom: 0.10,
+  /** Share of each week's profit paid to the treasury; the rest builds capital. */
+  cbProfitPayout: 0.75,
+  /**
+   * Weekly pull of the policy rate towards its rule value. The rule is deliberately gentle:
+   * the policy rate also sets firms' cost of capital, so a sharp rate response cuts investment
+   * and capacity, which raises prices further (tested: a standard 1.5 / 0.5 rule produced
+   * 15% swings in inflation and 35% unemployment in the test world).
+   */
+  cbRateSmoothing: 0.03,
+  /** Policy-rate response to inflation above target. */
+  cbInflationGain: 0.5,
+  /** Policy-rate response to unemployment above the natural rate. */
+  cbUnemploymentGain: 0.25,
+  cbRateFloor: 0.005,
+  cbRateCeiling: 0.25,
+  /** Extra policy rate when nearly all lending capacity is used (credit becomes scarce and dear). */
+  cbScarcityPremium: 0.04,
+  /** Weeks over which central-bank loans to a state without market access are repaid (they roll over otherwise). */
+  cbStateLoanWeeks: 156,
+  /**
+   * Open-market operations: each week a central bank buys (or sells back) its own state's bonds
+   * from households so that the money it has issued grows with real output at the inflation
+   * target, leaning against inflation that is off target. Purchases need lending capacity;
+   * nothing is given away: households swap bonds for money.
+   */
+  cbMoneyGain: 0.5,
+  /** Largest weekly bond purchase or sale, as a share of the bank's money issued. */
+  cbMoneyMaxWeekly: 0.0012,
+  /** Sovereign risk premium per unit of recent exceptional money relative to yearly GDP. */
+  exceptionalMoneySpread: 0.5,
+  /** Weeks over which the memory of exceptional money creation fades. */
+  exceptionalMoneyMemoryWeeks: 156,
+
+  // --- Firm credit and bankruptcy (R31, R57; provisional) --------------------
+  /** Firms' loan rate above the policy rate. */
+  firmLoanSpread: 0.02,
+  /** Share of new investment financed with loans at the neutral rate; also the starting debt / replacement value of plant. */
+  firmTargetLeverage: 0.10,
+  /** Credit limit: debt may not exceed this share of the replacement value of the aggregate's plant. */
+  firmMaxLeverage: 0.30,
+  /** How strongly the loan-financed share of investment reacts to cheaper or dearer credit. */
+  firmLeverageRateSensitivity: 2.0,
+  /** Share of cash above working capital used each week to repay debt above the target leverage. */
+  firmExcessDebtRepay: 0.25,
+  /** Consecutive weeks unable to pay wages or debt service before firms are liquidated. */
+  bankruptcyWeeks: 8,
+  /** Smallest share of an aggregate's plant that fails in one bankruptcy (its fragile firms first). */
+  bankruptcyMinShare: 0.2,
+  /** Price obtained for liquidated plant, as a share of its replacement value. */
+  liquidationValue: 0.3,
+
+  // --- Performance tiers (R58; provisional) -----------------------------------
+  /** Weekly share of the gap between the tier mix and its target that is closed. */
+  tierTransitionRate: 0.01,
+  /** How far a fully healthy (or fully stricken) aggregate's target mix moves towards strong (or fragile) firms. */
+  tierHealthShift: 0.4,
+  healthSmoothing: 0.05,
 
   // --- Political stability --------------------------------------------------
   stabilityBase: 70,
@@ -595,7 +657,11 @@ export function validateConfig(config: EconomyConfig): void {
     || params.priceMaxDown >= 1 || params.wageMaxDown >= 1 || params.defaultHaircut > 1
     || params.unrestThresholds.length !== 3 || params.collapseProbability.length !== 3 || params.strikeLoss.length !== 3
     || !Array.isArray(params.tierProductivity) || params.tierProductivity.length !== 3 || params.tierProductivity.some(value => value < 0.2 || value > 5)
-    || params.mixedPublicShare > 1) {
+    || params.mixedPublicShare > 1 || params.cbCapitalRatio <= 0.01 || params.cbCapitalRatio > 1 || params.cbProfitPayout > 1
+    || params.cbRateFloor > params.cbRateCeiling || params.cbStateLoanWeeks < 1 || params.cbMoneyMaxWeekly > 0.05 || params.exceptionalMoneyMemoryWeeks < 1
+    || params.firmTargetLeverage > params.firmMaxLeverage || params.firmMaxLeverage > 1 || params.firmExcessDebtRepay > 1
+    || params.bankruptcyWeeks < 1 || params.bankruptcyMinShare > 1 || params.liquidationValue > 1 || params.tierTransitionRate > 1
+    || params.healthSmoothing > 1 || params.tierHealthShift > 1 || params.reserveStorageCost >= 1 || params.reserveSpoilageShare > 1) {
     throw new Error('A parameter is outside its valid range.');
   }
 }

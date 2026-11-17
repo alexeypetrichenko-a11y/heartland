@@ -76,6 +76,19 @@ function recoveryWeek(values: readonly number[], from: number, level: number, ho
   return null;
 }
 
+/** Mean of run / control over whole years `from`..`to` (1-based, inclusive). */
+function periodMean(run: readonly number[], control: readonly number[], from: number, to: number): number {
+  let a = 0, b = 0;
+  for (let i = (from - 1) * 52; i < Math.min(run.length, to * 52); i++) { a += run[i]; b += control[i]; }
+  return b > 0 ? a / b : 0;
+}
+/** Plain mean of a series over whole years `from`..`to`. */
+function periodLevel(values: readonly number[], from: number, to: number): number {
+  let total = 0, count = 0;
+  for (let i = (from - 1) * 52; i < Math.min(values.length, to * 52); i++) { total += values[i]; count++; }
+  return count > 0 ? total / count : 0;
+}
+
 /** Collects bilateral trade flows between countries per named period. */
 function tradeMonitor(state: EconomyState, goodId: string, periods: { name: string; from: number; to: number }[]) {
   const flows = periods.map(() => new Map<string, number>());
@@ -466,6 +479,18 @@ function scenario6(ctx: Context): ScenarioResult {
   const missed = heavyRun.events.filter(e => e.type === 'missed-payment' && e.countryId === 'tavros').length;
   const t = heavyRun.series.countries.tavros;
   const hc = ctx.control(520).series.countries.tavros;
+  const tavrosEvents = heavyRun.events.filter(e => 'countryId' in e && e.countryId === 'tavros' && e.type !== 'missed-payment' && e.type !== 'firm-bankruptcy');
+  const countEvents = (type: string) => tavrosEvents.filter(e => e.type === type).length;
+  const describe: Record<string, string> = {
+    'market-access-lost': 'loses access to credit markets', 'market-access-restored': 'regains access to credit markets',
+    'sovereign-default': 'defaults on its debt', 'unrest-started': 'unrest begins', 'unrest-escalated': 'unrest escalates',
+    'unrest-ended': 'unrest ends', 'regime-survived': 'the government survives a crisis', 'regime-change': 'the regime falls',
+    'money-created': 'creates money', 'missed-payment': 'misses a payment',
+  };
+  const bankruptcies = heavyRun.events.filter(e => e.type === 'firm-bankruptcy' && e.countryId === 'tavros').length;
+  const timeline = [`Part B timeline for Tavros (week: event):`,
+    ...tavrosEvents.map(e => `Week ${e.turn}: ${describe[e.type] ?? e.type}`),
+    `Firm bankruptcies in Tavros over the run: ${bankruptcies}.`];
   return {
     id: 6, title: 'Sovereign default by a major economy', weeks,
     setup: `Part A: week ${SHOCK}: Norland (largest economy, debt ${pct(c.debtToGdp[SHOCK - 2], 0)} of GDP) declares default. Part B: Tavros (no autopilot) raises social, military and infrastructure spending to 50% of GDP in week ${SHOCK} without raising taxes, to show a default emerging by itself.`,
@@ -482,7 +507,15 @@ function scenario6(ctx: Context): ScenarioResult {
       { label: 'A: Norland debt/GDP at the end', value: pct(debtEnd, 0), note: `control ${pct(c.debtToGdp[weeks - 1], 0)}` },
       { label: 'B: market access lost / forced default (week)', value: `${lost ? lost.turn : 'never'} / ${forced ? forced.turn : 'never'}`, note: `${missed} missed payments before the default` },
       { label: 'B: borrowing rate peak / debt-to-GDP peak', value: `${pct(maximum(t.marketRate))} / ${pct(maximum(t.debtToGdp), 0)}`, note: `control debt ${pct(maximum(hc.debtToGdp), 0)}` },
-      { label: 'B: Tavros real GDP at the end (vs control)', value: pct(t.gdpReal[519] / hc.gdpReal[519], 0) },
+      // A single end-of-run snapshot depends on which phase of a default cycle week 520 falls in,
+      // so the result is also reported as averages over periods of several years.
+      ...[[2, 4], [5, 7], [8, 10]].map(([from, to]) => ({
+        label: `B: Tavros real GDP, years ${from}-${to} (mean vs control)`,
+        value: pct(periodMean(t.gdpReal, hc.gdpReal, from, to), 0),
+        note: `stability ${f(periodLevel(t.stability, from, to), 1)} (control ${f(periodLevel(hc.stability, from, to), 1)}), unemployment ${pct(periodLevel(t.unemployment, from, to))}`,
+      })),
+      { label: 'B: Tavros real GDP in the last week (vs control)', value: pct(t.gdpReal[519] / hc.gdpReal[519], 0), note: 'a snapshot: see the averages and the timeline' },
+      { label: 'B: major events (defaults / regime changes / unrest episodes)', value: `${countEvents('sovereign-default')} / ${countEvents('regime-change')} / ${countEvents('unrest-started')}` },
     ],
     table: {
       caption: 'Part A - Norland relative to control',
@@ -504,7 +537,7 @@ function scenario6(ctx: Context): ScenarioResult {
       { name: 'Stability falls after default', pass: stabLow < mean(c.stability) - 5, detail: f(stabLow, 1) },
       { name: 'A default can emerge without any command', pass: !!forced && !!lost && lost.turn < forced.turn, detail: `lost access week ${lost?.turn ?? '-'}, default week ${forced?.turn ?? '-'}` },
     ],
-    observations: [],
+    observations: timeline,
     runtimeMs: performance.now() - t0,
   };
 }

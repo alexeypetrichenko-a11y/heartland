@@ -9,9 +9,9 @@ import { advanceEconomyInPlace, autopilotCommands, createEconomy, createTestWorl
  * cross-engine determinism: it was identical in Node 22 (V8) and headless Chromium (V8).
  */
 const GOLDEN_WEEKS = 672; // 100 warm-up + 520 + 52, as in sim/browser-bench.cjs
-// Re-pinned in Milestone 1 (was 61f628925444b0e0): the state now holds firm aggregates and production
-// lines, and firm cash is kept per sector and owner instead of per zone, which changes the trajectory.
-const GOLDEN = '6202f97a08efb829';
+// Re-pinned in Milestone 1 (was 61f628925444b0e0) for firm aggregates, and in Milestone 2 (was 6202f97a08efb829):
+// central banks replace the automatic money rule, firms borrow and can fail, tiers move and reserves cost money.
+const GOLDEN = 'cbae27a2ed468a59';
 
 test(`golden: the default test world after ${GOLDEN_WEEKS} weeks has the pinned fingerprint`, () => {
   const state = createEconomy(createTestWorldSpec());

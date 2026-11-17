@@ -6,17 +6,18 @@ A deterministic, serializable, offline world-economy simulation in plain TypeScr
 * How the game should use it: [`ECONOMY_INTEGRATION.md`](ECONOMY_INTEGRATION.md)
 * Decisions the owner must make: [`DECISIONS_REQUIRING_APPROVAL.md`](DECISIONS_REQUIRING_APPROVAL.md)
 * **Milestone 1** (sectors, 31-good catalogue, firm aggregates and performance tiers): [`MILESTONE_1.md`](MILESTONE_1.md)
+* **Milestone 2** (central banks and money, firm credit, bankruptcy, tier transitions, reserve fixes): [`MILESTONE_2.md`](MILESTONE_2.md)
 * Generated evidence: [`reports/`](reports/) (scenarios, stability, browser benchmark, test results, configuration reference)
 
 ## What it does
 
-Nine-country, eleven-zone fictional test world, available with the legacy seven goods (food, energy, materials, industrial, consumer, military, services; the default) or with the provisional ten-sector, 31-good catalogue (`createCatalogueWorldSpec()`). Firms are aggregated per zone × sector × ownership (private, public, mixed) with strong, average and fragile production lines (Milestone 1). The model covers production with intermediate inputs, households, prices, wages, international trade with freight, tariffs, sector sanctions and blockades, strategic reserves, private investment with construction delays, taxes, deficits, debt and credit markets, sovereign default, political stability and regime change. One turn = one week; **no maximum number of turns**.
+Nine-country, eleven-zone fictional test world, available with the legacy seven goods (food, energy, materials, industrial, consumer, military, services; the default) or with the provisional ten-sector, 31-good catalogue (`createCatalogueWorldSpec()`). Firms are aggregated per zone × sector × ownership (private, public, mixed) with strong, average and fragile production lines (Milestone 1). The model covers production with intermediate inputs, households, prices, wages, international trade with freight, tariffs, sector sanctions and blockades, strategic reserves with storage costs, private investment with construction delays, firm credit and bankruptcy, national central banks, taxes, deficits, debt and credit markets, sovereign default, political stability and regime change. One turn = one week; **no maximum number of turns**.
 
 ## Commands (Node ≥ 22.12; no install needed to run tests)
 
 ```bash
 cd economy-engine
-npm test                                  # 96 fast tests, ≈30 s (includes all 10 mandatory scenarios)
+npm test                                  # 112 fast tests, ≈40 s (includes all 10 mandatory scenarios)
 npm run bench                             # ms/week for 11-120 zones with the 31-good catalogue → reports/BENCHMARK.md
 npm run test:long                         # 10,000 consecutive weeks + save/restore check
 npm run typecheck                         # strict TypeScript (uses the game's node_modules TypeScript)

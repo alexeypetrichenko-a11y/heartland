@@ -28,6 +28,16 @@ export function capacityOf(state: EconomyState, z: number, g: number): number {
   return total;
 }
 
+/**
+ * Set a treasury directly in a test while keeping the money ledger whole: all
+ * money is issued by a central bank, so cash a test adds or removes is booked
+ * as issued (or withdrawn) by that country's bank.
+ */
+export function setTreasury(state: EconomyState, c: number, value: number): void {
+  state.country.cbIssued[c] += value - state.country.treasury[c];
+  state.country.treasury[c] = value;
+}
+
 export function goodIdx(state: EconomyState, id: string): number {
   return state.config.goods.findIndex(good => good.id === id);
 }

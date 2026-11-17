@@ -4,6 +4,7 @@ import { AVERAGE_TIER, capitalCharge, EPSILON, getModel, OWNERSHIP_COUNT, privat
 import { STATE_FORMAT, STATE_VERSION } from '../core/state.ts';
 import { createHistory } from '../core/stats.ts';
 import { advanceEconomyInPlace } from '../core/step.ts';
+import { resetStartingCredit } from '../core/credit.ts';
 
 /**
  * Builds a consistent starting economy from a high-level world description.
@@ -260,14 +261,17 @@ export function createEconomy(spec: WorldSpec): EconomyState {
   const S = m.sectorCount;
   const O = OWNERSHIP_COUNT;
   const T = TIER_COUNT;
-  const firm = { cash: zeros(Z * S * O), costs: zeros(Z * S * O), employment: zeros(Z * S * O), revenue: zeros(Z * S * O) };
+  const firm = {
+    cash: zeros(Z * S * O), costs: zeros(Z * S * O), employment: zeros(Z * S * O), revenue: zeros(Z * S * O),
+    loan: zeros(Z * S * O), lender: zeros(Z * S * O), distress: zeros(Z * S * O), health: zeros(Z * S * O),
+  };
   const firmGood = { build1: zeros(Z * G * O), build2: zeros(Z * G * O), build3: zeros(Z * G * O), stockShare: zeros(Z * G * O) };
   const firmLine = { capacity: zeros(Z * G * O * T) };
   // Provisional starting ownership and tier split of every sector (same in every zone).
   const ownerShare = config.sectors.map(sector => [1 - sector.publicShare - sector.mixedShare, sector.publicShare, sector.mixedShare]);
   const zoneGood = {
     stock: zeros(Z * G),
-    inputBuffer: zeros(Z * G), price: zeros(Z * G), buyPrice: zeros(Z * G), refPrice: zeros(Z * G),
+    inputBuffer: zeros(Z * G), price: zeros(Z * G), buyPrice: zeros(Z * G), refPrice: zeros(Z * G), refBuyPrice: zeros(Z * G),
     expectedDemand: zeros(Z * G), margin: zeros(Z * G), pressure: zeros(Z * G), resourceCap: zeros(Z * G),
     efficiency: filled(Z * G, 1), yieldFactor: filled(Z * G, 1), yieldRecovery: zeros(Z * G), shortage: zeros(Z * G), usage: zeros(Z * G),
   };
@@ -319,6 +323,7 @@ export function createEconomy(spec: WorldSpec): EconomyState {
       zoneGood.price[index] = m.basePrice[g];
       zoneGood.buyPrice[index] = m.basePrice[g];
       zoneGood.refPrice[index] = m.basePrice[g];
+      zoneGood.refBuyPrice[index] = m.basePrice[g];
       zoneGood.expectedDemand[index] = made / storageLoss(m, g);
       zoneGood.margin[index] = m.targetMargin[g];
       zoneGood.pressure[index] = m.normalUtilization[g];
@@ -328,6 +333,15 @@ export function createEconomy(spec: WorldSpec): EconomyState {
       real += household[index] * m.basePrice[g];
     }
     for (let k = 0; k < S * O; k++) firm.cash[z * S * O + k] = p.workingCapitalWeeks * firm.costs[z * S * O + k];
+    // Firms start with bank debt at their normal leverage, owed to their national central bank.
+    for (let g = 0; g < G; g++) {
+      const capacity = output[base + g] / m.normalUtilization[g];
+      for (let o = 0; o < O; o++) {
+        const a = (z * S + m.goodSector[g]) * O + o;
+        firm.loan[a] += p.firmTargetLeverage * capacity * ownerShare[m.goodSector[g]][o] * m.capitalWeeks[g] * capitalPrice;
+        firm.lender[a] = c;
+      }
+    }
     const spending = privateSpending[z] * (1 + policy[c].taxConsumption);
     zone.expectedIncome[z] = spending;
     zone.householdMoney[z] = (1 - p.consumeIncome) / p.consumeMoney * spending;
@@ -352,6 +366,8 @@ export function createEconomy(spec: WorldSpec): EconomyState {
     taxCorporate: policy.map(rule => rule.taxCorporate), spendAdministration: policy.map(rule => rule.administration),
     spendSocial: policy.map(rule => rule.social), spendMilitary: policy.map(rule => rule.military),
     spendInfrastructure: policy.map(rule => rule.infrastructure), autoBorrow: filled(C, 1), governmentPriority: zeros(C),
+    cbRate: filled(C, p.baseRate), cbReserves: zeros(C), cbIssued: zeros(C), cbStateLoans: zeros(C), cbExceptional: zeros(C),
+    cbExceptionalRecent: zeros(C),
   };
   const countryGood = {
     reserves: zeros(C * G), reserveTargetWeeks: zeros(C * G), reserveMode: zeros(C * G), tariff: zeros(C * G),
@@ -416,6 +432,24 @@ export function createEconomy(spec: WorldSpec): EconomyState {
   for (let z = 0; z < Z; z++) baseMoney += zone.householdMoney[z];
   for (let a = 0; a < firm.cash.length; a++) baseMoney += firm.cash[a];
   for (let c = 0; c < C; c++) baseMoney += country.treasury[c];
+  // Central banks: all money is their liability. Each bank is credited with the money held in
+  // its country; its assets are its loans to firms plus reserves, sized so that its capital
+  // covers the starting loans and leaves room to lend a further share of yearly GDP (R07, R61).
+  const firmLoans = zeros(C);
+  for (let z = 0; z < Z; z++) {
+    const c = owner[z];
+    country.cbIssued[c] += zone.householdMoney[z];
+    for (let k = 0; k < S * O; k++) {
+      country.cbIssued[c] += firm.cash[z * S * O + k];
+      firmLoans[c] += firm.loan[z * S * O + k];
+    }
+  }
+  for (let c = 0; c < C; c++) {
+    country.cbIssued[c] += country.treasury[c];
+    const capital = p.cbCapitalRatio * (firmLoans[c] + p.cbStartingHeadroom * 52 * gdp[c]);
+    country.cbReserves[c] = country.cbIssued[c] - firmLoans[c] + capital;
+    if (!(country.cbReserves[c] >= 0)) fail('central bank reserves could not be set up.');
+  }
   let worldGdp = 0;
   for (let c = 0; c < C; c++) worldGdp += gdp[c];
 
@@ -512,6 +546,7 @@ function settle(state: EconomyState, turns: number, balanceBudget: boolean[]): v
         }
       }
     }
+    resetStartingCredit(state, getModel(state.config));
     last = run(CHECK_TURNS, false);
   }
   state.history = createHistory(C, state.config.goods.length, state.config.params.historyWeekly,
@@ -605,6 +640,7 @@ export function calibrateEfficiency(state: EconomyState): void {
       for (let i = 0; i < inputs.length; i++) cost += amounts[i] * zg.buyPrice[base + inputs[i]];
       zg.margin[index] = price > EPSILON ? Math.max(-1, Math.min(1, (price - cost) / price)) : 0;
       zg.refPrice[index] = price;
+      zg.refBuyPrice[index] = zg.buyPrice[index];
     }
   }
 }

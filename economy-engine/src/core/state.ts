@@ -11,8 +11,11 @@ import { OWNERSHIP_COUNT, TIER_COUNT } from './model.ts';
  */
 
 export const STATE_FORMAT = 'heartland-economy';
-/** Version 2 (Milestone 1): sectors, firm aggregates and production lines replace per-zone firm cash. */
-export const STATE_VERSION = 2;
+/**
+ * Version 2 (Milestone 1): sectors, firm aggregates and production lines replace per-zone firm cash.
+ * Version 3 (Milestone 2): central banks, firm loans, distress and health.
+ */
+export const STATE_VERSION = 3;
 
 function copyGroup<T extends object>(group: T): T {
   const source = group as Record<string, unknown[]>;
@@ -115,14 +118,15 @@ const ZONE_KEYS = ['owner', 'population', 'populationGrowth', 'populationCap', '
   'householdMoney', 'expectedIncome', 'cpi', 'inflation', 'unemployment', 'livingStandard',
   'livingStandardRef', 'deprivation'] as const;
 const ZONE_GOOD_KEYS = ['stock', 'inputBuffer', 'price', 'buyPrice',
-  'refPrice', 'expectedDemand', 'margin', 'pressure', 'resourceCap', 'efficiency', 'yieldFactor', 'yieldRecovery',
+  'refPrice', 'refBuyPrice', 'expectedDemand', 'margin', 'pressure', 'resourceCap', 'efficiency', 'yieldFactor', 'yieldRecovery',
   'shortage', 'usage'] as const;
 const COUNTRY_KEYS = ['treasury', 'debt', 'averageRate', 'marketRate', 'marketAccess', 'exclusionWeeks',
   'reputationSpread', 'missedPayments', 'defaults', 'gdp', 'realGdp', 'deficit', 'arrears', 'stability',
   'stabilityModifier', 'unrestTier', 'episodeActive', 'episodePeakTier', 'rolledTier', 'tierWeeks', 'regime',
   'immunityWeeks', 'armsStock', 'taxIncome', 'taxConsumption', 'taxCorporate', 'spendAdministration', 'spendSocial',
-  'spendMilitary', 'spendInfrastructure', 'autoBorrow', 'governmentPriority'] as const;
-const FIRM_KEYS = ['cash', 'costs', 'employment', 'revenue'] as const;
+  'spendMilitary', 'spendInfrastructure', 'autoBorrow', 'governmentPriority', 'cbRate', 'cbReserves', 'cbIssued',
+  'cbStateLoans', 'cbExceptional', 'cbExceptionalRecent'] as const;
+const FIRM_KEYS = ['cash', 'costs', 'employment', 'revenue', 'loan', 'lender', 'distress', 'health'] as const;
 const FIRM_GOOD_KEYS = ['build1', 'build2', 'build3', 'stockShare'] as const;
 const FIRM_LINE_KEYS = ['capacity'] as const;
 const COUNTRY_GOOD_KEYS = ['reserves', 'reserveTargetWeeks', 'reserveMode', 'tariff'] as const;
@@ -164,7 +168,15 @@ export function validateEconomy(value: unknown): asserts value is EconomyState {
   numberGroup(value.firmGood, FIRM_GOOD_KEYS, Z * G * OWNERSHIP_COUNT, 'firmGood');
   numberGroup(value.firmLine, FIRM_LINE_KEYS, Z * G * OWNERSHIP_COUNT * TIER_COUNT, 'firmLine');
   // Quantities and money held by firms can never be negative; stock ownership shares are fractions.
+  const firmGroup = value.firm as Record<string, number[]>;
+  indexArray(firmGroup.lender, Z * S * OWNERSHIP_COUNT, C, 'firm.lender');
+  if (firmGroup.health.some(entry => entry < -1 || entry > 1)) fail('firm.health is outside -1..1.');
+  const countryGroup = value.country as Record<string, number[]>;
+  for (const key of ['cbReserves', 'cbStateLoans', 'cbExceptional', 'cbExceptionalRecent']) {
+    if (countryGroup[key].some(entry => entry < 0)) fail(`country.${key} holds a negative value.`);
+  }
   for (const [label, list] of [['firm.cash', (value.firm as Record<string, number[]>).cash],
+    ['firm.loan', firmGroup.loan], ['firm.distress', firmGroup.distress],
     ['firmLine.capacity', (value.firmLine as Record<string, number[]>).capacity],
     ['firmGood.build1', (value.firmGood as Record<string, number[]>).build1],
     ['firmGood.build2', (value.firmGood as Record<string, number[]>).build2],

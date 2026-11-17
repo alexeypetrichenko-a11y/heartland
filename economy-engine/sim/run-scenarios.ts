@@ -30,6 +30,7 @@ function markdown(results: ScenarioResult[]): string {
     for (const row of r.table.rows) lines.push(`| ${row.join(' | ')} |`);
     lines.push('', '**Mechanisms observed**', '', ...r.mechanisms.map(m => `- ${m}`), '', '**Automated checks**', '', '| Check | Result | Detail |', '|---|---|---|');
     for (const c of r.checks) lines.push(`| ${c.name} | ${c.pass ? 'PASS' : '**FAIL**'} | ${c.detail} |`);
+    if (r.observations.length > 0) lines.push('', '**Timeline and notes**', '', ...r.observations.map(o => `- ${o}`));
     lines.push('');
   }
   return lines.join('\n');

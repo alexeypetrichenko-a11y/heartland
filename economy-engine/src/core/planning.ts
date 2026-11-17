@@ -2,6 +2,7 @@ import type { EconomyState } from '../types.ts';
 import type { Model, Workspace } from './model.ts';
 import { AVERAGE_TIER, clamp, EPSILON, OWNERSHIP_COUNT, PRIVATE, privateHurdle, TIER_COUNT } from './model.ts';
 import { RANDOM_STREAM, randomSigned } from './rng.ts';
+import { capitalValues, firmBorrow, loanFinancedShare } from './credit.ts';
 
 /**
  * Private-sector plans for the week: what firms want to produce and buy, what
@@ -44,6 +45,10 @@ export function planPrivateSector(s: EconomyState, w: Workspace, m: Model): void
     const laborSupply = Math.max(0, s.zone.population[z] * p.laborParticipation - s.zone.mobilized[z]);
     w.productivity[z] = productivity;
     w.laborSupply[z] = laborSupply;
+    let capitalPrice = 0;
+    for (let g = 0; g < G; g++) capitalPrice += m.investment[g] * zg.buyPrice[base + g];
+    // Plant at replacement value is what banks lend against.
+    capitalValues(s, w, m, z, capitalPrice);
 
     // --- Producers: desired output, supplied in merit order across tiers -----
     let laborNeed = 0;
@@ -150,6 +155,10 @@ export function planPrivateSector(s: EconomyState, w: Workspace, m: Model): void
       const lineBase = index * O * T;
       for (let o = 0; o < O; o++) {
         const outlay = w.aggOutlay[a + o];
+        // Short of cash for the week's wages and inputs: borrow working capital first.
+        if (outlay > 0.9 * firm.cash[a + o] && g === m.sectorGoods[m.goodSector[g]][0]) {
+          firmBorrow(s, w, a + o, c, outlay / 0.9 - firm.cash[a + o]);
+        }
         const cashLimit = 0.9 * firm.cash[a + o];
         const scale = outlay > cashLimit ? laborScale * (outlay > EPSILON ? cashLimit / outlay : 0) : laborScale;
         for (let t = 0; t < T; t++) {
@@ -247,8 +256,6 @@ export function planPrivateSector(s: EconomyState, w: Workspace, m: Model): void
     }
 
     // --- Investment: each aggregate expands where returns beat the cost of capital
-    let capitalPrice = 0;
-    for (let g = 0; g < G; g++) capitalPrice += m.investment[g] * zg.buyPrice[base + g];
     const hurdle = privateHurdle(s, c);
     const keep = Math.max(0.05, 1 - s.country.taxCorporate[c]);
     for (let g = 0; g < G; g++) {
@@ -305,8 +312,14 @@ export function planPrivateSector(s: EconomyState, w: Workspace, m: Model): void
         const a = aggregateBase + sector * O + o;
         const investCost = w.aggInvestCost[a];
         if (!(investCost > 0)) continue;
+        // A share of every investment is financed with a bank loan (more when credit is cheap),
+        // the rest from spare cash.
         const spare = Math.max(0, firm.cash[a] - w.aggWageReserve[a] - w.aggInputCost[a] - p.cashFloorWeeks * firm.costs[a]);
-        const funds = spare * p.investCashShare;
+        const internal = spare * p.investCashShare;
+        const share = loanFinancedShare(s, c);
+        const planned = Math.min(investCost, internal / (1 - share));
+        const borrowed = firmBorrow(s, w, a, c, planned * share);
+        const funds = internal + borrowed;
         const funded = investCost > funds ? funds / investCost : 1;
         let units = 0;
         const goods = m.sectorGoods[sector];

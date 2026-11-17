@@ -1,5 +1,6 @@
 import type { EconomyState } from '../types.ts';
 import type { Model, Workspace } from './model.ts';
+import { bankReceive, firmBorrow, serviceFirmDebt } from './credit.ts';
 import { AVERAGE_TIER, capitalCharge, clamp, DUST, EPSILON, MIXED, OWNERSHIP_COUNT, privateHurdle, PUBLIC, TIER_COUNT } from './model.ts';
 
 /**
@@ -166,10 +167,16 @@ export function produce(s: EconomyState, w: Workspace, m: Model): void {
     for (let k = 0; k < S * O; k++) {
       const a = aggregateBase + k;
       const o = k % O;
-      const wages = Math.min(wage * w.aggEmployment[a], Math.max(0, firm.cash[a]));
+      // Wages come first; a firm short of cash borrows working capital to pay them.
+      const owed = wage * w.aggEmployment[a];
+      if (owed > firm.cash[a]) firmBorrow(s, w, a, c, owed - firm.cash[a]);
+      const wages = Math.min(owed, Math.max(0, firm.cash[a]));
       firm.cash[a] -= wages;
       wageBill += wages;
-      const surplus = w.aggRevenue[a] - w.aggPurchases[a] - wages;
+      // Debt service: interest, and repayment as fast as the plant securing the loan wears out.
+      const unpaidDebt = serviceFirmDebt(s, w, a, aggregateDepreciation(s, m, z, a));
+      const surplus = w.aggRevenue[a] - w.aggPurchases[a] - wages - w.aggInterest[a];
+      w.aggProfit[a] = surplus;
       const corporate = Math.min(Math.max(0, surplus) * s.country.taxCorporate[c], Math.max(0, firm.cash[a]));
       firm.cash[a] -= corporate;
       s.country.treasury[c] += corporate;
@@ -180,8 +187,19 @@ export function produce(s: EconomyState, w: Workspace, m: Model): void {
       const target = p.workingCapitalWeeks * firm.costs[a];
       const floor = p.cashFloorWeeks * firm.costs[a];
       const publicPart = o === PUBLIC ? 1 : o === MIXED ? p.mixedPublicShare : 0;
+      w.aggCall[a] = 0;
       if (firm.cash[a] > target) {
-        const dividend = (firm.cash[a] - target) * p.dividendSpeed;
+        let excess = firm.cash[a] - target;
+        // Debt above the normal leverage is paid down before owners are paid.
+        const extraDebt = firm.loan[a] - 1.2 * p.firmTargetLeverage * w.aggCapitalValue[a];
+        if (extraDebt > 0 && !w.calibrating) {
+          const repay = Math.min(extraDebt, excess * p.firmExcessDebtRepay);
+          firm.cash[a] -= repay;
+          firm.loan[a] -= repay;
+          bankReceive(s, firm.lender[a], repay);
+          excess -= repay;
+        }
+        const dividend = excess * p.dividendSpeed;
         firm.cash[a] -= dividend;
         const toState = dividend * publicPart;
         const toPeople = dividend - toState;
@@ -190,13 +208,31 @@ export function produce(s: EconomyState, w: Workspace, m: Model): void {
         w.revenueIncomeTax[c] += toPeople * incomeTax;
         s.zone.householdMoney[z] += toPeople * (1 - incomeTax);
         w.householdIncome[z] += toPeople * (1 - incomeTax);
-        w.aggCall[a] = 0;
       } else if (firm.cash[a] < floor) {
+        // Below the cash floor: borrow back to a moderate working capital first,
+        // then ask the owners for whatever is still missing to reach the floor.
+        firmBorrow(s, w, a, c, 0.5 * (floor + target) - firm.cash[a]);
         const need = floor - firm.cash[a];
-        w.aggCall[a] = need;
-        publicNeed += need * publicPart;
-        privateNeed += need * (1 - publicPart);
+        // Private owners stop putting money into firms that keep losing it; the state
+        // keeps supporting its own firms (its objectives are its own decision).
+        const privateWilling = firm.health[a] > -0.5 ? 1 : 0;
+        if (need > 0 && (publicPart > 0 || privateWilling > 0)) {
+          w.aggCall[a] = need;
+          publicNeed += need * publicPart;
+          privateNeed += need * (1 - publicPart) * privateWilling;
+        }
       }
+      // Distress: wages or debt service could not be met in full this week, or the firm keeps
+      // losing money while its debt, net of cash, exceeds what its plant would fetch in a
+      // liquidation (balance-sheet insolvency). A firm hit by a temporary shock at normal
+      // leverage is therefore not liquidated.
+      const insolvent = firm.health[a] < -0.5
+        && firm.loan[a] - Math.max(0, firm.cash[a]) > p.liquidationValue * w.aggCapitalValue[a];
+      const trouble = owed - wages > 1e-12 * owed || unpaidDebt > 0 || insolvent;
+      // Chronic heavy losses also count, at 1/13 of a week each: two years of them lead to
+      // liquidation even while banks are still lending. A short crisis never gets that far.
+      const chronic = firm.health[a] < -0.8;
+      firm.distress[a] = w.calibrating ? 0 : trouble ? firm.distress[a] + 1 : chronic ? firm.distress[a] + 1 / 13 : 0;
     }
     s.zone.householdMoney[z] += wageBill * (1 - incomeTax);
     s.country.treasury[c] += wageBill * incomeTax;
@@ -218,8 +254,9 @@ export function produce(s: EconomyState, w: Workspace, m: Model): void {
         if (!(need > 0)) continue;
         const o = k % O;
         const publicPart = o === PUBLIC ? 1 : o === MIXED ? p.mixedPublicShare : 0;
+        const privateWilling = firm.health[a] > -0.5 ? 1 : 0;
         const fromState = need * publicPart * publicFill;
-        const fromPeople = need * (1 - publicPart) * privateFill;
+        const fromPeople = need * (1 - publicPart) * privateWilling * privateFill;
         firm.cash[a] += fromState + fromPeople;
         s.country.treasury[c] -= fromState;
         w.spentFirmSupport[c] += fromState;
@@ -333,6 +370,7 @@ export function adjust(s: EconomyState, w: Workspace, m: Model): void {
       }
       zg.price[index] = price;
       zg.refPrice[index] += (price - zg.refPrice[index]) / p.refPriceWeeks;
+      zg.refBuyPrice[index] += (zg.buyPrice[index] - zg.refBuyPrice[index]) / p.refPriceWeeks;
       zg.margin[index] += p.profitSmoothing * (clamp((price - cost) / price, -1, 1) - zg.margin[index]);
 
       // Construction advances one stage. Finished plant first renews worn-out plant
@@ -436,4 +474,24 @@ export function develop(s: EconomyState, w: Workspace, m: Model): void {
       zone.mobilized[z] = zone.population[z] * p.laborParticipation * 0.9;
     }
   }
+}
+
+/** Capital-weighted weekly depreciation of an aggregate's plant: the pace at which its loan is repaid. */
+function aggregateDepreciation(s: EconomyState, m: Model, z: number, a: number): number {
+  const G = m.goodCount;
+  const S = m.sectorCount;
+  const sector = Math.floor(a / OWNERSHIP_COUNT) % S;
+  const o = a % OWNERSHIP_COUNT;
+  const goods = m.sectorGoods[sector];
+  let value = 0;
+  let worn = 0;
+  for (let i = 0; i < goods.length; i++) {
+    const g = goods[i];
+    const base = ((z * G + g) * OWNERSHIP_COUNT + o) * TIER_COUNT;
+    let capacity = 0;
+    for (let t = 0; t < TIER_COUNT; t++) capacity += s.firmLine.capacity[base + t];
+    value += capacity * m.capitalWeeks[g];
+    worn += capacity * m.capitalWeeks[g] * m.depreciationWeekly[g];
+  }
+  return value > EPSILON ? worn / value : 0;
 }

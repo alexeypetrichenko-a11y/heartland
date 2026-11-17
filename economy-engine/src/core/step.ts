@@ -1,5 +1,6 @@
 import type { EconomyEvent, EconomyState, StepOptions, TurnInput, TurnReport, TurnResult } from '../types.ts';
 import { applyActions, compileTradePolicy, resolveInput } from './commands.ts';
+import { openBanks, resolveBankruptcies, updateTiers } from './credit.ts';
 import { planBudgets, settleFinances } from './finance.ts';
 import { clearMarkets } from './market.ts';
 import { getModel, getWorkspace } from './model.ts';
@@ -16,12 +17,15 @@ import { captureStart, finishTurn } from './stats.ts';
  *
  * Order of events (fixed, so results are reproducible):
  *   1. inputs are validated, then external effects and commands are applied;
- *   2. governments plan budgets, borrow, service debt and pay transfers;
- *   3. firms and households decide what they want to make and buy;
+ *   2. central banks open (lending capacity); governments plan budgets, borrow
+ *      (bond market, then their central bank), service debt and pay transfers;
+ *   3. firms and households decide what they want to make and buy; firms
+ *      borrow for working capital and investment with whatever capacity is left;
  *   4. markets clear zone by zone, good by good, with trade between zones;
- *   5. firms produce with the inputs they obtained and pay wages and taxes;
- *   6. prices, wages, expectations and capacity adjust;
- *   7. public finances settle (repayment, default, interest rates, money rule);
+ *   5. firms produce, pay wages, debt service and taxes; insolvent firms are liquidated;
+ *   6. prices, wages, expectations, capacity and performance tiers adjust;
+ *   7. public finances settle (repayment, default, risk premiums, central-bank
+ *      profits and policy rates);
  *   8. political stability reacts;
  *   9. population, technology and infrastructure drift;
  *  10. the week is audited, recorded in history and reported.
@@ -50,11 +54,14 @@ export function advanceEconomyInPlace(state: EconomyState, input?: TurnInput, op
   applyActions(state, w, actions);
   compileTradePolicy(state, w);
   const routes = getRoutes(state);
+  openBanks(state, w);
   planBudgets(state, w, model, events);
   planPrivateSector(state, w, model);
   clearMarkets(state, w, model, routes, options.tradeDetail === true);
   produce(state, w, model);
+  resolveBankruptcies(state, w, model, events);
   adjust(state, w, model);
+  updateTiers(state, w, model);
   settleFinances(state, w, model, events);
   updatePolitics(state, w, events);
   develop(state, w, model);

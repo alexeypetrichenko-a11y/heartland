@@ -140,7 +140,7 @@ const state = deserializeEconomy(text);    // validates structure, ranges, ids, 
 ```
 
 * Store it inside the game's own save (or next to it). A restored state continues **bit-for-bit** as the original would have (tested at many cut points, and after 5,000 weeks).
-* `STATE_VERSION` is stored in every save; a different version is rejected with a clear message. Write a migration when the format changes. Version 2 (Milestone 1) replaced per-zone firm cash with firm aggregates (`state.firm`), production lines (`state.firmLine`) and per-owner construction and stock shares (`state.firmGood`); use `getFirmAggregates` rather than reading these arrays directly.
+* `STATE_VERSION` is stored in every save; a different version is rejected with a clear message. Write a migration when the format changes. Version 2 (Milestone 1) replaced per-zone firm cash with firm aggregates (`state.firm`), production lines (`state.firmLine`) and per-owner construction and stock shares (`state.firmGood`); use `getFirmAggregates` rather than reading these arrays directly. Version 3 (Milestone 2) adds central banks (`country.cb*`), firm loans, distress and health, and `zoneGood.refBuyPrice`; each `CountryReport` now carries a `centralBank` summary, `firmDebt` and `bankruptcies`, and the budget reports `centralBankProfit`, `moneyCreation` and `borrowedFromCentralBank` (the former `seigniorage` line is gone). The only way to create money outside normal central-bank operations is the player command `{ type: 'create-money', countryId, amount }`; the host must offer it only as an explicit, deliberate action (R08).
 * The save contains the configuration, so a change of default parameters never silently alters an existing game.
 * `hashEconomy(state)` → 16 hex characters fingerprint. Use it for desync detection and golden-file tests.
 
@@ -154,7 +154,7 @@ const state = deserializeEconomy(text);    // validates structure, ranges, ids, 
 
 ## 7. Multiplayer (future, T28–T31)
 
-The engine is built for lockstep: send *commands/effects*, never states; every client calls the same `advanceEconomy`; compare `hashEconomy` each week to detect desync. All arithmetic is basic IEEE-754 (`+ − × ÷`, comparisons, `min/max/floor/abs/sqrt`); `Math.pow/exp/log/sin` and `**` are banned from `src/` by a test because engines may round them differently. **This is designed-for but untested across engines:** before relying on it, run the golden-hash test on Safari/JavaScriptCore (e.g. `hashEconomy` after 672 weeks of the test world is `6202f97a08efb829` on V8 — Node 22 and Chromium — since Milestone 1).
+The engine is built for lockstep: send *commands/effects*, never states; every client calls the same `advanceEconomy`; compare `hashEconomy` each week to detect desync. All arithmetic is basic IEEE-754 (`+ − × ÷`, comparisons, `min/max/floor/abs/sqrt`); `Math.pow/exp/log/sin` and `**` are banned from `src/` by a test because engines may round them differently. **This is designed-for but untested across engines:** before relying on it, run the golden-hash test on Safari/JavaScriptCore (e.g. `hashEconomy` after 672 weeks of the test world is `cbae27a2ed468a59` on V8 — Node 22 and Chromium — since Milestone 2).
 
 ## 8. Units, display, and money rebasing
 

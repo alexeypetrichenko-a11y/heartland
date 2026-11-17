@@ -194,12 +194,38 @@ export interface EconomyParams {
   reserveBuyPriceRatio: number;
   reserveReleasePriceRatio: number;
   reserveReleaseShortage: number;
-  // Monetary authority
+  reserveStorageCost: number;
+  reserveSpoilageShare: number;
+  // Central banks (R07-R09, R61)
   inflationTarget: number;
-  moneyRuleGain: number;
-  moneyRuleSlackGain: number;
-  moneyGrowthMaxWeekly: number;
   growthSmoothing: number;
+  cbCapitalRatio: number;
+  cbStartingHeadroom: number;
+  cbProfitPayout: number;
+  cbRateSmoothing: number;
+  cbInflationGain: number;
+  cbUnemploymentGain: number;
+  cbRateFloor: number;
+  cbRateCeiling: number;
+  cbScarcityPremium: number;
+  cbStateLoanWeeks: number;
+  cbMoneyGain: number;
+  cbMoneyMaxWeekly: number;
+  exceptionalMoneySpread: number;
+  exceptionalMoneyMemoryWeeks: number;
+  // Firm credit and bankruptcy (R31, R57)
+  firmLoanSpread: number;
+  firmTargetLeverage: number;
+  firmMaxLeverage: number;
+  firmLeverageRateSensitivity: number;
+  firmExcessDebtRepay: number;
+  bankruptcyWeeks: number;
+  bankruptcyMinShare: number;
+  liquidationValue: number;
+  // Performance-tier transitions (R58)
+  tierTransitionRate: number;
+  tierHealthShift: number;
+  healthSmoothing: number;
   // Political stability
   stabilityBase: number;
   stabilityAdjust: number;
@@ -305,8 +331,10 @@ export interface ZoneGoodArrays {
   price: number[];
   /** Average price local buyers pay, including freight and tariffs. */
   buyPrice: number[];
-  /** Slow average of the producer price (anchor for caps and reserves). */
+  /** Slow average of the producer price (anchor for price caps). */
   refPrice: number[];
+  /** Slow average of what local buyers pay (anchor for strategic-reserve decisions). */
+  refBuyPrice: number[];
   expectedDemand: number[];
   margin: number[];
   pressure: number[];
@@ -338,6 +366,14 @@ export interface FirmArrays {
   employment: number[];
   /** Sales revenue last week. */
   revenue: number[];
+  /** Outstanding bank loan (owed to the central bank of country `lender`). */
+  loan: number[];
+  /** Country whose central bank holds the loan. */
+  lender: number[];
+  /** Consecutive weeks in which the aggregate could not meet wages or debt service. */
+  distress: number[];
+  /** Smoothed financial health from -1 (crisis) to +1 (thriving); steers tier transitions. */
+  health: number[];
 }
 
 /**
@@ -395,6 +431,25 @@ export interface CountryArrays {
   spendInfrastructure: number[];
   autoBorrow: number[];
   governmentPriority: number[];
+  // National central bank (R07). Its balance sheet: assets = reserves + loans to the state
+  // + loans to firms; liabilities = money issued; equity (capital) = assets - liabilities.
+  /** Policy rate, set automatically (R09). */
+  cbRate: number[];
+  /** Non-circulating assets (gold and foreign reserves) that back money not lent out. */
+  cbReserves: number[];
+  /**
+   * Money issued and not yet withdrawn: the bank's liability. All money in circulation is issued
+   * by some central bank. With one shared currency (R36 not yet implemented) a bank can withdraw
+   * more than it issued, for example from an exporter's firms repaying loans with money earned
+   * abroad; a negative value is then a net claim on money issued by other banks.
+   */
+  cbIssued: number[];
+  /** Loans from the central bank to its own state (part of public debt). */
+  cbStateLoans: number[];
+  /** Exceptional money created on explicit authorisation, cumulative (R08). */
+  cbExceptional: number[];
+  /** Same, fading with time; feeds the sovereign risk premium. */
+  cbExceptionalRecent: number[];
 }
 
 /** Per-country, per-good values, indexed by country * goodCount + good. */
@@ -516,6 +571,8 @@ export type EconomyCommand =
   | { type: 'set-borrowing'; countryId: CountryId; enabled: boolean }
   | { type: 'set-procurement-priority'; countryId: CountryId; enabled: boolean }
   | { type: 'repay-debt'; countryId: CountryId; amount: number }
+  /** Exceptional money creation by the national central bank, paid to the treasury (R08, R43). */
+  | { type: 'create-money'; countryId: CountryId; amount: number }
   | { type: 'declare-default'; countryId: CountryId };
 
 /** Facts decided by other game systems (war, diplomacy, events). */
@@ -562,14 +619,20 @@ export type EconomyEvent =
   | { type: 'unrest-ended'; turn: number; countryId: CountryId }
   | { type: 'regime-survived'; turn: number; countryId: CountryId; tier: number; probability: number }
   | { type: 'regime-change'; turn: number; countryId: CountryId; tier: number; probability: number; regime: number }
-  | { type: 'missed-payment'; turn: number; countryId: CountryId; consecutive: number };
+  | { type: 'missed-payment'; turn: number; countryId: CountryId; consecutive: number }
+  | { type: 'money-created'; turn: number; countryId: CountryId; amount: number }
+  | { type: 'firm-bankruptcy'; turn: number; countryId: CountryId; zoneId: ZoneId; sectorId: SectorId; ownership: string; capacityShare: number;
+    debt: number; recovered: number; writtenOff: number; assetsSold: number };
 
 export interface BudgetReport {
   incomeTax: number;
   consumptionTax: number;
   corporateTax: number;
   tariffs: number;
-  seigniorage: number;
+  /** Profit transferred by the national central bank. */
+  centralBankProfit: number;
+  /** Exceptional money creation received from the central bank (R08). */
+  moneyCreation: number;
   reserveSales: number;
   fundsReceived: number;
   /** Dividends from public and mixed firm aggregates. */
@@ -579,7 +642,9 @@ export interface BudgetReport {
   social: number;
   military: number;
   infrastructure: number;
+  /** Strategic-reserve purchases and storage costs. */
   reservePurchases: number;
+  /** Interest paid to bondholders and to the central bank. */
   interest: number;
   fundsSent: number;
   /** Cash injected into struggling public and mixed firm aggregates. */
@@ -588,6 +653,8 @@ export interface BudgetReport {
   /** Revenue minus spending for the week. */
   balance: number;
   borrowed: number;
+  /** Part of `borrowed` that came from the national central bank. */
+  borrowedFromCentralBank: number;
   repaid: number;
   /** Share of planned spending that could actually be paid. */
   fundedShare: number;
@@ -639,6 +706,28 @@ export interface CountryReport {
   capacity: number[];
   /** Output per good, summed over the country's zones. */
   output: number[];
+  centralBank: CentralBankReport;
+  /** Bank debt of the firms located in the country. */
+  firmDebt: number;
+  /** Firm bankruptcies in the country this week. */
+  bankruptcies: number;
+}
+
+export interface CentralBankReport {
+  policyRate: number;
+  /** Rate firms pay on new and existing loans. */
+  firmLoanRate: number;
+  reserves: number;
+  loansToState: number;
+  loansToFirms: number;
+  /** Money issued and outstanding (liability). */
+  moneyIssued: number;
+  /** Capital: reserves + loans - money issued. */
+  equity: number;
+  /** Largest total of loans the capital allows (R61). */
+  lendingCapacity: number;
+  /** Exceptional money created so far (R08). */
+  exceptionalMoney: number;
 }
 
 export interface GoodReport {
@@ -676,6 +765,8 @@ export interface AuditReport {
   moneyError: number;
   /** Largest difference between a country's debt and the bonds held against it. */
   bondError: number;
+  /** Relative difference between money in circulation and money issued by all central banks (should be ~0). */
+  issuedError: number;
   negativeValues: number;
   nonFiniteValues: number;
 }

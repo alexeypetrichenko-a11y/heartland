@@ -121,8 +121,8 @@ export function getCountry(state: EconomyState, countryId: CountryId): CountrySn
     zoneIds,
     population,
     treasury: country.treasury[c],
-    debt: country.debt[c],
-    debtToGdp: country.gdp[c] > 0 ? country.debt[c] / (52 * country.gdp[c]) : 0,
+    debt: country.debt[c] + country.cbStateLoans[c],
+    debtToGdp: country.gdp[c] > 0 ? (country.debt[c] + country.cbStateLoans[c]) / (52 * country.gdp[c]) : 0,
     gdp: country.gdp[c],
     realGdp: country.realGdp[c],
     marketRate: country.marketRate[c],
@@ -207,6 +207,13 @@ export interface FirmAggregateView {
   employment: number;
   /** Sales revenue last week. */
   revenue: number;
+  /** Bank debt and the country whose central bank holds it. */
+  loan: number;
+  lenderId: CountryId;
+  /** Consecutive weeks unable to meet wages or debt service. */
+  distress: number;
+  /** Financial health from -1 to +1. */
+  health: number;
   lines: FirmLineView[];
 }
 
@@ -236,10 +243,11 @@ export function getFirmAggregates(state: EconomyState, zoneId: ZoneId): FirmAggr
         if (total > 0 || underConstruction > 0) lines.push({ goodId: goods[g].id, capacity, underConstruction });
       }
       const cash = state.firm.cash[a];
-      if (lines.length === 0 && !(cash > 0)) continue;
+      if (lines.length === 0 && !(cash > 0) && !(state.firm.loan[a] > 0)) continue;
       views.push({
         sectorId: sector.id, ownership: OWNERSHIP_TYPES[o], cash, costs: state.firm.costs[a],
-        employment: state.firm.employment[a], revenue: state.firm.revenue[a], lines,
+        employment: state.firm.employment[a], revenue: state.firm.revenue[a], loan: state.firm.loan[a],
+        lenderId: state.countries[state.firm.lender[a]].id, distress: state.firm.distress[a], health: state.firm.health[a], lines,
       });
     }
   });
