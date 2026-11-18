@@ -1,4 +1,4 @@
-import type { GeographicBounds, GeographicCountryId, GeographicFeature, GeographicGeometry, GeographicPosition } from './types';
+import type { GeographicBounds, GeographicCountryId, GeographicFeature, GeographicGeometry, GeographicId, GeographicPosition } from './types';
 
 /** Equirectangular presentation: WGS84 degrees, with all continents and poles visible. */
 export const ATLAS_WIDTH = 360;
@@ -10,8 +10,8 @@ export type AtlasView = { zoom: number; center: AtlasPoint };
 export type AtlasCountry = { id: GeographicCountryId; name: string; color: string; bbox: GeographicBounds;
   label: GeographicPosition; area: number; path: string; tiles: number[] };
 export type AtlasCatalog = { schemaVersion: 1; datasetId: string; countries: AtlasCountry[];
-  neighbors: [GeographicCountryId, GeographicCountryId][]; minimumNeighborDeltaE: number };
-export type AtlasShape = { id: GeographicCountryId; parts: { path: string; outline: string; bbox: GeographicBounds }[] };
+  countriesWithoutRegions?: GeographicCountryId[]; neighbors: [GeographicCountryId, GeographicCountryId][]; minimumNeighborDeltaE: number };
+export type AtlasShape<Id extends GeographicId = GeographicCountryId> = { id: Id; parts: { path: string; outline: string; bbox: GeographicBounds }[] };
 
 export const initialAtlasView = (): AtlasView => ({ zoom: 1, center: { x: 180, y: 90 } });
 export const projectGeography = ([longitude, latitude]: GeographicPosition): AtlasPoint => ({ x: longitude + 180, y: 90 - latitude });

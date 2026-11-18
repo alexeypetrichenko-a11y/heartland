@@ -145,7 +145,7 @@ test('inspection metadata is fetched on demand and retains only source geography
   const geography = await source.loadCountryGeography();
   assert.equal(geography.size, 258);
   const france = records.countries.find(country => country.id === 'ne:admin0:FRA')!;
-  assert.deepEqual(geography.get(france.id), { continent: france.continent, subregion: france.subregion });
+  assert.deepEqual(geography.get(france.id), { continent: france.continent, subregion: france.subregion, regionIndex: france.regionIndex });
   assert.equal(await source.loadCountryGeography(), geography);
   assert.equal(requests.length, 2);
   assert.match(requests[1], /^\/heartland\/geography\/.*\/countries\.json$/);

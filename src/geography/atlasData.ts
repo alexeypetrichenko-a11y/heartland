@@ -29,7 +29,7 @@ export function createAtlasData(base: string, fetcher: typeof fetch = globalThis
     if (countryGeography) return countryGeography;
     const catalog = await json<CountryCatalog>(`${geography}countries.json`, signal);
     if (catalog.schemaVersion !== 1 || !Array.isArray(catalog.countries)) throw new Error('Invalid geography catalog');
-    countryGeography = new Map(catalog.countries.map(({ id, continent, subregion }) => [id, { continent, subregion }]));
+    countryGeography = new Map(catalog.countries.map(({ id, continent, subregion, regionIndex }) => [id, { continent, subregion, regionIndex }]));
     return countryGeography;
   }
   async function loadOverview(scale: '110m' | '50m', signal?: AbortSignal) {

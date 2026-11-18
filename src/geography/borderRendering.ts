@@ -9,9 +9,15 @@ export function borderStyle(camera: WorldCamera, size: AtlasSize, pixelRatio: nu
   return { width: size.width / globeRenderSize(size.width, size.height, pixelRatio).width, opacity: .72 + .28 * smoothDetail((camera.zoom - 1) / 2) };
 }
 /** Let the projection handoff finish before introducing country-detail geometry. */
+export function countryDetailZoomRange(camera: WorldCamera, size: AtlasSize): [number, number] {
+  if (camera.flatOnly) return [8, 12];
+  const handoff = transitionZoom(camera, size);
+  return [handoff * 1.15, handoff * 1.8];
+}
 export function countryDetailAmount(camera: WorldCamera, size: AtlasSize) {
   if (camera.projection === 'globe') return 0;
-  return camera.flatOnly ? smoothDetail((camera.zoom - 8) / 4) : smoothDetail((camera.zoom / transitionZoom(camera, size) - 1.15) / .65);
+  const [start, end] = countryDetailZoomRange(camera, size);
+  return smoothDetail((camera.zoom - start) / (end - start));
 }
 
 /** Existing source outlines only; GPU clips the far hemisphere. Build on LOD changes. */

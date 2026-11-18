@@ -8,7 +8,7 @@ Tap a country on the opening globe or the flat map to see its name, Natural Eart
 - The six-pixel drag threshold also separates taps from drags. Pinches and canceled pointers cannot select. A direct hit takes precedence. For a finger landing just off a coastline, the picker samples nearby visible polygons within six CSS pixels. Empty taps leave the current selection in place.
 - Picking unprojects the tapped screen point into longitude and latitude. During a projection or detail fade it uses the visually dominant source. Bounding boxes narrow the search, and the browser tests the existing fill paths with the even-odd rule used by the renderer. The front hemisphere guard and date-line wrapping use the atlas camera. The last painted source feature takes precedence at overlapping boundaries.
 - Name and full ID come from the atlas catalog. The first selection loads the existing 440,943-byte Natural Earth country catalog on demand and retains its subregion and continent labels in memory. Until those are available, the card shows the atlas's source-derived map point. That point represents a place inside the country geometry. The panel contains geographic fields only.
-- Playability flags are keyed separately by geographic ID. All 258 records currently show **Playability undecided**. The owner will choose the initial six countries. Admin-1 inspection and the real-country game setup remain separate milestones.
+- Playability flags are keyed separately by geographic ID. All 258 records currently show **Playability undecided**. The owner will choose the initial six countries. [MAP-01D](ADMIN_REGIONS.md) adds administrative region inspection at close zoom. Real-country game setup remains a separate milestone.
 
 ## Rendering and mobile layout
 

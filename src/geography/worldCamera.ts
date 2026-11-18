@@ -74,6 +74,11 @@ function boundedFallback(camera: WorldCamera, size: AtlasSize): WorldCamera {
   return { ...camera, focus: geographicFocus([bounded.center.x - 180, 90 - bounded.center.y]) };
 }
 
+export function positionWorldCamera(camera: WorldCamera, size: AtlasSize, focus: GeographicPosition, zoom: number): WorldCamera {
+  const next = { ...camera, focus: geographicFocus(focus), zoom: clamp(zoom, 1, ATLAS_MAX_ZOOM) };
+  return boundedFallback({ ...next, projection: desiredProjection(next, size) }, size);
+}
+
 /** Solve a north-up orthographic anchor. Prefer the nearest valid meridian branch. */
 function globeAnchor(camera: WorldCamera, size: AtlasSize, anchor: GeographicPosition, to: AtlasPoint): GeographicPosition {
   const radius = globeRadius(camera, size), phi = anchor[1] * RADIANS, cosine = Math.cos(phi);

@@ -11,9 +11,9 @@ export function createGeographyLoader({ appBaseUrl, fetcher = globalThis.fetch }
   let regionIndex: { id: GeographicCountryId; request: Promise<RegionCatalog | null> } | undefined;
   let geometryChunk: { path: string; request: Promise<GeographicCollection> } | undefined;
 
-  async function read<T>(path: string): Promise<T> {
+  async function read<T>(path: string, signal?: AbortSignal): Promise<T> {
     if (!/^[A-Za-z0-9/.-]+\.(?:json|geojson)$/.test(path) || path.includes('..') || path.startsWith('/')) throw new Error('Invalid geography asset path');
-    const response = await fetcher(`${base}${path}`);
+    const response = await fetcher(`${base}${path}`, { signal });
     if (!response.ok) throw new Error(`Geography request failed (${response.status}): ${path}`);
     return await response.json() as T;
   }
@@ -57,18 +57,29 @@ export function createGeographyLoader({ appBaseUrl, fetcher = globalThis.fetch }
   }
   async function loadRegionIndex(id: GeographicCountryId): Promise<RegionCatalog | null> {
     if (regionIndex?.id === id) return regionIndex.request;
-    const request = country(id).then(async record => {
-      if (!record.regionIndex) return null; // Missing source data stays missing.
-      const value = await read<RegionCatalog>(record.regionIndex.path);
-      if (value.schemaVersion !== 1 || value.countryId !== id || !Array.isArray(value.regions) || value.regions.some(r => r.countryId !== id)) throw new Error('Region catalog reference mismatch');
-      return value;
-    }).catch(error => { if (regionIndex?.request === request) regionIndex = undefined; throw error; });
+    const request = country(id).then(record => loadRegionIndexAsset(id, record.regionIndex))
+      .catch(error => { if (regionIndex?.request === request) regionIndex = undefined; throw error; });
     regionIndex = { id, request };
     return request;
   }
-  async function chunk(asset: GeographicAsset) {
+  async function loadRegionIndexAsset(id: GeographicCountryId, asset: GeographicAsset | null, signal?: AbortSignal): Promise<RegionCatalog | null> {
+    if (!asset) return null;
+    const code = id.slice('ne:admin0:'.length);
+    if (!/^[A-Z0-9]{3}$/.test(code) || asset.path !== `regions/${code}.index.json`) throw new Error('Invalid region index path');
+    const value = await read<RegionCatalog>(asset.path, signal);
+    if (value.schemaVersion !== 1 || value.countryId !== id || !Array.isArray(value.regions) || value.regions.some(r => r.countryId !== id)) throw new Error('Region catalog reference mismatch');
+    return value;
+  }
+  async function loadRegionChunk(id: GeographicCountryId, asset: GeographicAsset, signal?: AbortSignal): Promise<GeographicCollection> {
+    const code = id.slice('ne:admin0:'.length);
+    if (!/^[A-Z0-9]{3}$/.test(code) || !asset.path.startsWith(`regions/${code}-`) || !/^regions\/[A-Z0-9]{3}-\d{3}\.geojson$/.test(asset.path)) throw new Error('Invalid region chunk path');
+    const value = validateCollection(await read<GeographicCollection>(asset.path, signal));
+    if (value.features.some(f => !/^ne:admin1:\d+$/.test(f.id) || f.properties.countryId !== id)) throw new Error('Region chunk reference mismatch');
+    return value;
+  }
+  async function chunk(id: GeographicCountryId, asset: GeographicAsset) {
     if (geometryChunk?.path === asset.path) return geometryChunk.request;
-    const request = read<GeographicCollection>(asset.path).then(validateCollection).catch(error => {
+    const request = loadRegionChunk(id, asset).catch(error => {
       if (geometryChunk?.request === request) geometryChunk = undefined;
       throw error;
     });
@@ -78,9 +89,9 @@ export function createGeographyLoader({ appBaseUrl, fetcher = globalThis.fetch }
   async function loadRegionGeometry(countryId: GeographicCountryId, regionId: GeographicRegionId) {
     const record = (await loadRegionIndex(countryId))?.regions.find(item => item.id === regionId);
     if (!record) throw new Error(`Unknown geographic region in ${countryId}: ${regionId}`);
-    const feature = (await chunk(record.geometry)).features.find(item => item.id === regionId);
+    const feature = (await chunk(countryId, record.geometry)).features.find(item => item.id === regionId);
     if (!feature || feature.properties.countryId !== countryId) throw new Error('Region geometry reference mismatch');
     return feature;
   }
-  return { loadManifest, loadCountries, loadOverview, loadCountryGeometry, loadRegionIndex, loadRegionGeometry };
+  return { loadManifest, loadCountries, loadOverview, loadCountryGeometry, loadRegionIndex, loadRegionGeometry, loadRegionIndexAsset, loadRegionChunk };
 }
