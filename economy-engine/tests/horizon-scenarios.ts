@@ -1,5 +1,5 @@
 import type { EconomyEvent, EconomyState, TurnInput } from '../src/index.ts';
-import { advanceEconomyInPlace, auditError, autopilotCommands, cloneEconomy, createCatalogueWorldSpec, createEconomy, createTestWorldSpec } from '../src/index.ts';
+import { advanceEconomyInPlace, auditError, autopilotCommands, cloneEconomy, createCatalogueWorldSpec, createEconomy, createTestWorldSpec, getItinerary } from '../src/index.ts';
 
 /**
  * Games of the intended lengths (52, 104 and 156 weekly turns), calm and adverse,
@@ -22,7 +22,7 @@ export interface HorizonScenario {
   /** Whether the scenario is calm (no shock and no intervention). */
   calm: boolean;
   /** Scripted input for the week about to be resolved (1 = first week). */
-  script: (week: number, kind: WorldKind) => TurnInput | undefined;
+  script: (week: number, kind: WorldKind, state: EconomyState) => TurnInput | undefined;
 }
 
 const energyGood = (kind: WorldKind) => (kind === '7-good' ? 'energy' : 'crude_oil');
@@ -72,6 +72,28 @@ const stateIntervention = (week: number): TurnInput | undefined => {
   return undefined;
 };
 
+// Milestone 4: occupation (moderate, then intensive, then liberation) and military transport.
+const occupation = (week: number): TurnInput | undefined => {
+  if (week === 12) return { effects: [{ type: 'occupy-zone', zoneId: 'norland-coast', occupierId: 'ostmark', policy: 'moderate' }] };
+  if (week === 40) return { commands: [{ type: 'set-occupation-policy', countryId: 'ostmark', zoneId: 'norland-coast', policy: 'intensive' }] };
+  if (week === 120) return { effects: [{ type: 'liberate-zone', zoneId: 'norland-coast' }] };
+  return undefined;
+};
+
+const intensiveOccupation = (week: number): TurnInput | undefined =>
+  week === 8 ? { effects: [{ type: 'occupy-zone', zoneId: 'sundara-inland', occupierId: 'tavros', policy: 'intensive' }] } : undefined;
+
+/** Military requisition of 90% of the Norland rail link's capacity from week 6 to week 90. */
+const requisition = (week: number, _kind: WorldKind, state: EconomyState): TurnInput | undefined => {
+  if (week === 6) {
+    const itinerary = getItinerary(state, 'norland', 'norland-core', 'norland-coast');
+    const volume = itinerary && itinerary.capacity > 0 ? 0.9 * itinerary.capacity : 0;
+    return { commands: [{ type: 'set-transport-requisition', countryId: 'norland', originZoneId: 'norland-core', destinationZoneId: 'norland-coast', volume }] };
+  }
+  if (week === 90) return { commands: [{ type: 'set-transport-requisition', countryId: 'norland', originZoneId: 'norland-core', destinationZoneId: 'norland-coast', volume: 0 }] };
+  return undefined;
+};
+
 function merge(...inputs: (TurnInput | undefined)[]): TurnInput | undefined {
   const present = inputs.filter((input): input is TurnInput => !!input);
   if (present.length === 0) return undefined;
@@ -84,7 +106,10 @@ export const SCENARIOS: readonly HorizonScenario[] = [
   { name: 'energy shock, sea lane cut and sanctions (weeks 20-72)', calm: false, script: supplyShock },
   { name: 'fiscal crisis with two defaults (Tavros, weeks 40 and 100)', calm: false, script: fiscalCrisis },
   { name: 'state intervention (nationalisation, objectives, support, privatisation)', calm: false, script: stateIntervention },
-  { name: 'all adverse shocks combined', calm: false, script: (week, kind) => merge(capacityDestruction(week), supplyShock(week, kind), fiscalCrisis(week), stateIntervention(week)) },
+  { name: 'occupation of Norland Coast (moderate, intensive from week 40, liberated week 120)', calm: false, script: occupation },
+  { name: 'intensive occupation of Sundara Inland for the whole game', calm: false, script: intensiveOccupation },
+  { name: 'military requisition of 90% of the Norland rail link (weeks 6-90)', calm: false, script: requisition },
+  { name: 'all adverse shocks combined', calm: false, script: (week, kind, state) => merge(capacityDestruction(week), supplyShock(week, kind), fiscalCrisis(week), stateIntervention(week), occupation(week), requisition(week, kind, state)) },
 ];
 
 export interface HorizonStats {
@@ -116,7 +141,7 @@ export interface HorizonStats {
 /** Play `from`..`to` (inclusive, 1-based weeks) on `state` with the scenario's script, audit on. */
 export function play(state: EconomyState, kind: WorldKind, scenario: HorizonScenario, from: number, to: number, stats?: HorizonStats, start?: { gdp: number }): void {
   for (let week = from; week <= to; week++) {
-    const scripted = scenario.script(week, kind);
+    const scripted = scenario.script(week, kind, state);
     const report = advanceEconomyInPlace(state, { commands: [...autopilotCommands(state), ...(scripted?.commands ?? [])], effects: scripted?.effects ?? [] }, { audit: true, report: stats ? 'full' : 'none' });
     if (!stats || !start) continue;
     stats.worstAuditError = Math.max(stats.worstAuditError, auditError(report.audit));

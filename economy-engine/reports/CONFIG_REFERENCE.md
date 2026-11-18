@@ -249,6 +249,36 @@ Margins and labour needs are *derived* so that a sector running at its normal ut
 | `maxTariff` | 3 |  |
 | `maxReserveWeeks` | 52 |  |
 
+### Occupation (R49, R50, R62; Milestone 4; all provisional)
+
+| Parameter | Default | Meaning |
+|---|---:|---|
+| `occupationProfitLevy` | [0.2, 0.5] |  |
+| `occupationWageLevy` | [0, 0.05] |  |
+| `occupationDisorder` | [0.03, 0.08] | Output lost to disorganisation (requisitions, curfews, broken supply chains), before sabotage. |
+| `occupationCivilianSpending` | [1, 0.75] | How fully the occupier extends its spending (transfers, pay, purchases) to the occupied population. |
+| `resistanceBase` | [0.1, 0.5] | Resistance each policy drifts towards in calm conditions; hardship pushes it higher. |
+| `resistanceDeprivationWeight` | 0.5 |  |
+| `resistanceUnemploymentWeight` | 0.5 |  |
+| `resistanceRise` | 0.03 | Resistance builds up in months and fades over more than a year, so past policies leave a memory (R50). |
+| `resistanceFall` | 0.01 |  |
+| `resistanceFallFree` | 0.05 | After liberation or annexation resistance against the occupier fades faster. |
+| `sabotageOutputLoss` | 0.15 | Output lost to sabotage and strikes at full resistance (proportional below that). |
+| `sabotageChance` | 0.15 | At full resistance an attack destroys 3% of one good's plant with 15% probability each week. |
+| `sabotageDamage` | 0.03 |  |
+| `securityCost` | [0.01, 0.03] | Weekly security cost, as a share of the zone's weekly output value: per policy, plus 5% times resistance. |
+| `securityResistanceCost` | 0.05 |  |
+| `revoltThreshold` | 0.7 |  |
+| `revoltEndThreshold` | 0.5 |  |
+
+### Transport capacity and requisition (R45, R46, R63; Milestone 4)
+
+| Parameter | Default | Meaning |
+|---|---:|---|
+| `laneCapacityHeadroom` | 2 | Lanes carry up to twice their normal starting traffic (capacity then grows with the economy). |
+| `laneCapacityFloor` | 0.25 | No lane carries less than a quarter of the average lane capacity. |
+| `laneDemandSmoothing` | 0.25 |  |
+
 ### History retention
 
 | Parameter | Default | Meaning |

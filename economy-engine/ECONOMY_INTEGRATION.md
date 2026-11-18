@@ -64,12 +64,16 @@ npm run sim -- --load /tmp/w.json --turns 52 --audit
 | `set-procurement-priority` | `countryId`, `enabled` | war economy: state orders served before households |
 | `repay-debt` | `countryId`, `amount` | repays what the treasury can afford |
 | `declare-default` | `countryId` | immediate default (see design §8) |
+| `set-occupation-policy` | `countryId`, `zoneId`, `policy: 'moderate'│'intensive'` | Milestone 4: policy in a zone the country occupies (R50) |
+| `set-transport-requisition` | `countryId`, `originZoneId`, `destinationZoneId`, `volume` | Milestone 4: standing military priority on the itinerary between two zones the country controls (R46, R63); the engine finds the lanes; `volume` in freight units per week; 0 cancels (always allowed) |
 
 **Effects** — facts decided by *other* game systems; the engine just applies them.
 
 | `type` | Fields | Typical source in the game |
 |---|---|---|
-| `transfer-zone` | `zoneId`, `ownerId` | conquest, annexation, secession (capital moves with the region) |
+| `transfer-zone` | `zoneId`, `ownerId` | annexation, secession by treaty: legal and economic owner both change (Milestone 4); ends any occupation |
+| `occupy-zone` | `zoneId`, `occupierId`, `policy?` | Milestone 4: military occupation; the occupier controls the economy, firms keep their legal owners (R62); occupying for the legal owner liberates |
+| `liberate-zone` | `zoneId` | Milestone 4: control returns to the legal owner |
 | `destroy-capacity` | `zoneId`, `goodId│'all'`, `fraction` | bombing, battle damage |
 | `destroy-stock` | `zoneId`, `goodId│'all'`, `fraction` | looting, fires, blockade losses |
 | `set-lane` | `laneId`, `costMultiplier`, `throughput` | blockade, war zone, port capture (throughput 0 = closed, 1 = open) |
@@ -102,17 +106,20 @@ npm run sim -- --load /tmp/w.json --turns 52 --audit
 | `goods[g]`: world price, production, uses, traded volume, unmet demand | market screen |
 | `trade[]` (only with `tradeDetail: true`) | route map of bilateral flows |
 | `world`: GDP, inflation, interest rate, money, debt, population, `rebases` | world summary |
-| `events[]` | `sovereign-default`, `market-access-lost/restored`, `missed-payment`, `unrest-started/escalated/ended`, `regime-survived`, `regime-change` |
+| `events[]` | `sovereign-default`, `market-access-lost/restored`, `missed-payment`, `unrest-started/escalated/ended`, `regime-survived`, `regime-change`; Milestone 4: `zone-occupied`, `zone-liberated`, `zone-annexed`, `sabotage`, `occupation-revolt(-ended)` (all with `countryId`) |
+| `occupations[]` | Milestone 4: every occupied zone: occupier, legal owner, policy, resistance, revolt, output loss, levy, security cost, withheld dividends |
+| `transport` | Milestone 4: every lane's capacity, military and civilian freight, civilian demand and utilisation; every requisition's delivered volume, lanes, bottleneck and cost |
 | `audit` | conservation checks (see below) |
 
-**Read-only helpers** (no turn is run): `getCountry`, `getZone`, `listSanctions`, `getProgress` (ratios since the start of the game), and history series `getCountryHistory / getGoodHistory / getWorldHistory` for charts (52 weekly, 40 quarterly, 50 yearly points, kept automatically).
+**Read-only helpers** (no turn is run): `getCountry`, `getZone` (with legal owner, occupation and resistance), `listSanctions`, `listRequisitions`, `getItinerary` (the lanes a requisition would use now), `getProgress` (ratios since the start of the game), and history series `getCountryHistory / getGoodHistory / getWorldHistory` for charts (52 weekly, 40 quarterly, 50 yearly points, kept automatically).
 
 ### What the host must decide from events
 
-* `regime-change` for the player's country → defeat (GAME_DESIGN.md §6). The engine never ends a game by itself.
+* `regime-change` for the player's country → defeat (GAME_DESIGN.md §6). The engine never ends a game by itself and does not know which countries are human: it keeps simulating every country and reports every regime change. Each event carries the country's running count (`regime`); the first overthrow is `regime: 1`, and that is the one that defeats a human player. Later changes in the same country only concern AI countries.
+* `occupation-revolt` → an open revolt in an occupied zone; what follows (uprising, independence) is the host's decision.
 * `sovereign-default` → show it; it is **not** a defeat.
 * A country's `unrestTier` ≥ 1 → protests/strikes (the output cost is already applied by the engine; the host may add local unrest effects on the map).
-* Defeat by subordination, capitulation, annexation → host decides; then send `transfer-zone` effects.
+* Defeat by subordination, capitulation, annexation → host decides; then send `transfer-zone` effects. Military control of a region during a war → `occupy-zone` / `liberate-zone`.
 
 ## 3. Mapping the game's world to the engine's
 

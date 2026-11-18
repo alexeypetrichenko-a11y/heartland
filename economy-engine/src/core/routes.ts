@@ -17,6 +17,15 @@ export interface RouteTable {
   distance: Float64Array;
   /** Smallest lane throughput along that path (1 = unrestricted). */
   throughput: Float64Array;
+  /**
+   * Lanes on the cheapest path from zone a to zone b: pathLanes[pathStart[a * Z + b]] up to
+   * pathLanes[pathStart[a * Z + b + 1]] (Milestone 4: transport capacity is used lane by lane).
+   */
+  pathStart: Int32Array;
+  pathLanes: Int32Array;
+  /** Inverse index: the zone pairs whose path uses lane l are lanePairs[lanePairStart[l]] up to lanePairs[lanePairStart[l + 1]]. */
+  lanePairStart: Int32Array;
+  lanePairs: Int32Array;
 }
 
 interface CacheEntry {
@@ -69,7 +78,10 @@ export function computeRoutes(
   const V = nodeCount;
   const best = new Float64Array(V * V).fill(Infinity);
   const flow = new Float64Array(V * V);
-  for (let v = 0; v < V; v++) { best[v * V + v] = 0; flow[v * V + v] = 1; }
+  // Next node on the best path from i to j, and the lane used for a direct hop.
+  const next = new Int32Array(V * V).fill(-1);
+  const direct = new Int32Array(V * V).fill(-1);
+  for (let v = 0; v < V; v++) { best[v * V + v] = 0; flow[v * V + v] = 1; next[v * V + v] = v; }
   for (let lane = 0; lane < from.length; lane++) {
     if (!(throughput[lane] > 0)) continue;
     const length = distance[lane] * costMultiplier[lane];
@@ -77,6 +89,8 @@ export function computeRoutes(
     if (length < best[a * V + b]) {
       best[a * V + b] = length; best[b * V + a] = length;
       flow[a * V + b] = throughput[lane]; flow[b * V + a] = throughput[lane];
+      next[a * V + b] = b; next[b * V + a] = a;
+      direct[a * V + b] = lane; direct[b * V + a] = lane;
     }
   }
   for (let k = 0; k < V; k++) {
@@ -88,6 +102,7 @@ export function computeRoutes(
         const through = ik + best[k * V + j];
         if (through < best[i * V + j]) {
           best[i * V + j] = through;
+          next[i * V + j] = next[i * V + k];
           const flowKj = flow[k * V + j];
           flow[i * V + j] = flowIk < flowKj ? flowIk : flowKj;
         }
@@ -95,12 +110,39 @@ export function computeRoutes(
     }
   }
   const Z = zoneCount;
-  const table: RouteTable = { distance: new Float64Array(Z * Z), throughput: new Float64Array(Z * Z) };
+  const pathStart = new Int32Array(Z * Z + 1);
+  const lanesOnPaths: number[] = [];
+  const table: RouteTable = {
+    distance: new Float64Array(Z * Z), throughput: new Float64Array(Z * Z), pathStart, pathLanes: new Int32Array(0),
+    lanePairStart: new Int32Array(from.length + 1), lanePairs: new Int32Array(0),
+  };
   for (let a = 0; a < Z; a++) {
     for (let b = 0; b < Z; b++) {
       table.distance[a * Z + b] = best[a * V + b];
       table.throughput[a * Z + b] = best[a * V + b] === Infinity ? 0 : flow[a * V + b];
+      pathStart[a * Z + b] = lanesOnPaths.length;
+      if (a === b || best[a * V + b] === Infinity) continue;
+      let node = a;
+      // A path never visits more nodes than exist; the bound only guards against a malformed table.
+      for (let step = 0; step < V && node !== b; step++) {
+        const hop = next[node * V + b];
+        lanesOnPaths.push(direct[node * V + hop]);
+        node = hop;
+      }
     }
   }
+  pathStart[Z * Z] = lanesOnPaths.length;
+  table.pathLanes = Int32Array.from(lanesOnPaths);
+  // Inverse index (counting sort by lane; pairs stay in increasing order within each lane).
+  const L = from.length;
+  const counts = table.lanePairStart;
+  for (let k = 0; k < lanesOnPaths.length; k++) counts[lanesOnPaths[k] + 1]++;
+  for (let l = 0; l < L; l++) counts[l + 1] += counts[l];
+  const fillAt = counts.slice(0, L);
+  const pairs = new Int32Array(lanesOnPaths.length);
+  for (let pair = 0; pair < Z * Z; pair++) {
+    for (let k = pathStart[pair]; k < pathStart[pair + 1]; k++) pairs[fillAt[lanesOnPaths[k]]++] = pair;
+  }
+  table.lanePairs = pairs;
   return table;
 }

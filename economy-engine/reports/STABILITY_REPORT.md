@@ -8,33 +8,33 @@ Node v22.23.4, linux x64. Timing is for this machine only; see ECONOMY_DESIGN.md
 
 | Weeks | ms/week | Heap growth MB | Save size KB | Worst conservation error | World real GDP | Mean inflation | Money supply | Price index | Max debt/GDP | Worst unemployment | Min stability | Largest stored number | Defaults (total) | Regime changes (total) | Save/restore exact | All finite |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 100 | 1.828 | 1.6 | 184 | 4.8e-14 | 4.73e+2 | 1.09% | 6.47e+3 | 1.05e+0 | 84% | 11.2% | 62.9 | 6.09e+3 | 0 | 0 | yes | yes |
-| 1,000 | 1.196 | 1.8 | 289 | 4.5e-14 | 7.14e+2 | 0.46% | 9.82e+3 | 1.06e+0 | 79% | 13.5% | 57.8 | 5.75e+3 | 0 | 0 | yes | yes |
-| 10,000 | 1.230 | 2.6 | 353 | 3.3e-14 | 1.17e+4 | -0.65% | 5.11e+4 | 3.33e-1 | 77% | 7.6% | 70.4 | 4.84e+4 | 0 | 0 | yes | yes |
-| 100,000 | 0.732 | 2.3 | 266 | 4.5e-13 | 1.33e+4 | 0.59% | 2.17e+9 | 1.61e+4 | 2223187562522141% | 100.0% | 0.0 | 4.36e+24 | 104696 | 16184 | yes | yes |
+| 100 | 2.535 | 1.5 | 187 | 4.8e-14 | 4.73e+2 | 1.09% | 6.47e+3 | 1.05e+0 | 84% | 11.2% | 62.9 | 6.09e+3 | 0 | 0 | yes | yes |
+| 1,000 | 1.020 | 1.9 | 292 | 4.5e-14 | 7.14e+2 | 0.46% | 9.82e+3 | 1.06e+0 | 79% | 13.5% | 57.8 | 5.75e+3 | 0 | 0 | yes | yes |
+| 10,000 | 0.886 | 2.8 | 356 | 3.3e-14 | 1.17e+4 | -0.65% | 5.11e+4 | 3.33e-1 | 77% | 7.6% | 70.4 | 4.84e+4 | 0 | 0 | yes | yes |
+| 100,000 | 0.759 | 2.6 | 268 | 4.5e-13 | 1.33e+4 | 0.59% | 2.17e+9 | 1.61e+4 | 2223187562522141% | 100.0% | 0.0 | 4.36e+24 | 104696 | 16184 | yes | yes |
 
 ## Stationary world (no exogenous growth)
 
 | Weeks | ms/week | Heap growth MB | Save size KB | Worst conservation error | World real GDP | Mean inflation | Money supply | Price index | Max debt/GDP | Worst unemployment | Min stability | Largest stored number | Defaults (total) | Regime changes (total) | Save/restore exact | All finite |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 100 | 2.033 | 0.1 | 183 | 4.8e-14 | 4.70e+2 | 1.03% | 6.42e+3 | 1.03e+0 | 85% | 4.9% | 69.1 | 6.08e+3 | 0 | 0 | yes | yes |
-| 1,000 | 0.711 | 1.0 | 289 | 5.4e-14 | 4.69e+2 | 0.15% | 6.47e+3 | 1.05e+0 | 84% | 5.5% | 69.0 | 6.15e+3 | 0 | 0 | yes | yes |
-| 10,000 | 0.761 | 1.3 | 354 | 5.0e-14 | 4.71e+2 | 0.06% | 7.19e+3 | 1.14e+0 | 91% | 6.2% | 68.0 | 6.47e+3 | 0 | 0 | yes | yes |
-| 100,000 | 0.780 | 0.7 | 354 | 9.2e-14 | 4.71e+2 | 0.00% | 7.26e+3 | 1.16e+0 | 91% | 6.4% | 67.3 | 6.70e+3 | 0 | 0 | yes | yes |
+| 100 | 1.356 | 0.8 | 187 | 4.8e-14 | 4.70e+2 | 1.03% | 6.42e+3 | 1.03e+0 | 85% | 4.9% | 69.1 | 6.08e+3 | 0 | 0 | yes | yes |
+| 1,000 | 1.129 | 1.1 | 292 | 5.4e-14 | 4.69e+2 | 0.15% | 6.47e+3 | 1.05e+0 | 84% | 5.5% | 69.0 | 6.15e+3 | 0 | 0 | yes | yes |
+| 10,000 | 0.968 | 1.4 | 358 | 5.0e-14 | 4.71e+2 | 0.06% | 7.19e+3 | 1.14e+0 | 91% | 6.2% | 68.0 | 6.47e+3 | 0 | 0 | yes | yes |
+| 100,000 | 1.028 | 0.8 | 358 | 9.2e-14 | 4.71e+2 | 0.00% | 7.26e+3 | 1.16e+0 | 91% | 6.4% | 67.3 | 6.70e+3 | 0 | 0 | yes | yes |
 
 ## Zero-inflation stationary world
 
 | Weeks | ms/week | Heap growth MB | Save size KB | Worst conservation error | World real GDP | Mean inflation | Money supply | Price index | Max debt/GDP | Worst unemployment | Min stability | Largest stored number | Defaults (total) | Regime changes (total) | Save/restore exact | All finite |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 100 | 2.259 | -0.0 | 183 | 5.0e-14 | 4.69e+2 | 0.58% | 6.33e+3 | 1.02e+0 | 87% | 5.0% | 69.2 | 6.08e+3 | 0 | 0 | yes | yes |
-| 1,000 | 0.959 | 0.9 | 289 | 5.4e-14 | 4.65e+2 | -0.29% | 6.00e+3 | 9.68e-1 | 91% | 6.1% | 68.1 | 5.95e+3 | 0 | 0 | yes | yes |
-| 10,000 | 0.864 | 1.1 | 353 | 7.6e-14 | 4.68e+2 | -0.25% | 3.88e+3 | 6.35e-1 | 92% | 6.7% | 67.0 | 4.00e+3 | 0 | 0 | yes | yes |
-| 100,000 | 0.843 | 0.6 | 302 | 8.7e-12 | 3.57e+2 | 0.03% | 2.27e+3 | 6.72e-1 | 1175751175764% | 100.0% | 0.0 | 3.15e+8 | 22677 | 3546 | yes | yes |
+| 100 | 0.666 | 0.2 | 187 | 5.0e-14 | 4.69e+2 | 0.58% | 6.33e+3 | 1.02e+0 | 87% | 5.0% | 69.2 | 6.08e+3 | 0 | 0 | yes | yes |
+| 1,000 | 1.069 | 1.1 | 292 | 5.4e-14 | 4.65e+2 | -0.29% | 6.00e+3 | 9.68e-1 | 91% | 6.1% | 68.1 | 5.95e+3 | 0 | 0 | yes | yes |
+| 10,000 | 0.952 | 1.3 | 356 | 7.6e-14 | 4.68e+2 | -0.25% | 3.88e+3 | 6.35e-1 | 92% | 6.7% | 67.0 | 4.00e+3 | 0 | 0 | yes | yes |
+| 100,000 | 0.928 | 0.8 | 305 | 8.7e-12 | 3.57e+2 | 0.03% | 2.27e+3 | 6.72e-1 | 1175751175764% | 100.0% | 0.0 | 3.15e+8 | 22677 | 3546 | yes | yes |
 
 ## Reading the results
 
 - Conservation: the worst relative error of goods, money and bond ledgers over all audited weeks was 8.7e-12.
 - Save/restore: every milestone replay was bit-identical.
-- Memory: the saved state is 184 KB at 100 weeks, 353 KB at its largest and 266 KB at 100,000 weeks; history is a fixed-size ring, so state does not grow with the number of turns. Heap growth stayed within 2.6 MB.
+- Memory: the saved state is 187 KB at 100 weeks, 356 KB at its largest and 268 KB at 100,000 weeks; history is a fixed-size ring, so state does not grow with the number of turns. Heap growth stayed within 2.8 MB.
 - Nominal magnitudes: the price index at the last milestone is 1.61e+4 (relative to the start; it only restarts from a rebase of the money unit). Money amounts are rebased by 2^30 whenever the money supply passes 2^70, so stored numbers stay below 4.36e+24 (largest value stored at the last milestone).
 - Real magnitudes: the growing world's real GDP at the last milestone is 1.33e+4 (the stationary one: 4.71e+2).

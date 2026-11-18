@@ -20,7 +20,7 @@ function mix(hash: number, value: number): number {
 }
 
 /** Named streams keep unrelated uses of randomness independent. */
-export const RANDOM_STREAM = { regime: 1, investment: 2, harvest: 3, worldBuilder: 4 } as const;
+export const RANDOM_STREAM = { regime: 1, investment: 2, harvest: 3, worldBuilder: 4, sabotage: 5 } as const;
 
 /** Uniform number in [0, 1). `turn` may be any non-negative safe integer. */
 export function randomUnit(seed: number, turn: number, stream: number, index: number): number {

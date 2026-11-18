@@ -128,7 +128,7 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 1400.1712570000002
+    "runtimeMs": 1719.3908729999998
   },
   {
     "id": 2,
@@ -283,7 +283,7 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 729.8863649999998
+    "runtimeMs": 516.9443380000002
   },
   {
     "id": 3,
@@ -443,7 +443,7 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 844.3720229999999
+    "runtimeMs": 751.0127380000004
   },
   {
     "id": 4,
@@ -598,7 +598,7 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 249.19858099999965
+    "runtimeMs": 260.1645389999999
   },
   {
     "id": 5,
@@ -608,38 +608,38 @@
     "indicators": [
       {
         "label": "World traded volume during war",
-        "value": "-7%",
+        "value": "-11%",
         "note": "vs control"
       },
       {
         "label": "Khazir trade (exports + imports)",
-        "value": "3%",
+        "value": "0%",
         "note": "reroutes overland via Morvaine"
       },
       {
         "label": "Halcyon trade",
-        "value": "-63%"
+        "value": "-51%"
       },
       {
         "label": "Norland trade (many alternative routes)",
-        "value": "-9%"
+        "value": "-17%"
       },
       {
         "label": "Real GDP: Khazir / Halcyon / Norland",
-        "value": "2.5% / -33.6% / 0.3%"
+        "value": "0.7% / -21.6% / 0.4%"
       },
       {
         "label": "Most affected country",
-        "value": "halcyon (-33.6%)"
+        "value": "halcyon (-21.6%)"
       },
       {
         "label": "Energy price in Sundara",
-        "value": "1.07x",
+        "value": "1.04x",
         "note": "importer cut off from the Gulf"
       },
       {
         "label": "World real GDP returns within 1% of control",
-        "value": "27 weeks after reopening"
+        "value": "2 weeks after reopening"
       }
     ],
     "table": {
@@ -663,42 +663,42 @@
         ],
         [
           66,
-          "94%",
+          "89%",
           "98%",
-          "96%",
+          "95%",
           "0.99x",
-          "2.3%"
+          "-2.3%"
         ],
         [
           105,
-          "93%",
-          "106%",
-          "61%",
-          "1.09x",
-          "2.7%"
+          "89%",
+          "104%",
+          "68%",
+          "1.06x",
+          "0.5%"
         ],
         [
           156,
-          "93%",
-          "104%",
-          "61%",
-          "1.12x",
-          "0.5%"
+          "89%",
+          "100%",
+          "80%",
+          "1.04x",
+          "0.4%"
         ],
         [
           182,
           "97%",
-          "99%",
-          "81%",
-          "1.03x",
-          "-4.6%"
+          "97%",
+          "95%",
+          "0.99x",
+          "-1.4%"
         ],
         [
           260,
           "99%",
+          "99%",
           "98%",
-          "87%",
-          "1.00x",
+          "0.99x",
           "1.8%"
         ]
       ]
@@ -712,26 +712,26 @@
       {
         "name": "World trade shrinks",
         "pass": true,
-        "detail": "-7%"
+        "detail": "-11%"
       },
       {
         "name": "The country whose only sea lane is cut loses far more than a diversified one",
         "pass": true,
-        "detail": "Halcyon -33.6% vs Norland 0.3%"
+        "detail": "Halcyon -21.6% vs Norland 0.4%"
       },
       {
         "name": "Prices rise for cut-off importers",
         "pass": true,
-        "detail": "Sundara 1.07x"
+        "detail": "Sundara 1.04x"
       },
       {
         "name": "Recovery after the routes reopen",
         "pass": true,
-        "detail": "27 weeks"
+        "detail": "2 weeks"
       }
     ],
     "observations": [],
-    "runtimeMs": 256.66223500000024
+    "runtimeMs": 490.1725999999999
   },
   {
     "id": 6,
@@ -963,7 +963,7 @@
       "Week 447: the government survives a crisis",
       "Firm bankruptcies in Tavros over the run: 0."
     ],
-    "runtimeMs": 1253.2867400000005
+    "runtimeMs": 1408.9218469999996
   },
   {
     "id": 7,
@@ -1106,7 +1106,7 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 333.4737949999999
+    "runtimeMs": 305.46901100000014
   },
   {
     "id": 8,
@@ -1283,7 +1283,7 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 1094.5839500000002
+    "runtimeMs": 1083.8291760000002
   },
   {
     "id": 9,
@@ -1465,7 +1465,7 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 1385.4488500000007
+    "runtimeMs": 1034.4040779999996
   },
   {
     "id": 10,
@@ -1597,6 +1597,6 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 6358.369439
+    "runtimeMs": 6991.2908210000005
   }
 ]

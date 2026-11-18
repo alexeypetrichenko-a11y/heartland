@@ -184,7 +184,8 @@ const ZONE_FIELDS = ['productivity', 'laborSupply', 'laborScale', 'employment', 
   'householdIncome', 'householdSpending', 'householdReal', 'householdNeed', 'wageBill',
   'valueAdded', 'valueAddedReal', 'lendable', 'lendAsked', 'lendScale', 'lendGiven', 'zoneDemand',
   'remainingDemand', 'remainingStock', 'supplierOrders', 'supplierFill', 'paid', 'received', 'releaseShipped',
-  'idealPrice', 'foreignLeft', 'delivered'] as const;
+  'idealPrice', 'foreignLeft', 'delivered', 'spendWeight', 'occupationFactor', 'occupationLevy', 'occupationSecurity',
+  'withheldDividends'] as const;
 const COUNTRY_FIELDS = ['population', 'planAdministration', 'planSocial', 'planMilitaryPay', 'planMilitaryGoods',
   'planInfrastructure', 'planExtras', 'planTotal', 'cashTarget', 'interestDue', 'principalDue', 'fundedShare', 'creditRequest',
   'borrowed', 'repaid', 'revenueIncomeTax', 'revenueConsumptionTax', 'revenueCorporateTax', 'revenueTariffs',
@@ -195,18 +196,31 @@ const COUNTRY_FIELDS = ['population', 'planAdministration', 'planSocial', 'planM
   'extraRepayment', 'defaultRequested', 'countryNominal', 'countryReal', 'countryExports', 'countryImports',
   'countryScratch', 'countryInflation', 'countryUnemployment', 'countryDeprivation', 'countryHouseholdShortage',
   'countryLiving', 'reportCpi', 'reportWage', 'reportConsumption', 'reportArms', 'reportRevenue',
-  'reportSpending'] as const;
+  'reportSpending', 'revenueOccupation', 'spentOccupationSecurity', 'spentTransport', 'spendPopulation',
+  'politicsPopulation'] as const;
 const COUNTRY_GOOD_FIELDS = ['procurement', 'releaseOffer', 'releaseSold', 'reserveBuy', 'governmentOrdered',
   'governmentBought', 'countryPrice', 'countryRefPrice', 'countryShortage', 'countryUse'] as const;
 const GOOD_FIELDS = ['ledgerBefore', 'ledgerProduced', 'ledgerUsed', 'ledgerSpoiled', 'ledgerDestroyed', 'ledgerDust',
   'useHousehold', 'useInput', 'useInvestment', 'useGovernment', 'traded', 'unmet', 'goodScratchA', 'goodScratchB',
   'goodScratchC'] as const;
-const PAIR_FIELDS = ['costFactor', 'attraction', 'order', 'shipped', 'pairLimit'] as const;
+const PAIR_FIELDS = ['costFactor', 'attraction', 'order', 'shipped', 'pairLimit', 'pairFactor', 'pairDemand', 'pairShipped', 'pairPass',
+  'pairCut'] as const;
+/** Per transport lane (Milestone 4). */
+const LANE_FIELDS = ['laneCapacity', 'laneMilitary', 'laneCivil', 'laneFactor', 'laneDemand', 'laneRisky'] as const;
 
 type FloatFields = typeof ZONE_GOOD_FIELDS[number] | typeof ZONE_FIELDS[number] | typeof COUNTRY_FIELDS[number]
   | typeof COUNTRY_GOOD_FIELDS[number] | typeof GOOD_FIELDS[number] | typeof PAIR_FIELDS[number]
   | typeof OWNER_GOOD_FIELDS[number] | typeof LINE_FIELDS[number] | typeof AGGREGATE_FIELDS[number]
-  | typeof AGGREGATE_GOOD_FIELDS[number];
+  | typeof AGGREGATE_GOOD_FIELDS[number] | typeof LANE_FIELDS[number];
+
+/** Outcome of one military transport requisition this week (for the report). */
+export interface RequisitionResult {
+  requested: number;
+  delivered: number;
+  lanes: number[];
+  bottleneck: number;
+  cost: number;
+}
 
 /** Scratch memory for one turn. Reused between turns; never saved. */
 export type Workspace = Record<FloatFields, Float64Array> & {
@@ -214,7 +228,14 @@ export type Workspace = Record<FloatFields, Float64Array> & {
   countryCount: number;
   goodCount: number;
   sectorCount: number;
+  laneCount: number;
   rowSize: number;
+  /** True when lane capacities are finite this week. */
+  transportLimited: boolean;
+  /** True when some lane's expected civilian load exceeds half of what it has left: those lanes are checked good by good. */
+  lanesAtRisk: boolean;
+  /** Military requisitions served this week, in the order of state.requisitions. */
+  requisitionResults: RequisitionResult[];
   /** Value ordered by each government per good and category (administration, military, infrastructure). */
   governmentCategoryShare: Float64Array;
   /** blocked[(buyer country * C + seller country) * G + good] = 1 when trade is forbidden. */
@@ -236,7 +257,7 @@ export type Workspace = Record<FloatFields, Float64Array> & {
 let workspace: Workspace | null = null;
 let workspaceArrays: (Float64Array | Uint8Array)[] = [];
 
-function allocate(Z: number, C: number, G: number, S: number, rowSize: number): Workspace {
+function allocate(Z: number, C: number, G: number, S: number, L: number, rowSize: number): Workspace {
   const arrays: (Float64Array | Uint8Array)[] = [];
   const fields: Record<string, Float64Array> = {};
   const add = (names: readonly string[], size: number) => {
@@ -252,8 +273,10 @@ function allocate(Z: number, C: number, G: number, S: number, rowSize: number): 
   add(LINE_FIELDS, Z * G * OWNERSHIP_COUNT * TIER_COUNT);
   add(AGGREGATE_FIELDS, Z * S * OWNERSHIP_COUNT);
   add(AGGREGATE_GOOD_FIELDS, Z * S * OWNERSHIP_COUNT * G);
+  add(LANE_FIELDS, L);
   const extra = {
-    zoneCount: Z, countryCount: C, goodCount: G, sectorCount: S, rowSize,
+    zoneCount: Z, countryCount: C, goodCount: G, sectorCount: S, laneCount: L, rowSize, transportLimited: false, lanesAtRisk: false,
+    requisitionResults: [] as RequisitionResult[],
     governmentCategoryShare: new Float64Array(C * G * 3),
     blocked: new Uint8Array(C * C * G),
     tariff: new Float64Array(C * C * G),
@@ -272,10 +295,11 @@ export function getWorkspace(state: EconomyState): Workspace {
   const C = state.countries.length;
   const G = state.config.goods.length;
   const S = state.config.sectors.length;
+  const L = state.lanes.id.length;
   const rowSize = state.history.rowSize;
   if (!workspace || workspace.zoneCount !== Z || workspace.countryCount !== C || workspace.goodCount !== G
-    || workspace.sectorCount !== S || workspace.rowSize !== rowSize) {
-    workspace = allocate(Z, C, G, S, rowSize);
+    || workspace.sectorCount !== S || workspace.laneCount !== L || workspace.rowSize !== rowSize) {
+    workspace = allocate(Z, C, G, S, L, rowSize);
     return workspace;
   }
   for (let i = 0; i < workspaceArrays.length; i++) workspaceArrays[i].fill(0);
@@ -286,6 +310,9 @@ export function getWorkspace(state: EconomyState): Workspace {
   workspace.creditAvailable = 0;
   workspace.tradeLog = null;
   workspace.calibrating = false;
+  workspace.transportLimited = false;
+  workspace.lanesAtRisk = false;
+  workspace.requisitionResults = [];
   return workspace;
 }
 

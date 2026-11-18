@@ -167,6 +167,12 @@ export function firmBorrow(s: EconomyState, w: Workspace, a: number, owner: numb
   const p = s.config.params;
   const firm = s.firm;
   const lender = firm.loan[a] > 0 ? firm.lender[a] : owner;
+  // A bank does not lend across a front line: firms of an occupied zone that owe money to
+  // their legal owner's bank get no new credit until liberation (Milestone 4).
+  if (lender !== owner) {
+    const z = Math.floor(a / (w.sectorCount * OWNERSHIP_COUNT));
+    if (s.zone.sovereign[z] !== s.zone.owner[z]) return 0;
+  }
   // Banks lend less to firms in poor financial health: a firm that keeps losing
   // money eventually finds no more credit (and may then fail, R31).
   const room = p.firmMaxLeverage * w.aggCapitalValue[a] * clamp(1 + 0.5 * firm.health[a], 0.5, 1) - firm.loan[a];
@@ -448,9 +454,11 @@ export function resolveBankruptcies(s: EconomyState, w: Workspace, m: Model, eve
         // Anything left belongs to the owners.
         const surplus = available - recovered;
         if (surplus > 0) {
+          // The state's part belongs to the legal owner (Milestone 4: also under occupation).
           const toState = o === PUBLIC ? surplus : o === MIXED ? surplus * p.mixedPublicShare : 0;
-          s.country.treasury[c] += toState;
-          w.revenueFirmDividends[c] += toState;
+          const legal = s.zone.sovereign[z];
+          s.country.treasury[legal] += toState;
+          w.revenueFirmDividends[legal] += toState;
           s.zone.householdMoney[z] += surplus - toState;
           w.householdIncome[z] += surplus - toState;
         }

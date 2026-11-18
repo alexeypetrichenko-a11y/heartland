@@ -268,6 +268,43 @@ export interface EconomyParams {
   maxSpendingShare: number;
   maxTariff: number;
   maxReserveWeeks: number;
+  // Occupation (R49, R50, R62; Milestone 4). Index 0 = moderate, 1 = intensive policy.
+  /** Share of each firm's profit (before tax) the occupier levies, per policy. */
+  occupationProfitLevy: [number, number];
+  /** Share of the wages paid in the zone the occupier levies, per policy. */
+  occupationWageLevy: [number, number];
+  /** Share of normal output lost to disorganisation under occupation, per policy (before any sabotage). */
+  occupationDisorder: [number, number];
+  /** Weight of the occupied population in the occupier's spending (social transfers, pay and purchases), per policy. */
+  occupationCivilianSpending: [number, number];
+  /** Resistance level each policy pushes towards in calm conditions (0-1). */
+  resistanceBase: [number, number];
+  /** Extra resistance target per unit of deprivation and per point of unemployment above the natural rate. */
+  resistanceDeprivationWeight: number;
+  resistanceUnemploymentWeight: number;
+  /** Weekly share of the gap closed when resistance rises, and when it falls (slower: memory of past policy). */
+  resistanceRise: number;
+  resistanceFall: number;
+  /** Weekly share of resistance that fades once a zone is no longer occupied. */
+  resistanceFallFree: number;
+  /** Share of output lost to sabotage at full resistance. */
+  sabotageOutputLoss: number;
+  /** Weekly probability of a sabotage attack at full resistance, and the share of one good's plant it destroys. */
+  sabotageChance: number;
+  sabotageDamage: number;
+  /** Weekly security cost as a share of the zone's weekly output value: per policy, plus this much times resistance. */
+  securityCost: [number, number];
+  securityResistanceCost: number;
+  /** Resistance above which an open revolt is reported, and below which it is reported over. */
+  revoltThreshold: number;
+  revoltEndThreshold: number;
+  // Transport capacity and military requisition (R45, R46, R63; Milestone 4)
+  /** Physical capacity of every lane as a multiple of its normal civilian traffic at the start. */
+  laneCapacityHeadroom: number;
+  /** Smallest lane capacity, as a share of the average lane capacity. */
+  laneCapacityFloor: number;
+  /** Weekly share of the gap closed by the smoothed estimate of civilian transport demand. */
+  laneDemandSmoothing: number;
   // History retention (entries kept per resolution)
   historyWeekly: number;
   historyQuarterly: number;
@@ -301,11 +338,29 @@ export interface LaneArrays {
   costMultiplier: number[];
   /** 1 = open, 0 = closed. Share of normal trade a partial blockade lets through. */
   throughput: number[];
+  /**
+   * Physical transport capacity per week at the starting size of the economy, in freight units
+   * (quantity x base price x bulkiness). It grows with productive potential (world.transportIndex) and is
+   * never raised by requisition. -1 = not yet measured (only while a world is being built).
+   */
+  capacity: number[];
 }
 
 /** Per-zone values, indexed by zone. */
 export interface ZoneArrays {
+  /** Country that controls the zone's economy (taxes, production, distribution, trade). */
   owner: number[];
+  /**
+   * Legal owner (Milestone 4, R62). Equal to `owner` except while the zone is occupied: then
+   * `owner` is the occupier and `sovereign` the country the zone legally belongs to.
+   */
+  sovereign: number[];
+  /** Occupation policy while occupied: 0 moderate, 1 intensive (R50). */
+  occupationPolicy: number[];
+  /** Resistance to occupation, 0-1. It persists after a change of policy and fades after liberation. */
+  resistance: number[];
+  /** 1 while an open revolt is reported in the zone. */
+  revolt: number[];
   population: number[];
   populationGrowth: number[];
   /** Population the zone can grow towards; growth fades smoothly as it is approached. */
@@ -513,6 +568,19 @@ export interface WorldScalars {
    * range. One money unit now equals 2^(30 * rebases) of the original units.
    */
   rebases: number;
+  /** Productive potential (sum of population x technology) when transport capacities were measured. */
+  transportBase: number;
+  /** Growth of transport capacity with the economy: highest productive potential so far / transportBase (never falls). */
+  transportIndex: number;
+}
+
+/** A standing military transport requisition (R46, R63): priority capacity on an itinerary. */
+export interface RequisitionRecord {
+  country: number;
+  origin: number;
+  destination: number;
+  /** Freight units per week requested. */
+  volume: number;
 }
 
 export interface HistoryTier {
@@ -568,6 +636,14 @@ export interface EconomyState {
   countrySector: CountrySectorArrays;
   sanctions: SanctionRecord[];
   tariffOverrides: TariffOverride[];
+  /** Standing military transport requisitions, sorted by country, origin, destination. */
+  requisitions: RequisitionRecord[];
+  /**
+   * Smoothed civilian freight (freight units per week) that buyers in zone a wanted to bring from
+   * zone b, before any capacity limit: tradeDemand[a * Z + b]. Spread over the current routes it
+   * gives every lane's expected civilian load, also right after traffic has been rerouted.
+   */
+  tradeDemand: number[];
   world: WorldScalars;
   baseline: BaselineSnapshot;
   history: HistoryState;
@@ -580,6 +656,7 @@ export interface EconomyState {
 export type TaxKind = 'income' | 'consumption' | 'corporate';
 export type SpendingCategory = 'administration' | 'social' | 'military' | 'infrastructure';
 export type ReserveMode = 'automatic' | 'hold' | 'release' | 'fill';
+export type OccupationPolicy = 'moderate' | 'intensive';
 
 /** Standing government decisions. They persist until changed. */
 export type EconomyCommand =
@@ -608,7 +685,14 @@ export type EconomyCommand =
   /** Sell a share of a public firm aggregate at fair value to the zone's households (R02). */
   | { type: 'privatize'; countryId: CountryId; zoneId: ZoneId; sectorId: SectorId; share: number; to?: 'private' | 'mixed' }
   /** Pay treasury money to the central bank: it first repays the state's loans from the bank, the rest becomes capital. */
-  | { type: 'recapitalize-central-bank'; countryId: CountryId; amount: number };
+  | { type: 'recapitalize-central-bank'; countryId: CountryId; amount: number }
+  /** Occupation policy in a zone the country occupies (R50). */
+  | { type: 'set-occupation-policy'; countryId: CountryId; zoneId: ZoneId; policy: OccupationPolicy }
+  /**
+   * Standing military priority on the transport itinerary between two zones the country controls
+   * (R46, R63). The engine finds the lanes; `volume` (freight units per week) 0 cancels it.
+   */
+  | { type: 'set-transport-requisition'; countryId: CountryId; originZoneId: ZoneId; destinationZoneId: ZoneId; volume: number };
 
 /** Facts decided by other game systems (war, diplomacy, events). */
 export type ExternalEffect =
@@ -616,7 +700,12 @@ export type ExternalEffect =
   | { type: 'destroy-capacity'; zoneId: ZoneId; goodId: GoodId | 'all'; fraction: number }
   | { type: 'destroy-stock'; zoneId: ZoneId; goodId: GoodId | 'all'; fraction: number }
   | { type: 'set-lane'; laneId: LaneId; costMultiplier: number; throughput: number }
+  /** Annexation: the zone legally and economically becomes the new owner's (ends any occupation). */
   | { type: 'transfer-zone'; zoneId: ZoneId; ownerId: CountryId }
+  /** Military occupation (R49, R62): the occupier takes economic control; firms keep their legal owners. */
+  | { type: 'occupy-zone'; zoneId: ZoneId; occupierId: CountryId; policy?: OccupationPolicy }
+  /** Liberation: control returns to the zone's legal owner. */
+  | { type: 'liberate-zone'; zoneId: ZoneId }
   | { type: 'set-mobilization'; zoneId: ZoneId; personnel: number }
   | { type: 'military-procurement'; countryId: CountryId; goodId: GoodId; quantity: number }
   | { type: 'stability-modifier'; countryId: CountryId; value: number }
@@ -656,6 +745,14 @@ export type EconomyEvent =
   | { type: 'regime-change'; turn: number; countryId: CountryId; tier: number; probability: number; regime: number }
   | { type: 'missed-payment'; turn: number; countryId: CountryId; consecutive: number }
   | { type: 'money-created'; turn: number; countryId: CountryId; amount: number }
+  /** Zone events carry `countryId` too: the occupier, the liberated legal owner, or the annexing country. */
+  | { type: 'zone-occupied'; turn: number; countryId: CountryId; zoneId: ZoneId; occupierId: CountryId; sovereignId: CountryId; policy: OccupationPolicy }
+  | { type: 'zone-liberated'; turn: number; countryId: CountryId; zoneId: ZoneId; sovereignId: CountryId; formerOccupierId: CountryId }
+  | { type: 'zone-annexed'; turn: number; countryId: CountryId; zoneId: ZoneId; ownerId: CountryId; formerOwnerId: CountryId }
+  /** Plant destroyed by sabotage in an occupied zone: `capacity` units of `goodId`, `share` of what was there. `countryId` is the occupier. */
+  | { type: 'sabotage'; turn: number; countryId: CountryId; zoneId: ZoneId; occupierId: CountryId; goodId: GoodId; capacity: number; share: number }
+  | { type: 'occupation-revolt'; turn: number; countryId: CountryId; zoneId: ZoneId; occupierId: CountryId; resistance: number }
+  | { type: 'occupation-revolt-ended'; turn: number; countryId: CountryId; zoneId: ZoneId; occupierId: CountryId; resistance: number }
   | { type: 'firm-bankruptcy'; turn: number; countryId: CountryId; zoneId: ZoneId; sectorId: SectorId; ownership: string; capacityShare: number;
     debt: number; recovered: number; writtenOff: number; assetsSold: number; assetsHeld: number };
 
@@ -674,6 +771,8 @@ export interface BudgetReport {
   firmDividends: number;
   /** Received from privatisations. */
   ownershipSales: number;
+  /** Levied on the firms of zones the country occupies (R50). */
+  occupationLevy: number;
   revenue: number;
   administration: number;
   social: number;
@@ -690,6 +789,10 @@ export interface BudgetReport {
   ownershipPurchases: number;
   /** Paid in capital to the central bank (after repaying the state's loans from it). */
   centralBankCapital: number;
+  /** Security of the zones the country occupies (paid as pay to its own households). */
+  occupationSecurity: number;
+  /** Paid for military transport on requisitioned itineraries (to transport workers). */
+  transportRequisition: number;
   spending: number;
   /** Revenue minus spending for the week. */
   balance: number;
@@ -816,11 +919,59 @@ export interface AuditReport {
 
 export interface TradeFlow { fromZoneId: ZoneId; toZoneId: ZoneId; goodId: GoodId; quantity: number; value: number }
 
+/** One occupied zone this week (Milestone 4). */
+export interface OccupationReport {
+  zoneId: ZoneId;
+  occupierId: CountryId;
+  sovereignId: CountryId;
+  policy: OccupationPolicy;
+  resistance: number;
+  revolt: boolean;
+  /** Share of normal output lost to disorganisation and sabotage this week. */
+  outputLoss: number;
+  /** Levy collected by the occupier this week. */
+  levy: number;
+  /** Security cost paid by the occupier this week. */
+  securityCost: number;
+  /** Dividends of the legal owner's public firms withheld in the zone this week (kept by the firms). */
+  withheldDividends: number;
+}
+
+export interface LaneReport {
+  laneId: LaneId;
+  /** Physical capacity this week, freight units. */
+  capacity: number;
+  /** Taken by military requisitions. */
+  military: number;
+  /** Civilian freight actually moved. */
+  civilian: number;
+  /** Civilian freight buyers wanted to move (before capacity limits). */
+  civilianDemand: number;
+  /** (military + civilian) / capacity. */
+  utilization: number;
+}
+
+export interface RequisitionReport {
+  countryId: CountryId;
+  originZoneId: ZoneId;
+  destinationZoneId: ZoneId;
+  requested: number;
+  /** Capacity actually secured on every lane of the itinerary. */
+  delivered: number;
+  /** Lanes of the itinerary, in order; empty if no route through controlled territory exists. */
+  laneIds: LaneId[];
+  /** Lane that limited the volume, if any. */
+  bottleneckLaneId: LaneId | null;
+  cost: number;
+}
+
 export interface TurnReport {
   /** Turn number just completed. */
   turn: number;
   countries: CountryReport[];
   goods: GoodReport[];
+  occupations: OccupationReport[];
+  transport: { lanes: LaneReport[]; requisitions: RequisitionReport[] };
   world: { gdpReal: number; gdpNominal: number; inflation: number; interestRate: number; money: number; debt: number; population: number; rebases: number };
   events: EconomyEvent[];
   audit: AuditReport;

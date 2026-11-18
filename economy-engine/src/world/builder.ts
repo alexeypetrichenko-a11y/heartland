@@ -4,6 +4,8 @@ import { AVERAGE_TIER, capitalCharge, EPSILON, getModel, OWNERSHIP_COUNT, struct
 import { STATE_FORMAT, STATE_VERSION } from '../core/state.ts';
 import { createHistory } from '../core/stats.ts';
 import { advanceEconomyInPlace } from '../core/step.ts';
+import { expectedLaneLoad, productivePotential } from '../core/transport.ts';
+import { getRoutes } from '../core/routes.ts';
 import { assignStartingCredit, resetStartingCredit } from '../core/credit.ts';
 
 /**
@@ -277,7 +279,8 @@ export function createEconomy(spec: WorldSpec): EconomyState {
     efficiency: filled(Z * G, 1), yieldFactor: filled(Z * G, 1), yieldRecovery: zeros(Z * G), shortage: zeros(Z * G), usage: zeros(Z * G),
   };
   const zone = {
-    owner, population, populationGrowth: zeros(Z), populationCap: population.map(value => value * 3), technology, infrastructure: filled(Z, 1), mobilized: zeros(Z),
+    owner, sovereign: owner.slice(), occupationPolicy: zeros(Z), resistance: zeros(Z), revolt: zeros(Z),
+    population, populationGrowth: zeros(Z), populationCap: population.map(value => value * 3), technology, infrastructure: filled(Z, 1), mobilized: zeros(Z),
     wage: zeros(Z), householdMoney: zeros(Z), expectedIncome: zeros(Z),
     cpi: filled(Z, 1), inflation: zeros(Z), unemployment: filled(Z, p.naturalUnemployment), livingStandard: zeros(Z),
     livingStandardRef: zeros(Z), deprivation: zeros(Z),
@@ -410,7 +413,8 @@ export function createEconomy(spec: WorldSpec): EconomyState {
     country.debt[c] = held;
   }
 
-  const lanes = { id: [] as string[], from: [] as number[], to: [] as number[], distance: [] as number[], costMultiplier: [] as number[], throughput: [] as number[] };
+  const lanes = { id: [] as string[], from: [] as number[], to: [] as number[], distance: [] as number[], costMultiplier: [] as number[], throughput: [] as number[],
+    capacity: [] as number[] };
   for (const lane of spec.lanes ?? []) {
     lanes.id.push(lane.id);
     lanes.from.push(nodeIndex.get(lane.from) as number);
@@ -418,6 +422,8 @@ export function createEconomy(spec: WorldSpec): EconomyState {
     lanes.distance.push(lane.distance);
     lanes.costMultiplier.push(1);
     lanes.throughput.push(1);
+    // Measured at the end of world building, from the traffic the settled economy generates.
+    lanes.capacity.push(-1);
   }
 
   let baseMoney = 0;
@@ -466,7 +472,10 @@ export function createEconomy(spec: WorldSpec): EconomyState {
     countrySector: { publicObjective: zeros(C * S), publicSupport: filled(C * S, 1) },
     sanctions: [],
     tariffOverrides: [],
-    world: { baseMoney, interestRate: p.baseRate, creditUtilization: 0, realGrowth: 0, inflation: 0, realGdp: worldGdp, rebases: 0 },
+    requisitions: [],
+    tradeDemand: zeros(Z * Z),
+    world: { baseMoney, interestRate: p.baseRate, creditUtilization: 0, realGrowth: 0, inflation: 0, realGdp: worldGdp, rebases: 0,
+      transportBase: 0, transportIndex: 1 },
     baseline: {
       realGdp: gdp.slice(),
       realGdpPerCapita: gdp.map((value, c) => value / populationTotal[c]),
@@ -479,7 +488,32 @@ export function createEconomy(spec: WorldSpec): EconomyState {
 
   settle(state, spec.warmupTurns === undefined ? DEFAULT_WARMUP_TURNS : spec.warmupTurns,
     spec.countries.map(entry => entry.taxIncome === undefined));
+  setLaneCapacities(state);
   return state;
+}
+
+/**
+ * Physical transport capacity of every lane (Milestone 4): a multiple of the civilian
+ * traffic the settled economy wants to move over it, and never less than a set share of
+ * the average lane, so that lanes idle at the start can still carry diverted traffic.
+ * Capacity then grows with productive potential (world.transportIndex), never with requisition.
+ */
+function setLaneCapacities(state: EconomyState): void {
+  const p = state.config.params;
+  state.world.transportBase = productivePotential(state);
+  state.world.transportIndex = 1;
+  const lanes = state.lanes;
+  const L = lanes.id.length;
+  const load = expectedLaneLoad(state, getRoutes(state));
+  let total = 0;
+  for (let l = 0; l < L; l++) total += load[l];
+  const average = L > 0 ? total / L : 0;
+  // A world without any traffic (one zone, or no warm-up) keeps unlimited lanes.
+  if (!(average > 0)) return;
+  for (let l = 0; l < L; l++) {
+    const measured = load[l] * p.laneCapacityHeadroom;
+    lanes.capacity[l] = Math.max(measured, p.laneCapacityFloor * average * p.laneCapacityHeadroom);
+  }
 }
 
 /**

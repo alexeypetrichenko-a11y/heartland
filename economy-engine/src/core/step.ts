@@ -4,6 +4,8 @@ import { openBanks, resolveBankruptcies, sellIdlePlant, updateTiers } from './cr
 import { planBudgets, settleFinances } from './finance.ts';
 import { clearMarkets } from './market.ts';
 import { getModel, getWorkspace } from './model.ts';
+import { prepareOccupation, updateOccupation } from './occupation.ts';
+import { allocateTransport, recordTransportDemand } from './transport.ts';
 import { planPrivateSector } from './planning.ts';
 import { updatePolitics } from './politics.ts';
 import { adjust, develop, produce } from './production.ts';
@@ -16,14 +18,19 @@ import { captureStart, finishTurn } from './stats.ts';
  * One week of the world economy.
  *
  * Order of events (fixed, so results are reproducible):
- *   1. inputs are validated, then external effects and commands are applied;
- *   2. central banks open (lending capacity); governments plan budgets, borrow
+ *   1. inputs are validated, then external effects and commands are applied
+ *      (occupation and liberation first, then government decisions);
+ *   2. military requisitions take their transport capacity (Milestone 4);
+ *      central banks open (lending capacity); governments plan budgets, borrow
  *      (bond market, then their central bank), service debt and pay transfers;
  *   3. firms and households decide what they want to make and buy; firms
  *      borrow for working capital and investment with whatever capacity is left;
- *   4. markets clear zone by zone, good by good, with trade between zones;
- *   5. firms produce, pay wages, debt service and taxes; insolvent firms are liquidated;
+ *   4. markets clear zone by zone, good by good, with trade between zones,
+ *      within the civilian capacity left on every lane;
+ *   5. firms produce, pay wages, debt service and taxes (and occupiers' levies);
+ *      insolvent firms are liquidated;
  *   6. prices, wages, expectations, capacity and performance tiers adjust;
+ *      resistance, sabotage and security costs in occupied zones;
  *   7. public finances settle (repayment, default, risk premiums, central-bank
  *      profits and policy rates);
  *   8. political stability reacts;
@@ -51,23 +58,27 @@ export function advanceEconomyInPlace(state: EconomyState, input?: TurnInput, op
   w.calibrating = options.calibration === true;
   const events: EconomyEvent[] = [];
   captureStart(state, w, model);
-  applyActions(state, w, actions);
+  applyActions(state, w, actions, events);
+  prepareOccupation(state, w);
   compileTradePolicy(state, w);
   const routes = getRoutes(state);
   openBanks(state, w);
+  allocateTransport(state, w, routes);
   planBudgets(state, w, model, events);
   planPrivateSector(state, w, model);
   clearMarkets(state, w, model, routes, options.tradeDetail === true);
+  recordTransportDemand(state, w);
   produce(state, w, model);
   resolveBankruptcies(state, w, model, events);
   sellIdlePlant(state, w, model);
   adjust(state, w, model);
   updateTiers(state, w, model);
+  updateOccupation(state, w, model, events);
   settleFinances(state, w, model, events);
   updatePolitics(state, w, events);
   develop(state, w, model);
   state.turn += 1;
-  return finishTurn(state, w, model, options, events);
+  return finishTurn(state, w, model, options, events, routes);
 }
 
 /**

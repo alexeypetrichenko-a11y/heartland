@@ -1,8 +1,10 @@
-import type { EconomyState, ReserveMode, TurnInput } from '../types.ts';
+import type { EconomyEvent, EconomyState, OccupationPolicy, ReserveMode, TurnInput } from '../types.ts';
 import type { Workspace } from './model.ts';
 import { getModel, MIXED, OWNERSHIP_COUNT, PRIVATE, PUBLIC, PUBLIC_OBJECTIVES, TIER_COUNT } from './model.ts';
 import type { PublicObjective } from './model.ts';
 import { acquireAssets, lendersConflict, nationalize, privatize, recapitalizeBank, recapitalizeFirm } from './ownership.ts';
+import { annexZone, isOccupied, liberateZone, OCCUPATION_POLICIES, occupyZone } from './occupation.ts';
+import { findItinerary } from './transport.ts';
 
 /**
  * Runtime validation and application of turn inputs.
@@ -12,7 +14,7 @@ import { acquireAssets, lendersConflict, nationalize, privatize, recapitalizeBan
  * allowed to command a country: the host game must check ownership first.
  */
 
-type Action = (state: EconomyState, w: Workspace) => void;
+type Action = (state: EconomyState, w: Workspace, events: EconomyEvent[]) => void;
 
 const RESERVE_MODES: readonly ReserveMode[] = ['automatic', 'hold', 'release', 'fill'];
 
@@ -62,11 +64,28 @@ function sectorSelection(state: EconomyState, value: unknown): number[] {
   return [indexOfId(state.config.sectors, value, 'sector')];
 }
 
-/** A zone the commanding country owns (it can only act on firms on its own territory). */
-function ownZone(state: EconomyState, c: number, zoneId: unknown): number {
+/** A zone the commanding country controls. */
+function controlledZone(state: EconomyState, c: number, zoneId: unknown): number {
   const z = indexOfId(state.zones, zoneId, 'zone');
   if (state.zone.owner[z] !== c) throw new Error(`${state.zones[z].name} is not controlled by ${state.countries[c].name}.`);
   return z;
+}
+
+/**
+ * A zone the commanding country both controls and legally owns: it can only change who
+ * owns firms on its own territory. In an occupied zone neither side can (R62): the
+ * occupier has no legal title and the legal owner has no control.
+ */
+function ownZone(state: EconomyState, c: number, zoneId: unknown): number {
+  const z = controlledZone(state, c, zoneId);
+  if (isOccupied(state, z)) throw new Error(`${state.zones[z].name} is occupied: firm ownership cannot change there.`);
+  return z;
+}
+
+function occupationPolicy(value: unknown): number {
+  const policy = OCCUPATION_POLICIES.indexOf(value as OccupationPolicy);
+  if (policy < 0) throw new Error('Occupation policy must be moderate or intensive.');
+  return policy;
 }
 
 function resolveCommand(state: EconomyState, input: unknown): Action {
@@ -194,6 +213,27 @@ function resolveCommand(state: EconomyState, input: unknown): Action {
       if (lendersConflict(state, m, z, sector, PUBLIC, owner)) throw new Error('These firms owe money to different central banks and cannot be merged.');
       return (s, w) => { privatize(s, w, getModel(s.config), c, z, sector, share, owner); };
     }
+    case 'set-occupation-policy': {
+      const z = controlledZone(state, c, input.zoneId);
+      if (!isOccupied(state, z)) throw new Error(`${state.zones[z].name} is not occupied by ${state.countries[c].name}.`);
+      const policy = occupationPolicy(input.policy);
+      return s => { s.zone.occupationPolicy[z] = policy; };
+    }
+    case 'set-transport-requisition': {
+      const volume = numberIn(input.volume, 0, Number.MAX_VALUE, 'Transport volume');
+      // A standing order can always be cancelled, even after one of its zones has been lost.
+      const origin = volume > 0 ? controlledZone(state, c, input.originZoneId) : indexOfId(state.zones, input.originZoneId, 'zone');
+      const destination = volume > 0 ? controlledZone(state, c, input.destinationZoneId) : indexOfId(state.zones, input.destinationZoneId, 'zone');
+      if (origin === destination) throw new Error('A transport itinerary needs two different zones.');
+      if (volume > 0 && !findItinerary(state, c, origin, destination)) {
+        throw new Error(`No open route through territory controlled by ${state.countries[c].name} joins these zones.`);
+      }
+      return s => {
+        s.requisitions = s.requisitions.filter(entry => !(entry.country === c && entry.origin === origin && entry.destination === destination));
+        if (volume > 0) s.requisitions.push({ country: c, origin, destination, volume });
+        s.requisitions.sort((a, b) => (a.country - b.country) || (a.origin - b.origin) || (a.destination - b.destination));
+      };
+    }
     case 'recapitalize-central-bank': {
       const amount = numberIn(input.amount, 0, Number.MAX_VALUE, 'Amount');
       return (s, w) => recapitalizeBank(s, w, c, amount);
@@ -261,9 +301,26 @@ function resolveEffect(state: EconomyState, input: unknown): Action {
       return s => { s.lanes.costMultiplier[lane] = cost; s.lanes.throughput[lane] = throughput; };
     }
     case 'transfer-zone': {
+      // Annexation: legal and economic ownership both change (firms' owners do not).
       const z = indexOfId(state.zones, input.zoneId, 'zone');
       const owner = indexOfId(state.countries, input.ownerId, 'country');
-      return s => { s.zone.owner[z] = owner; };
+      return (s, _w, events) => annexZone(s, z, owner, events);
+    }
+    case 'occupy-zone': {
+      const z = indexOfId(state.zones, input.zoneId, 'zone');
+      const occupier = indexOfId(state.countries, input.occupierId, 'country');
+      const policy = input.policy === undefined ? 0 : occupationPolicy(input.policy);
+      return (s, _w, events) => {
+        if (s.zone.owner[z] === occupier) {
+          if (isOccupied(s, z)) s.zone.occupationPolicy[z] = policy;
+          return;
+        }
+        occupyZone(s, z, occupier, policy, events);
+      };
+    }
+    case 'liberate-zone': {
+      const z = indexOfId(state.zones, input.zoneId, 'zone');
+      return (s, _w, events) => liberateZone(s, z, events);
     }
     case 'set-mobilization': {
       const z = indexOfId(state.zones, input.zoneId, 'zone');
@@ -314,8 +371,8 @@ export function resolveInput(state: EconomyState, input: TurnInput | undefined):
   return actions;
 }
 
-export function applyActions(state: EconomyState, w: Workspace, actions: readonly Action[]): void {
-  for (const action of actions) action(state, w);
+export function applyActions(state: EconomyState, w: Workspace, actions: readonly Action[], events: EconomyEvent[]): void {
+  for (const action of actions) action(state, w, events);
 }
 
 /**

@@ -164,6 +164,10 @@ export function produce(s: EconomyState, w: Workspace, m: Model): void {
     // cash or put cash in when an aggregate runs dry.
     const incomeTax = s.country.taxIncome[c];
     const wage = s.zone.wage[z];
+    // Under occupation (R62) the legal owner's public firms keep its share of their profits
+    // (nobody can collect it across the front) and no state supports them.
+    const occupied = s.zone.sovereign[z] !== c;
+    const policy = s.zone.occupationPolicy[z];
     let wageBill = 0;
     let privateNeed = 0;
     let publicNeed = 0;
@@ -184,6 +188,14 @@ export function produce(s: EconomyState, w: Workspace, m: Model): void {
       firm.cash[a] -= corporate;
       s.country.treasury[c] += corporate;
       w.revenueCorporateTax[c] += corporate;
+      if (occupied && surplus > 0) {
+        // The occupier's levy on profits (R50), never more than the firm holds.
+        const levy = Math.min(surplus * p.occupationProfitLevy[policy], Math.max(0, firm.cash[a]));
+        firm.cash[a] -= levy;
+        s.country.treasury[c] += levy;
+        w.revenueOccupation[c] += levy;
+        w.occupationLevy[z] += levy;
+      }
       firm.costs[a] += p.costSmoothing * (wages + w.aggPurchases[a] - firm.costs[a]);
       firm.employment[a] = w.aggEmployment[a];
       firm.revenue[a] = w.aggRevenue[a];
@@ -191,7 +203,7 @@ export function produce(s: EconomyState, w: Workspace, m: Model): void {
       const floor = p.cashFloorWeeks * firm.costs[a];
       const publicPart = o === PUBLIC ? 1 : o === MIXED ? p.mixedPublicShare : 0;
       // The state supports its public and mixed firms only where it has chosen to (and pays for it).
-      const stateWilling = s.countrySector.publicSupport[c * S + Math.floor(k / O)] === 1 ? 1 : 0;
+      const stateWilling = !occupied && s.countrySector.publicSupport[c * S + Math.floor(k / O)] === 1 ? 1 : 0;
       w.aggCall[a] = 0;
       w.aggDebtSupport[a] = 0;
       if (firm.cash[a] > target) {
@@ -205,9 +217,12 @@ export function produce(s: EconomyState, w: Workspace, m: Model): void {
           bankReceive(s, firm.lender[a], repay);
           excess -= repay;
         }
-        const dividend = excess * p.dividendSpeed;
+        const due = excess * p.dividendSpeed;
+        const withheld = occupied ? due * publicPart : 0;
+        const dividend = due - withheld;
+        w.withheldDividends[z] += withheld;
         firm.cash[a] -= dividend;
-        const toState = dividend * publicPart;
+        const toState = occupied ? 0 : dividend * publicPart;
         const toPeople = dividend - toState;
         s.country.treasury[c] += toState + toPeople * incomeTax;
         w.revenueFirmDividends[c] += toState;
@@ -240,10 +255,14 @@ export function produce(s: EconomyState, w: Workspace, m: Model): void {
       }
       w.aggTrouble[a] = owed - wages > 1e-12 * owed || unpaidDebt > 0 ? 1 : 0;
     }
-    s.zone.householdMoney[z] += wageBill * (1 - incomeTax);
-    s.country.treasury[c] += wageBill * incomeTax;
+    // Under occupation the occupier may also levy a share of wages (R50).
+    const wageLevy = occupied ? wageBill * p.occupationWageLevy[policy] : 0;
+    s.zone.householdMoney[z] += wageBill * (1 - incomeTax) - wageLevy;
+    s.country.treasury[c] += wageBill * incomeTax + wageLevy;
     w.revenueIncomeTax[c] += wageBill * incomeTax;
-    w.householdIncome[z] += wageBill * (1 - incomeTax);
+    w.revenueOccupation[c] += wageLevy;
+    w.occupationLevy[z] += wageLevy;
+    w.householdIncome[z] += wageBill * (1 - incomeTax) - wageLevy;
     w.wageBill[z] = wageBill;
     const supply = w.laborSupply[z];
     s.zone.unemployment[z] = supply > EPSILON ? clamp(1 - employment / supply, 0, 1) : 0;
@@ -261,7 +280,7 @@ export function produce(s: EconomyState, w: Workspace, m: Model): void {
         const o = k % O;
         const publicPart = o === PUBLIC ? 1 : o === MIXED ? p.mixedPublicShare : 0;
         const privateWilling = firm.health[a] > -0.5 ? 1 : 0;
-        const stateWilling = s.countrySector.publicSupport[c * S + Math.floor(k / O)] === 1 ? 1 : 0;
+        const stateWilling = !occupied && s.countrySector.publicSupport[c * S + Math.floor(k / O)] === 1 ? 1 : 0;
         const fromState = need * publicPart * stateWilling * publicFill;
         const fromPeople = need * (1 - publicPart) * privateWilling * privateFill;
         firm.cash[a] += fromState + fromPeople;
@@ -291,7 +310,7 @@ export function produce(s: EconomyState, w: Workspace, m: Model): void {
       const a = aggregateBase + k;
       if (w.calibrating) { firm.distress[a] = 0; continue; }
       const o = k % O;
-      const supported = o === PUBLIC && s.countrySector.publicSupport[c * S + Math.floor(k / O)] === 1;
+      const supported = o === PUBLIC && !occupied && s.countrySector.publicSupport[c * S + Math.floor(k / O)] === 1;
       const insolvent = firm.health[a] < -0.5 && firm.loan[a] - Math.max(0, firm.cash[a]) > p.liquidationValue * w.aggCapitalValue[a];
       const chronic = firm.health[a] < -0.8 && !supported;
       firm.distress[a] = w.aggTrouble[a] === 1 || insolvent ? firm.distress[a] + 1 : chronic ? firm.distress[a] + 1 / 13 : 0;

@@ -47,7 +47,9 @@ export function planPrivateSector(s: EconomyState, w: Workspace, m: Model): void
     const base = z * G;
     const aggregateBase = z * S * O;
     const tier = s.country.unrestTier[c];
-    const strike = tier > 0 ? 1 - p.strikeLoss[tier - 1] : 1;
+    // An occupied zone loses output to disorganisation and sabotage instead of to the
+    // controller's own strikes (Milestone 4); elsewhere the factor is 1.
+    const strike = s.zone.sovereign[z] !== c ? w.occupationFactor[z] : tier > 0 ? 1 - p.strikeLoss[tier - 1] : 1;
     const productivity = Math.max(0.05, s.zone.technology[z] * (1 + p.infraProductivity * (s.zone.infrastructure[z] - 1)));
     const wage = s.zone.wage[z];
     const laborSupply = Math.max(0, s.zone.population[z] * p.laborParticipation - s.zone.mobilized[z]);

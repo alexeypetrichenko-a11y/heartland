@@ -1,10 +1,12 @@
 import type {
   AuditReport, BudgetReport, CountryReport, EconomyEvent, EconomyState, GoodLedger, GoodReport, HistoryState,
-  HistoryTier, StepOptions, TradeFlow, TurnReport,
+  HistoryTier, LaneReport, OccupationReport, RequisitionReport, StepOptions, TradeFlow, TurnReport,
 } from '../types.ts';
 import type { Model, Workspace } from './model.ts';
 import { EPSILON, firmLoanRate, OWNERSHIP_COUNT, TIER_COUNT } from './model.ts';
 import { bankEquity, firmLoansByBank, heldAssets, lendingCapacity } from './credit.ts';
+import { OCCUPATION_POLICIES } from './occupation.ts';
+import type { RouteTable } from './routes.ts';
 
 /**
  * End-of-week bookkeeping: conservation audit, bounded history and the report
@@ -241,7 +243,7 @@ export function assertAudit(report: AuditReport, turn: number): void {
 }
 
 /** Close the week: audit, history, report. */
-export function finishTurn(s: EconomyState, w: Workspace, m: Model, options: StepOptions, events: EconomyEvent[]): TurnReport {
+export function finishTurn(s: EconomyState, w: Workspace, m: Model, options: StepOptions, events: EconomyEvent[], routes: RouteTable): TurnReport {
   const Z = s.zones.length;
   const C = s.countries.length;
   const G = m.goodCount;
@@ -299,10 +301,10 @@ export function finishTurn(s: EconomyState, w: Workspace, m: Model, options: Ste
     const smoothed = country.gdp[c];
     const revenue = w.revenueIncomeTax[c] + w.revenueConsumptionTax[c] + w.revenueCorporateTax[c] + w.revenueTariffs[c]
       + w.revenueCentralBank[c] + w.revenueMoneyCreation[c] + w.revenueReserveSales[c] + w.revenueFunds[c] + w.revenueFirmDividends[c]
-      + w.revenueOwnership[c];
+      + w.revenueOwnership[c] + w.revenueOccupation[c];
     const spending = w.spentAdministration[c] + w.spentSocial[c] + w.spentMilitary[c] + w.spentInfrastructure[c]
       + w.spentReserves[c] + w.spentReserveStorage[c] + w.spentInterest[c] + w.spentFunds[c] + w.spentFirmSupport[c]
-      + w.spentOwnership[c] + w.spentCentralBankCapital[c];
+      + w.spentOwnership[c] + w.spentCentralBankCapital[c] + w.spentOccupationSecurity[c] + w.spentTransport[c];
     w.reportRevenue[c] = revenue;
     w.reportSpending[c] = spending;
     const base = c * COUNTRY_METRICS;
@@ -336,7 +338,7 @@ export function finishTurn(s: EconomyState, w: Workspace, m: Model, options: Ste
     interestRate: s.world.interestRate, money: s.world.baseMoney, debt: worldDebt, population: worldPopulation, rebases: s.world.rebases,
   };
   if (options.report === 'none') {
-    return { turn: s.turn, countries: [], goods: [], world, events, audit: auditReport };
+    return { turn: s.turn, countries: [], goods: [], occupations: [], transport: { lanes: [], requisitions: [] }, world, events, audit: auditReport };
   }
 
   // Full report.
@@ -385,7 +387,8 @@ export function finishTurn(s: EconomyState, w: Workspace, m: Model, options: Ste
       administration: w.spentAdministration[c], social: w.spentSocial[c], military: w.spentMilitary[c],
       infrastructure: w.spentInfrastructure[c], reservePurchases: w.spentReserves[c] + w.spentReserveStorage[c], interest: w.spentInterest[c],
       fundsSent: w.spentFunds[c], firmSupport: w.spentFirmSupport[c], ownershipPurchases: w.spentOwnership[c],
-      centralBankCapital: w.spentCentralBankCapital[c], spending: w.reportSpending[c], balance: w.reportRevenue[c] - w.reportSpending[c],
+      centralBankCapital: w.spentCentralBankCapital[c], occupationLevy: w.revenueOccupation[c],
+      occupationSecurity: w.spentOccupationSecurity[c], transportRequisition: w.spentTransport[c], spending: w.reportSpending[c], balance: w.reportRevenue[c] - w.reportSpending[c],
       borrowed: w.borrowed[c], borrowedFromCentralBank: w.cbLentState[c], repaid: w.repaid[c], fundedShare: w.fundedShare[c],
     };
     countries.push({
@@ -441,7 +444,7 @@ export function finishTurn(s: EconomyState, w: Workspace, m: Model, options: Ste
       governmentUse: w.useGovernment[g], traded: w.traded[g], stock: goodStock[g], unmetDemand: w.unmet[g],
     });
   }
-  const report: TurnReport = { turn: s.turn, countries, goods, world, events, audit: auditReport };
+  const report: TurnReport = { turn: s.turn, countries, goods, occupations: occupationReports(s, w), transport: transportReport(s, w, routes), world, events, audit: auditReport };
   if (w.tradeLog) {
     const trade: TradeFlow[] = [];
     for (let i = 0; i < w.tradeLog.length; i += 5) {
@@ -453,4 +456,48 @@ export function finishTurn(s: EconomyState, w: Workspace, m: Model, options: Ste
     report.trade = trade;
   }
   return report;
+}
+
+/** Occupied zones this week (Milestone 4). */
+function occupationReports(s: EconomyState, w: Workspace): OccupationReport[] {
+  const list: OccupationReport[] = [];
+  for (let z = 0; z < s.zones.length; z++) {
+    if (s.zone.owner[z] === s.zone.sovereign[z]) continue;
+    list.push({
+      zoneId: s.zones[z].id, occupierId: s.countries[s.zone.owner[z]].id, sovereignId: s.countries[s.zone.sovereign[z]].id,
+      policy: OCCUPATION_POLICIES[s.zone.occupationPolicy[z]], resistance: s.zone.resistance[z], revolt: s.zone.revolt[z] === 1,
+      outputLoss: 1 - w.occupationFactor[z], levy: w.occupationLevy[z], securityCost: w.occupationSecurity[z],
+      withheldDividends: w.withheldDividends[z],
+    });
+  }
+  return list;
+}
+
+/** Lane use and requisitions this week (Milestone 4). */
+function transportReport(s: EconomyState, w: Workspace, routes: RouteTable): TurnReport['transport'] {
+  const lanes: LaneReport[] = [];
+  // Civilian freight carried this week, spread over the routes it took.
+  const civilian = new Float64Array(s.lanes.id.length);
+  for (let pair = 0; pair < w.pairShipped.length; pair++) {
+    const freight = w.pairShipped[pair];
+    if (!(freight > 0)) continue;
+    for (let k = routes.pathStart[pair]; k < routes.pathStart[pair + 1]; k++) civilian[routes.pathLanes[k]] += freight;
+  }
+  for (let l = 0; l < s.lanes.id.length; l++) {
+    const capacity = w.laneCapacity[l];
+    const finite = capacity !== Infinity;
+    lanes.push({
+      laneId: s.lanes.id[l], capacity: finite ? capacity : -1, military: w.laneMilitary[l], civilian: civilian[l],
+      civilianDemand: w.laneDemand[l], utilization: finite && capacity > 0 ? (w.laneMilitary[l] + civilian[l]) / capacity : 0,
+    });
+  }
+  const requisitions: RequisitionReport[] = s.requisitions.map((order, k) => {
+    const result = w.requisitionResults[k];
+    return {
+      countryId: s.countries[order.country].id, originZoneId: s.zones[order.origin].id, destinationZoneId: s.zones[order.destination].id,
+      requested: order.volume, delivered: result ? result.delivered : 0, laneIds: result ? result.lanes.map(l => s.lanes.id[l]) : [],
+      bottleneckLaneId: result && result.bottleneck >= 0 ? s.lanes.id[result.bottleneck] : null, cost: result ? result.cost : 0,
+    };
+  });
+  return { lanes, requisitions };
 }

@@ -2,6 +2,7 @@ import type { EconomyState } from '../types.ts';
 import type { Model, Workspace } from './model.ts';
 import { EPSILON, OWNERSHIP_COUNT } from './model.ts';
 import type { RouteTable } from './routes.ts';
+import { acrossFrontLine } from './occupation.ts';
 
 /**
  * Market clearing for one week.
@@ -23,6 +24,11 @@ import type { RouteTable } from './routes.ts';
  * aggregate pays for the inputs and investment goods it ordered from its own
  * cash, and sales revenue is shared between owners in proportion to the
  * stock (or, for made-to-order goods, the output) that belongs to each.
+ *
+ * Milestone 4: an occupied zone and the zones its legal owner still controls
+ * do not trade with each other (C2). Freight between zones uses the capacity of
+ * every lane on its route; military requisitions are served first, and
+ * civilian orders are cut, lane by lane, to what is left (see transport.ts).
  */
 
 /** r^(2^doublings) for r in (0, 1], using multiplications only. */
@@ -86,6 +92,44 @@ function paySellers(s: EconomyState, w: Workspace, m: Model, j: number, g: numbe
   }
 }
 
+/**
+ * Cut this pass's orders so that no lane at risk of saturation carries more than
+ * the civilian capacity it has left this week. Every order using such a lane is
+ * cut by the same share (the tightest lane on its route decides).
+ */
+function fitLanes(w: Workspace, routes: RouteTable, freightUnit: number): void {
+  const { lanePairStart, lanePairs } = routes;
+  const L = w.laneCount;
+  for (let l = 0; l < L; l++) {
+    if (w.laneRisky[l] === 0) continue;
+    let ordered = 0;
+    for (let k = lanePairStart[l]; k < lanePairStart[l + 1]; k++) ordered += w.order[lanePairs[k]];
+    ordered *= freightUnit;
+    if (!(ordered > w.laneCivil[l])) continue;
+    const cut = 1 - w.laneCivil[l] / ordered;
+    for (let k = lanePairStart[l]; k < lanePairStart[l + 1]; k++) if (w.pairCut[lanePairs[k]] < cut) w.pairCut[lanePairs[k]] = cut;
+  }
+  for (let l = 0; l < L; l++) {
+    if (w.laneRisky[l] === 0) continue;
+    for (let k = lanePairStart[l]; k < lanePairStart[l + 1]; k++) {
+      const pair = lanePairs[k];
+      if (w.pairCut[pair] > 0) { w.order[pair] *= 1 - w.pairCut[pair]; w.pairCut[pair] = 0; }
+    }
+  }
+}
+
+/** Book every order of this pass with its supplier (used when orders had to wait for the lane check). */
+function bookOrders(w: Workspace, Z: number): void {
+  for (let z = 0; z < Z; z++) {
+    if (!(w.remainingDemand[z] > EPSILON)) continue;
+    const row = z * Z;
+    for (let j = 0; j < Z; j++) {
+      const quantity = w.order[row + j];
+      if (quantity > 0) w.supplierOrders[j] += quantity;
+    }
+  }
+}
+
 function clearGood(s: EconomyState, w: Workspace, m: Model, routes: RouteTable, g: number): void {
   const p = s.config.params;
   const Z = s.zones.length;
@@ -93,7 +137,14 @@ function clearGood(s: EconomyState, w: Workspace, m: Model, routes: RouteTable, 
   const G = m.goodCount;
   const zg = s.zoneGood;
   const owner = s.zone.owner;
+  const sovereign = s.zone.sovereign;
   const tradable = m.tradable[g];
+  // Lane capacity is shared by all goods; this good's freight per unit carried.
+  const freightUnit = m.basePrice[g] * m.freight[g];
+  const measured = tradable && freightUnit > 0;
+  const lanesLimited = measured && w.transportLimited;
+  // Only lanes near saturation need checking good by good; otherwise orders are booked at once, as before.
+  const lanesAtRisk = lanesLimited && w.lanesAtRisk;
   const madeToOrder = m.madeToOrder[g];
   const doublings = p.tradeElasticityDoublings;
   const freightRate = m.freight[g] * p.freightPerDistance;
@@ -129,7 +180,7 @@ function clearGood(s: EconomyState, w: Workspace, m: Model, routes: RouteTable, 
         const seller = owner[j];
         const distance = routes.distance[row + j];
         let factor = 0;
-        if (distance !== Infinity && w.blocked[(buyer * C + seller) * G + g] === 0) {
+        if (distance !== Infinity && w.blocked[(buyer * C + seller) * G + g] === 0 && !acrossFrontLine(owner, sovereign, z, j)) {
           const extra = freightRate * distance + (buyer === seller ? 0 : w.tariff[(buyer * C + seller) * G + g]);
           if (extra <= p.maxTradeCost) factor = 1 + extra;
         }
@@ -208,26 +259,35 @@ function clearGood(s: EconomyState, w: Workspace, m: Model, routes: RouteTable, 
       if (!buying) continue;
       let foreignOrdered = 0;
       const uncapped = w.foreignLeft[z] === Infinity;
+      // With no cap on total imports and no lane limits the order is final and can be booked immediately.
+      const bookNow = uncapped && !lanesAtRisk;
       for (let j = first; j < last; j++) {
         const weight = w.attraction[row + j];
         if (!(weight > 0)) continue;
         let quantity = need * weight / weightTotal;
         if (j !== z && quantity > w.pairLimit[row + j]) quantity = w.pairLimit[row + j];
+        // What buyers want to move, before any capacity limit.
+        if (j !== z && pass === 0 && measured) w.pairDemand[row + j] += quantity * freightUnit;
+        // Each route gets the share of its usual demand its busiest lane can still carry.
+        if (j !== z && lanesLimited) quantity *= w.pairFactor[row + j];
         w.order[row + j] = quantity;
         if (j !== z) foreignOrdered += quantity;
-        // With no cap on total imports the order is final and can be booked immediately.
-        if (uncapped) w.supplierOrders[j] += quantity;
+        if (bookNow) w.supplierOrders[j] += quantity;
       }
       if (!uncapped) {
         const foreignScale = foreignOrdered > 0 && foreignOrdered > w.foreignLeft[z] ? Math.max(0, w.foreignLeft[z]) / foreignOrdered : 1;
         for (let j = first; j < last; j++) {
           if (j !== z) w.order[row + j] *= foreignScale;
-          w.supplierOrders[j] += w.order[row + j];
+          if (!lanesAtRisk) w.supplierOrders[j] += w.order[row + j];
         }
       }
       ordered = true;
     }
     if (!ordered) break;
+    if (lanesAtRisk) {
+      fitLanes(w, routes, freightUnit);
+      bookOrders(w, Z);
+    }
     // Orders received are the demand signal producers react to. A supplier that
     // sold out is skipped in later passes, so no order is counted twice.
     for (let j = 0; j < Z; j++) {
@@ -253,10 +313,23 @@ function clearGood(s: EconomyState, w: Workspace, m: Model, routes: RouteTable, 
         if (j !== z) {
           if (w.pairLimit[row + j] !== Infinity) w.pairLimit[row + j] = Math.max(0, w.pairLimit[row + j] - sent);
           if (w.foreignLeft[z] !== Infinity) w.foreignLeft[z] = Math.max(0, w.foreignLeft[z] - sent);
+          if (measured) w.pairShipped[row + j] += sent * freightUnit;
+          if (lanesAtRisk) w.pairPass[row + j] += sent;
         }
       }
     }
     for (let j = 0; j < Z; j++) stockLeft[j] = Math.max(0, stockLeft[j] - w.supplierOrders[j]);
+    // Lanes at risk count down their civilian capacity after every pass.
+    if (lanesAtRisk) {
+      const { lanePairStart, lanePairs } = routes;
+      for (let l = 0; l < w.laneCount; l++) {
+        if (w.laneRisky[l] === 0) continue;
+        let sent = 0;
+        for (let k = lanePairStart[l]; k < lanePairStart[l + 1]; k++) sent += w.pairPass[lanePairs[k]];
+        w.laneCivil[l] = Math.max(0, w.laneCivil[l] - sent * freightUnit);
+      }
+      w.pairPass.fill(0);
+    }
   }
 
   // --- 5. Split deliveries between buyers, check they can pay, settle --------

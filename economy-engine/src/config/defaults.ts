@@ -591,6 +591,45 @@ export const DEFAULT_PARAMS: EconomyParams = {
   maxTariff: 3,
   maxReserveWeeks: 52,
 
+  // --- Occupation (R49, R50, R62; Milestone 4; all provisional) -------------
+  // Pairs are [moderate, intensive].
+  /**
+   * The occupier's levy, on top of its normal taxes: a share of every firm's profit before tax
+   * (it never turns a profit into a loss), and under the intensive policy also 5% of wages.
+   */
+  occupationProfitLevy: [0.2, 0.5],
+  occupationWageLevy: [0, 0.05],
+  /** Output lost to disorganisation (requisitions, curfews, broken supply chains), before sabotage. */
+  occupationDisorder: [0.03, 0.08],
+  /** How fully the occupier extends its spending (transfers, pay, purchases) to the occupied population. */
+  occupationCivilianSpending: [1, 0.75],
+  /** Resistance each policy drifts towards in calm conditions; hardship pushes it higher. */
+  resistanceBase: [0.1, 0.5],
+  resistanceDeprivationWeight: 0.5,
+  resistanceUnemploymentWeight: 0.5,
+  /** Resistance builds up in months and fades over more than a year, so past policies leave a memory (R50). */
+  resistanceRise: 0.03,
+  resistanceFall: 0.01,
+  /** After liberation or annexation resistance against the occupier fades faster. */
+  resistanceFallFree: 0.05,
+  /** Output lost to sabotage and strikes at full resistance (proportional below that). */
+  sabotageOutputLoss: 0.15,
+  /** At full resistance an attack destroys 3% of one good's plant with 15% probability each week. */
+  sabotageChance: 0.15,
+  sabotageDamage: 0.03,
+  /** Weekly security cost, as a share of the zone's weekly output value: per policy, plus 5% times resistance. */
+  securityCost: [0.01, 0.03],
+  securityResistanceCost: 0.05,
+  revoltThreshold: 0.7,
+  revoltEndThreshold: 0.5,
+
+  // --- Transport capacity and requisition (R45, R46, R63; Milestone 4) ------
+  /** Lanes carry up to twice their normal starting traffic (capacity then grows with the economy). */
+  laneCapacityHeadroom: 2,
+  /** No lane carries less than a quarter of the average lane capacity. */
+  laneCapacityFloor: 0.25,
+  laneDemandSmoothing: 0.25,
+
   // --- History retention ----------------------------------------------------
   historyWeekly: 52,
   historyQuarterly: 40,
@@ -689,7 +728,13 @@ export function validateConfig(config: EconomyConfig): void {
     || params.cbRateFloor > params.cbRateCeiling || params.cbStateLoanWeeks < 1 || params.cbStateLimit > 2 || params.exceptionalMoneyMemoryWeeks < 1
     || params.firmTargetLeverage > params.firmMaxLeverage || params.firmMaxLeverage > 1 || params.firmExcessDebtRepay > 1 || params.firmLiquidityBorrow > 1 || params.defaultMemoryWeeks < 1 || params.ownershipTransferValue > 1
     || params.bankruptcyWeeks < 1 || params.bankruptcyMinShare > 1 || params.liquidationValue > 1 || params.tierTransitionRate > 1
-    || params.healthSmoothing > 1 || params.tierHealthShift > 1 || params.reserveStorageCost >= 1 || params.reserveSpoilageShare > 1) {
+    || params.healthSmoothing > 1 || params.tierHealthShift > 1 || params.reserveStorageCost >= 1 || params.reserveSpoilageShare > 1
+    || [params.occupationProfitLevy, params.occupationWageLevy, params.occupationDisorder, params.occupationCivilianSpending, params.resistanceBase, params.securityCost]
+      .some(pair => !Array.isArray(pair) || pair.length !== 2 || pair.some(value => value > 1))
+    || params.occupationDisorder[1] + params.sabotageOutputLoss > 0.9 || params.resistanceRise > 1 || params.resistanceFall > 1
+    || params.resistanceFallFree > 1 || params.sabotageChance > 1 || params.sabotageDamage > 1 || params.revoltEndThreshold > params.revoltThreshold
+    || params.revoltThreshold > 1 || params.laneCapacityHeadroom < 1 || params.laneCapacityFloor > 1 || params.laneDemandSmoothing > 1
+    || !(params.laneDemandSmoothing > 0)) {
     throw new Error('A parameter is outside its valid range.');
   }
 }

@@ -2,12 +2,15 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gzipSync } from 'node:zlib';
-import type { EconomyState, WorldSpec } from '../src/index.ts';
+import type { EconomyEvent, EconomyState, WorldSpec } from '../src/index.ts';
 import {
   auditError, autopilotCommands, createCatalogueWorldSpec, createEconomy, createGeneratedWorldSpec, createTestWorldSpec,
   serializeEconomy, toCatalogueSpec,
 } from '../src/index.ts';
 import { applyActions, compileTradePolicy, resolveInput } from '../src/core/commands.ts';
+import { openBanks, resolveBankruptcies, sellIdlePlant, updateTiers } from '../src/core/credit.ts';
+import { prepareOccupation, updateOccupation } from '../src/core/occupation.ts';
+import { allocateTransport, recordTransportDemand } from '../src/core/transport.ts';
 import { planBudgets, settleFinances } from '../src/core/finance.ts';
 import { clearMarkets } from '../src/core/market.ts';
 import { getModel, getWorkspace } from '../src/core/model.ts';
@@ -26,7 +29,9 @@ import { captureStart, finishTurn } from '../src/core/stats.ts';
  * Each world is built (with its normal calibration), run for a few weeks to
  * warm up the JIT, then timed over a fixed number of weeks with the rule-based
  * autopilot and the conservation audit on. The phase split re-runs the same
- * steps as core/step.ts with a timer around each. Writes reports/BENCHMARK.md.
+ * steps as core/step.ts with a timer around each (Milestone 4: the credit, occupation and
+ * transport phases are included; before Milestone 4 the split skipped the credit phases added
+ * in Milestone 2, so its totals were slightly low). Writes reports/BENCHMARK.md.
  * Desktop Node timings only; a phone is several times slower (see the report).
  */
 const here = dirname(fileURLToPath(import.meta.url));
@@ -39,22 +44,30 @@ function timedWeek(state: EconomyState, times: Float64Array): number {
   const actions = resolveInput(state, { commands: autopilotCommands(state) });
   rebaseIfNeeded(state);
   const w = getWorkspace(state);
-  const events: never[] = [];
+  const events: EconomyEvent[] = [];
   captureStart(state, w, m);
-  applyActions(state, w, actions);
+  applyActions(state, w, actions, events);
+  prepareOccupation(state, w);
   compileTradePolicy(state, w);
   const routes = getRoutes(state);
+  openBanks(state, w);
+  allocateTransport(state, w, routes);
   lap(0);
   planBudgets(state, w, m, events); lap(1);
   planPrivateSector(state, w, m); lap(2);
-  clearMarkets(state, w, m, routes, false); lap(3);
-  produce(state, w, m); lap(4);
-  adjust(state, w, m); lap(5);
+  clearMarkets(state, w, m, routes, false);
+  recordTransportDemand(state, w); lap(3);
+  produce(state, w, m);
+  resolveBankruptcies(state, w, m, events);
+  sellIdlePlant(state, w, m); lap(4);
+  adjust(state, w, m);
+  updateTiers(state, w, m);
+  updateOccupation(state, w, m, events); lap(5);
   settleFinances(state, w, m, events); lap(6);
   updatePolitics(state, w, events);
   develop(state, w, m); lap(7);
   state.turn += 1;
-  const report = finishTurn(state, w, m, { audit: true, report: 'none' }, events);
+  const report = finishTurn(state, w, m, { audit: true, report: 'none' }, events, routes);
   lap(8);
   return auditError(report.audit);
 }

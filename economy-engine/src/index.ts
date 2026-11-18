@@ -18,10 +18,12 @@ export {
   cloneEconomy, serializeEconomy, deserializeEconomy, validateEconomy, hashEconomy, STATE_FORMAT, STATE_VERSION,
 } from './core/state.ts';
 export { rescaleMoney, REBASE_FACTOR, ROLLOVER_MONEY } from './core/rebase.ts';
-export { getCountry, getZone, getFirmAggregates, listSanctions, getProgress } from './core/selectors.ts';
+export { getCountry, getZone, getFirmAggregates, listSanctions, getProgress, listRequisitions, getItinerary } from './core/selectors.ts';
 export type {
   CountryPolicy, CountrySnapshot, ZoneSnapshot, ZoneGoodSnapshot, SanctionView, ProgressView, FirmAggregateView, FirmLineView,
+  RequisitionView,
 } from './core/selectors.ts';
+export { OCCUPATION_POLICIES } from './core/occupation.ts';
 export {
   getCountryHistory, getGoodHistory, getWorldHistory, auditError, assertAudit, AUDIT_TOLERANCE,
   HISTORY_COUNTRY_METRICS, HISTORY_GOOD_METRICS, HISTORY_WORLD_METRICS, HISTORY_TIERS,

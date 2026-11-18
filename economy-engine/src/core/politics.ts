@@ -27,10 +27,12 @@ export function updatePolitics(s: EconomyState, w: Workspace, events: EconomyEve
   const shortage = w.countryHouseholdShortage;
   const living = w.countryLiving;
 
-  // Population-weighted living conditions.
+  // Population-weighted living conditions. Zones a country occupies do not count towards its
+  // own regime's stability: their discontent shows as resistance instead (Milestone 4).
   for (let z = 0; z < Z; z++) {
     const c = zone.owner[z];
-    const weight = w.population[c] > EPSILON ? zone.population[z] / w.population[c] : 0;
+    if (zone.sovereign[z] !== c) continue;
+    const weight = w.politicsPopulation[c] > EPSILON ? zone.population[z] / w.politicsPopulation[c] : 0;
     if (!(weight > 0)) continue;
     inflation[c] += weight * zone.inflation[z] * 52;
     unemployment[c] += weight * zone.unemployment[z];
@@ -46,7 +48,7 @@ export function updatePolitics(s: EconomyState, w: Workspace, events: EconomyEve
   }
 
   for (let c = 0; c < C; c++) {
-    if (!(w.population[c] > EPSILON)) continue;
+    if (!(w.politicsPopulation[c] > EPSILON)) continue;
     const taxes = w.revenueIncomeTax[c] + w.revenueConsumptionTax[c] + w.revenueCorporateTax[c] + w.revenueTariffs[c];
     const burden = w.countryNominal[c] > EPSILON ? taxes / w.countryNominal[c] : 0;
     const socialGap = country.spendSocial[c] * w.fundedShare[c] - p.socialNorm;

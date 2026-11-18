@@ -13,7 +13,10 @@ const GOLDEN_WEEKS = 672; // 100 warm-up + 520 + 52, as in sim/browser-bench.cjs
 // central banks replace the automatic money rule, firms borrow and can fail, tiers move and reserves cost money.
 // Re-pinned in Milestone 3 (was cbae27a2ed468a59): no automatic bond purchases, all money starts as credit money,
 // normal prices use the long-run return on capital, public-firm rules, liquidation estate and default memory.
-const GOLDEN = 'ef7dfc948cbe33b0';
+// Re-pinned in Milestone 4 (was ef7dfc948cbe33b0) only because the saved state gained fields (legal owner,
+// occupation, resistance, lane capacities, zone-pair freight demand, requisitions, version 5): every field shared with Milestone 3 was
+// checked to be bit-identical after 672 weeks in both test worlds, so the calm economy itself is unchanged.
+const GOLDEN = '6f9bf1a361044b05';
 
 test(`golden: the default test world after ${GOLDEN_WEEKS} weeks has the pinned fingerprint`, () => {
   const state = createEconomy(createTestWorldSpec());

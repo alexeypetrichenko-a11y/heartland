@@ -1,6 +1,8 @@
-import type { CountryId, EconomyState, GoodId, ReserveMode, SectorId, ZoneId } from '../types.ts';
+import type { CountryId, EconomyState, GoodId, LaneId, OccupationPolicy, ReserveMode, SectorId, ZoneId } from '../types.ts';
 import type { OwnershipType, PerformanceTier, PublicObjective } from './model.ts';
 import { OWNERSHIP_COUNT, OWNERSHIP_TYPES, PERFORMANCE_TIERS, PUBLIC_OBJECTIVES, TIER_COUNT, zoneCapacity, zonePipeline } from './model.ts';
+import { OCCUPATION_POLICIES } from './occupation.ts';
+import { findItinerary, laneCapacity } from './transport.ts';
 
 /**
  * Read-only views of a state for the host game and its interface.
@@ -78,7 +80,16 @@ export interface ZoneGoodSnapshot {
 export interface ZoneSnapshot {
   zoneId: ZoneId;
   name: string;
+  /** Country controlling the zone's economy (the occupier while it is occupied). */
   ownerId: CountryId;
+  /** Legal owner (Milestone 4). */
+  sovereignId: CountryId;
+  occupied: boolean;
+  /** Occupation policy, or null when the zone is not occupied. */
+  occupationPolicy: OccupationPolicy | null;
+  /** Resistance to occupation, 0-1 (it fades after liberation). */
+  resistance: number;
+  revolt: boolean;
   population: number;
   technology: number;
   infrastructure: number;
@@ -187,6 +198,11 @@ export function getZone(state: EconomyState, zoneId: ZoneId): ZoneSnapshot {
     zoneId,
     name: state.zones[z].name,
     ownerId: state.countries[state.zone.owner[z]].id,
+    sovereignId: state.countries[state.zone.sovereign[z]].id,
+    occupied: state.zone.owner[z] !== state.zone.sovereign[z],
+    occupationPolicy: state.zone.owner[z] !== state.zone.sovereign[z] ? OCCUPATION_POLICIES[state.zone.occupationPolicy[z]] : null,
+    resistance: state.zone.resistance[z],
+    revolt: state.zone.revolt[z] === 1,
     population: state.zone.population[z],
     technology: state.zone.technology[z],
     infrastructure: state.zone.infrastructure[z],
@@ -307,4 +323,36 @@ export function getProgress(state: EconomyState, countryId: CountryId): Progress
     population: base.population[c] > 0 ? population / base.population[c] : 0,
     stabilityChange: state.country.stability[c] - base.stability[c],
   };
+}
+
+/** One standing military transport requisition (Milestone 4). */
+export interface RequisitionView {
+  countryId: CountryId;
+  originZoneId: ZoneId;
+  destinationZoneId: ZoneId;
+  volume: number;
+}
+
+export function listRequisitions(state: EconomyState): RequisitionView[] {
+  return state.requisitions.map(entry => ({
+    countryId: state.countries[entry.country].id, originZoneId: state.zones[entry.origin].id,
+    destinationZoneId: state.zones[entry.destination].id, volume: entry.volume,
+  }));
+}
+
+/**
+ * The lanes a requisition between two zones would use for this country now (cheapest open
+ * path through territory it controls), with their physical capacity this week; null if none.
+ */
+export function getItinerary(state: EconomyState, countryId: CountryId, originZoneId: ZoneId, destinationZoneId: ZoneId):
+  { laneIds: LaneId[]; length: number; capacity: number } | null {
+  const c = countryIndex(state, countryId);
+  const origin = state.zones.findIndex(zone => zone.id === originZoneId);
+  const destination = state.zones.findIndex(zone => zone.id === destinationZoneId);
+  if (origin < 0 || destination < 0) throw new Error('Unknown zone.');
+  const itinerary = findItinerary(state, c, origin, destination);
+  if (!itinerary) return null;
+  let capacity = Infinity;
+  for (const l of itinerary.lanes) capacity = Math.min(capacity, laneCapacity(state, l) * state.lanes.throughput[l]);
+  return { laneIds: itinerary.lanes.map(l => state.lanes.id[l]), length: itinerary.length, capacity: capacity === Infinity ? -1 : capacity };
 }

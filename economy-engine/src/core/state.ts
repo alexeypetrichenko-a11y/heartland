@@ -15,8 +15,9 @@ export const STATE_FORMAT = 'heartland-economy';
  * Version 2 (Milestone 1): sectors, firm aggregates and production lines replace per-zone firm cash.
  * Version 3 (Milestone 2): central banks, firm loans, distress and health.
  * Version 4 (Milestone 3): public-firm policies, idle plant held for sale, default memory.
+ * Version 5 (Milestone 4): legal owner and occupation of zones, resistance, lane capacities and requisitions.
  */
-export const STATE_VERSION = 4;
+export const STATE_VERSION = 5;
 
 function copyGroup<T extends object>(group: T): T {
   const source = group as Record<string, unknown[]>;
@@ -55,6 +56,8 @@ export function cloneEconomy(state: EconomyState): EconomyState {
     countrySector: copyGroup(state.countrySector),
     sanctions: state.sanctions.map(entry => ({ ...entry })),
     tariffOverrides: state.tariffOverrides.map(entry => ({ ...entry })),
+    requisitions: state.requisitions.map(entry => ({ ...entry })),
+    tradeDemand: state.tradeDemand.slice(),
     world: { ...state.world },
     baseline: state.baseline,
     history: { rowSize: state.history.rowSize, tiers: state.history.tiers.map(copyTier) },
@@ -116,7 +119,7 @@ function idList(value: unknown, label: string): number {
   return value.length;
 }
 
-const ZONE_KEYS = ['owner', 'population', 'populationGrowth', 'populationCap', 'technology', 'infrastructure', 'mobilized', 'wage',
+const ZONE_KEYS = ['owner', 'sovereign', 'occupationPolicy', 'resistance', 'revolt', 'population', 'populationGrowth', 'populationCap', 'technology', 'infrastructure', 'mobilized', 'wage',
   'householdMoney', 'expectedIncome', 'cpi', 'inflation', 'unemployment', 'livingStandard',
   'livingStandardRef', 'deprivation'] as const;
 const ZONE_GOOD_KEYS = ['stock', 'inputBuffer', 'price', 'buyPrice',
@@ -133,7 +136,9 @@ const FIRM_KEYS = ['cash', 'costs', 'employment', 'revenue', 'loan', 'lender', '
 const FIRM_GOOD_KEYS = ['build1', 'build2', 'build3', 'stockShare'] as const;
 const FIRM_LINE_KEYS = ['capacity'] as const;
 const COUNTRY_GOOD_KEYS = ['reserves', 'reserveTargetWeeks', 'reserveMode', 'tariff'] as const;
-const WORLD_KEYS = ['baseMoney', 'interestRate', 'creditUtilization', 'realGrowth', 'inflation', 'realGdp', 'rebases'] as const;
+const WORLD_KEYS = ['baseMoney', 'interestRate', 'creditUtilization', 'realGrowth', 'inflation', 'realGdp', 'rebases',
+  'transportBase', 'transportIndex'] as const;
+const LANE_KEYS = ['id', 'from', 'to', 'distance', 'costMultiplier', 'throughput', 'capacity'] as const;
 const BASELINE_KEYS = ['realGdp', 'realGdpPerCapita', 'consumptionPerCapita', 'population', 'stability'] as const;
 
 /** Throw a descriptive error unless `value` is a structurally sound state. */
@@ -162,10 +167,17 @@ export function validateEconomy(value: unknown): asserts value is EconomyState {
   if (value.lanes.id.some(id => typeof id !== 'string') || new Set(value.lanes.id).size !== L) fail('lane ids must be unique text.');
   indexArray(value.lanes.from, L, Z + W, 'lanes.from');
   indexArray(value.lanes.to, L, Z + W, 'lanes.to');
-  for (const key of ['distance', 'costMultiplier', 'throughput']) numberArray(value.lanes[key], L, `lanes.${key}`);
+  for (const key of ['distance', 'costMultiplier', 'throughput', 'capacity']) numberArray(value.lanes[key], L, `lanes.${key}`);
+  for (const key of Object.keys(value.lanes)) if (!(LANE_KEYS as readonly string[]).includes(key)) fail(`lanes.${key} is not a known field.`);
+  const laneGroup = value.lanes as Record<string, number[]>;
+  if (laneGroup.capacity.some(entry => entry < 0 && entry !== -1)) fail('a lane capacity is negative.');
 
   numberGroup(value.zone, ZONE_KEYS, Z, 'zone');
   indexArray((value.zone as Record<string, unknown>).owner, Z, C, 'zone.owner');
+  indexArray((value.zone as Record<string, unknown>).sovereign, Z, C, 'zone.sovereign');
+  indexArray((value.zone as Record<string, unknown>).occupationPolicy, Z, 2, 'zone.occupationPolicy');
+  indexArray((value.zone as Record<string, unknown>).revolt, Z, 2, 'zone.revolt');
+  if ((value.zone as Record<string, number[]>).resistance.some(entry => entry < 0 || entry > 1)) fail('zone.resistance is outside 0..1.');
   numberGroup(value.zoneGood, ZONE_GOOD_KEYS, Z * G, 'zoneGood');
   numberGroup(value.firm, FIRM_KEYS, Z * S * OWNERSHIP_COUNT, 'firm');
   numberGroup(value.firmGood, FIRM_GOOD_KEYS, Z * G * OWNERSHIP_COUNT, 'firmGood');
@@ -215,6 +227,16 @@ export function validateEconomy(value: unknown): asserts value is EconomyState {
     if (typeof value.world[key] !== 'number' || !Number.isFinite(value.world[key])) fail(`world.${key} is not a finite number.`);
   }
 
+  numberArray(value.tradeDemand, Z * Z, 'tradeDemand');
+  if ((value.tradeDemand as number[]).some(entry => entry < 0)) fail('tradeDemand holds a negative value.');
+  if (!Array.isArray(value.requisitions)) fail('requisitions are missing.');
+  for (const entry of value.requisitions) {
+    if (!isRecord(entry) || Object.keys(entry).length !== 4) fail('a requisition is malformed.');
+    for (const [key, limit] of [['country', C], ['origin', Z], ['destination', Z]] as const) {
+      if (!Number.isInteger(entry[key]) || (entry[key] as number) < 0 || (entry[key] as number) >= limit) fail('a requisition refers to something that does not exist.');
+    }
+    if (typeof entry.volume !== 'number' || !Number.isFinite(entry.volume) || !(entry.volume > 0) || entry.origin === entry.destination) fail('a requisition is malformed.');
+  }
   if (!Array.isArray(value.sanctions) || !Array.isArray(value.tariffOverrides)) fail('trade policy lists are missing.');
   for (const entry of [...value.sanctions, ...value.tariffOverrides]) {
     if (!isRecord(entry) || !Number.isInteger(entry.imposer) || !Number.isInteger(entry.target) || !Number.isInteger(entry.good)

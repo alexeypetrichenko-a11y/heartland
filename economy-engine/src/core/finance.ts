@@ -308,7 +308,8 @@ export function planBudgets(s: EconomyState, w: Workspace, m: Model, events: Eco
   // 4. Cash transfers to households and orders for goods, zone by zone.
   for (let z = 0; z < Z; z++) {
     const c = s.zone.owner[z];
-    const share = w.population[c] > 0 ? s.zone.population[z] / w.population[c] : 0;
+    // An occupier extends its spending to the zones it occupies only as far as its policy says (Milestone 4).
+    const share = w.spendPopulation[c] > 0 ? s.zone.population[z] * w.spendWeight[z] / w.spendPopulation[c] : 0;
     if (!(share > 0)) continue;
     const funded = w.fundedShare[c];
     const cash = Math.min((w.planSocial[c] + w.planMilitaryPay[c]) * share, country.treasury[c]);
@@ -442,10 +443,10 @@ export function settleFinances(s: EconomyState, w: Workspace, m: Model, events: 
     country.realGdp[c] = w.countryReal[c];
     const revenue = w.revenueIncomeTax[c] + w.revenueConsumptionTax[c] + w.revenueCorporateTax[c] + w.revenueTariffs[c]
       + w.revenueCentralBank[c] + w.revenueMoneyCreation[c] + w.revenueReserveSales[c] + w.revenueFunds[c] + w.revenueFirmDividends[c]
-      + w.revenueOwnership[c];
+      + w.revenueOwnership[c] + w.revenueOccupation[c];
     const spending = w.spentAdministration[c] + w.spentSocial[c] + w.spentMilitary[c] + w.spentInfrastructure[c]
       + w.spentReserves[c] + w.spentReserveStorage[c] + w.spentInterest[c] + w.spentFunds[c] + w.spentFirmSupport[c]
-      + w.spentOwnership[c] + w.spentCentralBankCapital[c];
+      + w.spentOwnership[c] + w.spentCentralBankCapital[c] + w.spentOccupationSecurity[c] + w.spentTransport[c];
     const deficit = country.gdp[c] > EPSILON ? (spending - revenue) / country.gdp[c] : 0;
     country.deficit[c] += 0.1 * (clamp(deficit, -1, 1) - country.deficit[c]);
 

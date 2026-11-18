@@ -31,10 +31,15 @@ function checkConsistent(state: EconomyState, stats: HorizonStats, label: string
 
 function checkSane(scenario: HorizonScenario, stats: HorizonStats, label: string): void {
   assert.ok(stats.maxInflation < 0.35 && stats.minInflation > -0.1, `${label}: world inflation within -10%..35% (${stats.minInflation}..${stats.maxInflation})`);
-  // A war-scale shock (35% of a large country's plant destroyed) lifts first-year inflation to 10-14%.
-  assert.ok(Math.abs(stats.meanInflation) < 0.15, `${label}: mean inflation ${stats.meanInflation}`);
+  // A war-scale shock (35% of a large country's plant destroyed) lifts first-year inflation to 10-14%; with an
+  // occupation and a rail requisition on top of it (Milestone 4, combined game) the 31-good world reaches about 16%.
+  const inflationBound = scenario.name.startsWith('all adverse') ? 0.2 : 0.15;
+  assert.ok(Math.abs(stats.meanInflation) < inflationBound, `${label}: mean inflation ${stats.meanInflation}`);
   assert.ok(stats.gdpLow > 0.75, `${label}: world output never below 75% of its start (${stats.gdpLow})`);
-  assert.ok(stats.maxDebt < 1.5, `${label}: no country's debt beyond 150% of GDP (${stats.maxDebt})`);
+  // A country that loses a large zone to occupation keeps its whole debt on a smaller economy (Norland:
+  // about 80% of GDP becomes about 145%), so occupation games get a wider debt bound.
+  const debtBound = /occupation|combined/.test(scenario.name) ? 2 : 1.5;
+  assert.ok(stats.maxDebt < debtBound, `${label}: no country's debt beyond ${debtBound * 100}% of GDP (${stats.maxDebt})`);
   if (scenario.calm) {
     assert.ok(stats.gdpLow > 0.95, `${label}: calm output steady (${stats.gdpLow})`);
     // The 31-good world starts with a price adjustment (first-year mean about 6%, peak about 12%; it
@@ -74,6 +79,9 @@ for (const kind of ['7-good', '31-good'] as const satisfies readonly WorldKind[]
       if (scenario.name.startsWith('capacity destruction')) assert.ok(stats.gdpRatio > stats.gdpLow + 0.02, `output recovers from its low (${stats.gdpLow} → ${stats.gdpRatio})`);
       if (scenario.name.startsWith('fiscal crisis')) assert.equal(stats.defaults, 2, 'both declared defaults happen');
       if (scenario.name.startsWith('energy shock') || scenario.name.startsWith('state intervention')) assert.equal(stats.defaults + stats.regimeChanges, 0, 'no default or regime change');
+      if (scenario.name.startsWith('occupation') || scenario.name.startsWith('intensive occupation') || scenario.name.startsWith('military requisition')) {
+        assert.equal(stats.defaults, 0, 'no default');
+      }
     });
   }
 }
