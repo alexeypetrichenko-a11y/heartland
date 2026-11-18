@@ -612,6 +612,31 @@ li {
 .atlas-terrain-control { position: absolute; left: 8px; bottom: 8px; min-width: 44px; min-height: 44px; display: flex; align-items: center; gap: 6px; padding: 0 10px; font-size: .75rem; border-radius: 12px; background: #16222fee; }
 .atlas-terrain-control[aria-pressed="true"] { color: var(--color-accent); border-color: #927343; }
 .atlas-camera { isolation: isolate; }
+.atlas-country-panel {
+  position: absolute;
+  z-index: 1;
+  inset: auto 8px 60px;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  width: min(22rem, calc(100% - 16px));
+  max-height: calc(100% - 68px);
+  margin-inline: auto;
+  padding: 10px 7px 10px 12px;
+  overflow: auto;
+  background: var(--color-surface);
+  border: 1px solid #927343;
+  border-radius: 14px;
+  box-shadow: 0 3px 16px #0a111966;
+}
+.atlas-country-facts { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.atlas-country-facts h3 { font-size: 1rem; margin-bottom: 3px; }
+.atlas-country-facts p { font-size: .75rem; line-height: 1.35; }
+.atlas-country-id { color: var(--color-accent); }
+.atlas-country-panel button { flex: none; width: 44px; height: 44px; padding: 0; font-size: 1.25rem; }
+@media (orientation: landscape) and (max-height: 34rem) {
+  .atlas-country-panel { right: auto; width: min(16rem, 37%); }
+}
 @media (max-height: 24rem) {
   .atlas-frame .atlas-controls { flex-direction: row; }
 }

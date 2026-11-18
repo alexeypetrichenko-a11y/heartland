@@ -6,7 +6,7 @@ import { globeBorderVertices } from '../geography/borderRendering';
 import { createGlobeRenderer } from './globeRenderer';
 import { useGeographicFade } from './useGeographicFade';
 
-type Props = { camera: WorldCamera; size: AtlasSize; catalog: AtlasCatalog | null; shapes: AtlasShape[];
+type Props = { camera: WorldCamera; size: AtlasSize; catalog: AtlasCatalog | null; shapes: AtlasShape[]; selected?: AtlasShape;
   terrain: boolean; active: boolean; revision: number; onUnavailable: () => void; onReady: (ready: boolean) => void; onStatus: (status: string) => void };
 
 export function AtlasGlobe(props: Props) {
@@ -61,6 +61,26 @@ export function AtlasGlobe(props: Props) {
     catch { props.onUnavailable(); }
   }, [borderVertices, previousVertices, props.active, props.onUnavailable, schedule]);
   useEffect(() => {
+    if (!renderer.current || !props.active) return;
+    try {
+      if (props.selected) {
+        // A single alpha mask follows the existing sphere UVs. The world
+        // texture and its terrain are left intact when selection changes.
+        const bitmap = document.createElement('canvas');
+        bitmap.width = renderer.current.textureWidth; bitmap.height = bitmap.width / 2;
+        const context = bitmap.getContext('2d');
+        if (!context) throw new Error('Selection canvas unavailable');
+        context.scale(bitmap.width / 360, bitmap.height / 180);
+        for (const part of props.selected.parts) context.fill(new Path2D(part.path), 'evenodd');
+        renderer.current.uploadSelection(bitmap, globeBorderVertices([props.selected]));
+        bitmap.width = bitmap.height = 1;
+      } else {
+        renderer.current.uploadSelection(null);
+      }
+      schedule();
+    } catch { props.onUnavailable(); }
+  }, [props.selected, props.active, props.onUnavailable, schedule]);
+  useEffect(() => {
     if (!renderer.current || !props.catalog || !props.shapes.length || !props.active) return;
     try {
       const bitmap = textureCanvas.current ??= document.createElement('canvas');
@@ -88,5 +108,5 @@ export function AtlasGlobe(props: Props) {
       renderer.current.upload(bitmap); schedule(); props.onReady(true);
     } catch { props.onUnavailable(); }
   }, [props.catalog, props.shapes, props.terrain, props.active, image, water, props.onReady, props.onUnavailable, schedule]);
-  return <canvas ref={canvas} className="atlas-globe" aria-hidden="true" data-renderer="webgl-sphere" />;
+  return <canvas ref={canvas} className="atlas-globe" aria-hidden="true" data-renderer="webgl-sphere" data-selected-country={props.selected?.id} />;
 }

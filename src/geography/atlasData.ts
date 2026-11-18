@@ -1,6 +1,7 @@
 import { assertGeographicGeometry } from './geometry.ts';
 import { projectAtlasFeature, type AtlasCatalog, type AtlasCountry, type AtlasShape } from './atlas.ts';
-import type { GeographicCollection, GeographicFeature } from './types';
+import type { CountryGeography } from './countrySelection';
+import type { CountryCatalog, GeographicCollection, GeographicCountryId, GeographicFeature } from './types';
 
 /** Only the atlas calls this loader. No country/region or terrain preloading during gameplay. */
 export function createAtlasData(base: string, fetcher: typeof fetch = globalThis.fetch) {
@@ -8,6 +9,7 @@ export function createAtlasData(base: string, fetcher: typeof fetch = globalThis
   const geography = `${root}geography/natural-earth-5.1.1/`;
   const overviews = new Map<string, AtlasShape[]>();
   const details = new Map<string, AtlasShape>();
+  let countryGeography: Map<GeographicCountryId, CountryGeography> | undefined;
   async function json<T>(url: string, signal?: AbortSignal): Promise<T> {
     const response = await fetcher(url, { signal });
     if (!response.ok) throw new Error(`Map data unavailable (${response.status})`);
@@ -22,6 +24,13 @@ export function createAtlasData(base: string, fetcher: typeof fetch = globalThis
     const catalog = await json<AtlasCatalog>(`${root}atlas/political.json`, signal);
     if (catalog.schemaVersion !== 1 || catalog.datasetId !== 'natural-earth-5.1.1' || !Array.isArray(catalog.countries)) throw new Error('Invalid atlas catalog');
     return catalog;
+  }
+  async function loadCountryGeography(signal?: AbortSignal) {
+    if (countryGeography) return countryGeography;
+    const catalog = await json<CountryCatalog>(`${geography}countries.json`, signal);
+    if (catalog.schemaVersion !== 1 || !Array.isArray(catalog.countries)) throw new Error('Invalid geography catalog');
+    countryGeography = new Map(catalog.countries.map(({ id, continent, subregion }) => [id, { continent, subregion }]));
+    return countryGeography;
   }
   async function loadOverview(scale: '110m' | '50m', signal?: AbortSignal) {
     if (overviews.has(scale)) return overviews.get(scale)!;
@@ -42,5 +51,5 @@ export function createAtlasData(base: string, fetcher: typeof fetch = globalThis
     while (details.size > 12) details.delete(details.keys().next().value!);
     return result;
   }
-  return { loadCatalog, loadOverview, loadDetail };
+  return { loadCatalog, loadOverview, loadDetail, loadCountryGeography };
 }

@@ -75,10 +75,13 @@ export function useAtlasCamera() {
     } else commit(dragWorldCamera(camera.current.view, camera.current.size, from, contact.point));
   }
   function pointerUp(event: Pointer<HTMLDivElement>) {
-    if (!contacts.current.has(event.pointerId)) return;
+    const contact = contacts.current.get(event.pointerId);
+    if (!contact) return null;
     if (event.type === 'pointerup') pointerMove(event);
+    const tap = event.type === 'pointerup' && !moved.current && contacts.current.size === 1 ? contact.point : null;
     contacts.current.delete(event.pointerId); pinch.current = null;
     for (const c of contacts.current.values()) c.start = c.point;
+    return tap;
   }
   function zoomBy(factor: number) {
     cancel();

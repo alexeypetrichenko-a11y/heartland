@@ -1,6 +1,7 @@
 import type { AtlasCatalog, AtlasShape } from '../geography/atlas';
 import { intersectsGeography } from '../geography/atlas';
-import type { GeographicBounds } from '../geography/types';
+import { COUNTRY_HIGHLIGHT, COUNTRY_HIGHLIGHT_OPACITY } from '../geography/countrySelection';
+import type { GeographicBounds, GeographicCountryId } from '../geography/types';
 
 type Fade = { previous: AtlasShape[] | null; current: AtlasShape[]; mix: number };
 export function politicalLayers(overview: Fade, detail: Fade, catalog: AtlasCatalog | null, bounds: GeographicBounds[]) {
@@ -16,14 +17,21 @@ export function politicalLayers(overview: Fade, detail: Fade, catalog: AtlasCata
       }) }));
   });
 }
-type Props = { layers: ReturnType<typeof politicalLayers>; offsets: number[]; detail: number; width: number; opacity: number; phase: 'fills' | 'borders' };
-export function AtlasPolitical({ layers, offsets, detail, width, opacity, phase }: Props) {
+type Props = { layers: ReturnType<typeof politicalLayers>; offsets: number[]; detail: number; width: number; opacity: number;
+  phase: 'fills' | 'borders'; selectedId?: GeographicCountryId | null };
+export function AtlasPolitical({ layers, offsets, detail, width, opacity, phase, selectedId }: Props) {
   const id = (key: string, country: string, outline = false) => 'atlas-' + key + '-' + country + (outline ? '-border' : '');
+  const weight = (layer: Props['layers'][number]) => layer.border * (layer.detail ? detail : 1 - detail);
   if (phase === 'borders') return <g className="atlas-country-borders" fill="none" stroke="#243b42" strokeWidth={width} strokeLinejoin="round">
-    {offsets.map(offset => <g key={offset} transform={`translate(${offset} 0)`}>
-      {layers.map(layer => <g key={layer.key} opacity={opacity * layer.border * (layer.detail ? detail : 1 - detail)}>
+    {offsets.map(offset => <g key={offset} transform={`translate(${offset} 0)`} data-world-offset={offset}>
+      {layers.map(layer => <g key={layer.key} opacity={opacity * weight(layer)}>
         {layer.shapes.map(shape => <use key={shape.id} href={`#${id(layer.key, shape.id, true)}`} vectorEffect="non-scaling-stroke" />)}
       </g>)}
+      {selectedId && layers.map(layer => weight(layer) > 0 && layer.shapes.some(shape => shape.id === selectedId) &&
+        <g key={`highlight-${layer.key}`} data-selected-country={selectedId} opacity={weight(layer)}>
+          <use href={`#${id(layer.key, selectedId)}`} fill={COUNTRY_HIGHLIGHT} fillOpacity={COUNTRY_HIGHLIGHT_OPACITY} stroke="none" fillRule="evenodd" />
+          <use href={`#${id(layer.key, selectedId, true)}`} stroke={COUNTRY_HIGHLIGHT} strokeWidth={Math.max(1, width)} vectorEffect="non-scaling-stroke" />
+        </g>)}
     </g>)}
   </g>;
   function fill(layer: Props['layers'][number]) {

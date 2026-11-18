@@ -1,6 +1,6 @@
 # MAP-01A — Geographic data foundation
 
-This documents the MAP-01A geographic data foundation, independent of the fictional simulation. The atlas consumes these assets through MAP-01B.1/.2 and the spherical/flat camera in [MAP-01B.3](GLOBE.md). [MAP-01B.4](HOME.md) makes the globe the opening screen; the fictional scenario remains separately playable. No country/region selection, political ownership mapping, unit positioning or transport simulation is added.
+This documents the MAP-01A geographic data foundation, independent of the fictional simulation. The atlas uses these assets for political colors, terrain, and the spherical/flat camera. [MAP-01B.4](HOME.md) makes the globe the opening screen. [MAP-01C](COUNTRY_SELECTION.md) uses the same country identifiers for geographic inspection. The fictional scenario is available separately.
 
 ## Sources verified before import
 

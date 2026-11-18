@@ -132,3 +132,21 @@ test('failed atlas requests can be retried and mismatched country data is reject
   assert.equal((await source.loadOverview('110m')).length, 177);
   await assert.rejects(source.loadDetail(catalog.countries[0]), /reference mismatch/);
 });
+
+test('inspection metadata is fetched on demand and retains only source geography keyed by ID', async () => {
+  const requests: string[] = [];
+  const records = read<CountryCatalog>('countries.json');
+  const source = createAtlasData('/heartland/', (async (url: string) => {
+    requests.push(url);
+    return new Response(JSON.stringify(url.endsWith('political.json') ? catalog : records));
+  }) as typeof fetch);
+  await source.loadCatalog();
+  assert.deepEqual(requests, ['/heartland/atlas/political.json']);
+  const geography = await source.loadCountryGeography();
+  assert.equal(geography.size, 258);
+  const france = records.countries.find(country => country.id === 'ne:admin0:FRA')!;
+  assert.deepEqual(geography.get(france.id), { continent: france.continent, subregion: france.subregion });
+  assert.equal(await source.loadCountryGeography(), geography);
+  assert.equal(requests.length, 2);
+  assert.match(requests[1], /^\/heartland\/geography\/.*\/countries\.json$/);
+});

@@ -2,7 +2,7 @@
 
 MAP-01B.1/.2 are merged. The spherical camera, local flat scaling, wrapping and handoff supersede the baseline camera below; see [MAP-01B.3](GLOBE.md). [MAP-01B.4](HOME.md) makes the globe the entry screen. Source identity/colors remain unchanged.
 
-The atlas is a **read-only geographic reference** and now opens automatically. **Fictional game** opens explicit scenario/country setup; **Return to globe** and **Resume game** retain the six-region map, selection, camera, division layer and drafts. All five game sections and Next week remain available inside the explicitly started scenario. Simulation rules are unchanged. Country/region selection is MAP-01C; this renderer creates no playable countries or political ownership.
+The atlas opens automatically and supports interactive geographic inspection. **Fictional game** opens explicit scenario setup. **Return to globe** and **Resume game** retain the six-region map, selection, camera, division layer and drafts. All five game sections and Next week are available inside the scenario. [Country selection](COUNTRY_SELECTION.md)
 
 ## Political presentation
 
