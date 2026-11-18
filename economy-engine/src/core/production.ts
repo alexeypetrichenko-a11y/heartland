@@ -1,7 +1,10 @@
 import type { EconomyState } from '../types.ts';
 import type { Model, Workspace } from './model.ts';
-import { bankReceive, firmBorrow, serviceFirmDebt } from './credit.ts';
-import { AVERAGE_TIER, capitalCharge, clamp, DUST, EPSILON, MIXED, OWNERSHIP_COUNT, privateHurdle, PUBLIC, TIER_COUNT } from './model.ts';
+import { bankReceive, creditAppetite, firmBorrow, serviceFirmDebt } from './credit.ts';
+import {
+  AVERAGE_TIER, capitalCharge, clamp, DUST, EPSILON, MIXED, OBJECTIVE_AFFORDABLE, OBJECTIVE_MAX_PRODUCTION, OBJECTIVE_PROFITABILITY,
+  OBJECTIVE_STRATEGIC, OWNERSHIP_COUNT, PUBLIC, structuralHurdle, TIER_COUNT,
+} from './model.ts';
 
 /**
  * Production, incomes and the weekly adjustment of prices, wages,
@@ -187,7 +190,10 @@ export function produce(s: EconomyState, w: Workspace, m: Model): void {
       const target = p.workingCapitalWeeks * firm.costs[a];
       const floor = p.cashFloorWeeks * firm.costs[a];
       const publicPart = o === PUBLIC ? 1 : o === MIXED ? p.mixedPublicShare : 0;
+      // The state supports its public and mixed firms only where it has chosen to (and pays for it).
+      const stateWilling = s.countrySector.publicSupport[c * S + Math.floor(k / O)] === 1 ? 1 : 0;
       w.aggCall[a] = 0;
+      w.aggDebtSupport[a] = 0;
       if (firm.cash[a] > target) {
         let excess = firm.cash[a] - target;
         // Debt above the normal leverage is paid down before owners are paid.
@@ -208,31 +214,31 @@ export function produce(s: EconomyState, w: Workspace, m: Model): void {
         w.revenueIncomeTax[c] += toPeople * incomeTax;
         s.zone.householdMoney[z] += toPeople * (1 - incomeTax);
         w.householdIncome[z] += toPeople * (1 - incomeTax);
+      } else if (firm.cash[a] >= floor && health(firm, a) > -0.5) {
+        // Short of working capital but not in trouble: borrow part of the gap (liquidity credit).
+        firmBorrow(s, w, a, c, (target - firm.cash[a]) * p.firmLiquidityBorrow * creditAppetite(s, c));
       } else if (firm.cash[a] < floor) {
         // Below the cash floor: borrow back to a moderate working capital first,
         // then ask the owners for whatever is still missing to reach the floor.
         firmBorrow(s, w, a, c, 0.5 * (floor + target) - firm.cash[a]);
         const need = floor - firm.cash[a];
         // Private owners stop putting money into firms that keep losing it; the state
-        // keeps supporting its own firms (its objectives are its own decision).
+        // supports its share where it has chosen to.
         const privateWilling = firm.health[a] > -0.5 ? 1 : 0;
-        if (need > 0 && (publicPart > 0 || privateWilling > 0)) {
+        if (need > 0 && (publicPart * stateWilling > 0 || privateWilling > 0)) {
           w.aggCall[a] = need;
-          publicNeed += need * publicPart;
+          publicNeed += need * publicPart * stateWilling;
           privateNeed += need * (1 - publicPart) * privateWilling;
         }
       }
-      // Distress: wages or debt service could not be met in full this week, or the firm keeps
-      // losing money while its debt, net of cash, exceeds what its plant would fetch in a
-      // liquidation (balance-sheet insolvency). A firm hit by a temporary shock at normal
-      // leverage is therefore not liquidated.
-      const insolvent = firm.health[a] < -0.5
-        && firm.loan[a] - Math.max(0, firm.cash[a]) > p.liquidationValue * w.aggCapitalValue[a];
-      const trouble = owed - wages > 1e-12 * owed || unpaidDebt > 0 || insolvent;
-      // Chronic heavy losses also count, at 1/13 of a week each: two years of them lead to
-      // liquidation even while banks are still lending. A short crisis never gets that far.
-      const chronic = firm.health[a] < -0.8;
-      firm.distress[a] = w.calibrating ? 0 : trouble ? firm.distress[a] + 1 : chronic ? firm.distress[a] + 1 / 13 : 0;
+      // A supported public (or mixed) firm whose debt exceeds what its plant would fetch has
+      // the excess paid down by the state, a real fiscal cost, instead of going insolvent.
+      const excessDebt = firm.loan[a] - Math.max(0, firm.cash[a]) - p.liquidationValue * w.aggCapitalValue[a];
+      if (firm.health[a] < -0.5 && excessDebt > 0 && publicPart * stateWilling > 0 && !w.calibrating) {
+        w.aggDebtSupport[a] = excessDebt * publicPart;
+        publicNeed += w.aggDebtSupport[a];
+      }
+      w.aggTrouble[a] = owed - wages > 1e-12 * owed || unpaidDebt > 0 ? 1 : 0;
     }
     s.zone.householdMoney[z] += wageBill * (1 - incomeTax);
     s.country.treasury[c] += wageBill * incomeTax;
@@ -255,13 +261,40 @@ export function produce(s: EconomyState, w: Workspace, m: Model): void {
         const o = k % O;
         const publicPart = o === PUBLIC ? 1 : o === MIXED ? p.mixedPublicShare : 0;
         const privateWilling = firm.health[a] > -0.5 ? 1 : 0;
-        const fromState = need * publicPart * publicFill;
+        const stateWilling = s.countrySector.publicSupport[c * S + Math.floor(k / O)] === 1 ? 1 : 0;
+        const fromState = need * publicPart * stateWilling * publicFill;
         const fromPeople = need * (1 - publicPart) * privateWilling * privateFill;
         firm.cash[a] += fromState + fromPeople;
         s.country.treasury[c] -= fromState;
         w.spentFirmSupport[c] += fromState;
         s.zone.householdMoney[z] -= fromPeople;
       }
+      for (let k = 0; k < S * O; k++) {
+        const a = aggregateBase + k;
+        const support = w.aggDebtSupport[a] * publicFill;
+        if (!(support > 0)) continue;
+        const paid = Math.min(support, firm.loan[a], Math.max(0, s.country.treasury[c]));
+        s.country.treasury[c] -= paid;
+        w.spentFirmSupport[c] += paid;
+        firm.loan[a] -= paid;
+        bankReceive(s, firm.lender[a], paid);
+      }
+    }
+
+    // Distress, judged after any support: wages or debt service not met in full this week, or
+    // the firm keeps losing money while its debt, net of cash, exceeds what its plant would fetch
+    // in a liquidation (balance-sheet insolvency). A firm hit by a temporary shock at normal
+    // leverage is therefore not liquidated. Chronic heavy losses also count, at 1/13 of a week
+    // each (two years of them lead to liquidation), except for public firms the state supports,
+    // whose losses may be the price of the objective it gave them (R03).
+    for (let k = 0; k < S * O; k++) {
+      const a = aggregateBase + k;
+      if (w.calibrating) { firm.distress[a] = 0; continue; }
+      const o = k % O;
+      const supported = o === PUBLIC && s.countrySector.publicSupport[c * S + Math.floor(k / O)] === 1;
+      const insolvent = firm.health[a] < -0.5 && firm.loan[a] - Math.max(0, firm.cash[a]) > p.liquidationValue * w.aggCapitalValue[a];
+      const chronic = firm.health[a] < -0.8 && !supported;
+      firm.distress[a] = w.aggTrouble[a] === 1 || insolvent ? firm.distress[a] + 1 : chronic ? firm.distress[a] + 1 / 13 : 0;
     }
   }
 }
@@ -279,6 +312,7 @@ export function adjust(s: EconomyState, w: Workspace, m: Model): void {
   const lineCapacity = s.firmLine.capacity;
   const tierFactor = m.tierFactor;
 
+  let frontier = 0;
   for (let z = 0; z < Z; z++) {
     const c = zone.owner[z];
     const base = z * G;
@@ -315,15 +349,21 @@ export function adjust(s: EconomyState, w: Workspace, m: Model): void {
     zone.expectedIncome[z] += p.incomeSmoothing * (w.householdIncome[z] - zone.expectedIncome[z]);
 
     // Wages: tight labour markets and past inflation push them up.
+    if (z === 0) { frontier = 0; for (let k = 0; k < Z; k++) if (zone.technology[k] > frontier) frontier = zone.technology[k]; }
     const wageChange = p.wageUnemploymentGain * (p.naturalUnemployment - zone.unemployment[z])
-      + p.wageShortageGain * (1 - w.laborScale[z]) + p.wageInflationPass * zone.inflation[z];
+      + p.wageShortageGain * (1 - w.laborScale[z]) + p.wageInflationPass * zone.inflation[z]
+      // Pay settlements also track the zone's productivity growth, so unit costs (and prices)
+      // do not drift down as technology improves. This anchors the price level now that money
+      // is created only against real credit needs (Milestone 3).
+      + p.wageProductivityPass * technologyGrowth(s, z, frontier) + p.wageTargetAnchor * p.inflationTarget / 52;
     // The wage is the fixed yardstick while the builder searches for starting prices.
     if (!w.calibrating) zone.wage[z] *= 1 + clamp(wageChange, -p.wageMaxDown, p.wageMaxUp);
     const wage = zone.wage[z];
     const productivity = w.productivity[z];
     let capitalPrice = 0;
     for (let g = 0; g < G; g++) capitalPrice += m.investment[g] * zg.buyPrice[base + g];
-    const hurdle = privateHurdle(s, c);
+    // Normal prices carry the long-run return on capital, not this week's policy rate.
+    const hurdle = structuralHurdle(s, c);
     const keep = 1 - s.country.taxCorporate[c];
 
     for (let g = 0; g < G; g++) {
@@ -353,7 +393,9 @@ export function adjust(s: EconomyState, w: Workspace, m: Model): void {
         const pressure = capacity > EPSILON ? clamp(wanted / capacity, 0, 1.5) : 0;
         zg.pressure[index] += p.profitSmoothing * (pressure - zg.pressure[index]);
         // While the builder searches for starting prices, only supply and demand move them.
-        const normalPrice = cost + capitalCharge(m, g, capitalPrice, hurdle, keep);
+        // Public firms told to keep prices affordable give up their return on capital,
+        // pulling the zone's normal price down in proportion to their share of capacity (R03).
+        const normalPrice = cost + capitalCharge(m, g, capitalPrice, hurdle, keep) * (1 - affordableShare(s, m, z, g));
         const costPull = w.calibrating ? 0 : clamp(normalPrice / price - 1, -1, 1);
         const change = p.priceInventoryGain * gap + p.priceShortageGain * short + p.priceCostGain * costPull
           + (capacity > EPSILON ? p.pricePressureGain * (pressure - m.normalUtilization[g]) : 0);
@@ -403,7 +445,11 @@ export function adjust(s: EconomyState, w: Workspace, m: Model): void {
           const idle = clamp(1 - zg.pressure[index] / p.scrapPressure, 0, 1);
           const tierMargin = zg.margin[index] - (laborCost / tierFactor[t] - averageLabor) / price;
           const losing = clamp(-tierMargin * 4, 0, 1);
-          const scrap = p.scrapRateMax * (idle > losing ? idle : losing);
+          // Public firms with a production or supply objective keep their plant; those keeping
+          // prices affordable accept losses without closing plant for them (R03).
+          const objective = o === PUBLIC ? s.countrySector.publicObjective[c * m.sectorCount + m.goodSector[g]] : OBJECTIVE_PROFITABILITY;
+          const keepsPlant = objective === OBJECTIVE_MAX_PRODUCTION || objective === OBJECTIVE_STRATEGIC;
+          const scrap = keepsPlant ? 0 : p.scrapRateMax * (objective === OBJECTIVE_AFFORDABLE ? idle : (idle > losing ? idle : losing));
           let next = lineCapacity[l] * (1 - m.depreciationWeekly[g] - scrap + renewalRate) + (t === AVERAGE_TIER ? expansion : 0);
           if (next < DUST) next = 0;
           lineCapacity[l] = next;
@@ -452,12 +498,7 @@ export function develop(s: EconomyState, w: Workspace, m: Model): void {
     const sustained = norm > EPSILON ? clamp(w.infrastructureReal[c] / norm, 0, 3) : 1;
     zone.infrastructure[z] = clamp(zone.infrastructure[z] + p.infraAdjust * (sustained - zone.infrastructure[z]), 0.2, p.infraMax);
     // Technology: a slow world trend plus catch-up for zones behind the frontier.
-    const lag = frontier > EPSILON ? Math.max(0, 1 - zone.technology[z] / frontier) : 0;
-    // Exogenous progress fades smoothly (cubically) towards a ceiling, so technology can never grow without bound.
-    const level = zone.technology[z] / p.techCeiling;
-    const room = Math.max(0, 1 - level * level * level);
-    const growth = (p.techGrowthBase + p.techCatchUp * lag + p.infraGrowthEffect * (zone.infrastructure[z] - 1)) * room / 52;
-    const rate = Math.max(-0.001, growth);
+    const rate = technologyGrowth(s, z, frontier);
     zone.technology[z] *= 1 + rate;
     // Better technology also gets more out of the same land and deposits, so
     // natural-resource ceilings rise with it instead of strangling growth.
@@ -494,4 +535,38 @@ function aggregateDepreciation(s: EconomyState, m: Model, z: number, a: number):
     worn += capacity * m.capitalWeeks[g] * m.depreciationWeekly[g];
   }
   return value > EPSILON ? worn / value : 0;
+}
+
+function health(firm: EconomyState['firm'], a: number): number {
+  return firm.health[a];
+}
+
+/** Share of a zone's capacity of good g held by public firms told to keep prices affordable. */
+function affordableShare(s: EconomyState, m: Model, z: number, g: number): number {
+  const c = s.zone.owner[z];
+  if (s.countrySector.publicObjective[c * m.sectorCount + m.goodSector[g]] !== OBJECTIVE_AFFORDABLE) return 0;
+  const base = (z * m.goodCount + g) * OWNERSHIP_COUNT * TIER_COUNT;
+  let total = 0;
+  let public_ = 0;
+  for (let k = 0; k < OWNERSHIP_COUNT * TIER_COUNT; k++) {
+    const capacity = s.firmLine.capacity[base + k];
+    total += capacity;
+    if (Math.floor(k / TIER_COUNT) === PUBLIC) public_ += capacity;
+  }
+  return total > 0 ? public_ / total : 0;
+}
+
+/**
+ * Weekly technology growth of zone z: a slow world trend, catch-up for zones behind
+ * the frontier and an infrastructure effect, fading smoothly (cubically) towards a
+ * ceiling so technology can never grow without bound.
+ */
+function technologyGrowth(s: EconomyState, z: number, frontier: number): number {
+  const p = s.config.params;
+  const technology = s.zone.technology[z];
+  const lag = frontier > EPSILON ? Math.max(0, 1 - technology / frontier) : 0;
+  const level = technology / p.techCeiling;
+  const room = Math.max(0, 1 - level * level * level);
+  const growth = (p.techGrowthBase + p.techCatchUp * lag + p.infraGrowthEffect * (s.zone.infrastructure[z] - 1)) * room / 52;
+  return Math.max(-0.001, growth);
 }

@@ -1,6 +1,6 @@
 import type { EconomyEvent, EconomyState, StepOptions, TurnInput, TurnReport, TurnResult } from '../types.ts';
 import { applyActions, compileTradePolicy, resolveInput } from './commands.ts';
-import { openBanks, resolveBankruptcies, updateTiers } from './credit.ts';
+import { openBanks, resolveBankruptcies, sellIdlePlant, updateTiers } from './credit.ts';
 import { planBudgets, settleFinances } from './finance.ts';
 import { clearMarkets } from './market.ts';
 import { getModel, getWorkspace } from './model.ts';
@@ -60,6 +60,7 @@ export function advanceEconomyInPlace(state: EconomyState, input?: TurnInput, op
   clearMarkets(state, w, model, routes, options.tradeDetail === true);
   produce(state, w, model);
   resolveBankruptcies(state, w, model, events);
+  sellIdlePlant(state, w, model);
   adjust(state, w, model);
   updateTiers(state, w, model);
   settleFinances(state, w, model, events);

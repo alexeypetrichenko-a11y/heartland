@@ -10,8 +10,8 @@ export {
   createConfig, createCatalogueConfig, validateConfig, DEFAULT_GOODS, DEFAULT_SECTORS, DEFAULT_PARAMS, LEGACY_GOODS,
   LEGACY_SECTORS, CATALOGUE_GOODS, CATALOGUE_SECTORS, CATALOGUE_PARAM_OVERRIDES,
 } from './config/defaults.ts';
-export { OWNERSHIP_TYPES, PERFORMANCE_TIERS } from './core/model.ts';
-export type { OwnershipType, PerformanceTier } from './core/model.ts';
+export { OWNERSHIP_TYPES, PERFORMANCE_TIERS, PUBLIC_OBJECTIVES } from './core/model.ts';
+export type { OwnershipType, PerformanceTier, PublicObjective } from './core/model.ts';
 export { createEconomy, DEFAULT_COUNTRY_POLICY, DEFAULT_WARMUP_TURNS } from './world/builder.ts';
 export { advanceEconomy, advanceEconomyInPlace } from './core/step.ts';
 export {

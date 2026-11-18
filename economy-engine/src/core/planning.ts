@@ -1,6 +1,9 @@
 import type { EconomyState } from '../types.ts';
 import type { Model, Workspace } from './model.ts';
-import { AVERAGE_TIER, clamp, EPSILON, OWNERSHIP_COUNT, PRIVATE, privateHurdle, TIER_COUNT } from './model.ts';
+import {
+  AVERAGE_TIER, clamp, EPSILON, OBJECTIVE_MAX_PRODUCTION, OBJECTIVE_STRATEGIC, OWNERSHIP_COUNT, PRIVATE, PUBLIC,
+  PUBLIC_HURDLE_FACTOR, PUBLIC_PRICE_FLOOR, privateHurdle, TIER_COUNT,
+} from './model.ts';
 import { RANDOM_STREAM, randomSigned } from './rng.ts';
 import { capitalValues, firmBorrow, loanFinancedShare } from './credit.ts';
 
@@ -18,6 +21,11 @@ import { capitalValues, firmBorrow, loanFinancedShare } from './credit.ts';
  * fragile ones last. Every aggregate pays for its own staff, inputs and
  * investment from its own cash.
  */
+/** Production slots (owner * 3 + tier) in merit order: all owners tier by tier. */
+const MERIT_SLOTS: readonly (readonly number[])[] = [[0, 3, 6], [1, 4, 7], [2, 5, 8]];
+/** Public lines first (strong to fragile), then the other owners in merit order. */
+const PRIORITY_SLOTS: readonly (readonly number[])[] = [[3], [4], [5], [0, 6], [1, 7], [2, 8]];
+
 export function planPrivateSector(s: EconomyState, w: Workspace, m: Model): void {
   const p = s.config.params;
   const Z = s.zones.length;
@@ -32,7 +40,7 @@ export function planPrivateSector(s: EconomyState, w: Workspace, m: Model): void
   const fg = s.firmGood;
   const tierFactor = m.tierFactor;
   const tierCapacity = [0, 0, 0];
-  const tierViable = [0, 0, 0];
+  const lineOffer = new Float64Array(OWNERSHIP_COUNT * TIER_COUNT);
 
   for (let z = 0; z < Z; z++) {
     const c = s.zone.owner[z];
@@ -89,15 +97,24 @@ export function planPrivateSector(s: EconomyState, w: Workspace, m: Model): void
       const adjust = m.spoilage[g] >= 1 ? 1 : p.inventoryAdjust;
       const want = Math.max(0, expected + (expected * m.cover[g] - carry) * adjust);
       // Each tier produces only while the price covers its own running costs
-      // (smoothed over a narrow band so output does not jump on and off).
+      // (smoothed over a narrow band so output does not jump on and off). Public
+      // firms with a non-commercial objective accept prices below cost (R03).
       const price = zg.price[index];
+      const objective = s.countrySector.publicObjective[c * S + m.goodSector[g]];
+      const publicFloor = PUBLIC_PRICE_FLOOR[objective];
+      const publicFirst = objective === OBJECTIVE_MAX_PRODUCTION || objective === OBJECTIVE_STRATEGIC;
       let viableCapacity = 0;
       for (let t = 0; t < T; t++) {
         const cost = laborCost / tierFactor[t] + inputCost;
-        const low = cost * (1 - p.shutdownBand);
-        const high = cost * (1 + p.shutdownBand);
-        tierViable[t] = w.calibrating || price >= high ? 1 : price <= low ? 0 : (price - low) / (high - low);
-        viableCapacity += tierCapacity[t] * usable * tierViable[t];
+        for (let o = 0; o < O; o++) {
+          const floor = o === PUBLIC ? publicFloor : 1;
+          const low = cost * floor * (1 - p.shutdownBand);
+          const high = cost * floor * (1 + p.shutdownBand);
+          const viable = w.calibrating || price >= high ? 1 : price <= low ? 0 : (price - low) / (high - low);
+          const offer = lineCapacity[lineBase + o * T + t] * usable * viable;
+          lineOffer[o * T + t] = offer;
+          viableCapacity += offer;
+        }
       }
       let plan = Math.min(want, viableCapacity);
       let spare = 0;
@@ -110,10 +127,14 @@ export function planPrivateSector(s: EconomyState, w: Workspace, m: Model): void
       }
       w.want[index] = want;
       // Merit order: strong lines first, fragile lines last; owners within a tier pro rata.
+      // Public firms told to maximise production or secure supply are served first.
       let left = plan;
       let spareLeft = spare;
-      for (let t = 0; t < T; t++) {
-        const offer = tierCapacity[t] * usable * tierViable[t];
+      const slots = publicFirst ? PRIORITY_SLOTS : MERIT_SLOTS;
+      for (let k = 0; k < slots.length; k++) {
+        const members = slots[k];
+        let offer = 0;
+        for (let i = 0; i < members.length; i++) offer += lineOffer[members[i]];
         if (!(offer > 0)) continue;
         const take = left < offer ? left : offer;
         left -= take;
@@ -122,13 +143,12 @@ export function planPrivateSector(s: EconomyState, w: Workspace, m: Model): void
         spareLeft -= extra;
         const takeShare = take / offer;
         const extraShare = extra / offer;
-        const staff = staffPerUnit / tierFactor[t];
-        for (let o = 0; o < O; o++) {
-          const l = lineBase + o * T + t;
-          const lineOffer = lineCapacity[l] * usable * tierViable[t];
-          w.linePlan[l] = lineOffer * takeShare;
-          w.lineSpare[l] = lineOffer * extraShare;
-          laborNeed += w.linePlan[l] * staff;
+        for (let i = 0; i < members.length; i++) {
+          const slot = members[i];
+          const l = lineBase + slot;
+          w.linePlan[l] = lineOffer[slot] * takeShare;
+          w.lineSpare[l] = lineOffer[slot] * extraShare;
+          laborNeed += w.linePlan[l] * staffPerUnit / tierFactor[slot % T];
         }
       }
     }
@@ -276,23 +296,34 @@ export function planPrivateSector(s: EconomyState, w: Workspace, m: Model): void
       const perUnit = zg.margin[index] * zg.price[index];
       const yearlyReturn = 52 * perUnit * keep * Math.min(1, pressure) / (m.capitalWeeks[g] * capitalPrice)
         - m.depreciationWeekly[g] * 52;
-      const appetite = clamp((yearlyReturn - hurdle) / (hurdle * p.investSensitivity), 0, 1);
       const threshold = p.investPressureTrigger * m.normalUtilization[g];
       const trigger = clamp((pressure - threshold) / (1 - threshold), 0, 1.5);
       const mood = 1 + p.behaviorNoise * randomSigned(s.seed, s.turn, RANDOM_STREAM.investment, index);
-      // Worn-out capacity is replaced only to the extent the sector still pays.
-      const replace = m.depreciationWeekly[g] * clamp(yearlyReturn / hurdle, 0, 1) * clamp(pressure / m.normalUtilization[g], 0, 1);
-      const growth = p.investGrowthMax * appetite * trigger * mood + replace;
+      const objective = s.countrySector.publicObjective[c * S + m.goodSector[g]];
       let requested = 0;
+      let privateAppetite = 0;
       for (let o = 0; o < O; o++) {
+        // Public firms with a production or supply objective accept a lower return (R03).
+        const ownHurdle = hurdle * (o === PUBLIC ? PUBLIC_HURDLE_FACTOR[objective] : 1);
+        const appetite = clamp((yearlyReturn - ownHurdle) / (ownHurdle * p.investSensitivity), 0, 1);
+        if (o === PRIVATE) privateAppetite = appetite;
+        // Worn-out capacity is replaced only to the extent the sector still pays.
+        const replace = m.depreciationWeekly[g] * clamp(yearlyReturn / ownHurdle, 0, 1) * clamp(pressure / m.normalUtilization[g], 0, 1);
+        const growth = p.investGrowthMax * appetite * trigger * mood + replace;
         let ownerCapacity = 0;
         for (let t = 0; t < T; t++) ownerCapacity += lineCapacity[lineBase + o * T + t];
         const ownerInstalled = ownerCapacity + fg.build1[ownerBase + o] + fg.build2[ownerBase + o] + fg.build3[ownerBase + o];
         let build = ownerInstalled * growth;
         // New or tiny sectors grow with the size of the local market, not their own.
-        // Entry is private; the state does not found new firms on its own (no such rule is approved).
+        // Entry is private (R33); the state does not found new firms on its own.
         const local = zg.usage[index];
-        if (o === PRIVATE && local > EPSILON && installed < local) build += local * p.entryShare * appetite * (1 - installed / local);
+        if (o === PRIVATE && local > EPSILON && installed < local) build += local * p.entryShare * privateAppetite * (1 - installed / local);
+        // Public firms charged with strategic supply keep the zone's capacity at what it uses,
+        // whatever the return (the state bears the cost through their losses).
+        if (o === PUBLIC && objective === OBJECTIVE_STRATEGIC && ownerCapacity > EPSILON && local > EPSILON) {
+          const needed = local / m.normalUtilization[g];
+          if (installed < needed) build = Math.max(build, (needed - installed) * 0.02 + ownerCapacity * m.depreciationWeekly[g]);
+        }
         // While starting prices are being found, firms simply replace what wears out.
         if (w.calibrating) build = ownerCapacity * m.depreciationWeekly[g];
         if (!(build > 0)) build = 0;

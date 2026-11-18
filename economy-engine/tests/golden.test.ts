@@ -11,7 +11,9 @@ import { advanceEconomyInPlace, autopilotCommands, createEconomy, createTestWorl
 const GOLDEN_WEEKS = 672; // 100 warm-up + 520 + 52, as in sim/browser-bench.cjs
 // Re-pinned in Milestone 1 (was 61f628925444b0e0) for firm aggregates, and in Milestone 2 (was 6202f97a08efb829):
 // central banks replace the automatic money rule, firms borrow and can fail, tiers move and reserves cost money.
-const GOLDEN = 'cbae27a2ed468a59';
+// Re-pinned in Milestone 3 (was cbae27a2ed468a59): no automatic bond purchases, all money starts as credit money,
+// normal prices use the long-run return on capital, public-firm rules, liquidation estate and default memory.
+const GOLDEN = 'ef7dfc948cbe33b0';
 
 test(`golden: the default test world after ${GOLDEN_WEEKS} weeks has the pinned fingerprint`, () => {
   const state = createEconomy(createTestWorldSpec());

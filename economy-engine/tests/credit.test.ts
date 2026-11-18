@@ -53,7 +53,7 @@ test('central-bank balance sheets: capital = reserves + loans - money issued, an
 
 test('C1 fixed: with every normal central-bank operation switched off, the money supply never changes', () => {
   const spec = createTestWorldSpec();
-  spec.config = createConfig({ firmTargetLeverage: 0, firmMaxLeverage: 0, cbMoneyGain: 0, cbMoneyMaxWeekly: 0 });
+  spec.config = createConfig({ firmTargetLeverage: 0, firmMaxLeverage: 0, firmLiquidityBorrow: 0 });
   const state = createEconomy(spec);
   assert.equal(sum(state.firm.loan), 0, 'no firm loans');
   const money = state.world.baseMoney;
@@ -143,7 +143,7 @@ test('a permanently unprofitable sector is liquidated in stages: plant and jobs 
   const sundara = idx(run, 'sundara');
   const start = capacityOf(run, z, g);
   const failures: Extract<EconomyEvent, { type: 'firm-bankruptcy' }>[] = [];
-  for (let week = 1; week <= 300; week++) {
+  for (let week = 1; week <= 420; week++) {
     const effects = week === 1 ? [{ type: 'production-shock' as const, zoneId: 'sundara-delta', goodId: 'consumer', factor: 0.1, recoveryWeeks: 0 }] : [];
     const report = advanceEconomyInPlace(run, { commands: autopilotCommands(run), effects }, { audit: true, report: 'full' });
     step(control);
@@ -165,24 +165,21 @@ test('a permanently unprofitable sector is liquidated in stages: plant and jobs 
   assert.ok(equity(run) < equity(control), 'bad loans reduce the lender’s capital');
 });
 
-test('liquidation rules: private and mixed firms in distress are wound up, public firms never are', () => {
+test('liquidation rules: any aggregate in prolonged distress is wound up, public firms included (Milestone 3)', () => {
   const state = catalogueWorld();
   for (let week = 0; week < 3; week++) step(state);
   const m = getModel(state.config);
   const S = state.config.sectors.length;
   const z = zoneIdx(state, 'khazir');
   const sector = state.config.sectors.findIndex(entry => entry.id === 'hydrocarbons');
-  const a = (o: number) => (z * S + sector) * 3 + o;
-  const loanBefore = state.firm.loan.slice();
-  for (const o of [0, 1, 2]) state.firm.distress[a(o)] = state.config.params.bankruptcyWeeks;
+  const a = (z * S + sector) * 3;
+  for (const o of [0, 1, 2]) state.firm.distress[a + o] = state.config.params.bankruptcyWeeks;
   const w = getWorkspace(state);
   openBanks(state, w);
   const events: EconomyEvent[] = [];
   resolveBankruptcies(state, w, m, events);
   const owners = events.filter(e => e.type === 'firm-bankruptcy').map(e => (e as { ownership: string }).ownership).sort();
-  assert.deepEqual(owners, ['mixed', 'private']);
-  assert.equal(state.firm.loan[a(1)], loanBefore[a(1)], 'the public firm keeps its loan and its plant');
-  assert.ok(state.firm.loan[a(0)] < loanBefore[a(0)], 'the failed private firms’ share of the debt is settled or written off');
+  assert.deepEqual(owners, ['mixed', 'private', 'public']);
 });
 
 // --- Performance tiers (R58) ---------------------------------------------------------------

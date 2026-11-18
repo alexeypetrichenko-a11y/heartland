@@ -25,6 +25,18 @@ export const TIER_COUNT = 3;
 export const PRIVATE = 0;
 export const PUBLIC = 1;
 export const MIXED = 2;
+/** Strategic objectives the player can give public firms (R03), in index order. */
+export const PUBLIC_OBJECTIVES = ['profitability', 'maximum-production', 'affordable-prices', 'strategic-supply'] as const;
+export type PublicObjective = typeof PUBLIC_OBJECTIVES[number];
+export const OBJECTIVE_PROFITABILITY = 0;
+export const OBJECTIVE_MAX_PRODUCTION = 1;
+export const OBJECTIVE_AFFORDABLE = 2;
+export const OBJECTIVE_STRATEGIC = 3;
+/** Share of its running costs below which a public firm stops producing, per objective (provisional). */
+export const PUBLIC_PRICE_FLOOR: readonly number[] = [1, 0.7, 0.8, 0.75];
+/** Multiple of the normal investment hurdle a public firm demands, per objective (provisional). */
+export const PUBLIC_HURDLE_FACTOR: readonly number[] = [1, 0.5, 1, 0.5];
+
 /** New plant always joins the average tier. */
 export const AVERAGE_TIER = 1;
 
@@ -165,7 +177,7 @@ const OWNER_GOOD_FIELDS = ['ownerBuild', 'saleShare'] as const;
 const LINE_FIELDS = ['linePlan', 'lineSpare'] as const;
 /** Per firm aggregate (zone, sector, ownership). */
 const AGGREGATE_FIELDS = ['aggRevenue', 'aggPurchases', 'aggWageReserve', 'aggEmployment', 'aggOutlay', 'aggInputCost',
-  'aggInvestCost', 'aggCall', 'aggCapitalValue', 'aggInterest', 'aggProfit'] as const;
+  'aggInvestCost', 'aggCall', 'aggCapitalValue', 'aggInterest', 'aggProfit', 'aggTrouble', 'aggDebtSupport'] as const;
 /** Per firm aggregate and good. */
 const AGGREGATE_GOOD_FIELDS = ['aggDemandInput', 'aggDemandInvestment', 'aggGotInvestment'] as const;
 const ZONE_FIELDS = ['productivity', 'laborSupply', 'laborScale', 'employment', 'householdBudget',
@@ -178,7 +190,7 @@ const COUNTRY_FIELDS = ['population', 'planAdministration', 'planSocial', 'planM
   'borrowed', 'repaid', 'revenueIncomeTax', 'revenueConsumptionTax', 'revenueCorporateTax', 'revenueTariffs',
   'revenueCentralBank', 'revenueMoneyCreation', 'revenueReserveSales', 'revenueFunds', 'spentAdministration', 'spentSocial', 'spentMilitary',
   'spentInfrastructure', 'spentReserves', 'spentInterest', 'spentFunds', 'revenueFirmDividends', 'spentFirmSupport',
-  'spentReserveStorage', 'reserveFunded', 'cbIssuedStart', 'domesticMoney', 'cbLentState', 'cbInterestIncome', 'cbWriteOffs', 'cbFirmLoans', 'cbCapacityLeft', 'bankruptcies',
+  'spentReserveStorage', 'reserveFunded', 'spentOwnership', 'revenueOwnership', 'spentCentralBankCapital', 'cbLentState', 'cbInterestIncome', 'cbWriteOffs', 'cbFirmLoans', 'cbCapacityLeft', 'bankruptcies',
   'firmLoanRate', 'infrastructureReal', 'missedPayment',
   'extraRepayment', 'defaultRequested', 'countryNominal', 'countryReal', 'countryExports', 'countryImports',
   'countryScratch', 'countryInflation', 'countryUnemployment', 'countryDeprivation', 'countryHouseholdShortage',
@@ -297,6 +309,18 @@ export function privateHurdle(s: EconomyState, c: number): number {
   // Firms borrow at their national central bank's rate; part of the state's own risk premium reaches them too.
   const sovereignPremium = Math.max(0, s.country.marketRate[c] - s.world.interestRate);
   return Math.min(p.maxHurdle, s.country.cbRate[c] + p.sovereignPassThrough * sovereignPremium + p.equityPremium);
+}
+
+/**
+ * Long-run return built into normal prices: the neutral rate, part of the state's
+ * risk premium and the equity premium. Unlike the investment hurdle it does not
+ * follow the policy rate, so cutting rates in a slump does not pull normal prices
+ * down (which would deepen the slump and invite further cuts).
+ */
+export function structuralHurdle(s: EconomyState, c: number): number {
+  const p = s.config.params;
+  const sovereignPremium = Math.max(0, s.country.marketRate[c] - s.world.interestRate);
+  return Math.min(p.maxHurdle, p.baseRate + p.sovereignPassThrough * sovereignPremium + p.equityPremium);
 }
 
 /** Interest rate firms in country c pay on bank loans. */

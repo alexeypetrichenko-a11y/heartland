@@ -23,15 +23,83 @@ import {
  *
  * Normal lending is limited (R61): total loans may not exceed capital divided
  * by the capital ratio. The state is served first (R07); firms share what is
- * left. There is no automatic money creation of any other kind.
+ * left. Every loan answers a real need: a state's financing gap that the bond
+ * market could not fill, a firm's investment, or a firm short of working
+ * capital. The bank never buys bonds or lends merely to make money grow, and
+ * there is no automatic money creation of any other kind (Milestone 3).
  */
 
 const O = OWNERSHIP_COUNT;
 const T = TIER_COUNT;
 
-/** Capital of central bank c: reserves + loans to the state + loans to firms - money issued. */
+/** Book value of liquidated plant held for sale by bank c. */
+export function heldAssets(s: EconomyState, c: number): number {
+  const holder = s.zoneGood.idleHolder;
+  const value = s.zoneGood.idleValue;
+  let total = 0;
+  for (let i = 0; i < holder.length; i++) if (holder[i] === c) total += value[i];
+  return total;
+}
+
+/** Capital of central bank c: reserves + loans to the state + loans to firms + plant held for sale - money issued. */
 export function bankEquity(s: EconomyState, c: number, firmLoans: number): number {
-  return s.country.cbReserves[c] + s.country.cbStateLoans[c] + firmLoans - s.country.cbIssued[c];
+  return s.country.cbReserves[c] + s.country.cbStateLoans[c] + firmLoans + heldAssets(s, c) - s.country.cbIssued[c];
+}
+
+/**
+ * Plant held by banks after liquidations ages like any plant (a loss for the bank) and is
+ * sold, at its book price, to healthy private or mixed firms of its sector in the zone once
+ * there is demand for the capacity. It joins the buyer's average tier.
+ */
+export function sellIdlePlant(s: EconomyState, w: Workspace, m: Model): void {
+  if (w.calibrating) return;
+  const p = s.config.params;
+  const Z = s.zones.length;
+  const G = m.goodCount;
+  const S = m.sectorCount;
+  const zg = s.zoneGood;
+  const firm = s.firm;
+  for (let z = 0; z < Z; z++) {
+    for (let g = 0; g < G; g++) {
+      const index = z * G + g;
+      if (zg.idleHolder[index] === -1) continue;
+      zg.idleCapacity[index] *= 1 - m.depreciationWeekly[g];
+      zg.idleValue[index] *= 1 - m.depreciationWeekly[g];
+      if (zg.idleCapacity[index] < DUST) { clearIdle(s, index); continue; }
+      if (zg.pressure[index] < 0.9 * m.normalUtilization[g]) continue;
+      const price = zg.idleValue[index] / zg.idleCapacity[index];
+      let budget = 0;
+      const offers = [0, 0, 0];
+      for (let o = 0; o < O; o++) {
+        if (o === PUBLIC) continue;
+        const a = (z * S + m.goodSector[g]) * O + o;
+        if (firm.health[a] < -0.5) continue;
+        offers[o] = Math.max(0, firm.cash[a] - p.workingCapitalWeeks * firm.costs[a]) * 0.5;
+        budget += offers[o];
+      }
+      if (!(budget > 0)) continue;
+      const units = price > 0 ? Math.min(zg.idleCapacity[index], budget / price) : zg.idleCapacity[index];
+      const paid = units * price;
+      for (let o = 0; o < O; o++) {
+        if (!(offers[o] > 0)) continue;
+        const part = offers[o] / budget;
+        const a = (z * S + m.goodSector[g]) * O + o;
+        firm.cash[a] -= paid * part;
+        s.firmLine.capacity[(index * O + o) * T + AVERAGE_TIER] += units * part;
+      }
+      bankReceive(s, zg.idleHolder[index], paid);
+      zg.idleCapacity[index] -= units;
+      zg.idleValue[index] = Math.max(0, zg.idleValue[index] - paid);
+      if (zg.idleCapacity[index] < DUST) clearIdle(s, index);
+    }
+  }
+}
+
+/** Remove what is left of a holding of idle plant (its remaining book value is a loss for the bank). */
+export function clearIdle(s: EconomyState, index: number): void {
+  s.zoneGood.idleCapacity[index] = 0;
+  s.zoneGood.idleValue[index] = 0;
+  s.zoneGood.idleHolder[index] = -1;
 }
 
 /** Largest total of loans bank c may hold with its present capital. */
@@ -50,16 +118,7 @@ export function firmLoansByBank(s: EconomyState, out: Float64Array): void {
 /** Start of the week: how much each central bank may still lend. */
 export function openBanks(s: EconomyState, w: Workspace): void {
   firmLoansByBank(s, w.cbFirmLoans);
-  // Money held in each country (households, firms, treasury): what its bank's policy aims at.
-  const perZone = s.firm.cash.length / s.zones.length;
-  for (let z = 0; z < s.zones.length; z++) {
-    const c = s.zone.owner[z];
-    w.domesticMoney[c] += s.zone.householdMoney[z];
-    for (let k = 0; k < perZone; k++) w.domesticMoney[c] += s.firm.cash[z * perZone + k];
-  }
-  for (let c = 0; c < s.countries.length; c++) w.domesticMoney[c] += s.country.treasury[c];
   for (let c = 0; c < s.countries.length; c++) {
-    w.cbIssuedStart[c] = s.country.cbIssued[c];
     const loans = s.country.cbStateLoans[c] + w.cbFirmLoans[c];
     w.cbCapacityLeft[c] = Math.max(0, lendingCapacity(s, c, w.cbFirmLoans[c]) - loans);
     w.firmLoanRate[c] = firmLoanRate(s, c);
@@ -119,6 +178,13 @@ export function firmBorrow(s: EconomyState, w: Workspace, a: number, owner: numb
   return granted;
 }
 
+/** How much more (or less) firms borrow than at the neutral rate, given the price of credit. */
+export function creditAppetite(s: EconomyState, c: number): number {
+  const p = s.config.params;
+  const neutral = p.baseRate + p.firmLoanSpread;
+  return clamp(1 + p.firmLeverageRateSensitivity * (neutral - firmLoanRate(s, c)) / neutral, 0.25, 2.5);
+}
+
 /** Share of new investment a firm finances with a loan, given the price of credit. */
 export function loanFinancedShare(s: EconomyState, c: number): number {
   const p = s.config.params;
@@ -164,9 +230,15 @@ export function settleBanks(s: EconomyState, w: Workspace, events: EconomyEvent[
   firmLoansByBank(s, w.cbFirmLoans);
   for (let c = 0; c < C; c++) {
     // Profit: interest earned less loans written off. Losses are borne by capital.
+    // The bank keeps the capital its loans require plus room to lend a further share of
+    // yearly GDP (so credit does not run short at the first upturn), and pays only the rest
+    // of the week's profit to the treasury, never its capital.
     const profit = w.cbInterestIncome[c] - w.cbWriteOffs[c];
-    if (profit > 0) {
-      const payout = profit * p.cbProfitPayout;
+    const loans = country.cbStateLoans[c] + w.cbFirmLoans[c];
+    const wanted = p.cbCapitalRatio * (loans + p.cbStartingHeadroom * 52 * country.gdp[c]);
+    const spareCapital = bankEquity(s, c, w.cbFirmLoans[c]) - wanted;
+    if (profit > 0 && spareCapital > 0) {
+      const payout = Math.min(profit * p.cbProfitPayout, spareCapital);
       country.cbIssued[c] += payout;
       country.treasury[c] += payout;
       w.revenueCentralBank[c] += payout;
@@ -178,7 +250,6 @@ export function settleBanks(s: EconomyState, w: Workspace, events: EconomyEvent[
     if (country.cbExceptionalRecent[c] < DUST) country.cbExceptionalRecent[c] = 0;
   }
   if (w.calibrating) return;
-  openMarketOperations(s, w);
   // Automatic policy rate (R09): leans against inflation and unemployment, and
   // rises as lending capacity runs out so scarce credit is rationed by price.
   for (let c = 0; c < C; c++) {
@@ -203,86 +274,39 @@ export function settleBanks(s: EconomyState, w: Workspace, events: EconomyEvent[
 }
 
 /**
- * Normal monetary policy by open-market operations (R07, R09, R61). Each bank
- * aims to let the total money it has issued (after its lending, repayments and
- * profit transfers of the week) grow with real output at the inflation target, more when inflation is below target and less (or negative) when it
- * is above. It does so by buying its own state's bonds from the households
- * that hold them, pro rata, or selling them back. A purchase is a loan to the
- * state, so it needs lending capacity; a sale needs bonds in the bank's hands.
- * No one receives money for nothing.
+ * Starting credit: all money in circulation starts as credit money. Each
+ * country's money is matched by loans of its central bank to the firms of
+ * that country, shared in proportion to the value of their plant (never above
+ * the credit limit; any remainder is backed by reserves). Each bank then holds
+ * exactly the capital its loans require plus room to lend a further share of
+ * yearly GDP. Without this, money backed only by reserves could never grow
+ * with the economy, and prices would drift down for ever.
  */
-function openMarketOperations(s: EconomyState, w: Workspace): void {
-  const p = s.config.params;
-  const C = s.countries.length;
-  const Z = s.zones.length;
-  const country = s.country;
-  const target = p.inflationTarget / 52;
+export function assignStartingCredit(p: EconomyState['config']['params'], zoneOwner: readonly number[], perZone: number,
+  capitalValue: ArrayLike<number>, loan: number[], lender: number[], issued: readonly number[], stateLoans: readonly number[],
+  yearlyGdp: readonly number[], reserves: number[]): void {
+  const C = issued.length;
+  const value = new Float64Array(C);
+  for (let z = 0; z < zoneOwner.length; z++) for (let k = 0; k < perZone; k++) value[zoneOwner[z]] += capitalValue[z * perZone + k];
+  const loans = new Float64Array(C);
+  for (let z = 0; z < zoneOwner.length; z++) {
+    const c = zoneOwner[z];
+    const ratio = value[c] > 0 ? Math.max(0, issued[c] - stateLoans[c]) / value[c] : 0;
+    for (let k = 0; k < perZone; k++) {
+      const a = z * perZone + k;
+      loan[a] = Math.min(p.firmMaxLeverage, ratio) * capitalValue[a];
+      lender[a] = c;
+      loans[c] += loan[a];
+    }
+  }
   for (let c = 0; c < C; c++) {
-    let inflation = 0, people = 0;
-    for (let z = 0; z < Z; z++) {
-      if (s.zone.owner[z] !== c) continue;
-      inflation += s.zone.inflation[z] * s.zone.population[z];
-      people += s.zone.population[z];
-    }
-    const weekly = people > EPSILON ? inflation / people : 0;
-    const growth = clamp(target + s.world.realGrowth + p.cbMoneyGain * (target - weekly), -p.cbMoneyMaxWeekly, p.cbMoneyMaxWeekly);
-    const bonds = country.debt[c];
-    // The bank's operations of the week, together, should add money at this pace relative to
-    // the money held in its country: the purchase makes up for what its lending, repayments
-    // and profit transfers did. (Money earned abroad or spent abroad is not offset.)
-    const base = Math.max(0, w.domesticMoney[c]);
-    const limit = p.cbMoneyMaxWeekly * 2 * base;
-    let amount = clamp(growth * base - (country.cbIssued[c] - w.cbIssuedStart[c]), -limit, limit);
-    if (amount > 0) amount = Math.min(amount, w.cbCapacityLeft[c]);
-    else amount = -Math.min(-amount, country.cbStateLoans[c]);
-    if (amount === 0) continue;
-    // Purchases are limited to the bonds households actually hold (at most half of them in a week).
-    if (amount > 0) amount = Math.min(amount, 0.5 * bonds);
-    if (!(amount > 0) && !(amount < 0)) continue;
-    if (amount > 0) {
-      // Buy bonds from every holder in proportion to what they hold.
-      const keep = Math.max(0, 1 - amount / bonds);
-      let paid = 0;
-      for (let z = 0; z < Z; z++) {
-        const held = s.bonds[z * C + c];
-        if (!(held > 0)) continue;
-        const left = held * keep;
-        s.bonds[z * C + c] = left;
-        s.zone.householdMoney[z] += held - left;
-        paid += held - left;
-      }
-      amount = paid;
-      w.cbCapacityLeft[c] = Math.max(0, w.cbCapacityLeft[c] - amount);
-    } else {
-      // Sell bonds back to households in proportion to their cash.
-      let cash = 0;
-      for (let z = 0; z < Z; z++) cash += Math.max(0, s.zone.householdMoney[z]);
-      const sale = Math.min(-amount, 0.5 * cash);
-      if (!(sale > 0)) continue;
-      let received = 0;
-      for (let z = 0; z < Z; z++) {
-        const part = Math.min(Math.max(0, s.zone.householdMoney[z]), sale * Math.max(0, s.zone.householdMoney[z]) / cash);
-        s.zone.householdMoney[z] -= part;
-        s.bonds[z * C + c] += part;
-        received += part;
-      }
-      amount = -received;
-    }
-    let held = 0;
-    for (let z = 0; z < Z; z++) held += s.bonds[z * C + c];
-    // Market debt is by definition the sum of the households' claims.
-    country.debt[c] = held;
-    country.cbStateLoans[c] = Math.max(0, country.cbStateLoans[c] + amount);
-    country.cbIssued[c] += amount;
+    const capital = p.cbCapitalRatio * (loans[c] + stateLoans[c] + p.cbStartingHeadroom * yearlyGdp[c]);
+    reserves[c] = Math.max(0, issued[c] - loans[c] - stateLoans[c] + capital);
   }
 }
 
-/**
- * Re-measure starting firm debt and central-bank capital at the prices the
- * world builder settled on, so the first week starts at normal leverage.
- */
+/** Re-measure starting credit at the prices the world builder settled on. */
 export function resetStartingCredit(s: EconomyState, m: Model): void {
-  const p = s.config.params;
   const Z = s.zones.length;
   const G = m.goodCount;
   const S = m.sectorCount;
@@ -291,18 +315,9 @@ export function resetStartingCredit(s: EconomyState, m: Model): void {
     let capitalPrice = 0;
     for (let g = 0; g < G; g++) capitalPrice += m.investment[g] * s.zoneGood.buyPrice[z * G + g];
     capitalValues(s, w, m, z, capitalPrice);
-    for (let k = 0; k < S * O; k++) {
-      const a = z * S * O + k;
-      s.firm.loan[a] = p.firmTargetLeverage * w.aggCapitalValue[a];
-      s.firm.lender[a] = s.zone.owner[z];
-    }
   }
-  const loans = new Float64Array(s.countries.length);
-  firmLoansByBank(s, loans);
-  for (let c = 0; c < s.countries.length; c++) {
-    const capital = p.cbCapitalRatio * (loans[c] + s.country.cbStateLoans[c] + p.cbStartingHeadroom * 52 * s.country.gdp[c]);
-    s.country.cbReserves[c] = Math.max(0, s.country.cbIssued[c] - loans[c] - s.country.cbStateLoans[c] + capital);
-  }
+  assignStartingCredit(s.config.params, s.zone.owner, S * O, w.aggCapitalValue, s.firm.loan, s.firm.lender,
+    s.country.cbIssued, s.country.cbStateLoans, s.country.gdp.map(g => 52 * g), s.country.cbReserves);
 }
 
 /**
@@ -313,7 +328,8 @@ export function resetStartingCredit(s: EconomyState, m: Model): void {
  * the same sector and zone (it joins their average tier) or scrapped if nobody
  * can pay; their cash and the sale proceeds repay the bank as far as they go,
  * and the rest of their debt is written off. Jobs disappear with the plant.
- * Public firms are not liquidated: their owner, the state, supports them.
+ * Public firms are liquidated too when the state's support is not enough
+ * (Milestone 3); plant that cannot be sold at once is held by the creditor bank.
  */
 export function resolveBankruptcies(s: EconomyState, w: Workspace, m: Model, events: EconomyEvent[]): void {
   if (w.calibrating) return;
@@ -331,7 +347,7 @@ export function resolveBankruptcies(s: EconomyState, w: Workspace, m: Model, eve
     for (let sector = 0; sector < S; sector++) {
       for (let o = 0; o < O; o++) {
         const a = (z * S + sector) * O + o;
-        if (o === PUBLIC || firm.distress[a] < p.bankruptcyWeeks) continue;
+        if (firm.distress[a] < p.bankruptcyWeeks) continue;
         const goods = m.sectorGoods[sector];
         let total = 0;
         const byTier = [0, 0, 0];
@@ -370,12 +386,13 @@ export function resolveBankruptcies(s: EconomyState, w: Workspace, m: Model, eve
           fg.build2[ownerIndex] *= 1 - share;
           fg.build3[ownerIndex] *= 1 - share;
         }
-        // Buyers: other non-public firms of the same sector in the zone, with cash above working capital.
+        // Buyers: other private and mixed firms of the same sector in the zone, with cash above working capital.
         let budget = 0;
         const offers = [0, 0, 0];
         for (let b = 0; b < O; b++) {
           if (b === o || b === PUBLIC) continue;
           const buyer = (z * S + sector) * O + b;
+          if (firm.health[buyer] < -0.5) continue;
           offers[b] = Math.max(0, firm.cash[buyer] - p.workingCapitalWeeks * firm.costs[buyer]) * 0.5;
           budget += offers[b];
         }
@@ -399,16 +416,39 @@ export function resolveBankruptcies(s: EconomyState, w: Workspace, m: Model, eve
         const available = cash + proceeds;
         const recovered = Math.min(debt, available);
         const lender = firm.lender[a];
+        // Plant nobody could buy is not destroyed: the creditor bank takes it over and holds it
+        // for sale, booked at no more than what it is still owed (R31, R32). Without a creditor
+        // (no debt) it is scrapped.
+        const claim = debt - recovered;
+        let booked = 0;
+        if (claim > 0 && sold < 1) {
+          const unsoldValue = value * (1 - sold);
+          const bookValue = Math.min(unsoldValue, claim);
+          let placed = 0;
+          for (let i = 0; i < goods.length; i++) {
+            const index = z * G + goods[i];
+            const units = removed[i] * (1 - sold);
+            if (!(units > 0)) continue;
+            const holder = s.zoneGood.idleHolder[index];
+            if (holder !== -1 && holder !== lender) continue; // another bank already holds plant here: scrapped
+            const part = unsoldValue > 0 ? bookValue * units * m.capitalWeeks[goods[i]] * capitalPrice * p.liquidationValue / unsoldValue : 0;
+            s.zoneGood.idleCapacity[index] += units;
+            s.zoneGood.idleValue[index] += part;
+            s.zoneGood.idleHolder[index] = lender;
+            placed += part;
+          }
+          booked = placed;
+        }
         if (debt > 0) {
           bankReceive(s, lender, recovered);
-          w.cbWriteOffs[lender] += debt - recovered;
+          w.cbWriteOffs[lender] += debt - recovered - booked;
           firm.loan[a] -= debt;
           if (firm.loan[a] < DUST) firm.loan[a] = 0;
         }
         // Anything left belongs to the owners.
         const surplus = available - recovered;
         if (surplus > 0) {
-          const toState = o === MIXED ? surplus * p.mixedPublicShare : 0;
+          const toState = o === PUBLIC ? surplus : o === MIXED ? surplus * p.mixedPublicShare : 0;
           s.country.treasury[c] += toState;
           w.revenueFirmDividends[c] += toState;
           s.zone.householdMoney[z] += surplus - toState;
@@ -418,7 +458,8 @@ export function resolveBankruptcies(s: EconomyState, w: Workspace, m: Model, eve
         w.bankruptcies[c] += 1;
         events.push({
           type: 'firm-bankruptcy', turn: s.turn + 1, countryId: s.countries[c].id, zoneId: s.zones[z].id, sectorId: s.config.sectors[sector].id,
-          ownership: OWNERSHIP_TYPES[o], capacityShare: share, debt, recovered, writtenOff: debt - recovered, assetsSold: sold,
+          ownership: OWNERSHIP_TYPES[o], capacityShare: share, debt, recovered, writtenOff: Math.max(0, debt - recovered - booked), assetsSold: sold,
+          assetsHeld: booked,
         });
       }
     }

@@ -1,6 +1,6 @@
 import type { CountryId, EconomyState, GoodId, ReserveMode, SectorId, ZoneId } from '../types.ts';
-import type { OwnershipType, PerformanceTier } from './model.ts';
-import { OWNERSHIP_COUNT, OWNERSHIP_TYPES, PERFORMANCE_TIERS, TIER_COUNT, zoneCapacity, zonePipeline } from './model.ts';
+import type { OwnershipType, PerformanceTier, PublicObjective } from './model.ts';
+import { OWNERSHIP_COUNT, OWNERSHIP_TYPES, PERFORMANCE_TIERS, PUBLIC_OBJECTIVES, TIER_COUNT, zoneCapacity, zonePipeline } from './model.ts';
 
 /**
  * Read-only views of a state for the host game and its interface.
@@ -24,6 +24,10 @@ export interface CountryPolicy {
   tariff: Record<GoodId, number>;
   reserveTargetWeeks: Record<GoodId, number>;
   reserveMode: Record<GoodId, ReserveMode>;
+  /** Objective given to public firms, per sector (R03). */
+  publicObjective: Record<SectorId, PublicObjective>;
+  /** Whether the state automatically supports its public and mixed firms, per sector. */
+  publicSupport: Record<SectorId, boolean>;
 }
 
 export interface CountrySnapshot {
@@ -66,6 +70,9 @@ export interface ZoneGoodSnapshot {
   shortage: number;
   /** 1 = normal; below 1 while a production shock lasts. */
   yieldFactor: number;
+  /** Capacity left by liquidations and held for sale by a bank, and the price asked for all of it. */
+  plantForSale: number;
+  plantForSalePrice: number;
 }
 
 export interface ZoneSnapshot {
@@ -148,6 +155,8 @@ export function getCountry(state: EconomyState, countryId: CountryId): CountrySn
       tariff,
       reserveTargetWeeks,
       reserveMode,
+      publicObjective: Object.fromEntries(state.config.sectors.map((sector, k) => [sector.id, PUBLIC_OBJECTIVES[state.countrySector.publicObjective[c * state.config.sectors.length + k]]])),
+      publicSupport: Object.fromEntries(state.config.sectors.map((sector, k) => [sector.id, state.countrySector.publicSupport[c * state.config.sectors.length + k] === 1])),
     },
   };
 }
@@ -170,6 +179,8 @@ export function getZone(state: EconomyState, zoneId: ZoneId): ZoneSnapshot {
       buyPrice: zg.buyPrice[index],
       shortage: zg.shortage[index],
       yieldFactor: zg.yieldFactor[index],
+      plantForSale: zg.idleCapacity[index],
+      plantForSalePrice: zg.idleValue[index],
     });
   }
   return {

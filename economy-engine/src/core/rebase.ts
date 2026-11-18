@@ -37,6 +37,7 @@ export function rescaleMoney(state: EconomyState, factor: number): void {
   scale(state.zoneGood.buyPrice, factor);
   scale(state.zoneGood.refPrice, factor);
   scale(state.zoneGood.refBuyPrice, factor);
+  scale(state.zoneGood.idleValue, factor);
   scale(state.country.treasury, factor);
   scale(state.country.debt, factor);
   scale(state.country.gdp, factor);

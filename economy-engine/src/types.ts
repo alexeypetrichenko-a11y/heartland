@@ -135,6 +135,8 @@ export interface EconomyParams {
   wageUnemploymentGain: number;
   wageShortageGain: number;
   wageInflationPass: number;
+  wageProductivityPass: number;
+  wageTargetAnchor: number;
   wageMaxUp: number;
   wageMaxDown: number;
   inflationSmoothing: number;
@@ -181,6 +183,8 @@ export interface EconomyParams {
   defaultReputationSpread: number;
   reputationDecayWeeks: number;
   defaultStabilityShock: number;
+  defaultMemoryWeeks: number;
+  ownershipTransferValue: number;
   defaultOutputShock: number;
   defaultShockRecoveryWeeks: number;
   restructuredRate: number;
@@ -209,8 +213,7 @@ export interface EconomyParams {
   cbRateCeiling: number;
   cbScarcityPremium: number;
   cbStateLoanWeeks: number;
-  cbMoneyGain: number;
-  cbMoneyMaxWeekly: number;
+  cbStateLimit: number;
   exceptionalMoneySpread: number;
   exceptionalMoneyMemoryWeeks: number;
   // Firm credit and bankruptcy (R31, R57)
@@ -219,6 +222,7 @@ export interface EconomyParams {
   firmMaxLeverage: number;
   firmLeverageRateSensitivity: number;
   firmExcessDebtRepay: number;
+  firmLiquidityBorrow: number;
   bankruptcyWeeks: number;
   bankruptcyMinShare: number;
   liquidationValue: number;
@@ -335,6 +339,13 @@ export interface ZoneGoodArrays {
   refPrice: number[];
   /** Slow average of what local buyers pay (anchor for strategic-reserve decisions). */
   refBuyPrice: number[];
+  /**
+   * Plant left from liquidations, held for sale by the creditor central bank (R31, R32):
+   * capacity units, their book value, and the bank that holds them (-1 = none).
+   */
+  idleCapacity: number[];
+  idleValue: number[];
+  idleHolder: number[];
   expectedDemand: number[];
   margin: number[];
   pressure: number[];
@@ -450,6 +461,16 @@ export interface CountryArrays {
   cbExceptional: number[];
   /** Same, fading with time; feeds the sovereign risk premium. */
   cbExceptionalRecent: number[];
+  /** Memory of recent sovereign defaults (+1 per default, fading over time); repeat defaults cost more (C3). */
+  defaultMemory: number[];
+}
+
+/** Per-country, per-sector policies, indexed by country * sectorCount + sector. */
+export interface CountrySectorArrays {
+  /** Strategic objective of public firms (R03): 0 profitability, 1 maximum production, 2 affordable prices, 3 strategic supply. */
+  publicObjective: number[];
+  /** 1 = the state automatically supports its struggling public firms (at a fiscal cost), 0 = it does not. */
+  publicSupport: number[];
 }
 
 /** Per-country, per-good values, indexed by country * goodCount + good. */
@@ -545,6 +566,7 @@ export interface EconomyState {
   bonds: number[];
   country: CountryArrays;
   countryGood: CountryGoodArrays;
+  countrySector: CountrySectorArrays;
   sanctions: SanctionRecord[];
   tariffOverrides: TariffOverride[];
   world: WorldScalars;
@@ -573,7 +595,21 @@ export type EconomyCommand =
   | { type: 'repay-debt'; countryId: CountryId; amount: number }
   /** Exceptional money creation by the national central bank, paid to the treasury (R08, R43). */
   | { type: 'create-money'; countryId: CountryId; amount: number }
-  | { type: 'declare-default'; countryId: CountryId };
+  | { type: 'declare-default'; countryId: CountryId }
+  /** Strategic objective of the country's public firms in one sector or all (R03). */
+  | { type: 'set-public-objective'; countryId: CountryId; sectorId: SectorId | 'all'; objective: 'profitability' | 'maximum-production' | 'affordable-prices' | 'strategic-supply' }
+  /** Whether the state automatically supports its struggling public and mixed firms (at a fiscal cost). */
+  | { type: 'set-public-support'; countryId: CountryId; sectorId: SectorId | 'all'; enabled: boolean }
+  /** Pay treasury money into a public or mixed firm aggregate, as cash or to repay its bank debt. */
+  | { type: 'recapitalize-firm'; countryId: CountryId; zoneId: ZoneId; sectorId: SectorId; ownership: 'public' | 'mixed'; amount: number; use?: 'cash' | 'debt' }
+  /** Buy the liquidated plant a bank holds for sale in one of the country's zones (R32); no old debt is taken over. */
+  | { type: 'acquire-assets'; countryId: CountryId; zoneId: ZoneId; goodId: GoodId | 'all' }
+  /** Buy a share of a private (or mixed) firm aggregate at fair value; its plant, cash and debts move with it (R02). */
+  | { type: 'nationalize'; countryId: CountryId; zoneId: ZoneId; sectorId: SectorId; share: number; from?: 'private' | 'mixed' }
+  /** Sell a share of a public firm aggregate at fair value to the zone's households (R02). */
+  | { type: 'privatize'; countryId: CountryId; zoneId: ZoneId; sectorId: SectorId; share: number; to?: 'private' | 'mixed' }
+  /** Pay treasury money to the central bank: it first repays the state's loans from the bank, the rest becomes capital. */
+  | { type: 'recapitalize-central-bank'; countryId: CountryId; amount: number };
 
 /** Facts decided by other game systems (war, diplomacy, events). */
 export type ExternalEffect =
@@ -622,7 +658,7 @@ export type EconomyEvent =
   | { type: 'missed-payment'; turn: number; countryId: CountryId; consecutive: number }
   | { type: 'money-created'; turn: number; countryId: CountryId; amount: number }
   | { type: 'firm-bankruptcy'; turn: number; countryId: CountryId; zoneId: ZoneId; sectorId: SectorId; ownership: string; capacityShare: number;
-    debt: number; recovered: number; writtenOff: number; assetsSold: number };
+    debt: number; recovered: number; writtenOff: number; assetsSold: number; assetsHeld: number };
 
 export interface BudgetReport {
   incomeTax: number;
@@ -637,6 +673,8 @@ export interface BudgetReport {
   fundsReceived: number;
   /** Dividends from public and mixed firm aggregates. */
   firmDividends: number;
+  /** Received from privatisations. */
+  ownershipSales: number;
   revenue: number;
   administration: number;
   social: number;
@@ -647,8 +685,12 @@ export interface BudgetReport {
   /** Interest paid to bondholders and to the central bank. */
   interest: number;
   fundsSent: number;
-  /** Cash injected into struggling public and mixed firm aggregates. */
+  /** Cash injected into struggling public and mixed firm aggregates (rescues, debt relief, recapitalisations). */
   firmSupport: number;
+  /** Paid for nationalisations and for liquidated plant bought by the state. */
+  ownershipPurchases: number;
+  /** Paid in capital to the central bank (after repaying the state's loans from it). */
+  centralBankCapital: number;
   spending: number;
   /** Revenue minus spending for the week. */
   balance: number;
@@ -728,6 +770,8 @@ export interface CentralBankReport {
   lendingCapacity: number;
   /** Exceptional money created so far (R08). */
   exceptionalMoney: number;
+  /** Book value of liquidated plant the bank holds for sale. */
+  assetsHeld: number;
 }
 
 export interface GoodReport {

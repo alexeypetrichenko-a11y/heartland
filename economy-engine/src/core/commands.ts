@@ -1,6 +1,8 @@
 import type { EconomyState, ReserveMode, TurnInput } from '../types.ts';
 import type { Workspace } from './model.ts';
-import { getModel, OWNERSHIP_COUNT, TIER_COUNT } from './model.ts';
+import { getModel, MIXED, OWNERSHIP_COUNT, PRIVATE, PUBLIC, PUBLIC_OBJECTIVES, TIER_COUNT } from './model.ts';
+import type { PublicObjective } from './model.ts';
+import { acquireAssets, lendersConflict, nationalize, privatize, recapitalizeBank, recapitalizeFirm } from './ownership.ts';
 
 /**
  * Runtime validation and application of turn inputs.
@@ -53,6 +55,18 @@ function goodSelection(state: EconomyState, value: unknown, tradableOnly: boolea
     if (!result.includes(index)) result.push(index);
   }
   return result;
+}
+
+function sectorSelection(state: EconomyState, value: unknown): number[] {
+  if (value === 'all') return state.config.sectors.map((_, k) => k);
+  return [indexOfId(state.config.sectors, value, 'sector')];
+}
+
+/** A zone the commanding country owns (it can only act on firms on its own territory). */
+function ownZone(state: EconomyState, c: number, zoneId: unknown): number {
+  const z = indexOfId(state.zones, zoneId, 'zone');
+  if (state.zone.owner[z] !== c) throw new Error(`${state.zones[z].name} is not controlled by ${state.countries[c].name}.`);
+  return z;
 }
 
 function resolveCommand(state: EconomyState, input: unknown): Action {
@@ -136,6 +150,54 @@ function resolveCommand(state: EconomyState, input: unknown): Action {
     }
     case 'declare-default':
       return (_s, w) => { w.defaultRequested[c] = 1; };
+    case 'set-public-objective': {
+      const sectors = sectorSelection(state, input.sectorId);
+      const objective = PUBLIC_OBJECTIVES.indexOf(input.objective as PublicObjective);
+      if (objective < 0) throw new Error('Unknown public-firm objective.');
+      const S = state.config.sectors.length;
+      return s => { for (const k of sectors) s.countrySector.publicObjective[c * S + k] = objective; };
+    }
+    case 'set-public-support': {
+      const sectors = sectorSelection(state, input.sectorId);
+      const enabled = flag(input.enabled, 'enabled');
+      const S = state.config.sectors.length;
+      return s => { for (const k of sectors) s.countrySector.publicSupport[c * S + k] = enabled ? 1 : 0; };
+    }
+    case 'recapitalize-firm': {
+      const z = ownZone(state, c, input.zoneId);
+      const sector = indexOfId(state.config.sectors, input.sectorId, 'sector');
+      if (input.ownership !== 'public' && input.ownership !== 'mixed') throw new Error('Only public or mixed firms can be recapitalised by the state.');
+      const amount = numberIn(input.amount, 0, Number.MAX_VALUE, 'Amount');
+      if (input.use !== undefined && input.use !== 'cash' && input.use !== 'debt') throw new Error('Recapitalisation is used as cash or to repay debt.');
+      const a = (z * state.config.sectors.length + sector) * OWNERSHIP_COUNT + (input.ownership === 'public' ? PUBLIC : MIXED);
+      const debt = input.use === 'debt';
+      return (s, w) => recapitalizeFirm(s, w, c, a, amount, debt);
+    }
+    case 'acquire-assets': {
+      const z = ownZone(state, c, input.zoneId);
+      const goods = goodSelection(state, input.goodId, false);
+      return (s, w) => acquireAssets(s, w, getModel(s.config), c, z, goods);
+    }
+    case 'nationalize':
+    case 'privatize': {
+      const z = ownZone(state, c, input.zoneId);
+      const sector = indexOfId(state.config.sectors, input.sectorId, 'sector');
+      const share = numberIn(input.share, 0, 1, 'Share');
+      const other = input.type === 'nationalize' ? input.from : input.to;
+      if (other !== undefined && other !== 'private' && other !== 'mixed') throw new Error('The other owner must be private or mixed.');
+      const owner = other === 'mixed' ? MIXED : PRIVATE;
+      const m = getModel(state.config);
+      if (input.type === 'nationalize') {
+        if (lendersConflict(state, m, z, sector, owner, PUBLIC)) throw new Error('These firms owe money to different central banks and cannot be merged.');
+        return (s, w) => { nationalize(s, w, getModel(s.config), c, z, sector, share, owner); };
+      }
+      if (lendersConflict(state, m, z, sector, PUBLIC, owner)) throw new Error('These firms owe money to different central banks and cannot be merged.');
+      return (s, w) => { privatize(s, w, getModel(s.config), c, z, sector, share, owner); };
+    }
+    case 'recapitalize-central-bank': {
+      const amount = numberIn(input.amount, 0, Number.MAX_VALUE, 'Amount');
+      return (s, w) => recapitalizeBank(s, w, c, amount);
+    }
     case 'create-money': {
       // Exceptional money creation (R08, R43): no absolute ceiling, but every unit is recorded,
       // reduces the central bank's capital and raises the country's risk premium.

@@ -236,7 +236,8 @@ export function planBudgets(s: EconomyState, w: Workspace, m: Model, events: Eco
   for (let c = 0; c < C; c++) {
     const shortfall = w.creditRequest[c] - w.borrowed[c];
     if (!(shortfall > 1e-12 * w.creditRequest[c]) || w.calibrating) continue;
-    const granted = bankLend(s, w, c, shortfall);
+    const room = p.cbStateLimit * 52 * country.gdp[c] - country.cbStateLoans[c];
+    const granted = bankLend(s, w, c, Math.min(shortfall, room));
     if (!(granted > 0)) continue;
     country.cbStateLoans[c] += granted;
     country.treasury[c] += granted;
@@ -271,9 +272,10 @@ export function planBudgets(s: EconomyState, w: Workspace, m: Model, events: Eco
       const paid = repay(s, w, c, w.principalDue[c]);
       if (paid < w.principalDue[c] * (1 - 1e-9)) missed = true;
     }
-    // Central-bank loans to the state roll over like bonds while the state can borrow;
-    // a state that has lost market access must repay them in instalments.
-    const instalment = w.calibrating || country.marketAccess[c] === 1 ? 0 : country.cbStateLoans[c] / p.cbStateLoanWeeks;
+    // Central-bank loans to the state are always repaid in instalments: they cannot be rolled
+    // over for ever. A state that still needs the money must borrow again, from the bond
+    // market first and from its bank only within its ordinary lending capacity.
+    const instalment = w.calibrating ? 0 : country.cbStateLoans[c] / p.cbStateLoanWeeks;
     if (instalment > 0) {
       const paid = Math.min(instalment, Math.max(0, country.treasury[c]));
       country.treasury[c] -= paid;
@@ -346,9 +348,14 @@ function applyDefault(s: EconomyState, w: Workspace, m: Model, c: number, forced
   const G = m.goodCount;
   const before = country.debt[c];
   if (!(before + country.cbStateLoans[c] > EPSILON)) return;
-  scaleDebt(s, c, 1 - p.defaultHaircut);
+  // Repeat defaulters (C3): every consequence is heavier, creditors concede much less each
+  // time, and they concede nothing at all while the previous restructuring is still under way
+  // (the country is still shut out of credit markets), so serial defaults cannot erase debt.
+  const repeat = 1 + country.defaultMemory[c];
+  const haircut = country.exclusionWeeks[c] > 0 ? 0 : p.defaultHaircut / (repeat * repeat);
+  scaleDebt(s, c, 1 - haircut);
   // The central bank's loans to the defaulting state lose the same share: a loss of its capital.
-  const bankLoss = country.cbStateLoans[c] * p.defaultHaircut;
+  const bankLoss = country.cbStateLoans[c] * haircut;
   country.cbStateLoans[c] -= bankLoss;
   w.cbWriteOffs[c] += bankLoss;
   const writtenOff = before - country.debt[c] + bankLoss;
@@ -356,12 +363,14 @@ function applyDefault(s: EconomyState, w: Workspace, m: Model, c: number, forced
   // Repeat offenders stay locked out of credit markets for longer.
   country.exclusionWeeks[c] = Math.round(p.defaultExclusionWeeks * (1 + 0.5 * country.defaults[c]));
   country.marketAccess[c] = 0;
-  country.reputationSpread[c] += p.defaultReputationSpread;
-  country.stability[c] = Math.max(0, country.stability[c] - p.defaultStabilityShock);
+  country.reputationSpread[c] += p.defaultReputationSpread * repeat;
+  country.stability[c] = Math.max(0, country.stability[c] - p.defaultStabilityShock * repeat);
   country.missedPayments[c] = 0;
   country.defaults[c] += 1;
+  country.defaultMemory[c] += 1;
+  const outputShock = Math.min(0.25, p.defaultOutputShock * repeat);
   // Financial disruption: a temporary loss of output in every sector.
-  if (p.defaultOutputShock > 0 && p.defaultShockRecoveryWeeks > 0) {
+  if (outputShock > 0 && p.defaultShockRecoveryWeeks > 0) {
     const recovery = Math.min(1, 1 / p.defaultShockRecoveryWeeks);
     for (let z = 0; z < Z; z++) {
       if (s.zone.owner[z] !== c) continue;
@@ -369,13 +378,14 @@ function applyDefault(s: EconomyState, w: Workspace, m: Model, c: number, forced
         const index = z * G + g;
         const active = s.zoneGood.yieldFactor[index] < 0.999 && s.zoneGood.yieldRecovery[index] > 0;
         s.zoneGood.yieldRecovery[index] = active ? Math.min(s.zoneGood.yieldRecovery[index], recovery) : recovery;
-        s.zoneGood.yieldFactor[index] *= 1 - p.defaultOutputShock;
+        // Disruptions do not compound: output is held at most (1 - shock) of normal.
+        s.zoneGood.yieldFactor[index] = Math.min(s.zoneGood.yieldFactor[index], 1 - outputShock);
       }
     }
   }
   events.push({
     type: 'sovereign-default', turn: s.turn + 1, countryId: s.countries[c].id, forced,
-    haircut: p.defaultHaircut, debtWrittenOff: writtenOff,
+    haircut, debtWrittenOff: writtenOff,
   });
 }
 
@@ -431,9 +441,11 @@ export function settleFinances(s: EconomyState, w: Workspace, m: Model, events: 
     country.gdp[c] += p.gdpSmoothing * (w.countryNominal[c] - country.gdp[c]);
     country.realGdp[c] = w.countryReal[c];
     const revenue = w.revenueIncomeTax[c] + w.revenueConsumptionTax[c] + w.revenueCorporateTax[c] + w.revenueTariffs[c]
-      + w.revenueCentralBank[c] + w.revenueMoneyCreation[c] + w.revenueReserveSales[c] + w.revenueFunds[c] + w.revenueFirmDividends[c];
+      + w.revenueCentralBank[c] + w.revenueMoneyCreation[c] + w.revenueReserveSales[c] + w.revenueFunds[c] + w.revenueFirmDividends[c]
+      + w.revenueOwnership[c];
     const spending = w.spentAdministration[c] + w.spentSocial[c] + w.spentMilitary[c] + w.spentInfrastructure[c]
-      + w.spentReserves[c] + w.spentReserveStorage[c] + w.spentInterest[c] + w.spentFunds[c] + w.spentFirmSupport[c];
+      + w.spentReserves[c] + w.spentReserveStorage[c] + w.spentInterest[c] + w.spentFunds[c] + w.spentFirmSupport[c]
+      + w.spentOwnership[c] + w.spentCentralBankCapital[c];
     const deficit = country.gdp[c] > EPSILON ? (spending - revenue) / country.gdp[c] : 0;
     country.deficit[c] += 0.1 * (clamp(deficit, -1, 1) - country.deficit[c]);
 
@@ -453,6 +465,8 @@ export function settleFinances(s: EconomyState, w: Workspace, m: Model, events: 
     const rate = Math.min(p.maxRate, s.world.interestRate + spread);
     country.marketRate[c] += 0.25 * (rate - country.marketRate[c]);
     country.reputationSpread[c] *= 1 - 1 / p.reputationDecayWeeks;
+    country.defaultMemory[c] *= 1 - 1 / p.defaultMemoryWeeks;
+    if (country.defaultMemory[c] < 1e-6) country.defaultMemory[c] = 0;
     if (country.reputationSpread[c] < 1e-6) country.reputationSpread[c] = 0;
 
     if (country.exclusionWeeks[c] > 0) {

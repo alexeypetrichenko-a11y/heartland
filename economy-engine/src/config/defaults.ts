@@ -357,6 +357,15 @@ export const DEFAULT_PARAMS: EconomyParams = {
   wageShortageGain: 0.05,
   /** Share of consumer inflation passed into wages (below 1 anchors prices). */
   wageInflationPass: 0.5,
+  /**
+   * Share of the zone's productivity growth passed into wages each week (Milestone 3). With money
+   * created only against real credit needs, this is the economy's nominal anchor: without it unit
+   * costs and prices drifted down with technology and, in very long runs, deflation turned into a
+   * debt-deflation collapse (test world, about year 115).
+   */
+  wageProductivityPass: 1,
+  /** Share of the central bank's inflation target built into every pay settlement (anchored expectations). */
+  wageTargetAnchor: 0,
   wageMaxUp: 0.008,
   /** Wages fall more slowly than they rise. */
   wageMaxDown: 0.0015,
@@ -424,6 +433,15 @@ export const DEFAULT_PARAMS: EconomyParams = {
   defaultReputationSpread: 0.05,
   reputationDecayWeeks: 156,
   defaultStabilityShock: 12,
+  /**
+   * Repeated defaults (C3): each default adds 1 to a memory that fades over this many weeks.
+   * With memory m, a new default writes off only base haircut / (1 + m)^2 of the debt (nothing
+   * while the country is still excluded after its previous default), while the stability shock,
+   * output shock (capped at 25%, not compounding) and reputation premium are multiplied by (1 + m).
+   */
+  defaultMemoryWeeks: 520,
+  /** Value of plant in a nationalisation or privatisation, as a share of its replacement value (fair price = plant + cash - debt). */
+  ownershipTransferValue: 0.6,
   /** Share of output lost to financial disruption right after a default. */
   defaultOutputShock: 0.06,
   defaultShockRecoveryWeeks: 52,
@@ -451,18 +469,19 @@ export const DEFAULT_PARAMS: EconomyParams = {
   growthSmoothing: 0.02,
   /** Capital a central bank must hold per unit of loans: lending capacity = capital / ratio (R61). */
   cbCapitalRatio: 0.10,
-  /** Room to lend beyond the starting loans, as a share of yearly GDP. */
+  /** Room to lend beyond present loans, as a share of yearly GDP: given at the start and kept by retaining profit. */
   cbStartingHeadroom: 0.10,
-  /** Share of each week's profit paid to the treasury; the rest builds capital. */
-  cbProfitPayout: 0.75,
+  /** Largest share of a week's profit paid to the treasury (only while capital is above its buffer). */
+  cbProfitPayout: 1.0,
   /**
-   * Weekly pull of the policy rate towards its rule value. The rule is deliberately gentle:
-   * the policy rate also sets firms' cost of capital, so a sharp rate response cuts investment
-   * and capacity, which raises prices further (tested: a standard 1.5 / 0.5 rule produced
-   * 15% swings in inflation and 35% unemployment in the test world).
+   * Weekly pull of the policy rate towards its rule value (Milestone 3: 0.1, was 0.03). The rule
+   * keeps the gentle coefficients approved in the Milestone 2 review; a faster but gentle response
+   * damps the credit cycle better than a slow one now that the rate is the only stabiliser. Normal
+   * prices carry the long-run return on capital (see structuralHurdle), so the rate acts on
+   * investment and borrowing costs only.
    */
-  cbRateSmoothing: 0.03,
-  /** Policy-rate response to inflation above target. */
+  cbRateSmoothing: 0.1,
+  /** Policy-rate response to inflation above target (approved provisionally as a gentle response). */
   cbInflationGain: 0.5,
   /** Policy-rate response to unemployment above the natural rate. */
   cbUnemploymentGain: 0.25,
@@ -470,17 +489,14 @@ export const DEFAULT_PARAMS: EconomyParams = {
   cbRateCeiling: 0.25,
   /** Extra policy rate when nearly all lending capacity is used (credit becomes scarce and dear). */
   cbScarcityPremium: 0.04,
-  /** Weeks over which central-bank loans to a state without market access are repaid (they roll over otherwise). */
+  /** Weeks over which central-bank loans to the state are repaid. */
   cbStateLoanWeeks: 156,
   /**
-   * Open-market operations: each week a central bank buys (or sells back) its own state's bonds
-   * from households so that the money it has issued grows with real output at the inflation
-   * target, leaning against inflation that is off target. Purchases need lending capacity;
-   * nothing is given away: households swap bonds for money.
+   * Ordinary limit on central-bank credit to its own state, as a share of yearly GDP, on top
+   * of the bank's lending capacity. Beyond it a state must borrow from the bond market, or its
+   * player must explicitly authorise exceptional money creation (R08, R61).
    */
-  cbMoneyGain: 0.5,
-  /** Largest weekly bond purchase or sale, as a share of the bank's money issued. */
-  cbMoneyMaxWeekly: 0.0012,
+  cbStateLimit: 0.10,
   /** Sovereign risk premium per unit of recent exceptional money relative to yearly GDP. */
   exceptionalMoneySpread: 0.5,
   /** Weeks over which the memory of exceptional money creation fades. */
@@ -489,14 +505,28 @@ export const DEFAULT_PARAMS: EconomyParams = {
   // --- Firm credit and bankruptcy (R31, R57; provisional) --------------------
   /** Firms' loan rate above the policy rate. */
   firmLoanSpread: 0.02,
-  /** Share of new investment financed with loans at the neutral rate; also the starting debt / replacement value of plant. */
-  firmTargetLeverage: 0.10,
+  /**
+   * Share of new investment financed with loans at the neutral rate, and so the normal debt /
+   * replacement value of plant. Set so that firm credit roughly matches the money stock: all
+   * money is credit money and grows with productive capital (Milestone 3).
+   */
+  firmTargetLeverage: 0.17,
   /** Credit limit: debt may not exceed this share of the replacement value of the aggregate's plant. */
-  firmMaxLeverage: 0.30,
-  /** How strongly the loan-financed share of investment reacts to cheaper or dearer credit. */
-  firmLeverageRateSensitivity: 2.0,
+  firmMaxLeverage: 0.45,
+  /**
+   * How strongly firms' borrowing reacts to cheaper or dearer credit (Milestone 3: 0.5, was 2.0).
+   * A strong reaction turned the credit cycle into a growing world-wide boom-bust cycle in very
+   * long runs (collapse around year 75 of the test world).
+   */
+  firmLeverageRateSensitivity: 0.5,
   /** Share of cash above working capital used each week to repay debt above the target leverage. */
   firmExcessDebtRepay: 0.25,
+  /**
+   * Liquidity credit: a firm whose cash is below its working-capital target borrows this share
+   * of the gap each week (more when credit is cheap, less when it is dear). This is how money
+   * grows with the economy: it is lent against a real need and must be repaid.
+   */
+  firmLiquidityBorrow: 0.1,
   /** Consecutive weeks unable to pay wages or debt service before firms are liquidated. */
   bankruptcyWeeks: 8,
   /** Smallest share of an aggregate's plant that fails in one bankruptcy (its fragile firms first). */
@@ -658,8 +688,8 @@ export function validateConfig(config: EconomyConfig): void {
     || params.unrestThresholds.length !== 3 || params.collapseProbability.length !== 3 || params.strikeLoss.length !== 3
     || !Array.isArray(params.tierProductivity) || params.tierProductivity.length !== 3 || params.tierProductivity.some(value => value < 0.2 || value > 5)
     || params.mixedPublicShare > 1 || params.cbCapitalRatio <= 0.01 || params.cbCapitalRatio > 1 || params.cbProfitPayout > 1
-    || params.cbRateFloor > params.cbRateCeiling || params.cbStateLoanWeeks < 1 || params.cbMoneyMaxWeekly > 0.05 || params.exceptionalMoneyMemoryWeeks < 1
-    || params.firmTargetLeverage > params.firmMaxLeverage || params.firmMaxLeverage > 1 || params.firmExcessDebtRepay > 1
+    || params.cbRateFloor > params.cbRateCeiling || params.cbStateLoanWeeks < 1 || params.cbStateLimit > 2 || params.exceptionalMoneyMemoryWeeks < 1
+    || params.firmTargetLeverage > params.firmMaxLeverage || params.firmMaxLeverage > 1 || params.firmExcessDebtRepay > 1 || params.firmLiquidityBorrow > 1 || params.defaultMemoryWeeks < 1 || params.ownershipTransferValue > 1
     || params.bankruptcyWeeks < 1 || params.bankruptcyMinShare > 1 || params.liquidationValue > 1 || params.tierTransitionRate > 1
     || params.healthSmoothing > 1 || params.tierHealthShift > 1 || params.reserveStorageCost >= 1 || params.reserveSpoilageShare > 1) {
     throw new Error('A parameter is outside its valid range.');

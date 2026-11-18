@@ -14,8 +14,9 @@ export const STATE_FORMAT = 'heartland-economy';
 /**
  * Version 2 (Milestone 1): sectors, firm aggregates and production lines replace per-zone firm cash.
  * Version 3 (Milestone 2): central banks, firm loans, distress and health.
+ * Version 4 (Milestone 3): public-firm policies, idle plant held for sale, default memory.
  */
-export const STATE_VERSION = 3;
+export const STATE_VERSION = 4;
 
 function copyGroup<T extends object>(group: T): T {
   const source = group as Record<string, unknown[]>;
@@ -51,6 +52,7 @@ export function cloneEconomy(state: EconomyState): EconomyState {
     bonds: state.bonds.slice(),
     country: copyGroup(state.country),
     countryGood: copyGroup(state.countryGood),
+    countrySector: copyGroup(state.countrySector),
     sanctions: state.sanctions.map(entry => ({ ...entry })),
     tariffOverrides: state.tariffOverrides.map(entry => ({ ...entry })),
     world: { ...state.world },
@@ -118,14 +120,15 @@ const ZONE_KEYS = ['owner', 'population', 'populationGrowth', 'populationCap', '
   'householdMoney', 'expectedIncome', 'cpi', 'inflation', 'unemployment', 'livingStandard',
   'livingStandardRef', 'deprivation'] as const;
 const ZONE_GOOD_KEYS = ['stock', 'inputBuffer', 'price', 'buyPrice',
-  'refPrice', 'refBuyPrice', 'expectedDemand', 'margin', 'pressure', 'resourceCap', 'efficiency', 'yieldFactor', 'yieldRecovery',
+  'refPrice', 'refBuyPrice', 'idleCapacity', 'idleValue', 'idleHolder', 'expectedDemand', 'margin', 'pressure', 'resourceCap', 'efficiency', 'yieldFactor', 'yieldRecovery',
   'shortage', 'usage'] as const;
 const COUNTRY_KEYS = ['treasury', 'debt', 'averageRate', 'marketRate', 'marketAccess', 'exclusionWeeks',
   'reputationSpread', 'missedPayments', 'defaults', 'gdp', 'realGdp', 'deficit', 'arrears', 'stability',
   'stabilityModifier', 'unrestTier', 'episodeActive', 'episodePeakTier', 'rolledTier', 'tierWeeks', 'regime',
   'immunityWeeks', 'armsStock', 'taxIncome', 'taxConsumption', 'taxCorporate', 'spendAdministration', 'spendSocial',
   'spendMilitary', 'spendInfrastructure', 'autoBorrow', 'governmentPriority', 'cbRate', 'cbReserves', 'cbIssued',
-  'cbStateLoans', 'cbExceptional', 'cbExceptionalRecent'] as const;
+  'cbStateLoans', 'cbExceptional', 'cbExceptionalRecent', 'defaultMemory'] as const;
+const COUNTRY_SECTOR_KEYS = ['publicObjective', 'publicSupport'] as const;
 const FIRM_KEYS = ['cash', 'costs', 'employment', 'revenue', 'loan', 'lender', 'distress', 'health'] as const;
 const FIRM_GOOD_KEYS = ['build1', 'build2', 'build3', 'stockShare'] as const;
 const FIRM_LINE_KEYS = ['capacity'] as const;
@@ -172,7 +175,7 @@ export function validateEconomy(value: unknown): asserts value is EconomyState {
   indexArray(firmGroup.lender, Z * S * OWNERSHIP_COUNT, C, 'firm.lender');
   if (firmGroup.health.some(entry => entry < -1 || entry > 1)) fail('firm.health is outside -1..1.');
   const countryGroup = value.country as Record<string, number[]>;
-  for (const key of ['cbReserves', 'cbStateLoans', 'cbExceptional', 'cbExceptionalRecent']) {
+  for (const key of ['cbReserves', 'cbStateLoans', 'cbExceptional', 'cbExceptionalRecent', 'defaultMemory']) {
     if (countryGroup[key].some(entry => entry < 0)) fail(`country.${key} holds a negative value.`);
   }
   for (const [label, list] of [['firm.cash', (value.firm as Record<string, number[]>).cash],
@@ -196,6 +199,16 @@ export function validateEconomy(value: unknown): asserts value is EconomyState {
   numberArray(value.bonds, Z * C, 'bonds');
   numberGroup(value.country, COUNTRY_KEYS, C, 'country');
   numberGroup(value.countryGood, COUNTRY_GOOD_KEYS, C * G, 'countryGood');
+  numberGroup(value.countrySector, COUNTRY_SECTOR_KEYS, C * S, 'countrySector');
+  indexArray((value.countrySector as Record<string, unknown>).publicObjective, C * S, 4, 'countrySector.publicObjective');
+  indexArray((value.countrySector as Record<string, unknown>).publicSupport, C * S, 2, 'countrySector.publicSupport');
+  const zoneGoodGroup = value.zoneGood as Record<string, number[]>;
+  for (let i = 0; i < Z * G; i++) {
+    const holder = zoneGoodGroup.idleHolder[i];
+    if (!Number.isInteger(holder) || holder < -1 || holder >= C) fail('zoneGood.idleHolder is out of range.');
+    if (zoneGoodGroup.idleCapacity[i] < 0 || zoneGoodGroup.idleValue[i] < 0) fail('idle plant cannot be negative.');
+    if (holder === -1 && (zoneGoodGroup.idleCapacity[i] > 0 || zoneGoodGroup.idleValue[i] > 0)) fail('idle plant needs a holder.');
+  }
   numberGroup(value.baseline, BASELINE_KEYS, C, 'baseline');
   if (!isRecord(value.world)) fail('world is missing.');
   for (const key of WORLD_KEYS) {
