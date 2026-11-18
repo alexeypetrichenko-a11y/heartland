@@ -355,7 +355,7 @@ export function adjust(s: EconomyState, w: Workspace, m: Model): void {
       // Pay settlements also track the zone's productivity growth, so unit costs (and prices)
       // do not drift down as technology improves. This anchors the price level now that money
       // is created only against real credit needs (Milestone 3).
-      + p.wageProductivityPass * technologyGrowth(s, z, frontier) + p.wageTargetAnchor * p.inflationTarget / 52;
+      + p.wageProductivityPass * technologyGrowth(s, z, frontier);
     // The wage is the fixed yardstick while the builder searches for starting prices.
     if (!w.calibrating) zone.wage[z] *= 1 + clamp(wageChange, -p.wageMaxDown, p.wageMaxUp);
     const wage = zone.wage[z];

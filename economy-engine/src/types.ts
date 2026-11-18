@@ -136,7 +136,6 @@ export interface EconomyParams {
   wageShortageGain: number;
   wageInflationPass: number;
   wageProductivityPass: number;
-  wageTargetAnchor: number;
   wageMaxUp: number;
   wageMaxDown: number;
   inflationSmoothing: number;

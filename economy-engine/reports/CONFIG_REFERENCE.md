@@ -55,6 +55,8 @@ Margins and labour needs are *derived* so that a sector running at its normal ut
 | `dividendSpeed` | 0.08 | Share of cash above working capital paid out to households each week. |
 | `capitalCallShare` | 0.01 | Largest weekly owner rescue, as a share of household cash. |
 | `costSmoothing` | 0.1 |  |
+| `tierProductivity` | [1.1, 1, 0.9] |  |
+| `mixedPublicShare` | 0.5 |  |
 
 ### Prices and wages
 
@@ -73,6 +75,7 @@ Margins and labour needs are *derived* so that a sector running at its normal ut
 | `wageUnemploymentGain` | 0.012 | Weekly wage change per unit of unemployment below/above natural. |
 | `wageShortageGain` | 0.05 |  |
 | `wageInflationPass` | 0.5 | Share of consumer inflation passed into wages (below 1 anchors prices). |
+| `wageProductivityPass` | 1 |  |
 | `wageMaxUp` | 0.008 |  |
 | `wageMaxDown` | 0.0015 | Wages fall more slowly than they rise. |
 | `inflationSmoothing` | 0.08 |  |
@@ -131,6 +134,8 @@ Margins and labour needs are *derived* so that a sector running at its normal ut
 | `defaultReputationSpread` | 0.05 |  |
 | `reputationDecayWeeks` | 156 |  |
 | `defaultStabilityShock` | 12 |  |
+| `defaultMemoryWeeks` | 520 |  |
+| `ownershipTransferValue` | 0.6 | Value of plant in a nationalisation or privatisation, as a share of its replacement value (fair price = plant + cash - debt). |
 | `defaultOutputShock` | 0.06 | Share of output lost to financial disruption right after a default. |
 | `defaultShockRecoveryWeeks` | 52 |  |
 | `restructuredRate` | 0.03 |  |
@@ -148,16 +153,50 @@ Margins and labour needs are *derived* so that a sector running at its normal ut
 | `reserveBuyPriceRatio` | 1.15 |  |
 | `reserveReleasePriceRatio` | 1.3 |  |
 | `reserveReleaseShortage` | 0.03 |  |
+| `reserveStorageCost` | 0.002 | Weekly cost of storing strategic reserves, as a share of their value (R13: real storage costs). |
+| `reserveSpoilageShare` | 0.5 | Weekly loss of stored reserves relative to the good's normal spoilage (managed storage loses less). |
 
-### Monetary authority (world level, not player controlled)
+### Central banks (R07-R09, R61; every value provisional)
 
 | Parameter | Default | Meaning |
 |---|---:|---|
-| `inflationTarget` | 0.02 |  |
-| `moneyRuleGain` | 0.5 |  |
-| `moneyRuleSlackGain` | 0.01 | Extra weekly money growth per unit of world unemployment above the natural rate. |
-| `moneyGrowthMaxWeekly` | 0.0012 |  |
+| `inflationTarget` | 0.02 | Inflation the automatic policy rate aims at. |
 | `growthSmoothing` | 0.02 |  |
+| `cbCapitalRatio` | 0.1 | Capital a central bank must hold per unit of loans: lending capacity = capital / ratio (R61). |
+| `cbStartingHeadroom` | 0.1 | Room to lend beyond present loans, as a share of yearly GDP: given at the start and kept by retaining profit. |
+| `cbProfitPayout` | 1 | Largest share of a week's profit paid to the treasury (only while capital is above its buffer). |
+| `cbRateSmoothing` | 0.1 |  |
+| `cbInflationGain` | 0.5 | Policy-rate response to inflation above target (approved provisionally as a gentle response). |
+| `cbUnemploymentGain` | 0.25 | Policy-rate response to unemployment above the natural rate. |
+| `cbRateFloor` | 0.005 |  |
+| `cbRateCeiling` | 0.25 |  |
+| `cbScarcityPremium` | 0.04 | Extra policy rate when nearly all lending capacity is used (credit becomes scarce and dear). |
+| `cbStateLoanWeeks` | 156 | Weeks over which central-bank loans to the state are repaid. |
+| `cbStateLimit` | 0.1 |  |
+| `exceptionalMoneySpread` | 0.5 | Sovereign risk premium per unit of recent exceptional money relative to yearly GDP. |
+| `exceptionalMoneyMemoryWeeks` | 156 | Weeks over which the memory of exceptional money creation fades. |
+
+### Firm credit and bankruptcy (R31, R57; provisional)
+
+| Parameter | Default | Meaning |
+|---|---:|---|
+| `firmLoanSpread` | 0.02 | Firms' loan rate above the policy rate. |
+| `firmTargetLeverage` | 0.17 |  |
+| `firmMaxLeverage` | 0.45 | Credit limit: debt may not exceed this share of the replacement value of the aggregate's plant. |
+| `firmLeverageRateSensitivity` | 0.5 |  |
+| `firmExcessDebtRepay` | 0.25 | Share of cash above working capital used each week to repay debt above the target leverage. |
+| `firmLiquidityBorrow` | 0.1 |  |
+| `bankruptcyWeeks` | 8 | Consecutive weeks unable to pay wages or debt service before firms are liquidated. |
+| `bankruptcyMinShare` | 0.2 | Smallest share of an aggregate's plant that fails in one bankruptcy (its fragile firms first). |
+| `liquidationValue` | 0.3 | Price obtained for liquidated plant, as a share of its replacement value. |
+
+### Performance tiers (R58; provisional)
+
+| Parameter | Default | Meaning |
+|---|---:|---|
+| `tierTransitionRate` | 0.01 | Weekly share of the gap between the tier mix and its target that is closed. |
+| `tierHealthShift` | 0.4 | How far a fully healthy (or fully stricken) aggregate's target mix moves towards strong (or fragile) firms. |
+| `healthSmoothing` | 0.05 |  |
 
 ### Political stability
 
@@ -199,6 +238,7 @@ Margins and labour needs are *derived* so that a sector running at its normal ut
 | `infraProductivity` | 0.15 |  |
 | `infraGrowthEffect` | 0.004 |  |
 | `infraMax` | 1.8 | Highest infrastructure index public investment can sustain (1 = normal). |
+| `resourceDiscoveryRate` | 0.0015 |  |
 
 ### Limits on player commands
 

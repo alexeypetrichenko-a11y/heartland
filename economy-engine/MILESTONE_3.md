@@ -1,6 +1,6 @@
 # Milestone 3: state and ownership
 
-Status: **work in progress, NOT complete.** Saved on branch `feature/economy-engine-m3` (based on `feature/economy-engine-m2`). All Milestone 3 features are implemented and the fast tests, long test and scenarios pass, but the 100,000-week stress harness fails in two of its three worlds (§2.2). That is a regression against Milestone 2 and still needs a fix and an owner decision (§5, decision 5). Nothing outside `economy-engine/` was changed. Every number below is a provisional calibration parameter.
+Status: **complete and ready for owner review** on branch `feature/economy-engine-m3` (based on `feature/economy-engine-m2`). Every check below passes. One known limitation remains open, as you decided (decision 5): the economy collapses after about 290 years in two of the three 100,000-week stress worlds (§2.2). Games of the intended lengths (52, 104 and 156 weeks) are stable and consistent (§2.3). Nothing outside `economy-engine/` was changed. Every number below is a provisional calibration parameter.
 
 ## 1. What was built
 
@@ -90,16 +90,18 @@ A single default works as before.
 | Check | Result |
 |---|---|
 | Type-check (full and core-only) | pass |
-| Engine fast suite `npm test` | **130 / 131 pass** in the saved state (19 new; one Milestone 2 test replaced, see below). The one failure is the golden fingerprint, see note below. |
-| Engine long test (10,000 weeks, save/restore at 5,000) | pass |
+| Engine fast suite `npm test` | **146 / 146 pass**: the 131 tests of the review state, plus 15 new tests for the intended game lengths (§2.3). Golden fingerprint unchanged at `ef7dfc948cbe33b0` (not re-pinned). |
+| Engine long test (10,000 weeks, save/restore at 5,000) | pass (kept unchanged) |
 | Ten mandatory scenarios | **10 / 10, every check passes** |
+| Games of 52, 104 and 156 weeks, calm and adverse, 7-good and 31-good worlds | **pass**, see §2.3 |
 | Legacy world, 192 years (10,000 weeks), autopilot | inflation never beyond ±4.4% after year 2; worst country-week unemployment 13.6%; 0 defaults, 0 regime changes, 0 bankruptcies |
 | 31-good world, 100 years | inflation within ±4.0%; worst unemployment 14.1%; 0 defaults, 0 regime changes, 0 bankruptcies |
 | Very large shock (35% of Sundara's capacity destroyed) | settles: inflation volatility 2.8% in the first five years, 0.3% after 25 years |
-| Stress harness `npm run stress` (100,000 weeks) | **FAILS in 2 of 3 worlds**, see §2.2 |
-| Benchmark, browser bench, test report, main game `npm test` / `npm run build` | **not yet run** for Milestone 3 |
+| Stress harness `npm run stress` (100,000 weeks) | The harness's own checks pass in every world (conservation, finite numbers, exact save/restore). **Economically, 2 of 3 worlds collapse** after about 290 years: an unresolved limitation, see §2.2. |
+| Benchmark `npm run bench`, browser bench | done, see §2.4 |
+| Full check report `npm run test:report` (includes main game `npm test` and `npm run build`) | **all checks pass**: main game 63 / 63 tests, build succeeds (`reports/TEST_RESULTS.md`) |
 
-**Golden fingerprint failure.** An experimental wage parameter (`wageTargetAnchor`, default 0, so it has no effect) was added while investigating the stress failure. The fingerprint covers the whole saved state, settings included, so the extra setting changes it. Checked: with that one setting removed from the saved text, the fingerprint after 672 weeks is exactly the pinned `ef7dfc948cbe33b0`, so engine behaviour is unchanged. The fix is to remove the unused parameter (or re-pin the fingerprint); it was left as it is because no code changes were authorised when this state was saved.
+**Golden fingerprint.** The review state failed this test only because an unused experimental wage parameter (`wageTargetAnchor`, default 0) was part of the saved settings. The parameter has been removed. The test passes again with the original pinned value, which confirms that no behaviour changed.
 
 **New tests** (`tests/state.test.ts`, plus one in `tests/credit.test.ts`):
 - **Public firms:**
@@ -136,9 +138,9 @@ A single default works as before.
 | 9 Prolonged crisis | Return to 99% of control GDP much faster (898 → 481 weeks); 7 regime changes (6 before). |
 | 2, 4, 5, 7, 10 | Small changes. |
 
-### 2.2 Stress harness, benchmark, game
+### 2.2 Stress harness (100,000 weeks): unresolved limitation
 
-Results from `npm run stress` on the Milestone 3 code (full table in `reports/STABILITY_REPORT.md`):
+Results from `npm run stress` on the final Milestone 3 code (full table in `reports/STABILITY_REPORT.md`):
 
 | World | Up to 10,000 weeks (192 years) | 100,000 weeks |
 |---|---|---|
@@ -150,17 +152,70 @@ In every world, conservation (worst error 8.7e-12), bit-exact save/restore, fini
 
 **Cause.** Without automatic bond purchases, money grows only when firms and the state borrow for real needs. Over centuries this does not anchor prices firmly enough. Once prices start to fall, real debt burdens rise, borrowing shrinks further and the economy spirals down. Milestone 2 passed 1,000,000 weeks; this is a regression.
 
-**Tried without success:** pay settlements anchored to the 2% target (`wageTargetAnchor` 0.25 and 0.5); a faster or stronger rate rule and weaker borrowing sensitivity; an autopilot that does not raise taxes in a slump (reverted).
+**Tried without success:** pay settlements anchored to the 2% target (an experimental `wageTargetAnchor` parameter at 0.25 and 0.5, since removed); a faster or stronger rate rule and weaker borrowing sensitivity; an autopilot that does not raise taxes in a slump (reverted).
 
-**Candidate fix (needs owner approval under review decision 1):** a central-bank facility that buys bonds only when the policy rate is at its floor and prices are falling, fully accounted for.
+**Status: accepted temporarily as a documented limitation (owner decision 5).** No automatic bond-purchase facility and no automatic exceptional money creation were added. The harness and its pass criteria are unchanged. Its automatic checks cover conservation, finite numbers and exact save/restore, and those pass. The collapse is visible in its tables (`reports/STABILITY_REPORT.md`, `reports/stability.json`). To reproduce it, run `npm run stress` in `economy-engine/` (about 5 minutes on this machine).
 
-The benchmark (`npm run bench`), browser bench, `npm run test:report` and the main game's test/build have not yet been run on the Milestone 3 code.
+### 2.3 Intended game lengths: 52, 104 and 156 weeks
+
+New tests `tests/horizon.test.ts`, with scenarios in `tests/horizon-scenarios.ts`. Each game runs from the start in both the 7-good and the 31-good world, with every government on the autopilot. Six scenarios:
+
+1. **Calm.**
+2. **Capacity destruction:** 35% of all plant in both Sundara zones destroyed in week 10.
+3. **Energy shock:** energy output in Khazir, Ostmark and Verdania cut to 40% (recovering over a year), the Ocean East sea lane closed, and Norland, Verdania and Halcyon sanctioning Ostmark, from week 20 to week 72.
+4. **Fiscal crisis:** Tavros overspends on social programmes and declares default in weeks 40 and 100.
+5. **State intervention:** Norland nationalises half of heavy industry in Norland Core, sets maximum-production objectives and state support, recapitalises its central bank and privatises again in week 90. Sundara sets affordable-price objectives.
+6. **All adverse shocks combined.**
+
+Checked at weeks 52, 104 and 156 of every game:
+- money, goods and bond ledgers conserved every week (worst error 5.4e-14);
+- no negative or non-finite value, and the saved state validates;
+- world inflation within −10% to 35% and output never below 75% of its start;
+- no country's debt above 150% of GDP.
+
+Calm games must also have no default, regime change or bankruptcy, unemployment below 15% and no deflation. In addition:
+- all six 7-good games, saved and restored at weeks 52 and 104, end bit-identical to the uninterrupted game;
+- the combined 31-good game does the same and is deterministic;
+- in-game nationalisation and privatisation really move plant between owners.
+
+Exact asset conservation in these operations is checked separately in `tests/state.test.ts`.
+
+| World, scenario (156 weeks) | World GDP at end / lowest | Mean inflation (weekly range) | Worst unemployment | Defaults / regime changes / bankruptcies |
+|---|---|---|---|---|
+| 7-good, calm | 101.7% / 99.1% | 1.3% (0.6% to 3.0%) | 12.9% | 0 / 0 / 0 |
+| 7-good, capacity destruction | 92.9% / 84.8% | 1.2% (−3.6% to 18.6%) | 48.4% | 0 / 5 / 0 |
+| 7-good, energy shock | 101.4% / 93.7% | 1.7% (−2.4% to 8.5%) | 27.6% | 0 / 0 / 0 |
+| 7-good, fiscal crisis | 101.2% / 99.1% | 1.3% (0.4% to 3.9%) | 17.4% | 2 / 0 / 0 |
+| 7-good, state intervention | 101.0% / 90.4% | 1.5% (−4.2% to 13.6%) | 18.4% | 0 / 0 / 0 |
+| 7-good, all combined | 91.8% / 83.4% | 2.6% (−3.3% to 23.0%) | 51.0% | 2 / 5 / 0 |
+| 31-good, calm | 98.8% / 96.9% | 3.8% (1.5% to 12.3%) | 12.8% | 0 / 0 / 0 |
+| 31-good, capacity destruction | 89.3% / 86.8% | 5.2% (0.1% to 24.6%) | 47.1% | 0 / 3 / 0 |
+| 31-good, energy shock | 98.6% / 95.5% | 4.2% (1.1% to 12.3%) | 14.6% | 0 / 0 / 0 |
+| 31-good, fiscal crisis | 98.3% / 97.6% | 3.8% (1.1% to 12.3%) | 15.7% | 2 / 0 / 0 |
+| 31-good, state intervention | 97.9% / 94.7% | 4.4% (0.8% to 16.0%) | 14.0% | 0 / 0 / 0 |
+| 31-good, all combined | 88.4% / 84.5% | 6.2% (−0.1% to 27.0%) | 45.9% | 2 / 3 / 0 |
+
+**Reading the table.** Calm games are stable in both worlds. The 31-good world starts with a price adjustment (first-year mean inflation about 6%, peak 12.3%) that fades by year 3; it was larger in Milestone 2 (peak 18.5%). The war-scale capacity destruction is very harsh: Sundara's unemployment reaches 47–51%, and there are 3–5 regime changes within three years. The same games on the Milestone 2 code gave 43% and 3, so this is existing model behaviour, slightly sharper now that repeated crises cost more, not a new defect. The fiscal crisis costs more than in Milestone 2 (Tavros unemployment 17.4% against 10.5%, lowest stability 38 against 52), as intended by the stronger consequences of repeated defaults.
+
+### 2.4 Performance
+
+| World | ms / week, Milestone 3 | Milestone 2 | Save size (gzip) |
+|---|---:|---:|---:|
+| Meridian, 7 goods | 1.14 | 0.95 | 122 KB |
+| Meridian, 31 goods | 4.50 | 3.60 | 240 KB |
+| Generated, 30 zones, 31 goods | 15.4 | 13.9 | 404 KB |
+| Generated, 60 zones, 31 goods | 40.5 | 42.1 | 763 KB |
+| Generated, 120 zones, 31 goods | 152.9 | 154.4 | 1,405 KB |
+
+Headless Chromium, 7-good world, 6× CPU throttle (a rough phone proxy): 2.9 ms per week without a report (Milestone 2: 2.4) and 1.7 ms with a full report (2.2). The fingerprint after 672 weeks is `ef7dfc948cbe33b0` at every throttle level, the same as in Node. The bundle is 133 KB minified (43 KB gzip).
+
+A 156-week game of the 31-good world takes well under a second of computing on this machine. Small worlds are about 20–25% slower per week than in Milestone 2 (public-firm rules, plant held for sale, default memory); timings vary by about 10% between runs. Full tables: `reports/BENCHMARK.md`, `reports/BROWSER_BENCHMARK.md`.
 
 ## 3. Provisional parameters (to approve or adjust)
 
 | Parameter | Value |
 |---|---|
-| Ordinary limit of central-bank credit to the state | 10% of yearly GDP (plus the bank's capacity) |
+| Ordinary limit of central-bank credit to the state | 10% of yearly GDP, never more than the bank's remaining lending capacity (approved provisionally) |
 | Bank capital kept before paying profit out | capital for its loans plus room for 10% of yearly GDP |
 | Firm normal leverage / credit limit | 17% / 45% of plant value |
 | Firms' borrowing response to credit cost | 0.5 (was 2.0) |
@@ -175,24 +230,25 @@ The benchmark (`npm run bench`), browser bench, `npm run test:report` and the ma
 
 ## 4. Remaining limitations
 
-- **Long-run collapse after about 290 years** in the growing and zero-inflation stress worlds (§2.2). The game is stable for about two centuries of play, not indefinitely.
-- **Inflation averages about 0–1%, below the 2% target.** The economy is stable and doesn't drift, but nothing pulls inflation up to target any more. The automatic bond purchases did, and they were not permitted.
+- **Long-run collapse after about 290 years** in the growing and zero-inflation stress worlds (§2.2). It is unresolved and accepted for now (decision 5). The game is stable for about two centuries of play, far beyond the intended 52–156 weeks, but not indefinitely. Milestone 2 was stable for 1,000,000 weeks.
+- **Inflation averages about 0–1% over the long run, below the 2% target** (accepted for the first playable version, decision 3). The first three years run warmer: about 1–2% in the 7-good world and about 4–6% in the 31-good world during its starting price adjustment.
+- **War-scale shocks are harsh:** destroying 35% of a large country's plant gives roughly 50% unemployment and several regime changes within three years (§2.3).
 - **Catch-up economies with fast population growth** (Morvaine) see unemployment of 11–14% in their first years. This is structural (labour grows faster than capacity) and predates Milestone 1.
 - **Plant held for sale is booked at no more than the bank's claim,** so a buyer can occasionally get plant cheaply. Plant in a zone where another bank already holds plant for sale is scrapped (rare).
 - **Mixed firms follow the profitability rules;** only fully public firms take objectives.
 - **The AI autopilot** does not use the new commands (objectives, nationalisation, recapitalisation). AI countries behave as before.
-- **Still not implemented:** expropriation without compensation, foreign direct investment restrictions (R34), occupation (R62, C2), transport requisition (R63), energy substitution (R66), national currencies (R36).
+- **Still not implemented:** expropriation without compensation (deferred, decision 4), foreign direct investment restrictions (R34), occupation (R62, C2), transport requisition (R63), energy substitution (R66), national currencies (R36).
 - **Not measured on an iPhone.**
 
-## 5. Decisions for the owner
+## 5. Owner decisions (recorded from your review)
 
-1. **Nominal anchor.** Wages now track productivity growth, and normal prices use the long-run return on capital rather than the policy rate. These are the changes that made a credit-only money system stable. Please confirm they are acceptable modelling choices.
-2. **Ordinary limit for central-bank credit to the state:** 10% of yearly GDP. Is that the right order of magnitude?
-3. **Inflation below target.** Inflation now averages about 0–1%. Is price stability near zero acceptable for the first version, or should the target be met by another approved mechanism?
-4. **Expropriation without compensation:** should it exist, and with what consequences?
-5. **Long-run stability fix.** Approve the liquidity-trap facility (§2.2), name another mechanism, or accept stability of about 200 years as a documented limitation for now.
+1. **Nominal anchor: approved.** Wages track productivity growth; normal prices use a long-run return on capital. These are modelling simplifications, subject to future calibration.
+2. **Ordinary limit for central-bank credit to the state: approved provisionally** at 10% of yearly GDP, within the bank's remaining lending capacity (a provisional parameter, §3).
+3. **Inflation below target: accepted for the first playable version.** No artificial money creation to reach 2%.
+4. **Expropriation without compensation: deferred.** Only compensated nationalisation and privatisation exist.
+5. **Long-run stability: accepted temporarily as a documented limitation.** No automatic bond-purchase facility and no automatic exceptional money creation. The stress failure stays documented and reproducible, with unchanged pass criteria (§2.2).
 
-## 6. Proposed Milestone 4 (for approval; nothing implemented)
+## 6. Proposed Milestone 4 (for approval; nothing implemented, not started)
 
 **Occupation and war economy** (R49, R50, R62, C2):
 

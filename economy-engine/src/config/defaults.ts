@@ -364,8 +364,6 @@ export const DEFAULT_PARAMS: EconomyParams = {
    * debt-deflation collapse (test world, about year 115).
    */
   wageProductivityPass: 1,
-  /** Share of the central bank's inflation target built into every pay settlement (anchored expectations). */
-  wageTargetAnchor: 0,
   wageMaxUp: 0.008,
   /** Wages fall more slowly than they rise. */
   wageMaxDown: 0.0015,
