@@ -1,9 +1,27 @@
-import { intersectsGeography, projectPolygonParts, type AtlasShape } from './atlas.ts';
+import { ATLAS_MAX_ZOOM, intersectsGeography, projectPolygonParts, type AtlasCountry, type AtlasShape, type AtlasSize } from './atlas.ts';
+import { countryDetailZoomRange } from './borderRendering.ts';
 import type { GeographicAsset, GeographicBounds, GeographicCollection, GeographicPosition, GeographicRegion, GeographicRegionId, RegionCatalog } from './types';
+import { initialWorldCamera, positionWorldCamera, RADIANS, worldLayout } from './worldCamera.ts';
 
 export const REGION_CHUNK_LIMIT = 4;
 export const REGION_BYTE_LIMIT = 1_200_000;
 export type AtlasRegion = AtlasShape<GeographicRegionId> & { record: GeographicRegion };
+export type CountryRegionFocus = { position: GeographicPosition; bounds: GeographicBounds };
+
+/** Fit the selected landmass, leaving room for the map controls and card. */
+export function regionCameraTarget(flatOnly: boolean, size: AtlasSize, country: Pick<AtlasCountry, 'label' | 'bbox'>, picked?: CountryRegionFocus) {
+  const globe = initialWorldCamera(flatOnly);
+  const { position, bounds } = picked && positionWorldCamera(globe, size, picked.position, ATLAS_MAX_ZOOM).projection === 'flat'
+    ? picked : { position: country.label, bounds: country.bbox };
+  const [lon, lat] = position, [west, south, east, north] = bounds;
+  const [width, height] = [2 * Math.max(lon - west, east - lon), 2 * Math.max(lat - south, north - lat)];
+  const centered = { ...globe, focus: position, zoom: 1 };
+  const { scale, longitudeScale } = worldLayout(centered, size);
+  const fittedZoom = Math.min(.8 * size.width / (width * scale * longitudeScale), .72 * size.height / (height * scale));
+  const minimumZoom = countryDetailZoomRange(centered, size)[1];
+  const target = positionWorldCamera(globe, size, position, Math.max(fittedZoom, minimumZoom * 1.03));
+  return target.projection === 'flat' ? target : null;
+}
 
 export function regionName(region: GeographicRegion): string {
   return region.name?.trim() || region.names.english?.trim() || 'Unnamed region';
@@ -21,7 +39,7 @@ export function usableRegions(index: RegionCatalog | null): GeographicRegion[] {
 function distanceToBounds([lon, lat]: GeographicPosition, [west, south, east, north]: GeographicBounds) {
   const dx = Math.min(...[lon - 360, lon, lon + 360].map(x => Math.max(0, west - x, x - east)));
   const dy = Math.max(0, south - lat, lat - north);
-  return (dx * Math.cos(lat * Math.PI / 180)) ** 2 + dy ** 2;
+  return (dx * Math.cos(lat * RADIANS)) ** 2 + dy ** 2;
 }
 
 /** Request only chunks referenced by overlapping region records, nearest first. */

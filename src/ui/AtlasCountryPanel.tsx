@@ -10,27 +10,38 @@ const playabilityLabels = {
   unavailable: 'Unavailable for play',
 };
 
-function AtlasInspectionPanel({ name, kind, onClear, children }: { name: string; kind: 'country' | 'region'; onClear: () => void; children: ReactNode }) {
+function AtlasInspectionPanel({ name, kind, onClear, action, children }: {
+  name: string; kind: 'country' | 'region'; onClear: () => void; action?: ReactNode; children: ReactNode;
+}) {
   return <section className={`atlas-selection-panel atlas-${kind}-panel`} aria-labelledby="atlas-inspection-name">
     <div className="atlas-inspection-facts">
       <h3 id="atlas-inspection-name">{name}</h3>
       {children}
     </div>
-    <button type="button" aria-label={`Clear ${kind} selection`} onClick={onClear}>×</button>
+    <div className="atlas-inspection-actions">
+      {action}
+      <button type="button" aria-label={`Clear ${kind} selection`} onClick={onClear}>×</button>
+    </div>
   </section>;
 }
 
-export function AtlasCountryPanel({ country, geography, onClear }: {
+export function AtlasCountryPanel({ country, geography, onClear, onRegions, regionUnavailable }: {
   country: AtlasCountry;
   geography?: CountryGeography;
   onClear: () => void;
+  onRegions: () => void;
+  regionUnavailable?: string;
 }) {
   const [longitude, latitude] = country.label;
   const coordinates = `${Math.abs(latitude).toFixed(2)}° ${latitude < 0 ? 'S' : 'N'}, ${Math.abs(longitude).toFixed(2)}° ${longitude < 0 ? 'W' : 'E'}`;
-  return <AtlasInspectionPanel kind="country" name={country.name} onClear={onClear}>
+  return <AtlasInspectionPanel kind="country" name={country.name} onClear={onClear} action={
+    <button type="button" className="atlas-regions-action" onClick={onRegions} disabled={Boolean(regionUnavailable)}
+      aria-describedby={regionUnavailable ? 'atlas-regions-unavailable' : undefined}>Regions</button>
+  }>
     <p>{geography?.subregion || geography?.continent || `Map point ${coordinates}`}</p>
     <p className="atlas-inspection-id"><span className="sr-only">Geographic ID </span><code>{country.id}</code></p>
     <p>{playabilityLabels[countryPlayability(country.id)]}</p>
+    {regionUnavailable && <p id="atlas-regions-unavailable">{regionUnavailable}</p>}
   </AtlasInspectionPanel>;
 }
 

@@ -18,8 +18,9 @@ export function countryPlayability(id: GeographicCountryId): CountryPlayability 
 
 type AtlasPart = AtlasShape['parts'][number];
 export type ContainsAtlasPart = (part: AtlasPart, point: AtlasPoint) => boolean;
+export type AtlasHit<Id extends GeographicId> = { id: Id; part: AtlasPart; position: GeographicPosition };
 
-function findFeature<Id extends GeographicId>(shapes: readonly AtlasShape<Id>[], [longitude, latitude]: GeographicPosition, contains: ContainsAtlasPart) {
+function findFeature<Id extends GeographicId>(shapes: readonly AtlasShape<Id>[], [longitude, latitude]: GeographicPosition, contains: ContainsAtlasPart): AtlasHit<Id> | null {
   // At the exact seam, either end of the source plane can own an edge.
   const longitudes = Math.abs(longitude + 180) < 1e-7 ? [-180, 180] : [longitude];
   for (const lon of longitudes) {
@@ -28,7 +29,9 @@ function findFeature<Id extends GeographicId>(shapes: readonly AtlasShape<Id>[],
     for (let i = shapes.length - 1; i >= 0; i--) {
       for (const part of shapes[i].parts) {
         const [west, south, east, north] = part.bbox;
-        if (lon >= west && lon <= east && latitude >= south && latitude <= north && contains(part, point)) return shapes[i].id;
+        if (lon >= west && lon <= east && latitude >= south && latitude <= north && contains(part, point)) {
+          return { id: shapes[i].id, part, position: [lon, latitude] };
+        }
       }
     }
   }
@@ -36,8 +39,8 @@ function findFeature<Id extends GeographicId>(shapes: readonly AtlasShape<Id>[],
 }
 
 /** Use the displayed projection and source stage, with a small touch-only miss tolerance. */
-export function pickAtlasFeature<Id extends GeographicId>(camera: WorldCamera, size: AtlasSize, position: AtlasPoint,
-    shapes: readonly AtlasShape<Id>[], contains: ContainsAtlasPart, touch: boolean): Id | null {
+export function pickAtlasHit<Id extends GeographicId>(camera: WorldCamera, size: AtlasSize, position: AtlasPoint,
+    shapes: readonly AtlasShape<Id>[], contains: ContainsAtlasPart, touch: boolean): AtlasHit<Id> | null {
   function geography(point: AtlasPoint) {
     if (point.x < 0 || point.x > size.width || point.y < 0 || point.y > size.height) return null;
     if (camera.flatOnly && camera.zoom === 1 && Math.abs(point.x - size.width / 2) > 180 * northScale(camera, size)) return null;
@@ -60,6 +63,11 @@ export function pickAtlasFeature<Id extends GeographicId>(camera: WorldCamera, s
     }
   }
   return null;
+}
+
+export function pickAtlasFeature<Id extends GeographicId>(camera: WorldCamera, size: AtlasSize, position: AtlasPoint,
+    shapes: readonly AtlasShape<Id>[], contains: ContainsAtlasPart, touch: boolean): Id | null {
+  return pickAtlasHit(camera, size, position, shapes, contains, touch)?.id ?? null;
 }
 
 export const pickAtlasCountry = pickAtlasFeature<GeographicCountryId>;

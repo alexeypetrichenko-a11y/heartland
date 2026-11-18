@@ -634,9 +634,12 @@ li {
 .atlas-inspection-facts h3 { font-size: 1rem; margin-bottom: 3px; }
 .atlas-inspection-facts p { font-size: .75rem; line-height: 1.35; }
 .atlas-inspection-id { color: var(--color-accent); }
+.atlas-inspection-actions { display: flex; flex: none; gap: 6px; }
 .atlas-selection-panel button { flex: none; width: 44px; height: 44px; padding: 0; font-size: 1.25rem; }
+.atlas-selection-panel .atlas-regions-action { width: auto; min-width: 44px; padding-inline: 9px; font-size: .8rem; color: var(--color-accent); border-color: #927343; }
 @media (orientation: landscape) and (max-height: 34rem) {
   .atlas-selection-panel { right: auto; width: min(16rem, 37%); }
+  .atlas-country-panel { width: min(19rem, 42%); }
 }
 @media (max-height: 24rem) {
   .atlas-frame .atlas-controls { flex-direction: row; }

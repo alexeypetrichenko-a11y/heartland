@@ -297,6 +297,52 @@ async function expectRegionPanel(page, country, name, id, sourceCode) {
   assert.ok((await mark.boundingBox())?.width > 0);
 }
 
+async function verifyRegionShortcut(browser, width, height) {
+  const { context, page, requests } = await open(browser, width, height);
+  const touch = width < 900;
+  await tap(page, [2.19, 46.71], touch);
+  const action = panel(page).getByRole('button', { name: 'Regions', exact: true });
+  assert.equal(await action.isEnabled(), true, 'Regions is available on the opening globe');
+  const start = await pose(page);
+  assert.equal(start.camera.zoom, 1);
+  assert.ok(requests.every(request => !request.includes('/regions/')), 'country inspection does not fetch regional files');
+  const target = await action.boundingBox();
+  const card = await panel(page).boundingBox();
+  assert.ok(target.width >= 44 && target.height >= 44);
+  assert.ok(target.y >= card.y && target.y + target.height <= card.y + card.height);
+  if (width === 390 || width === 844) await capture(page, `regions-action-${width}.png`);
+  await viewport(page).evaluate(element => {
+    const samples = [];
+    window.regionCameraSamples = samples;
+    const observer = new MutationObserver(() => {
+      const { zoom, longitude, latitude, bearing } = element.dataset;
+      samples.push([+zoom, +longitude, +latitude, +bearing]);
+    });
+    observer.observe(element, { attributes: true, attributeFilter: ['data-zoom', 'data-longitude', 'data-latitude', 'data-bearing'] });
+  });
+  if (touch) await action.tap();
+  else await action.press('Space');
+  await expectRegions(page, 'FRA', '1159316799');
+  const end = await pose(page);
+  assert.equal(end.camera.projection, 'flat');
+  assert.ok(end.camera.zoom > 1);
+  const samples = await page.evaluate(() => window.regionCameraSamples);
+  assert.ok(samples.some(([zoom, lon, lat]) => zoom === 1 && Math.hypot(lon - start.camera.focus[0], lat - start.camera.focus[1]) > .1), 'the camera centers before zooming');
+  assert.ok(samples.every(([, , , bearing]) => bearing === 0), 'the map stays north-up');
+  for (const [zoom, lon, lat] of samples) {
+    if (zoom > 1.001) assert.ok(Math.hypot(lon - end.camera.focus[0], lat - end.camera.focus[1]) < .001, 'the zoom keeps the new center');
+  }
+  assert.ok(requests.filter(request => request.includes('/regions/')).every(request => /\/regions\/FRA[.-]/.test(request)));
+  await tap(page, [2.35018, 48.856], touch);
+  await expectRegionPanel(page, 'France', 'Paris', '1159316799', 'FRA-5333');
+  await button(page, 'Clear region selection').click();
+  await selected(page, 'FRA');
+  assert.equal(await action.isVisible(), true);
+  await layout(page);
+  console.log(`PASS Regions shortcut ${width}×${height}: immediate 44px control, centered north-up move, selection and country return`);
+  await context.close();
+}
+
 async function verifyRegionHierarchy(browser, width, height) {
   const { context, page, requests } = await open(browser, width, height);
   const touch = width < 900;
@@ -369,19 +415,25 @@ async function verifyRegionalSources(browser) {
   const cases = [
     { code: 'DEU', parent: 'Germany', at: [13.39245, 52.50261], zoom: 30, name: 'Berlin', id: '1159312769', source: 'DEU-1599' },
     { code: 'USA', parent: 'United States of America', at: [-119.98368, 37.26058], zoom: 26, name: 'California', id: '1159308415', source: 'USA-3521' },
-    { code: 'USA', parent: 'United States of America', at: [-155.45329, 19.59369], zoom: 31, name: 'Hawaii', id: '1159308409', source: 'USA-3517' },
+    { code: 'USA', parent: 'United States of America', at: [-98.1, 38.2], shortcut: true, name: 'Kansas', id: '1159315359', source: 'USA-3530' },
+    { code: 'USA', parent: 'United States of America', at: [-155.45329, 19.59369], shortcut: true, name: 'Hawaii', id: '1159308409', source: 'USA-3517' },
+    { code: 'FRA', parent: 'France', at: [-53.23, 3.92], shortcut: true, name: 'Guyane française', id: '1159311355', source: 'FRA-2000' },
     { code: 'SGP', parent: 'Singapore', at: [103.84903, 1.34689], zoom: 55, name: 'Central Singapore', id: '1159315513', source: 'SGP-4871' },
     { code: 'AIA', parent: 'Anguilla', at: [-63.25212, 18.27914], zoom: 100, name: 'Unnamed region', id: '1159315561', source: 'AIA+99?' },
   ];
   for (const item of cases) {
     await moveTo(page, ...item.at);
     const before = requests.length;
-    await zoomWithButtons(page, item.zoom);
+    if (item.shortcut) {
+      await tap(page, item.at, true);
+      await selected(page, item.code);
+      await panel(page).getByRole('button', { name: 'Regions', exact: true }).tap();
+    } else await zoomWithButtons(page, item.zoom);
     await expectRegions(page, item.code, item.id);
     await tap(page, item.at, true);
     await expectRegionPanel(page, item.parent, item.name, item.id, item.source);
     const regional = requests.slice(before).filter(r => r.includes('/regions/'));
-    assert.ok(regional.length > 0 && regional.every(r => r.includes(`/regions/${item.code}`)));
+    assert.ok(regional.length > 0 && regional.every(r => r.includes(`/regions/${item.code}`)), `${item.name} requested ${regional.join(', ')}`);
     assert.ok(new Set(regional.filter(r => r.endsWith('.geojson'))).size <= 4);
     if (item.code === 'DEU') {
       await capture(page, 'region-berlin-390.png');
@@ -390,6 +442,16 @@ async function verifyRegionalSources(browser) {
     }
     if (item.name === 'Hawaii') await capture(page, 'region-hawaii-390.png');
     await button(page, 'Clear region selection').click();
+    if (item.code === 'SGP') {
+      const before = (await pose(page)).camera.zoom;
+      await button(page, 'Administrative regions').click();
+      await panel(page).getByRole('button', { name: 'Regions', exact: true }).tap();
+      await expectRegions(page, 'SGP', item.id);
+      assert.ok((await pose(page)).camera.zoom > before, 'the shortcut fits a small landmass and reactivates regions');
+      await tap(page, item.at, true);
+      await expectRegionPanel(page, item.parent, item.name, item.id, item.source);
+      await button(page, 'Clear region selection').click();
+    }
     await clear(page);
   }
 
@@ -402,6 +464,8 @@ async function verifyRegionalSources(browser) {
     assert.equal(await page.locator('.atlas-regions').count(), 0);
     await tap(page, at, true);
     await selected(page, code);
+    assert.equal(await panel(page).getByRole('button', { name: 'Regions', exact: true }).isDisabled(), true);
+    await panel(page).getByText('No mapped regions', { exact: true }).waitFor();
     assert.ok(requests.slice(before).every(r => !r.endsWith(`/${code}-000.geojson`)));
     await clear(page);
   }
@@ -425,7 +489,7 @@ async function verifyRegionalSources(browser) {
   await tap(page, [-179.93079, -16.82277], true);
   await expectRegionPanel(page, 'Fiji', 'Northern', '1159313293', 'FJI-2619');
   await capture(page, 'region-fiji-390.png');
-  console.log('PASS Berlin/Brandenburg, California, Hawaii, Singapore, unnamed Anguilla, Monaco, Bir Tawil, Fiji date line and regional retry');
+  console.log('PASS Berlin/Brandenburg, California, Kansas, Hawaii, French Guiana, Singapore, unnamed Anguilla, Monaco, Bir Tawil, Fiji date line and retry');
   await context.close();
 }
 
@@ -435,7 +499,10 @@ async function verifyRegionalSources(browser) {
     args: ['--no-sandbox', '--enable-unsafe-swiftshader'] });
   try {
     if (process.env.HEARTLAND_CHECK_REGIONS_ONLY === '1') {
-      for (const [width, height] of sizes) await verifyRegionHierarchy(browser, width, height);
+      for (const [width, height] of sizes) {
+        await verifyRegionShortcut(browser, width, height);
+        await verifyRegionHierarchy(browser, width, height);
+      }
       await verifyRegionalSources(browser);
       assert.deepEqual(errors, []);
       console.log('PASS regional selection without runtime errors. Captures:', output);
@@ -450,6 +517,11 @@ async function verifyRegionalSources(browser) {
     assert.ok((await pose(page)).camera.flatOnly);
     await tap(page, [2.19, 46.71], true);
     await selected(page, 'FRA');
+    await panel(page).getByRole('button', { name: 'Regions', exact: true }).tap();
+    await expectRegions(page, 'FRA', '1159316799');
+    await tap(page, [2.35018, 48.856], true);
+    await expectRegionPanel(page, 'France', 'Paris', '1159316799', 'FRA-5333');
+    await button(page, 'Clear region selection').click();
     await clear(page);
     await context.close();
     assert.deepEqual(errors, []);

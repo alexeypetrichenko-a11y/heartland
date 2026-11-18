@@ -69,8 +69,16 @@ def build():
         remaining.remove(key)
     pairs = sorted([a, b] for a, ns in neighbors.items() for b in ns if a < b)
     records = []
+    countries_without_regions = []
     for country in countries:
         key = country['id']
+        index_asset = country['regionIndex']
+        regions = json.loads((DATA / index_asset['path']).read_text())['regions'] if index_asset else []
+        stand_in = len(regions) == 1 and regions[0]['source']['gadm_level'] == 0 and (
+            regions[0]['source']['adm1_code'] == key.split(':')[-1] + '+00?'
+        )
+        if stand_in or not any(region['geometryStatus'] == 'valid' for region in regions):
+            countries_without_regions.append(key)
         geom = geometries[key]
         point = geom.PointOnSurface()
         rgb = assigned[key][0]
@@ -87,6 +95,7 @@ def build():
     output = ROOT / 'public/atlas/political.json'
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps({'schemaVersion': 1, 'datasetId': 'natural-earth-5.1.1', 'countries': records,
+                                 'countriesWithoutRegions': countries_without_regions,
                                  'neighbors': pairs, 'colorMetric': 'CIELAB Delta E 1976',
                                  'minimumNeighborDeltaE': round(min(distance(assigned[a][1], assigned[b][1]) for a, b in pairs), 3)},
                                 ensure_ascii=False, separators=(',', ':')) + '\n')
