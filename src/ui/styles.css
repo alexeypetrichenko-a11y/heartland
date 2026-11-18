@@ -609,10 +609,11 @@ li {
 .atlas-svg, .atlas-globe, .atlas-globe-layer { position: absolute; inset: 0; display: block; width: 100%; height: 100%; pointer-events: none; }
 .atlas-frame .atlas-controls { position: absolute; right: 6px; top: 6px; margin: 0; border: 1px solid var(--color-border); box-shadow: 0 2px 8px #0a111966; }
 .atlas-zoom { position: absolute; right: 12px; bottom: 10px; padding: 3px 7px; border-radius: 6px; background: #101b27dd; color: var(--color-muted); font-size: .75rem; pointer-events: none; }
-.atlas-terrain-control { position: absolute; left: 8px; bottom: 8px; min-width: 44px; min-height: 44px; display: flex; align-items: center; gap: 6px; padding: 0 10px; font-size: .75rem; border-radius: 12px; background: #16222fee; }
-.atlas-terrain-control[aria-pressed="true"] { color: var(--color-accent); border-color: #927343; }
+.atlas-layer-controls { position: absolute; left: 8px; bottom: 8px; display: flex; gap: 6px; }
+.atlas-layer-controls button { min-width: 44px; min-height: 44px; display: flex; align-items: center; gap: 6px; padding: 0 10px; font-size: .75rem; border-radius: 12px; background: #16222fee; }
+.atlas-layer-controls button[aria-pressed="true"] { color: var(--color-accent); border-color: #927343; }
 .atlas-camera { isolation: isolate; }
-.atlas-country-panel {
+.atlas-selection-panel {
   position: absolute;
   z-index: 1;
   inset: auto 8px 60px;
@@ -629,19 +630,20 @@ li {
   border-radius: 14px;
   box-shadow: 0 3px 16px #0a111966;
 }
-.atlas-country-facts { flex: 1; min-width: 0; overflow-wrap: anywhere; }
-.atlas-country-facts h3 { font-size: 1rem; margin-bottom: 3px; }
-.atlas-country-facts p { font-size: .75rem; line-height: 1.35; }
-.atlas-country-id { color: var(--color-accent); }
-.atlas-country-panel button { flex: none; width: 44px; height: 44px; padding: 0; font-size: 1.25rem; }
+.atlas-inspection-facts { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.atlas-inspection-facts h3 { font-size: 1rem; margin-bottom: 3px; }
+.atlas-inspection-facts p { font-size: .75rem; line-height: 1.35; }
+.atlas-inspection-id { color: var(--color-accent); }
+.atlas-selection-panel button { flex: none; width: 44px; height: 44px; padding: 0; font-size: 1.25rem; }
 @media (orientation: landscape) and (max-height: 34rem) {
-  .atlas-country-panel { right: auto; width: min(16rem, 37%); }
+  .atlas-selection-panel { right: auto; width: min(16rem, 37%); }
 }
 @media (max-height: 24rem) {
   .atlas-frame .atlas-controls { flex-direction: row; }
 }
 .atlas-caption { flex: none; padding: 8px 18px; font-size: .72rem; color: var(--color-muted); }
 .atlas-caption p { margin: 0; }
+.atlas-region-caption #atlas-status { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .atlas-caption button { min-height: 44px; margin-top: 4px; }
 .atlas-labels text { font: 600 11px system-ui, sans-serif; fill: #13202c; stroke: #f3efdc; stroke-width: 2.5px; paint-order: stroke; stroke-linejoin: round; }
 .map-controls {

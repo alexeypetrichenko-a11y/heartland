@@ -100,7 +100,7 @@
 
 ## Interface redesign milestone — Mobile-first interface (before T09)
 
-This is a separate UI milestone. UI-01A, UI-01A.2, UI-01B.1 and UI-01B.2 are merged. MAP-01A through MAP-01B.4 are merged in PRs #17–#19 and #21. The current assignment covers MAP-01C country inspection. Other interface and simulation work awaits separate approval.
+This is a separate UI milestone. UI-01A, UI-01A.2, UI-01B.1 and UI-01B.2 are merged. The atlas through MAP-01C is merged in PRs #17–#19, #21 and #22. The current assignment covers MAP-01D administrative region inspection. Other interface and simulation work awaits separate approval.
 
 ### UI-01A — Compact map-first navigation
 
@@ -198,9 +198,13 @@ The owner authorized a two-PR split to protect mobile performance, geographic ac
 
 ### MAP-01C — Interactive country selection
 
-- [x] The globe and flat atlas support tap/click and keyboard country inspection. The gold fill and borders follow the selected Natural Earth ID through zoom and projection changes. The compact card shows the name, geographic ID, subregion and undecided playability. A separate ID-keyed flag registry is ready for the owner's future six-country roster. All 129 tests, the production build, viewport checks and gameplay regressions passed. The branch `task/map-01c-country-selection` is for owner review and physical Safari testing. [Implementation, preview and screenshots](docs/geography/COUNTRY_SELECTION.md)
+- [x] The globe and flat atlas support tap/click and keyboard country inspection. The gold fill and borders follow the selected Natural Earth ID through zoom and projection changes. The compact card shows the name, geographic ID, subregion and undecided playability. A separate ID-keyed flag registry is ready for the owner's future six-country roster. All 129 tests, the production build, viewport checks and gameplay regressions passed. The owner merged [PR #22](https://github.com/alexeypetrichenko-a11y/heartland/pull/22). [Implementation and screenshots](docs/geography/COUNTRY_SELECTION.md)
 
-- [ ] Admin-1 region selection and real-country game setup await separate approval.
+### MAP-01D — Interactive administrative regions
+
+- [x] Close flat-map zoom enables a Regions toggle and progressive Natural Earth Admin-1 loading for the selected country in view or the country under the settled map center. Tap a region for a gold highlight, name, parent and geographic source codes. Clear the region to return to the parent card, or turn Regions off to select countries at the same zoom. [Implementation, source limits and verification](docs/geography/ADMIN_REGIONS.md)
+- [ ] Owner review and physical iPhone Safari validation of MAP-01D on `task/map-01d-administrative-regions`.
+- [ ] Real-country game setup and the playable roster await separate approval.
 
 MIL-01, UI-01B.3, UI-01C, T09, multiplayer, real military positions, movement/engagement timing and transport-route mechanics remain outside this assignment.
 
@@ -262,4 +266,4 @@ Each item above is a **feature family** to be broken into small PRs before imple
 
 ## Current delivery and remaining phases
 
-The owner merged MAP-01A through MAP-01B.4 in PRs #17–#19 and #21. MAP-01C Admin-0 inspection is ready for review. The next decision is owner approval of this PR after iPhone validation. The playable roster, Admin-1 selection, terrain caching, scenario replacement and other gameplay phases remain deferred.
+The owner merged the atlas through MAP-01C. MAP-01D administrative region inspection is ready for owner review and iPhone validation. The playable roster, terrain caching, scenario replacement and other gameplay phases remain deferred.

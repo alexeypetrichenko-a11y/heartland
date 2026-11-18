@@ -1,7 +1,7 @@
 # Heartland — Implementation Status
 
-**Snapshot date** 2026-11-17
-**Source** `main` at `3914cde`, including the owner's merge of PR #21, and MAP-01C implementation and validation on `task/map-01c-country-selection`.
+**Snapshot date** 2026-11-18
+**Source** `main` at `05224bf`, including the owner's merge of PR #22, and MAP-01D on `task/map-01d-administrative-regions`.
 
 ## Verified existing scaffold
 
@@ -26,8 +26,9 @@
 - [x] Separate Natural Earth longitude/latitude data and real-world political/physical atlas (MAP-01A, MAP-01B.1/.2); fictional scenario remains separately playable.
 - [x] Spherical atlas navigation and camera-matched flat-map handoff (MAP-01B.3), merged in PR #21.
 - [x] Default globe exploration screen (MAP-01B.4), explicit game access and retained navigation state.
-- [x] Geographic country inspection on the globe and flat map (MAP-01C), implemented for review.
-- [ ] Persistent terrain cache (MAP-01B.5), Admin-1 selection and playable-country roster.
+- [x] Geographic country inspection on the globe and flat map (MAP-01C), merged in PR #22.
+- [x] Admin-1 boundary display and selection at close flat-map zoom (MAP-01D), implemented for review.
+- [ ] Persistent terrain cache (MAP-01B.5) and playable-country roster.
 - [ ] Data/rendering for Cities, Bunkers, Roads, Railways, Ports and Airports; their toolbar controls are disabled.
 - [ ] Unit interaction/geographical positioning (UI-01B.3) and UI-01C (separate assignments pending).
 - [ ] Full economy/military systems, comprehensive diplomacy and advanced AI.
@@ -433,4 +434,11 @@ Historical first implementation/validation follows. The physical-iPhone-feedback
 - The picker uses the current projection and visible detail stage. Existing even-odd fill paths preserve islands, holes and enclaves. The six-pixel gesture threshold rejects drags, and the pointer lifecycle excludes pinches and cancellations. Touch misses search visible land within six CSS pixels. A direct hit takes precedence. Enter/Space inspects the center, and Escape or the card button clears selection.
 - Selection uses a single on-demand globe mask, a selected outline and the existing SVG paths on the flat map. Startup requests the same coarse assets. Geographic labels load from the existing country catalog only after selection. The separate roster flags remain empty for all 258 entities.
 - `npm test` passed **129 tests** and `npm run build` passed. Browser selection checks passed at five sizes, covering touch/mouse and keyboard, fill and outline, Monaco and Luxembourg, Lesotho, Fiji on both sides of the date line, viewport fit, zoom persistence and WebGL fallback. Opening screen and globe regressions passed at six sizes. All three fictional countries passed the gameplay workflow at mobile and desktop sizes.
-- This release is for owner review in a separate PR and preview. Very small entities require an available detail scale. Physical Safari testing of country inspection is pending. [Architecture, limitations, screenshots and iPhone instructions](docs/geography/COUNTRY_SELECTION.md)
+- The owner merged [PR #22](https://github.com/alexeypetrichenko-a11y/heartland/pull/22). Very small entities require an available detail scale. [Architecture, limitations, screenshots and iPhone instructions](docs/geography/COUNTRY_SELECTION.md)
+
+## MAP-01D — Administrative regions (2026-11-18)
+
+- At close flat-map zoom, the Regions toggle shows Natural Earth Admin-1 boundaries for one country at a time. Region selection reuses the camera and tap classifier and shows a compact card with its parent and source identifiers. The country card returns on clearing the region or zooming out. Turning Regions off allows country selection at the same zoom.
+- The atlas requests one country index and up to four visible geometry chunks within a 1.2 MB source-file budget. Requests wait for motion to settle and cancel when their view changes. The global globe loads zero Admin-1 files. The geographic records and IDs are independent of gameplay.
+- Regional coverage follows the pinned source. Mixed administrative levels and island fragments retain their source identity. A sole whole-country placeholder or missing regional source leaves the country inspectable. [Source limits, verification and iPhone preview](docs/geography/ADMIN_REGIONS.md)
+- All 134 tests and the production build passed. Chromium region and country selection checks passed at five sizes, including source edge cases, date-line behavior and gesture separation. Globe and fictional gameplay regressions passed. Physical iPhone Safari review is pending.

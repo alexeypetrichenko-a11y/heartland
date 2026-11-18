@@ -16,13 +16,15 @@ export function useAtlasData(view: AtlasView, size: AtlasSize, active: boolean, 
   const [resolution, setResolution] = useState('110m');
   const [loading, setLoading] = useState(false);
   const [countryGeography, setCountryGeography] = useState<Map<GeographicCountryId, CountryGeography>>();
+  const [countryGeographyError, setCountryGeographyError] = useState(false);
   useEffect(() => {
     if (!active || !inspectCountry || countryGeography) return;
+    setCountryGeographyError(false);
     const controller = new AbortController();
     source.current!.loadCountryGeography(controller.signal).then(facts => {
       if (!controller.signal.aborted) setCountryGeography(facts);
     }).catch(() => {
-      // The panel has the name, ID and label coordinates from the atlas catalog.
+      if (!controller.signal.aborted) setCountryGeographyError(true);
     });
     return () => controller.abort();
   }, [active, countryGeography, inspectCountry, revision]);
@@ -82,5 +84,5 @@ export function useAtlasData(view: AtlasView, size: AtlasSize, active: boolean, 
     for (const shape of detail) merged.set(shape.id, shape);
     return [...merged.values()];
   }, [overview, detail]);
-  return { catalog, overview, shapes, error, loading, resolution, countryGeography };
+  return { catalog, overview, shapes, error, loading, resolution, countryGeography, countryGeographyError };
 }
