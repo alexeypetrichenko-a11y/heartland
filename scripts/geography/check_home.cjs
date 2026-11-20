@@ -59,7 +59,7 @@ async function capture(page, name) { await page.screenshot({ path: path.join(OUT
       await page.getByLabel('Player country').selectOption('alden'); await page.getByRole('button', { name: 'Start local scenario', exact: true }).click();
       assert.equal(await page.locator('.game-meta dd').first().textContent(), 'Week 1');
       await page.getByRole('button', { name: 'Amber Plain, Belora', exact: true }).click();
-      await section(page, 'Economy'); await page.getByRole('button', { name: /^Tax policy Standard taxation/ }).click();
+      await section(page, 'Economy');
       await page.getByLabel('Tax policy for next week').selectOption('tax-relief');
       await section(page, 'Military'); await page.getByRole('button', { name: /^Military orders / }).click();
       await page.getByLabel('Division', { exact: true }).selectOption('alden-first'); await page.getByRole('button', { name: 'Stage military order', exact: true }).click();
