@@ -5,7 +5,8 @@ import type { CountryGeography } from '../geography/countrySelection';
 import type { GeographicBounds, GeographicCountryId, OverviewScale } from '../geography/types';
 
 export function useAtlasData(view: AtlasView, size: AtlasSize, active: boolean, revision: number,
-  options: { bounds: GeographicBounds[]; overviewOnly: boolean; overviewScale: OverviewScale; detailEnabled?: boolean }, inspectCountry: boolean) {
+  options: { bounds: GeographicBounds[]; overviewOnly: boolean; overviewScale: OverviewScale; detailEnabled?: boolean; detailCountryId?: GeographicCountryId },
+  inspectCountry: boolean) {
   const source = useRef<ReturnType<typeof createAtlasData> | null>(null);
   source.current ??= createAtlasData(import.meta.env.BASE_URL);
   const [catalog, setCatalog] = useState<AtlasCatalog | null>(null);
@@ -50,11 +51,15 @@ export function useAtlasData(view: AtlasView, size: AtlasSize, active: boolean, 
         const shapes = await source.current!.loadOverview(scale, controller.signal);
         if (controller.signal.aborted) return;
         setOverview(shapes); setResolution(scale);
-        if (options?.overviewOnly || options?.detailEnabled === false || view.zoom < 8) return;
+        const detailCountryId = options.detailCountryId;
+        if (options.overviewOnly || options.detailEnabled === false || (view.zoom < 8 && !detailCountryId)) return;
         const bounds = options?.bounds ?? [atlasBounds(view, size)];
-        const countries = catalog.countries.filter(c => bounds.some(b => countryInViewport(c, b)))
+        // At a fitted regional scale, only the selected country can be loaded
+        // earlier than the normal country detail threshold.
+        const countries = catalog.countries.filter(c => (view.zoom >= 8 || c.id === detailCountryId) && bounds.some(b => countryInViewport(c, b)))
           .map(country => ({ country, priority: countryDetailPriority(country, [view.center.x - 180, 90 - view.center.y]) }))
-          .sort((a, b) => a.priority[0] - b.priority[0] || a.priority[1] - b.priority[1] || a.country.id.localeCompare(b.country.id))
+          .sort((a, b) => Number(b.country.id === detailCountryId) - Number(a.country.id === detailCountryId) ||
+            a.priority[0] - b.priority[0] || a.priority[1] - b.priority[1] || a.country.id.localeCompare(b.country.id))
           .slice(0, 12).map(entry => entry.country);
         const next = new Map(retainedDetail.current.filter(s => countries.some(c => c.id === s.id)).map(s => [s.id, s]));
         let index = 0;
