@@ -23,9 +23,8 @@ test('fictional countries, regions and divisions have unique IDs and valid owner
   for (const region of state.regions) assert.ok(countries.has(region.ownerId));
   for (const country of state.countries) {
     assert.ok(state.regions.some(region => region.ownerId === country.id));
-    for (const value of Object.values(country.economy)) {
-      assert.ok(Number.isFinite(value) && value >= 0);
-    }
+    // No second treasury: the economy lives only in the economic engine's session (INT-01, A1).
+    assert.deepEqual(Object.keys(country).sort(), ['controller', 'id', 'name']);
   }
   for (const division of state.divisions) {
     assert.ok(countries.has(division.ownerId));
@@ -98,7 +97,7 @@ test('JSON round trips preserve all data, including a representable player selec
 test('fresh states share no mutable fixture data', () => {
   const state = createInitialState();
   const baseline = JSON.stringify(state);
-  state.countries[0].economy.treasury = 0;
+  state.countries[0].name = 'Changed';
   state.regions[0].adjacentRegionIds.pop();
   state.relations[0].countryIds[0] = 'changed';
   state.divisions[0].manpower = 0;

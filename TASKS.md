@@ -76,6 +76,7 @@
 
 ### T06 — Add minimal economy and treasury feedback
 
+- [x] Superseded by INT-01 (decision A1): the economic engine replaces this treasury and policy. See [docs/economy/INT-01.md](docs/economy/INT-01.md).
 - [x] Completed and locally verified: deterministic weekly budgets for all three fictional countries, one persistent tax policy with a measurable income effect, dashboard feedback, explicit atomic insufficient-funds rejection and recovery, focused economic/persistence/replay tests, responsive Chromium checks and production build. Provisional parameters/formulas are documented in `STATUS.md`. Merged into `main` in PR #10.
 
 **Scope:** For the fictional test world only, track small illustrative resource/income/expense/budget variables and one government policy/order that affects them weekly. No full market, debt or industry simulation yet.
@@ -220,6 +221,22 @@ MIL-01, UI-01B.3, UI-01C, T09, multiplayer, real military positions, movement/en
 ### Gate G1 — Stop and playtest
 
 Owner tests T01–T09 on real iPhone. Correct usability/game-breaking bugs **before** starting additional large systems. No assumption that all nine tasks can be delivered in one Codex prompt or one week.
+
+### INT-01 — Connect the economic engine to the playable game
+
+- [ ] Implemented and locally verified on `task/int-01-economy-integration`. The engine is merged in unchanged with its history; it starts lazily from the week-1 save when a fictional game starts, never for the globe. Weekly turns are atomic for game and economy (`advanceWeekTogether`), captures become occupations, T06 is removed (A1), and the Economy panel is read-only with engine data. 138 game tests, 190 engine tests and the build pass, with 52-week Chromium checks. Awaiting owner review and iPhone testing. [Details](docs/economy/INT-01.md)
+
+### INT-02 — Seven direct fiscal controls (proposed)
+
+**Scope:** In the Economy panel, editable drafts for income, consumption and corporate profit tax and for administration, social, military and infrastructure spending:
+- limits from `fiscalLimits`;
+- commands from `fiscalCommands`;
+- validation with `checkEconomyCommands`;
+- sent with Next week through `advanceGameWeek`.
+
+No other economic commands and no mapping from the retired presets.
+
+**Acceptance:** Each control takes effect the next week. Out-of-range drafts show the engine's message. Drafts survive navigation and refused weeks. Mobile layout with 44 px targets. `npm test`, `npm run build`, browser checks and owner iPhone test.
 
 ## Milestone 2 — Make the solo game strategically rich (incremental)
 

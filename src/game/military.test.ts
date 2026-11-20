@@ -71,7 +71,7 @@ test('reject nonadjacent/self/missing targets, enemy movement and friendly attac
   const badOrders = [move('cedar-basin'), attack('cedar-basin'), move('alden-vale'), attack('alden-vale'),
     move('missing'), attack('missing'), move('amber-plain'), attack('reed-coast')];
   for (const invalid of badOrders) {
-    const commands: TurnCommand[] = [{ type: 'set-economic-policy', countryId: 'alden', policy: 'tax-relief' }, move('reed-coast'), invalid];
+    const commands: TurnCommand[] = [move('reed-coast'), invalid];
     assert.throws(() => advanceTurn(state, freeze(commands)), /adjacent|does not exist|friendly target|enemy-controlled/);
     assert.deepEqual(state, start());
   }
@@ -176,20 +176,6 @@ test('unselected countries do not move or launch stored attacks autonomously', (
   assert.deepEqual(result.militaryResults, []);
 });
 
-test('economic policies continue during combat, and a budget failure rejects all military outcomes', () => {
-  const commands: TurnCommand[] = [attack(), { type: 'set-economic-policy', countryId: 'alden', policy: 'tax-relief' }];
-  const result = advanceTurn(start(), commands);
-  assert.equal(unit(result).manpower, 750);
-  assert.equal(result.countries[0].economy.treasury, 98);
-  assert.equal(result.countries[0].economicPolicy, 'tax-relief');
-  assert.equal(advanceTurn(result).countries[0].economy.treasury, 96);
-  const exhausted = start();
-  exhausted.countries[0].economy.treasury = 0;
-  const snapshot = structuredClone(exhausted);
-  assert.throws(() => advanceTurn(freeze(exhausted), freeze(commands)), /Insufficient funds/);
-  assert.deepEqual(exhausted, snapshot);
-});
-
 test('invalid defender headcounts and unsafe totals reject the whole turn', () => {
   for (const manpower of [-1, 0.5, NaN, Infinity]) {
     const state = start();
@@ -204,9 +190,9 @@ test('invalid defender headcounts and unsafe totals reject the whole turn', () =
   assert.throws(() => advanceTurn(freeze(state), [attack()]), /safe integer limit/);
 });
 
-test('military/economic replay including invalid turns, capture, defence and movement survives JSON round trips', () => {
+test('military replay including invalid turns, capture, defence and movement survives JSON round trips', () => {
   const script: TurnCommand[][] = [
-    [attack(), { type: 'set-economic-policy', countryId: 'alden', policy: 'tax-relief' }],
+    [attack()],
     [attack('cedar-basin')], [], [defend], [attack()], [], [move('alden-vale')], [],
   ];
   const replay = (serialize: boolean) => {
