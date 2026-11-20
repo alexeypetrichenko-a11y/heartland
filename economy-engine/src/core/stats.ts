@@ -385,7 +385,7 @@ export function finishTurn(s: EconomyState, w: Workspace, m: Model, options: Ste
       reserveSales: w.revenueReserveSales[c],
       fundsReceived: w.revenueFunds[c], firmDividends: w.revenueFirmDividends[c], ownershipSales: w.revenueOwnership[c], revenue: w.reportRevenue[c],
       administration: w.spentAdministration[c], social: w.spentSocial[c], military: w.spentMilitary[c],
-      infrastructure: w.spentInfrastructure[c], reservePurchases: w.spentReserves[c] + w.spentReserveStorage[c], interest: w.spentInterest[c],
+      infrastructure: w.spentInfrastructure[c], reservePurchases: w.spentReserves[c] + w.spentReserveStorage[c], interest: w.spentInterest[c], unpaidInterest: w.interestUnpaid[c],
       fundsSent: w.spentFunds[c], firmSupport: w.spentFirmSupport[c], ownershipPurchases: w.spentOwnership[c],
       centralBankCapital: w.spentCentralBankCapital[c], occupationLevy: w.revenueOccupation[c],
       occupationSecurity: w.spentOccupationSecurity[c], transportRequisition: w.spentTransport[c], spending: w.reportSpending[c], balance: w.reportRevenue[c] - w.reportSpending[c],

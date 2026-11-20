@@ -146,3 +146,36 @@ export function fictionalGameWorld(playerCountryId: string | null = 'alden'): Ga
     ],
   };
 }
+
+/** 64-bit FNV-style hash of a text, as 16 hexadecimal characters (32-bit integer operations only). */
+function hashText(text: string): string {
+  let a = 0x811c9dc5;
+  let b = 0x9e3779b9;
+  for (let i = 0; i < text.length; i++) {
+    const code = text.charCodeAt(i);
+    a = Math.imul(a ^ code, 0x01000193);
+    b = Math.imul(b + code, 0x85ebca6b);
+    b ^= b >>> 15;
+  }
+  const hex = (value: number) => (value >>> 0).toString(16).padStart(8, '0');
+  return hex(a) + hex(b);
+}
+
+/**
+ * Fingerprint of everything the starting economy is built from: the seed, the countries, the
+ * regions (names, owners, adjacency in any order) and their profiles. Two worlds with the same
+ * fingerprint get the same starting economy; a starting save only fits a world with its fingerprint.
+ */
+export function worldFingerprint(world: GameWorldInput, profiles: Readonly<Record<string, RegionProfile>> = FICTIONAL_REGION_PROFILES): string {
+  const profile = (id: string) => {
+    const entry = profiles[id];
+    if (!entry) return null;
+    const advantage = entry.advantage ? Object.keys(entry.advantage).sort().map(key => [key, entry.advantage![key as keyof typeof entry.advantage]]) : null;
+    return [entry.population, entry.technology, entry.populationGrowth ?? null, advantage];
+  };
+  return hashText(JSON.stringify([
+    world.seed,
+    world.countries.map(country => [country.id, country.name]),
+    world.regions.map(region => [region.id, region.name, region.ownerId, [...region.adjacentRegionIds].sort(), profile(region.id)]),
+  ]));
+}

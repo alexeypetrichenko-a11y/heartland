@@ -1,5 +1,13 @@
 # Economy integration API (ECON-05)
 
+> **Handoff (contract 1.0.0):** the owner approved:
+> - **A1:** the engine is the only economy;
+> - **direct fiscal controls** replace the `standard` / `tax-relief` presets;
+> - **a pre-built starting economy** for the fictional scenario;
+> - **capture means occupation.**
+>
+> The exact, step-by-step instructions for connecting the game are in [`CODEX_HANDOFF.md`](CODEX_HANDOFF.md). Where it and this document differ, `CODEX_HANDOFF.md` is current.
+
 Audience: Codex (or whoever connects the game to the economy) and the project owner. This document describes the small, stable API in `economy-engine/src/integration/` that the playable game should use to run its economy. Nothing in the game uses it yet: **this milestone prepares the integration; it does not perform it.**
 
 - The worked example is `examples/fictional-game.ts` (`npm run example`).
@@ -15,7 +23,7 @@ Audience: Codex (or whoever connects the game to the economy) and the project ow
 | Pure and atomic | Like the game's `advanceTurn`, every call returns a new session and leaves its input untouched. Invalid input throws **before** anything is computed, so a refused week changes nothing. |
 | Deterministic | The same session plus the same input always gives the same result, also after save and load (checked with `economyFingerprint`). |
 | Same identifiers | Countries and regions keep the game's ids (§4). |
-| Same week numbers | The game starts in week 1. The economy's first week is resolved when the session is created, by the AI autopilot alone, so `session.week === gameState.week` throughout. |
+| Same week numbers | The game starts in week 1. The economy's first week is resolved when the session is created, by the autopilot for every country, before any player decision (so it does not depend on the player's choice). `session.week === gameState.week` throughout. |
 | Nothing runs on import | `src/integration/index.ts` only declares functions and constant data (tested). An economy exists only once `createEconomySession` is called. |
 
 ## 2. Quick start
@@ -57,6 +65,12 @@ All functions are exported from `src/integration/index.ts`. Types are in `src/in
 
 | Function | What it does |
 |---|---|
+| `startEconomyFromSave(text, world, { profiles? })` | **The normal way to start a game:** the pre-built week-1 economy (`scenarios/fictional-week1.economy.json`), checked against the world's fingerprint, with the player's country attached. Identical to `createEconomySession`, and 250–340 times faster. |
+| `fiscalLimits(session)`, `fiscalCommands(countryId, { taxes?, spending? })` | The limits of the direct fiscal controls, and the `set-tax` / `set-spending` commands for the controls that changed (CODEX_HANDOFF.md §4) |
+| `advanceWeekTogether({ game, session, advanceGame, economyCommands?, effects? })` | The combined, atomic weekly turn: check, game turn, economy turn with the new region owners, both returned together (CODEX_HANDOFF.md §5) |
+| `weeklyEconomyNotices(session)`, `describeEconomyEvent(session, event)` | One notice per event (`defeat`, `critical`, `warning`, `info`), with text, sorted most severe first (CODEX_HANDOFF.md §6) |
+| `worldFingerprint(world, profiles?)`, `session.worldFingerprint` | Fingerprint of the world an economy belongs to |
+| `INTEGRATION_CONTRACT_VERSION` | `'1.0.0'` |
 | `createEconomySession(world, { profiles? })` | Builds and calibrates the economy for the game's countries and regions (31-good catalogue, 10 sectors), then resolves week 1. `world` is a `GameWorldInput`, which the game's `GameState` satisfies. Throws on any mapping error (§4). |
 | `getCountryEconomy(session, countryId)` | `CountryEconomyView` of the last resolved week. |
 | `getRegionEconomy(session, regionId)` | `RegionEconomyView` of the last resolved week. |
@@ -85,6 +99,8 @@ All money is in the engine's illustrative units, as decimal numbers; the UI roun
 | `centralBank` | Policy rate, firm loan rate, reserves, loans to the state and to firms, money issued, equity (capital), lending capacity, exceptional money, plant held for sale |
 | `sectors[]` | Per sector: `output` and `capacity` at constant prices, `utilization`, `shortage` (index 0–1 of its worst-supplied good, population-weighted), `goodsShort` |
 | `regionIds`, `population`, `controller` | Regions controlled (including any occupied), population, `'player'` or `'ai'` |
+| `fiscal` | Current tax rates (`income`, `consumption`, `corporate`) and spending shares of GDP (`administration`, `social`, `military`, `infrastructure`) |
+| `budget.detail.unpaidInterest` | Interest due but not paid this week, which is added to the debt. Debt changes by exactly `borrowed − repaid − written off in a default + unpaidInterest` (tested). |
 
 | `RegionEconomyView` field | Meaning |
 |---|---|
@@ -141,17 +157,17 @@ The fictional scenario's profiles describe three economies:
 
 ## 5. One authoritative economy: migration strategy
 
-**Target.** The engine session is the only economic state. The game's T06 treasury (`resolveWeeklyEconomy`) stops running for a game that has an economy session, so money is never counted twice. Activating this needs the owner's decision A1 (`DECISIONS_REQUIRING_APPROVAL.md`), because the engine allows deficits, borrowing and default where T06 rejects the week.
+**Target (A1 approved).** The engine session is the only economic state. T06 is removed, not kept in parallel. The exact file-by-file migration is in `CODEX_HANDOFF.md` §3; this section gives the background.
 
 | Game field or system | Fate |
 |---|---|
-| `Country.economy.treasury`, `weeklyIncome`, `weeklyExpenses` | **Replaced.** During the migration they are display values computed by `legacyEconomyView`, never stored back or fed into `calculateWeeklyBudget` (those numbers are not whole and would be counted twice). Remove them afterwards. |
-| `Country.economicPolicy` ('standard' / 'tax-relief') and the `set-economic-policy` command | **Replaced** by engine commands (`set-tax` and the others). Mapping the two old policies onto tax rates is a design decision for the owner; no mapping is assumed. |
-| `economy.ts` (`calculateWeeklyBudget`, `resolveWeeklyEconomy`) | Kept, with its tests, for games without an economy session, until removal is approved. Not called when a session exists. |
+| `Country.economy.treasury`, `weeklyIncome`, `weeklyExpenses` | **Removed** (A1). The panel reads `CountryEconomyView` (`treasury`, `budget.revenue`, `budget.expenditure`). `legacyEconomyView` remains only as a convenience in the old shape; its values must never be stored or fed into any game arithmetic. |
+| `Country.economicPolicy` ('standard' / 'tax-relief') and the `set-economic-policy` command | **Retired** (approved). Replaced by direct controls for three taxes and four spending categories (`fiscalCommands`); no mapping from the old presets. |
+| `economy.ts` (`calculateWeeklyBudget`, `resolveWeeklyEconomy`) | **Removed** with its tests (approved, A1) |
 | `week`, `seed`, `playerCountryId`, `countries` (id, name, controller), `regions` (id, name, ownerId, adjacency) | **Kept**; the economy reads them |
 | `divisions`, military orders and results, `relations`, diplomacy, standing orders | **Kept**, unchanged |
 | Region ownership changes from combat | Kept in the game. **Adapter:** passed each week as `regionControl` |
-| Economy panel | **Adapter:** reads `CountryEconomyView` (or `legacyEconomyView` for the old three tiles) |
+| Economy panel | Reads `CountryEconomyView` and edits the fiscal controls (CODEX_HANDOFF.md §4) |
 | Defeat | **Adapter:** `summary.playerRegimeFell` (the first regime change of the player's country) ends the game |
 | Save | **Adapter:** the game save stores `saveEconomySession(session)` next to the `GameState`. On load, check `session.week === gameState.week`. |
 
@@ -187,52 +203,35 @@ The figures below come from `reports/INTEGRATION_BENCHMARK.md`, headless Chromiu
 | A whole 156-week game | 0.35 s | 1.7 s |
 | Save / load | 1.3 / 2.6 ms | 15 / 21 ms |
 | Save size (week 156) | 296 KB | |
-| Bundle loaded lazily (integration API + engine + catalogue) | 147 KB minified, 48 KB gzip | |
+| Bundle loaded lazily (integration API + engine + catalogue) | 153 KB minified, 50 KB gzip | |
+| Start from the pre-built starting save | 1.6 ms | 7.5 ms |
 
 The API adds about 15% to the engine's own weekly cost (the state copy that makes the call atomic, and the weekly summary): 2.6 ms against 2.3 ms in Node.
 
 Rules for the game:
 - **Never import the integration module statically** from anything the globe or the start screen loads. Use `await import(...)` when the player launches a game, as `App.tsx` already does for `AtlasMap`.
-- **Create the session once** per game, when it starts.
-  - On a slow phone this takes about 2 s, so show a "Preparing the economy…" state.
-  - Better for the fixed fictional scenario: ship a pre-built save of week 1 and use `loadEconomySession`, which takes about 20 ms. The result is identical, because creation is deterministic.
-  - A Web Worker is an alternative, later.
+- **Start from the pre-built save** with `startEconomyFromSave`: about 8 ms at 6× CPU throttle, against about 2 s for `createEconomySession`, with an identical result. The save is 182 KB (63 KB gzip), and the game loads it lazily as text (`?raw` in Vite).
 - **Keep the session immutable.** Store the returned session, don't copy or mutate `session.state`, and don't serialise it every week (only when saving).
 
-## 7. Instructions for Codex: connecting the UI (each step a separate, approved task)
+## 7. Instructions for Codex
 
-Read `AGENTS.md` first.
-
-- **Work in the game's own folders.** Do not change anything in `economy-engine/`.
-- **Use only `economy-engine/src/integration/index.ts`.** Do not use `economy-engine/src/index.ts` or engine internals from the game; ask for an API change instead.
-- **Owner decision A1 comes first.** Do not remove T06 or change its rules until the owner has approved that the engine replaces it.
-
-1. **Bridge (no UI change).** Add `src/game/economyBridge.ts`:
-   - `startEconomy(gameState)` → session. It lazily imports the integration module and calls `createEconomySession`.
-   - `advanceGameWeek(gameState, session, commands, economyCommands)` → `{ gameState, session }`, following the turn order in §5 (validate both, resolve the game turn, then `advanceEconomyWeek` with `regionControl`, then commit both).
-
-   Tests use the fixture: weeks advance in step, a capture becomes an occupation, an invalid economic command refuses the whole week, and save/load round-trips. Run `npm test` and `npm run build`.
-2. **Launch.** In `App.tsx`, create the session when a game starts (after country selection), with a loading state. Keep it in React state next to `gameState`. Nothing must load for the globe alone; check the network panel or bundle chunks to confirm.
-3. **Economy panel (read-only).** Show the player country's `gdpReal`, `gdpGrowth`, `inflation`, `unemployment`, `stability`, `budget.revenue` / `expenditure` / `balance`, `treasury` and `debtToGdp`.
-   - Use the existing tile and DetailPanel style, on iPhone first (safe areas, touch).
-   - Use "—" for a `null` growth.
-   - Keep the "Illustrative units" caption.
-4. **Region details.** In the region panel, show `RegionEconomyView` sectors (output, utilisation, shortage) and occupation status.
-5. **First decisions.** One or two controls (income tax rate, social spending share) producing `set-tax` / `set-spending` commands for next week.
-   - Validate drafts with `checkEconomyCommands` and show the reason when invalid.
-   - Pending drafts behave like the current tax-policy draft.
-6. **Events and defeat.** Show `summary.events` in the weekly log. End the game on `playerRegimeFell`.
-7. **Save/load.** Store `saveEconomySession(session)` with the game save, and verify the week numbers match on load.
-8. **Validate on an iPhone** before adding more screens.
+Superseded by [`CODEX_HANDOFF.md`](CODEX_HANDOFF.md), which covers:
+- starting a game (§2);
+- the exact T06 migration (§3);
+- the fiscal controls with command examples (§4);
+- weekly sequencing and rollback (§5);
+- events and defeat (§6);
+- game-side tests (§7);
+- when to ask Claude (§8).
 
 ## 8. Limitations
 
-- **Integration not done.** The engine is still unused by the game, and T06 still runs in the game.
+- **Integration not done.** The engine is still unused by the game, and T06 still runs in the game until Codex applies `CODEX_HANDOFF.md`.
 - **Invented regional data.** The six region profiles are illustrations, and road distance and lane capacities are provisional. The real playable countries and regions need approved data.
 - **Starting adjustment.** The economy's first weeks include a price adjustment: annualised inflation of about 7–11% in week 1, about 4–5% after a year and about 2% in the third year. Growth is therefore hidden until half a year is on record.
 - **Money units.** Figures are illustrative units with decimals. There are no national currencies; one shared money unit is used (R36 not implemented).
 - **AI countries** are steered only by the fiscal autopilot. They don't use trade, war-economy or ownership commands.
-- **Creation time.** Creating a session takes about 2 s on a slow phone (§6). Shipping a pre-built save or using a worker is recommended but not done.
+- **Creation time.** Building a new economy takes about 2 s on a slow phone. The pre-built starting save avoids this for the fictional scenario; other worlds will need their own save.
 - **Same-week effects.** Commands are checked against the state at the start of the week. A command that depends on an effect of the same week, such as setting the policy of a region occupied this week, must wait until the next week.
 - **No iPhone or Safari measurement** yet. Determinism across JavaScript engines is designed for but untested.
 - **Long-run collapse.** The documented collapse after about 290 years (Milestone 3) is far beyond the 52–156-week games.

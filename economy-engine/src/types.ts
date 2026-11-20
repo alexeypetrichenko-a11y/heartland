@@ -782,6 +782,8 @@ export interface BudgetReport {
   reservePurchases: number;
   /** Interest paid to bondholders and to the central bank. */
   interest: number;
+  /** Interest due but not paid this week; it was added to the debt (not part of spending). */
+  unpaidInterest: number;
   fundsSent: number;
   /** Cash injected into struggling public and mixed firm aggregates (rescues, debt relief, recapitalisations). */
   firmSupport: number;

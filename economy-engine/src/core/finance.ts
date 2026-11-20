@@ -262,6 +262,7 @@ export function planBudgets(s: EconomyState, w: Workspace, m: Model, events: Eco
       const unpaid = interestDue - paid;
       if (unpaid > interestDue * 1e-9) {
         missed = true;
+        w.interestUnpaid[c] += unpaid;
         // Unpaid interest is added to what the country owes.
         const unpaidBank = bankDue - bankPaid;
         if (country.debt[c] > EPSILON) scaleDebt(s, c, (country.debt[c] + unpaid - unpaidBank) / country.debt[c]);

@@ -8,15 +8,18 @@
  * Importing it runs nothing; see INTEGRATION_API.md for the full contract.
  */
 export {
-  advanceEconomyWeek, checkEconomyCommands, createEconomySession, economyFingerprint, getCountryEconomy, getRegionEconomy,
-  legacyEconomyView, loadEconomySession, regionControlEffects, saveEconomySession, SESSION_FORMAT, SESSION_VERSION, withPlayerCountry,
+  advanceEconomyWeek, advanceWeekTogether, checkEconomyCommands, createEconomySession, economyFingerprint, fiscalCommands, fiscalLimits,
+  getCountryEconomy, getRegionEconomy, INTEGRATION_CONTRACT_VERSION, legacyEconomyView, loadEconomySession, regionControlEffects,
+  saveEconomySession, SESSION_FORMAT, SESSION_VERSION, SPENDING_CATEGORIES, startEconomyFromSave, TAX_KINDS, withPlayerCountry,
 } from './session.ts';
 export type {
-  BudgetView, CountryEconomyView, CreateSessionOptions, EconomySession, EconomyWeekInput, EconomyWeekSummary, RegionEconomyView,
-  SectorEconomyView,
+  BudgetView, CountryEconomyView, CreateSessionOptions, EconomySession, EconomyWeekInput, EconomyWeekSummary, FiscalLimits, FiscalPolicyView,
+  GameTurnState, RegionEconomyView, SectorEconomyView,
 } from './session.ts';
+export { describeEconomyEvent, weeklyEconomyNotices } from './events.ts';
+export type { EconomyNotice, EconomyNoticeSeverity } from './events.ts';
 export {
-  ADJACENT_ROAD_DISTANCE, fictionalGameWorld, FICTIONAL_REGION_PROFILES, roadLaneId, validateGameWorld, worldSpecFromGame,
+  ADJACENT_ROAD_DISTANCE, fictionalGameWorld, FICTIONAL_REGION_PROFILES, roadLaneId, validateGameWorld, worldFingerprint, worldSpecFromGame,
 } from './scenario.ts';
 export type { GameWorldInput, RegionProfile } from './scenario.ts';
 // Command, effect and event shapes the game sends and receives (unchanged engine contracts).

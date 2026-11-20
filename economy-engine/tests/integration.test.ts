@@ -222,7 +222,7 @@ test('importing the integration API runs nothing: every top-level statement is a
   for (const name of readdirSync(dir)) {
     const lines = readFileSync(join(dir, name), 'utf8').split('\n');
     for (const line of lines) {
-      if (!/^\S/.test(line) || /^(import|export|\/\/|\/\*|\s?\*|}|\)|]|interface|type|function|const [A-Z_]+(: [^=]+)? = ['{[\d]|const [A-Z_]+ = \{)/.test(line)) continue;
+      if (!/^\S/.test(line) || /^(import|export|\/\/|\/\*|\s?\*|}|\)|]|interface|type|function|const [A-Z_]+(: [^=]+)? = ['{[\d]|const [A-Z_]+ = \{|const \w+ = \([^)]*\) =>)/.test(line)) continue;
       assert.fail(`${name}: top-level statement may run code at import: ${line}`);
     }
   }

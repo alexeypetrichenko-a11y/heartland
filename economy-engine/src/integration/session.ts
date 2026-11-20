@@ -1,5 +1,6 @@
 import type {
-  BudgetReport, CentralBankReport, CountryId, EconomyCommand, EconomyEvent, EconomyState, ExternalEffect, OccupationPolicy, TurnReport, ZoneId,
+  BudgetReport, CentralBankReport, CountryId, EconomyCommand, EconomyEvent, EconomyState, ExternalEffect, OccupationPolicy, SpendingCategory, TaxKind,
+  TurnReport, ZoneId,
 } from '../types.ts';
 import { autopilotCommands } from '../ai/autopilot.ts';
 import { resolveInput } from '../core/commands.ts';
@@ -10,7 +11,7 @@ import { getCountryHistory } from '../core/stats.ts';
 import { advanceEconomy } from '../core/step.ts';
 import { createEconomy } from '../world/builder.ts';
 import type { GameWorldInput, RegionProfile } from './scenario.ts';
-import { FICTIONAL_REGION_PROFILES, worldSpecFromGame } from './scenario.ts';
+import { FICTIONAL_REGION_PROFILES, worldFingerprint, worldSpecFromGame } from './scenario.ts';
 
 /**
  * Integration API for the HEARTLAND game (ECON-05).
@@ -35,7 +36,29 @@ import { FICTIONAL_REGION_PROFILES, worldSpecFromGame } from './scenario.ts';
  */
 
 export const SESSION_FORMAT = 'heartland-economy-session';
-export const SESSION_VERSION = 1;
+/** Version 2 (handoff): saves record the fingerprint of the game world they belong to. */
+export const SESSION_VERSION = 2;
+/** Version of this integration contract (functions, views and their meaning). */
+export const INTEGRATION_CONTRACT_VERSION = '1.0.0';
+
+/** The player's direct fiscal controls (approved handoff decision): three taxes and four spending categories. */
+export interface FiscalPolicyView {
+  /** Tax rates, as fractions (0.2 = 20%). */
+  taxes: Record<TaxKind, number>;
+  /** Spending targets, as shares of GDP (0.05 = 5% of GDP). */
+  spending: Record<SpendingCategory, number>;
+}
+
+/** Limits the engine accepts for the fiscal controls (from the economy's configuration). */
+export interface FiscalLimits {
+  /** Highest tax rate, for every tax. */
+  maxTaxRate: number;
+  /** Highest spending share of GDP, for every category. */
+  maxSpendingShare: number;
+}
+
+export const TAX_KINDS: readonly TaxKind[] = ['income', 'consumption', 'corporate'];
+export const SPENDING_CATEGORIES: readonly SpendingCategory[] = ['administration', 'social', 'military', 'infrastructure'];
 
 /** One sector in one region or country, for the last resolved week. Values at constant (base) prices. */
 export interface SectorEconomyView {
@@ -103,6 +126,8 @@ export interface CountryEconomyView {
   marketRate: number;
   marketAccess: boolean;
   centralBank: CentralBankReport;
+  /** Current tax rates and spending targets (in force for the next week). */
+  fiscal: FiscalPolicyView;
   sectors: SectorEconomyView[];
 }
 
@@ -141,6 +166,8 @@ export interface EconomyWeekSummary {
 
 export interface EconomySession {
   readonly format: typeof SESSION_FORMAT;
+  /** Fingerprint of the game world (ids, names, owners, adjacency, seed, profiles) the economy was built for. */
+  readonly worldFingerprint: string;
   readonly playerCountryId: CountryId | null;
   /** The engine's state. Read it only through this API (or the engine's selectors); never change it. */
   readonly state: EconomyState;
@@ -265,6 +292,17 @@ function sectorViews(state: EconomyState, report: TurnReport, zones: readonly nu
   });
 }
 
+function fiscalPolicy(state: EconomyState, c: number): FiscalPolicyView {
+  const country = state.country;
+  return {
+    taxes: { income: country.taxIncome[c], consumption: country.taxConsumption[c], corporate: country.taxCorporate[c] },
+    spending: {
+      administration: country.spendAdministration[c], social: country.spendSocial[c], military: country.spendMilitary[c],
+      infrastructure: country.spendInfrastructure[c],
+    },
+  };
+}
+
 function summarize(state: EconomyState, report: TurnReport, playerCountryId: CountryId | null): EconomyWeekSummary {
   const countries: CountryEconomyView[] = report.countries.map((entry, c) => {
     const zones: number[] = [];
@@ -296,6 +334,7 @@ function summarize(state: EconomyState, report: TurnReport, playerCountryId: Cou
       marketRate: entry.marketRate,
       marketAccess: entry.marketAccess,
       centralBank: entry.centralBank,
+      fiscal: fiscalPolicy(state, c),
       sectors: sectorViews(state, report, zones),
     };
   });
@@ -322,10 +361,14 @@ function summarize(state: EconomyState, report: TurnReport, playerCountryId: Cou
 }
 
 /** Resolve one week on a copy of `state` (the input is untouched): AI autopilot plus the given input. */
-function resolveWeek(state: EconomyState, playerCountryId: CountryId | null, commands: readonly EconomyCommand[], effects: readonly ExternalEffect[]): EconomySession {
+function resolveWeek(state: EconomyState, world: string, playerCountryId: CountryId | null, commands: readonly EconomyCommand[],
+  effects: readonly ExternalEffect[]): EconomySession {
   const ai = state.countries.map(country => country.id).filter(id => id !== playerCountryId);
   const result = advanceEconomy(state, { commands: [...autopilotCommands(state, ai), ...commands], effects }, { audit: true, report: 'full' });
-  return { format: SESSION_FORMAT, playerCountryId, state: result.state, summary: summarize(result.state, result.report, playerCountryId), week: result.state.turn };
+  return {
+    format: SESSION_FORMAT, worldFingerprint: world, playerCountryId, state: result.state,
+    summary: summarize(result.state, result.report, playerCountryId), week: result.state.turn,
+  };
 }
 
 /**
@@ -334,9 +377,51 @@ function resolveWeek(state: EconomyState, playerCountryId: CountryId | null, com
  * call it once, when a game is launched, never just to display the map.
  */
 export function createEconomySession(world: GameWorldInput, options: CreateSessionOptions = {}): EconomySession {
-  const state = createEconomy(worldSpecFromGame(world, options.profiles ?? FICTIONAL_REGION_PROFILES));
-  // Game week 1: the economy's first week, resolved by the autopilot before any player decision.
-  return resolveWeek(state, world.playerCountryId, [], []);
+  const profiles = options.profiles ?? FICTIONAL_REGION_PROFILES;
+  const state = createEconomy(worldSpecFromGame(world, profiles));
+  // Game week 1: the economy's first week, resolved by the autopilot for every country before any
+  // player decision. It therefore does not depend on which country the player chose, which is what
+  // lets a pre-built starting save serve every choice (see startEconomyFromSave).
+  const first = resolveWeek(state, worldFingerprint(world, profiles), null, [], []);
+  return withPlayerCountry(first, world.playerCountryId);
+}
+
+/**
+ * Start a game from a pre-built starting save (for example the fictional scenario's week-1 save)
+ * instead of building the economy: a few hundred times faster, and identical to createEconomySession
+ * for the same world. Throws if the save was built for a different world (ids, owners, adjacency,
+ * seed or profiles) or is not a starting save.
+ */
+export function startEconomyFromSave(text: string, world: GameWorldInput, options: CreateSessionOptions = {}): EconomySession {
+  const session = loadEconomySession(text);
+  const expected = worldFingerprint(world, options.profiles ?? FICTIONAL_REGION_PROFILES);
+  if (session.worldFingerprint !== expected) throw new Error('This starting economy was built for a different game world.');
+  if (session.week !== 1) throw new Error(`A starting economy must be at week 1, not week ${session.week}.`);
+  return withPlayerCountry(session, world.playerCountryId);
+}
+
+/** Fiscal limits the engine accepts (rates and shares above them are refused). */
+export function fiscalLimits(session: EconomySession): FiscalLimits {
+  const p = session.state.config.params;
+  return { maxTaxRate: p.maxTaxRate, maxSpendingShare: p.maxSpendingShare };
+}
+
+/**
+ * Commands for the player's fiscal controls: one `set-tax` per tax and one `set-spending` per
+ * category given (only those that are given). Values are fractions: rates of the tax base and
+ * shares of GDP. They take effect in the next resolved week and stay until changed.
+ */
+export function fiscalCommands(countryId: CountryId, changes: { taxes?: Partial<Record<TaxKind, number>>; spending?: Partial<Record<SpendingCategory, number>> }): EconomyCommand[] {
+  const commands: EconomyCommand[] = [];
+  for (const tax of TAX_KINDS) {
+    const rate = changes.taxes?.[tax];
+    if (rate !== undefined) commands.push({ type: 'set-tax', countryId, tax, rate });
+  }
+  for (const category of SPENDING_CATEGORIES) {
+    const share = changes.spending?.[category];
+    if (share !== undefined) commands.push({ type: 'set-spending', countryId, category, share });
+  }
+  return commands;
 }
 
 /** The same session with another (or no) player country. Nothing is simulated. */
@@ -360,7 +445,39 @@ export function advanceEconomyWeek(session: EconomySession, input: EconomyWeekIn
   const commands = input.playerCommands ?? [];
   authorize(session.playerCountryId, commands);
   const effects = [...(input.regionControl ? regionControlEffects(session, input.regionControl) : []), ...(input.effects ?? [])];
-  return resolveWeek(session.state, session.playerCountryId, commands, effects);
+  return resolveWeek(session.state, session.worldFingerprint, session.playerCountryId, commands, effects);
+}
+
+/** The fields of the game state the combined weekly turn needs (a GameState fits this shape). */
+export interface GameTurnState {
+  week: number;
+  regions: readonly { id: string; ownerId: CountryId }[];
+}
+
+/**
+ * Reference implementation of the combined weekly turn (game and economy together, atomically):
+ *  1. the player's economic commands are checked; if one is invalid, nothing runs;
+ *  2. the game resolves its own week (`advanceGame`: diplomacy, AI, military; without T06);
+ *  3. the economy resolves the same week, with the regions' owners after the military moves;
+ *  4. both are returned together. If any step throws, nothing is returned and the caller still
+ *     holds the unchanged game state and session: the week is refused as a whole.
+ */
+export function advanceWeekTogether<G extends GameTurnState>(input: {
+  game: G;
+  session: EconomySession;
+  advanceGame: (game: G) => G;
+  economyCommands?: readonly EconomyCommand[];
+  effects?: readonly ExternalEffect[];
+}): { game: G; session: EconomySession } {
+  const { game, session } = input;
+  if (game.week !== session.week) throw new Error(`Game week ${game.week} and economy week ${session.week} differ.`);
+  const commands = input.economyCommands ?? [];
+  const problem = checkEconomyCommands(session, commands);
+  if (problem) throw new Error(problem);
+  const nextGame = input.advanceGame(game);
+  if (nextGame.week !== game.week + 1) throw new Error('The game turn must advance exactly one week.');
+  const nextSession = advanceEconomyWeek(session, { playerCommands: commands, regionControl: nextGame.regions, effects: input.effects ?? [] });
+  return { game: nextGame, session: nextSession };
 }
 
 export function getCountryEconomy(session: EconomySession, countryId: CountryId): CountryEconomyView {
@@ -391,7 +508,10 @@ export function economyFingerprint(session: EconomySession): string {
 
 /** Text form of a session, to store with the game's save. */
 export function saveEconomySession(session: EconomySession): string {
-  return JSON.stringify({ format: SESSION_FORMAT, version: SESSION_VERSION, playerCountryId: session.playerCountryId, summary: session.summary, economy: session.state });
+  return JSON.stringify({
+    format: SESSION_FORMAT, version: SESSION_VERSION, worldFingerprint: session.worldFingerprint, playerCountryId: session.playerCountryId,
+    summary: session.summary, economy: session.state,
+  });
 }
 
 /** Restore a session saved with saveEconomySession. Rejects damaged or foreign data. */
@@ -405,6 +525,7 @@ export function loadEconomySession(text: string): EconomySession {
   const record = parsed as Record<string, unknown> | null;
   if (typeof record !== 'object' || record === null || record.format !== SESSION_FORMAT) throw new Error('Invalid economy session save: unknown format.');
   if (record.version !== SESSION_VERSION) throw new Error(`Invalid economy session save: version ${String(record.version)} is not supported.`);
+  if (typeof record.worldFingerprint !== 'string' || !/^[0-9a-f]{16}$/.test(record.worldFingerprint)) throw new Error('Invalid economy session save: world fingerprint missing.');
   const state = restoreEconomy(record.economy);
   const playerCountryId = record.playerCountryId;
   if (playerCountryId !== null && (typeof playerCountryId !== 'string' || !state.countries.some(country => country.id === playerCountryId))) {
@@ -416,5 +537,5 @@ export function loadEconomySession(text: string): EconomySession {
     || !Array.isArray(summary.events)) {
     throw new Error('Invalid economy session save: the weekly summary does not match the economy.');
   }
-  return { format: SESSION_FORMAT, playerCountryId, state, summary, week: state.turn };
+  return { format: SESSION_FORMAT, worldFingerprint: record.worldFingerprint, playerCountryId, state, summary, week: state.turn };
 }

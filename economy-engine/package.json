@@ -19,7 +19,8 @@
     "test:report": "node sim/test-report.cjs",
     "bench": "node --experimental-strip-types sim/benchmark.ts",
     "example": "node --experimental-strip-types examples/fictional-game.ts",
-    "bench:integration": "node sim/integration-bench.cjs"
+    "bench:integration": "node sim/integration-bench.cjs",
+    "starting-save": "node --experimental-strip-types sim/build-starting-save.ts"
   },
   "devDependencies": {
     "@types/node": "^22.20.5",

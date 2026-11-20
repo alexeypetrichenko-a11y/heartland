@@ -10,6 +10,7 @@ A deterministic, serializable, offline world-economy simulation in plain TypeScr
 * **Milestone 3** (state and ownership, need-based monetary operations, repeated defaults): [`MILESTONE_3.md`](MILESTONE_3.md)
 * **Milestone 4** (occupation, occupation policies, transport capacity and military requisition): [`MILESTONE_4.md`](MILESTONE_4.md)
 * **ECON-05** (integration API for the game): [`INTEGRATION_API.md`](INTEGRATION_API.md), results in [`ECON_05.md`](ECON_05.md)
+* **Handoff to Codex** (A1 approved; exact instructions to connect the game): [`CODEX_HANDOFF.md`](CODEX_HANDOFF.md), results in [`HANDOFF_REPORT.md`](HANDOFF_REPORT.md); pre-built starting economy in [`scenarios/`](scenarios/) (`npm run starting-save`)
 * Generated evidence: [`reports/`](reports/) (scenarios, stability, browser benchmark, test results, configuration reference)
 
 ## What it does
