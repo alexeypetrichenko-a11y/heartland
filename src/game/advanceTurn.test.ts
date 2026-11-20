@@ -18,7 +18,7 @@ function freeze<T>(value: T): T {
   return value;
 }
 
-test('every completed turn advances exactly one week, preserving geography, military and base economics', () => {
+test('every completed turn advances exactly one week, preserving geography, military and countries', () => {
   for (const country of createInitialState().countries) {
     const initial = freeze(selectCountry(createInitialState(), country.id));
     let state = initial;
@@ -27,10 +27,8 @@ test('every completed turn advances exactly one week, preserving geography, mili
       assert.equal(state.week, week);
       assert.deepEqual({ ...state, week: initial.week, countries: initial.countries,
         relations: initial.relations, diplomaticMessages: initial.diplomaticMessages }, initial);
-      assert.deepEqual(state.countries, initial.countries.map(country => ({
-        ...country,
-        economy: { ...country.economy, treasury: country.economy.treasury + (week - 1) * 4 },
-      })));
+      // The game turn holds no economy: treasuries and budgets live in the economic session (INT-01).
+      assert.deepEqual(state.countries, initial.countries);
     }
   }
 });

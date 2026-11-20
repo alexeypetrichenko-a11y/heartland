@@ -93,10 +93,9 @@ test('AI public explanations never disclose that a bilateral offer is pending', 
   assert.doesNotMatch(outsiders[0].reason, /offer|pending|private/);
 });
 
-test('AI diplomatic outcomes do not change fixed budgets, player policy, movement or exact combat outcomes', () => {
+test('AI diplomatic outcomes do not change movement or exact combat outcomes', () => {
   const state = start();
   let result = advanceTurn(state, [
-    { type: 'set-economic-policy', countryId: 'alden', policy: 'tax-relief' },
     { type: 'set-military-order', countryId: 'alden', divisionId: 'alden-first', order: { kind: 'attack', targetRegionId: 'amber-plain' } },
     { type: 'declare', countryId: 'alden', targetId: 'belora', stance: 'condemnation' },
   ]);
@@ -104,8 +103,7 @@ test('AI diplomatic outcomes do not change fixed budgets, player policy, movemen
   result = advanceTurn(advanceTurn(result));
   assert.deepEqual(result.divisions.map(division => division.manpower), [593, 0, 1000]);
   assert.equal(result.regions.find(region => region.id === 'amber-plain')!.ownerId, 'alden');
-  assert.deepEqual(result.countries.map(country => country.economy.treasury), [94, 102, 122]);
-  assert.equal(result.countries[0].economicPolicy, 'tax-relief');
+  assert.deepEqual(result.countries, state.countries);
   assert.ok(result.divisions.filter(division => division.ownerId !== 'alden').every(division => division.order.kind === 'defend'));
   const moved = advanceTurn(start(), [{ type: 'set-military-order', countryId: 'alden', divisionId: 'alden-first', order: { kind: 'move', targetRegionId: 'reed-coast' } }]);
   assert.equal(moved.divisions[0].regionId, 'reed-coast');

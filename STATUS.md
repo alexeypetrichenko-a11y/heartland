@@ -137,6 +137,8 @@ Historical sections below retain their original verification scope. The latest s
 
 ## T06 — Minimal weekly economy and treasury feedback
 
+> **Superseded by INT-01** (branch `task/int-01-economy-integration`, awaiting owner review). T06's treasury, budget, Standard / Tax relief policy and insufficient-funds rejection were removed under decision A1. The economic engine (`economy-engine/`, contract 1.0.0) is now the only economy. Details, tests, measurements and limitations: [docs/economy/INT-01.md](docs/economy/INT-01.md). The T06 record below is historical.
+
 - [x] Reuses the deterministic `advanceTurn` engine. Each successful week settles all three countries' fixed budgets once, including AI-labeled countries without adding AI decisions. Country selection, regions, map, divisions, controller labels and placeholder order lifecycle are preserved.
 - [x] Pure `src/game/economy.ts` calculates effective income, expenses and balance, and resolves treasury. `src/game/models.ts` adds one `EconomicPolicy` setting to each country and a validated `set-economic-policy` turn command; `src/game/initialState.ts` starts every country at standard taxation.
 - [x] Only the selected player can change their policy. Commands apply in array order before budget settlement; the final policy persists across empty turns and JSON round trips. Existing `weeklyIncome` remains base income, so the policy adjustment never compounds.

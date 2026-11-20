@@ -270,11 +270,10 @@ test('real-world data loading leaves the fictional three-country/six-region scen
   assert.equal(state.regions.length, 6);
   assert.ok(state.regions.every(r => !r.id.startsWith('ne:')));
   const next = advanceTurn(state, [
-    { type: 'set-economic-policy', countryId: 'alden', policy: 'tax-relief' },
     { type: 'set-military-order', countryId: 'alden', divisionId: 'alden-first', order: { kind: 'move', targetRegionId: 'reed-coast' } },
   ]);
   assert.equal(next.week, 2);
-  assert.equal(next.countries[0].economy.treasury, 98);
+  assert.deepEqual(next.countries, state.countries);
   assert.equal(next.divisions[0].regionId, 'reed-coast');
   assert.equal(next.regions.length, 6);
 });
