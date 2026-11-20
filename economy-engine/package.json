@@ -1,0 +1,25 @@
+{
+  "name": "heartland-economy-engine",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Standalone, deterministic economic engine prototype for HEARTLAND. No runtime dependencies.",
+  "type": "module",
+  "engines": {
+    "node": "^22.12.0 || >=24.0.0"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.core.json",
+    "test": "node --experimental-strip-types --test \"tests/*.test.ts\"",
+    "test:long": "node --experimental-strip-types --test \"tests/long/*.test.ts\"",
+    "sim": "node --experimental-strip-types sim/cli.ts",
+    "scenarios": "node --experimental-strip-types sim/run-scenarios.ts",
+    "stress": "node --experimental-strip-types --expose-gc sim/stress.ts",
+    "bench:browser": "node sim/browser-bench.cjs",
+    "config-reference": "node --experimental-strip-types sim/dump-config.ts",
+    "test:report": "node sim/test-report.cjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "typescript": "~5.9.3"
+  }
+}
