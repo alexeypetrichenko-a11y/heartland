@@ -28,6 +28,7 @@ precision mediump float;
 uniform sampler2D world;
 uniform sampler2D selection;
 uniform bool hasSelection;
+uniform bool regionSelected;
 uniform vec3 highlight;
 varying vec2 textureUV;
 varying vec3 surfaceNormal;
@@ -37,7 +38,11 @@ void main() {
   float light = 0.90 + 0.10 * max(0.0, dot(n, normalize(vec3(-0.35, 0.5, 1.0))));
   float rim = pow(1.0 - max(0.0, n.z), 4.0) * 0.10;
   color = color * light + vec3(0.12, 0.24, 0.32) * rim;
-  if (hasSelection) color = mix(color, highlight, texture2D(selection, textureUV).a * ${COUNTRY_HIGHLIGHT_OPACITY});
+  if (hasSelection) {
+    float alpha = texture2D(selection, textureUV).a;
+    if (regionSelected) alpha = max(0.0, 2.0 * alpha - 1.0);
+    color = mix(color, highlight, alpha * ${COUNTRY_HIGHLIGHT_OPACITY});
+  }
   gl_FragColor = vec4(color, 1.0);
 }`;
 const BORDER_VERTEX = `
@@ -45,18 +50,32 @@ attribute vec3 position;
 uniform mat3 rotation;
 uniform vec2 scale;
 varying float facing;
+varying vec3 geographic;
 void main() {
   vec3 p = rotation * position;
   facing = p.z;
+  geographic = position;
   gl_Position = vec4(p.xy * scale, 0.0, 1.0);
 }`;
 const BORDER_FRAGMENT = `
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+#else
 precision mediump float;
+#endif
 varying float facing;
+varying vec3 geographic;
 uniform float opacity;
 uniform vec3 color;
+uniform sampler2D selection;
+uniform bool clipToCountry;
 void main() {
   if (facing < 0.0) discard;
+  if (clipToCountry) {
+    vec3 n = normalize(geographic);
+    vec2 uv = vec2(0.5 + atan(n.x, n.z) / 6.2831853, 0.5 - asin(clamp(n.y, -1.0, 1.0)) / 3.1415927);
+    if (texture2D(selection, uv).a < 0.25) discard;
+  }
   gl_FragColor = vec4(color, opacity);
 }`;
 
@@ -86,9 +105,13 @@ export function createGlobeRenderer(canvas: HTMLCanvasElement) {
   const borderPosition = gl.getAttribLocation(borderProgram, 'position');
   const borderRotation = gl.getUniformLocation(borderProgram, 'rotation'), borderScale = gl.getUniformLocation(borderProgram, 'scale');
   const borderOpacity = gl.getUniformLocation(borderProgram, 'opacity'), borderColor = gl.getUniformLocation(borderProgram, 'color');
+  const clipToCountry = gl.getUniformLocation(borderProgram, 'clipToCountry');
+  gl.useProgram(borderProgram);
+  gl.uniform1i(gl.getUniformLocation(borderProgram, 'selection'), 1);
   let borderCount = 0, previousBorderCount = 0;
+  let regionBuffer: WebGLBuffer | null = null, regionCount = 0;
   const selectionBorder = gl.createBuffer()!, selectionTexture = gl.createTexture()!;
-  let hasSelection = false, selectionBorderCount = 0;
+  let hasSelection = false, selectionBorderCount = 0, regionSelected = false;
   const mesh = createGlobeMesh();
   const vertices = gl.createBuffer()!, indices = gl.createBuffer()!, texture = gl.createTexture()!;
   gl.bindBuffer(gl.ARRAY_BUFFER, vertices); gl.bufferData(gl.ARRAY_BUFFER, mesh.vertices, gl.STATIC_DRAW);
@@ -99,6 +122,7 @@ export function createGlobeRenderer(canvas: HTMLCanvasElement) {
   gl.enableVertexAttribArray(uv); gl.vertexAttribPointer(uv, 2, gl.FLOAT, false, 20, 12);
   const rotation = gl.getUniformLocation(program, 'rotation'), scale = gl.getUniformLocation(program, 'scale');
   const selectionActive = gl.getUniformLocation(program, 'hasSelection');
+  const selectionRegion = gl.getUniformLocation(program, 'regionSelected');
   gl.uniform3f(gl.getUniformLocation(program, 'highlight'), ...highlight);
   gl.uniform1i(gl.getUniformLocation(program, 'selection'), 1);
   gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, selectionTexture);
@@ -137,7 +161,23 @@ export function createGlobeRenderer(canvas: HTMLCanvasElement) {
     borderCount = vertices.length / 3; previousBorderCount = (previous?.length ?? 0) / 3;
     if (gl!.getError() !== gl!.NO_ERROR) throw new Error('Globe border buffer unavailable');
   }
-  function uploadSelection(source: HTMLCanvasElement | null, outline?: Float32Array) {
+  function uploadRegions(outline?: Float32Array) {
+    if (gl!.isContextLost()) return;
+    if (!outline?.length) {
+      if (regionBuffer) gl!.deleteBuffer(regionBuffer);
+      regionBuffer = null;
+      regionCount = 0;
+      return;
+    }
+    regionBuffer ??= gl!.createBuffer();
+    if (!regionBuffer) throw new Error('Globe regional buffer unavailable');
+    gl!.bindBuffer(gl!.ARRAY_BUFFER, regionBuffer);
+    gl!.bufferData(gl!.ARRAY_BUFFER, outline, gl!.STATIC_DRAW);
+    regionCount = outline.length / 3;
+    if (gl!.getError() !== gl!.NO_ERROR) throw new Error('Globe regional buffer unavailable');
+  }
+
+  function uploadSelection(source: HTMLCanvasElement | null, outline?: Float32Array, regional = false) {
     if (gl!.isContextLost() || (!source && !hasSelection)) return;
     gl!.activeTexture(gl!.TEXTURE1);
     if (source) gl!.texImage2D(gl!.TEXTURE_2D, 0, gl!.ALPHA, gl!.ALPHA, gl!.UNSIGNED_BYTE, source);
@@ -148,6 +188,7 @@ export function createGlobeRenderer(canvas: HTMLCanvasElement) {
     if (outline) gl!.bufferData(gl!.ARRAY_BUFFER, outline, gl!.STATIC_DRAW);
     else gl!.bufferData(gl!.ARRAY_BUFFER, 0, gl!.STATIC_DRAW);
     hasSelection = source !== null;
+    regionSelected = regional;
     selectionBorderCount = (outline?.length ?? 0) / 3;
     if (gl!.getError() !== gl!.NO_ERROR) throw new Error('Globe selection unavailable');
   }
@@ -166,10 +207,11 @@ export function createGlobeRenderer(canvas: HTMLCanvasElement) {
     const matrix = globeRotationMatrix(cameraRotation(camera));
     gl!.uniformMatrix3fv(rotation, false, matrix);
     gl!.uniform1i(selectionActive, Number(hasSelection));
+    gl!.uniform1i(selectionRegion, Number(regionSelected));
     const radius = globeRadius(camera, size);
     gl!.uniform2f(scale, 2 * radius / size.width, 2 * radius / size.height);
     gl!.drawElements(gl!.TRIANGLES, mesh.indices.length, gl!.UNSIGNED_SHORT, 0);
-    if (borderCount || selectionBorderCount) {
+    if (borderCount || selectionBorderCount || regionCount) {
       gl!.useProgram(borderProgram); gl!.bindBuffer(gl!.ARRAY_BUFFER, borderBuffer);
       gl!.disableVertexAttribArray(position); gl!.disableVertexAttribArray(uv);
       gl!.enableVertexAttribArray(borderPosition); gl!.vertexAttribPointer(borderPosition, 3, gl!.FLOAT, false, 12, 0);
@@ -178,13 +220,23 @@ export function createGlobeRenderer(canvas: HTMLCanvasElement) {
       const opacity = borderStyle(camera, size, window.devicePixelRatio).opacity;
       gl!.disable(gl!.DEPTH_TEST); gl!.enable(gl!.BLEND); gl!.blendFunc(gl!.SRC_ALPHA, gl!.ONE_MINUS_SRC_ALPHA);
       gl!.lineWidth(1);
+      gl!.uniform1i(clipToCountry, 0);
       gl!.uniform3f(borderColor, .141176, .231373, .258824);
       if (previousBorderCount) { gl!.uniform1f(borderOpacity, opacity * (1 - borderMix)); gl!.drawArrays(gl!.LINES, 0, previousBorderCount); }
       gl!.uniform1f(borderOpacity, opacity * borderMix); gl!.drawArrays(gl!.LINES, previousBorderCount, borderCount);
+      if (regionBuffer && hasSelection) {
+        gl!.bindBuffer(gl!.ARRAY_BUFFER, regionBuffer);
+        gl!.vertexAttribPointer(borderPosition, 3, gl!.FLOAT, false, 12, 0);
+        gl!.uniform1i(clipToCountry, 1);
+        gl!.uniform3f(borderColor, .075, .145, .224);
+        gl!.uniform1f(borderOpacity, .92);
+        gl!.drawArrays(gl!.LINES, 0, regionCount);
+      }
       if (selectionBorderCount) {
         gl!.bindBuffer(gl!.ARRAY_BUFFER, selectionBorder);
         gl!.vertexAttribPointer(borderPosition, 3, gl!.FLOAT, false, 12, 0);
         gl!.uniform3f(borderColor, ...highlight);
+        gl!.uniform1i(clipToCountry, Number(regionSelected));
         gl!.uniform1f(borderOpacity, 1);
         gl!.drawArrays(gl!.LINES, 0, selectionBorderCount);
       }
@@ -195,9 +247,10 @@ export function createGlobeRenderer(canvas: HTMLCanvasElement) {
     gl!.deleteBuffer(vertices); gl!.deleteBuffer(indices); gl!.deleteTexture(texture); gl!.deleteProgram(program);
     gl!.deleteBuffer(borderBuffer); gl!.deleteProgram(borderProgram);
     gl!.deleteBuffer(selectionBorder); gl!.deleteTexture(selectionTexture);
+    if (regionBuffer) gl!.deleteBuffer(regionBuffer);
     // React's development effect replay keeps the canvas connected; real removal
     // releases the context as well as its resources.
     if (!canvas.isConnected) gl!.getExtension('WEBGL_lose_context')?.loseContext();
   }
-  return { textureWidth, upload, uploadBorders, uploadSelection, draw, dispose };
+  return { textureWidth, upload, uploadBorders, uploadRegions, uploadSelection, draw, dispose };
 }

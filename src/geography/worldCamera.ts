@@ -135,6 +135,19 @@ export function flatFallback(camera: WorldCamera, size: AtlasSize): WorldCamera 
   return boundedFallback({ ...camera, zoom: clamp(northScale(camera, size) / fitScale(size), 1, ATLAS_MAX_ZOOM), projection: 'flat', flatOnly: true }, size);
 }
 
+/** A conservative source query for the sphere visible through the viewport. */
+export function globeViewportBounds(camera: WorldCamera, size: AtlasSize): GeographicBounds[] {
+  const [lon, lat] = camera.focus;
+  const angle = Math.asin(Math.min(1, Math.hypot(size.width, size.height) / (2 * globeRadius(camera, size))));
+  const south = Math.max(-90, lat - angle / RADIANS), north = Math.min(90, lat + angle / RADIANS);
+  if (south === -90 || north === 90) return [[-180, south, 180, north]];
+  const span = Math.asin(Math.min(1, Math.sin(angle) / Math.cos(lat * RADIANS))) / RADIANS;
+  return [-360, 0, 360].flatMap((offset): GeographicBounds[] => {
+    const west = Math.max(-180, lon - span + offset), east = Math.min(180, lon + span + offset);
+    return west <= east ? [[west, south, east, north]] : [];
+  });
+}
+
 export function worldLayout(camera: WorldCamera, size: AtlasSize) {
   const focus = camera.focus, scale = northScale(camera, size), longitudeScale = longitudeFactor(camera, focus[1]);
   const loadSize = { width: size.width / longitudeScale, height: size.height };

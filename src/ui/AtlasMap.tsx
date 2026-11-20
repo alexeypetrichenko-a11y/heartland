@@ -4,7 +4,7 @@ import { regionName } from '../geography/atlasRegions';
 import { borderStyle, countryDetailAmount, smoothDetail } from '../geography/borderRendering';
 import { pickAtlasCountry, pickAtlasFeature, type ContainsAtlasPart } from '../geography/countrySelection';
 import { regionCameraTarget, type ScreenRect } from '../geography/regionFraming';
-import { projectWorld, type WorldCamera } from '../geography/worldCamera';
+import { globeViewportBounds, projectWorld, worldLayout, type WorldCamera } from '../geography/worldCamera';
 import type { GeographicBounds, GeographicCountryId, GeographicRegion } from '../geography/types';
 import { useAtlasCamera } from './useAtlasCamera';
 import { useAtlasData } from './useAtlasData';
@@ -42,7 +42,9 @@ export default function AtlasMap({ active }: { active: boolean }) {
   const [revision, setRevision] = useState(0);
   const [showHelp, setShowHelp] = useState(false);
   const visible = active && !showHelp;
-  const [regionShortcut, setRegionShortcut] = useState<{ id: GeographicCountryId; followViewport: boolean } | null>(null);
+  const [regionShortcut, setRegionShortcut] = useState<{
+    id: GeographicCountryId; followViewport: boolean; destination: WorldCamera;
+  } | null>(null);
   const stopRefitting = useCallback(() => {
     setRegionShortcut(shortcut => shortcut?.followViewport ? { ...shortcut, followViewport: false } : shortcut);
   }, []);
@@ -63,6 +65,7 @@ export default function AtlasMap({ active }: { active: boolean }) {
   const loadBounds = needsFlat ? layout.bounds : WORLD_BOUNDS;
   const mediumOverview = needsFlat ? layout.view.zoom >= 2.5 : view.zoom >= 2.5;
   const shortcutCountry = selectedId !== null && regionShortcut?.id === selectedId;
+  const explicitRegions = visible && showRegions && shortcutCountry;
   // A fitted view can already have useful local resolution before the normal
   // projection-relative LOD reaches 1, especially in landscape.
   const localScale = Math.min(layout.scale, 2 * layout.scale * layout.longitudeScale);
@@ -70,13 +73,13 @@ export default function AtlasMap({ active }: { active: boolean }) {
   const detailAmount = Math.max(countryDetailAmount(view, size), fitDetail);
   const detailEnabled = !flying && view.projection === 'flat' && flatBlend === 1 && detailAmount > 0;
   const regionalZoom = detailEnabled && detailAmount === 1;
-  const regionsEnabled = visible && regionalZoom && showRegions;
+  const automaticRegions = visible && regionalZoom && showRegions && !explicitRegions;
   const detailCountryId = shortcutCountry && fitDetail === 1 ? selectedId ?? undefined : undefined;
   const options = useMemo(() => ({
     bounds: loadBounds, overviewOnly: !needsFlat, overviewScale: mediumOverview ? '50m' as const : '110m' as const, detailEnabled, detailCountryId,
   }), [loadBounds, needsFlat, mediumOverview, detailEnabled, detailCountryId]);
   const data = useAtlasData(needsFlat ? layout.view : WORLD_VIEW, needsFlat ? layout.loadSize : WORLD_SIZE, visible, revision, options,
-    selectedId !== null || (regionsEnabled && focusedCountry !== null));
+    selectedId !== null || (automaticRegions && focusedCountry !== null));
   const helpButton = useRef<HTMLButtonElement>(null);
   const pickContext = useRef<CanvasRenderingContext2D | null>(null);
   const pickPaths = useRef<WeakMap<AtlasShape['parts'][number], Path2D> | null>(null);
@@ -116,7 +119,9 @@ export default function AtlasMap({ active }: { active: boolean }) {
     const measurement = JSON.stringify([country.id, view.flatOnly, width, height, obstacles]);
     if (measurement === lastFit.current) return;
     lastFit.current = measurement;
-    flyTo(regionCameraTarget(view.flatOnly, { width, height }, country, obstacles));
+    const destination = regionCameraTarget(view.flatOnly, { width, height }, country, obstacles);
+    setRegionShortcut({ id: country.id, followViewport: true, destination });
+    flyTo(destination);
   }, [viewport, view.flatOnly, flyTo]);
 
   useEffect(() => {
@@ -154,9 +159,9 @@ export default function AtlasMap({ active }: { active: boolean }) {
   const usingFlat = flatBlend >= .5;
   const fade = detailAmount >= .5 ? detailFade : overviewFade;
   const flatShapes = fade.previous && fade.mix < .5 ? fade.previous : fade.current;
-  const preferredCountry = regionsEnabled ? flatShapes.find(shape => shape.id === selectedId &&
+  const preferredCountry = automaticRegions ? flatShapes.find(shape => shape.id === selectedId &&
     shape.parts.some(part => layout.bounds.some(box => intersectsGeography(box, part.bbox)))) : undefined;
-  const findFocusedCountry = regionsEnabled && !preferredCountry && !data.loading &&
+  const findFocusedCountry = automaticRegions && !preferredCountry && !data.loading &&
     data.resolution === '10m detail' && detailFade.mix === 1;
 
   useEffect(() => {
@@ -171,30 +176,40 @@ export default function AtlasMap({ active }: { active: boolean }) {
     return () => window.clearTimeout(timer);
   }, [findFocusedCountry, view, size, flatShapes, containsPart]);
 
-  const regionalParent = preferredCountry || (findFocusedCountry ? flatShapes.find(shape => shape.id === focusedCountry) : undefined);
-  const regionalCountry = regionalParent && data.catalog?.countries.find(country => country.id === regionalParent.id);
-  const regional = useAtlasRegions(regionalParent ? regionalParent.id : null,
-    regionalCountry ? data.countryGeography?.get(regionalCountry.id) : undefined, layout.bounds, layout.focus, revision);
-  const inspectedRegion = regionalParent && selectedRegion?.countryId === regionalParent.id ? selectedRegion : null;
+  const flatRegionParent = explicitRegions ? flatShapes.find(shape => shape.id === selectedId) :
+    preferredCountry || (findFocusedCountry ? flatShapes.find(shape => shape.id === focusedCountry) : undefined);
+  const globeRegionParent = explicitRegions ? globeSelection : undefined;
+  const regionalParent = usingFlat ? flatRegionParent : globeRegionParent;
+  const regionCountryId = explicitRegions ? selectedId : flatRegionParent?.id ?? null;
+  const regionalCountry = data.catalog?.countries.find(country => country.id === regionCountryId);
+  // Query the settled destination while it animates. Both renderers share the
+  // resulting chunks through the projection dissolve.
+  const requestView = explicitRegions && flying && regionShortcut ? regionShortcut.destination : view;
+  const regionBounds = useMemo(() => requestView.projection === 'globe' ? globeViewportBounds(requestView, size) :
+    worldLayout(requestView, size).bounds, [requestView, size]);
+  const regional = useAtlasRegions(regionCountryId, regionCountryId ? data.countryGeography?.get(regionCountryId) : undefined,
+    regionBounds, requestView.focus, revision, explicitRegions && requestView === regionShortcut?.destination);
+  const inspectedRegion = !flying && regionCountryId && selectedRegion?.countryId === regionCountryId ? selectedRegion : null;
+  const globeRegions = !flying && globeRegionParent && globeVisible ? regional?.entries : undefined;
   const regionStatus = data.countryGeographyError ? 'error' : regional?.status ?? 'loading';
   const selectedGeography = selectedId ? data.countryGeography?.get(selectedId) : undefined;
   const noRegions = selectedId !== null && (data.catalog?.countriesWithoutRegions?.includes(selectedId) || selectedGeography?.regionIndex === null ||
     (regionalCountry?.id === selectedId && regionStatus === 'missing'));
-  const regionUnavailable = noRegions ? 'No mapped regions' : undefined;
-  const zoomForRegions = shortcutCountry && showRegions && !regionalZoom;
+  const regionUnavailable = noRegions ? selectedGeography?.regionIndex === null ? 'No mapped regions' : 'No usable region boundaries' : undefined;
   const regionCaption = regionalCountry && regionStatus ? {
-    loading: 'Loading regions…',
+    loading: regional?.entries.length ? 'Loading more regions…' : 'Loading regions…',
     ready: `Regions in ${regionalCountry.name}`,
     missing: `No mapped regions in ${regionalCountry.name}`,
+    unavailable: 'No usable region geometry in view',
+    incomplete: 'Some source region geometry unavailable',
     outside: 'No mapped regions in view',
-    limited: 'Zoom in for more regions',
-    error: 'Some region data is unavailable',
+    limited: 'Partial regional coverage · pan or zoom for more',
+    error: regional?.entries.length ? 'Partial regional coverage · some regions could not load' : 'Region data could not load',
   }[regionStatus] : undefined;
 
   function openRegions() {
     if (!selectedCountry || noRegions) return;
     setShowRegions(true);
-    setRegionShortcut({ id: selectedCountry.id, followViewport: true });
     lastFit.current = '';
     fitCountry(selectedCountry);
     navigation.ref.current?.focus({ preventScroll: true });
@@ -269,6 +284,7 @@ export default function AtlasMap({ active }: { active: boolean }) {
         {...navigation.events} onPointerUp={pointerUp} onKeyDown={keyDown}>
         {!view.flatOnly && <div className="atlas-globe-layer" style={{ opacity: 1 - flatBlend, visibility: globeVisible ? 'visible' : 'hidden' }}>
           <AtlasGlobe camera={view} size={size} catalog={data.catalog} shapes={data.overview} selected={globeSelection} terrain={terrainVisible} active={visible && globeVisible}
+            regions={globeRegions} selectedRegion={globeRegions?.find(region => region.id === inspectedRegion?.id)}
             revision={revision} onUnavailable={navigation.fallbackToFlat} onReady={setGlobeReady} onStatus={setGlobeTerrainStatus} />
         </div>}
         <svg className="atlas-svg" aria-hidden="true" viewBox={`0 0 ${size.width} ${size.height}`} style={{ opacity: flatBlend, visibility: needsFlat ? 'visible' : 'hidden' }}>
@@ -280,7 +296,7 @@ export default function AtlasMap({ active }: { active: boolean }) {
             {needsFlat && <AtlasPolitical phase="fills" layers={layers} offsets={layout.offsets} detail={detailAmount} {...borders} />}
             <AtlasTerrain view={layout.view} size={layout.loadSize} bounds={layout.bounds} offsets={layout.offsets} enabled={terrainVisible} active={visible && needsFlat}
               revision={revision} onStatus={setFlatTerrainStatus} />
-            {regionalParent && regional && regional.entries.length > 0 && <AtlasRegions entries={regional.entries} parent={regionalParent}
+            {!flying && needsFlat && flatRegionParent && regional && regional.entries.length > 0 && <AtlasRegions entries={regional.entries} parent={flatRegionParent}
               bounds={layout.bounds} offsets={layout.offsets} selectedId={inspectedRegion?.id} />}
             {needsFlat && <AtlasPolitical phase="borders" layers={layers} offsets={layout.offsets} detail={detailAmount} selectedId={inspectedRegion ? null : selectedId} {...borders} />}
           </g>
@@ -299,7 +315,7 @@ export default function AtlasMap({ active }: { active: boolean }) {
         <button type="button" className="atlas-terrain-control" aria-label="Physical terrain" aria-pressed={terrainVisible} onClick={() => setTerrainVisible(value => !value)}>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="m2 20 8-15 5 9 3-6 4 12ZM7 11l3 3 3-3" /></svg>Terrain
         </button>
-        {regionalZoom && <button type="button" aria-label="Administrative regions" aria-pressed={showRegions} onClick={() => {
+        {(regionalZoom || shortcutCountry) && <button type="button" aria-label="Administrative regions" aria-pressed={showRegions} onClick={() => {
           if (showRegions) stopRefitting();
           setShowRegions(value => !value);
         }}>Regions</button>}
@@ -310,19 +326,18 @@ export default function AtlasMap({ active }: { active: boolean }) {
           onRegions={openRegions} regionUnavailable={regionUnavailable} />)}
       <p className="sr-only" role="status">{inspectedRegion ? `${regionName(inspectedRegion)}, ${selectedCountry?.name} selected` : selectedCountry ? `${selectedCountry.name} selected` : ''}</p>
     </div>
-    <div className={regionCaption || zoomForRegions ? 'atlas-caption atlas-region-caption' : 'atlas-caption'} hidden={showHelp}>
-      <p id="atlas-status" role="status">{data.error || terrainStatus || (flying ? 'Opening regions…' :
-        regionCaption ? `${projectionLabel} · ${regionCaption}` : zoomForRegions ? `${projectionLabel} · Zoom in for regions` :
-          data.loading ? 'Loading map detail…' : `${projectionLabel} · Natural Earth · ${terrainVisible ? 'Physical reference' : 'Country colors'}`)}</p>
+    <div className={regionCaption ? 'atlas-caption atlas-region-caption' : 'atlas-caption'} hidden={showHelp}>
+      <p id="atlas-status" role="status">{flying ? 'Opening regions…' : regionCaption ? `${projectionLabel} · ${regionCaption}` :
+        data.error || terrainStatus || (data.loading ? 'Loading map detail…' : `${projectionLabel} · Natural Earth · ${terrainVisible ? 'Physical reference' : 'Country colors'}`)}</p>
       {(data.error || terrainStatus) && <button type="button" onClick={() => setRevision(n => n + 1)}>Retry map data</button>}
-      <p id="atlas-help" className="sr-only">Tap a country or a visible administrative region to inspect it. The country card has a Regions button that centers and zooms the map. At close zoom the Regions layer control switches between region and country selection. Drag to move the map, or pinch or use the wheel to zoom. Keyboard arrows navigate, Enter or Space inspects the center, Escape clears selection, plus and minus zoom, and 0 or Home resets the view.</p>
+      <p id="atlas-help" className="sr-only">Tap a country or a visible administrative region to inspect it. The country card has a Regions button that fits the main territory and shows its regions. The Regions layer control switches between region and country selection. Drag to move the map, or pinch or use the wheel to zoom. Keyboard arrows navigate, Enter or Space inspects the center, Escape clears selection, plus and minus zoom, and 0 or Home resets the view.</p>
     </div>
     <DetailPanel id="atlas-information" title="About the world atlas" open={showHelp} onClose={() => {
       setShowHelp(false); requestAnimationFrame(() => helpButton.current?.focus());
     }}>
       <p>This is a geographic reference alongside the fictional scenario. Country colors identify Natural Earth geographic entities, not military ownership or alliances. These entities are not automatically playable sovereign countries.</p>
       <p>Tap or click a country to inspect its name, Natural Earth ID and geography. Use the panel's close button or Escape to clear it. With keyboard focus on the map, Enter or Space inspects the center. Zoom in to see smaller countries and islands. The playable roster will be chosen later.</p>
-      <p>Choose Regions in the country card to fit its main territory. For a broad view, zoom in further to reveal mapped regions. Tap a region to inspect it. Turn the Regions layer off to pick countries at the same zoom. The source uses different administrative levels across countries, and some places have no regions mapped.</p>
+      <p>Choose Regions in the country card to fit its main territory and show mapped regions on the globe or flat map. Tap a region to inspect it. Pan or zoom to load more detail when coverage is partial. Turn the Regions layer off to pick countries at the same zoom. Some places have no usable region boundaries in the source.</p>
       <p>Drag east/west along parallels or north/south along meridians. Both views stay north-up. Latitude stops just short of each pole to prevent inversion; longitude wraps freely. Pinch or use the wheel to zoom. + and − zoom, arrows navigate (Shift for larger steps), and 0 or Home resets. Terrain preference is preserved between views.</p>
       <p>A brief fade connects the globe to the detailed map, keeping the same geographic focus, local scale and orientation. It is not a fully animated projection morph; features near the edges can change shape. The handoff adapts to screen shape and latitude. Near the poles, the globe remains active to avoid gaps in a flat polar cap.</p>
       <p>Borders use the same fine vector stroke on the globe and flat map. More source detail fades in as it loads; country-detail geometry appears after the projection handoff. The flat view uses local east/west scale correction and date-line wrapping. Zoom ranges from 1× to 128×; finite source detail cannot provide ground precision. Devices without usable 3D rendering fall back to the flat atlas.</p>

@@ -283,7 +283,7 @@ async function verifySourceEdges(browser) {
 
 async function expectRegions(page, country, region) {
   await page.locator(`.atlas-regions[data-region-country="ne:admin0:${country}"] [data-region-id="ne:admin1:${region}"]`).first().waitFor({ state: 'attached' });
-  await viewport(page).and(page.locator('[data-region-status="ready"], [data-region-status="limited"]')).waitFor();
+  await viewport(page).and(page.locator('[data-region-status="ready"], [data-region-status="limited"], [data-region-status="incomplete"]')).waitFor();
   await settle(page);
 }
 
@@ -292,6 +292,10 @@ async function expectRegionPanel(page, country, name, id, sourceCode) {
   assert.equal(await regionPanel(page).getByRole('heading').innerText(), name);
   await regionPanel(page).getByText(`Parent country ${country}`, { exact: true }).waitFor();
   assert.ok((await regionPanel(page).innerText()).includes(sourceCode));
+  if ((await pose(page)).camera.projection === 'globe') {
+    await page.locator(`.atlas-globe[data-selected-region="ne:admin1:${id}"]`).waitFor();
+    return;
+  }
   const mark = page.locator(`.atlas-regions [data-selected-region="ne:admin1:${id}"]`).first();
   assert.equal(await mark.locator('path[fill="#ffe19a"]').count(), 1);
   assert.equal(await mark.locator('path[stroke="#ffe19a"]').count(), 1);
@@ -299,7 +303,7 @@ async function expectRegionPanel(page, country, name, id, sourceCode) {
 }
 
 async function waitForFit(page) {
-  await page.waitForFunction(() => /Zoom in for regions|Loading regions|Regions in/.test(document.querySelector('#atlas-status')?.textContent || ''));
+  await page.waitForFunction(() => /Loading (more )?regions|Regions in|Partial regional coverage|Some source region geometry/.test(document.querySelector('#atlas-status')?.textContent || ''));
   await settle(page);
 }
 
@@ -309,14 +313,14 @@ async function clearMapPoint(page, geographic) {
     `${geographic.join(', ')} is visible with room for the controls`);
 }
 
-async function zoomToRegions(page, geographic) {
-  for (let step = 0; step < 8; step++) {
-    if (await button(page, 'Administrative regions').count()) return;
+async function zoomToFlat(page, geographic) {
+  for (let step = 0; step < 12; step++) {
+    if ((await pose(page)).camera.projection === 'flat') break;
     const { x, y } = await coordinates(page, geographic);
     await viewport(page).dispatchEvent('wheel', { clientX: x, clientY: y, deltaY: -120, cancelable: true, bubbles: true });
     await settle(page);
   }
-  await button(page, 'Administrative regions').waitFor();
+  await viewport(page).and(page.locator('[data-flat-blend="1"]')).waitFor();
 }
 
 async function verifyRegionShortcut(browser, width, height) {
@@ -356,8 +360,9 @@ async function verifyRegionShortcut(browser, width, height) {
   }
   for (const point of [[-4.48, 48.38], [7.75, 48.58], [9.1, 42.15], [3.05, 50.62]]) await clearMapPoint(page, point);
   if (width === 390 || width === 844) await capture(page, `fitted-france-${width}.png`);
-  await zoomToRegions(page, [2.35018, 48.856]);
-  await expectRegions(page, 'FRA', '1159316799');
+  if (end.camera.projection === 'globe') await page.locator('.atlas-globe[data-region-count]').waitFor();
+  else await expectRegions(page, 'FRA', '1159316799');
+  assert.equal((await pose(page)).camera.zoom, end.camera.zoom, 'the layer appears at the fitted scale');
   assert.ok(requests.filter(request => request.includes('/regions/')).every(request => /\/regions\/FRA[.-]/.test(request)));
   await tap(page, [2.35018, 48.856], touch);
   await expectRegionPanel(page, 'France', 'Paris', '1159316799', 'FRA-5333');
@@ -369,44 +374,111 @@ async function verifyRegionShortcut(browser, width, height) {
   await context.close();
 }
 
-async function verifyFittedCountries(browser) {
-  const { context, page, requests } = await open(browser, 390, 844);
+// Derive a tap from the actual downloaded source polygons. The widest
+// interior segment at a ring's mid-latitude avoids coastline rounding.
+function regionTapPoints(feature) {
+  const { geometry } = feature;
+  const polygons = geometry.type === 'Polygon' ? [geometry.coordinates] : geometry.coordinates;
+  return polygons.flatMap(polygon => {
+    const latitudes = polygon[0].map(vertex => vertex[1]);
+    const lat = (Math.min(...latitudes) + Math.max(...latitudes)) / 2;
+    const crossings = polygon.flatMap(ring => ring.slice(1).flatMap(([x, y], i) => {
+      const [px, py] = ring[i];
+      return (y > lat) !== (py > lat) ? [px + (x - px) * (lat - py) / (y - py)] : [];
+    })).sort((a, b) => a - b);
+    return crossings.slice(0, -1).flatMap((west, i) => i % 2 === 0 ?
+      [{ point: [(west + crossings[i + 1]) / 2, lat], width: (crossings[i + 1] - west) * Math.cos(lat * Math.PI / 180) }] : []);
+  });
+}
+
+async function tapLoadedRegion(page, code, requests, touch) {
+  const root = path.resolve(__dirname, '../../public/geography/natural-earth-5.1.1/regions');
+  const read = filename => JSON.parse(fs.readFileSync(path.join(root, filename), 'utf8'));
+  const records = new Map(read(`${code}.index.json`).regions.map(record => [record.id, record]));
+  const files = new Set(requests.filter(url => new RegExp(`/regions/${code}-[0-9]{3}\\.geojson$`).test(url)).map(url => path.basename(url)));
+  const view = await pose(page);
+  const candidates = [...files].flatMap(file => read(file).features.flatMap(feature => {
+    const record = records.get(feature.id);
+    if (!record || record.geometryStatus !== 'valid') return [];
+    return regionTapPoints(feature).map(sample => ({ ...sample, record }));
+  })).sort((a, b) => b.width - a.width);
+  for (const { point, record } of candidates) {
+    const projected = math.projectWorld(view.camera, view, point);
+    if (!projected || projected.x < 6 || projected.x > view.width - 6 || projected.y < 6 || projected.y > view.height - 6) continue;
+    const x = view.x + projected.x, y = view.y + projected.y;
+    if (!await page.evaluate(({ x, y }) => Boolean(document.elementFromPoint(x, y)?.closest('.atlas-viewport')), { x, y })) continue;
+    await tap(page, point, touch);
+    return record;
+  }
+  assert.fail(`No visible region tap point for ${code}`);
+}
+
+async function verifyFittedCountries(browser, width, height) {
+  const { context, page, requests } = await open(browser, width, height);
+  const touch = width < 900;
   const cases = [
-    ['FRA', [-53.23, 3.92], [[-4.48, 48.38], [7.75, 48.58], [9.1, 42.15]]],
-    ['DEU', [13.39, 52.5], [[9.98, 53.55], [6.96, 50.93], [11.58, 48.13], [13.39, 52.5]]],
-    ['USA', [-155.45329, 19.59369], [[-122.42, 37.77], [-80.19, 25.76], [-71.06, 42.36], [-98.1, 38.2]]],
-    ['RUS', [89.5, 57], [[37.62, 55.75], [89.5, 57], [131.88, 43.11], [-171, 65.9]]],
-    ['IDN', [110.37, -7.8], [[101, 0], [113, -1], [110, -7.5], [121, -3], [139, -5]]],
-    ['LUX', [6.08, 49.8], [[5.73, 49.55], [6.48, 49.82], [6.09, 50.15]]],
-    ['FJI', [177.98577, -17.79201], [[177.99, -17.79], [179.20293, -16.57802], [-179.93079, -16.82277]]],
+    ['FRA', [-53.23, 3.92], 'France', [[-4.48, 48.38], [7.75, 48.58], [9.1, 42.15]]],
+    ['DEU', [13.39, 52.5], 'Germany', [[9.98, 53.55], [6.96, 50.93], [11.58, 48.13]]],
+    ['USA', [-155.45329, 19.59369], 'United States of America', [[-122.42, 37.77], [-80.19, 25.76], [-71.06, 42.36]]],
+    ['RUS', [89.5, 57], 'Russia', [[37.62, 55.75], [89.5, 57], [131.88, 43.11], [-171, 65.9]]],
+    ['CHN', [104.06, 30.66], 'China', [[104.06, 30.66], [114.3, 30.58]]],
+    ['CAN', [-114.07, 51.05], 'Canada', [[-114.07, 51.05], [-79.38, 43.65]]],
+    ['BRA', [-47.88, -15.8], 'Brazil', [[-47.88, -15.8], [-43.94, -19.92]]],
+    ['AUS', [133.87, -23.7], 'Australia', [[133.87, -23.7], [151.2, -33.86]]],
+    ['IDN', [110.37, -7.8], 'Indonesia', [[101, 0], [113, -1], [110, -7.5], [121, -3], [139, -5]]],
+    ['JPN', [138.18, 36.65], 'Japan', [[138.18, 36.65], [141.35, 43.06]]],
+    ['LUX', [6.08, 49.8], 'Luxembourg', [[5.73, 49.55], [6.48, 49.82], [6.09, 50.15]]],
+    ['FJI', [177.98577, -17.79201], 'Fiji', [[177.99, -17.79], [179.20293, -16.57802], [-179.93079, -16.82277]]],
   ];
-  for (const [code, at, points] of cases) {
+  for (const [code, at, name, points] of cases) {
     await moveTo(page, ...at);
     if (code === 'LUX') await zoomWithButtons(page, 5);
-    await tap(page, at, true);
+    await tap(page, at, touch);
     await selected(page, code);
     const before = requests.length;
-    await panel(page).getByRole('button', { name: 'Regions', exact: true }).tap();
+    let release;
+    const gate = new Promise(resolve => { release = resolve; });
+    const slowAssets = '**/regions/USA-*.geojson';
+    const slowUS = code === 'USA' && width === 390;
+    if (slowUS) await page.route(slowAssets, async route => { await gate; await route.continue(); });
+    await panel(page).getByRole('button', { name: 'Regions', exact: true }).click();
     await waitForFit(page);
+    if (slowUS) {
+      assert.match(await page.locator('#atlas-status').innerText(), /Loading regions/);
+      release();
+    }
     for (const point of points) await clearMapPoint(page, point);
     const view = await pose(page);
     assert.ok(view.camera.zoom <= 64.01);
-    if (['USA', 'RUS', 'IDN'].includes(code)) {
-      assert.equal(view.camera.projection, 'globe');
-      assert.ok(requests.slice(before).every(request => !request.includes('/regions/')), 'wide overview defers Admin-1 loading');
+    const status = viewport(page).and(page.locator('[data-region-status="ready"], [data-region-status="limited"], [data-region-status="incomplete"]'));
+    await status.waitFor();
+    if (code === 'RUS' || await status.getAttribute('data-region-status') === 'limited') {
+      assert.match(await page.locator('#atlas-status').innerText(), /Partial regional coverage/);
     }
+    if (code === 'BRA') assert.match(await page.locator('#atlas-status').innerText(), /Some source region geometry unavailable/);
+    if (view.camera.projection === 'globe') await page.locator('.atlas-globe[data-region-count]').waitFor();
+    else await page.locator('.atlas-regions').waitFor();
+    assert.equal((await pose(page)).camera.zoom, view.camera.zoom, 'the layer loads without changing the fitted zoom');
+    const regionRequests = requests.slice(before).filter(url => url.includes('/regions/'));
+    assert.ok(regionRequests.length && regionRequests.every(url => url.includes(`/regions/${code}`)));
+    assert.ok(new Set(regionRequests.filter(url => url.endsWith('.geojson'))).size <= 4);
+    if (['USA', 'RUS', 'IDN'].includes(code)) await capture(page, `regions-${code.toLowerCase()}-${width}.png`);
+    const record = await tapLoadedRegion(page, code, regionRequests, touch);
+    await expectRegionPanel(page, name, record.name || record.names.english || 'Unnamed region', record.id.split(':').at(-1), record.source.adm1_code);
     if (code === 'USA') {
-      await capture(page, 'fitted-usa-390.png');
-      await zoomToRegions(page, [-98.1, 38.2]);
-      await expectRegions(page, 'USA', '1159315359');
-      await tap(page, [-98.1, 38.2], true);
-      await expectRegionPanel(page, 'United States of America', 'Kansas', '1159315359', 'USA-3530');
-      await button(page, 'Clear region selection').click();
+      const zoomStart = (await pose(page)).camera.zoom;
+      await zoomToFlat(page, [-98.1, 38.2]);
+      await page.locator('.atlas-regions').waitFor();
+      assert.ok((await pose(page)).camera.zoom > zoomStart);
+      await panel(page).waitFor({ state: 'hidden' });
+      assert.match(await regionPanel(page).innerText(), new RegExp(record.id));
     }
-    console.log(`PASS fit ${code} from a country tap at ${view.camera.zoom.toFixed(1)}× (${view.camera.projection})`);
+    await button(page, 'Clear region selection').click();
+    console.log(`PASS ${code} ${width}×${height}: regions drawn and selected at fitted ${view.camera.zoom.toFixed(1)}× (${view.camera.projection}) without extra zoom`);
     await clear(page);
   }
 
+  if (width !== 390) { await context.close(); return; }
   await moveTo(page, 2.19, 46.71);
   await tap(page, [2.19, 46.71], true);
   await selected(page, 'FRA');
@@ -550,13 +622,13 @@ async function verifyRegionalSources(browser) {
     await moveTo(page, ...at);
     const before = requests.length;
     await zoomWithButtons(page, 54);
-    await viewport(page).and(page.locator('[data-region-status="missing"]')).waitFor();
-    assert.match(await page.locator('#atlas-status').innerText(), new RegExp(`No mapped regions in ${name}`));
+    await viewport(page).and(page.locator(`[data-region-status="${code === 'BRT' ? 'missing' : 'unavailable'}"]`)).waitFor();
+    assert.match(await page.locator('#atlas-status').innerText(), code === 'BRT' ? new RegExp(`No mapped regions in ${name}`) : /No usable region geometry/);
     assert.equal(await page.locator('.atlas-regions').count(), 0);
     await tap(page, at, true);
     await selected(page, code);
     assert.equal(await panel(page).getByRole('button', { name: 'Regions', exact: true }).isDisabled(), true);
-    await panel(page).getByText('No mapped regions', { exact: true }).waitFor();
+    await panel(page).getByText(code === 'BRT' ? 'No mapped regions' : 'No usable region boundaries', { exact: true }).waitFor();
     assert.ok(requests.slice(before).every(r => !r.endsWith(`/${code}-000.geojson`)));
     await clear(page);
   }
@@ -591,7 +663,7 @@ async function verifyRegionalSources(browser) {
   try {
     if (process.env.HEARTLAND_CHECK_FRAMING_ONLY === '1') {
       for (const [width, height] of sizes) await verifyRegionShortcut(browser, width, height);
-      await verifyFittedCountries(browser);
+      for (const [width, height] of [[390, 844], [844, 390]]) await verifyFittedCountries(browser, width, height);
       assert.deepEqual(errors, []);
       console.log('PASS country framing without runtime errors. Captures:', output);
       return;

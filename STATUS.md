@@ -447,4 +447,4 @@ Historical first implementation/validation follows. The physical-iPhone-feedback
 ## MAP-UX — Country-adaptive Regions zoom
 
 - The country card fits a source-derived main territory into the usable map, with space around the card and controls. It recalculates after orientation and card-size changes until the player takes over manually.
-- When the country fits at regional scale, the flat map shows its Admin-1 boundaries. Wide views show a geographic overview and an invitation to zoom further. [Behavior, tests and iPhone preview](docs/geography/ADMIN_REGIONS.md)
+- Choosing **Regions** shows selectable Admin-1 outlines at the fitted scale on either projection. Loading starts during the camera move, and the status identifies partial coverage or unavailable geometry. [Behavior, tests and iPhone preview](docs/geography/ADMIN_REGIONS.md)
