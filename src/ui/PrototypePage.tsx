@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { CountryId, DiplomaticCommand, EconomicPolicy, GameState, MilitaryCommand, TurnCommand } from '../game/models';
 import { ECONOMIC_POLICIES } from '../game/economy';
 import { EconomyPanel } from './EconomyPanel';
+import type { EconomyWeekStart } from './economyDashboard';
 import { DetailPanel } from './DetailPanel';
 import { RegionMap } from './RegionMap';
 import { MilitaryPanel } from './MilitaryPanel';
@@ -31,6 +32,7 @@ export function PrototypePage({ active, state, onSelectCountry, onAdvanceTurn, t
   const [showScenario, setShowScenario] = useState(false);
   const [activeSection, setActiveSection] = useState<Section>('world');
   const [policyChoice, setPolicyChoice] = useState<EconomicPolicy | null>(null);
+  const [economyWeekStart, setEconomyWeekStart] = useState<EconomyWeekStart | null>(null);
   const [pendingMilitaryOrders, setPendingMilitaryOrders] = useState<MilitaryCommand[]>([]);
   const [pendingDiplomacy, setPendingDiplomacy] = useState<DiplomaticCommand | null>(null);
   const dashboardRef = useRef<HTMLHeadingElement>(null);
@@ -38,8 +40,11 @@ export function PrototypePage({ active, state, onSelectCountry, onAdvanceTurn, t
   const country = state.countries.find(country => country.id === state.playerCountryId);
   const regions = state.regions.filter(region => region.ownerId === country?.id);
   const nextPolicy = policyChoice ?? country?.economicPolicy ?? 'standard';
-  const policyPending = country && nextPolicy !== country.economicPolicy;
-  const hasDrafts = policyPending || pendingMilitaryOrders.length > 0 || pendingDiplomacy;
+  const draftSummary = [
+    pendingMilitaryOrders.length > 0 ? `${pendingMilitaryOrders.length} military` : '',
+    pendingDiplomacy ? '1 diplomacy' : '',
+    country && nextPolicy !== country.economicPolicy ? ECONOMIC_POLICIES[nextPolicy].label : '',
+  ].filter(Boolean).join(' · ');
 
   function advanceWeek() {
     if (!country) return;
@@ -47,6 +52,8 @@ export function PrototypePage({ active, state, onSelectCountry, onAdvanceTurn, t
     if (pendingDiplomacy) commands.push(pendingDiplomacy);
     if (nextPolicy !== country.economicPolicy) commands.push({ type: 'set-economic-policy', countryId: country.id, policy: nextPolicy });
     if (onAdvanceTurn(commands)) {
+      setEconomyWeekStart({ countryId: country.id, week: state.week, treasury: country.economy.treasury });
+      setPolicyChoice(null);
       setPendingMilitaryOrders([]);
       setPendingDiplomacy(null);
     } else {
@@ -101,9 +108,7 @@ export function PrototypePage({ active, state, onSelectCountry, onAdvanceTurn, t
       </header>
 
       <div className="game-main">
-        {hasDrafts && <p className="turn-status" role="status">
-          Drafts: {pendingMilitaryOrders.length} military · {pendingDiplomacy ? 1 : 0} diplomacy{policyPending && ` · ${ECONOMIC_POLICIES[nextPolicy].label}`}
-        </p>}
+        {draftSummary && <p className="turn-status" role="status">Drafts · {draftSummary}</p>}
         {turnError && <p className="turn-error" ref={errorRef} tabIndex={-1} role="alert">
           {turnError} Week not advanced. Your drafts are retained; review orders and tax policy, then try again.
         </p>}
@@ -122,7 +127,8 @@ export function PrototypePage({ active, state, onSelectCountry, onAdvanceTurn, t
             </section>
           </div>
           <div id="section-economy" className="section-view" hidden={activeSection !== 'economy'}>
-            <EconomyPanel country={country} nextPolicy={nextPolicy} onChangePolicy={setPolicyChoice} />
+            <EconomyPanel country={country} week={state.week} weekStart={economyWeekStart}
+              nextPolicy={nextPolicy} onChangePolicy={setPolicyChoice} />
           </div>
           <div id="section-diplomacy" className="section-view" hidden={activeSection !== 'diplomacy'}>
             <DiplomacyPanel state={state} pendingAction={pendingDiplomacy} onStageAction={setPendingDiplomacy} />
