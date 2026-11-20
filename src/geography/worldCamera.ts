@@ -98,16 +98,26 @@ function globeAnchor(camera: WorldCamera, size: AtlasSize, anchor: GeographicPos
   });
   return candidates.sort((a, b) => a.score - b.score)[0].focus;
 }
+
+function pointFocus(camera: WorldCamera, size: AtlasSize, anchor: GeographicPosition, point: AtlasPoint): GeographicPosition {
+  if (camera.projection === 'globe') return globeAnchor(camera, size, anchor, point);
+  const scale = northScale(camera, size);
+  const latitude = clamp(anchor[1] + (point.y - size.height / 2) / scale, -MAX_FOCUS_LATITUDE, MAX_FOCUS_LATITUDE);
+  return geographicFocus([anchor[0] - (point.x - size.width / 2) / (scale * longitudeFactor(camera, latitude)), latitude]);
+}
+
+/** Place a geographic point in a chosen screen rectangle without changing projection. */
+export function placeWorldPoint(camera: WorldCamera, size: AtlasSize, anchor: GeographicPosition, point: AtlasPoint): WorldCamera {
+  return boundedFallback({ ...camera, focus: pointFocus(camera, size, anchor, point) }, size);
+}
+
 export function moveWorldCamera(camera: WorldCamera, size: AtlasSize, from: AtlasPoint, to: AtlasPoint, zoom = camera.zoom): WorldCamera {
   let anchor = unprojectWorld(camera, size, from);
   if (!anchor) { anchor = camera.focus; to = { x: size.width / 2, y: size.height / 2 }; }
   let next: WorldCamera = { ...camera, zoom: clamp(zoom, 1, ATLAS_MAX_ZOOM) };
   let projection = desiredProjection(next, size);
   for (let i = 0; i < 3; i++) {
-    if (projection === 'flat') {
-      const scale = northScale(next, size), lat = clamp(anchor[1] + (to.y - size.height / 2) / scale, -MAX_FOCUS_LATITUDE, MAX_FOCUS_LATITUDE);
-      next.focus = geographicFocus([anchor[0] - (to.x - size.width / 2) / (scale * longitudeFactor(next, lat)), lat]);
-    } else next.focus = globeAnchor(next, size, anchor, to);
+    next.focus = pointFocus({ ...next, projection }, size, anchor, to);
     const candidate = desiredProjection({ ...next, projection: camera.projection }, size);
     if (candidate === projection) break;
     projection = candidate;

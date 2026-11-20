@@ -120,6 +120,7 @@ async function zoomWithButtons(page, target) {
   for (let attempt = 0; attempt < 13; attempt++) {
     if ((await pose(page)).camera.zoom >= target) return;
     await button(page, 'Zoom in atlas').click();
+    await settle(page);
   }
   assert.fail(`could not reach ${target}× with the zoom buttons`);
 }
@@ -297,10 +298,32 @@ async function expectRegionPanel(page, country, name, id, sourceCode) {
   assert.ok((await mark.boundingBox())?.width > 0);
 }
 
+async function waitForFit(page) {
+  await page.waitForFunction(() => /Zoom in for regions|Loading regions|Regions in/.test(document.querySelector('#atlas-status')?.textContent || ''));
+  await settle(page);
+}
+
+async function clearMapPoint(page, geographic) {
+  const point = await coordinates(page, geographic);
+  assert.ok(await page.evaluate(({ x, y }) => Boolean(document.elementFromPoint(x, y)?.closest('.atlas-viewport')), point),
+    `${geographic.join(', ')} is visible with room for the controls`);
+}
+
+async function zoomToRegions(page, geographic) {
+  for (let step = 0; step < 8; step++) {
+    if (await button(page, 'Administrative regions').count()) return;
+    const { x, y } = await coordinates(page, geographic);
+    await viewport(page).dispatchEvent('wheel', { clientX: x, clientY: y, deltaY: -120, cancelable: true, bubbles: true });
+    await settle(page);
+  }
+  await button(page, 'Administrative regions').waitFor();
+}
+
 async function verifyRegionShortcut(browser, width, height) {
   const { context, page, requests } = await open(browser, width, height);
   const touch = width < 900;
   await tap(page, [2.19, 46.71], touch);
+  await panel(page).getByText('Western Europe', { exact: true }).waitFor();
   const action = panel(page).getByRole('button', { name: 'Regions', exact: true });
   assert.equal(await action.isEnabled(), true, 'Regions is available on the opening globe');
   const start = await pose(page);
@@ -322,9 +345,8 @@ async function verifyRegionShortcut(browser, width, height) {
   });
   if (touch) await action.tap();
   else await action.press('Space');
-  await expectRegions(page, 'FRA', '1159316799');
+  await waitForFit(page);
   const end = await pose(page);
-  assert.equal(end.camera.projection, 'flat');
   assert.ok(end.camera.zoom > 1);
   const samples = await page.evaluate(() => window.regionCameraSamples);
   assert.ok(samples.some(([zoom, lon, lat]) => zoom === 1 && Math.hypot(lon - start.camera.focus[0], lat - start.camera.focus[1]) > .1), 'the camera centers before zooming');
@@ -332,6 +354,10 @@ async function verifyRegionShortcut(browser, width, height) {
   for (const [zoom, lon, lat] of samples) {
     if (zoom > 1.001) assert.ok(Math.hypot(lon - end.camera.focus[0], lat - end.camera.focus[1]) < .001, 'the zoom keeps the new center');
   }
+  for (const point of [[-4.48, 48.38], [7.75, 48.58], [9.1, 42.15], [3.05, 50.62]]) await clearMapPoint(page, point);
+  if (width === 390 || width === 844) await capture(page, `fitted-france-${width}.png`);
+  await zoomToRegions(page, [2.35018, 48.856]);
+  await expectRegions(page, 'FRA', '1159316799');
   assert.ok(requests.filter(request => request.includes('/regions/')).every(request => /\/regions\/FRA[.-]/.test(request)));
   await tap(page, [2.35018, 48.856], touch);
   await expectRegionPanel(page, 'France', 'Paris', '1159316799', 'FRA-5333');
@@ -340,6 +366,75 @@ async function verifyRegionShortcut(browser, width, height) {
   assert.equal(await action.isVisible(), true);
   await layout(page);
   console.log(`PASS Regions shortcut ${width}×${height}: immediate 44px control, centered north-up move, selection and country return`);
+  await context.close();
+}
+
+async function verifyFittedCountries(browser) {
+  const { context, page, requests } = await open(browser, 390, 844);
+  const cases = [
+    ['FRA', [-53.23, 3.92], [[-4.48, 48.38], [7.75, 48.58], [9.1, 42.15]]],
+    ['DEU', [13.39, 52.5], [[9.98, 53.55], [6.96, 50.93], [11.58, 48.13], [13.39, 52.5]]],
+    ['USA', [-155.45329, 19.59369], [[-122.42, 37.77], [-80.19, 25.76], [-71.06, 42.36], [-98.1, 38.2]]],
+    ['RUS', [89.5, 57], [[37.62, 55.75], [89.5, 57], [131.88, 43.11], [-171, 65.9]]],
+    ['IDN', [110.37, -7.8], [[101, 0], [113, -1], [110, -7.5], [121, -3], [139, -5]]],
+    ['LUX', [6.08, 49.8], [[5.73, 49.55], [6.48, 49.82], [6.09, 50.15]]],
+    ['FJI', [177.98577, -17.79201], [[177.99, -17.79], [179.20293, -16.57802], [-179.93079, -16.82277]]],
+  ];
+  for (const [code, at, points] of cases) {
+    await moveTo(page, ...at);
+    if (code === 'LUX') await zoomWithButtons(page, 5);
+    await tap(page, at, true);
+    await selected(page, code);
+    const before = requests.length;
+    await panel(page).getByRole('button', { name: 'Regions', exact: true }).tap();
+    await waitForFit(page);
+    for (const point of points) await clearMapPoint(page, point);
+    const view = await pose(page);
+    assert.ok(view.camera.zoom <= 64.01);
+    if (['USA', 'RUS', 'IDN'].includes(code)) {
+      assert.equal(view.camera.projection, 'globe');
+      assert.ok(requests.slice(before).every(request => !request.includes('/regions/')), 'wide overview defers Admin-1 loading');
+    }
+    if (code === 'USA') {
+      await capture(page, 'fitted-usa-390.png');
+      await zoomToRegions(page, [-98.1, 38.2]);
+      await expectRegions(page, 'USA', '1159315359');
+      await tap(page, [-98.1, 38.2], true);
+      await expectRegionPanel(page, 'United States of America', 'Kansas', '1159315359', 'USA-3530');
+      await button(page, 'Clear region selection').click();
+    }
+    console.log(`PASS fit ${code} from a country tap at ${view.camera.zoom.toFixed(1)}× (${view.camera.projection})`);
+    await clear(page);
+  }
+
+  await moveTo(page, 2.19, 46.71);
+  await tap(page, [2.19, 46.71], true);
+  await selected(page, 'FRA');
+  await panel(page).getByText('Western Europe', { exact: true }).waitFor();
+  await panel(page).getByRole('button', { name: 'Regions', exact: true }).tap();
+  await waitForFit(page);
+  const portrait = await pose(page);
+  const resizing = page.locator('#atlas-status').filter({ hasText: 'Opening regions…' });
+  const style = await page.addStyleTag({ content: '.atlas-country-panel { min-height: 335px; }' });
+  await resizing.waitFor();
+  await waitForFit(page);
+  assert.ok((await pose(page)).camera.zoom < portrait.camera.zoom);
+  for (const point of [[-4.48, 48.38], [9.1, 42.15]]) await clearMapPoint(page, point);
+  await style.evaluate(element => element.remove());
+  await page.setViewportSize({ width: 844, height: 390 });
+  await resizing.waitFor();
+  await waitForFit(page);
+  const landscape = await pose(page);
+  assert.ok(landscape.width > portrait.width && landscape.height < portrait.height);
+  assert.ok(Math.abs(landscape.camera.zoom - portrait.camera.zoom) > .1);
+  for (const point of [[-4.48, 48.38], [7.75, 48.58], [9.1, 42.15]]) await clearMapPoint(page, point);
+  await button(page, 'Zoom in atlas').click();
+  await settle(page);
+  const manuallyZoomed = await pose(page);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.waitForTimeout(1000);
+  assert.equal((await pose(page)).camera.zoom, manuallyZoomed.camera.zoom, 'manual zoom stops following the viewport');
+  console.log('PASS fitted country recalculates for card and orientation, and manual navigation takes over');
   await context.close();
 }
 
@@ -415,20 +510,16 @@ async function verifyRegionalSources(browser) {
   const cases = [
     { code: 'DEU', parent: 'Germany', at: [13.39245, 52.50261], zoom: 30, name: 'Berlin', id: '1159312769', source: 'DEU-1599' },
     { code: 'USA', parent: 'United States of America', at: [-119.98368, 37.26058], zoom: 26, name: 'California', id: '1159308415', source: 'USA-3521' },
-    { code: 'USA', parent: 'United States of America', at: [-98.1, 38.2], shortcut: true, name: 'Kansas', id: '1159315359', source: 'USA-3530' },
-    { code: 'USA', parent: 'United States of America', at: [-155.45329, 19.59369], shortcut: true, name: 'Hawaii', id: '1159308409', source: 'USA-3517' },
-    { code: 'FRA', parent: 'France', at: [-53.23, 3.92], shortcut: true, name: 'Guyane française', id: '1159311355', source: 'FRA-2000' },
+    { code: 'USA', parent: 'United States of America', at: [-98.1, 38.2], zoom: 32, name: 'Kansas', id: '1159315359', source: 'USA-3530' },
+    { code: 'USA', parent: 'United States of America', at: [-155.45329, 19.59369], zoom: 31, name: 'Hawaii', id: '1159308409', source: 'USA-3517' },
+    { code: 'FRA', parent: 'France', at: [-53.23, 3.92], zoom: 30, name: 'Guyane française', id: '1159311355', source: 'FRA-2000' },
     { code: 'SGP', parent: 'Singapore', at: [103.84903, 1.34689], zoom: 55, name: 'Central Singapore', id: '1159315513', source: 'SGP-4871' },
     { code: 'AIA', parent: 'Anguilla', at: [-63.25212, 18.27914], zoom: 100, name: 'Unnamed region', id: '1159315561', source: 'AIA+99?' },
   ];
   for (const item of cases) {
     await moveTo(page, ...item.at);
     const before = requests.length;
-    if (item.shortcut) {
-      await tap(page, item.at, true);
-      await selected(page, item.code);
-      await panel(page).getByRole('button', { name: 'Regions', exact: true }).tap();
-    } else await zoomWithButtons(page, item.zoom);
+    await zoomWithButtons(page, item.zoom);
     await expectRegions(page, item.code, item.id);
     await tap(page, item.at, true);
     await expectRegionPanel(page, item.parent, item.name, item.id, item.source);
@@ -498,6 +589,13 @@ async function verifyRegionalSources(browser) {
   const browser = await chromium.launch({ executablePath: process.env.HEARTLAND_CHROMIUM || '/usr/bin/chromium', headless: true,
     args: ['--no-sandbox', '--enable-unsafe-swiftshader'] });
   try {
+    if (process.env.HEARTLAND_CHECK_FRAMING_ONLY === '1') {
+      for (const [width, height] of sizes) await verifyRegionShortcut(browser, width, height);
+      await verifyFittedCountries(browser);
+      assert.deepEqual(errors, []);
+      console.log('PASS country framing without runtime errors. Captures:', output);
+      return;
+    }
     if (process.env.HEARTLAND_CHECK_REGIONS_ONLY === '1') {
       for (const [width, height] of sizes) {
         await verifyRegionShortcut(browser, width, height);

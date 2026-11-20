@@ -204,7 +204,8 @@ The owner authorized a two-PR split to protect mobile performance, geographic ac
 
 - [x] Close flat-map zoom enables a Regions toggle and progressive Natural Earth Admin-1 loading for the selected country in view or the country under the settled map center. Tap a region for a gold highlight, name, parent and geographic source codes. Clear the region to return to the parent card, or turn Regions off to select countries at the same zoom. [Implementation, source limits and verification](docs/geography/ADMIN_REGIONS.md)
 - [x] The country card shows **Regions** at every zoom. The shortcut centers the selected landmass and opens the regional layer at an extent-based zoom. Countries without usable source data show a disabled control.
-- [ ] The owner confirmed the initial preview on physical iPhone Safari. The Regions shortcut awaits owner review on [PR #23](https://github.com/alexeypetrichenko-a11y/heartland/pull/23).
+- [x] The owner merged [PR #23](https://github.com/alexeypetrichenko-a11y/heartland/pull/23) and confirmed the Regions shortcut on physical iPhone Safari.
+- [x] The MAP-UX follow-up fits the main territory in the available viewport and defers regional detail on wide overviews. [Framing behavior and preview](docs/geography/ADMIN_REGIONS.md)
 - [ ] Real-country game setup and the playable roster await separate approval.
 
 MIL-01, UI-01B.3, UI-01C, T09, multiplayer, real military positions, movement/engagement timing and transport-route mechanics remain outside this assignment.

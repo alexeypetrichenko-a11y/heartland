@@ -8,7 +8,8 @@ export type AtlasPoint = { x: number; y: number };
 export type AtlasSize = { width: number; height: number };
 export type AtlasView = { zoom: number; center: AtlasPoint };
 export type AtlasCountry = { id: GeographicCountryId; name: string; color: string; bbox: GeographicBounds;
-  label: GeographicPosition; area: number; path: string; tiles: number[] };
+  /** Main land extent. The eastern longitude may exceed 180° to cross the date line. */
+  mainBounds?: GeographicBounds; label: GeographicPosition; area: number; path: string; tiles: number[] };
 export type AtlasCatalog = { schemaVersion: 1; datasetId: string; countries: AtlasCountry[];
   countriesWithoutRegions?: GeographicCountryId[]; neighbors: [GeographicCountryId, GeographicCountryId][]; minimumNeighborDeltaE: number };
 export type AtlasShape<Id extends GeographicId = GeographicCountryId> = { id: Id; parts: { path: string; outline: string; bbox: GeographicBounds }[] };
