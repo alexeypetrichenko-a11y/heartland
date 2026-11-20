@@ -1,5 +1,7 @@
 # Integrating the economic engine into HEARTLAND
 
+> **ECON-05:** the game should now use the compact integration API in `src/integration/index.ts`, described in [`INTEGRATION_API.md`](INTEGRATION_API.md) (with the mapping specification, the migration strategy and step-by-step instructions). This document remains the reference for the engine's full contract: commands, effects, events and report fields.
+
 Audience: whoever wires `economy-engine/` into the game after the owner has approved the open decisions ([`DECISIONS_REQUIRING_APPROVAL.md`](DECISIONS_REQUIRING_APPROVAL.md)). Nothing here has been done yet: **the engine is isolated and the game does not use it.** No file outside `economy-engine/` was changed, the game's 63 tests still pass and its production bundle is byte-identical.
 
 ## 1. How to include it
@@ -85,7 +87,7 @@ npm run sim -- --load /tmp/w.json --turns 52 --audit
 
 **Order inside the engine:** effects first, then commands. Within each list, in array order. Within a week, a later command on the same setting overrides an earlier one (this is how scripts override the autopilot).
 
-**Ownership is the host's job.** Use the pattern in `examples/heartland-adapter.ts` (`assertPlayerOwns`): refuse any command whose `countryId` is not the player's country, exactly as `advanceTurn` already does for its own commands.
+**Ownership is the host's job.** The integration API's `advanceEconomyWeek` and `checkEconomyCommands` refuse any player command whose `countryId` is not the player's country, exactly as `advanceTurn` already does for its own commands.
 
 ### AI countries
 
@@ -133,7 +135,7 @@ npm run sim -- --load /tmp/w.json --turns 52 --audit
 | `Economy.weeklyIncome / weeklyExpenses` | `budget.revenue / budget.spending` (the `legacy` field returned by `runHostTurn` in the example) |
 | `Country.economicPolicy` ('standard' / 'tax-relief') | one or more `set-tax` commands (e.g. income tax − 6 points) |
 
-**Data the game still has to supply** for real regions: `population`, `technology`, `populationGrowth`, per-good `advantage`, optional `populationLimit` and `resourceHeadroom` (see `ZoneSpec`). The numbers in `examples/heartland-adapter.ts` are invented illustrations.
+**Data the game still has to supply** for real regions: `population`, `technology`, `populationGrowth`, per-good `advantage`, optional `populationLimit` and `resourceHeadroom` (see `ZoneSpec`). The profiles of the fictional scenario (`src/integration/scenario.ts`) are invented illustrations.
 
 ## 4. Conflicts with the existing rules (owner decision needed)
 
@@ -172,7 +174,7 @@ The engine is built for lockstep: send *commands/effects*, never states; every c
 
 1. Owner decisions on the list in `DECISIONS_REQUIRING_APPROVAL.md`, especially goods/sectors, default consequences, regime thresholds, and whether the engine replaces T06.
 2. Data task: economic profile per region (population, technology, advantages) and transport lanes for the real map.
-3. Bridge task: `src/game/economyBridge.ts` (create world, `runHostTurn`-style call inside `advanceTurn`, ownership sync, defeat on `regime-change`). Tests with the game's fixture (see `tests/adapter.test.ts`).
+3. Bridge task: `src/game/economyBridge.ts` using the integration API (see `INTEGRATION_API.md` §7). Tests with the game's fixture (see `tests/integration.test.ts`).
 4. UI task: economy panel from `TurnReport` + `getCountry`; policy controls for the commands above.
 5. Save/load (T10): store `serializeEconomy` with the game save.
 6. Events (T26): map random events to `production-shock`. War (later): map damage to `destroy-capacity`, `set-lane`, `transfer-zone`.

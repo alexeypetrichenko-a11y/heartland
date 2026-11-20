@@ -277,6 +277,14 @@ export function deserializeEconomy(text: string): EconomyState {
   } catch {
     fail('not valid JSON.');
   }
+  return restoreEconomy(parsed);
+}
+
+/**
+ * Restore a state from already-parsed JSON data (for a host that stores the state inside
+ * its own save object): the same checks as deserializeEconomy, without a second parse.
+ */
+export function restoreEconomy(parsed: unknown): EconomyState {
   validateEconomy(parsed);
   deepFreeze(parsed.config);
   deepFreeze(parsed.countries);

@@ -1,6 +1,6 @@
 import type {
   AuditReport, BudgetReport, CountryReport, EconomyEvent, EconomyState, GoodLedger, GoodReport, HistoryState,
-  HistoryTier, LaneReport, OccupationReport, RequisitionReport, StepOptions, TradeFlow, TurnReport,
+  HistoryTier, LaneReport, OccupationReport, RequisitionReport, StepOptions, TradeFlow, TurnReport, ZoneReport,
 } from '../types.ts';
 import type { Model, Workspace } from './model.ts';
 import { EPSILON, firmLoanRate, OWNERSHIP_COUNT, TIER_COUNT } from './model.ts';
@@ -338,7 +338,7 @@ export function finishTurn(s: EconomyState, w: Workspace, m: Model, options: Ste
     interestRate: s.world.interestRate, money: s.world.baseMoney, debt: worldDebt, population: worldPopulation, rebases: s.world.rebases,
   };
   if (options.report === 'none') {
-    return { turn: s.turn, countries: [], goods: [], occupations: [], transport: { lanes: [], requisitions: [] }, world, events, audit: auditReport };
+    return { turn: s.turn, countries: [], goods: [], zones: [], occupations: [], transport: { lanes: [], requisitions: [] }, world, events, audit: auditReport };
   }
 
   // Full report.
@@ -444,7 +444,9 @@ export function finishTurn(s: EconomyState, w: Workspace, m: Model, options: Ste
       governmentUse: w.useGovernment[g], traded: w.traded[g], stock: goodStock[g], unmetDemand: w.unmet[g],
     });
   }
-  const report: TurnReport = { turn: s.turn, countries, goods, occupations: occupationReports(s, w), transport: transportReport(s, w, routes), world, events, audit: auditReport };
+  const zones: ZoneReport[] = [];
+  for (let z = 0; z < Z; z++) zones.push({ zoneId: s.zones[z].id, output: Array.from(w.output.subarray(z * G, (z + 1) * G)) });
+  const report: TurnReport = { turn: s.turn, countries, goods, zones, occupations: occupationReports(s, w), transport: transportReport(s, w, routes), world, events, audit: auditReport };
   if (w.tradeLog) {
     const trade: TradeFlow[] = [];
     for (let i = 0; i < w.tradeLog.length; i += 5) {

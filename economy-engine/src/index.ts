@@ -15,7 +15,7 @@ export type { OwnershipType, PerformanceTier, PublicObjective } from './core/mod
 export { createEconomy, DEFAULT_COUNTRY_POLICY, DEFAULT_WARMUP_TURNS } from './world/builder.ts';
 export { advanceEconomy, advanceEconomyInPlace } from './core/step.ts';
 export {
-  cloneEconomy, serializeEconomy, deserializeEconomy, validateEconomy, hashEconomy, STATE_FORMAT, STATE_VERSION,
+  cloneEconomy, serializeEconomy, deserializeEconomy, restoreEconomy, validateEconomy, hashEconomy, STATE_FORMAT, STATE_VERSION,
 } from './core/state.ts';
 export { rescaleMoney, REBASE_FACTOR, ROLLOVER_MONEY } from './core/rebase.ts';
 export { getCountry, getZone, getFirmAggregates, listSanctions, getProgress, listRequisitions, getItinerary } from './core/selectors.ts';

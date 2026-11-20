@@ -1,0 +1,45 @@
+{
+  "bundleKb": 147.126953125,
+  "gzipKb": 47.6025390625,
+  "results": [
+    {
+      "rate": 1,
+      "scriptMs": 18,
+      "createMs": 480.69999999995343,
+      "weekMedianMs": 1.5,
+      "weekWorstMs": 12,
+      "gameMs": 349.70000000006985,
+      "saveMs": 1.2999999999301508,
+      "loadMs": 2.599999999976717,
+      "saveKb": 296.3427734375,
+      "fingerprint": "a6ba4cb50fa896f7",
+      "week": 156
+    },
+    {
+      "rate": 4,
+      "scriptMs": 11,
+      "createMs": 1384.2000000000698,
+      "weekMedianMs": 3.8999999999068677,
+      "weekWorstMs": 51.09999999997672,
+      "gameMs": 860.3999999999069,
+      "saveMs": 7.300000000046566,
+      "loadMs": 8.199999999953434,
+      "saveKb": 296.3427734375,
+      "fingerprint": "a6ba4cb50fa896f7",
+      "week": 156
+    },
+    {
+      "rate": 6,
+      "scriptMs": 13,
+      "createMs": 2239.3000000000466,
+      "weekMedianMs": 9,
+      "weekWorstMs": 90.29999999993015,
+      "gameMs": 1674.6999999999534,
+      "saveMs": 14.900000000023283,
+      "loadMs": 21.099999999976717,
+      "saveKb": 296.3427734375,
+      "fingerprint": "a6ba4cb50fa896f7",
+      "week": 156
+    }
+  ]
+}

@@ -965,11 +965,20 @@ export interface RequisitionReport {
   cost: number;
 }
 
+/** One zone this week (full reports only): what its firms produced, per good. */
+export interface ZoneReport {
+  zoneId: ZoneId;
+  /** Units produced this week, per good (same order as the configuration's goods). */
+  output: number[];
+}
+
 export interface TurnReport {
   /** Turn number just completed. */
   turn: number;
   countries: CountryReport[];
   goods: GoodReport[];
+  /** Per-zone production (empty with report: 'none'). */
+  zones: ZoneReport[];
   occupations: OccupationReport[];
   transport: { lanes: LaneReport[]; requisitions: RequisitionReport[] };
   world: { gdpReal: number; gdpNominal: number; inflation: number; interestRate: number; money: number; debt: number; population: number; rebases: number };

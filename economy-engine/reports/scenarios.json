@@ -128,7 +128,7 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 1719.3908729999998
+    "runtimeMs": 1350.030957
   },
   {
     "id": 2,
@@ -283,7 +283,7 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 516.9443380000002
+    "runtimeMs": 497.2159499999998
   },
   {
     "id": 3,
@@ -443,7 +443,7 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 751.0127380000004
+    "runtimeMs": 620.2198320000002
   },
   {
     "id": 4,
@@ -598,7 +598,7 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 260.1645389999999
+    "runtimeMs": 285.7196610000001
   },
   {
     "id": 5,
@@ -731,7 +731,7 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 490.1725999999999
+    "runtimeMs": 307.8926019999999
   },
   {
     "id": 6,
@@ -963,7 +963,7 @@
       "Week 447: the government survives a crisis",
       "Firm bankruptcies in Tavros over the run: 0."
     ],
-    "runtimeMs": 1408.9218469999996
+    "runtimeMs": 1346.9317740000001
   },
   {
     "id": 7,
@@ -1106,7 +1106,7 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 305.46901100000014
+    "runtimeMs": 342.51850399999967
   },
   {
     "id": 8,
@@ -1283,7 +1283,7 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 1083.8291760000002
+    "runtimeMs": 860.6997679999995
   },
   {
     "id": 9,
@@ -1465,7 +1465,7 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 1034.4040779999996
+    "runtimeMs": 802.9290359999995
   },
   {
     "id": 10,
@@ -1597,6 +1597,6 @@
       }
     ],
     "observations": [],
-    "runtimeMs": 6991.2908210000005
+    "runtimeMs": 5038.861165
   }
 ]

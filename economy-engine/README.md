@@ -3,10 +3,13 @@
 A deterministic, serializable, offline world-economy simulation in plain TypeScript, built to be dropped into HEARTLAND later. It is **isolated**: nothing outside this folder was changed, the game does not use it yet, and every number in it is a **provisional proposal awaiting owner approval**.
 
 * Design and assumptions: [`ECONOMY_DESIGN.md`](ECONOMY_DESIGN.md)
-* How the game should use it: [`ECONOMY_INTEGRATION.md`](ECONOMY_INTEGRATION.md)
+* How the game should use it: [`INTEGRATION_API.md`](INTEGRATION_API.md) (ECON-05 integration API) and [`ECONOMY_INTEGRATION.md`](ECONOMY_INTEGRATION.md) (full engine contract)
 * Decisions the owner must make: [`DECISIONS_REQUIRING_APPROVAL.md`](DECISIONS_REQUIRING_APPROVAL.md)
 * **Milestone 1** (sectors, 31-good catalogue, firm aggregates and performance tiers): [`MILESTONE_1.md`](MILESTONE_1.md)
 * **Milestone 2** (central banks and money, firm credit, bankruptcy, tier transitions, reserve fixes): [`MILESTONE_2.md`](MILESTONE_2.md)
+* **Milestone 3** (state and ownership, need-based monetary operations, repeated defaults): [`MILESTONE_3.md`](MILESTONE_3.md)
+* **Milestone 4** (occupation, occupation policies, transport capacity and military requisition): [`MILESTONE_4.md`](MILESTONE_4.md)
+* **ECON-05** (integration API for the game): [`INTEGRATION_API.md`](INTEGRATION_API.md), results in [`ECON_05.md`](ECON_05.md)
 * Generated evidence: [`reports/`](reports/) (scenarios, stability, browser benchmark, test results, configuration reference)
 
 ## What it does
@@ -45,19 +48,20 @@ state = result.state;                                            // result.repor
 const save = serializeEconomy(state);                            // plain JSON string
 ```
 
-A worked adapter for the game's existing three-country fixture is in [`examples/heartland-adapter.ts`](examples/heartland-adapter.ts) (compiled and tested).
+**For the game:** use the integration API in `src/integration/index.ts`, documented in [`INTEGRATION_API.md`](INTEGRATION_API.md). A worked example on the game's three-country fictional scenario is [`examples/fictional-game.ts`](examples/fictional-game.ts) (`npm run example`).
 
 ## Layout
 
 ```
-src/index.ts            the only file the game should import
+src/integration/        the integration API: the only part the game should import (ECON-05)
+src/index.ts            the engine's full public interface (tools, tests, the integration layer)
 src/types.ts            all data contracts
 src/config/defaults.ts  goods, recipes and every parameter
 src/core/               the weekly turn (finance, planning, market, production, politics, …)
 src/world/              world builder/calibration and fictional test worlds
 src/ai/autopilot.ts     rule-based fiscal governments for AI countries
 sim/                    simulator CLI, scenarios, stress and benchmark tools
-tests/                  automated tests          examples/   host adapter example
+tests/                  automated tests          examples/   worked integration example
 reports/                generated reports
 ```
 
