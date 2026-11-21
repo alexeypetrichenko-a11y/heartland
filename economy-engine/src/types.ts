@@ -257,6 +257,11 @@ export interface EconomyParams {
   stabilityTaxWeight: number;
   socialNorm: number;
   stabilitySocialWeight: number;
+  /**
+   * ECON-07 (C): most stability social spending above the norm can add, approached with diminishing returns
+   * (0 = no limit: the legacy straight line of half the social weight).
+   */
+  socialStabilityCap: number;
   stabilityArrearsWeight: number;
   livingStandardSmoothing: number;
   livingStandardRefWeeks: number;

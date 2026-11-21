@@ -567,6 +567,12 @@ export const DEFAULT_PARAMS: EconomyParams = {
   stabilityTaxWeight: 60,
   socialNorm: 0.10,
   stabilitySocialWeight: 150,
+  /**
+   * ECON-07 (C): spending above the norm adds less than this many stability points. The first points cost what
+   * they always did (slope 75 per unit of GDP share); each further point costs more: +2.2 at 14% of GDP, +3.4 at
+   * 18%, +4.7 at 25%, +6.3 at the 50% limit (it was a straight line: +3, +6, +11.3 and +30).
+   */
+  socialStabilityCap: 8,
   stabilityArrearsWeight: 30,
   livingStandardSmoothing: 0.12,
   livingStandardRefWeeks: 104,
@@ -748,7 +754,7 @@ export function validateConfig(config: EconomyConfig): void {
     || params.resistanceFallFree > 1 || params.sabotageChance > 1 || params.sabotageDamage > 1 || params.revoltEndThreshold > params.revoltThreshold
     || params.revoltThreshold > 1 || params.laneCapacityHeadroom < 1 || params.laneCapacityFloor > 1 || params.laneDemandSmoothing > 1
     || !(params.laneDemandSmoothing > 0)
-    || !(params.voluntaryDefaultWeight >= 0) || !(params.spendingBaseFall > 0) || params.spendingBaseFall > 1 || !(params.treasuryReserveWeeks >= 0) || !(params.surplusReturnShare >= 0) || params.surplusReturnShare > 1) {
+    || !(params.socialStabilityCap >= 0) || !(params.voluntaryDefaultWeight >= 0) || !(params.spendingBaseFall > 0) || params.spendingBaseFall > 1 || !(params.treasuryReserveWeeks >= 0) || !(params.surplusReturnShare >= 0) || params.surplusReturnShare > 1) {
     throw new Error('A parameter is outside its valid range.');
   }
 }

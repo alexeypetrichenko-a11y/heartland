@@ -32,6 +32,7 @@ export function legacyParamsV5(params: { gdpSmoothing: number }): Record<string,
     treasuryReserveWeeks: 26,
     surplusReturnShare: 0,
     voluntaryDefaultWeight: 0,
+    socialStabilityCap: 0,
   };
 }
 

@@ -7,6 +7,7 @@ import {
   saveEconomySession, startEconomyFromSave,
 } from '../src/integration/index.ts';
 import { STATE_VERSION, upgradeEconomy } from '../src/core/state.ts';
+import { socialStability } from '../src/core/politics.ts';
 
 /**
  * ECON-07 balance corrections: save compatibility and the behaviour of each correction.
@@ -14,7 +15,7 @@ import { STATE_VERSION, upgradeEconomy } from '../src/core/state.ts';
  */
 const V5_SAVE = readFileSync(new URL('./fixtures/fictional-week1.v5.economy.json', import.meta.url), 'utf8');
 const CURRENT_SAVE = readFileSync(new URL('../scenarios/fictional-week1.economy.json', import.meta.url), 'utf8');
-const NEW_PARAMS = ['spendingBaseFall', 'treasuryReserveWeeks', 'surplusReturnShare', 'voluntaryDefaultWeight'];
+const NEW_PARAMS = ['spendingBaseFall', 'treasuryReserveWeeks', 'surplusReturnShare', 'voluntaryDefaultWeight', 'socialStabilityCap'];
 
 /** The FNV-style text hash of hashEconomy, over a state with every ECON-07 addition removed. */
 function digestWithoutEcon07(session: EconomySession): string {
@@ -143,4 +144,45 @@ test('(B) a default is never a defeat by itself', () => {
       assert.ok(getCountryEconomy(session, country).unrestTier === 0, `${country}: the default alone opens no crisis`);
     }
   }
+});
+
+test('(C) social spending above the norm has diminishing returns and a ceiling; cuts below it hurt fully', () => {
+  const weight = 150, cap = 8;
+  let previous = 0, previousGain = Infinity;
+  for (let gap = 0.02; gap <= 0.4 + 1e-9; gap += 0.02) {
+    const value = socialStability(weight, cap, gap);
+    assert.ok(value > previous && value < cap, 'more spending helps, but never beyond the cap');
+    assert.ok(value - previous < previousGain, 'each further step helps less');
+    previousGain = value - previous;
+    previous = value;
+  }
+  assert.ok(Math.abs(socialStability(weight, cap, 1e-6) - 75e-6) < 1e-9, 'the first points cost what they always did');
+  assert.ok(Math.abs(socialStability(weight, cap, 0.08) - 6 / 1.75) < 1e-12, '+3.4 at 18% of GDP (was +6)');
+  assert.ok(Math.abs(socialStability(weight, cap, 0.4) - 30 / 4.75) < 1e-12, '+6.3 at the 50% limit (was +30)');
+  assert.equal(socialStability(weight, cap, -0.04), -6, 'spending below the norm loses the full weight');
+  assert.equal(socialStability(weight, 0, 0.4), 30, 'cap 0 is the legacy straight line');
+});
+
+test('(C) maximum social spending does not protect a regime from a ruinous tax policy', () => {
+  let fallen = 0;
+  for (const country of ['alden', 'belora', 'cyrin']) {
+    let session = startEconomyFromSave(CURRENT_SAVE, fictionalGameWorld(country));
+    session = advanceEconomyWeek(session, { playerCommands: fiscalCommands(country, { taxes: { income: 0.7, consumption: 0.7, corporate: 0.7 }, spending: { social: 0.5 } }) });
+    for (let week = 3; week <= 52 && !session.summary.playerRegimeFell; week++) session = advanceEconomyWeek(session, {});
+    if (session.summary.playerRegimeFell) fallen++;
+  }
+  assert.equal(fallen, 3, 'every regime fell within a year despite social spending at its limit');
+});
+
+test('(C) cutting social spending back costs stability', () => {
+  const run = (cut: boolean) => {
+    let session = startEconomyFromSave(CURRENT_SAVE, fictionalGameWorld('belora'));
+    session = advanceEconomyWeek(session, { playerCommands: fiscalCommands('belora', { spending: { social: 0.18 } }) });
+    for (let week = 3; week <= 78; week++) {
+      session = advanceEconomyWeek(session, { playerCommands: week === 53 && cut ? fiscalCommands('belora', { spending: { social: 0.1 } }) : [] });
+    }
+    return getCountryEconomy(session, 'belora').stability;
+  };
+  const kept = run(false), cut = run(true);
+  assert.ok(cut < kept - 4, `stability ${cut.toFixed(1)} after the cut vs ${kept.toFixed(1)} without it`);
 });

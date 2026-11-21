@@ -20,7 +20,9 @@ const GOLDEN_WEEKS = 672; // 100 warm-up + 520 + 52, as in sim/browser-bench.cjs
 // GDP, debt-free treasuries return cash above a strategic reserve, and the state has a new field (version 6).
 // Re-pinned in ECON-07 (B) (was 63e9873f967ab474): defaults cost more output for longer, reputation fades more
 // slowly, and a voluntary default weighs like half an extra previous default.
-const GOLDEN = 'c4f3bb8d9b057d5e';
+// Re-pinned in ECON-07 (C) (was c4f3bb8d9b057d5e): stability from social spending above the norm has diminishing
+// returns and levels off below 8 points.
+const GOLDEN = 'da69e1f5b0859ef6';
 
 test(`golden: the default test world after ${GOLDEN_WEEKS} weeks has the pinned fingerprint`, () => {
   const state = createEconomy(createTestWorldSpec());
