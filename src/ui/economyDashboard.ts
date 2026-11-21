@@ -1,4 +1,4 @@
-import type { CountryEconomyView, EconomyNotice } from '../game/economyBridge.ts';
+import type { CountryEconomyView, EconomyNotice, PreviousEconomy } from '../game/economyBridge.ts';
 
 /**
  * Display model of the economy panel (INT-01). Every figure comes from the economic
@@ -17,7 +17,7 @@ export const formatMoney = (value: number) => money.format(Math.abs(value) < 0.0
 export const formatSignedMoney = (value: number) => `${value >= 0.05 ? '+' : ''}${formatMoney(value)}`;
 export const formatPercent = (value: number) => percent.format(value);
 
-export function readEconomyDashboard(view: CountryEconomyView, previous: CountryEconomyView | null, week: number) {
+export function readEconomyDashboard(view: CountryEconomyView, previous: PreviousEconomy | null, week: number) {
   const budget: DashboardRow[] = [
     { label: 'Treasury', value: formatMoney(view.treasury) },
     { label: 'Weekly revenue', value: formatMoney(view.budget.revenue) },

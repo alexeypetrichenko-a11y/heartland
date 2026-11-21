@@ -7,11 +7,8 @@ import type { FiscalField, FiscalReview } from './fiscalDraft';
 
 type Props = {
   week: number;
-  economy: EconomySnapshot | null;
-  status: 'loading' | 'ready' | 'failed';
-  error: string | null;
-  onRetry: () => void;
-  fiscal: FiscalReview | null;
+  economy: EconomySnapshot;
+  fiscal: FiscalReview;
   onFiscalChange: (field: FiscalField, value: string) => void;
 };
 
@@ -23,30 +20,16 @@ function Rows({ rows, empty }: { rows: readonly DashboardRow[]; empty: string })
   </dl>;
 }
 
-export function EconomyPanel({ week, economy, status, error, onRetry, fiscal, onFiscalChange }: Props) {
+export function EconomyPanel({ week, economy, fiscal, onFiscalChange }: Props) {
   const [editingFiscal, setEditingFiscal] = useState(false);
-  if (!economy) {
-    return <section className="compact-section" aria-labelledby="economy-title">
-      <h2 id="economy-title" className="sr-only">Country economy</h2>
-      <div className="overview economy-dashboard">
-        {status === 'failed'
-          ? <div className="card economy-week" role="alert">
-            <p>The economy could not be loaded{error ? `: ${error}` : '.'} Check your connection and try again.</p>
-            <button type="button" onClick={onRetry}>Try again</button>
-          </div>
-          : <p className="card economy-week" role="status">Preparing the economy…</p>}
-      </div>
-    </section>;
-  }
-
   const { budget, indicators, sectors, shortages, latestWeek } = readEconomyDashboard(economy.player, economy.previous, week);
   const news = economyNews(economy.notices);
-  const showFiscal = editingFiscal && fiscal !== null;
+  const showFiscal = editingFiscal;
   return (
     <section className="compact-section" aria-labelledby="economy-title">
       <h2 id="economy-title" className="sr-only">Country economy</h2>
       <div className="overview economy-dashboard" tabIndex={0} role="region" aria-label="Economic dashboard" hidden={showFiscal}>
-        {fiscal && <div className="card economy-policy">
+        <div className="card economy-policy">
           <button type="button" className="row" aria-controls="fiscal-policy-details" aria-expanded={showFiscal}
             onClick={() => setEditingFiscal(true)}>
             <span className="row-text">
@@ -56,7 +39,7 @@ export function EconomyPanel({ week, economy, status, error, onRetry, fiscal, on
             </span>
             <span className="chevron" aria-hidden="true">›</span>
           </button>
-        </div>}
+        </div>
         <section className="group economy-budget" aria-labelledby="economy-budget">
           <h3 id="economy-budget">Government budget</h3>
           <dl className="metrics economy-metrics">
@@ -97,7 +80,7 @@ export function EconomyPanel({ week, economy, status, error, onRetry, fiscal, on
 
       </div>
       <DetailPanel id="fiscal-policy-details" title="Fiscal policy" open={showFiscal} onClose={() => setEditingFiscal(false)}>
-        {fiscal && <FiscalPolicyEditor fiscal={fiscal} disabled={economy.defeated} onChange={onFiscalChange} />}
+        <FiscalPolicyEditor fiscal={fiscal} disabled={economy.defeated} onChange={onFiscalChange} />
       </DetailPanel>
     </section>
   );

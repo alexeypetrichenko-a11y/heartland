@@ -38,7 +38,7 @@ function labels(catalog: AtlasCatalog | null, camera: WorldCamera, size: AtlasSi
   });
 }
 
-export default function AtlasMap({ active }: { active: boolean }) {
+export default function AtlasMap({ active, onSettled }: { active: boolean; onSettled: () => void }) {
   const [revision, setRevision] = useState(0);
   const [showHelp, setShowHelp] = useState(false);
   const visible = active && !showHelp;
@@ -91,6 +91,7 @@ export default function AtlasMap({ active }: { active: boolean }) {
   const terrainStatus = needsFlat ? flatTerrainStatus : globeTerrainStatus;
   const projectionLabel = view.flatOnly ? 'Flat atlas · Globe unavailable' : view.projection === 'globe' ? 'Globe' : 'Map';
   const initialLoading = !data.error && (!data.catalog || !data.overview.length || (!view.flatOnly && !globeReady));
+  useEffect(() => { if (!initialLoading) onSettled(); }, [initialLoading, onSettled]);
   const selectedCountry = data.catalog?.countries.find(country => country.id === selectedId);
   const globeSelection = selectedId ? data.overview.find(shape => shape.id === selectedId) : undefined;
   const lastFit = useRef('');
