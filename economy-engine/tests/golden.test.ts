@@ -18,7 +18,9 @@ const GOLDEN_WEEKS = 672; // 100 warm-up + 520 + 52, as in sim/browser-bench.cjs
 // checked to be bit-identical after 672 weeks in both test worlds, so the calm economy itself is unchanged.
 // Re-pinned in ECON-07 (A) (was 6f9bf1a361044b05): spending shares apply to a budget base that falls only slowly with
 // GDP, debt-free treasuries return cash above a strategic reserve, and the state has a new field (version 6).
-const GOLDEN = '63e9873f967ab474';
+// Re-pinned in ECON-07 (B) (was 63e9873f967ab474): defaults cost more output for longer, reputation fades more
+// slowly, and a voluntary default weighs like half an extra previous default.
+const GOLDEN = 'c4f3bb8d9b057d5e';
 
 test(`golden: the default test world after ${GOLDEN_WEEKS} weeks has the pinned fingerprint`, () => {
   const state = createEconomy(createTestWorldSpec());

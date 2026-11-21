@@ -14,7 +14,7 @@ import { STATE_VERSION, upgradeEconomy } from '../src/core/state.ts';
  */
 const V5_SAVE = readFileSync(new URL('./fixtures/fictional-week1.v5.economy.json', import.meta.url), 'utf8');
 const CURRENT_SAVE = readFileSync(new URL('../scenarios/fictional-week1.economy.json', import.meta.url), 'utf8');
-const NEW_PARAMS = ['spendingBaseFall', 'treasuryReserveWeeks', 'surplusReturnShare'];
+const NEW_PARAMS = ['spendingBaseFall', 'treasuryReserveWeeks', 'surplusReturnShare', 'voluntaryDefaultWeight'];
 
 /** The FNV-style text hash of hashEconomy, over a state with every ECON-07 addition removed. */
 function digestWithoutEcon07(session: EconomySession): string {
@@ -95,4 +95,52 @@ test('(A) a debt-free treasury keeps a strategic reserve and returns only the ca
   }
   assert.ok(debtFreeWeek > 0, 'the debt was repaid');
   assert.ok(returned > 0, 'surplus cash above the reserve went back to households');
+});
+
+/** Starting session for `country`, advanced `weeks` weeks with no player decision. */
+function startAt(country: string, weeks: number): EconomySession {
+  let session = startEconomyFromSave(CURRENT_SAVE, fictionalGameWorld(country));
+  for (let week = 2; week <= weeks; week++) session = advanceEconomyWeek(session, {});
+  return session;
+}
+
+test('(B) a default declared while able to pay is voluntary: heavier consequences, same 55% write-off', () => {
+  let session = startAt('alden', 10);
+  const c = session.state.countries.findIndex(country => country.id === 'alden');
+  const p = session.state.config.params;
+  const before = { debt: session.state.country.debt[c], stability: session.state.country.stability[c], spread: session.state.country.reputationSpread[c] };
+  session = advanceEconomyWeek(session, { playerCommands: [{ type: 'declare-default', countryId: 'alden' }] });
+  const event = session.summary.events.find(e => e.type === 'sovereign-default');
+  assert.ok(event && event.type === 'sovereign-default' && event.voluntary === true && event.forced === false);
+  assert.ok(Math.abs(event.haircut - p.defaultHaircut) < 1e-12, 'the write-off is the approved first-default share');
+  const weight = 1 + p.voluntaryDefaultWeight;
+  // Exclusion: 78 weeks x (1 + 0.5 x 0.5), less the week that has already passed.
+  assert.equal(session.state.country.exclusionWeeks[c], Math.round(p.defaultExclusionWeeks * (1 + 0.5 * p.voluntaryDefaultWeight)) - 1);
+  assert.ok(session.state.country.reputationSpread[c] > before.spread + p.defaultReputationSpread * weight * 0.99, 'a larger reputation premium');
+  assert.ok(session.state.country.stability[c] < before.stability - p.defaultStabilityShock, 'a larger stability shock');
+  assert.equal(session.state.country.marketAccess[c], 0);
+});
+
+test('(B) a default declared after lenders have shut the country out is not voluntary', () => {
+  // Low taxes and high spending lose market access; declaring then is a default of necessity.
+  let session = startEconomyFromSave(CURRENT_SAVE, fictionalGameWorld('alden'));
+  session = advanceEconomyWeek(session, { playerCommands: fiscalCommands('alden', { taxes: { income: 0.05, consumption: 0.03, corporate: 0.05 }, spending: { social: 0.2, administration: 0.16 } }) });
+  let week = 3;
+  for (; week <= 104 && getCountryEconomy(session, 'alden').marketAccess; week++) session = advanceEconomyWeek(session, {});
+  assert.equal(getCountryEconomy(session, 'alden').marketAccess, false, 'market access was lost');
+  session = advanceEconomyWeek(session, { playerCommands: [{ type: 'declare-default', countryId: 'alden' }] });
+  const event = session.summary.events.find(e => e.type === 'sovereign-default');
+  assert.ok(event && event.type === 'sovereign-default' && event.voluntary === false);
+});
+
+test('(B) a default is never a defeat by itself', () => {
+  for (const country of ['alden', 'belora', 'cyrin']) {
+    let session = startAt(country, 25);
+    session = advanceEconomyWeek(session, { playerCommands: [{ type: 'declare-default', countryId: country }] });
+    for (let week = 27; week <= 78; week++) {
+      session = advanceEconomyWeek(session, {});
+      assert.equal(session.summary.playerRegimeFell, false, `${country}: no regime change after a single default (week ${week})`);
+      assert.ok(getCountryEconomy(session, country).unrestTier === 0, `${country}: the default alone opens no crisis`);
+    }
+  }
 });

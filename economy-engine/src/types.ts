@@ -182,6 +182,11 @@ export interface EconomyParams {
   defaultReputationSpread: number;
   reputationDecayWeeks: number;
   defaultStabilityShock: number;
+  /**
+   * ECON-07 (B): a default declared while the state still has market access and no missed payments counts, for
+   * every consequence, as this many extra previous defaults (0 = no distinction, the legacy behaviour).
+   */
+  voluntaryDefaultWeight: number;
   defaultMemoryWeeks: number;
   ownershipTransferValue: number;
   defaultOutputShock: number;
@@ -746,7 +751,7 @@ export interface StepOptions {
 // ---------------------------------------------------------------------------
 
 export type EconomyEvent =
-  | { type: 'sovereign-default'; turn: number; countryId: CountryId; forced: boolean; haircut: number; debtWrittenOff: number }
+  | { type: 'sovereign-default'; turn: number; countryId: CountryId; forced: boolean; /** ECON-07: declared while still able to borrow and pay (absent in events from older engines). */ voluntary?: boolean; haircut: number; debtWrittenOff: number }
   | { type: 'market-access-lost'; turn: number; countryId: CountryId; rate: number }
   | { type: 'market-access-restored'; turn: number; countryId: CountryId; rate: number }
   | { type: 'unrest-started'; turn: number; countryId: CountryId; tier: number }

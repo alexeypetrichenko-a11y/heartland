@@ -429,8 +429,11 @@ export const DEFAULT_PARAMS: EconomyParams = {
   defaultHaircut: 0.55,
   defaultExclusionWeeks: 78,
   defaultReputationSpread: 0.05,
-  reputationDecayWeeks: 156,
+  /** ECON-07 (B): was 156. Lenders remember a default for longer (the premium halves in about three and a half years). */
+  reputationDecayWeeks: 260,
   defaultStabilityShock: 12,
+  /** ECON-07 (B): a voluntary default (declared while able to pay) weighs like half an extra previous default. */
+  voluntaryDefaultWeight: 0.5,
   /**
    * Repeated defaults (C3): each default adds 1 to a memory that fades over this many weeks.
    * With memory m, a new default writes off only base haircut / (1 + m)^2 of the debt (nothing
@@ -441,8 +444,9 @@ export const DEFAULT_PARAMS: EconomyParams = {
   /** Value of plant in a nationalisation or privatisation, as a share of its replacement value (fair price = plant + cash - debt). */
   ownershipTransferValue: 0.6,
   /** Share of output lost to financial disruption right after a default. */
-  defaultOutputShock: 0.06,
-  defaultShockRecoveryWeeks: 52,
+  /** ECON-07 (B): were 6% and 52 weeks. A default disrupts banks and trade credit for longer. */
+  defaultOutputShock: 0.08,
+  defaultShockRecoveryWeeks: 78,
   restructuredRate: 0.03,
   surplusRepayShare: 0.1,
   gdpSmoothing: 1 / 13,
@@ -744,7 +748,7 @@ export function validateConfig(config: EconomyConfig): void {
     || params.resistanceFallFree > 1 || params.sabotageChance > 1 || params.sabotageDamage > 1 || params.revoltEndThreshold > params.revoltThreshold
     || params.revoltThreshold > 1 || params.laneCapacityHeadroom < 1 || params.laneCapacityFloor > 1 || params.laneDemandSmoothing > 1
     || !(params.laneDemandSmoothing > 0)
-    || !(params.spendingBaseFall > 0) || params.spendingBaseFall > 1 || !(params.treasuryReserveWeeks >= 0) || !(params.surplusReturnShare >= 0) || params.surplusReturnShare > 1) {
+    || !(params.voluntaryDefaultWeight >= 0) || !(params.spendingBaseFall > 0) || params.spendingBaseFall > 1 || !(params.treasuryReserveWeeks >= 0) || !(params.surplusReturnShare >= 0) || params.surplusReturnShare > 1) {
     throw new Error('A parameter is outside its valid range.');
   }
 }

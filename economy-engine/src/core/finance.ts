@@ -367,8 +367,14 @@ function applyDefault(s: EconomyState, w: Workspace, m: Model, c: number, forced
   // Repeat defaulters (C3): every consequence is heavier, creditors concede much less each
   // time, and they concede nothing at all while the previous restructuring is still under way
   // (the country is still shut out of credit markets), so serial defaults cannot erase debt.
-  const repeat = 1 + country.defaultMemory[c];
-  const haircut = country.exclusionWeeks[c] > 0 ? 0 : p.defaultHaircut / (repeat * repeat);
+  // ECON-07 (B): a default the state chose while it could still borrow and pay is judged more harshly than
+  // one forced on it (or declared once lenders had already shut it out).
+  const voluntary = !forced && country.marketAccess[c] === 1 && country.missedPayments[c] === 0;
+  const record = 1 + country.defaultMemory[c];
+  // The write-off depends only on the country's record of defaults (the approved provisional 55% for a first one);
+  // every other consequence is heavier for a voluntary default.
+  const repeat = record + (voluntary ? p.voluntaryDefaultWeight : 0);
+  const haircut = country.exclusionWeeks[c] > 0 ? 0 : p.defaultHaircut / (record * record);
   scaleDebt(s, c, 1 - haircut);
   // The central bank's loans to the defaulting state lose the same share: a loss of its capital.
   const bankLoss = country.cbStateLoans[c] * haircut;
@@ -377,7 +383,8 @@ function applyDefault(s: EconomyState, w: Workspace, m: Model, c: number, forced
   const writtenOff = before - country.debt[c] + bankLoss;
   country.averageRate[c] = Math.min(country.averageRate[c], p.restructuredRate);
   // Repeat offenders stay locked out of credit markets for longer.
-  country.exclusionWeeks[c] = Math.round(p.defaultExclusionWeeks * (1 + 0.5 * country.defaults[c]));
+  // A voluntary default counts as part of an extra previous default here too.
+  country.exclusionWeeks[c] = Math.round(p.defaultExclusionWeeks * (1 + 0.5 * (country.defaults[c] + (voluntary ? p.voluntaryDefaultWeight : 0))));
   country.marketAccess[c] = 0;
   country.reputationSpread[c] += p.defaultReputationSpread * repeat;
   country.stability[c] = Math.max(0, country.stability[c] - p.defaultStabilityShock * repeat);
@@ -400,7 +407,7 @@ function applyDefault(s: EconomyState, w: Workspace, m: Model, c: number, forced
     }
   }
   events.push({
-    type: 'sovereign-default', turn: s.turn + 1, countryId: s.countries[c].id, forced,
+    type: 'sovereign-default', turn: s.turn + 1, countryId: s.countries[c].id, forced, voluntary,
     haircut, debtWrittenOff: writtenOff,
   });
 }
