@@ -1,41 +1,43 @@
-import { ECONOMIC_POLICIES, isEconomicPolicy } from '../game/economy';
-import type { Country, EconomicPolicy } from '../game/models';
-import { readEconomyDashboard, type EconomyWeekStart } from './economyDashboard';
+import type { EconomySnapshot } from '../game/economyBridge';
+import { economyNews, readEconomyDashboard, type DashboardRow } from './economyDashboard';
 
+/**
+ * Read-only economy panel (INT-01): every figure comes from the economic engine's session.
+ * The seven tax and spending controls arrive in a follow-up task (INT-02).
+ */
 type Props = {
-  country: Country;
   week: number;
-  weekStart: EconomyWeekStart | null;
-  nextPolicy: EconomicPolicy;
-  onChangePolicy: (policy: EconomicPolicy) => void;
+  economy: EconomySnapshot | null;
+  status: 'loading' | 'ready' | 'failed';
+  error: string | null;
+  onRetry: () => void;
 };
 
-const unavailableIndicators = ['GDP', 'Economic growth', 'Inflation', 'Unemployment', 'Public debt', 'Political stability'];
-const unavailableActivity = ['Key economic sectors', 'Significant shortages', 'Economic events'];
-const unavailableControls = [
-  ['income-tax', 'Income tax'],
-  ['consumption-tax', 'Consumption tax'],
-  ['corporate-tax', 'Corporate profit tax'],
-  ['spending-priorities', 'Public spending priorities'],
-] as const;
-const formatAmount = new Intl.NumberFormat('en');
-
-function UnavailableRows({ labels }: { labels: readonly string[] }) {
-  return <dl className="card economy-rows">
-    {labels.map(label => <div key={label}><dt>{label}</dt><dd>Unavailable</dd></div>)}
+function Rows({ rows, empty }: { rows: readonly DashboardRow[]; empty: string }) {
+  return <dl className="card economy-rows economy-values">
+    {rows.length === 0 ? <div><dt>{empty}</dt><dd>—</dd></div> : rows.map(({ label, value, note }) => <div key={label}>
+      <dt>{label}{note && <span className="economy-row-note">{note}</span>}</dt><dd>{value}</dd>
+    </div>)}
   </dl>;
 }
 
-export function EconomyPanel({ country, week, weekStart, nextPolicy, onChangePolicy }: Props) {
-  const { treasury, weeklyBudget, lastWeek } = readEconomyDashboard(country, week, weekStart);
-  const policyPending = nextPolicy !== country.economicPolicy;
-  const metrics = [
-    { label: 'Treasury', amount: treasury },
-    { label: 'Weekly income', amount: weeklyBudget.income },
-    { label: 'Weekly expenses', amount: weeklyBudget.expenses },
-    { label: 'Weekly balance', amount: weeklyBudget.balance, signed: true },
-  ];
+export function EconomyPanel({ week, economy, status, error, onRetry }: Props) {
+  if (!economy) {
+    return <section className="compact-section" aria-labelledby="economy-title">
+      <h2 id="economy-title" className="sr-only">Country economy</h2>
+      <div className="overview economy-dashboard">
+        {status === 'failed'
+          ? <div className="card economy-week" role="alert">
+            <p>The economy could not be loaded{error ? `: ${error}` : '.'} Check your connection and try again.</p>
+            <button type="button" onClick={onRetry}>Try again</button>
+          </div>
+          : <p className="card economy-week" role="status">Preparing the economy…</p>}
+      </div>
+    </section>;
+  }
 
+  const { budget, indicators, fiscal, sectors, shortages, latestWeek } = readEconomyDashboard(economy.player, economy.previous, week);
+  const news = economyNews(economy.notices);
   return (
     <section className="compact-section" aria-labelledby="economy-title">
       <h2 id="economy-title" className="sr-only">Country economy</h2>
@@ -43,63 +45,45 @@ export function EconomyPanel({ country, week, weekStart, nextPolicy, onChangePol
         <section className="group economy-budget" aria-labelledby="economy-budget">
           <h3 id="economy-budget">Government budget</h3>
           <dl className="metrics economy-metrics">
-            {metrics.map(({ label, amount, signed }) => <div className="tile" key={label}>
-              <dt>{label}</dt>
-              <dd>{signed && amount > 0 ? '+' : ''}{formatAmount.format(amount)}</dd>
-            </div>)}
+            {budget.map(({ label, value }) => <div className="tile" key={label}><dt>{label}</dt><dd>{value}</dd></div>)}
           </dl>
-          <p className="economy-note">Fictional scenario units. Weekly budget at the current tax policy.</p>
+          <p className="economy-note">Illustrative units · Week {economy.session.week} · Economic engine</p>
         </section>
 
-        <section className="group economy-policy" aria-labelledby="economy-policy">
-          <h3 id="economy-policy">Fiscal policy</h3>
-          <div className="card economy-policy-card">
-            <dl className="economy-current-policy">
-              <div><dt>Current tax policy</dt><dd>{ECONOMIC_POLICIES[country.economicPolicy].label}</dd></div>
-            </dl>
-            <label htmlFor="economic-policy">Tax policy for next week</label>
-            <select id="economic-policy" value={nextPolicy} aria-describedby="policy-help" onChange={event => {
-              if (isEconomicPolicy(event.target.value)) onChangePolicy(event.target.value);
-            }}>
-              {Object.entries(ECONOMIC_POLICIES).map(([policy, { label }]) => <option key={policy} value={policy}>{label}</option>)}
-            </select>
-            <p id="policy-help">Use <b>Next week</b> to apply your choice and settle the budget.</p>
-            <p className="economy-draft" role="status">{policyPending ? `Draft · ${ECONOMIC_POLICIES[nextPolicy].label}` : ''}</p>
-          </div>
-          <details className="card economy-locked-controls">
-            <summary>Tax rates and spending priorities</summary>
-            <p id="economy-controls-status">Unavailable until the economic engine is connected.</p>
-            <fieldset disabled aria-describedby="economy-controls-status">
-              <legend className="sr-only">Additional fiscal controls</legend>
-              {unavailableControls.map(([id, label]) => <div key={id}>
-                <label htmlFor={id}>{label}</label>
-                <select id={id} defaultValue="unavailable"><option value="unavailable">Unavailable</option></select>
-              </div>)}
-            </fieldset>
-          </details>
+        <section className="group economy-indicators" aria-labelledby="economy-indicators">
+          <h3 id="economy-indicators">Economic indicators</h3>
+          <Rows rows={indicators} empty="No indicators" />
         </section>
 
         <section className="group economy-latest-week" aria-labelledby="economy-latest-week">
           <h3 id="economy-latest-week">Latest week</h3>
           <div className="card economy-week">
-            {lastWeek ? <>
-              <p>Week {lastWeek.week} settled</p>
+            {latestWeek ? <>
+              <p>Week {latestWeek.week} settled</p>
               <dl className="economy-treasury-change">
-                <div><dt>Opening treasury</dt><dd>{formatAmount.format(lastWeek.openingTreasury)}</dd></div>
-                <div><dt>Closing treasury</dt><dd>{formatAmount.format(lastWeek.closingTreasury)}</dd></div>
+                <div><dt>Opening treasury</dt><dd>{latestWeek.openingTreasury}</dd></div>
+                <div><dt>Closing treasury</dt><dd>{latestWeek.closingTreasury}</dd></div>
               </dl>
-            </> : <p>No week has settled yet.</p>}
+            </> : <p>No week has settled yet. Use <b>Next week</b> to resolve the first one.</p>}
+            {news.length > 0 && <ul className="economy-news" aria-label="Economic events">
+              {news.map((notice, index) => <li key={index} className={`economy-news-${notice.severity}`}>
+                <b>{notice.title}</b> {notice.message}
+              </li>)}
+            </ul>}
           </div>
-        </section>
-
-        <section className="group economy-indicators" aria-labelledby="economy-indicators">
-          <h3 id="economy-indicators">Economic indicators</h3>
-          <UnavailableRows labels={unavailableIndicators} />
         </section>
 
         <section className="group economy-activity" aria-labelledby="economy-activity">
           <h3 id="economy-activity">Economic activity</h3>
-          <UnavailableRows labels={unavailableActivity} />
+          <Rows rows={sectors} empty="Key economic sectors" />
+          <h4 className="economy-subheading">Significant shortages</h4>
+          <Rows rows={shortages} empty="No significant shortages" />
+        </section>
+
+        <section className="group economy-policy" aria-labelledby="economy-policy">
+          <h3 id="economy-policy">Fiscal policy</h3>
+          <Rows rows={fiscal} empty="No policy" />
+          <p className="economy-note">Current rates, read only. Tax and spending controls arrive in a later update.</p>
         </section>
       </div>
     </section>

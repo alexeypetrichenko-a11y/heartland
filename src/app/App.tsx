@@ -1,8 +1,8 @@
 import { Component, lazy, Suspense, useEffect, useRef, useState, type ReactNode } from 'react';
 import { createInitialState } from '../game/initialState';
 import { selectCountry } from '../game/selectCountry';
-import { advanceTurn } from '../game/advanceTurn';
-import type { GameState, TurnCommand } from '../game/models';
+import { advanceGameWeek, startEconomy, type EconomyRuntime, type EconomySnapshot } from '../game/economyBridge';
+import type { CountryId, GameState, TurnCommand } from '../game/models';
 
 const AtlasMap = lazy(() => import('../ui/AtlasMap'));
 const PrototypePage = lazy(() => import('../ui/PrototypePage').then(module => ({ default: module.PrototypePage })));
@@ -19,6 +19,12 @@ export function App() {
   const [view, setView] = useState<'atlas' | 'prototype'>('atlas');
   const [gameState, setGameState] = useState<GameState | null>(null);
   const [turnError, setTurnError] = useState<string | null>(null);
+  // The economic engine's session is the only economy (INT-01). It is created when a fictional game
+  // starts (country chosen), never for the globe; the engine and the week-1 save are loaded then.
+  const [economy, setEconomy] = useState<EconomySnapshot | null>(null);
+  const [economyStatus, setEconomyStatus] = useState<'loading' | 'ready' | 'failed'>('loading');
+  const [economyError, setEconomyError] = useState<string | null>(null);
+  const runtimeRef = useRef<EconomyRuntime | null>(null);
   const mainRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -37,11 +43,38 @@ export function App() {
     return () => { window.removeEventListener('pageshow', restored); document.removeEventListener('visibilitychange', resumed); };
   }, []);
 
-  function handleAdvanceTurn(commands: readonly TurnCommand[]) {
-    if (!gameState?.playerCountryId) return false;
+  async function startGameEconomy(game: GameState) {
+    setEconomy(null);
+    setEconomyStatus('loading');
+    setEconomyError(null);
     try {
-      const nextState = advanceTurn(gameState, commands);
-      setGameState(nextState);
+      if (!runtimeRef.current) {
+        const { loadEconomyRuntime } = await import('../game/economyRuntime');
+        runtimeRef.current = await loadEconomyRuntime();
+      }
+      setEconomy(startEconomy(runtimeRef.current, game));
+      setEconomyStatus('ready');
+    } catch (error) {
+      setEconomyStatus('failed');
+      setEconomyError(error instanceof Error ? error.message : null);
+    }
+  }
+
+  function handleSelectCountry(countryId: CountryId) {
+    if (!gameState) return;
+    const game = selectCountry(gameState, countryId);
+    setGameState(game);
+    void startGameEconomy(game);
+  }
+
+  function handleAdvanceTurn(commands: readonly TurnCommand[]) {
+    const runtime = runtimeRef.current;
+    if (!gameState?.playerCountryId || !runtime || !economy) return false;
+    try {
+      // One atomic week: game (diplomacy, AI, military) then economy; both are committed only if both succeed.
+      const next = advanceGameWeek(runtime, gameState, economy, commands);
+      setGameState(next.game);
+      setEconomy(next.economy);
       setTurnError(null);
       return true;
     } catch (error) {
@@ -79,9 +112,13 @@ export function App() {
         <ScreenBoundary><Suspense fallback={<div className="atlas-startup" role="status">Opening fictional game…</div>}><PrototypePage
           active={view === 'prototype'}
           state={gameState}
-          onSelectCountry={id => setGameState(state => state ? selectCountry(state, id) : state)}
+          onSelectCountry={handleSelectCountry}
           onAdvanceTurn={handleAdvanceTurn}
           turnError={turnError}
+          economy={economy}
+          economyStatus={economyStatus}
+          economyError={economyError}
+          onRetryEconomy={() => { if (gameState?.playerCountryId) void startGameEconomy(gameState); }}
           onBack={() => setView('atlas')}
         /></Suspense></ScreenBoundary>
       </div>}

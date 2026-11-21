@@ -1,5 +1,4 @@
 import type { GameState, TurnCommand } from './models.ts';
-import { isEconomicPolicy, resolveWeeklyEconomy } from './economy.ts';
 import { parseMilitaryOrder, resolveMilitary, validateMilitaryOrder } from './military.ts';
 import { applyDiplomaticCommand, DIPLOMACY_PARAMETERS, parseDiplomaticCommand } from './diplomacy.ts';
 import { resolveAIDiplomacy } from './ai.ts';
@@ -21,9 +20,6 @@ function validateCommand(value: unknown): TurnCommand {
     if (value.type === 'set-military-order' && isText(value.countryId) && isText(value.divisionId)) {
       return { type: value.type, countryId: value.countryId, divisionId: value.divisionId, order: parseMilitaryOrder(value.order) };
     }
-    if (value.type === 'set-economic-policy' && isText(value.countryId) && isEconomicPolicy(value.policy)) {
-      return { type: value.type, countryId: value.countryId, policy: value.policy };
-    }
     if (value.type === 'set-standing-order' && isRecord(value.order)) {
       const order = value.order;
       if (isText(order.id) && isText(order.countryId) && order.kind === 'placeholder' && isText(order.label)) {
@@ -41,11 +37,12 @@ function validateCommand(value: unknown): TurnCommand {
  * Resolve one local week, atomically. Commands apply in supplied array order:
  * set inserts/replaces an owned order by ID; cancel removes an owned order.
  * Invalid input throws without changing the supplied state or commands.
- * Placeholder orders persist without effects. Economic policy persists on each
- * country; policy commands apply before resolving every country's weekly budget.
- * Insufficient funds or invalid amounts reject the entire week, including commands.
- * Player diplomacy applies before one action per AI country, in stable country
- * ID order. Then budgets and military resolve within the same atomic turn.
+ * Placeholder orders persist without effects. Player diplomacy applies before
+ * one action per AI country, in stable country ID order; military orders then
+ * resolve within the same atomic turn.
+ * The economy is not resolved here: the economic engine resolves the same week
+ * in `economyBridge.ts` (advanceWeekTogether), and a week is never rejected for
+ * lack of funds (INT-01, decision A1).
  * No clock, randomness, React, storage or network access; the seed is untouched.
  */
 export function advanceTurn(state: GameState, commands: readonly TurnCommand[] = []): GameState {
@@ -59,7 +56,6 @@ export function advanceTurn(state: GameState, commands: readonly TurnCommand[] =
   if (!Array.isArray(commands)) throw new Error('Turn commands must be an array.');
 
   let orders = state.standingOrders.map(order => ({ ...order }));
-  let countries = state.countries.map(country => ({ ...country }));
   let divisions = state.divisions;
   let diplomacy = state;
   let diplomaticActions = 0;
@@ -77,10 +73,6 @@ export function advanceTurn(state: GameState, commands: readonly TurnCommand[] =
       divisions = divisions.map(division => division.id === command.divisionId ? { ...division, order: command.order } : division);
       continue;
     }
-    if (command.type === 'set-economic-policy') {
-      countries = countries.map(country => country.id === countryId ? { ...country, economicPolicy: command.policy } : country);
-      continue;
-    }
     const orderId = command.type === 'set-standing-order' ? command.order.id : command.orderId;
     const existing = orders.find(order => order.id === orderId);
     if (existing && existing.countryId !== player.id) throw new Error('Cannot change another country’s order.');
@@ -95,15 +87,7 @@ export function advanceTurn(state: GameState, commands: readonly TurnCommand[] =
   }
 
   diplomacy = resolveAIDiplomacy(diplomacy);
-  // Diplomacy does not change the fixed economic or military parameters.
-  countries = countries.map(country => {
-    try {
-      return { ...country, economy: resolveWeeklyEconomy(country.economy, country.economicPolicy) };
-    } catch (error) {
-      throw new Error(`${country.name}: ${error instanceof Error ? error.message : 'Economic resolution failed.'} Week not advanced; no changes applied.`);
-    }
-  });
   const military = resolveMilitary({ ...state, divisions });
-  return { ...state, week: state.week + 1, standingOrders: orders, countries, ...military,
+  return { ...state, week: state.week + 1, standingOrders: orders, ...military,
     relations: diplomacy.relations, diplomaticMessages: diplomacy.diplomaticMessages };
 }

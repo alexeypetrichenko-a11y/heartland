@@ -1,0 +1,71 @@
+# HEARTLAND economic engine (standalone prototype)
+
+A deterministic, serializable, offline world-economy simulation in plain TypeScript, built to be dropped into HEARTLAND later. It is **isolated**: nothing outside this folder was changed, the game does not use it yet, and every number in it is a **provisional proposal awaiting owner approval**.
+
+* Design and assumptions: [`ECONOMY_DESIGN.md`](ECONOMY_DESIGN.md)
+* How the game should use it: [`INTEGRATION_API.md`](INTEGRATION_API.md) (ECON-05 integration API) and [`ECONOMY_INTEGRATION.md`](ECONOMY_INTEGRATION.md) (full engine contract)
+* Decisions the owner must make: [`DECISIONS_REQUIRING_APPROVAL.md`](DECISIONS_REQUIRING_APPROVAL.md)
+* **Milestone 1** (sectors, 31-good catalogue, firm aggregates and performance tiers): [`MILESTONE_1.md`](MILESTONE_1.md)
+* **Milestone 2** (central banks and money, firm credit, bankruptcy, tier transitions, reserve fixes): [`MILESTONE_2.md`](MILESTONE_2.md)
+* **Milestone 3** (state and ownership, need-based monetary operations, repeated defaults): [`MILESTONE_3.md`](MILESTONE_3.md)
+* **Milestone 4** (occupation, occupation policies, transport capacity and military requisition): [`MILESTONE_4.md`](MILESTONE_4.md)
+* **ECON-05** (integration API for the game): [`INTEGRATION_API.md`](INTEGRATION_API.md), results in [`ECON_05.md`](ECON_05.md)
+* **Handoff to Codex** (A1 approved; exact instructions to connect the game): [`CODEX_HANDOFF.md`](CODEX_HANDOFF.md), results in [`HANDOFF_REPORT.md`](HANDOFF_REPORT.md); pre-built starting economy in [`scenarios/`](scenarios/) (`npm run starting-save`)
+* Generated evidence: [`reports/`](reports/) (scenarios, stability, browser benchmark, test results, configuration reference)
+
+## What it does
+
+Nine-country, eleven-zone fictional test world, available with the legacy seven goods (food, energy, materials, industrial, consumer, military, services; the default) or with the provisional ten-sector, 31-good catalogue (`createCatalogueWorldSpec()`). Firms are aggregated per zone × sector × ownership (private, public, mixed) with strong, average and fragile production lines (Milestone 1). The model covers production with intermediate inputs, households, prices, wages, international trade with freight, tariffs, sector sanctions and blockades, strategic reserves with storage costs, private investment with construction delays, firm credit and bankruptcy, national central banks, taxes, deficits, debt and credit markets, sovereign default, political stability and regime change. One turn = one week; **no maximum number of turns**.
+
+## Commands (Node ≥ 22.12; no install needed to run tests)
+
+```bash
+cd economy-engine
+npm test                                  # 112 fast tests, ≈40 s (includes all 10 mandatory scenarios)
+npm run bench                             # ms/week for 11-120 zones with the 31-good catalogue → reports/BENCHMARK.md
+npm run test:long                         # 10,000 consecutive weeks + save/restore check
+npm run typecheck                         # strict TypeScript (uses the game's node_modules TypeScript)
+npm run scenarios                         # the ten mandatory scenarios → reports/SCENARIO_REPORTS.md
+npm run stress                            # 100…100,000 weeks on three worlds → reports/STABILITY_REPORT.md
+npm run stress -- 1000000 --growing-only  # 1,000,000 weeks → reports/STABILITY_REPORT_LONG.md (≈9 min)
+npm run bench:browser                     # headless Chromium, CPU-throttled → reports/BROWSER_BENCHMARK.md
+npm run sim -- --turns 5200 --every 520   # standalone simulator: any number of turns
+npm run sim -- --turns 100000 --save /tmp/world.json
+npm run sim -- --load /tmp/world.json --turns 52 --audit
+npm run config-reference                  # regenerates reports/CONFIG_REFERENCE.md
+```
+
+## Using it
+
+```ts
+import { createEconomy, createTestWorldSpec, advanceEconomy, autopilotCommands, serializeEconomy } from './src/index.ts';
+
+let state = createEconomy(createTestWorldSpec(2401));           // ≈0.25 s, once
+const result = advanceEconomy(state, {
+  commands: [...autopilotCommands(state), { type: 'set-tax', countryId: 'norland', tax: 'income', rate: 0.2 }],
+  effects:  [{ type: 'production-shock', zoneId: 'verdania', goodId: 'food', factor: 0.5, recoveryWeeks: 78 }],
+}, { audit: true });                                             // pure: state is untouched
+state = result.state;                                            // result.report has everything the UI needs
+const save = serializeEconomy(state);                            // plain JSON string
+```
+
+**For the game:** use the integration API in `src/integration/index.ts`, documented in [`INTEGRATION_API.md`](INTEGRATION_API.md). A worked example on the game's three-country fictional scenario is [`examples/fictional-game.ts`](examples/fictional-game.ts) (`npm run example`).
+
+## Layout
+
+```
+src/integration/        the integration API: the only part the game should import (ECON-05)
+src/index.ts            the engine's full public interface (tools, tests, the integration layer)
+src/types.ts            all data contracts
+src/config/defaults.ts  goods, recipes and every parameter
+src/core/               the weekly turn (finance, planning, market, production, politics, …)
+src/world/              world builder/calibration and fictional test worlds
+src/ai/autopilot.ts     rule-based fiscal governments for AI countries
+sim/                    simulator CLI, scenarios, stress and benchmark tools
+tests/                  automated tests          examples/   worked integration example
+reports/                generated reports
+```
+
+## Suggested STATUS.md entry (not applied: the game's docs were left untouched)
+
+> **Economic engine prototype** (`economy-engine/`, branch `feature/economy-engine`): standalone and unintegrated. Verified by automated tests, ten scenarios and long-run stress runs described in `economy-engine/reports/`. Not verified on a physical iPhone/Safari. All parameters are provisional; see `DECISIONS_REQUIRING_APPROVAL.md`.

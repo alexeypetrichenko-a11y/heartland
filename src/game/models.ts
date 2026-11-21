@@ -1,22 +1,15 @@
 /** Plain data only; IDs refer to entries in the corresponding GameState arrays. */
 export type CountryId = string;
 export type RegionId = string;
-export type EconomicPolicy = 'standard' | 'tax-relief';
 
-/** Illustrative test values, not approved economic units or balance rules. */
-export interface Economy {
-  treasury: number;
-  /** Base income before the provisional policy adjustment. */
-  weeklyIncome: number;
-  weeklyExpenses: number;
-}
-
+/**
+ * The country's economy (treasury, budget, debt, policies) is not part of the game state:
+ * the economic engine's session is its only authoritative source (INT-01, decision A1).
+ */
 export interface Country {
   id: CountryId;
   name: string;
   controller: 'player' | 'ai';
-  economy: Economy;
-  economicPolicy: EconomicPolicy;
 }
 
 export interface Region {
@@ -93,7 +86,6 @@ export interface StandingOrder {
 export type TurnCommand =
   | { type: 'set-standing-order'; order: StandingOrder }
   | { type: 'cancel-standing-order'; countryId: CountryId; orderId: string }
-  | { type: 'set-economic-policy'; countryId: CountryId; policy: EconomicPolicy }
   | MilitaryCommand
   | DiplomaticCommand;
 

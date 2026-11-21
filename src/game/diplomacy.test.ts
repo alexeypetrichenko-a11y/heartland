@@ -107,13 +107,9 @@ test('malformed diplomacy, unknown/self targets and unauthorized commands reject
   assert.throws(() => advanceTurn(pending, [reply(pending.diplomaticMessages[0].id, 'accept', 'alden')]), /Only the recipient/);
 });
 
-test('failed economy or military validation rolls back diplomacy, AI replies, policies and orders', () => {
-  const state = start(); state.countries[0].economy.treasury = 0;
-  const commands: TurnCommand[] = [declare(), { type: 'set-economic-policy', countryId: 'alden', policy: 'tax-relief' },
-    { type: 'set-military-order', countryId: 'alden', divisionId: 'alden-first', order: { kind: 'move', targetRegionId: 'reed-coast' } }];
+test('failed military validation rolls back diplomacy, AI replies and orders', () => {
+  const state = start();
   const before = structuredClone(state);
-  assert.throws(() => advanceTurn(freeze(state), freeze(commands)), /Insufficient funds/);
-  assert.deepEqual(state, before);
   const badMilitary: TurnCommand = { type: 'set-military-order', countryId: 'alden', divisionId: 'alden-first', order: { kind: 'attack', targetRegionId: 'dawn-ridge' } };
   assert.throws(() => advanceTurn(state, [declare(), badMilitary]), /adjacent/);
   assert.deepEqual(state, before);
@@ -132,18 +128,17 @@ test('player can accept or reject AI offers with visible private results and a s
     const result = advanceTurn(state, [reply(incoming.id, response, 'alden')]);
     assert.equal(result.diplomaticMessages[0].visibility === 'private' && result.diplomaticMessages[0].status, response === 'accept' ? 'accepted' : 'rejected');
     assert.equal(visibleDiplomaticMessages(result, 'cyrin').some(message => message.id === incoming.id), false);
-    assert.equal(result.countries[0].economy.treasury, 108);
   }
 });
 
-test('mixed diplomatic/economic/military replay is identical through JSON, failed turns and multiple seeds', () => {
+test('mixed diplomatic/military replay is identical through JSON, failed turns and multiple seeds', () => {
   const replay = (seed: number, serialize: boolean) => {
     let state: GameState = start(); state.seed = seed;
     const history = [];
     const script: TurnCommand[][] = [
       [declare('condemnation'), { type: 'set-military-order', countryId: 'alden', divisionId: 'alden-first', order: { kind: 'attack', targetRegionId: 'amber-plain' } }],
       [offer()], [], [declare(), offer()], [declare()], [],
-      [{ type: 'set-economic-policy', countryId: 'alden', policy: 'tax-relief' }], [],
+      [], [],
     ];
     for (const commands of script) {
       if (serialize) state = JSON.parse(JSON.stringify(state));

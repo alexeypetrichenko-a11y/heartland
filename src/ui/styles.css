@@ -436,82 +436,29 @@ li {
   padding: 11px 12px;
   gap: 5px;
 }
-.economy-metrics dt,
-.economy-policy-card label {
+.economy-metrics dt {
   font-size: 0.875rem;
 }
 .economy-note {
   margin: 7px 4px 0;
   font-size: 0.8125rem;
 }
-.economy-policy-card,
 .economy-week {
   padding: 12px 14px;
   font-size: 0.875rem;
 }
-.economy-policy-card {
-  display: grid;
-  gap: 7px;
-}
-.economy-current-policy,
 .economy-treasury-change {
   margin: 0;
 }
-.economy-current-policy dt,
 .economy-treasury-change dt {
   color: var(--color-muted);
   font-size: 0.875rem;
 }
-.economy-current-policy dd,
 .economy-treasury-change dd {
   margin: 3px 0 0;
   font-size: 1rem;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
-}
-.economy-policy-card label {
-  margin-top: 5px;
-}
-.economy-policy-card #policy-help {
-  font-size: 0.8125rem;
-}
-.economy-draft {
-  color: var(--color-accent);
-}
-.economy-draft:empty {
-  display: none;
-}
-.economy-locked-controls {
-  margin-top: 8px;
-}
-.economy-locked-controls summary {
-  padding: 12px 14px;
-  font-size: 0.875rem;
-}
-.economy-locked-controls p {
-  padding: 0 14px;
-  font-size: 0.875rem;
-}
-.economy-locked-controls fieldset {
-  position: relative;
-  min-width: 0;
-  margin: 0;
-  padding: 12px 14px 14px;
-  border: 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-.economy-locked-controls label {
-  display: block;
-  margin-bottom: 4px;
-  color: var(--color-muted);
-  font-size: 0.875rem;
-}
-.economy-locked-controls select:disabled {
-  appearance: none;
-  opacity: .65;
-  color: var(--color-muted);
 }
 .economy-treasury-change {
   display: grid;
@@ -539,6 +486,39 @@ li {
 .economy-rows dd {
   margin: 0;
   color: var(--color-muted);
+}
+/* Engine figures (INT-01): values in the primary text colour, notes under the label. */
+.economy-values dd {
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.economy-row-note {
+  display: block;
+  margin-top: 2px;
+  color: var(--color-muted);
+  font-size: 0.75rem;
+}
+.economy-subheading {
+  margin: 10px 4px 6px;
+  color: var(--color-muted);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+.economy-news {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+.economy-news li {
+  padding-left: 10px;
+  border-left: 3px solid var(--color-border);
+}
+.economy-news .economy-news-critical,
+.economy-news .economy-news-defeat {
+  border-left-color: var(--color-accent);
 }
 .force-row {
   padding: 12px 14px;
