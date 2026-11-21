@@ -1,16 +1,18 @@
+import { useState } from 'react';
 import type { EconomySnapshot } from '../game/economyBridge';
 import { economyNews, readEconomyDashboard, type DashboardRow } from './economyDashboard';
+import { DetailPanel } from './DetailPanel';
+import { FiscalPolicyEditor } from './FiscalPolicyEditor';
+import type { FiscalField, FiscalReview } from './fiscalDraft';
 
-/**
- * Read-only economy panel (INT-01): every figure comes from the economic engine's session.
- * The seven tax and spending controls arrive in a follow-up task (INT-02).
- */
 type Props = {
   week: number;
   economy: EconomySnapshot | null;
   status: 'loading' | 'ready' | 'failed';
   error: string | null;
   onRetry: () => void;
+  fiscal: FiscalReview | null;
+  onFiscalChange: (field: FiscalField, value: string) => void;
 };
 
 function Rows({ rows, empty }: { rows: readonly DashboardRow[]; empty: string }) {
@@ -21,7 +23,8 @@ function Rows({ rows, empty }: { rows: readonly DashboardRow[]; empty: string })
   </dl>;
 }
 
-export function EconomyPanel({ week, economy, status, error, onRetry }: Props) {
+export function EconomyPanel({ week, economy, status, error, onRetry, fiscal, onFiscalChange }: Props) {
+  const [editingFiscal, setEditingFiscal] = useState(false);
   if (!economy) {
     return <section className="compact-section" aria-labelledby="economy-title">
       <h2 id="economy-title" className="sr-only">Country economy</h2>
@@ -36,12 +39,24 @@ export function EconomyPanel({ week, economy, status, error, onRetry }: Props) {
     </section>;
   }
 
-  const { budget, indicators, fiscal, sectors, shortages, latestWeek } = readEconomyDashboard(economy.player, economy.previous, week);
+  const { budget, indicators, sectors, shortages, latestWeek } = readEconomyDashboard(economy.player, economy.previous, week);
   const news = economyNews(economy.notices);
+  const showFiscal = editingFiscal && fiscal !== null;
   return (
     <section className="compact-section" aria-labelledby="economy-title">
       <h2 id="economy-title" className="sr-only">Country economy</h2>
-      <div className="overview economy-dashboard" tabIndex={0} role="region" aria-label="Economic dashboard">
+      <div className="overview economy-dashboard" tabIndex={0} role="region" aria-label="Economic dashboard" hidden={showFiscal}>
+        {fiscal && <div className="card economy-policy">
+          <button type="button" className="row" aria-controls="fiscal-policy-details" aria-expanded={showFiscal}
+            onClick={() => setEditingFiscal(true)}>
+            <span className="row-text">
+              <b>Fiscal policy</b>
+              <span>{fiscal.commands.length ? `${fiscal.commands.length} pending · ${fiscal.error ? 'Review inputs' : 'Next week'}` :
+                economy.defeated ? 'View final rates' : 'Edit taxes and spending'}</span>
+            </span>
+            <span className="chevron" aria-hidden="true">›</span>
+          </button>
+        </div>}
         <section className="group economy-budget" aria-labelledby="economy-budget">
           <h3 id="economy-budget">Government budget</h3>
           <dl className="metrics economy-metrics">
@@ -80,12 +95,10 @@ export function EconomyPanel({ week, economy, status, error, onRetry }: Props) {
           <Rows rows={shortages} empty="No significant shortages" />
         </section>
 
-        <section className="group economy-policy" aria-labelledby="economy-policy">
-          <h3 id="economy-policy">Fiscal policy</h3>
-          <Rows rows={fiscal} empty="No policy" />
-          <p className="economy-note">Current rates, read only. Tax and spending controls arrive in a later update.</p>
-        </section>
       </div>
+      <DetailPanel id="fiscal-policy-details" title="Fiscal policy" open={showFiscal} onClose={() => setEditingFiscal(false)}>
+        {fiscal && <FiscalPolicyEditor fiscal={fiscal} disabled={economy.defeated} onChange={onFiscalChange} />}
+      </DetailPanel>
     </section>
   );
 }

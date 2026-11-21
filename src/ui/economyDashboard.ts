@@ -17,9 +17,6 @@ export const formatMoney = (value: number) => money.format(Math.abs(value) < 0.0
 export const formatSignedMoney = (value: number) => `${value >= 0.05 ? '+' : ''}${formatMoney(value)}`;
 export const formatPercent = (value: number) => percent.format(value);
 
-const TAX_LABELS = { income: 'Income tax', consumption: 'Consumption tax', corporate: 'Corporate profit tax' } as const;
-const SPENDING_LABELS = { administration: 'Administration', social: 'Social', military: 'Military', infrastructure: 'Infrastructure' } as const;
-
 export function readEconomyDashboard(view: CountryEconomyView, previous: CountryEconomyView | null, week: number) {
   const budget: DashboardRow[] = [
     { label: 'Treasury', value: formatMoney(view.treasury) },
@@ -38,12 +35,6 @@ export function readEconomyDashboard(view: CountryEconomyView, previous: Country
     { label: 'Public debt', value: formatMoney(view.debt), note: `${formatPercent(view.debtToGdp)} of yearly GDP` },
     { label: 'Central-bank policy rate', value: formatPercent(view.centralBank.policyRate) },
   ];
-  const fiscal: DashboardRow[] = [
-    ...Object.entries(TAX_LABELS).map(([key, label]) => ({ label, value: formatPercent(view.fiscal.taxes[key as keyof typeof TAX_LABELS]) })),
-    ...Object.entries(SPENDING_LABELS).map(([key, label]) => ({
-      label: `${label} spending`, value: formatPercent(view.fiscal.spending[key as keyof typeof SPENDING_LABELS]), note: 'of GDP',
-    })),
-  ];
   // The largest sectors by this week's output, and the goods in short supply (engine shortage index above 5%).
   const sectors = [...view.sectors].sort((a, b) => b.output - a.output).slice(0, 3)
     .map(sector => ({ label: sector.name, value: formatMoney(sector.output), note: `${formatPercent(sector.utilization)} of capacity` }));
@@ -52,7 +43,7 @@ export function readEconomyDashboard(view: CountryEconomyView, previous: Country
   const latestWeek = previous && previous.countryId === view.countryId && week > 1
     ? { week: week - 1, openingTreasury: formatMoney(previous.treasury), closingTreasury: formatMoney(view.treasury) }
     : null;
-  return { budget, indicators, fiscal, sectors, shortages, latestWeek };
+  return { budget, indicators, sectors, shortages, latestWeek };
 }
 
 /** Notices of the latest week to show in the economy panel: everything about the player, and other countries' critical news. */
