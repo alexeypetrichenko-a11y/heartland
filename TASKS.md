@@ -230,7 +230,7 @@ Owner tests T01–T09 on real iPhone. Correct usability/game-breaking bugs **bef
 ### INT-02 — Seven direct fiscal controls
 
 - [x] Economy → Fiscal policy shows current percentages and editable proposals for the player's seven settings. The combined weekly turn applies valid proposals and clears drafts on success. A refused week retains all drafts.
-- [ ] Validate the INT-02 review build on a physical iPhone.
+- [x] Merged into main in PR #27.
 
 **Scope:** In the Economy panel, editable drafts for income, consumption and corporate profit tax and for administration, social, military and infrastructure spending:
 - limits from `fiscalLimits`;
@@ -244,7 +244,15 @@ No other economic commands and no mapping from the retired presets.
 
 ## Milestone 2 — Make the solo game strategically rich (incremental)
 
-- **T10:** Save/load locally for single-player; versioned game-state format, resilience to interrupted session.
+### SAVE-01 (T10) — Persistent local single-player save
+
+- [x] One versioned IndexedDB slot with autosave after resolved weeks and when returning to the globe. Restore includes the authoritative economy and in-game drafts.
+- [x] The globe offers Resume game and requires confirmation before starting a replacement. Unreadable saves and storage errors are reported.
+- [x] Verify deterministic continuation, interrupted writes, refresh and browser reopen in automated checks.
+- [ ] Review physical iPhone Safari behavior before merging. [Save format and iPhone test steps](docs/saves/SAVE-01.md)
+
+### Remaining milestone tasks
+
 - **T11:** Implement national fiscal policy, debt, interest/default survival, strategic reserves (one thin layer at a time).
 - **T12:** Regional economic outputs, demand/inputs and the first regional prices; later expand trade/transport capacity without replacing it with one global price.
 - **T13:** Road/rail/sea transport connectivity and supply priorities, then military/civilian competition.

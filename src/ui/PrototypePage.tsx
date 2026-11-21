@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
-import type { CountryId, DiplomaticCommand, GameState, MilitaryCommand, TurnCommand } from '../game/models';
+import type { CountryId, GameState, TurnCommand } from '../game/models';
 import type { EconomyCommand, EconomySnapshot } from '../game/economyBridge';
+import { createInitialState } from '../game/initialState';
+import type { SaveStatus } from '../game/localSaves';
+import type { PlayerDrafts } from '../game/playerDrafts';
 import { EconomyPanel } from './EconomyPanel';
 import { formatMoney, headlineNotice } from './economyDashboard';
-import { reviewFiscalDraft, type FiscalApi, type FiscalDraft } from './fiscalDraft';
+import { reviewFiscalDraft, type FiscalApi } from './fiscalDraft';
 import { DetailPanel } from './DetailPanel';
 import { RegionMap } from './RegionMap';
 import { MilitaryPanel } from './MilitaryPanel';
@@ -13,17 +16,48 @@ import { AI_PRIORITIES } from '../game/ai';
 type PrototypePageProps = {
   active: boolean;
   state: GameState;
-  onSelectCountry: (id: CountryId) => void;
+  drafts: PlayerDrafts;
+  onChangeDrafts: (drafts: PlayerDrafts) => void;
   onAdvanceTurn: (commands: readonly TurnCommand[], economyCommands: readonly EconomyCommand[]) => boolean;
   turnError: string | null;
   onBack: () => void;
-  /** The economic session's figures (null while the economy loads or if it failed to load). */
-  economy: EconomySnapshot | null;
-  fiscalApi?: FiscalApi;
-  economyStatus: 'loading' | 'ready' | 'failed';
-  economyError: string | null;
-  onRetryEconomy: () => void;
+  economy: EconomySnapshot;
+  fiscalApi: FiscalApi;
+  saveStatus: SaveStatus | null;
+  onSave: () => void;
 };
+
+export function CountrySetup({ busy, error, onSelectCountry, onBack }: {
+  busy: boolean; error: string | null; onSelectCountry: (id: CountryId) => void; onBack: () => void;
+}) {
+  const [state] = useState(createInitialState);
+  const [choice, setChoice] = useState('');
+  return (
+    <div className="prototype-content country-setup">
+      <h1 id="country-setup-title">Local prototype</h1>
+      <p>Explore a small illustrative, fictional test world in a local single-player scenario.</p>
+      <section className="hud" aria-labelledby="country-choice-title">
+        <h2 id="country-choice-title">Choose your country</h2>
+        <p>Choose one country to control. The other two make one autonomous diplomatic decision each week.</p>
+        <form onSubmit={event => {
+          event.preventDefault();
+          if (choice && !busy) onSelectCountry(choice);
+        }}>
+          <label htmlFor="player-country">Player country</label>
+          <select id="player-country" value={choice} onChange={event => setChoice(event.target.value)} disabled={busy} required>
+            <option value="" disabled>Select a country</option>
+            {state.countries.map(country => <option key={country.id} value={country.id}>{country.name}</option>)}
+          </select>
+          <button type="submit" disabled={!choice || busy}>Start local scenario</button>
+        </form>
+        {busy && <p role="status">Preparing the economy…</p>}
+        {error && <p className="turn-error" role="alert">{error}</p>}
+      </section>
+      <RegionMap state={state} />
+      <button type="button" onClick={onBack}>Back to globe</button>
+    </div>
+  );
+}
 
 const sections = [
   { id: 'world', label: 'World', icon: 'M12 3a9 9 0 1 0 0 18a9 9 0 0 0 0-18Z M3 12h18 M12 3c3 3 3 15 0 18 M12 3c-3 3-3 15 0 18' },
@@ -34,37 +68,29 @@ const sections = [
 ] as const;
 type Section = typeof sections[number]['id'];
 
-export function PrototypePage({ active, state, onSelectCountry, onAdvanceTurn, turnError, onBack, economy, fiscalApi, economyStatus, economyError, onRetryEconomy }: PrototypePageProps) {
-  const [choice, setChoice] = useState('');
+export function PrototypePage({ active, state, drafts, onChangeDrafts, onAdvanceTurn, turnError, onBack, economy, fiscalApi, saveStatus, onSave }: PrototypePageProps) {
   const [showScenario, setShowScenario] = useState(false);
   const [activeSection, setActiveSection] = useState<Section>('world');
-  const [pendingMilitaryOrders, setPendingMilitaryOrders] = useState<MilitaryCommand[]>([]);
-  const [pendingDiplomacy, setPendingDiplomacy] = useState<DiplomaticCommand | null>(null);
-  const [pendingFiscal, setPendingFiscal] = useState<FiscalDraft>({});
+  const { military, diplomacy, fiscal: proposedFiscal } = drafts;
   const dashboardRef = useRef<HTMLHeadingElement>(null);
   const errorRef = useRef<HTMLParagraphElement>(null);
   const country = state.countries.find(country => country.id === state.playerCountryId);
   const regions = state.regions.filter(region => region.ownerId === country?.id);
-  const fiscal = economy && fiscalApi ? reviewFiscalDraft(fiscalApi, economy, pendingFiscal) : null;
+  const fiscal = reviewFiscalDraft(fiscalApi, economy, proposedFiscal);
   const fiscalCount = fiscal?.commands.length ?? 0;
   const draftSummary = [
-    pendingMilitaryOrders.length > 0 ? `${pendingMilitaryOrders.length} military` : '',
-    pendingDiplomacy ? '1 diplomacy' : '',
+    military.length > 0 ? `${military.length} military` : '',
+    diplomacy ? '1 diplomacy' : '',
     fiscalCount ? `${fiscalCount} fiscal` : '',
   ].filter(Boolean).join(' · ');
-  const defeated = economy?.defeated === true;
-  const canAdvance = economy !== null && !defeated;
-  const headline = economy ? headlineNotice(economy.notices) : null;
+  const defeated = economy.defeated;
+  const headline = headlineNotice(economy.notices);
 
   function advanceWeek() {
-    if (!country || !canAdvance) return;
-    const commands: TurnCommand[] = [...pendingMilitaryOrders];
-    if (pendingDiplomacy) commands.push(pendingDiplomacy);
-    if (onAdvanceTurn(commands, fiscal?.commands ?? [])) {
-      setPendingMilitaryOrders([]);
-      setPendingDiplomacy(null);
-      setPendingFiscal({});
-    } else {
+    if (defeated || !fiscal) return;
+    const commands: TurnCommand[] = [...military];
+    if (diplomacy) commands.push(diplomacy);
+    if (!onAdvanceTurn(commands, fiscal.commands)) {
       // Bring the shared error into view even when the current section is scrolled.
       requestAnimationFrame(() => errorRef.current?.focus());
     }
@@ -74,29 +100,7 @@ export function PrototypePage({ active, state, onSelectCountry, onAdvanceTurn, t
     if (active) dashboardRef.current?.focus({ preventScroll: true });
   }, [state.playerCountryId, activeSection, active]);
 
-  if (!country) return (
-    <div className="prototype-content country-setup">
-      <h1 id="view-title">Local prototype</h1>
-      <p>Explore a small illustrative, fictional test world in a local single-player scenario.</p>
-      <section className="hud" aria-labelledby="country-choice-title">
-        <h2 id="country-choice-title">Choose your country</h2>
-        <p>Choose one country to control. The other two make one autonomous diplomatic decision each week.</p>
-        <form onSubmit={event => {
-          event.preventDefault();
-          if (choice) onSelectCountry(choice);
-        }}>
-          <label htmlFor="player-country">Player country</label>
-          <select id="player-country" value={choice} onChange={event => setChoice(event.target.value)} required>
-            <option value="" disabled>Select a country</option>
-            {state.countries.map(country => <option key={country.id} value={country.id}>{country.name}</option>)}
-          </select>
-          <button type="submit" disabled={!choice}>Start local scenario</button>
-        </form>
-      </section>
-      <RegionMap state={state} />
-      <button type="button" onClick={onBack}>Back to globe</button>
-    </div>
-  );
+  if (!country || !fiscal) throw new Error('The game has no matching player economy.');
 
   return (
     <div className="game-shell">
@@ -107,10 +111,10 @@ export function PrototypePage({ active, state, onSelectCountry, onAdvanceTurn, t
         </div>
         <dl className="game-meta" aria-label={`${country.name} status`}>
           <div><dt className="sr-only">Week</dt><dd aria-live="polite" aria-atomic="true">Week {state.week}</dd></div>
-          <div><dt className="sr-only">Treasury</dt><dd><span aria-hidden="true">¤ </span>{economy ? formatMoney(economy.player.treasury) : '—'}</dd></div>
+          <div><dt className="sr-only">Treasury</dt><dd><span aria-hidden="true">¤ </span>{formatMoney(economy.player.treasury)}</dd></div>
         </dl>
-        <button className="next-week" type="button" onClick={advanceWeek} disabled={!canAdvance}
-          title={defeated ? 'The game is over' : economy ? undefined : 'Preparing the economy…'}>Next week</button>
+        <button className="next-week" type="button" onClick={advanceWeek} disabled={defeated}
+          title={defeated ? 'The game is over' : undefined}>Next week</button>
         <button className="icon-button" type="button" onClick={() => setShowScenario(value => !value)} aria-label="Scenario menu" aria-controls="scenario-details" aria-expanded={showScenario}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
         </button>
@@ -121,10 +125,7 @@ export function PrototypePage({ active, state, onSelectCountry, onAdvanceTurn, t
           <b>Your regime has been overthrown. The game is over.</b> {headline?.severity === 'defeat' ? headline.message : ''} You can still review the final state.
         </p>}
         {!defeated && headline && <p className="turn-status" role="status"><b>{headline.title}.</b> {headline.message}</p>}
-        {economyStatus === 'loading' && !economy && <p className="turn-status" role="status">Preparing the economy…</p>}
-        {economyStatus === 'failed' && !economy && <p className="turn-error" role="alert">
-          The economy could not be loaded. <button type="button" onClick={onRetryEconomy}>Try again</button>
-        </p>}
+        {saveStatus?.kind === 'failed' && <p className="turn-error" role="alert">{saveStatus.message}</p>}
         {draftSummary && <p className="turn-status" role="status">Drafts · {draftSummary}</p>}
         {turnError && <p className="turn-error" ref={errorRef} tabIndex={-1} role="alert">
           {turnError} Week not advanced. Your drafts are retained; review your orders, then try again.
@@ -144,26 +145,32 @@ export function PrototypePage({ active, state, onSelectCountry, onAdvanceTurn, t
             </section>
           </div>
           <div id="section-economy" className="section-view" hidden={activeSection !== 'economy'}>
-            <EconomyPanel week={state.week} economy={economy} status={economyStatus} error={economyError} onRetry={onRetryEconomy}
-              fiscal={fiscal} onFiscalChange={(field, value) => setPendingFiscal(draft => ({ ...draft, [field]: value }))} />
+            <EconomyPanel week={state.week} economy={economy}
+              fiscal={fiscal} onFiscalChange={(field, value) => onChangeDrafts({ ...drafts, fiscal: { ...proposedFiscal, [field]: value } })} />
           </div>
           <div id="section-diplomacy" className="section-view" hidden={activeSection !== 'diplomacy'}>
-            <DiplomacyPanel state={state} pendingAction={pendingDiplomacy} onStageAction={setPendingDiplomacy} />
+            <DiplomacyPanel state={state} pendingAction={diplomacy} onStageAction={action => onChangeDrafts({ ...drafts, diplomacy: action })} />
           </div>
           <div id="section-military" className="section-view" hidden={activeSection !== 'military'}>
-            <MilitaryPanel state={state} pendingOrders={pendingMilitaryOrders}
-              onStageOrder={command => setPendingMilitaryOrders(orders => [...orders.filter(order => order.divisionId !== command.divisionId), command])}
-              onDiscardOrders={() => setPendingMilitaryOrders([])} />
+            <MilitaryPanel state={state} pendingOrders={military}
+              onStageOrder={command => onChangeDrafts({ ...drafts, military: [...military.filter(order => order.divisionId !== command.divisionId), command] })}
+              onDiscardOrders={() => onChangeDrafts({ ...drafts, military: [] })} />
           </div>
         </div>
         <DetailPanel id="scenario-details" title="Scenario information" open={showScenario} onClose={() => setShowScenario(false)}>
           <p>Local single-player prototype · Fictional test world. Temporary statistics and provisional rules, not balanced game values.</p>
           <p>Next week resolves diplomacy and military orders, then applies fiscal drafts and advances the economy for the same week. Captured regions enter economic occupation and retain their legal owner. An invalid order rejects the entire week and retains every draft.</p>
-          <p>Your game and drafts stay in memory when you return to the globe. Reloading resets the fictional game. Placeholder standing orders: {state.standingOrders.length}.</p>
+          <p>Heartland saves this game and its drafts in this browser. Clearing website data or Safari removing stored data can erase the save.</p>
+          {saveStatus && saveStatus.kind !== 'failed' && <p role="status">
+            {saveStatus.kind === 'saving' ? 'Saving locally…' : `Saved locally · Week ${saveStatus.week}`}
+          </p>}
           <h3>Country control</h3>
           <ul>{state.countries.map(country => <li key={country.id}>{country.name}: {country.controller === 'player' ? 'Player-controlled (you)' : `AI-controlled — ${AI_PRIORITIES[country.id].label}`}</li>)}</ul>
           <h3>Your regions</h3><ul>{regions.map(region => <li key={region.id}>{region.name}</li>)}</ul>
-          <button type="button" onClick={() => { setShowScenario(false); onBack(); }}>Return to globe</button>
+          <div className="scenario-save-actions">
+            <button type="button" onClick={onSave}>Save now</button>
+            <button type="button" onClick={() => { setShowScenario(false); onBack(); }}>Return to globe</button>
+          </div>
         </DetailPanel>
       </div>
 

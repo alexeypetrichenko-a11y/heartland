@@ -167,6 +167,15 @@ li {
   gap: 8px;
   padding: calc(env(safe-area-inset-top) + 12px) max(12px, env(safe-area-inset-right)) 12px max(12px, env(safe-area-inset-left));
 }
+.atlas-home .game-topbar button {
+  flex: none;
+  padding-inline: 10px;
+}
+.scenario-save-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
 .game-title {
   flex: 1;
   min-width: 0;

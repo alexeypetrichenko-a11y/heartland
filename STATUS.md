@@ -1,7 +1,7 @@
 # Heartland — Implementation Status
 
 **Snapshot date** 2026-11-21
-**Source** INT-02 on `task/int-02-fiscal-policy`, based on `main` at `3e1f359` after the owner's merge of PR #26.
+**Source** SAVE-01 on `task/save-01-local-saves`, based on `main` at `608c48b` after the owner's merge of PR #27.
 
 ## Verified existing scaffold
 
@@ -455,8 +455,16 @@ Historical first implementation/validation follows. The physical-iPhone-feedback
 
 ## INT-02 — Fiscal policy (2026-11-21)
 
+- Merged into main in [PR #27](https://github.com/alexeypetrichenko-a11y/heartland/pull/27).
 - **Economy → Fiscal policy** offers three tax rates and four government spending shares for the player's country. Current rates come from the engine. Draft percentages accept decimal points or commas. A blank entry keeps the current rate.
 - The editor shows the limits from `fiscalLimits`. It creates changed commands through `fiscalCommands` and displays refusals from `checkEconomyCommands`. **Next week** submits all drafts through the existing combined turn. Refusals retain the drafts and both states. Applied policy persists across weeks.
 - **Return to globe → Resume game** retains proposals and applied rates in the current session. Reloading starts a new session. Current percentages are shown to four decimal places when needed. Proposed rates are sent at the engine's numeric precision.
 - `npm test` passed 146 game tests. The economy-engine suite passed 190 tests and its 10,000-week run passed. The production build passed.
 - Production Chromium checks passed at 320×568, 390×844, 568×320, 844×390 and 1440×900. They verified the seven 44px controls, draft review, an invalid fiscal turn retaining military and diplomatic drafts, corrected application, standing rates, occupation, session resumption and viewport fit. The existing INT-01 and geographic selection checks also passed. Physical Safari review is pending.
+
+## SAVE-01 — Persistent local saves
+
+- The globe opens first and offers **Resume game** for a discovered save. The game autosaves to one IndexedDB slot and prompts before a new scenario can replace it.
+- Each versioned save contains the complete game, the engine's serialized session and staged military, diplomatic and fiscal drafts. Restore checks the week, player country, territorial control and game-ending state. A single transaction protects the previous save during interrupted or failed writes.
+- The game suite passed 150 tests, the engine suite passed 190 tests and the 10,000-week stress check, and the production build passed. Chromium production tests verified refresh, browser reopen, game and draft resumption, interrupted writes, storage failures and stale-tab protection at iPhone portrait and landscape sizes.
+- Physical iPhone Safari review is pending. [Save format, browser limits and manual iPhone checks](docs/saves/SAVE-01.md)
