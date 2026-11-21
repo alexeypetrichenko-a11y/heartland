@@ -151,7 +151,7 @@ function nonNegativeArrays(s: EconomyState): number[][] {
     firm.distress, country.cbReserves, country.cbStateLoans, country.defaultMemory, country.cbExceptional, country.cbRate,
     s.firmLine.capacity, fg.build1, fg.build2, fg.build3, fg.stockShare,
     zg.stock, zg.inputBuffer, zg.price, zg.buyPrice, zg.refPrice, zg.refBuyPrice, zg.idleCapacity, zg.idleValue, zg.expectedDemand, zg.yieldFactor, zg.shortage,
-    zg.usage, s.bonds, country.treasury, country.debt, country.stability, country.gdp, country.armsStock,
+    zg.usage, s.bonds, country.treasury, country.debt, country.stability, country.gdp, country.spendingBase, country.armsStock,
     countryGood.reserves];
 }
 
@@ -304,7 +304,7 @@ export function finishTurn(s: EconomyState, w: Workspace, m: Model, options: Ste
       + w.revenueOwnership[c] + w.revenueOccupation[c];
     const spending = w.spentAdministration[c] + w.spentSocial[c] + w.spentMilitary[c] + w.spentInfrastructure[c]
       + w.spentReserves[c] + w.spentReserveStorage[c] + w.spentInterest[c] + w.spentFunds[c] + w.spentFirmSupport[c]
-      + w.spentOwnership[c] + w.spentCentralBankCapital[c] + w.spentOccupationSecurity[c] + w.spentTransport[c];
+      + w.spentOwnership[c] + w.spentCentralBankCapital[c] + w.spentOccupationSecurity[c] + w.spentTransport[c] + w.spentSurplusReturn[c];
     w.reportRevenue[c] = revenue;
     w.reportSpending[c] = spending;
     const base = c * COUNTRY_METRICS;
@@ -388,7 +388,7 @@ export function finishTurn(s: EconomyState, w: Workspace, m: Model, options: Ste
       infrastructure: w.spentInfrastructure[c], reservePurchases: w.spentReserves[c] + w.spentReserveStorage[c], interest: w.spentInterest[c], unpaidInterest: w.interestUnpaid[c],
       fundsSent: w.spentFunds[c], firmSupport: w.spentFirmSupport[c], ownershipPurchases: w.spentOwnership[c],
       centralBankCapital: w.spentCentralBankCapital[c], occupationLevy: w.revenueOccupation[c],
-      occupationSecurity: w.spentOccupationSecurity[c], transportRequisition: w.spentTransport[c], spending: w.reportSpending[c], balance: w.reportRevenue[c] - w.reportSpending[c],
+      occupationSecurity: w.spentOccupationSecurity[c], transportRequisition: w.spentTransport[c], surplusReturned: w.spentSurplusReturn[c], spending: w.reportSpending[c], balance: w.reportRevenue[c] - w.reportSpending[c],
       borrowed: w.borrowed[c], borrowedFromCentralBank: w.cbLentState[c], repaid: w.repaid[c], fundedShare: w.fundedShare[c],
     };
     countries.push({

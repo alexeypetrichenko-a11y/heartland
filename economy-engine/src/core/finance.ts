@@ -162,7 +162,8 @@ export function planBudgets(s: EconomyState, w: Workspace, m: Model, events: Eco
 
   // 1. Spending plans and borrowing requests.
   for (let c = 0; c < C; c++) {
-    const base = country.gdp[c];
+    // ECON-07 (A): the shares apply to the budget base, which follows a falling GDP only slowly.
+    const base = country.spendingBase[c];
     const military = country.spendMilitary[c] * base;
     w.planAdministration[c] = country.spendAdministration[c] * base;
     w.planSocial[c] = country.spendSocial[c] * base;
@@ -304,6 +305,12 @@ export function planBudgets(s: EconomyState, w: Workspace, m: Model, events: Eco
     // Reserves are bought only with cash beyond this week's core spending.
     const spare = country.treasury[c] - planned * funded;
     w.reserveFunded[c] = w.planExtras[c] > 0 ? clamp(spare / w.planExtras[c], 0, 1) : 0;
+    // ECON-07 (A): with no debt left to repay, cash beyond this week's bills and a strategic reserve goes
+    // back to households a little each week (as a cash transfer) instead of piling up idle in the treasury.
+    if (p.surplusReturnShare > 0 && !w.calibrating && country.debt[c] <= EPSILON && country.cbStateLoans[c] <= EPSILON) {
+      const excess = spare - w.planExtras[c] - planned * p.treasuryReserveWeeks;
+      if (excess > EPSILON) w.planReturn[c] = excess * p.surplusReturnShare;
+    }
   }
 
   // 4. Cash transfers to households and orders for goods, zone by zone.
@@ -314,6 +321,13 @@ export function planBudgets(s: EconomyState, w: Workspace, m: Model, events: Eco
     if (!(share > 0)) continue;
     const funded = w.fundedShare[c];
     const cash = Math.min((w.planSocial[c] + w.planMilitaryPay[c]) * share, country.treasury[c]);
+    const returned = Math.min(w.planReturn[c] * share, Math.max(0, country.treasury[c] - cash));
+    if (returned > 0) {
+      country.treasury[c] -= returned;
+      s.zone.householdMoney[z] += returned;
+      w.householdIncome[z] += returned;
+      w.spentSurplusReturn[c] += returned;
+    }
     if (cash > 0) {
       const social = w.planSocial[c] + w.planMilitaryPay[c] > 0 ? cash * w.planSocial[c] / (w.planSocial[c] + w.planMilitaryPay[c]) : 0;
       country.treasury[c] -= cash;
@@ -441,13 +455,15 @@ export function settleFinances(s: EconomyState, w: Workspace, m: Model, events: 
       w.repaid[c] += paid;
     }
     country.gdp[c] += p.gdpSmoothing * (w.countryNominal[c] - country.gdp[c]);
+    const gap = w.countryNominal[c] - country.spendingBase[c];
+    country.spendingBase[c] += (gap < 0 ? p.spendingBaseFall : p.gdpSmoothing) * gap;
     country.realGdp[c] = w.countryReal[c];
     const revenue = w.revenueIncomeTax[c] + w.revenueConsumptionTax[c] + w.revenueCorporateTax[c] + w.revenueTariffs[c]
       + w.revenueCentralBank[c] + w.revenueMoneyCreation[c] + w.revenueReserveSales[c] + w.revenueFunds[c] + w.revenueFirmDividends[c]
       + w.revenueOwnership[c] + w.revenueOccupation[c];
     const spending = w.spentAdministration[c] + w.spentSocial[c] + w.spentMilitary[c] + w.spentInfrastructure[c]
       + w.spentReserves[c] + w.spentReserveStorage[c] + w.spentInterest[c] + w.spentFunds[c] + w.spentFirmSupport[c]
-      + w.spentOwnership[c] + w.spentCentralBankCapital[c] + w.spentOccupationSecurity[c] + w.spentTransport[c];
+      + w.spentOwnership[c] + w.spentCentralBankCapital[c] + w.spentOccupationSecurity[c] + w.spentTransport[c] + w.spentSurplusReturn[c];
     const deficit = country.gdp[c] > EPSILON ? (spending - revenue) / country.gdp[c] : 0;
     country.deficit[c] += 0.1 * (clamp(deficit, -1, 1) - country.deficit[c]);
 

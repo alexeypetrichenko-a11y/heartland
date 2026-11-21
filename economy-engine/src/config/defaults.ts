@@ -446,6 +446,15 @@ export const DEFAULT_PARAMS: EconomyParams = {
   restructuredRate: 0.03,
   surplusRepayShare: 0.1,
   gdpSmoothing: 1 / 13,
+  /**
+   * ECON-07 (A): spending shares apply to a budget base that rises with nominal GDP at gdpSmoothing
+   * but falls only at this speed (about a two-year adjustment), so a slump does not become automatic austerity.
+   */
+  spendingBaseFall: 1 / 104,
+  /** ECON-07 (A): a debt-free treasury keeps up to half a year of core spending as a strategic reserve... */
+  treasuryReserveWeeks: 26,
+  /** ...and returns this share of any cash above it to households each week, instead of holding it idle. */
+  surplusReturnShare: 0.1,
   /** Share of the military budget paid to personnel instead of suppliers. */
   militaryPayShare: 0.35,
   armsAttrition: 0.002,
@@ -734,7 +743,8 @@ export function validateConfig(config: EconomyConfig): void {
     || params.occupationDisorder[1] + params.sabotageOutputLoss > 0.9 || params.resistanceRise > 1 || params.resistanceFall > 1
     || params.resistanceFallFree > 1 || params.sabotageChance > 1 || params.sabotageDamage > 1 || params.revoltEndThreshold > params.revoltThreshold
     || params.revoltThreshold > 1 || params.laneCapacityHeadroom < 1 || params.laneCapacityFloor > 1 || params.laneDemandSmoothing > 1
-    || !(params.laneDemandSmoothing > 0)) {
+    || !(params.laneDemandSmoothing > 0)
+    || !(params.spendingBaseFall > 0) || params.spendingBaseFall > 1 || !(params.treasuryReserveWeeks >= 0) || !(params.surplusReturnShare >= 0) || params.surplusReturnShare > 1) {
     throw new Error('A parameter is outside its valid range.');
   }
 }

@@ -16,7 +16,9 @@ const GOLDEN_WEEKS = 672; // 100 warm-up + 520 + 52, as in sim/browser-bench.cjs
 // Re-pinned in Milestone 4 (was ef7dfc948cbe33b0) only because the saved state gained fields (legal owner,
 // occupation, resistance, lane capacities, zone-pair freight demand, requisitions, version 5): every field shared with Milestone 3 was
 // checked to be bit-identical after 672 weeks in both test worlds, so the calm economy itself is unchanged.
-const GOLDEN = '6f9bf1a361044b05';
+// Re-pinned in ECON-07 (A) (was 6f9bf1a361044b05): spending shares apply to a budget base that falls only slowly with
+// GDP, debt-free treasuries return cash above a strategic reserve, and the state has a new field (version 6).
+const GOLDEN = '63e9873f967ab474';
 
 test(`golden: the default test world after ${GOLDEN_WEEKS} weeks has the pinned fingerprint`, () => {
   const state = createEconomy(createTestWorldSpec());
