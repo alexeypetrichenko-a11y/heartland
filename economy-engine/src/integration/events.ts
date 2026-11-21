@@ -77,7 +77,7 @@ export function describeEconomyEvent(session: EconomySession, event: EconomyEven
     case 'sovereign-default':
       severity = 'critical';
       title = `${name} defaults on its debt`;
-      message = `${name} ${event.forced ? 'could no longer pay and' : ''} defaulted: ${pct(event.haircut)} of its debt was written off. Credit markets are closed to it for a time. A default is not a defeat.`.replace('  ', ' ');
+      message = `${name} ${event.forced ? 'could no longer pay and' : event.voluntary ? 'chose to stop paying while it still could, and' : ''} defaulted: ${pct(event.haircut)} of its debt was written off. Credit markets are closed to it for a time${event.voluntary ? ', and lenders will remember a voluntary default for years' : ''}. A default is not a defeat.`.replace('  ', ' ');
       break;
     case 'market-access-lost':
       severity = 'critical';

@@ -197,7 +197,7 @@ const COUNTRY_FIELDS = ['population', 'planAdministration', 'planSocial', 'planM
   'countryScratch', 'countryInflation', 'countryUnemployment', 'countryDeprivation', 'countryHouseholdShortage',
   'countryLiving', 'reportCpi', 'reportWage', 'reportConsumption', 'reportArms', 'reportRevenue',
   'reportSpending', 'revenueOccupation', 'spentOccupationSecurity', 'spentTransport', 'spendPopulation',
-  'politicsPopulation', 'interestUnpaid'] as const;
+  'politicsPopulation', 'interestUnpaid', 'spentSurplusReturn', 'planReturn'] as const;
 const COUNTRY_GOOD_FIELDS = ['procurement', 'releaseOffer', 'releaseSold', 'reserveBuy', 'governmentOrdered',
   'governmentBought', 'countryPrice', 'countryRefPrice', 'countryShortage', 'countryUse'] as const;
 const GOOD_FIELDS = ['ledgerBefore', 'ledgerProduced', 'ledgerUsed', 'ledgerSpoiled', 'ledgerDestroyed', 'ledgerDust',

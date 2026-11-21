@@ -182,6 +182,11 @@ export interface EconomyParams {
   defaultReputationSpread: number;
   reputationDecayWeeks: number;
   defaultStabilityShock: number;
+  /**
+   * ECON-07 (B): a default declared while the state still has market access and no missed payments counts, for
+   * every consequence, as this many extra previous defaults (0 = no distinction, the legacy behaviour).
+   */
+  voluntaryDefaultWeight: number;
   defaultMemoryWeeks: number;
   ownershipTransferValue: number;
   defaultOutputShock: number;
@@ -189,6 +194,15 @@ export interface EconomyParams {
   restructuredRate: number;
   surplusRepayShare: number;
   gdpSmoothing: number;
+  /**
+   * ECON-07 (A): weekly speed at which the base of the spending shares follows a FALLING nominal GDP
+   * (it follows a rising GDP at gdpSmoothing). Legacy behaviour: equal to gdpSmoothing.
+   */
+  spendingBaseFall: number;
+  /** ECON-07 (A): strategic cash reserve, in weeks of core spending, a debt-free treasury may keep. */
+  treasuryReserveWeeks: number;
+  /** ECON-07 (A): weekly share of debt-free cash above the strategic reserve returned to households (0 = never). */
+  surplusReturnShare: number;
   militaryPayShare: number;
   armsAttrition: number;
   // Strategic reserves
@@ -243,6 +257,11 @@ export interface EconomyParams {
   stabilityTaxWeight: number;
   socialNorm: number;
   stabilitySocialWeight: number;
+  /**
+   * ECON-07 (C): most stability social spending above the norm can add, approached with diminishing returns
+   * (0 = no limit: the legacy straight line of half the social weight).
+   */
+  socialStabilityCap: number;
   stabilityArrearsWeight: number;
   livingStandardSmoothing: number;
   livingStandardRefWeeks: number;
@@ -517,6 +536,8 @@ export interface CountryArrays {
   cbExceptionalRecent: number[];
   /** Memory of recent sovereign defaults (+1 per default, fading over time); repeat defaults cost more (C3). */
   defaultMemory: number[];
+  /** ECON-07 (A): nominal weekly GDP the spending shares apply to (rises like gdp, falls slowly). */
+  spendingBase: number[];
 }
 
 /** Per-country, per-sector policies, indexed by country * sectorCount + sector. */
@@ -735,7 +756,7 @@ export interface StepOptions {
 // ---------------------------------------------------------------------------
 
 export type EconomyEvent =
-  | { type: 'sovereign-default'; turn: number; countryId: CountryId; forced: boolean; haircut: number; debtWrittenOff: number }
+  | { type: 'sovereign-default'; turn: number; countryId: CountryId; forced: boolean; /** ECON-07: declared while still able to borrow and pay (absent in events from older engines). */ voluntary?: boolean; haircut: number; debtWrittenOff: number }
   | { type: 'market-access-lost'; turn: number; countryId: CountryId; rate: number }
   | { type: 'market-access-restored'; turn: number; countryId: CountryId; rate: number }
   | { type: 'unrest-started'; turn: number; countryId: CountryId; tier: number }
@@ -795,6 +816,8 @@ export interface BudgetReport {
   occupationSecurity: number;
   /** Paid for military transport on requisitioned itineraries (to transport workers). */
   transportRequisition: number;
+  /** ECON-07 (A): debt-free cash above the strategic reserve returned to households. */
+  surplusReturned: number;
   spending: number;
   /** Revenue minus spending for the week. */
   balance: number;

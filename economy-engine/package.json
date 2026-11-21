@@ -20,7 +20,9 @@
     "bench": "node --experimental-strip-types sim/benchmark.ts",
     "example": "node --experimental-strip-types examples/fictional-game.ts",
     "bench:integration": "node sim/integration-bench.cjs",
-    "starting-save": "node --experimental-strip-types sim/build-starting-save.ts"
+    "starting-save": "node --experimental-strip-types sim/build-starting-save.ts",
+    "econ06:balance": "node --experimental-strip-types sim/econ06-balance.ts",
+    "econ07:compare": "node --experimental-strip-types sim/econ07-compare.ts"
   },
   "devDependencies": {
     "@types/node": "^22.20.5",

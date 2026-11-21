@@ -525,8 +525,8 @@ function scenario6(ctx: Context): ScenarioResult {
     },
     mechanisms: [
       'A default writes off a fixed share of the debt (provisional 55%). Because the engine records exactly who holds each country\'s bonds, the loss lands on those households, at home and abroad, reducing their wealth and spending.',
-      'The defaulter is shut out of credit markets for about 18 months (longer for repeat offenders) and carries a reputation premium that fades over three years; its government can only spend what it collects.',
-      'Financial disruption costs the economy a few percent of output for a year; stability takes a one-off hit. None of this is a defeat by itself: only a regime change, which needs a crisis episode to cross its thresholds, would end a human player.',
+      'The defaulter is shut out of credit markets for about 18 months (longer for repeat offenders) and carries a reputation premium that fades over about five years (ECON-07; it halves in about three and a half); its government can only spend what it collects.',
+      'Financial disruption costs the economy up to 8% of output, recovering over about a year and a half (ECON-07); stability takes a one-off hit. A default declared while the state could still borrow and pay (voluntary) weighs like half an extra previous default for all of these consequences, but not for the share written off. None of this is a defeat by itself: only a regime change, which needs a crisis episode to cross its thresholds, would end a human player.',
       'Part B: when a deficit-running government is already near the market-access limit, interest costs and missed payments feed on each other until the forced default.',
     ],
     checks: [

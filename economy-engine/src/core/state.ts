@@ -16,8 +16,42 @@ export const STATE_FORMAT = 'heartland-economy';
  * Version 3 (Milestone 2): central banks, firm loans, distress and health.
  * Version 4 (Milestone 3): public-firm policies, idle plant held for sale, default memory.
  * Version 5 (Milestone 4): legal owner and occupation of zones, resistance, lane capacities and requisitions.
+ * Version 6 (ECON-07): balance corrections. New country field `spendingBase` and new parameters. A version-5
+ * state is upgraded on load (see `upgradeEconomy`) with legacy parameter values, so it continues exactly as before.
  */
-export const STATE_VERSION = 5;
+export const STATE_VERSION = 6;
+
+/**
+ * Parameters added in version 6, with the values that reproduce version-5 behaviour exactly. A version-5 save
+ * (an older starting economy or a game in progress) keeps all its own parameters and gets these; a new economy
+ * gets the corrected defaults from `DEFAULT_PARAMS`.
+ */
+export function legacyParamsV5(params: { gdpSmoothing: number }): Record<string, number> {
+  return {
+    spendingBaseFall: params.gdpSmoothing,
+    treasuryReserveWeeks: 26,
+    surplusReturnShare: 0,
+    voluntaryDefaultWeight: 0,
+    socialStabilityCap: 0,
+  };
+}
+
+/**
+ * Upgrade parsed save data of an older supported version to the current one, without modifying the input.
+ * Version 5 to 6: the spending base starts equal to the smoothed GDP and the new parameters take their legacy values.
+ */
+export function upgradeEconomy(parsed: unknown): unknown {
+  if (!isRecord(parsed) || parsed.format !== STATE_FORMAT || parsed.version !== 5) return parsed;
+  const config = parsed.config, country = parsed.country;
+  if (!isRecord(config) || !isRecord(config.params) || !isRecord(country) || !Array.isArray(country.gdp)) return parsed;
+  if (typeof config.params.gdpSmoothing !== 'number') return parsed;
+  return {
+    ...parsed,
+    version: 6,
+    config: { ...config, params: { ...config.params, ...legacyParamsV5(config.params as { gdpSmoothing: number }) } },
+    country: { ...country, spendingBase: (country.gdp as number[]).slice() },
+  };
+}
 
 function copyGroup<T extends object>(group: T): T {
   const source = group as Record<string, unknown[]>;
@@ -130,7 +164,7 @@ const COUNTRY_KEYS = ['treasury', 'debt', 'averageRate', 'marketRate', 'marketAc
   'stabilityModifier', 'unrestTier', 'episodeActive', 'episodePeakTier', 'rolledTier', 'tierWeeks', 'regime',
   'immunityWeeks', 'armsStock', 'taxIncome', 'taxConsumption', 'taxCorporate', 'spendAdministration', 'spendSocial',
   'spendMilitary', 'spendInfrastructure', 'autoBorrow', 'governmentPriority', 'cbRate', 'cbReserves', 'cbIssued',
-  'cbStateLoans', 'cbExceptional', 'cbExceptionalRecent', 'defaultMemory'] as const;
+  'cbStateLoans', 'cbExceptional', 'cbExceptionalRecent', 'defaultMemory', 'spendingBase'] as const;
 const COUNTRY_SECTOR_KEYS = ['publicObjective', 'publicSupport'] as const;
 const FIRM_KEYS = ['cash', 'costs', 'employment', 'revenue', 'loan', 'lender', 'distress', 'health'] as const;
 const FIRM_GOOD_KEYS = ['build1', 'build2', 'build3', 'stockShare'] as const;
@@ -284,7 +318,8 @@ export function deserializeEconomy(text: string): EconomyState {
  * Restore a state from already-parsed JSON data (for a host that stores the state inside
  * its own save object): the same checks as deserializeEconomy, without a second parse.
  */
-export function restoreEconomy(parsed: unknown): EconomyState {
+export function restoreEconomy(data: unknown): EconomyState {
+  const parsed = upgradeEconomy(data);
   validateEconomy(parsed);
   deepFreeze(parsed.config);
   deepFreeze(parsed.countries);

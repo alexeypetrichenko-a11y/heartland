@@ -28,7 +28,7 @@ Status: **done on branch `feature/economy-engine-handoff`** (based on `feature/e
 |---|---|
 | File | `economy-engine/scenarios/fictional-week1.economy.json` |
 | Size | 186,259 bytes (182 KB), 63 KB gzip |
-| Content | A normal session save (format `heartland-economy-session` v2): week 1, no player country, engine state v5, contract 1.0.0 |
+| Content | A normal session save (format `heartland-economy-session` v2): week 1, no player country, engine state v6 since ECON-07 (was v5), contract 1.0.0 |
 | World | `fictionalGameWorld()`: Alden, Belora, Cyrin, six regions, with the fictional region profiles. World fingerprint `938db749d9c525c2`. |
 | Economy fingerprint | `8d1a5cea6a9b58dd` |
 | How it is made | `createEconomySession(fictionalGameWorld(null))`: build and calibrate the 31-good world, then resolve week 1 with the autopilot for every country, then `saveEconomySession` |

@@ -15,6 +15,14 @@
 - Do not implement any economic rule in the game. Every figure, limit and consequence comes from the API.
 - Import only `economy-engine/src/integration/index.ts` and the starting save `economy-engine/scenarios/fictional-week1.economy.json`.
 
+> **ECON-07 balance corrections (branch `feature/econ-07-balance-corrections`, not merged yet).** Nothing in the game needs to change:
+> - No function, type or command changed signature, and the contract stays **1.0.0**.
+> - Two **additive** fields exist: `budget.detail.surplusReturned` (cash a debt-free treasury returns to households) and an optional `voluntary` flag on `sovereign-default` events. The notice text for a voluntary default mentions it.
+> - The starting save was regenerated (engine state **v6**; the session format is still v2).
+> - Older v5 economies still load: they are upgraded on load and keep their old balance exactly.
+> - SAVE-01: a game saved before ECON-07 resumes and keeps its original calibration; the next autosave writes it as engine state v6, still with that calibration. New games use ECON-07. The SAVE-01 format is unchanged. This is tested in `tests/econ07-save01.test.ts` and `sim/econ07-save01-browser.cjs`.
+> - See [`ECON_07_REPORT.md`](ECON_07_REPORT.md).
+
 The API reference is [`INTEGRATION_API.md`](INTEGRATION_API.md). A runnable demonstration of every step below is [`examples/fictional-game.ts`](examples/fictional-game.ts) (`npm run example` in `economy-engine/`).
 
 ## 1. What is ready

@@ -41,6 +41,7 @@ export function rescaleMoney(state: EconomyState, factor: number): void {
   scale(state.country.treasury, factor);
   scale(state.country.debt, factor);
   scale(state.country.gdp, factor);
+  scale(state.country.spendingBase, factor);
   scale(state.bonds, factor);
   state.world.baseMoney *= factor;
 
