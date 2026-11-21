@@ -22,19 +22,22 @@ export interface EconomyRuntime {
   startingSave: string;
 }
 
+export type LoadedEconomy = Pick<EconomyRuntime, 'api'>;
+export type PreviousEconomy = Pick<CountryEconomyView, 'countryId' | 'treasury'>;
+
 /** Everything the interface needs after a resolved week. */
 export interface EconomySnapshot {
   session: EconomySession;
   player: CountryEconomyView;
-  /** The player's figures one week earlier (null in week 1). */
-  previous: CountryEconomyView | null;
+  /** The opening treasury shown for the last turn (null in week 1). */
+  previous: PreviousEconomy | null;
   /** The week's economic notices, most severe first. */
   notices: EconomyNotice[];
   /** True once the player's regime has been overthrown: the game is over (GAME_DESIGN.md section 6). */
   defeated: boolean;
 }
 
-function snapshot(runtime: EconomyRuntime, session: EconomySession, previous: CountryEconomyView | null, defeated: boolean): EconomySnapshot {
+export function economySnapshot(runtime: LoadedEconomy, session: EconomySession, previous: PreviousEconomy | null): EconomySnapshot {
   const playerId = session.playerCountryId;
   if (!playerId) throw new Error('The economy has no player country.');
   return {
@@ -42,7 +45,7 @@ function snapshot(runtime: EconomyRuntime, session: EconomySession, previous: Co
     player: runtime.api.getCountryEconomy(session, playerId),
     previous,
     notices: runtime.api.weeklyEconomyNotices(session),
-    defeated: defeated || session.summary.playerRegimeFell,
+    defeated: session.summary.playerRegimeFell,
   };
 }
 
@@ -54,7 +57,7 @@ export function startEconomy(runtime: EconomyRuntime, game: GameState): EconomyS
   if (!game.playerCountryId) throw new Error('Select a player country before starting the economy.');
   if (game.week !== 1) throw new Error(`A new economy starts at week 1, not week ${game.week}.`);
   const session = runtime.api.startEconomyFromSave(runtime.startingSave, game);
-  return snapshot(runtime, session, null, false);
+  return economySnapshot(runtime, session, null);
 }
 
 /**
@@ -64,21 +67,21 @@ export function startEconomy(runtime: EconomyRuntime, game: GameState): EconomyS
  * (a capture becomes an occupation, never an annexation). Both new states are returned
  * together; if any step throws, nothing is returned and the caller keeps both old states.
  */
-export function advanceGameWeek(runtime: EconomyRuntime, game: GameState, economy: EconomySnapshot,
+export function advanceGameWeek(runtime: LoadedEconomy, game: GameState, economy: EconomySnapshot,
   commands: readonly TurnCommand[], economyCommands: readonly EconomyCommand[] = []): { game: GameState; economy: EconomySnapshot } {
   if (economy.defeated) throw new Error('The game is over: your regime has been overthrown.');
   const next = runtime.api.advanceWeekTogether({
     game, session: economy.session, advanceGame: state => advanceTurn(state, commands), economyCommands,
   });
-  return { game: next.game, economy: snapshot(runtime, next.session, economy.player, false) };
+  return { game: next.game, economy: economySnapshot(runtime, next.session, economy.player) };
 }
 
 /** The economy of one region (controller, legal owner, occupation, sectors) for the interface. */
-export function regionEconomy(runtime: EconomyRuntime, economy: EconomySnapshot, regionId: string): RegionEconomyView {
+export function regionEconomy(runtime: LoadedEconomy, economy: EconomySnapshot, regionId: string): RegionEconomyView {
   return runtime.api.getRegionEconomy(economy.session, regionId);
 }
 
 /** The economy of any country, for the interface. */
-export function countryEconomy(runtime: EconomyRuntime, economy: EconomySnapshot, countryId: CountryId): CountryEconomyView {
+export function countryEconomy(runtime: LoadedEconomy, economy: EconomySnapshot, countryId: CountryId): CountryEconomyView {
   return runtime.api.getCountryEconomy(economy.session, countryId);
 }

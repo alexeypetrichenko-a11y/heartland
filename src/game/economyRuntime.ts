@@ -1,5 +1,9 @@
 import type { EconomyRuntime } from './economyBridge.ts';
 
+export function loadEconomyApi() {
+  return import('../../economy-engine/src/integration/index.ts');
+}
+
 /**
  * Load the economic engine and the pre-built week-1 economy of the fictional scenario.
  * Both are downloaded only when this function runs, which the app does when a fictional
@@ -8,7 +12,7 @@ import type { EconomyRuntime } from './economyBridge.ts';
  */
 export async function loadEconomyRuntime(): Promise<EconomyRuntime> {
   const [api, save] = await Promise.all([
-    import('../../economy-engine/src/integration/index.ts'),
+    loadEconomyApi(),
     import('../../economy-engine/scenarios/fictional-week1.economy.json?raw'),
   ]);
   return { api, startingSave: save.default };

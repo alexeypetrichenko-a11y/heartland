@@ -1,9 +1,9 @@
 import type { SpendingCategory, TaxKind } from '../../economy-engine/src/integration/index.ts';
 import type { EconomyRuntime, EconomySnapshot } from '../game/economyBridge.ts';
+import type { FiscalDraft } from '../game/playerDrafts.ts';
 
 export type FiscalApi = Pick<EconomyRuntime['api'], 'fiscalLimits' | 'fiscalCommands' | 'checkEconomyCommands'>;
 export type FiscalField = TaxKind | SpendingCategory;
-export type FiscalDraft = Partial<Record<FiscalField, string>>;
 
 const TAX_LABELS = {
   income: 'Income tax', consumption: 'Consumption tax', corporate: 'Corporate profit tax',
