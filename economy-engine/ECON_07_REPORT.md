@@ -2,8 +2,8 @@
 
 | | |
 |---|---|
-| **Type** | Experimental balancing corrections, implemented on a branch. **Not merged.** Waiting for review. |
-| **Branch** | `feature/econ-07-balance-corrections`, from `main` at `608c48b` (INT-02 merged) |
+| **Type** | Balancing corrections **approved by the owner** with their current calibration (A, B, C). Synchronised with `main` after SAVE-01 (§15). **Not merged.** Waiting for final approval. |
+| **Branch** | `feature/econ-07-balance-corrections`, from `main` at `608c48b` (INT-02), merged with `main` at `fde1c90` (SAVE-01, PR #28) |
 | **Commits** | `5642303` ECON-06 analysis brought in unchanged · `7869cd8` correction A · `8337264` correction B · `0e96fbe` correction C · then the study, documentation and this report |
 | **Scope** | Only files inside `economy-engine/`. No game, UI, geography, military or weekly-loop change. No API signature changed. |
 | **Reproduce** | `cd economy-engine && npm run econ07:compare` (about 8 minutes on 4 cores). It writes `reports/econ07/*.json` and [`reports/ECON_07_DATA.md`](reports/ECON_07_DATA.md). |
@@ -518,3 +518,69 @@ The new work per week is a few multiplications per country. Run-to-run noise (±
 | `sim/econ07-compare.ts`, `reports/econ07/*.json`, `reports/ECON_07_DATA.md` | comparative study and its data |
 | `sim/scenarios.ts`, `ECONOMY_DESIGN.md`, `INTEGRATION_API.md`, `CODEX_HANDOFF.md`, `HANDOFF_REPORT.md`, `reports/CONFIG_REFERENCE.md` | documentation |
 | `ECON_06_BALANCE_REPORT.md`, `sim/econ06-balance.ts`, `reports/ECON_06_BALANCE_DATA.md`, `reports/econ06_balance.json`, `reports/econ06-charts/` | the ECON-06 analysis, brought in **unchanged** |
+
+---
+
+## 15. Final integration review with SAVE-01 (after owner approval)
+
+The owner approved A, B and C with their current values. No balance change was made after approval.
+
+### 15.1 Synchronisation
+
+- `main` (`fde1c90`, SAVE-01 merged in PR #28) was merged into the branch with a normal merge commit (`c36c175`), with **no conflicts**. SAVE-01 changes only the game (`src/`, `scripts/`, `docs/`); ECON-07 changes only `economy-engine/`.
+- After the merge, `src/`, `scripts/` and `docs/` are byte-identical to `main`. **The SAVE-01 save format and its protection against corrupted or incomplete writes are untouched**: the envelope, SHA-256 checksum, validation and single-transaction writes are all unchanged.
+
+### 15.2 How a saved game meets ECON-07
+
+| Step | What happens |
+|---|---|
+| Resume | SAVE-01 checks the envelope and checksum of the stored text, then calls `loadEconomySession`, which upgrades a version-5 economy **in memory**. The stored record is not rewritten at this point. |
+| Upgrade | The economy gets the new field `spendingBase` (= its smoothed GDP) and **legacy** values for the five new parameters. It keeps every parameter it was saved with (for example the 6% / 52-week default shock and 156-week reputation decay). Its economic calibration is unchanged: **an existing player's economy is not silently altered.** |
+| Next autosave | The record is rewritten in the current format (engine state v6) with the same legacy calibration, so later sessions continue the same way. |
+| New game | Starts from the regenerated starting save, with the ECON-07 calibration. |
+
+### 15.3 Verification
+
+**Pre-ECON-07 save.** The pre-ECON-07 game and engine (`main` at `fde1c90`) played 30 turns as Alden:
+- fiscal changes in weeks 1 and 12;
+- a capture of Amber Plain, which becomes an economic occupation;
+- a diplomatic condemnation and a standing order;
+- uncorrected fiscal drafts left pending.
+
+It then wrote a real SAVE-01 record. That record, the exact commands for the next 20 turns, and the old engine's own results for those turns are the fixture `tests/fixtures/save01-pre-econ07.json`. During those 20 turns the player raises welfare to 20%, declares a default and cuts the income tax.
+
+**Automated tests** (`tests/econ07-save01.test.ts`, part of `npm test`), using the game's own `decodeGameSave`, `restoreGameSave`, `encodeGameSave` and `advanceGameWeek`:
+
+| Check | Result |
+|---|---|
+| Restore with the ECON-07 engine | country Alden, week 31; game state identical (SHA-256); treasury, debt, stability, GDP and all seven fiscal settings identical to the old engine's; Amber Plain controlled by Alden, legally Belora's, occupied; divisions, the diplomatic message, the standing order and the drafts all restored |
+| Calibration kept | state upgraded to v6 with legacy values; own default parameters kept |
+| 20 further turns vs the old engine | after 5, 10, 15 and 20 turns: game state SHA-256, economy state digest, treasury, debt, stability, GDP and fiscal settings **exactly equal** to the pre-ECON-07 engine; game and economy on the same week after every turn |
+| Save again and restore | economy fingerprint unchanged; still the legacy calibration; SAVE-01's own consistency checks pass (week, player, scenario, territorial control) |
+| Damaged record | still rejected by the checksum, or as unreadable |
+| New game | economy state v6 with every ECON-07 value (`spendingBaseFall` 1/104, `surplusReturnShare` 0.1, `voluntaryDefaultWeight` 0.5, `socialStabilityCap` 8, output shock 8% / 78 weeks, reputation decay 260 weeks); unchanged by a SAVE-01 round trip |
+| Negative control | migrating old saves with one ECON-07 value instead (social cap 8) makes the restore and continuation tests **fail**, so they would catch any silent rebalancing |
+
+**Production build** (`npm run build`, `vite preview`, headless Chromium):
+
+| Check | Result |
+|---|---|
+| Built starting save | `dist/assets/fictional-week1.economy-*.js` holds the regenerated save: engine state v6, `socialStabilityCap` 8, world fingerprint `938db749d9c525c2` |
+| SAVE-01's own production check (`scripts/economy/check_save01.cjs`) | **passed** in Chromium at 390×844 and 844×390 |
+| ECON-07 × SAVE-01 check (`sim/econ07-save01-browser.cjs`): the pre-ECON-07 record placed in the browser's save slot | **Resume game** shows week 31 with the drafts restored.<br>**Next week** with the invalid draft (social "105") is rejected, the week is not advanced and the drafts are kept, as designed.<br>After correcting it to 14%, the week advances to 32.<br>The autosaved record is engine state v6 with the **pre-ECON-07 calibration**, and the corrected draft was applied once. |
+| ECON-07 × SAVE-01 check: new game (Cyrin) | Its saved economy has the **ECON-07 calibration**. It advances to week 2 with no page error. |
+
+### 15.4 Final test results (commit in the PR description)
+
+| Suite | Result |
+|---|---|
+| Engine `npm test` | **205 / 205 pass**: 201 before, plus 4 SAVE-01 cross-version tests |
+| Engine `npm run typecheck` | passes |
+| Game `npm test` (includes the 4 SAVE-01 tests) | **150 / 150 pass** |
+| Production build `npm run build` (includes `tsc --noEmit`) | passes |
+| SAVE-01 production check, Chromium | passed |
+| ECON-07 × SAVE-01 production check, Chromium | passed |
+
+### 15.5 Merge
+
+Please use **squash merge**. The branch history contains an intermediate 22 MB version of the study data, later reduced to 1.1 MB; squashing keeps it out of `main`'s history.
