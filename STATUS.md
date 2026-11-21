@@ -1,7 +1,7 @@
 # Heartland — Implementation Status
 
 **Snapshot date** 2026-11-21
-**Source** INT-01 PR #26 synchronized with `main` at `6c154c0`, including the owner's merge of MAP-UX PR #25.
+**Source** INT-02 on `task/int-02-fiscal-policy`, based on `main` at `3e1f359` after the owner's merge of PR #26.
 
 ## Verified existing scaffold
 
@@ -137,9 +137,9 @@ Historical sections below retain their original verification scope. The latest s
 
 ## T06 — Minimal weekly economy and treasury feedback
 
-> **Superseded by INT-01** (branch `task/int-01-economy-integration`, awaiting owner review). T06's treasury, budget, Standard / Tax relief policy and insufficient-funds rejection were removed under decision A1. The economic engine (`economy-engine/`, contract 1.0.0) is now the only economy. Details, tests, measurements and limitations: [docs/economy/INT-01.md](docs/economy/INT-01.md). The T06 record below is historical.
+> **Superseded by INT-01.** The owner merged PR #26 and validated it on a physical iPhone. The economic engine (`economy-engine/`, contract 1.0.0) is the sole economy. This section records the earlier T06 implementation. [INT-01 implementation and validation](docs/economy/INT-01.md)
 
-INT-01 passed 141 game tests, 190 engine tests, the starting-save check and the production build after synchronization. Chromium validated lockstep turns, occupation, rollback, defeat and game resumption. Physical Safari review remains pending. [Validation and iPhone procedure](docs/economy/INT-01.md)
+INT-01 passed 141 game tests, 190 engine tests, the starting-save check and the production build after synchronization. Chromium validated lockstep turns, occupation, rollback, defeat and game resumption. [INT-01 test details](docs/economy/INT-01.md)
 
 - [x] Reuses the deterministic `advanceTurn` engine. Each successful week settles all three countries' fixed budgets once, including AI-labeled countries without adding AI decisions. Country selection, regions, map, divisions, controller labels and placeholder order lifecycle are preserved.
 - [x] Pure `src/game/economy.ts` calculates effective income, expenses and balance, and resolves treasury. `src/game/models.ts` adds one `EconomicPolicy` setting to each country and a validated `set-economic-policy` turn command; `src/game/initialState.ts` starts every country at standard taxation.
@@ -452,3 +452,11 @@ Historical first implementation/validation follows. The physical-iPhone-feedback
 
 - The country card fits a source-derived main territory into the usable map, with space around the card and controls. It recalculates after orientation and card-size changes until the player takes over manually.
 - Choosing **Regions** shows selectable Admin-1 outlines at the fitted scale on either projection. Loading starts during the camera move, and the status identifies partial coverage or unavailable geometry. [Behavior, tests and iPhone preview](docs/geography/ADMIN_REGIONS.md)
+
+## INT-02 — Fiscal policy (2026-11-21)
+
+- **Economy → Fiscal policy** offers three tax rates and four government spending shares for the player's country. Current rates come from the engine. Draft percentages accept decimal points or commas. A blank entry keeps the current rate.
+- The editor shows the limits from `fiscalLimits`. It creates changed commands through `fiscalCommands` and displays refusals from `checkEconomyCommands`. **Next week** submits all drafts through the existing combined turn. Refusals retain the drafts and both states. Applied policy persists across weeks.
+- **Return to globe → Resume game** retains proposals and applied rates in the current session. Reloading starts a new session. Current percentages are shown to four decimal places when needed. Proposed rates are sent at the engine's numeric precision.
+- `npm test` passed 146 game tests. The economy-engine suite passed 190 tests and its 10,000-week run passed. The production build passed.
+- Production Chromium checks passed at 320×568, 390×844, 568×320, 844×390 and 1440×900. They verified the seven 44px controls, draft review, an invalid fiscal turn retaining military and diplomatic drafts, corrected application, standing rates, occupation, session resumption and viewport fit. The existing INT-01 and geographic selection checks also passed. Physical Safari review is pending.

@@ -443,6 +443,98 @@ li {
   margin: 7px 4px 0;
   font-size: 0.8125rem;
 }
+.economy-policy {
+  flex: none;
+}
+.fiscal-groups {
+  display: grid;
+  gap: 12px;
+}
+.fiscal-group {
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.fiscal-group legend {
+  padding: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+.fiscal-range {
+  margin-bottom: 4px;
+  font-size: 0.75rem;
+}
+.fiscal-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 4.5rem) minmax(0, 5.75rem);
+  align-items: center;
+  gap: 8px;
+  padding: 3px 9px;
+}
+.fiscal-row + .fiscal-row {
+  border-top: 1px solid var(--color-border);
+}
+.fiscal-columns {
+  padding-block: 6px;
+  color: var(--color-muted);
+  font-size: 0.75rem;
+  text-align: right;
+}
+.fiscal-columns span:last-child {
+  text-align: center;
+}
+.fiscal-current {
+  color: var(--color-muted);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.fiscal-input {
+  position: relative;
+}
+.fiscal-input input {
+  width: 100%;
+  min-height: 44px;
+  padding: 6px 24px 6px 6px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface-secondary);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.fiscal-input input[data-pending] {
+  border-color: var(--color-accent);
+}
+.fiscal-input input[aria-invalid="true"] {
+  border-color: #efad9f;
+}
+.fiscal-input input:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}
+.fiscal-input > span {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-muted);
+  pointer-events: none;
+}
+.fiscal-field-error {
+  grid-column: 1 / -1;
+  color: #efad9f;
+  font-size: 0.75rem;
+}
+@media (min-width: 44rem), (orientation: landscape) and (min-width: 35rem) {
+  .fiscal-groups {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}
 .economy-week {
   padding: 12px 14px;
   font-size: 0.875rem;
@@ -1004,7 +1096,7 @@ li {
     align-content: start;
     align-items: start;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-areas: "budget policy" "week policy" "activity policy" "indicators indicators";
+    grid-template-areas: "budget policy" "week activity" "indicators indicators";
   }
   .economy-budget { grid-area: budget; }
   .economy-policy { grid-area: policy; }

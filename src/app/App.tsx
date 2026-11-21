@@ -1,7 +1,7 @@
 import { Component, lazy, Suspense, useEffect, useRef, useState, type ReactNode } from 'react';
 import { createInitialState } from '../game/initialState';
 import { selectCountry } from '../game/selectCountry';
-import { advanceGameWeek, startEconomy, type EconomyRuntime, type EconomySnapshot } from '../game/economyBridge';
+import { advanceGameWeek, startEconomy, type EconomyCommand, type EconomyRuntime, type EconomySnapshot } from '../game/economyBridge';
 import type { CountryId, GameState, TurnCommand } from '../game/models';
 
 const AtlasMap = lazy(() => import('../ui/AtlasMap'));
@@ -67,12 +67,12 @@ export function App() {
     void startGameEconomy(game);
   }
 
-  function handleAdvanceTurn(commands: readonly TurnCommand[]) {
+  function handleAdvanceTurn(commands: readonly TurnCommand[], economyCommands: readonly EconomyCommand[]) {
     const runtime = runtimeRef.current;
     if (!gameState?.playerCountryId || !runtime || !economy) return false;
     try {
       // One atomic week: game (diplomacy, AI, military) then economy; both are committed only if both succeed.
-      const next = advanceGameWeek(runtime, gameState, economy, commands);
+      const next = advanceGameWeek(runtime, gameState, economy, commands, economyCommands);
       setGameState(next.game);
       setEconomy(next.economy);
       setTurnError(null);
@@ -116,6 +116,7 @@ export function App() {
           onAdvanceTurn={handleAdvanceTurn}
           turnError={turnError}
           economy={economy}
+          fiscalApi={runtimeRef.current?.api}
           economyStatus={economyStatus}
           economyError={economyError}
           onRetryEconomy={() => { if (gameState?.playerCountryId) void startGameEconomy(gameState); }}

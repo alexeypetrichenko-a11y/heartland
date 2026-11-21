@@ -225,9 +225,12 @@ Owner tests T01–T09 on real iPhone. Correct usability/game-breaking bugs **bef
 
 ### INT-01 — Connect the economic engine to the playable game
 
-- [ ] PR #26 is synchronized with `main` after MAP-UX. Contract 1.0.0 supplies the sole economy and loads its week-1 save at scenario start. The production build, 141 game tests and 190 engine tests passed. Chromium verified 52 turns, occupation, rollback, defeat and session resumption. Physical iPhone review remains pending. [Validation and iPhone procedure](docs/economy/INT-01.md)
+- [x] The owner merged PR #26 and validated INT-01 on a physical iPhone. Contract 1.0.0 supplies the economy and loads its week-1 save at scenario start. [Integration and validation](docs/economy/INT-01.md)
 
-### INT-02 — Seven direct fiscal controls (proposed)
+### INT-02 — Seven direct fiscal controls
+
+- [x] Economy → Fiscal policy shows current percentages and editable proposals for the player's seven settings. The combined weekly turn applies valid proposals and clears drafts on success. A refused week retains all drafts.
+- [ ] Validate the INT-02 review build on a physical iPhone.
 
 **Scope:** In the Economy panel, editable drafts for income, consumption and corporate profit tax and for administration, social, military and infrastructure spending:
 - limits from `fiscalLimits`;

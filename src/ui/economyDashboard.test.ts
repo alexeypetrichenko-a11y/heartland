@@ -28,7 +28,6 @@ test('the dashboard shows the engine\'s budget and indicators for each scenario 
     assert.equal(indicator('Political stability').value, `${Math.round(view.stability)} / 100`);
     assert.equal(indicator('Public debt').value, formatMoney(view.debt));
     assert.equal(indicator('Central-bank policy rate').value, formatPercent(view.centralBank.policyRate));
-    assert.equal(dashboard.fiscal.length, 7, 'three taxes and four spending categories, read only');
     assert.equal(dashboard.latestWeek, null, 'no week has settled at week 1');
     assert.equal(dashboard.sectors.length, 3);
   }
