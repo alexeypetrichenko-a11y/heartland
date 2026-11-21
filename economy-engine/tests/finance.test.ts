@@ -116,7 +116,7 @@ test('the weekly budget report is internally consistent', () => {
   for (const country of report.countries) {
     const b = country.budget;
     const revenue = b.incomeTax + b.consumptionTax + b.corporateTax + b.tariffs + b.centralBankProfit + b.moneyCreation + b.reserveSales + b.fundsReceived + b.firmDividends;
-    const spending = b.administration + b.social + b.military + b.infrastructure + b.reservePurchases + b.interest + b.fundsSent + b.firmSupport;
+    const spending = b.administration + b.social + b.military + b.infrastructure + b.reservePurchases + b.interest + b.fundsSent + b.firmSupport + b.surplusReturned;
     assert.ok(Math.abs(revenue - b.revenue) < 1e-9 * Math.max(1, revenue));
     assert.ok(Math.abs(spending - b.spending) < 1e-9 * Math.max(1, spending));
     assert.ok(Math.abs(b.balance - (b.revenue - b.spending)) < 1e-9 * Math.max(1, revenue));

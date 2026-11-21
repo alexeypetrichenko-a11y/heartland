@@ -201,7 +201,7 @@ test('accounting invariants hold every week for 520 weeks of the 31-good world',
     for (const country of report.countries) {
       const b = country.budget;
       const revenue = b.incomeTax + b.consumptionTax + b.corporateTax + b.tariffs + b.centralBankProfit + b.moneyCreation + b.reserveSales + b.fundsReceived + b.firmDividends;
-      const spending = b.administration + b.social + b.military + b.infrastructure + b.reservePurchases + b.interest + b.fundsSent + b.firmSupport;
+      const spending = b.administration + b.social + b.military + b.infrastructure + b.reservePurchases + b.interest + b.fundsSent + b.firmSupport + b.surplusReturned;
       assert.ok(Math.abs(revenue - b.revenue) <= 1e-9 * Math.max(1, b.revenue) && Math.abs(spending - b.spending) <= 1e-9 * Math.max(1, b.spending));
       dividends += b.firmDividends;
       support += b.firmSupport;

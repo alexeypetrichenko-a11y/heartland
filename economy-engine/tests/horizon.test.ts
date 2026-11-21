@@ -76,9 +76,20 @@ for (const kind of ['7-good', '31-good'] as const satisfies readonly WorldKind[]
         checkConsistent(state, stats, label);
         checkSane(scenario, stats, label);
       }
-      if (scenario.name.startsWith('capacity destruction')) assert.ok(stats.gdpRatio > stats.gdpLow + 0.02, `output recovers from its low (${stats.gdpLow} → ${stats.gdpRatio})`);
+      // ECON-07: the stricken country (Sundara) stays in a tier-3 crisis in every version. (A) Its budget base no
+      // longer falls with the destroyed economy (debt about 5 points higher) and (C) its autopilot can no longer buy
+      // calm with welfare, so strikes persist: world output ends 1.2 points above its low in the 31-good world
+      // (89.3% -> 88.1% of its start) and 5.4 points in the 7-good world, instead of 2.5 and 8.1 before ECON-07.
+      if (scenario.name.startsWith('capacity destruction')) assert.ok(stats.gdpRatio > stats.gdpLow + 0.01, `output recovers from its low (${stats.gdpLow} → ${stats.gdpRatio})`);
       if (scenario.name.startsWith('fiscal crisis')) assert.equal(stats.defaults, 2, 'both declared defaults happen');
-      if (scenario.name.startsWith('energy shock') || scenario.name.startsWith('state intervention')) assert.equal(stats.defaults + stats.regimeChanges, 0, 'no default or regime change');
+      if (scenario.name.startsWith('state intervention')) assert.equal(stats.defaults + stats.regimeChanges, 0, 'no default or regime change');
+      if (scenario.name.startsWith('energy shock')) {
+        // ECON-07: the shock brings Khazir to one tier-1 crisis (a single 15% regime roll) in both the old and the
+        // corrected engine; which week the roll falls on, and so its seeded draw, depends on the exact path. The
+        // regression is therefore: no default, and no crisis deeper than tier 1.
+        assert.equal(stats.defaults, 0, 'no default');
+        assert.ok(!stats.events.some(event => event.type === 'unrest-escalated'), 'no unrest beyond its first tier');
+      }
       if (scenario.name.startsWith('occupation') || scenario.name.startsWith('intensive occupation') || scenario.name.startsWith('military requisition')) {
         assert.equal(stats.defaults, 0, 'no default');
       }

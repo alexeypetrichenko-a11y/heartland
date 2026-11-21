@@ -362,7 +362,7 @@ export function createEconomy(spec: WorldSpec): EconomyState {
     spendSocial: policy.map(rule => rule.social), spendMilitary: policy.map(rule => rule.military),
     spendInfrastructure: policy.map(rule => rule.infrastructure), autoBorrow: filled(C, 1), governmentPriority: zeros(C),
     cbRate: filled(C, p.baseRate), cbReserves: zeros(C), cbIssued: zeros(C), cbStateLoans: zeros(C), cbExceptional: zeros(C),
-    cbExceptionalRecent: zeros(C), defaultMemory: zeros(C),
+    cbExceptionalRecent: zeros(C), defaultMemory: zeros(C), spendingBase: gdp.slice(),
   };
   const countryGood = {
     reserves: zeros(C * G), reserveTargetWeeks: zeros(C * G), reserveMode: zeros(C * G), tariff: zeros(C * G),
@@ -550,6 +550,9 @@ function settle(state: EconomyState, turns: number, balanceBudget: boolean[]): v
         const original = saved[i];
         for (let k = 0; k < values.length; k++) values[k] = original[k];
       }
+      // ECON-07 (A): while the world is being built the spending base follows GDP exactly, as before, so the
+      // starting economy is calibrated as it always was; the slow-falling base applies from the first real week.
+      for (let c = 0; c < country.gdp.length; c++) country.spendingBase[c] = country.gdp[c];
       state.turn = 0;
     }
     return report;

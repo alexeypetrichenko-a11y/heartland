@@ -4,6 +4,18 @@ import { clamp, EPSILON } from './model.ts';
 import { RANDOM_STREAM, randomUnit } from './rng.ts';
 
 /**
+ * Stability from social spending relative to the norm (ECON-07, C). Below the norm the full social weight applies,
+ * so cuts always hurt. Above it the gain starts at half that weight and then levels off towards `cap` points:
+ * x / (1 + x / cap) with x = slope x gap (plain arithmetic only, so it is bit-identical on every JavaScript
+ * engine). With cap 0 the gain stays the legacy straight line.
+ */
+export function socialStability(weight: number, cap: number, gap: number): number {
+  if (gap < 0) return weight * gap;
+  const linear = weight * 0.5 * gap;
+  return cap > 0 ? linear / (1 + linear / cap) : linear;
+}
+
+/**
  * Political stability of each regime.
  *
  * Stability (0-100) drifts towards a target set by living conditions and
@@ -61,7 +73,7 @@ export function updatePolitics(s: EconomyState, w: Workspace, events: EconomyEve
       // Falling living standards hurt fully; rising ones help only a little.
       + p.stabilityLivingStandardWeight * (living[c] < 0 ? living[c] : Math.min(0.05, living[c] * 0.5))
       - p.stabilityTaxWeight * Math.max(0, burden - p.taxTolerance)
-      + p.stabilitySocialWeight * (socialGap < 0 ? socialGap : socialGap * 0.5)
+      + socialStability(p.stabilitySocialWeight, p.socialStabilityCap, socialGap)
       - p.stabilityArrearsWeight * country.arrears[c]
       + country.stabilityModifier[c],
       0, 100);

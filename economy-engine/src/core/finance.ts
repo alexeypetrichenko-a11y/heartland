@@ -162,7 +162,8 @@ export function planBudgets(s: EconomyState, w: Workspace, m: Model, events: Eco
 
   // 1. Spending plans and borrowing requests.
   for (let c = 0; c < C; c++) {
-    const base = country.gdp[c];
+    // ECON-07 (A): the shares apply to the budget base, which follows a falling GDP only slowly.
+    const base = country.spendingBase[c];
     const military = country.spendMilitary[c] * base;
     w.planAdministration[c] = country.spendAdministration[c] * base;
     w.planSocial[c] = country.spendSocial[c] * base;
@@ -304,6 +305,12 @@ export function planBudgets(s: EconomyState, w: Workspace, m: Model, events: Eco
     // Reserves are bought only with cash beyond this week's core spending.
     const spare = country.treasury[c] - planned * funded;
     w.reserveFunded[c] = w.planExtras[c] > 0 ? clamp(spare / w.planExtras[c], 0, 1) : 0;
+    // ECON-07 (A): with no debt left to repay, cash beyond this week's bills and a strategic reserve goes
+    // back to households a little each week (as a cash transfer) instead of piling up idle in the treasury.
+    if (p.surplusReturnShare > 0 && !w.calibrating && country.debt[c] <= EPSILON && country.cbStateLoans[c] <= EPSILON) {
+      const excess = spare - w.planExtras[c] - planned * p.treasuryReserveWeeks;
+      if (excess > EPSILON) w.planReturn[c] = excess * p.surplusReturnShare;
+    }
   }
 
   // 4. Cash transfers to households and orders for goods, zone by zone.
@@ -314,6 +321,13 @@ export function planBudgets(s: EconomyState, w: Workspace, m: Model, events: Eco
     if (!(share > 0)) continue;
     const funded = w.fundedShare[c];
     const cash = Math.min((w.planSocial[c] + w.planMilitaryPay[c]) * share, country.treasury[c]);
+    const returned = Math.min(w.planReturn[c] * share, Math.max(0, country.treasury[c] - cash));
+    if (returned > 0) {
+      country.treasury[c] -= returned;
+      s.zone.householdMoney[z] += returned;
+      w.householdIncome[z] += returned;
+      w.spentSurplusReturn[c] += returned;
+    }
     if (cash > 0) {
       const social = w.planSocial[c] + w.planMilitaryPay[c] > 0 ? cash * w.planSocial[c] / (w.planSocial[c] + w.planMilitaryPay[c]) : 0;
       country.treasury[c] -= cash;
@@ -353,8 +367,14 @@ function applyDefault(s: EconomyState, w: Workspace, m: Model, c: number, forced
   // Repeat defaulters (C3): every consequence is heavier, creditors concede much less each
   // time, and they concede nothing at all while the previous restructuring is still under way
   // (the country is still shut out of credit markets), so serial defaults cannot erase debt.
-  const repeat = 1 + country.defaultMemory[c];
-  const haircut = country.exclusionWeeks[c] > 0 ? 0 : p.defaultHaircut / (repeat * repeat);
+  // ECON-07 (B): a default the state chose while it could still borrow and pay is judged more harshly than
+  // one forced on it (or declared once lenders had already shut it out).
+  const voluntary = !forced && country.marketAccess[c] === 1 && country.missedPayments[c] === 0;
+  const record = 1 + country.defaultMemory[c];
+  // The write-off depends only on the country's record of defaults (the approved provisional 55% for a first one);
+  // every other consequence is heavier for a voluntary default.
+  const repeat = record + (voluntary ? p.voluntaryDefaultWeight : 0);
+  const haircut = country.exclusionWeeks[c] > 0 ? 0 : p.defaultHaircut / (record * record);
   scaleDebt(s, c, 1 - haircut);
   // The central bank's loans to the defaulting state lose the same share: a loss of its capital.
   const bankLoss = country.cbStateLoans[c] * haircut;
@@ -363,7 +383,8 @@ function applyDefault(s: EconomyState, w: Workspace, m: Model, c: number, forced
   const writtenOff = before - country.debt[c] + bankLoss;
   country.averageRate[c] = Math.min(country.averageRate[c], p.restructuredRate);
   // Repeat offenders stay locked out of credit markets for longer.
-  country.exclusionWeeks[c] = Math.round(p.defaultExclusionWeeks * (1 + 0.5 * country.defaults[c]));
+  // A voluntary default counts as part of an extra previous default here too.
+  country.exclusionWeeks[c] = Math.round(p.defaultExclusionWeeks * (1 + 0.5 * (country.defaults[c] + (voluntary ? p.voluntaryDefaultWeight : 0))));
   country.marketAccess[c] = 0;
   country.reputationSpread[c] += p.defaultReputationSpread * repeat;
   country.stability[c] = Math.max(0, country.stability[c] - p.defaultStabilityShock * repeat);
@@ -386,7 +407,7 @@ function applyDefault(s: EconomyState, w: Workspace, m: Model, c: number, forced
     }
   }
   events.push({
-    type: 'sovereign-default', turn: s.turn + 1, countryId: s.countries[c].id, forced,
+    type: 'sovereign-default', turn: s.turn + 1, countryId: s.countries[c].id, forced, voluntary,
     haircut, debtWrittenOff: writtenOff,
   });
 }
@@ -441,13 +462,15 @@ export function settleFinances(s: EconomyState, w: Workspace, m: Model, events: 
       w.repaid[c] += paid;
     }
     country.gdp[c] += p.gdpSmoothing * (w.countryNominal[c] - country.gdp[c]);
+    const gap = w.countryNominal[c] - country.spendingBase[c];
+    country.spendingBase[c] += (gap < 0 ? p.spendingBaseFall : p.gdpSmoothing) * gap;
     country.realGdp[c] = w.countryReal[c];
     const revenue = w.revenueIncomeTax[c] + w.revenueConsumptionTax[c] + w.revenueCorporateTax[c] + w.revenueTariffs[c]
       + w.revenueCentralBank[c] + w.revenueMoneyCreation[c] + w.revenueReserveSales[c] + w.revenueFunds[c] + w.revenueFirmDividends[c]
       + w.revenueOwnership[c] + w.revenueOccupation[c];
     const spending = w.spentAdministration[c] + w.spentSocial[c] + w.spentMilitary[c] + w.spentInfrastructure[c]
       + w.spentReserves[c] + w.spentReserveStorage[c] + w.spentInterest[c] + w.spentFunds[c] + w.spentFirmSupport[c]
-      + w.spentOwnership[c] + w.spentCentralBankCapital[c] + w.spentOccupationSecurity[c] + w.spentTransport[c];
+      + w.spentOwnership[c] + w.spentCentralBankCapital[c] + w.spentOccupationSecurity[c] + w.spentTransport[c] + w.spentSurplusReturn[c];
     const deficit = country.gdp[c] > EPSILON ? (spending - revenue) / country.gdp[c] : 0;
     country.deficit[c] += 0.1 * (clamp(deficit, -1, 1) - country.deficit[c]);
 
