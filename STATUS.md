@@ -1,7 +1,7 @@
 # Heartland — Implementation Status
 
-**Snapshot date** 2026-11-20
-**Source** `main` at `0796723`, including the owner's merges of PR #23 and PR #24, and the MAP-UX follow-up on `task/map-ux-country-framing`.
+**Snapshot date** 2026-11-21
+**Source** INT-01 PR #26 synchronized with `main` at `6c154c0`, including the owner's merge of MAP-UX PR #25.
 
 ## Verified existing scaffold
 
@@ -138,6 +138,8 @@ Historical sections below retain their original verification scope. The latest s
 ## T06 — Minimal weekly economy and treasury feedback
 
 > **Superseded by INT-01** (branch `task/int-01-economy-integration`, awaiting owner review). T06's treasury, budget, Standard / Tax relief policy and insufficient-funds rejection were removed under decision A1. The economic engine (`economy-engine/`, contract 1.0.0) is now the only economy. Details, tests, measurements and limitations: [docs/economy/INT-01.md](docs/economy/INT-01.md). The T06 record below is historical.
+
+INT-01 passed 141 game tests, 190 engine tests, the starting-save check and the production build after synchronization. Chromium validated lockstep turns, occupation, rollback, defeat and game resumption. Physical Safari review remains pending. [Validation and iPhone procedure](docs/economy/INT-01.md)
 
 - [x] Reuses the deterministic `advanceTurn` engine. Each successful week settles all three countries' fixed budgets once, including AI-labeled countries without adding AI decisions. Country selection, regions, map, divisions, controller labels and placeholder order lifecycle are preserved.
 - [x] Pure `src/game/economy.ts` calculates effective income, expenses and balance, and resolves treasury. `src/game/models.ts` adds one `EconomicPolicy` setting to each country and a validated `set-economic-policy` turn command; `src/game/initialState.ts` starts every country at standard taxation.

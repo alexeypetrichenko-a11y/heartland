@@ -1,6 +1,6 @@
 # INT-01 — The economic engine connected to the playable game
 
-Status: implemented on branch `task/int-01-economy-integration` (based on `main` at `0796723`), awaiting owner review. The approved engine (integration contract 1.0.0) was merged in, with its history, from `feature/economy-engine-handoff`; `economy-engine/` is unchanged.
+PR #26 is synchronized with `main` at `6c154c0`, including the owner's merge of MAP-UX PR #25. The single `economy-engine/` tree matches the approved handoff at `a09903d` byte for byte. PR #20's commits are already in that history. The integration uses contract 1.0.0 and awaits physical iPhone review. [PR #26](https://github.com/alexeypetrichenko-a11y/heartland/pull/26)
 
 ## What changed for the player
 
@@ -52,9 +52,10 @@ The game state holds no economic figure at all.
 
 | Check | Result |
 |---|---|
-| `npm test` (game) | **138 / 138 pass** |
+| `npm test` (game) | **141 / 141 pass** |
 | `npm run build` (`tsc --noEmit` + Vite) | passes |
 | Engine tests (`cd economy-engine && npm test`) | 190 / 190 pass (unchanged engine) |
+| Week-1 save (`cd economy-engine && npm run starting-save -- --check`) | Byte-for-byte match, contract 1.0.0, session format v2 |
 | Browser checks (`scripts/economy/check_int01.cjs`, Chromium, production preview) | all pass (below) |
 
 New game tests:
@@ -82,16 +83,22 @@ New game tests:
   - Alden's attack captured Amber Plain and was reported as an occupation;
   - no runtime errors and no horizontal overflow.
 
+Additional production-build checks compared the displayed GDP, inflation, unemployment, treasury and public debt against the API for all three countries. Each session retained its week and values after returning to the globe and resuming. At 844×390, a test-only invalid tax command rejected the week, retained the military draft and preserved both states. The next valid attempt resolved the draft. The capture notice kept Belora as Amber Plain's legal owner, and the division moved back to Alden Vale on a later week.
+
+A controlled test supplied the engine's existing stability effect through the test runner. The engine reported Alden's regime overthrow at week 28. The app showed defeat, disabled **Next week** and kept the final state available after returning to the globe. These checks used the built application and its real engine, with the invalid input and stability effect supplied only by the browser test.
+
+The browser runner uses the military panel's Back button and recognizes Chromium's request for the app's absent default favicon. Other console errors still fail the run.
+
 ## Performance
 
 | Measure | Result |
 |---|---|
-| Start-up bundle (what the globe loads) | entry chunk 239.2 KB (74.9 KB gzip), against 239.4 KB (74.9 KB gzip) on `main`: no change |
+| App entry bundle | 239.2 KB (74.9 KB gzip) |
 | Downloaded when a game starts | runtime 0.3 KB, engine and API 158 KB (51 KB gzip), week-1 save 186 KB (65 KB gzip) |
-| Economy start (from "Start local scenario" to engine figures on screen, Chromium, local server) | 71–86 ms at 1× CPU; 172 ms at 4×; 246 ms at 6× |
-| Next week (press to updated screen, median / worst) | 43–44 / 51–71 ms at 1×; 73 / 143 ms at 4×; 100 / 213 ms at 6× |
+| Economy start (from "Start local scenario" to engine figures on screen, Chromium, local server) | 119–142 ms at 1× CPU, 304 ms at 4×, 480 ms at 6× |
+| Next week (press to updated screen, median / worst) | 43–57 / 93–116 ms at 1×, 125 / 291 ms at 4×, 184 / 489 ms at 6× |
 
-Chromium with CPU throttling is a proxy for a phone, not an iPhone measurement. A real network adds the download time of about 116 KB gzip at game start.
+Chromium loaded the globe in 1.6–1.8 seconds on the local production server with software WebGL. Belora's retained JavaScript heap at weeks 1, 14, 27, 40 and 53 was 5.17, 7.11, 7.44, 7.70 and 7.81 MiB after garbage collection. DOM node counts stayed at 929 from week 14 onward. These samples cover one 52-turn session. Safari memory, GPU memory and device timings require physical testing. A cold game start fetches about 116 KB of economy code and save data when gzip is available.
 
 ## Limitations
 
@@ -100,7 +107,29 @@ Chromium with CPU throttling is a proxy for a phone, not an iPhone measurement. 
 - **GDP and territory.** GDP and growth include occupied regions, so a capture raises the occupier's GDP and growth. The growth row says so.
 - **Not saved.** Reloading the page resets the fictional game and its economy, as before; there is no save yet.
 - **Invented data.** The economy's region profiles for the fictional world are invented illustrations (`economy-engine/src/integration/scenario.ts`). If the fixture in `src/game/initialState.ts` changes, the starting save stops fitting and must be regenerated in `economy-engine/`.
-- **No iPhone preview yet.** A separate HTTPS preview for iPhone Safari could not be published from this environment. The build is 1,045 files and 66 MB, too large for a claude.ai page. GitHub Pages deploys only from `main`, and no other host was used without approval. Physical iPhone and Safari testing remains for the owner.
+
+## iPhone review
+
+GitHub Pages publishes `main`. The existing economy review site can host this branch through the connected Sites account. That upload requires owner approval for one short-lived Sites Git credential. Physical Safari review is still pending.
+
+To test on an iPhone over a private Wi-Fi network, run these commands on a Mac or PC with Git and Node.js 24.
+
+```sh
+git clone --branch task/int-01-economy-integration https://github.com/alexeypetrichenko-a11y/heartland.git heartland-int01-review
+cd heartland-int01-review
+npm ci
+npm run build
+npm run preview -- --host 0.0.0.0 --port 4180 --strictPort
+```
+
+With the computer and iPhone on the same Wi-Fi, open the **Network** URL printed by Vite in Safari, including `/heartland/`. Keep the Terminal window open while testing.
+
+1. Confirm the globe appears first. Tap **Fictional game**, choose a country, then tap **Start local scenario** and **Economy**.
+2. Check the week-1 engine figures. Tap **Next week** once and confirm the header and Economy panel show week 2. Rotate the phone to landscape and inspect the values and controls.
+3. Open **Scenario menu**, tap **Return to globe**, then **Resume game**. Confirm the same week and treasury.
+4. As Alden, stage an attack on Amber Plain from **Military**. Advance until the occupation notice appears and confirm it names Belora as the legal owner.
+
+Automated integration checks passed. Physical Safari review remains the merge gate.
 
 ## INT-02 proposal: the seven fiscal controls
 

@@ -17,7 +17,7 @@
 const { chromium } = require(process.env.HEARTLAND_PLAYWRIGHT_MODULE || 'playwright');
 
 const BASE = process.env.HEARTLAND_PREVIEW_URL || 'http://127.0.0.1:4173/heartland/';
-const ECONOMY = /economyRuntime|fictional-week1\.economy|assets\/index-(?!.*\.css)/;
+const DEFAULT_ICON = new URL('/favicon.ico', BASE).href;
 const median = values => values.slice().sort((a, b) => a - b)[values.length >> 1];
 
 async function play(browser, { country, width, height, touch, weeks, attack, throttle }) {
@@ -25,7 +25,13 @@ async function play(browser, { country, width, height, touch, weeks, attack, thr
   const page = await context.newPage();
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
-  page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
+  page.on('console', message => {
+    if (message.type() !== 'error') return;
+    // Chromium asks for a default icon even when the app declares none.
+    const { url } = message.location();
+    if (url === DEFAULT_ICON && message.text().includes('404 (Not Found)')) return;
+    errors.push(`${message.text()} ${url}`);
+  });
   const requests = [];
   page.on('request', request => requests.push(request.url()));
   const economyRequests = () => requests.filter(url => /economyRuntime|fictional-week1\.economy/.test(url));
@@ -63,7 +69,7 @@ async function play(browser, { country, width, height, touch, weeks, attack, thr
     await page.locator('#military-order').selectOption('attack');
     await page.locator('#military-target').selectOption('amber-plain');
     await page.getByRole('button', { name: 'Stage military order' }).click();
-    await page.keyboard.press('Escape');
+    await page.getByRole('button', { name: 'Back from Military orders' }).click();
   }
 
   const gdp = () => panel.locator('.economy-indicators dl > div').filter({ hasText: /^GDP/ }).locator('dd').textContent();
@@ -74,7 +80,7 @@ async function play(browser, { country, width, height, touch, weeks, attack, thr
   let occupation = false;
   for (let week = 2; week <= weeks + 1; week++) {
     const pressed = Date.now();
-    await page.getByRole('button', { name: 'Next week' }).click();
+    await page.getByRole('button', { name: 'Next week', exact: true }).click();
     await page.getByText(`Week ${week}`, { exact: true }).first().waitFor();
     times.push(Date.now() - pressed);
     treasuries.push(await treasury.textContent());

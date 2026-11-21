@@ -225,7 +225,7 @@ Owner tests T01–T09 on real iPhone. Correct usability/game-breaking bugs **bef
 
 ### INT-01 — Connect the economic engine to the playable game
 
-- [ ] Implemented and locally verified on `task/int-01-economy-integration`. The engine is merged in unchanged with its history; it starts lazily from the week-1 save when a fictional game starts, never for the globe. Weekly turns are atomic for game and economy (`advanceWeekTogether`), captures become occupations, T06 is removed (A1), and the Economy panel is read-only with engine data. 138 game tests, 190 engine tests and the build pass, with 52-week Chromium checks. Awaiting owner review and iPhone testing. [Details](docs/economy/INT-01.md)
+- [ ] PR #26 is synchronized with `main` after MAP-UX. Contract 1.0.0 supplies the sole economy and loads its week-1 save at scenario start. The production build, 141 game tests and 190 engine tests passed. Chromium verified 52 turns, occupation, rollback, defeat and session resumption. Physical iPhone review remains pending. [Validation and iPhone procedure](docs/economy/INT-01.md)
 
 ### INT-02 — Seven direct fiscal controls (proposed)
 
