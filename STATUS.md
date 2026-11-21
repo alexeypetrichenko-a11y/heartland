@@ -1,7 +1,7 @@
 # Heartland — Implementation Status
 
-**Snapshot date** 2026-11-18
-**Source** `main` at `05224bf`, including the owner's merge of PR #22, and MAP-01D on `task/map-01d-administrative-regions`.
+**Snapshot date** 2026-11-20
+**Source** `main` at `0796723`, including the owner's merges of PR #23 and PR #24, and the MAP-UX follow-up on `task/map-ux-country-framing`.
 
 ## Verified existing scaffold
 
@@ -27,7 +27,7 @@
 - [x] Spherical atlas navigation and camera-matched flat-map handoff (MAP-01B.3), merged in PR #21.
 - [x] Default globe exploration screen (MAP-01B.4), explicit game access and retained navigation state.
 - [x] Geographic country inspection on the globe and flat map (MAP-01C), merged in PR #22.
-- [x] Admin-1 boundary display and selection at close flat-map zoom (MAP-01D), implemented for review.
+- [x] Admin-1 boundary display and selection at close flat-map zoom (MAP-01D), merged in PR #23.
 - [ ] Persistent terrain cache (MAP-01B.5) and playable-country roster.
 - [ ] Data/rendering for Cities, Bunkers, Roads, Railways, Ports and Airports; their toolbar controls are disabled.
 - [ ] Unit interaction/geographical positioning (UI-01B.3) and UI-01C (separate assignments pending).
@@ -444,4 +444,9 @@ Historical first implementation/validation follows. The physical-iPhone-feedback
 - The country card now offers **Regions** from the opening globe. It centers the selected landmass before zooming, fits the view to its extent and activates the layer. A coverage list in the atlas catalog identifies countries where the button should be disabled.
 - The atlas requests one country index and up to four visible geometry chunks within a 1.2 MB source-file budget. Requests wait for motion to settle and cancel when their view changes. The global globe loads zero Admin-1 files. The geographic records and IDs are independent of gameplay.
 - Regional coverage follows the pinned source. Mixed administrative levels and island fragments retain their source identity. A sole whole-country placeholder or missing regional source leaves the country inspectable. [Source limits, verification and iPhone preview](docs/geography/ADMIN_REGIONS.md)
-- All 136 tests and the production build passed. The owner verified the first MAP-01D preview on physical iPhone Safari. The Regions shortcut awaits device review on [PR #23](https://github.com/alexeypetrichenko-a11y/heartland/pull/23).
+- All 136 tests and the production build passed for MAP-01D. The owner merged [PR #23](https://github.com/alexeypetrichenko-a11y/heartland/pull/23) and verified the Regions shortcut on physical iPhone Safari.
+
+## MAP-UX — Country-adaptive Regions zoom
+
+- The country card fits a source-derived main territory into the usable map, with space around the card and controls. It recalculates after orientation and card-size changes until the player takes over manually.
+- Choosing **Regions** shows selectable Admin-1 outlines at the fitted scale on either projection. Loading starts during the camera move, and the status identifies partial coverage or unavailable geometry. [Behavior, tests and iPhone preview](docs/geography/ADMIN_REGIONS.md)

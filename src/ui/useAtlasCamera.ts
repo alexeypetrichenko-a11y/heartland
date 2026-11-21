@@ -5,7 +5,7 @@ import { desiredProjection, dragWorldCamera, flatFallback, initialWorldCamera, m
   wrapLongitude, type WorldCamera } from '../geography/worldCamera';
 
 /** Atlas-only input; the fictional map and division gestures are independent. */
-export function useAtlasCamera(active: boolean) {
+export function useAtlasCamera(active: boolean, onManualNavigation: () => void) {
   const ref = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState<AtlasSize>({ width: 360, height: 360 });
   const [view, setView] = useState(initialWorldCamera);
@@ -27,10 +27,10 @@ export function useAtlasCamera(active: boolean) {
     setFlying(false);
   }, []);
   useEffect(() => { if (!active) stopFlight(); }, [active, stopFlight]);
-  function cancel() {
+  const cancel = useCallback(() => {
     for (const id of contacts.current.keys()) if (ref.current?.hasPointerCapture(id)) ref.current.releasePointerCapture(id);
     contacts.current.clear(); pinch.current = null; moved.current = false;
-  }
+  }, []);
   function point(x: number, y: number) {
     const rect = ref.current!.getBoundingClientRect();
     return { x: x - rect.left, y: y - rect.top };
@@ -51,6 +51,7 @@ export function useAtlasCamera(active: boolean) {
       event.preventDefault();
       if (contacts.current.size) return;
       stopFlight();
+      onManualNavigation();
       const { view, size } = camera.current;
       const delta = event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? size.height : 1);
       const p = point(event.clientX, event.clientY);
@@ -63,7 +64,7 @@ export function useAtlasCamera(active: boolean) {
       cancel(); cancelAnimationFrame(frame.current); frame.current = 0;
       cancelAnimationFrame(flight.current); flight.current = 0;
     };
-  }, [commit, stopFlight]);
+  }, [cancel, commit, stopFlight, onManualNavigation]);
   function pointerDown(event: Pointer<HTMLDivElement>) {
     if (event.button !== 0 || contacts.current.size >= 2) return;
     stopFlight();
@@ -73,6 +74,7 @@ export function useAtlasCamera(active: boolean) {
     event.currentTarget.setPointerCapture(event.pointerId);
     if (contacts.current.size === 2) {
       moved.current = true;
+      onManualNavigation();
       pinch.current = { view: camera.current.view, points: [...contacts.current.values()].map(c => c.point) };
     }
   }
@@ -83,6 +85,7 @@ export function useAtlasCamera(active: boolean) {
     contact.point = point(event.clientX, event.clientY);
     if (!moved.current && Math.hypot(contact.point.x - contact.start.x, contact.point.y - contact.start.y) < 6) return;
     const from = moved.current ? previous : contact.start;
+    if (!moved.current) onManualNavigation();
     moved.current = true;
     const current = [...contacts.current.values()].map(c => c.point);
     if (current.length === 2) {
@@ -103,14 +106,15 @@ export function useAtlasCamera(active: boolean) {
   }
   function zoomBy(factor: number) {
     cancel(); stopFlight();
+    onManualNavigation();
     const { view, size } = camera.current, p = { x: size.width / 2, y: size.height / 2 };
     commit(moveWorldCamera(view, size, p, p, view.zoom * factor));
   }
-  function reset() { cancel(); stopFlight(); commit(initialWorldCamera(camera.current.view.flatOnly)); }
+  function reset() { cancel(); stopFlight(); onManualNavigation(); commit(initialWorldCamera(camera.current.view.flatOnly)); }
   const fallbackToFlat = useCallback(() => {
     cancel(); stopFlight(); commit(flatFallback(camera.current.view, camera.current.size));
-  }, [commit, stopFlight]);
-  function flyTo(target: WorldCamera) {
+  }, [cancel, commit, stopFlight]);
+  const flyTo = useCallback((target: WorldCamera) => {
     cancel(); stopFlight();
     const { view: start, size } = camera.current;
     const dx = wrapLongitude(target.focus[0] - start.focus[0]), dy = target.focus[1] - start.focus[1];
@@ -140,7 +144,7 @@ export function useAtlasCamera(active: boolean) {
       else { flight.current = 0; setFlying(false); }
     }
     flight.current = requestAnimationFrame(draw);
-  }
+  }, [cancel, commit, stopFlight]);
   function keyDown(event: Key<HTMLDivElement>) {
     if (event.altKey || event.ctrlKey || event.metaKey) return;
     if (['+', '='].includes(event.key)) zoomBy(1.5);
@@ -151,6 +155,7 @@ export function useAtlasCamera(active: boolean) {
       const delta: Record<string, AtlasPoint> = { ArrowLeft: { x: step, y: 0 }, ArrowRight: { x: -step, y: 0 }, ArrowUp: { x: 0, y: step }, ArrowDown: { x: 0, y: -step } };
       if (!delta[event.key]) return;
       cancel(); stopFlight();
+      onManualNavigation();
       const { view, size } = camera.current, center = { x: size.width / 2, y: size.height / 2 };
       commit(dragWorldCamera(view, size, center, { x: center.x + delta[event.key].x, y: center.y + delta[event.key].y }));
     }

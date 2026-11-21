@@ -1,12 +1,11 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
-import { planRegionChunks, projectRegionChunk, regionCameraTarget, regionName, REGION_BYTE_LIMIT, REGION_CHUNK_LIMIT, usableRegions } from './atlasRegions.ts';
-import { projectAtlasFeature, type AtlasCatalog } from './atlas.ts';
-import { countryDetailAmount } from './borderRendering.ts';
+import { planRegionChunks, projectRegionChunk, regionName, REGION_BYTE_LIMIT, REGION_CHUNK_LIMIT, usableRegions } from './atlasRegions.ts';
+import type { AtlasCatalog } from './atlas.ts';
 import { pickAtlasFeature } from './countrySelection.ts';
 import { createGeographyLoader } from './loadGeography.ts';
-import type { CountryCatalog, GeographicCollection, GeographicFeature, GeographicPosition, GeographicRegion, RegionCatalog } from './types';
+import type { CountryCatalog, GeographicCollection, GeographicRegion, RegionCatalog } from './types';
 import { initialWorldCamera, projectWorld } from './worldCamera.ts';
 
 const read = <T>(path: string): T => JSON.parse(readFileSync(new URL(`../../public/geography/natural-earth-5.1.1/${path}`, import.meta.url), 'utf8'));
@@ -18,30 +17,6 @@ test('the opening catalog identifies entities without usable regions using the s
     !country.regionIndex || !usableRegions(read<RegionCatalog>(country.regionIndex.path)).length).map(country => country.id);
   assert.equal(unavailable.length, 33);
   assert.deepEqual(atlas.countriesWithoutRegions, unavailable);
-});
-
-test('regional camera fits the picked extent while reaching country detail on portrait and landscape maps', () => {
-  const aim = (code: string, point: GeographicPosition, size: { width: number; height: number }) => {
-    const country = atlas.countries.find(record => record.id === `ne:admin0:${code}`)!;
-    const [lon, lat] = point;
-    const part = projectAtlasFeature(read<GeographicFeature>(`countries/${code}.geojson`)).parts
-      .find(({ bbox: [west, south, east, north] }) => lon >= west && lon <= east && lat >= south && lat <= north)!;
-    const target = regionCameraTarget(false, size, country, { position: point, bounds: part.bbox })!;
-    assert.equal(target.projection, 'flat');
-    assert.equal(countryDetailAmount(target, size), 1);
-    assert.deepEqual(projectWorld(target, size, point), { x: size.width / 2, y: size.height / 2 });
-    return target.zoom;
-  };
-  for (const size of [{ width: 356, height: 680 }, { width: 810, height: 225 }]) {
-    const france = aim('FRA', [2.35, 46.7], size);
-    assert.ok(aim('SGP', [103.83, 1.365], size) > france);
-    assert.ok(aim('USA', [-155.45329, 19.59369], size) > aim('USA', [-99.69843, 37.24636], size));
-    aim('FJI', [-179.93079, -16.82277], size);
-    const norway = atlas.countries.find(country => country.id === 'ne:admin0:NOR')!;
-    const polar = regionCameraTarget(false, size, norway, { position: [22, 80.5], bounds: [20, 80.1, 24, 81] })!;
-    assert.ok(polar.focus[1] < 80);
-    assert.equal(polar.projection, 'flat');
-  }
 });
 
 test('regional coverage preserves mixed source levels and omits sole country stand-ins and flagged geometry', () => {

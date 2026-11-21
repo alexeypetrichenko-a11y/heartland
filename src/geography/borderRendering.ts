@@ -1,4 +1,5 @@
 import type { AtlasShape, AtlasSize } from './atlas';
+import type { GeographicId } from './types';
 import { globeRenderSize } from './globeMesh.ts';
 import { geographicVector, transitionZoom, type WorldCamera } from './worldCamera.ts';
 
@@ -21,7 +22,7 @@ export function countryDetailAmount(camera: WorldCamera, size: AtlasSize) {
 }
 
 /** Existing source outlines only; GPU clips the far hemisphere. Build on LOD changes. */
-export function globeBorderVertices(shapes: AtlasShape[]): Float32Array {
+export function globeBorderVertices(shapes: readonly AtlasShape<GeographicId>[]): Float32Array {
   const vertices: number[] = [];
   for (const shape of shapes) for (const part of shape.parts) {
     let previous: [number, number] | null = null;

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { AtlasCatalog, AtlasShape, AtlasSize } from '../geography/atlas';
+import type { AtlasRegion } from '../geography/atlasRegions';
 import { createTerrainData, projectHydrology, type HydrologyFeature } from '../geography/terrain';
 import type { WorldCamera } from '../geography/worldCamera';
 import { globeBorderVertices } from '../geography/borderRendering';
@@ -7,6 +8,7 @@ import { createGlobeRenderer } from './globeRenderer';
 import { useGeographicFade } from './useGeographicFade';
 
 type Props = { camera: WorldCamera; size: AtlasSize; catalog: AtlasCatalog | null; shapes: AtlasShape[]; selected?: AtlasShape;
+  regions?: AtlasRegion[]; selectedRegion?: AtlasRegion;
   terrain: boolean; active: boolean; revision: number; onUnavailable: () => void; onReady: (ready: boolean) => void; onStatus: (status: string) => void };
 
 export function AtlasGlobe(props: Props) {
@@ -16,6 +18,8 @@ export function AtlasGlobe(props: Props) {
   const borders = useGeographicFade(props.shapes, props.active);
   const borderVertices = useMemo(() => globeBorderVertices(borders.current), [borders.current]);
   const previousVertices = useMemo(() => borders.previous ? globeBorderVertices(borders.previous) : undefined, [borders.previous]);
+  const regionVertices = useMemo(() => props.active && props.regions?.length ? globeBorderVertices(props.regions) : undefined,
+    [props.active, props.regions]);
   const current = useRef({ ...props, borderMix: borders.mix }); current.current = { ...props, borderMix: borders.mix };
   const frame = useRef(0);
   const source = useRef<ReturnType<typeof createTerrainData> | null>(null);
@@ -61,25 +65,37 @@ export function AtlasGlobe(props: Props) {
     catch { props.onUnavailable(); }
   }, [borderVertices, previousVertices, props.active, props.onUnavailable, schedule]);
   useEffect(() => {
+    try { renderer.current?.uploadRegions(regionVertices); schedule(); }
+    catch { props.onUnavailable(); }
+  }, [regionVertices, props.onUnavailable, schedule]);
+  useEffect(() => {
     if (!renderer.current || !props.active) return;
     try {
       if (props.selected) {
-        // A single alpha mask follows the existing sphere UVs. The world
-        // texture and its terrain are left intact when selection changes.
+        // Use the existing selection texture for both the parent clip and the
+        // selected fill. A region selection stores the parent at half alpha.
         const bitmap = document.createElement('canvas');
         bitmap.width = renderer.current.textureWidth; bitmap.height = bitmap.width / 2;
         const context = bitmap.getContext('2d');
         if (!context) throw new Error('Selection canvas unavailable');
         context.scale(bitmap.width / 360, bitmap.height / 180);
-        for (const part of props.selected.parts) context.fill(new Path2D(part.path), 'evenodd');
-        renderer.current.uploadSelection(bitmap, globeBorderVertices([props.selected]));
+        if (props.selectedRegion) {
+          const parent = new Path2D(props.selected.parts.map(part => part.path).join(''));
+          context.globalAlpha = .5;
+          context.fill(parent, 'evenodd');
+          context.globalAlpha = 1;
+          context.clip(parent, 'evenodd');
+        }
+        const highlight = props.selectedRegion ?? props.selected;
+        for (const part of highlight.parts) context.fill(new Path2D(part.path), 'evenodd');
+        renderer.current.uploadSelection(bitmap, globeBorderVertices([highlight]), Boolean(props.selectedRegion));
         bitmap.width = bitmap.height = 1;
       } else {
         renderer.current.uploadSelection(null);
       }
       schedule();
     } catch { props.onUnavailable(); }
-  }, [props.selected, props.active, props.onUnavailable, schedule]);
+  }, [props.selected, props.selectedRegion, props.active, props.onUnavailable, schedule]);
   useEffect(() => {
     if (!renderer.current || !props.catalog || !props.shapes.length || !props.active) return;
     try {
@@ -108,5 +124,6 @@ export function AtlasGlobe(props: Props) {
       renderer.current.upload(bitmap); schedule(); props.onReady(true);
     } catch { props.onUnavailable(); }
   }, [props.catalog, props.shapes, props.terrain, props.active, image, water, props.onReady, props.onUnavailable, schedule]);
-  return <canvas ref={canvas} className="atlas-globe" aria-hidden="true" data-renderer="webgl-sphere" data-selected-country={props.selected?.id} />;
+  return <canvas ref={canvas} className="atlas-globe" aria-hidden="true" data-renderer="webgl-sphere" data-selected-country={props.selected?.id}
+    data-region-count={regionVertices ? props.regions?.length : undefined} data-selected-region={props.selectedRegion?.id} />;
 }
