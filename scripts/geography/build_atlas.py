@@ -26,6 +26,63 @@ def distance(a, b):
     return math.sqrt(sum((x - y) ** 2 for x, y in zip(a, b)))
 
 
+def main_territory_bounds(polygons):
+    """Frame source land area and nearby islands without changing the polygons."""
+    parts = []
+    for polygon in polygons:
+        west, east, south, north = polygon.GetEnvelope()
+        area = polygon.GetArea() * math.cos(math.radians((south + north) / 2))
+        parts.append((area, west, south, east, north))
+    parts.sort(reverse=True)
+    largest = parts[0][0]
+    mainland = largest >= .75 * sum(part[0] for part in parts)
+    # For a dominant landmass include close islands, but leave distant holdings
+    # out. For an archipelago, connect the main islands across wider channels.
+    minimum_area = largest * (.005 if mainland else .025)
+    maximum_gap = 2.5 if mainland else 8
+    main, candidates = parts[:1], parts[1:]
+
+    def separation(part, other):
+        _, west, south, east, north = part
+        _, w, s, e, n = other
+        lat_gap = max(0, s - north, south - n)
+        lon_gap = min(max(0, w - east - offset, west + offset - e) for offset in (-360, 0, 360))
+        seam = lon_gap == 0 and lat_gap == 0 and ((west == -180 and e == 180) or (w == -180 and east == 180))
+        latitude_scale = math.cos(math.radians((south + north + s + n) / 4))
+        return 0 if seam else math.hypot(lon_gap * latitude_scale, lat_gap), seam
+
+    while candidates:
+        nearby, remaining = [], []
+        for part in candidates:
+            for included in main:
+                gap, seam = separation(part, included)
+                if seam or (part[0] >= minimum_area and gap <= maximum_gap):
+                    nearby.append(part)
+                    break
+            else:
+                remaining.append(part)
+        if not nearby:
+            break
+        main.extend(nearby)
+        candidates = remaining
+
+    # Include coastal islets without using them to bridge to remote territories.
+    coast = [part for part in candidates if any(separation(part, included)[0] <= .75 for included in main)]
+    main.extend(coast)
+
+    # The complement of the largest longitude gap is the smallest wrapped span.
+    intervals = []
+    for west, east in sorted((part[1], part[3]) for part in main):
+        if intervals and west <= intervals[-1][1]:
+            intervals[-1][1] = max(intervals[-1][1], east)
+        else:
+            intervals.append([west, east])
+    gaps = [(intervals[0][0] + 360 - intervals[-1][1], intervals[0][0], intervals[-1][1])]
+    gaps += [(right[0] - left[1], right[0], left[1] + 360) for left, right in zip(intervals, intervals[1:])]
+    _, west, east = max(gaps)
+    return [round(value, 6) for value in [west, min(part[2] for part in main), east, max(part[4] for part in main)]]
+
+
 def build():
     countries = json.loads((DATA / 'countries.json').read_text())['countries']
     countries.sort(key=lambda c: c['id'])
@@ -90,7 +147,8 @@ def build():
                 for y in range(max(0, int((90 - north) // 10)), min(17, int((90 - south) // 10)) + 1):
                     tiles.add(y * 36 + x)
         records.append({'id': key, 'name': country['name'], 'color': '#%02x%02x%02x' % rgb,
-                        'bbox': country['bbox'], 'label': [round(point.GetX(), 5), round(point.GetY(), 5)],
+                        'bbox': country['bbox'], 'mainBounds': main_territory_bounds(polygons),
+                        'label': [round(point.GetX(), 5), round(point.GetY(), 5)],
                         'area': round(geom.GetArea(), 5), 'path': country['geometry']['path'], 'tiles': sorted(tiles)})
     output = ROOT / 'public/atlas/political.json'
     output.parent.mkdir(parents=True, exist_ok=True)

@@ -98,16 +98,26 @@ function globeAnchor(camera: WorldCamera, size: AtlasSize, anchor: GeographicPos
   });
   return candidates.sort((a, b) => a.score - b.score)[0].focus;
 }
+
+function pointFocus(camera: WorldCamera, size: AtlasSize, anchor: GeographicPosition, point: AtlasPoint): GeographicPosition {
+  if (camera.projection === 'globe') return globeAnchor(camera, size, anchor, point);
+  const scale = northScale(camera, size);
+  const latitude = clamp(anchor[1] + (point.y - size.height / 2) / scale, -MAX_FOCUS_LATITUDE, MAX_FOCUS_LATITUDE);
+  return geographicFocus([anchor[0] - (point.x - size.width / 2) / (scale * longitudeFactor(camera, latitude)), latitude]);
+}
+
+/** Place a geographic point in a chosen screen rectangle without changing projection. */
+export function placeWorldPoint(camera: WorldCamera, size: AtlasSize, anchor: GeographicPosition, point: AtlasPoint): WorldCamera {
+  return boundedFallback({ ...camera, focus: pointFocus(camera, size, anchor, point) }, size);
+}
+
 export function moveWorldCamera(camera: WorldCamera, size: AtlasSize, from: AtlasPoint, to: AtlasPoint, zoom = camera.zoom): WorldCamera {
   let anchor = unprojectWorld(camera, size, from);
   if (!anchor) { anchor = camera.focus; to = { x: size.width / 2, y: size.height / 2 }; }
   let next: WorldCamera = { ...camera, zoom: clamp(zoom, 1, ATLAS_MAX_ZOOM) };
   let projection = desiredProjection(next, size);
   for (let i = 0; i < 3; i++) {
-    if (projection === 'flat') {
-      const scale = northScale(next, size), lat = clamp(anchor[1] + (to.y - size.height / 2) / scale, -MAX_FOCUS_LATITUDE, MAX_FOCUS_LATITUDE);
-      next.focus = geographicFocus([anchor[0] - (to.x - size.width / 2) / (scale * longitudeFactor(next, lat)), lat]);
-    } else next.focus = globeAnchor(next, size, anchor, to);
+    next.focus = pointFocus({ ...next, projection }, size, anchor, to);
     const candidate = desiredProjection({ ...next, projection: camera.projection }, size);
     if (candidate === projection) break;
     projection = candidate;
@@ -123,6 +133,19 @@ export function dragWorldCamera(camera: WorldCamera, size: AtlasSize, from: Atla
 export function flatFallback(camera: WorldCamera, size: AtlasSize): WorldCamera {
   if (camera.zoom === 1) return initialWorldCamera(true);
   return boundedFallback({ ...camera, zoom: clamp(northScale(camera, size) / fitScale(size), 1, ATLAS_MAX_ZOOM), projection: 'flat', flatOnly: true }, size);
+}
+
+/** A conservative source query for the sphere visible through the viewport. */
+export function globeViewportBounds(camera: WorldCamera, size: AtlasSize): GeographicBounds[] {
+  const [lon, lat] = camera.focus;
+  const angle = Math.asin(Math.min(1, Math.hypot(size.width, size.height) / (2 * globeRadius(camera, size))));
+  const south = Math.max(-90, lat - angle / RADIANS), north = Math.min(90, lat + angle / RADIANS);
+  if (south === -90 || north === 90) return [[-180, south, 180, north]];
+  const span = Math.asin(Math.min(1, Math.sin(angle) / Math.cos(lat * RADIANS))) / RADIANS;
+  return [-360, 0, 360].flatMap((offset): GeographicBounds[] => {
+    const west = Math.max(-180, lon - span + offset), east = Math.min(180, lon + span + offset);
+    return west <= east ? [[west, south, east, north]] : [];
+  });
 }
 
 export function worldLayout(camera: WorldCamera, size: AtlasSize) {

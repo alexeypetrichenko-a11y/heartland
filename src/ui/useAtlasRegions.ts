@@ -1,15 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
+import { intersectsGeography } from '../geography/atlas';
 import { planRegionChunks, projectRegionChunk, usableRegions, type AtlasRegion } from '../geography/atlasRegions';
 import { createGeographyLoader } from '../geography/loadGeography';
 import type { CountryGeography } from '../geography/countrySelection';
 import type { GeographicBounds, GeographicCountryId, GeographicPosition, GeographicRegion } from '../geography/types';
 
-type RegionStatus = 'loading' | 'ready' | 'missing' | 'outside' | 'limited' | 'error';
+type RegionStatus = 'loading' | 'ready' | 'missing' | 'unavailable' | 'incomplete' | 'outside' | 'limited' | 'error';
 type Snapshot = { countryId: GeographicCountryId; entries: AtlasRegion[]; status: RegionStatus };
-type Cache = { countryId: GeographicCountryId; regions?: GeographicRegion[]; chunks: Map<string, AtlasRegion[]> };
+type Cache = { countryId: GeographicCountryId; regions?: GeographicRegion[]; unavailable?: GeographicRegion[]; chunks: Map<string, AtlasRegion[]> };
 
 export function useAtlasRegions(countryId: GeographicCountryId | null, geography: CountryGeography | undefined,
-    bounds: GeographicBounds[], focus: GeographicPosition, revision: number) {
+    bounds: GeographicBounds[], focus: GeographicPosition, revision: number, prefetch: boolean) {
   const source = useRef<ReturnType<typeof createGeographyLoader> | null>(null);
   const cache = useRef<Cache | null>(null);
   const [snapshot, setSnapshot] = useState<Snapshot | null>(null);
@@ -34,23 +35,35 @@ export function useAtlasRegions(countryId: GeographicCountryId | null, geography
           const index = await loader.loadRegionIndexAsset(id, regionIndex, signal);
           if (signal.aborted) return;
           current.regions = usableRegions(index);
+          current.unavailable = index?.regions.filter(region => region.geometryStatus !== 'valid');
         }
         if (!current.regions.length) {
-          setSnapshot({ countryId: id, entries: [], status: 'missing' });
+          setSnapshot({ countryId: id, entries: [], status: regionIndex ? 'unavailable' : 'missing' });
           return;
         }
 
         const plan = planRegionChunks(current.regions, bounds, focus);
         const keep = new Set(plan.assets.map(asset => asset.path));
         for (const key of current.chunks.keys()) if (!keep.has(key)) current.chunks.delete(key);
-        const publish = (status: RegionStatus) => setSnapshot({ countryId: id, entries: [...current.chunks.values()].flat(), status });
+        const publish = (status: RegionStatus) => {
+          const entries = [...current.chunks.values()].flat();
+          setSnapshot(previous => {
+            if (previous?.countryId === id && previous.entries.length === entries.length &&
+              previous.entries.every((entry, i) => entry === entries[i])) {
+              return previous.status === status ? previous : { ...previous, status };
+            }
+            return { countryId: id, entries, status };
+          });
+        };
+        const incomplete = current.unavailable?.some(region => bounds.some(box => intersectsGeography(region.bbox, box)));
         if (!plan.assets.length) {
-          publish(plan.limited ? 'limited' : 'outside');
+          publish(plan.limited ? 'limited' : incomplete ? 'unavailable' : 'outside');
           return;
         }
 
         // Existing geometry remains available while each new chunk arrives.
         let failed = false;
+        if (plan.assets.some(asset => !current.chunks.has(asset.path))) publish('loading');
         for (const asset of plan.assets) {
           if (current.chunks.has(asset.path)) continue;
           try {
@@ -63,19 +76,19 @@ export function useAtlasRegions(countryId: GeographicCountryId | null, geography
             failed = true;
           }
         }
-        publish(failed ? 'error' : plan.limited ? 'limited' : 'ready');
+        publish(failed ? 'error' : plan.limited ? 'limited' : incomplete ? 'incomplete' : 'ready');
       } catch {
         if (!signal.aborted) setSnapshot({ countryId: id, entries: [], status: 'error' });
       }
     }
 
     // Continuous pan/zoom can cancel pending requests before starting new work.
-    const timer = window.setTimeout(loadVisible, 180);
+    const timer = window.setTimeout(loadVisible, prefetch ? 0 : 180);
     return () => {
       window.clearTimeout(timer);
       controller.abort();
     };
-  }, [countryId, geography, bounds, focus, revision]);
+  }, [countryId, geography, bounds, focus, revision, prefetch]);
 
   return snapshot?.countryId === countryId ? snapshot : null;
 }

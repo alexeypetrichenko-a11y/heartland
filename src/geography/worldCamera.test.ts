@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { projectPolygonParts } from './atlas.ts';
 import { createGlobeMesh, globeRenderSize, globeRotationMatrix } from './globeMesh.ts';
 import { cameraFocus, cameraRotation, MAX_FOCUS_LATITUDE, desiredProjection, dragWorldCamera, flatFallback, geographicVector,
-  globeRadius, initialWorldCamera, moveWorldCamera, projectWorld, rotateVector, transitionZoom, unprojectWorld,
+  globeRadius, globeViewportBounds, initialWorldCamera, moveWorldCamera, projectWorld, rotateVector, transitionZoom, unprojectWorld,
   vectorGeography, worldLayout, wrapLongitude, northScale, type WorldCamera } from './worldCamera.ts';
 import type { GeographicFeature, GeographicPosition } from './types';
 
@@ -71,6 +71,26 @@ test('globe picking and rotated orientations round-trip on the visible hemispher
     }
   }
   assert.equal(unprojectWorld(initialWorldCamera(), size, { x: 0, y: 0 }), null, 'sky is not a geographic position');
+});
+
+test('globe region queries cover the visible sphere across the date line and near the poles', () => {
+  const views = [initialWorldCamera(), camera([179, 27], 4), camera([-179, -27], 4), camera([56, 83], 4), camera([-56, -83], 4)];
+  for (const viewport of [size, { width: size.height, height: size.width }]) {
+    for (const view of views) {
+      const bounds = globeViewportBounds(view, viewport);
+      assert.ok(bounds.every(([west, south, east, north]) => west >= -180 && east <= 180 && south >= -90 && north <= 90));
+      for (let row = 0; row <= 12; row++) for (let column = 0; column <= 12; column++) {
+        const point = unprojectWorld(view, viewport, { x: column * viewport.width / 12, y: row * viewport.height / 12 });
+        if (!point) continue;
+        const [lon, lat] = point;
+        assert.ok(bounds.some(([west, south, east, north]) => west <= lon && lon <= east && south <= lat && lat <= north),
+          `visible ${lon}, ${lat} lies in a source query`);
+      }
+    }
+    const wrapped = globeViewportBounds(views[1], viewport);
+    assert.ok(wrapped.some(box => box[0] === -180) && wrapped.some(box => box[2] === 180));
+    assert.ok(wrapped.every(([west, , east]) => west > 0 || east < 0), 'the date-line view excludes the opposite hemisphere');
+  }
 });
 
 function northUp(view: WorldCamera) {
