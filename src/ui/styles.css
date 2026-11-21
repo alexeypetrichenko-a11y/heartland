@@ -621,6 +621,145 @@ li {
 .economy-news .economy-news-defeat {
   border-left-color: var(--color-accent);
 }
+.economy-report-button {
+  margin-top: 12px;
+}
+#weekly-report .detail-scroll {
+  position: relative;
+}
+.report-layout {
+  display: grid;
+  gap: 12px;
+  align-items: start;
+}
+.report-overview > * + * {
+  margin-top: 8px;
+}
+@media (orientation: landscape) and (min-width: 42rem), (min-width: 60rem) {
+  .report-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    gap: 16px;
+  }
+}
+.report-summary {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+.report-summary > div {
+  min-width: 0;
+  padding: 10px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+}
+.report-summary dt {
+  color: var(--color-muted);
+  font-size: 0.75rem;
+}
+.report-summary dd {
+  margin: 3px 0 0;
+  font-size: clamp(1rem, 4vw, 1.375rem);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.report-change, .report-rows .report-note {
+  display: block;
+  margin-top: 2px;
+}
+.report-change, .report-note, .report-detail-note, .report-old-rate {
+  color: var(--color-muted);
+}
+.report-change, .report-note, .report-detail-note {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+.report-change.positive { color: #8BD7BC; }
+.report-change.negative { color: #FFAA9C; }
+#weekly-report .report-summary + .report-note {
+  margin-top: 6px;
+}
+.report-applied {
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+}
+.report-applied h3 {
+  color: var(--color-accent);
+}
+.report-rows {
+  margin: 4px 0;
+}
+.report-rows > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, auto);
+  align-items: start;
+  gap: 8px;
+  padding: 7px 0;
+}
+.report-rows > div + div {
+  border-top: 1px solid var(--color-border);
+}
+.report-rows dd {
+  margin: 0;
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+.report-events {
+  display: grid;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+}
+.report-events .report-event {
+  margin: 0;
+  padding: 7px 10px;
+  border-inline-start: 3px solid var(--color-border);
+  border-radius: 4px 8px 8px 4px;
+  background: var(--color-surface);
+}
+.report-event.critical, .report-event.warning { border-inline-start-color: var(--color-accent); }
+.report-event.defeat { border-inline-start-color: #FFAA9C; }
+#weekly-report .report-event p {
+  margin: 0;
+  font-size: 0.8125rem;
+}
+#weekly-report .report-detail {
+  margin-top: 0;
+}
+#weekly-report :not(.report-detail) + .report-detail {
+  margin-top: 10px;
+}
+.report-detail summary {
+  padding-inline: 4px;
+  font-weight: 600;
+  touch-action: manipulation;
+}
+.report-detail-note {
+  margin-inline-start: 8px;
+  color: var(--color-accent);
+}
+.report-event .report-region {
+  background: transparent;
+  margin-block: 4px 0;
+}
+.report-detail > section {
+  margin: 10px 0;
+}
+.report-detail > section h3 {
+  margin-bottom: 6px;
+}
+.report-detail > .report-events {
+  margin-bottom: 8px;
+}
+.report-history {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-bottom: 6px;
+}
 .force-row {
   padding: 12px 14px;
   display: flex;

@@ -1,7 +1,7 @@
 # Heartland — Implementation Status
 
 **Snapshot date** 2026-11-21
-**Source** SAVE-01 on `task/save-01-local-saves`, based on `main` at `608c48b` after the owner's merge of PR #27.
+**Source** GAME-UX-01 on `task/game-ux-01-weekly-report`, based on `main` at `fde1c90` after the owner's merge of PR #28.
 
 ## Verified existing scaffold
 
@@ -467,4 +467,12 @@ Historical first implementation/validation follows. The physical-iPhone-feedback
 - The globe opens first and offers **Resume game** for a discovered save. The game autosaves to one IndexedDB slot and prompts before a new scenario can replace it.
 - Each versioned save contains the complete game, the engine's serialized session and staged military, diplomatic and fiscal drafts. Restore checks the week, player country, territorial control and game-ending state. A single transaction protects the previous save during interrupted or failed writes.
 - The game suite passed 150 tests, the engine suite passed 190 tests and the 10,000-week stress check, and the production build passed. Chromium production tests verified refresh, browser reopen, game and draft resumption, interrupted writes, storage failures and stale-tab protection at iPhone portrait and landscape sizes.
-- Physical iPhone Safari review is pending. [Save format, browser limits and manual iPhone checks](docs/saves/SAVE-01.md)
+- Merged into main in [PR #28](https://github.com/alexeypetrichenko-a11y/heartland/pull/28). [Save format, browser limits and manual iPhone checks](docs/saves/SAVE-01.md)
+
+## GAME-UX-01 — Weekly turn report
+
+- An accepted **Next week** opens a report for the completed week. GDP, treasury and balance lead the report. Expand the economic indicators, applied and continuing fiscal policies, diplomacy, and military results as needed.
+- Event severity comes from the economy API. Occupation and combat entries can open the current fictional region details. Weekly figure changes compare observed values.
+- The latest report is reconstructed from the saved session and its optional prior-week comparison. Original SAVE-01 saves open with the comparisons available to them. Up to four recent reports are available in the current session.
+- The production build, 155 game tests, 190 engine tests, the 10,000-week engine check, and production browser checks passed.
+- Physical iPhone Safari review is pending. [Test results and iPhone acceptance](docs/economy/GAME-UX-01.md)

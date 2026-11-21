@@ -2,10 +2,12 @@ import { economySnapshot, type EconomySnapshot, type LoadedEconomy, type Previou
 import { createInitialState } from './initialState.ts';
 import type { GameState } from './models.ts';
 import type { PlayerDrafts } from './playerDrafts.ts';
+import { reportBaseline } from './reportBaseline.ts';
 import { isSaveObject, validateSavedDrafts, validateSavedGame } from './saveValidation.ts';
 
 const FORMAT = 'heartland-local-game';
 const VERSION = 1;
+const COMPARISON_VERSION = 1;
 const scenario = createInitialState();
 
 export interface PlayableSession {
@@ -32,12 +34,20 @@ function validatePayload(value: unknown): SavedGame {
     || typeof value.defeated !== 'boolean') throw new Error('The local save is incomplete.');
   const game = validateSavedGame(value.game);
   const drafts = validateSavedDrafts(value.drafts, game);
-  const previous = value.previous;
-  if (game.week === 1 ? previous !== null : !isSaveObject(previous) || previous.countryId !== game.playerCountryId
-    || typeof previous.treasury !== 'number' || !Number.isFinite(previous.treasury)) {
-    throw new Error('The local save is missing its previous treasury figure.');
+  const opening = value.previous;
+  let previous: PreviousEconomy | null = null;
+  if (game.week === 1) {
+    if (opening !== null) throw new Error('The local save has an unexpected previous week.');
+  } else {
+    if (!isSaveObject(opening) || typeof opening.countryId !== 'string' || opening.countryId !== game.playerCountryId
+      || typeof opening.treasury !== 'number' || !Number.isFinite(opening.treasury)) {
+      throw new Error('The local save is missing its previous treasury figure.');
+    }
+    const comparison = opening.comparison;
+    const baseline = isSaveObject(comparison) && comparison.version === COMPARISON_VERSION ? reportBaseline(comparison.values) : {};
+    previous = { countryId: opening.countryId, treasury: opening.treasury, ...baseline };
   }
-  return { game, drafts, economy: value.economy, defeated: value.defeated, previous: previous as PreviousEconomy | null };
+  return { game, drafts, economy: value.economy, defeated: value.defeated, previous };
 }
 
 function validateSession({ api }: LoadedEconomy, { game, economy, drafts }: PlayableSession) {
@@ -64,8 +74,13 @@ function validateSession({ api }: LoadedEconomy, { game, economy, drafts }: Play
 
 export async function encodeGameSave(runtime: LoadedEconomy, session: PlayableSession): Promise<string> {
   const { game, economy, drafts } = session;
-  const previous = economy.previous && { countryId: economy.previous.countryId, treasury: economy.previous.treasury };
-  const data = validatePayload({ game, drafts, previous, defeated: economy.defeated, economy: runtime.api.saveEconomySession(economy.session) });
+  const previous = economy.previous && {
+    countryId: economy.previous.countryId,
+    treasury: economy.previous.treasury,
+    comparison: { version: COMPARISON_VERSION, values: reportBaseline(economy.previous) },
+  };
+  const data = { game, drafts, previous, defeated: economy.defeated, economy: runtime.api.saveEconomySession(economy.session) };
+  validatePayload(data);
   validateSession(runtime, session);
   const payload = JSON.stringify(data);
   return JSON.stringify({ format: FORMAT, version: VERSION, checksum: await checksum(payload), payload });

@@ -249,7 +249,13 @@ No other economic commands and no mapping from the retired presets.
 - [x] One versioned IndexedDB slot with autosave after resolved weeks and when returning to the globe. Restore includes the authoritative economy and in-game drafts.
 - [x] The globe offers Resume game and requires confirmation before starting a replacement. Unreadable saves and storage errors are reported.
 - [x] Verify deterministic continuation, interrupted writes, refresh and browser reopen in automated checks.
-- [ ] Review physical iPhone Safari behavior before merging. [Save format and iPhone test steps](docs/saves/SAVE-01.md)
+- [x] Merged into main in PR #28. [Save format and iPhone test steps](docs/saves/SAVE-01.md)
+
+### GAME-UX-01 — Weekly turn report and decision feedback
+
+- [x] Open a compact, dismissible report after a successfully committed week. Show authoritative indicators, applied fiscal rates, and relevant game and engine events.
+- [x] Make recent reports available in the current game and rebuild the latest one on restore, including available prior figures and rates.
+- [ ] Review on physical iPhone Safari. [Verification and acceptance steps](docs/economy/GAME-UX-01.md)
 
 ### Remaining milestone tasks
 

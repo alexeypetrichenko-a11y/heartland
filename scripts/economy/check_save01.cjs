@@ -151,6 +151,7 @@ async function portrait(profile) {
       await weekIs(page, n);
       await committed(page, n);
     }
+    await tap(page, 'Back from Week 3 report');
     await income(page).fill('30');
     await page.evaluate(() => {
       Object.defineProperty(document, 'visibilityState', { configurable: true, value: 'hidden' });

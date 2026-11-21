@@ -2,6 +2,7 @@ import type * as EconomyApi from '../../economy-engine/src/integration/index.ts'
 import type { CountryEconomyView, EconomyCommand, EconomyNotice, EconomySession, RegionEconomyView } from '../../economy-engine/src/integration/index.ts';
 import { advanceTurn } from './advanceTurn.ts';
 import type { CountryId, GameState, TurnCommand } from './models.ts';
+import type { ReportBaseline } from './reportBaseline.ts';
 
 /**
  * Bridge between the game's weekly turn and the economic engine (INT-01).
@@ -23,13 +24,13 @@ export interface EconomyRuntime {
 }
 
 export type LoadedEconomy = Pick<EconomyRuntime, 'api'>;
-export type PreviousEconomy = Pick<CountryEconomyView, 'countryId' | 'treasury'>;
+export type PreviousEconomy = Pick<CountryEconomyView, 'countryId' | 'treasury'> & ReportBaseline;
 
 /** Everything the interface needs after a resolved week. */
 export interface EconomySnapshot {
   session: EconomySession;
   player: CountryEconomyView;
-  /** The opening treasury shown for the last turn (null in week 1). */
+  /** The opening treasury and any other prior observations available for the latest report. */
   previous: PreviousEconomy | null;
   /** The week's economic notices, most severe first. */
   notices: EconomyNotice[];

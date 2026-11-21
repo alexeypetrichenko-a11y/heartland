@@ -5,10 +5,10 @@ import type { FiscalDraft } from '../game/playerDrafts.ts';
 export type FiscalApi = Pick<EconomyRuntime['api'], 'fiscalLimits' | 'fiscalCommands' | 'checkEconomyCommands'>;
 export type FiscalField = TaxKind | SpendingCategory;
 
-const TAX_LABELS = {
+export const TAX_LABELS = {
   income: 'Income tax', consumption: 'Consumption tax', corporate: 'Corporate profit tax',
 } satisfies Record<TaxKind, string>;
-const SPENDING_LABELS = {
+export const SPENDING_LABELS = {
   administration: 'Administration', social: 'Social spending', military: 'Military spending',
   infrastructure: 'Infrastructure investment',
 } satisfies Record<SpendingCategory, string>;

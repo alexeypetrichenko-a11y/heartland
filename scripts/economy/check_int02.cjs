@@ -128,6 +128,7 @@ async function check(browser, width, height, country) {
     }
     await press(button(page, 'Next week'));
     await week(page).filter({ hasText: /^Week 2$/ }).waitFor();
+    await press(button(page, 'Back from Week 1 report'));
     assert.deepEqual(await current(page), expected);
     assert.ok((await entered(page)).every(value => value === ''));
     assert.notDeepEqual(await budget(page), before[2]);
@@ -143,12 +144,14 @@ async function check(browser, width, height, country) {
     for (const count of [3, 4]) {
       await press(button(page, 'Next week'));
       await week(page).filter({ hasText: new RegExp(`^Week ${count}$`) }).waitFor();
+      await press(button(page, `Back from Week ${count - 1} report`));
       assert.deepEqual(await current(page), expected);
     }
     if (country === 'alden' && width === 390) await page.getByText(/Amber Plain occupied/).first().waitFor();
     await rate(page, 'consumption').fill('0');
     await press(button(page, 'Next week'));
     await week(page).filter({ hasText: /^Week 5$/ }).waitFor();
+    await press(button(page, 'Back from Week 4 report'));
     const replaced = expected.map((value, index) => index === 1 ? 'Current 0%' : value);
     assert.deepEqual(await current(page), replaced);
     await roundTrip(page, press);
