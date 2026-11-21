@@ -100,6 +100,7 @@ All money is in the engine's illustrative units, as decimal numbers; the UI roun
 | `sectors[]` | Per sector: `output` and `capacity` at constant prices, `utilization`, `shortage` (index 0–1 of its worst-supplied good, population-weighted), `goodsShort` |
 | `regionIds`, `population`, `controller` | Regions controlled (including any occupied), population, `'player'` or `'ai'` |
 | `fiscal` | Current tax rates (`income`, `consumption`, `corporate`) and spending shares of GDP (`administration`, `social`, `military`, `infrastructure`) |
+| `budget.detail.surplusReturned` | ECON-07: cash a debt-free treasury returned to households this week (only above a strategic reserve of 26 weeks of core spending). Counted in `expenditure`. |
 | `budget.detail.unpaidInterest` | Interest due but not paid this week, which is added to the debt. Debt changes by exactly `borrowed − repaid − written off in a default + unpaidInterest` (tested). |
 
 | `RegionEconomyView` field | Meaning |

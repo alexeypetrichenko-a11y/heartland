@@ -132,15 +132,19 @@ Margins and labour needs are *derived* so that a sector running at its normal ut
 | `defaultHaircut` | 0.55 |  |
 | `defaultExclusionWeeks` | 78 |  |
 | `defaultReputationSpread` | 0.05 |  |
-| `reputationDecayWeeks` | 156 |  |
+| `reputationDecayWeeks` | 260 | ECON-07 (B): was 156. Lenders remember a default for longer (the premium halves in about three and a half years). |
 | `defaultStabilityShock` | 12 |  |
+| `voluntaryDefaultWeight` | 0.5 | ECON-07 (B): a voluntary default (declared while able to pay) weighs like half an extra previous default. |
 | `defaultMemoryWeeks` | 520 |  |
 | `ownershipTransferValue` | 0.6 | Value of plant in a nationalisation or privatisation, as a share of its replacement value (fair price = plant + cash - debt). |
-| `defaultOutputShock` | 0.06 | Share of output lost to financial disruption right after a default. |
-| `defaultShockRecoveryWeeks` | 52 |  |
+| `defaultOutputShock` | 0.08 | Share of output lost to financial disruption right after a default. ECON-07 (B): were 6% and 52 weeks. A default disrupts banks and trade credit for longer. |
+| `defaultShockRecoveryWeeks` | 78 |  |
 | `restructuredRate` | 0.03 |  |
 | `surplusRepayShare` | 0.1 |  |
 | `gdpSmoothing` | 0.07692307692307693 |  |
+| `spendingBaseFall` | 0.009615384615384616 |  |
+| `treasuryReserveWeeks` | 26 | ECON-07 (A): a debt-free treasury keeps up to half a year of core spending as a strategic reserve... |
+| `surplusReturnShare` | 0.1 | ...and returns this share of any cash above it to households each week, instead of holding it idle. |
 | `militaryPayShare` | 0.35 | Share of the military budget paid to personnel instead of suppliers. |
 | `armsAttrition` | 0.002 |  |
 
@@ -215,6 +219,7 @@ Margins and labour needs are *derived* so that a sector running at its normal ut
 | `stabilityTaxWeight` | 60 |  |
 | `socialNorm` | 0.1 |  |
 | `stabilitySocialWeight` | 150 |  |
+| `socialStabilityCap` | 8 |  |
 | `stabilityArrearsWeight` | 30 |  |
 | `livingStandardSmoothing` | 0.12 |  |
 | `livingStandardRefWeeks` | 104 |  |
