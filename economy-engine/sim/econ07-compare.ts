@@ -64,8 +64,14 @@ function withParams(session: EconomySession, overrides: Record<string, number>):
   return loadEconomySession(JSON.stringify(data));
 }
 
-type Slim = Omit<Run, 'series' | 'aiNeighbours'>;
-const slim = (run: Run): Slim => { const { series: _s, aiNeighbours: _a, ...rest } = run; return rest; };
+/** What the tables need, to keep the saved data small: per checkpoint six indicators; for the sweep only the outcome. */
+const KEPT = ['gdpReal', 'unemployment', 'debtToGdp', 'stability', 'consumptionPerCapita', 'cpiYoY'] as const;
+type SlimCheckpoint = Pick<NonNullable<Run['checkpoints'][number]>, typeof KEPT[number]>;
+interface Slim { strategy: string; country: string; seed: number; defeatWeek: number | null; checkpoints: (SlimCheckpoint | null)[] }
+const slim = (run: Run, outcomeOnly = false): Slim => ({
+  strategy: run.strategy, country: run.country, seed: run.seed, defeatWeek: run.defeatWeek,
+  checkpoints: outcomeOnly ? [] : run.checkpoints.map(c => (c ? Object.fromEntries(KEPT.map(k => [k, c[k]])) as SlimCheckpoint : null)),
+});
 
 function runConfig(name: string): void {
   const overrides = CONFIGS[name];
@@ -87,7 +93,7 @@ function runConfig(name: string): void {
     const session = base(seed);
     for (const country of COUNTRIES) {
       const baseline = play(session, STRATEGIES[0], country, seed, undefined, true);
-      for (const id of SWEEP) sweep.push(slim(id === 'B01' ? baseline : play(session, ALL.find(s => s.id === id)!, country, seed, baseline)));
+      for (const id of SWEEP) sweep.push(slim(id === 'B01' ? baseline : play(session, ALL.find(s => s.id === id)!, country, seed, baseline), true));
     }
   }
   mkdirSync(out, { recursive: true });
