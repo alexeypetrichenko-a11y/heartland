@@ -89,7 +89,12 @@ test('authoritative defaults, credit disruption, instability and defeat keep the
   const failure = advanceGameWeek(runtime, initial.game, initial.economy, [], [{ type: 'declare-default', countryId: 'alden' }]);
   const defaultReport = readWeeklyReport(failure.game, failure.economy)!;
   assert.equal(defaultReport.defeated, false);
-  assert.ok(defaultReport.alerts.some(event => event.severity === 'critical' && /defaults on its debt/.test(event.title)));
+  const notice = failure.economy.notices.find(entry => entry.countryId === 'alden' && entry.event.type === 'sovereign-default');
+  assert.ok(notice?.event.type === 'sovereign-default' && notice.event.voluntary, 'the engine classifies this default as voluntary');
+  const displayed = defaultReport.alerts.find(event => event.title === notice.title);
+  assert.equal(displayed?.severity, 'critical');
+  assert.equal(displayed?.message, notice.message);
+  assert.match(notice.message, /chose to stop paying while it still could/);
 
   let { game, economy } = initial;
   let unrestWarning = false;
@@ -114,6 +119,22 @@ test('authoritative defaults, credit disruption, instability and defeat keep the
     type: 'market-access-lost', countryId: 'alden', rate: .35, turn: economy.session.week,
   });
   assert.equal(readWeeklyReport(game, { ...economy, notices: [accessEvent] })!.alerts[0].severity, 'critical');
+});
+
+test('an ECON-07 surplus return is shown within the authoritative government expenditure', () => {
+  const first = begin();
+  const { game, economy } = advanceGameWeek(runtime, first.game, first.economy, []);
+  const budget = economy.player.budget;
+  const withSurplus = {
+    ...economy,
+    player: { ...economy.player, budget: { ...budget, detail: { ...budget.detail, surplusReturned: 3.625 } } },
+  };
+  const { indicators } = readWeeklyReport(game, withSurplus)!;
+  assert.deepEqual(indicators.find(row => row.label === 'Surplus returned to households'), {
+    label: 'Surplus returned to households', value: '3.6', note: 'Included in government expenditure',
+  });
+  assert.equal(indicators.find(row => row.label === 'Government expenditure')?.value, formatMoney(budget.expenditure));
+  assert.ok(!readWeeklyReport(game, economy)!.indicators.some(row => row.label === 'Surplus returned to households'));
 });
 
 test('unavailable fields stay unavailable and quiet weeks have no empty event groups', () => {

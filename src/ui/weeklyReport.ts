@@ -102,9 +102,15 @@ export function readWeeklyReport(game: GameState, economy: EconomySnapshot) {
   ];
   const stability = metric('Political stability', player.stability, prior?.stability, 'stability', 'positive');
   stability.note = unrest[player.unrestTier];
+  const surplusReturned = player.budget?.detail?.surplusReturned;
   const indicators: ReportMetric[] = [
     metric('Government revenue', player.budget?.revenue, prior?.budget?.revenue, 'money'),
     metric('Government expenditure', player.budget?.expenditure, prior?.budget?.expenditure, 'money'),
+    ...(isNumber(surplusReturned) && surplusReturned > 0 ? [{
+      label: 'Surplus returned to households',
+      value: formatMoney(surplusReturned),
+      note: 'Included in government expenditure',
+    }] : []),
     metric('Public debt', player.debt, prior?.debt, 'money'),
     metric('Debt / annual GDP', player.debtToGdp, prior?.debtToGdp, 'rate'),
     metric('Annualised inflation', player.inflation, prior?.inflation, 'rate'),

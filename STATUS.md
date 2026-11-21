@@ -1,7 +1,7 @@
 # Heartland — Implementation Status
 
 **Snapshot date** 2026-11-21
-**Source** GAME-UX-01 on `task/game-ux-01-weekly-report`, based on `main` at `fde1c90` after the owner's merge of PR #28.
+**Source** GAME-UX-01 on `task/game-ux-01-weekly-report`, synchronized with `main` at `84f8a53` after the merge of ECON-07 PR #29.
 
 ## Verified existing scaffold
 
@@ -473,6 +473,7 @@ Historical first implementation/validation follows. The physical-iPhone-feedback
 
 - An accepted **Next week** opens a report for the completed week. GDP, treasury and balance lead the report. Expand the economic indicators, applied and continuing fiscal policies, diplomacy, and military results as needed.
 - Event severity comes from the economy API. Occupation and combat entries can open the current fictional region details. Weekly figure changes compare observed values.
+- ECON-07's budget detail shows surplus returned to households when it occurs. Default notices use the engine's description. Saves created before ECON-07 keep their original calibration.
 - The latest report is reconstructed from the saved session and its optional prior-week comparison. Original SAVE-01 saves open with the comparisons available to them. Up to four recent reports are available in the current session.
-- The production build, 155 game tests, 190 engine tests, the 10,000-week engine check, and production browser checks passed.
+- The production build, 156 game tests, 205 engine tests, the 10,000-week engine check, and production browser checks passed. All three fictional countries completed a 52-turn simulation with an identical save-and-resume continuation.
 - Physical iPhone Safari review is pending. [Test results and iPhone acceptance](docs/economy/GAME-UX-01.md)

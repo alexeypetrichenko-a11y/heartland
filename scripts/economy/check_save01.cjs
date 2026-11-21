@@ -179,6 +179,14 @@ async function landscape(profile) {
     await fit(page);
     await tap(page, 'Resume game');
     await weekIs(page, 4);
+    await tap(page, 'Scenario menu');
+    await tap(page, 'Open weekly report');
+    const report = page.locator('#weekly-report');
+    await report.getByRole('heading', { name: 'Week 3 report', exact: true }).waitFor();
+    await report.getByRole('list', { name: 'Priority alerts' }).getByText('Amber Plain occupied', { exact: true }).waitFor();
+    await report.locator('summary').filter({ hasText: 'Fiscal policy after this week' }).tap();
+    await report.getByText('23.175%', { exact: true }).waitFor();
+    await tap(page, 'Back from Week 3 report');
     await fiscal(page);
     assert.equal(await income(page).inputValue(), '30');
     assert.match(await page.locator('#fiscal-income-current').textContent(), /23\.175%/);
