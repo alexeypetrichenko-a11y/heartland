@@ -11,10 +11,12 @@ IndexedDB database `heartland-game`, schema version 1, stores one JSON string at
 | `game` | Scenario seed, chosen country, week, country and region records, divisions and their orders, standing orders, diplomatic relationships and messages, and the latest military results |
 | `economy` | The complete string from `saveEconomySession`, including the engine's fiscal policies, treasury, debt, economic history and current weekly summary |
 | `drafts` | Staged military and diplomatic commands and raw fiscal inputs, including values the player still needs to correct |
-| `previous` | The opening treasury displayed on the latest weekly receipt, or `null` in week 1 |
+| `previous` | The opening treasury displayed on the latest weekly receipt, or `null` in week 1. GAME-UX-01 adds an optional, independently versioned `comparison` record for the latest report. |
 | `defeated` | Whether the player's regime has fallen, checked against the engine's weekly summary |
 
 The app checks the SHA-256 checksum and game records after the globe finishes loading. It loads the economy only when the player resumes or starts a game. On resume, `loadEconomySession` performs the engine's format validation. The app verifies that both halves use the same week, player and scenario, and checks territorial control against the engine's controllers and legal owners. Unsupported or unreadable saves stay in the slot until the player chooses to replace them. Format 1 supports the current fictional scenario. Future schema or scenario changes may require a migration.
+
+Saves containing only the original opening treasury still load. The latest report can use that treasury and the current economic snapshot. Additional comparisons appear after resolving another week. [Weekly reporting and save compatibility](../economy/GAME-UX-01.md)
 
 Autosave schedules the complete state after each successful turn and saves draft edits on a brief schedule. The page attempts to finish pending work when it goes into the background or is closed. Each replacement uses one IndexedDB transaction. A failed or interrupted write retains the previous committed record. The transaction compares the prior record before writing so a stale tab cannot overwrite a newer save. A rejected turn keeps the current week and the player's drafts.
 

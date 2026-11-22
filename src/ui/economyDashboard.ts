@@ -17,6 +17,12 @@ export const formatMoney = (value: number) => money.format(Math.abs(value) < 0.0
 export const formatSignedMoney = (value: number) => `${value >= 0.05 ? '+' : ''}${formatMoney(value)}`;
 export const formatPercent = (value: number) => percent.format(value);
 
+/** The engine already identifies significant shortages in each sector. */
+export function significantShortages(sectors: CountryEconomyView['sectors'] | null | undefined): DashboardRow[] {
+  return (sectors ?? []).filter(sector => sector.goodsShort?.length)
+    .map(sector => ({ label: sector.name, value: sector.goodsShort.map(good => good.replace(/_/g, ' ')).join(', ') }));
+}
+
 export function readEconomyDashboard(view: CountryEconomyView, previous: PreviousEconomy | null, week: number) {
   const budget: DashboardRow[] = [
     { label: 'Treasury', value: formatMoney(view.treasury) },
@@ -38,8 +44,7 @@ export function readEconomyDashboard(view: CountryEconomyView, previous: Previou
   // The largest sectors by this week's output, and the goods in short supply (engine shortage index above 5%).
   const sectors = [...view.sectors].sort((a, b) => b.output - a.output).slice(0, 3)
     .map(sector => ({ label: sector.name, value: formatMoney(sector.output), note: `${formatPercent(sector.utilization)} of capacity` }));
-  const shortages = view.sectors.filter(sector => sector.goodsShort.length > 0)
-    .map(sector => ({ label: sector.name, value: sector.goodsShort.map(good => good.replace(/_/g, ' ')).join(', ') }));
+  const shortages = significantShortages(view.sectors);
   const latestWeek = previous && previous.countryId === view.countryId && week > 1
     ? { week: week - 1, openingTreasury: formatMoney(previous.treasury), closingTreasury: formatMoney(view.treasury) }
     : null;

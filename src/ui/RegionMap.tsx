@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DetailPanel } from './DetailPanel';
 import { useMapNavigation } from './useMapNavigation';
 import { MAX_ZOOM, MIN_ZOOM, mapScale } from './mapViewport';
@@ -15,7 +15,7 @@ const countryColors: Record<string, string> = {
   cyrin: '#24384C',
 };
 
-export function RegionMap({ state }: { state: GameState }) {
+export function RegionMap({ state, inspect }: { state: GameState; inspect?: { id: RegionId } | null }) {
   const navigation = useMapNavigation();
   const [layers, setLayers] = useState(initialMapLayers);
   const [selectedDivisionId, setSelectedDivisionId] = useState<string | null>(null);
@@ -30,6 +30,13 @@ export function RegionMap({ state }: { state: GameState }) {
     setSelectedId(id);
     setSelectedDivisionId(null);
   }
+
+  useEffect(() => {
+    if (!inspect) return;
+    setSelectedId(inspect.id);
+    setSelectedDivisionId(null);
+    setShowDetails(true);
+  }, [inspect]);
 
   return (
     <section className="region-map" aria-labelledby="map-title">

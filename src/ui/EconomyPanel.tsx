@@ -10,6 +10,7 @@ type Props = {
   economy: EconomySnapshot;
   fiscal: FiscalReview;
   onFiscalChange: (field: FiscalField, value: string) => void;
+  onOpenReport: () => void;
 };
 
 function Rows({ rows, empty }: { rows: readonly DashboardRow[]; empty: string }) {
@@ -20,7 +21,7 @@ function Rows({ rows, empty }: { rows: readonly DashboardRow[]; empty: string })
   </dl>;
 }
 
-export function EconomyPanel({ week, economy, fiscal, onFiscalChange }: Props) {
+export function EconomyPanel({ week, economy, fiscal, onFiscalChange, onOpenReport }: Props) {
   const [editingFiscal, setEditingFiscal] = useState(false);
   const { budget, indicators, sectors, shortages, latestWeek } = readEconomyDashboard(economy.player, economy.previous, week);
   const news = economyNews(economy.notices);
@@ -62,6 +63,7 @@ export function EconomyPanel({ week, economy, fiscal, onFiscalChange }: Props) {
                 <div><dt>Opening treasury</dt><dd>{latestWeek.openingTreasury}</dd></div>
                 <div><dt>Closing treasury</dt><dd>{latestWeek.closingTreasury}</dd></div>
               </dl>
+              <button type="button" className="economy-report-button" onClick={onOpenReport}>Open weekly report</button>
             </> : <p>No week has settled yet. Use <b>Next week</b> to resolve the first one.</p>}
             {news.length > 0 && <ul className="economy-news" aria-label="Economic events">
               {news.map((notice, index) => <li key={index} className={`economy-news-${notice.severity}`}>

@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import type { CountryId, GameState, TurnCommand } from '../game/models';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import type { CountryId, GameState, RegionId, TurnCommand } from '../game/models';
 import type { EconomyCommand, EconomySnapshot } from '../game/economyBridge';
 import { createInitialState } from '../game/initialState';
 import type { SaveStatus } from '../game/localSaves';
@@ -12,6 +12,8 @@ import { RegionMap } from './RegionMap';
 import { MilitaryPanel } from './MilitaryPanel';
 import { DiplomacyPanel } from './DiplomacyPanel';
 import { AI_PRIORITIES } from '../game/ai';
+import { WeeklyReportPanel } from './WeeklyReportPanel';
+import { readWeeklyReport, type WeeklyReport } from './weeklyReport';
 
 type PrototypePageProps = {
   active: boolean;
@@ -67,10 +69,17 @@ const sections = [
   { id: 'military', label: 'Military', icon: 'M12 3l7 3v5c0 4.5-3 8-7 10c-4-2-7-5.5-7-10V6l7-3Z' },
 ] as const;
 type Section = typeof sections[number]['id'];
+const RECENT_REPORT_LIMIT = 4;
 
 export function PrototypePage({ active, state, drafts, onChangeDrafts, onAdvanceTurn, turnError, onBack, economy, fiscalApi, saveStatus, onSave }: PrototypePageProps) {
   const [showScenario, setShowScenario] = useState(false);
   const [activeSection, setActiveSection] = useState<Section>('world');
+  const [reportWeek, setReportWeek] = useState<number | 'latest' | null>(null);
+  const [earlierReports, setEarlierReports] = useState<WeeklyReport[]>([]);
+  const [regionInspection, setRegionInspection] = useState<{ id: RegionId } | null>(null);
+  const latestReport = useMemo(() => readWeeklyReport(state, economy), [state, economy]);
+  const report = reportWeek === 'latest' || latestReport?.week === reportWeek
+    ? latestReport : earlierReports.find(entry => entry.week === reportWeek);
   const { military, diplomacy, fiscal: proposedFiscal } = drafts;
   const dashboardRef = useRef<HTMLHeadingElement>(null);
   const errorRef = useRef<HTMLParagraphElement>(null);
@@ -90,10 +99,21 @@ export function PrototypePage({ active, state, drafts, onChangeDrafts, onAdvance
     if (defeated || !fiscal) return;
     const commands: TurnCommand[] = [...military];
     if (diplomacy) commands.push(diplomacy);
-    if (!onAdvanceTurn(commands, fiscal.commands)) {
+    if (onAdvanceTurn(commands, fiscal.commands)) {
+      if (latestReport) setEarlierReports(earlier =>
+        [latestReport, ...earlier.filter(entry => entry.week !== latestReport.week)].slice(0, RECENT_REPORT_LIMIT - 1));
+      setShowScenario(false);
+      setReportWeek('latest');
+    } else {
       // Bring the shared error into view even when the current section is scrolled.
       requestAnimationFrame(() => errorRef.current?.focus());
     }
+  }
+
+  function openLatestReport() {
+    if (!latestReport) return;
+    setShowScenario(false);
+    setReportWeek('latest');
   }
 
   useEffect(() => {
@@ -115,26 +135,27 @@ export function PrototypePage({ active, state, drafts, onChangeDrafts, onAdvance
         </dl>
         <button className="next-week" type="button" onClick={advanceWeek} disabled={defeated}
           title={defeated ? 'The game is over' : undefined}>Next week</button>
-        <button className="icon-button" type="button" onClick={() => setShowScenario(value => !value)} aria-label="Scenario menu" aria-controls="scenario-details" aria-expanded={showScenario}>
+        <button className="icon-button" type="button" onClick={() => { setReportWeek(null); setShowScenario(value => !value); }}
+          aria-label="Scenario menu" aria-controls="scenario-details" aria-expanded={showScenario}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
         </button>
       </header>
 
       <div className="game-main">
-        {defeated && <p className="turn-error" role="alert">
+        {defeated && !report?.defeated && <p className="turn-error" role="alert">
           <b>Your regime has been overthrown. The game is over.</b> {headline?.severity === 'defeat' ? headline.message : ''} You can still review the final state.
         </p>}
-        {!defeated && headline && <p className="turn-status" role="status"><b>{headline.title}.</b> {headline.message}</p>}
+        {!defeated && !report && headline && <p className="turn-status" role="status"><b>{headline.title}.</b> {headline.message}</p>}
         {saveStatus?.kind === 'failed' && <p className="turn-error" role="alert">{saveStatus.message}</p>}
-        {draftSummary && <p className="turn-status" role="status">Drafts · {draftSummary}</p>}
+        {!report && draftSummary && <p className="turn-status" role="status">Drafts · {draftSummary}</p>}
         {turnError && <p className="turn-error" ref={errorRef} tabIndex={-1} role="alert">
           {turnError} Week not advanced. Your drafts are retained; review your orders, then try again.
         </p>}
 
         {/* Mounted, hidden views retain map selection, unfinished forms and staged commands. */}
-        <div className="game-workspace" hidden={showScenario}>
+        <div className="game-workspace" hidden={showScenario || Boolean(report)}>
           <div id="section-world" className="section-view" hidden={activeSection !== 'world'}>
-            <RegionMap state={state} />
+            <RegionMap state={state} inspect={regionInspection} />
           </div>
           <div id="section-politics" className="section-view" hidden={activeSection !== 'politics'}>
             <section className="overview" aria-labelledby="politics-title">
@@ -145,7 +166,7 @@ export function PrototypePage({ active, state, drafts, onChangeDrafts, onAdvance
             </section>
           </div>
           <div id="section-economy" className="section-view" hidden={activeSection !== 'economy'}>
-            <EconomyPanel week={state.week} economy={economy}
+            <EconomyPanel week={state.week} economy={economy} onOpenReport={openLatestReport}
               fiscal={fiscal} onFiscalChange={(field, value) => onChangeDrafts({ ...drafts, fiscal: { ...proposedFiscal, [field]: value } })} />
           </div>
           <div id="section-diplomacy" className="section-view" hidden={activeSection !== 'diplomacy'}>
@@ -157,7 +178,12 @@ export function PrototypePage({ active, state, drafts, onChangeDrafts, onAdvance
               onDiscardOrders={() => onChangeDrafts({ ...drafts, military: [] })} />
           </div>
         </div>
+        {report && latestReport && <WeeklyReportPanel key={report.week} active={active} report={report}
+          availableWeeks={[latestReport.week, ...earlierReports.map(entry => entry.week)]}
+          onSelectWeek={setReportWeek} onClose={() => setReportWeek(null)}
+          onOpenRegion={id => { setActiveSection('world'); setRegionInspection({ id }); setReportWeek(null); }} />}
         <DetailPanel id="scenario-details" title="Scenario information" open={showScenario} onClose={() => setShowScenario(false)}>
+          {latestReport && <button type="button" onClick={openLatestReport}>Open weekly report</button>}
           <p>Local single-player prototype · Fictional test world. Temporary statistics and provisional rules, not balanced game values.</p>
           <p>Next week resolves diplomacy and military orders, then applies fiscal drafts and advances the economy for the same week. Captured regions enter economic occupation and retain their legal owner. An invalid order rejects the entire week and retains every draft.</p>
           <p>Heartland saves this game and its drafts in this browser. Clearing website data or Safari removing stored data can erase the save.</p>
@@ -176,7 +202,7 @@ export function PrototypePage({ active, state, drafts, onChangeDrafts, onAdvance
 
       <nav className="game-nav" aria-label="Game sections">
         {sections.map(section => <button key={section.id} type="button" aria-current={activeSection === section.id ? 'page' : undefined}
-          aria-controls={`section-${section.id}`} onClick={() => { setActiveSection(section.id); setShowScenario(false); }}>
+          aria-controls={`section-${section.id}`} onClick={() => { setActiveSection(section.id); setShowScenario(false); setReportWeek(null); }}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={section.icon} /></svg>
           <span className="nav-label">{section.label}</span>
         </button>)}
