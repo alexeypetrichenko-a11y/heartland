@@ -1,0 +1,8029 @@
+{
+ "id": "europe-2023",
+ "version": "1.0.0-draft.1",
+ "status": "review-draft: calibration targets not all met (see calibration-report.json)",
+ "referenceYear": 2023,
+ "seed": 2401,
+ "engine": {
+  "integrationContract": "1.0.0",
+  "sessionFormat": "heartland-economy-session",
+  "sessionVersion": 2,
+  "catalogue": "31-good catalogue (toCatalogueSpec)"
+ },
+ "countries": [
+  {
+   "id": "fra",
+   "name": "France",
+   "kind": "playable",
+   "iso3": "FRA",
+   "diplomacy": true,
+   "attackable": true,
+   "divisions": true
+  },
+  {
+   "id": "deu",
+   "name": "Germany",
+   "kind": "playable",
+   "iso3": "DEU",
+   "diplomacy": true,
+   "attackable": true,
+   "divisions": true
+  },
+  {
+   "id": "gbr",
+   "name": "United Kingdom",
+   "kind": "playable",
+   "iso3": "GBR",
+   "diplomacy": true,
+   "attackable": true,
+   "divisions": true
+  },
+  {
+   "id": "ita",
+   "name": "Italy",
+   "kind": "playable",
+   "iso3": "ITA",
+   "diplomacy": true,
+   "attackable": true,
+   "divisions": true
+  },
+  {
+   "id": "pol",
+   "name": "Poland",
+   "kind": "playable",
+   "iso3": "POL",
+   "diplomacy": true,
+   "attackable": true,
+   "divisions": true
+  },
+  {
+   "id": "tur",
+   "name": "Türkiye",
+   "kind": "playable",
+   "iso3": "TUR",
+   "diplomacy": true,
+   "attackable": true,
+   "divisions": true
+  },
+  {
+   "id": "irl",
+   "name": "Ireland",
+   "kind": "simulated",
+   "iso3": "IRL",
+   "diplomacy": true,
+   "attackable": false,
+   "divisions": false
+  },
+  {
+   "id": "esp",
+   "name": "Spain",
+   "kind": "simulated",
+   "iso3": "ESP",
+   "diplomacy": true,
+   "attackable": false,
+   "divisions": false
+  },
+  {
+   "id": "nld",
+   "name": "Netherlands",
+   "kind": "simulated",
+   "iso3": "NLD",
+   "diplomacy": true,
+   "attackable": false,
+   "divisions": false
+  },
+  {
+   "id": "bel",
+   "name": "Belgium",
+   "kind": "simulated",
+   "iso3": "BEL",
+   "diplomacy": true,
+   "attackable": false,
+   "divisions": false
+  },
+  {
+   "id": "che",
+   "name": "Switzerland",
+   "kind": "simulated",
+   "iso3": "CHE",
+   "diplomacy": true,
+   "attackable": false,
+   "divisions": false
+  },
+  {
+   "id": "aut",
+   "name": "Austria",
+   "kind": "simulated",
+   "iso3": "AUT",
+   "diplomacy": true,
+   "attackable": false,
+   "divisions": false
+  },
+  {
+   "id": "cze",
+   "name": "Czechia",
+   "kind": "simulated",
+   "iso3": "CZE",
+   "diplomacy": true,
+   "attackable": false,
+   "divisions": false
+  },
+  {
+   "id": "nor",
+   "name": "Norway",
+   "kind": "simulated",
+   "iso3": "NOR",
+   "diplomacy": true,
+   "attackable": false,
+   "divisions": false
+  },
+  {
+   "id": "grc",
+   "name": "Greece",
+   "kind": "simulated",
+   "iso3": "GRC",
+   "diplomacy": true,
+   "attackable": false,
+   "divisions": false
+  },
+  {
+   "id": "bgr",
+   "name": "Bulgaria",
+   "kind": "simulated",
+   "iso3": "BGR",
+   "diplomacy": true,
+   "attackable": false,
+   "divisions": false
+  },
+  {
+   "id": "bloc-eur",
+   "name": "Rest of Europe",
+   "kind": "bloc",
+   "iso3": null,
+   "diplomacy": false,
+   "attackable": false,
+   "divisions": false
+  },
+  {
+   "id": "bloc-eec",
+   "name": "Eastern Europe and Central Asia",
+   "kind": "bloc",
+   "iso3": null,
+   "diplomacy": false,
+   "attackable": false,
+   "divisions": false
+  },
+  {
+   "id": "bloc-mea",
+   "name": "Middle East and Africa",
+   "kind": "bloc",
+   "iso3": null,
+   "diplomacy": false,
+   "attackable": false,
+   "divisions": false
+  },
+  {
+   "id": "bloc-ame",
+   "name": "Americas",
+   "kind": "bloc",
+   "iso3": null,
+   "diplomacy": false,
+   "attackable": false,
+   "divisions": false
+  },
+  {
+   "id": "bloc-apa",
+   "name": "Asia-Pacific",
+   "kind": "bloc",
+   "iso3": null,
+   "diplomacy": false,
+   "attackable": false,
+   "divisions": false
+  }
+ ],
+ "regions": [
+  {
+   "id": "fra-idf",
+   "name": "Île-de-France",
+   "ownerId": "fra",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "fra-cen",
+    "fra-ne",
+    "fra-oue"
+   ],
+   "maritimeLinkedRegionIds": [],
+   "movementAdjacentRegionIds": [
+    "fra-cen",
+    "fra-ne",
+    "fra-oue"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159313565",
+     "ne:admin1:1159316785",
+     "ne:admin1:1159316787",
+     "ne:admin1:1159316789",
+     "ne:admin1:1159316791",
+     "ne:admin1:1159316795",
+     "ne:admin1:1159316797",
+     "ne:admin1:1159316799"
+    ]
+   },
+   "statisticalUnits": [
+    "FR1"
+   ]
+  },
+  {
+   "id": "fra-ne",
+   "name": "Nord-Est (Hauts-de-France, Grand Est)",
+   "ownerId": "fra",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "bel-all",
+    "bloc-eur-all",
+    "che-all",
+    "deu-bw",
+    "deu-mit",
+    "fra-cen",
+    "fra-idf",
+    "fra-oue"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-mea-all",
+    "gbr-se"
+   ],
+   "movementAdjacentRegionIds": [
+    "deu-bw",
+    "deu-mit",
+    "fra-cen",
+    "fra-idf",
+    "fra-oue"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159313569",
+     "ne:admin1:1159313573",
+     "ne:admin1:1159313575",
+     "ne:admin1:1159313579",
+     "ne:admin1:1159313581",
+     "ne:admin1:1159316737",
+     "ne:admin1:1159316741",
+     "ne:admin1:1159316743",
+     "ne:admin1:1159316801",
+     "ne:admin1:1159316803",
+     "ne:admin1:1159316805",
+     "ne:admin1:1159316807",
+     "ne:admin1:1159316809",
+     "ne:admin1:1159316813",
+     "ne:admin1:1159316815"
+    ]
+   },
+   "statisticalUnits": [
+    "FRE",
+    "FRF"
+   ]
+  },
+  {
+   "id": "fra-oue",
+   "name": "Ouest (Normandie, Bretagne, Pays de la Loire)",
+   "ownerId": "fra",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "fra-cen",
+    "fra-idf",
+    "fra-naq",
+    "fra-ne"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-eur-all",
+    "bloc-mea-all",
+    "gbr-se",
+    "irl-all"
+   ],
+   "movementAdjacentRegionIds": [
+    "fra-cen",
+    "fra-idf",
+    "fra-naq",
+    "fra-ne"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159313259",
+     "ne:admin1:1159313545",
+     "ne:admin1:1159313547",
+     "ne:admin1:1159313563",
+     "ne:admin1:1159316745",
+     "ne:admin1:1159316747",
+     "ne:admin1:1159316749",
+     "ne:admin1:1159316751",
+     "ne:admin1:1159316753",
+     "ne:admin1:1159316755",
+     "ne:admin1:1159316759",
+     "ne:admin1:1159316761",
+     "ne:admin1:1159316763",
+     "ne:admin1:1159316765"
+    ]
+   },
+   "statisticalUnits": [
+    "FRD",
+    "FRH",
+    "FRG"
+   ]
+  },
+  {
+   "id": "fra-cen",
+   "name": "Centre (Centre-Val de Loire, Bourgogne-Franche-Comté)",
+   "ownerId": "fra",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "che-all",
+    "fra-ara",
+    "fra-idf",
+    "fra-naq",
+    "fra-ne",
+    "fra-oue"
+   ],
+   "maritimeLinkedRegionIds": [],
+   "movementAdjacentRegionIds": [
+    "fra-ara",
+    "fra-idf",
+    "fra-naq",
+    "fra-ne",
+    "fra-oue"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159313559",
+     "ne:admin1:1159313561",
+     "ne:admin1:1159313577",
+     "ne:admin1:1159316767",
+     "ne:admin1:1159316769",
+     "ne:admin1:1159316771",
+     "ne:admin1:1159316773",
+     "ne:admin1:1159316777",
+     "ne:admin1:1159316817",
+     "ne:admin1:1159316819",
+     "ne:admin1:1159316821",
+     "ne:admin1:1159316823",
+     "ne:admin1:1159316825",
+     "ne:admin1:1159316827"
+    ]
+   },
+   "statisticalUnits": [
+    "FRB",
+    "FRC"
+   ]
+  },
+  {
+   "id": "fra-naq",
+   "name": "Nouvelle-Aquitaine",
+   "ownerId": "fra",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "esp-all",
+    "fra-ara",
+    "fra-cen",
+    "fra-occ",
+    "fra-oue"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-eur-all",
+    "bloc-mea-all"
+   ],
+   "movementAdjacentRegionIds": [
+    "fra-ara",
+    "fra-cen",
+    "fra-occ",
+    "fra-oue"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159313543",
+     "ne:admin1:1159313549",
+     "ne:admin1:1159313567",
+     "ne:admin1:1159316779",
+     "ne:admin1:1159316781",
+     "ne:admin1:1159316783",
+     "ne:admin1:1159316889",
+     "ne:admin1:1159316891",
+     "ne:admin1:1159316893",
+     "ne:admin1:1159316895",
+     "ne:admin1:1159316897",
+     "ne:admin1:1159316899"
+    ]
+   },
+   "statisticalUnits": [
+    "FRI"
+   ]
+  },
+  {
+   "id": "fra-occ",
+   "name": "Occitanie",
+   "ownerId": "fra",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "bloc-eur-all",
+    "esp-all",
+    "fra-ara",
+    "fra-naq",
+    "fra-se"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-mea-all"
+   ],
+   "movementAdjacentRegionIds": [
+    "fra-ara",
+    "fra-naq",
+    "fra-se"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159313551",
+     "ne:admin1:1159313555",
+     "ne:admin1:1159316857",
+     "ne:admin1:1159316859",
+     "ne:admin1:1159316861",
+     "ne:admin1:1159316863",
+     "ne:admin1:1159316867",
+     "ne:admin1:1159316869",
+     "ne:admin1:1159316871",
+     "ne:admin1:1159316873",
+     "ne:admin1:1159316875",
+     "ne:admin1:1159316877",
+     "ne:admin1:1159316879"
+    ]
+   },
+   "statisticalUnits": [
+    "FRJ"
+   ]
+  },
+  {
+   "id": "fra-ara",
+   "name": "Auvergne-Rhône-Alpes",
+   "ownerId": "fra",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "che-all",
+    "fra-cen",
+    "fra-naq",
+    "fra-occ",
+    "fra-se",
+    "ita-no"
+   ],
+   "maritimeLinkedRegionIds": [],
+   "movementAdjacentRegionIds": [
+    "fra-cen",
+    "fra-naq",
+    "fra-occ",
+    "fra-se",
+    "ita-no"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159310957",
+     "ne:admin1:1159313557",
+     "ne:admin1:1159316831",
+     "ne:admin1:1159316833",
+     "ne:admin1:1159316835",
+     "ne:admin1:1159316837",
+     "ne:admin1:1159316839",
+     "ne:admin1:1159316841",
+     "ne:admin1:1159316843",
+     "ne:admin1:1159316881",
+     "ne:admin1:1159316885",
+     "ne:admin1:1159316887"
+    ]
+   },
+   "statisticalUnits": [
+    "FRK"
+   ]
+  },
+  {
+   "id": "fra-se",
+   "name": "Provence-Alpes-Côte d'Azur",
+   "ownerId": "fra",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "bloc-eur-all",
+    "fra-ara",
+    "fra-occ",
+    "ita-no"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-mea-all",
+    "fra-cor"
+   ],
+   "movementAdjacentRegionIds": [
+    "fra-ara",
+    "fra-occ",
+    "ita-no"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159313541",
+     "ne:admin1:1159316845",
+     "ne:admin1:1159316849",
+     "ne:admin1:1159316851",
+     "ne:admin1:1159316853",
+     "ne:admin1:1159316855"
+    ]
+   },
+   "statisticalUnits": [
+    "FRL"
+   ]
+  },
+  {
+   "id": "fra-cor",
+   "name": "Corse",
+   "ownerId": "fra",
+   "kind": "province",
+   "landAdjacentRegionIds": [],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-eur-all",
+    "bloc-mea-all",
+    "fra-se",
+    "ita-cen",
+    "ita-sar"
+   ],
+   "movementAdjacentRegionIds": [],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159308481",
+     "ne:admin1:1159317105"
+    ]
+   },
+   "statisticalUnits": [
+    "FRM"
+   ]
+  },
+  {
+   "id": "deu-nor",
+   "name": "Norddeutschland (Schleswig-Holstein, Hamburg, Bremen, Niedersachsen)",
+   "ownerId": "deu",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "bloc-eur-all",
+    "deu-mit",
+    "deu-mo",
+    "deu-no",
+    "deu-nrw",
+    "nld-all"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-mea-all"
+   ],
+   "movementAdjacentRegionIds": [
+    "deu-mit",
+    "deu-mo",
+    "deu-no",
+    "deu-nrw"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159309703",
+     "ne:admin1:1159310981",
+     "ne:admin1:1159310985",
+     "ne:admin1:1159315801"
+    ]
+   },
+   "statisticalUnits": [
+    "DEF",
+    "DE6",
+    "DE5",
+    "DE9"
+   ]
+  },
+  {
+   "id": "deu-nrw",
+   "name": "Nordrhein-Westfalen",
+   "ownerId": "deu",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "bel-all",
+    "deu-mit",
+    "deu-nor",
+    "nld-all"
+   ],
+   "maritimeLinkedRegionIds": [],
+   "movementAdjacentRegionIds": [
+    "deu-mit",
+    "deu-nor"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159310973"
+    ]
+   },
+   "statisticalUnits": [
+    "DEA"
+   ]
+  },
+  {
+   "id": "deu-mit",
+   "name": "Mitte-West (Hessen, Rheinland-Pfalz, Saarland)",
+   "ownerId": "deu",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "bel-all",
+    "bloc-eur-all",
+    "deu-bw",
+    "deu-by",
+    "deu-mo",
+    "deu-nor",
+    "deu-nrw",
+    "fra-ne"
+   ],
+   "maritimeLinkedRegionIds": [],
+   "movementAdjacentRegionIds": [
+    "deu-bw",
+    "deu-by",
+    "deu-mo",
+    "deu-nor",
+    "deu-nrw",
+    "fra-ne"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159310977",
+     "ne:admin1:1159312763",
+     "ne:admin1:1159312765"
+    ]
+   },
+   "statisticalUnits": [
+    "DE7",
+    "DEB",
+    "DEC"
+   ]
+  },
+  {
+   "id": "deu-bw",
+   "name": "Baden-Württemberg",
+   "ownerId": "deu",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "aut-all",
+    "che-all",
+    "deu-by",
+    "deu-mit",
+    "fra-ne"
+   ],
+   "maritimeLinkedRegionIds": [],
+   "movementAdjacentRegionIds": [
+    "deu-by",
+    "deu-mit",
+    "fra-ne"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159310975"
+    ]
+   },
+   "statisticalUnits": [
+    "DE1"
+   ]
+  },
+  {
+   "id": "deu-by",
+   "name": "Bayern",
+   "ownerId": "deu",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "aut-all",
+    "cze-all",
+    "deu-bw",
+    "deu-mit",
+    "deu-mo"
+   ],
+   "maritimeLinkedRegionIds": [],
+   "movementAdjacentRegionIds": [
+    "deu-bw",
+    "deu-mit",
+    "deu-mo"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159312767"
+    ]
+   },
+   "statisticalUnits": [
+    "DE2"
+   ]
+  },
+  {
+   "id": "deu-no",
+   "name": "Nordost (Berlin, Brandenburg, Mecklenburg-Vorpommern)",
+   "ownerId": "deu",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "deu-mo",
+    "deu-nor",
+    "pol-pza"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-eur-all",
+    "bloc-mea-all"
+   ],
+   "movementAdjacentRegionIds": [
+    "deu-mo",
+    "deu-nor",
+    "pol-pza"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159312769",
+     "ne:admin1:1159314907",
+     "ne:admin1:1159315451"
+    ]
+   },
+   "statisticalUnits": [
+    "DE3",
+    "DE4",
+    "DE8"
+   ]
+  },
+  {
+   "id": "deu-mo",
+   "name": "Mitteldeutschland (Sachsen, Sachsen-Anhalt, Thüringen)",
+   "ownerId": "deu",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "cze-all",
+    "deu-by",
+    "deu-mit",
+    "deu-no",
+    "deu-nor",
+    "pol-pdz",
+    "pol-pza"
+   ],
+   "maritimeLinkedRegionIds": [],
+   "movementAdjacentRegionIds": [
+    "deu-by",
+    "deu-mit",
+    "deu-no",
+    "deu-nor",
+    "pol-pdz",
+    "pol-pza"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159310983",
+     "ne:admin1:1159312771",
+     "ne:admin1:1159312773"
+    ]
+   },
+   "statisticalUnits": [
+    "DED",
+    "DEE",
+    "DEG"
+   ]
+  },
+  {
+   "id": "gbr-sco",
+   "name": "Scotland",
+   "ownerId": "gbr",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "gbr-nth"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-eur-all",
+    "bloc-mea-all",
+    "gbr-nir",
+    "nor-all"
+   ],
+   "movementAdjacentRegionIds": [
+    "gbr-nth"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159313009",
+     "ne:admin1:1159313011",
+     "ne:admin1:1159313015",
+     "ne:admin1:1159313017",
+     "ne:admin1:1159313019",
+     "ne:admin1:1159313021",
+     "ne:admin1:1159313023",
+     "ne:admin1:1159313025",
+     "ne:admin1:1159313027",
+     "ne:admin1:1159313029",
+     "ne:admin1:1159313033",
+     "ne:admin1:1159313035",
+     "ne:admin1:1159313037",
+     "ne:admin1:1159313039",
+     "ne:admin1:1159313041",
+     "ne:admin1:1159313043",
+     "ne:admin1:1159313045",
+     "ne:admin1:1159313047",
+     "ne:admin1:1159313051",
+     "ne:admin1:1159313053",
+     "ne:admin1:1159313055",
+     "ne:admin1:1159313057",
+     "ne:admin1:1159313059",
+     "ne:admin1:1159313061",
+     "ne:admin1:1159313063",
+     "ne:admin1:1159313065",
+     "ne:admin1:1159313069",
+     "ne:admin1:1159314743",
+     "ne:admin1:1159314815",
+     "ne:admin1:1159314817",
+     "ne:admin1:1159314819",
+     "ne:admin1:1159314821"
+    ]
+   },
+   "statisticalUnits": [
+    "TLM"
+   ]
+  },
+  {
+   "id": "gbr-nir",
+   "name": "Northern Ireland",
+   "ownerId": "gbr",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "irl-all"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-eur-all",
+    "bloc-mea-all",
+    "gbr-nth",
+    "gbr-sco"
+   ],
+   "movementAdjacentRegionIds": [],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159312775",
+     "ne:admin1:1159312777",
+     "ne:admin1:1159312781",
+     "ne:admin1:1159312783",
+     "ne:admin1:1159312785",
+     "ne:admin1:1159312787",
+     "ne:admin1:1159312789",
+     "ne:admin1:1159312791",
+     "ne:admin1:1159312793",
+     "ne:admin1:1159312795",
+     "ne:admin1:1159312799",
+     "ne:admin1:1159312801",
+     "ne:admin1:1159312803",
+     "ne:admin1:1159312805",
+     "ne:admin1:1159312807",
+     "ne:admin1:1159312809",
+     "ne:admin1:1159312811",
+     "ne:admin1:1159312813",
+     "ne:admin1:1159312817",
+     "ne:admin1:1159312819",
+     "ne:admin1:1159312821",
+     "ne:admin1:1159312823",
+     "ne:admin1:1159312825",
+     "ne:admin1:1159312827",
+     "ne:admin1:1159312829",
+     "ne:admin1:1159314711"
+    ]
+   },
+   "statisticalUnits": [
+    "TLN"
+   ]
+  },
+  {
+   "id": "gbr-wls",
+   "name": "Wales",
+   "ownerId": "gbr",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "gbr-mid",
+    "gbr-nth",
+    "gbr-sw"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-eur-all",
+    "bloc-mea-all",
+    "irl-all"
+   ],
+   "movementAdjacentRegionIds": [
+    "gbr-mid",
+    "gbr-nth",
+    "gbr-sw"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159312691",
+     "ne:admin1:1159312693",
+     "ne:admin1:1159312695",
+     "ne:admin1:1159312697",
+     "ne:admin1:1159312699",
+     "ne:admin1:1159312701",
+     "ne:admin1:1159312703",
+     "ne:admin1:1159312705",
+     "ne:admin1:1159312709",
+     "ne:admin1:1159312711",
+     "ne:admin1:1159312713",
+     "ne:admin1:1159312715",
+     "ne:admin1:1159312717",
+     "ne:admin1:1159312719",
+     "ne:admin1:1159312721",
+     "ne:admin1:1159312723",
+     "ne:admin1:1159312727",
+     "ne:admin1:1159312729",
+     "ne:admin1:1159312731",
+     "ne:admin1:1159312733",
+     "ne:admin1:1159312735",
+     "ne:admin1:1159312737"
+    ]
+   },
+   "statisticalUnits": [
+    "TLL"
+   ]
+  },
+  {
+   "id": "gbr-nth",
+   "name": "North of England (North East, North West, Yorkshire and the Humber)",
+   "ownerId": "gbr",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "gbr-mid",
+    "gbr-sco",
+    "gbr-wls"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-eur-all",
+    "bloc-mea-all",
+    "gbr-nir",
+    "nld-all"
+   ],
+   "movementAdjacentRegionIds": [
+    "gbr-mid",
+    "gbr-sco",
+    "gbr-wls"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159312837",
+     "ne:admin1:1159312839",
+     "ne:admin1:1159312841",
+     "ne:admin1:1159312843",
+     "ne:admin1:1159312845",
+     "ne:admin1:1159312847",
+     "ne:admin1:1159312849",
+     "ne:admin1:1159312853",
+     "ne:admin1:1159312855",
+     "ne:admin1:1159312857",
+     "ne:admin1:1159312859",
+     "ne:admin1:1159312903",
+     "ne:admin1:1159312907",
+     "ne:admin1:1159312909",
+     "ne:admin1:1159312947",
+     "ne:admin1:1159312951",
+     "ne:admin1:1159312953",
+     "ne:admin1:1159312955",
+     "ne:admin1:1159312957",
+     "ne:admin1:1159312961",
+     "ne:admin1:1159314793",
+     "ne:admin1:1159314807",
+     "ne:admin1:1159314809",
+     "ne:admin1:1159314811",
+     "ne:admin1:1159317473",
+     "ne:admin1:1159317475",
+     "ne:admin1:1159317479",
+     "ne:admin1:1159317481",
+     "ne:admin1:1159317483",
+     "ne:admin1:1159317485",
+     "ne:admin1:1159317487",
+     "ne:admin1:1159317489",
+     "ne:admin1:1159317491",
+     "ne:admin1:1159317493",
+     "ne:admin1:1159317497",
+     "ne:admin1:1159317499",
+     "ne:admin1:1159317501",
+     "ne:admin1:1159317503",
+     "ne:admin1:1159317505",
+     "ne:admin1:1159317507",
+     "ne:admin1:1159317509",
+     "ne:admin1:1159317511",
+     "ne:admin1:1159317515",
+     "ne:admin1:1159317517",
+     "ne:admin1:1159317519",
+     "ne:admin1:1159317521",
+     "ne:admin1:1159317523",
+     "ne:admin1:1159317525",
+     "ne:admin1:1159317557",
+     "ne:admin1:1159317559"
+    ]
+   },
+   "statisticalUnits": [
+    "TLC",
+    "TLD",
+    "TLE"
+   ]
+  },
+  {
+   "id": "gbr-mid",
+   "name": "Midlands (East Midlands, West Midlands)",
+   "ownerId": "gbr",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "gbr-nth",
+    "gbr-se",
+    "gbr-sw",
+    "gbr-wls"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-eur-all",
+    "bloc-mea-all"
+   ],
+   "movementAdjacentRegionIds": [
+    "gbr-nth",
+    "gbr-se",
+    "gbr-sw",
+    "gbr-wls"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159312865",
+     "ne:admin1:1159312901",
+     "ne:admin1:1159312911",
+     "ne:admin1:1159312913",
+     "ne:admin1:1159312949",
+     "ne:admin1:1159312983",
+     "ne:admin1:1159314747",
+     "ne:admin1:1159314749",
+     "ne:admin1:1159314769",
+     "ne:admin1:1159314771",
+     "ne:admin1:1159314773",
+     "ne:admin1:1159314775",
+     "ne:admin1:1159314797",
+     "ne:admin1:1159314799",
+     "ne:admin1:1159314801",
+     "ne:admin1:1159314803",
+     "ne:admin1:1159314805",
+     "ne:admin1:1159317527",
+     "ne:admin1:1159317529",
+     "ne:admin1:1159317533",
+     "ne:admin1:1159317535",
+     "ne:admin1:1159317537",
+     "ne:admin1:1159317539"
+    ]
+   },
+   "statisticalUnits": [
+    "TLF",
+    "TLG"
+   ]
+  },
+  {
+   "id": "gbr-lon",
+   "name": "London",
+   "ownerId": "gbr",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "gbr-se"
+   ],
+   "maritimeLinkedRegionIds": [],
+   "movementAdjacentRegionIds": [
+    "gbr-se"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159312915",
+     "ne:admin1:1159312917",
+     "ne:admin1:1159312919",
+     "ne:admin1:1159312921",
+     "ne:admin1:1159312925",
+     "ne:admin1:1159312927",
+     "ne:admin1:1159312929",
+     "ne:admin1:1159312931",
+     "ne:admin1:1159312933",
+     "ne:admin1:1159312935",
+     "ne:admin1:1159312937",
+     "ne:admin1:1159312939",
+     "ne:admin1:1159312943",
+     "ne:admin1:1159312945",
+     "ne:admin1:1159312967",
+     "ne:admin1:1159312969",
+     "ne:admin1:1159312971",
+     "ne:admin1:1159312973",
+     "ne:admin1:1159312975",
+     "ne:admin1:1159312979",
+     "ne:admin1:1159312981",
+     "ne:admin1:1159313587",
+     "ne:admin1:1159314755",
+     "ne:admin1:1159314757",
+     "ne:admin1:1159314779",
+     "ne:admin1:1159314781",
+     "ne:admin1:1159314783",
+     "ne:admin1:1159314785",
+     "ne:admin1:1159314787",
+     "ne:admin1:1159314789",
+     "ne:admin1:1159314791",
+     "ne:admin1:1159315835",
+     "ne:admin1:1159317555"
+    ]
+   },
+   "statisticalUnits": [
+    "TLI"
+   ]
+  },
+  {
+   "id": "gbr-se",
+   "name": "South East and East of England",
+   "ownerId": "gbr",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "gbr-lon",
+    "gbr-mid",
+    "gbr-sw"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-eur-all",
+    "bloc-mea-all",
+    "fra-ne",
+    "fra-oue"
+   ],
+   "movementAdjacentRegionIds": [
+    "gbr-lon",
+    "gbr-mid",
+    "gbr-sw"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159312861",
+     "ne:admin1:1159312863",
+     "ne:admin1:1159312867",
+     "ne:admin1:1159312873",
+     "ne:admin1:1159312875",
+     "ne:admin1:1159312877",
+     "ne:admin1:1159312891",
+     "ne:admin1:1159312899",
+     "ne:admin1:1159312985",
+     "ne:admin1:1159312987",
+     "ne:admin1:1159312989",
+     "ne:admin1:1159313585",
+     "ne:admin1:1159313591",
+     "ne:admin1:1159313593",
+     "ne:admin1:1159313595",
+     "ne:admin1:1159313597",
+     "ne:admin1:1159314667",
+     "ne:admin1:1159314671",
+     "ne:admin1:1159314745",
+     "ne:admin1:1159314751",
+     "ne:admin1:1159314753",
+     "ne:admin1:1159314761",
+     "ne:admin1:1159314767",
+     "ne:admin1:1159315381",
+     "ne:admin1:1159317541",
+     "ne:admin1:1159317543",
+     "ne:admin1:1159317545",
+     "ne:admin1:1159317547",
+     "ne:admin1:1159317551",
+     "ne:admin1:1159317553"
+    ]
+   },
+   "statisticalUnits": [
+    "TLJ",
+    "TLH"
+   ]
+  },
+  {
+   "id": "gbr-sw",
+   "name": "South West",
+   "ownerId": "gbr",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "gbr-mid",
+    "gbr-se",
+    "gbr-wls"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-eur-all",
+    "bloc-mea-all"
+   ],
+   "movementAdjacentRegionIds": [
+    "gbr-mid",
+    "gbr-se",
+    "gbr-wls"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159312667",
+     "ne:admin1:1159312687",
+     "ne:admin1:1159312871",
+     "ne:admin1:1159312879",
+     "ne:admin1:1159312881",
+     "ne:admin1:1159312883",
+     "ne:admin1:1159312885",
+     "ne:admin1:1159312889",
+     "ne:admin1:1159312893",
+     "ne:admin1:1159312895",
+     "ne:admin1:1159312897",
+     "ne:admin1:1159312963",
+     "ne:admin1:1159312965",
+     "ne:admin1:1159314763",
+     "ne:admin1:1159314765",
+     "ne:admin1:1159318099"
+    ]
+   },
+   "statisticalUnits": [
+    "TLK"
+   ]
+  },
+  {
+   "id": "ita-no",
+   "name": "Nord-Ovest",
+   "ownerId": "ita",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "che-all",
+    "fra-ara",
+    "fra-se",
+    "ita-cen",
+    "ita-ne"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-eur-all",
+    "bloc-mea-all",
+    "ita-sar"
+   ],
+   "movementAdjacentRegionIds": [
+    "fra-ara",
+    "fra-se",
+    "ita-cen",
+    "ita-ne"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159309573",
+     "ne:admin1:1159310913",
+     "ne:admin1:1159310915",
+     "ne:admin1:1159310917",
+     "ne:admin1:1159316903",
+     "ne:admin1:1159316905",
+     "ne:admin1:1159316907",
+     "ne:admin1:1159316909",
+     "ne:admin1:1159316911",
+     "ne:admin1:1159316913",
+     "ne:admin1:1159316915",
+     "ne:admin1:1159316917",
+     "ne:admin1:1159316921",
+     "ne:admin1:1159316923",
+     "ne:admin1:1159316925",
+     "ne:admin1:1159316927",
+     "ne:admin1:1159316929",
+     "ne:admin1:1159316931",
+     "ne:admin1:1159316933",
+     "ne:admin1:1159316935",
+     "ne:admin1:1159316939",
+     "ne:admin1:1159316941",
+     "ne:admin1:1159316943",
+     "ne:admin1:1159316945",
+     "ne:admin1:1159316947"
+    ]
+   },
+   "statisticalUnits": [
+    "ITC"
+   ]
+  },
+  {
+   "id": "ita-ne",
+   "name": "Nord-Est",
+   "ownerId": "ita",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "aut-all",
+    "bloc-eur-all",
+    "che-all",
+    "ita-cen",
+    "ita-no"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-mea-all"
+   ],
+   "movementAdjacentRegionIds": [
+    "ita-cen",
+    "ita-no"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159308507",
+     "ne:admin1:1159309571",
+     "ne:admin1:1159310919",
+     "ne:admin1:1159310921",
+     "ne:admin1:1159316949",
+     "ne:admin1:1159316951",
+     "ne:admin1:1159316953",
+     "ne:admin1:1159316957",
+     "ne:admin1:1159316959",
+     "ne:admin1:1159316961",
+     "ne:admin1:1159316963",
+     "ne:admin1:1159316965",
+     "ne:admin1:1159316967",
+     "ne:admin1:1159316969",
+     "ne:admin1:1159316971",
+     "ne:admin1:1159316975",
+     "ne:admin1:1159316977",
+     "ne:admin1:1159316979",
+     "ne:admin1:1159316981",
+     "ne:admin1:1159316983",
+     "ne:admin1:1159316985",
+     "ne:admin1:1159316987"
+    ]
+   },
+   "statisticalUnits": [
+    "ITH"
+   ]
+  },
+  {
+   "id": "ita-cen",
+   "name": "Centro",
+   "ownerId": "ita",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "bloc-eur-all",
+    "ita-ne",
+    "ita-no",
+    "ita-sud"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-mea-all",
+    "fra-cor",
+    "ita-sar"
+   ],
+   "movementAdjacentRegionIds": [
+    "ita-ne",
+    "ita-no",
+    "ita-sud"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159309441",
+     "ne:admin1:1159309565",
+     "ne:admin1:1159309567",
+     "ne:admin1:1159309569",
+     "ne:admin1:1159316989",
+     "ne:admin1:1159316993",
+     "ne:admin1:1159316995",
+     "ne:admin1:1159316997",
+     "ne:admin1:1159316999",
+     "ne:admin1:1159317001",
+     "ne:admin1:1159317003",
+     "ne:admin1:1159317005",
+     "ne:admin1:1159317007",
+     "ne:admin1:1159317011",
+     "ne:admin1:1159317013",
+     "ne:admin1:1159317015",
+     "ne:admin1:1159317017",
+     "ne:admin1:1159317019",
+     "ne:admin1:1159317021",
+     "ne:admin1:1159317023",
+     "ne:admin1:1159317025",
+     "ne:admin1:1159317029"
+    ]
+   },
+   "statisticalUnits": [
+    "ITI"
+   ]
+  },
+  {
+   "id": "ita-sud",
+   "name": "Sud",
+   "ownerId": "ita",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "ita-cen"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-eur-all",
+    "bloc-mea-all",
+    "grc-all",
+    "ita-sic"
+   ],
+   "movementAdjacentRegionIds": [
+    "ita-cen"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159309403",
+     "ne:admin1:1159309563",
+     "ne:admin1:1159309577",
+     "ne:admin1:1159309579",
+     "ne:admin1:1159309581",
+     "ne:admin1:1159309583",
+     "ne:admin1:1159317031",
+     "ne:admin1:1159317033",
+     "ne:admin1:1159317035",
+     "ne:admin1:1159317037",
+     "ne:admin1:1159317039",
+     "ne:admin1:1159317041",
+     "ne:admin1:1159317043",
+     "ne:admin1:1159317047",
+     "ne:admin1:1159317049",
+     "ne:admin1:1159317051",
+     "ne:admin1:1159317053",
+     "ne:admin1:1159317055",
+     "ne:admin1:1159317057",
+     "ne:admin1:1159317059",
+     "ne:admin1:1159317061",
+     "ne:admin1:1159317065",
+     "ne:admin1:1159317067",
+     "ne:admin1:1159317069"
+    ]
+   },
+   "statisticalUnits": [
+    "ITF"
+   ]
+  },
+  {
+   "id": "ita-sic",
+   "name": "Sicilia",
+   "ownerId": "ita",
+   "kind": "province",
+   "landAdjacentRegionIds": [],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-eur-all",
+    "bloc-mea-all",
+    "ita-sud"
+   ],
+   "movementAdjacentRegionIds": [],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159309345",
+     "ne:admin1:1159317071",
+     "ne:admin1:1159317073",
+     "ne:admin1:1159317075",
+     "ne:admin1:1159317077",
+     "ne:admin1:1159317079",
+     "ne:admin1:1159317083",
+     "ne:admin1:1159317085",
+     "ne:admin1:1159317087"
+    ]
+   },
+   "statisticalUnits": [
+    "ITG1"
+   ]
+  },
+  {
+   "id": "ita-sar",
+   "name": "Sardegna",
+   "ownerId": "ita",
+   "kind": "province",
+   "landAdjacentRegionIds": [],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-eur-all",
+    "bloc-mea-all",
+    "fra-cor",
+    "ita-cen",
+    "ita-no"
+   ],
+   "movementAdjacentRegionIds": [],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159315799",
+     "ne:admin1:1159317089",
+     "ne:admin1:1159317091",
+     "ne:admin1:1159317093",
+     "ne:admin1:1159317095",
+     "ne:admin1:1159317097",
+     "ne:admin1:1159317101",
+     "ne:admin1:1159317103"
+    ]
+   },
+   "statisticalUnits": [
+    "ITG2"
+   ]
+  },
+  {
+   "id": "pol-maz",
+   "name": "Makroregion województwo mazowieckie",
+   "ownerId": "pol",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "pol-cen",
+    "pol-pn",
+    "pol-wsc"
+   ],
+   "maritimeLinkedRegionIds": [],
+   "movementAdjacentRegionIds": [
+    "pol-cen",
+    "pol-pn",
+    "pol-wsc"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159314695"
+    ]
+   },
+   "statisticalUnits": [
+    "PL9"
+   ]
+  },
+  {
+   "id": "pol-pol",
+   "name": "Makroregion południowy",
+   "ownerId": "pol",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "bloc-eur-all",
+    "cze-all",
+    "pol-cen",
+    "pol-pdz",
+    "pol-wsc"
+   ],
+   "maritimeLinkedRegionIds": [],
+   "movementAdjacentRegionIds": [
+    "pol-cen",
+    "pol-pdz",
+    "pol-wsc"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159314691",
+     "ne:admin1:1159314709"
+    ]
+   },
+   "statisticalUnits": [
+    "PL2"
+   ]
+  },
+  {
+   "id": "pol-pza",
+   "name": "Makroregion północno-zachodni",
+   "ownerId": "pol",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "deu-mo",
+    "deu-no",
+    "pol-cen",
+    "pol-pdz",
+    "pol-pn"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-eur-all",
+    "bloc-mea-all"
+   ],
+   "movementAdjacentRegionIds": [
+    "deu-mo",
+    "deu-no",
+    "pol-cen",
+    "pol-pdz",
+    "pol-pn"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159314681",
+     "ne:admin1:1159314683",
+     "ne:admin1:1159314685"
+    ]
+   },
+   "statisticalUnits": [
+    "PL4"
+   ]
+  },
+  {
+   "id": "pol-pdz",
+   "name": "Makroregion południowo-zachodni",
+   "ownerId": "pol",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "cze-all",
+    "deu-mo",
+    "pol-cen",
+    "pol-pol",
+    "pol-pza"
+   ],
+   "maritimeLinkedRegionIds": [],
+   "movementAdjacentRegionIds": [
+    "deu-mo",
+    "pol-cen",
+    "pol-pol",
+    "pol-pza"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159314679",
+     "ne:admin1:1159314707"
+    ]
+   },
+   "statisticalUnits": [
+    "PL5"
+   ]
+  },
+  {
+   "id": "pol-pn",
+   "name": "Makroregion północny",
+   "ownerId": "pol",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "bloc-eec-all",
+    "bloc-eur-all",
+    "pol-cen",
+    "pol-maz",
+    "pol-pza",
+    "pol-wsc"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-mea-all"
+   ],
+   "movementAdjacentRegionIds": [
+    "pol-cen",
+    "pol-maz",
+    "pol-pza",
+    "pol-wsc"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159314675",
+     "ne:admin1:1159314677",
+     "ne:admin1:1159314689"
+    ]
+   },
+   "statisticalUnits": [
+    "PL6"
+   ]
+  },
+  {
+   "id": "pol-cen",
+   "name": "Makroregion centralny",
+   "ownerId": "pol",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "pol-maz",
+    "pol-pdz",
+    "pol-pn",
+    "pol-pol",
+    "pol-pza",
+    "pol-wsc"
+   ],
+   "maritimeLinkedRegionIds": [],
+   "movementAdjacentRegionIds": [
+    "pol-maz",
+    "pol-pdz",
+    "pol-pn",
+    "pol-pol",
+    "pol-pza",
+    "pol-wsc"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159314693",
+     "ne:admin1:1159314697"
+    ]
+   },
+   "statisticalUnits": [
+    "PL7"
+   ]
+  },
+  {
+   "id": "pol-wsc",
+   "name": "Makroregion wschodni",
+   "ownerId": "pol",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "bloc-eec-all",
+    "bloc-eur-all",
+    "pol-cen",
+    "pol-maz",
+    "pol-pn",
+    "pol-pol"
+   ],
+   "maritimeLinkedRegionIds": [],
+   "movementAdjacentRegionIds": [
+    "pol-cen",
+    "pol-maz",
+    "pol-pn",
+    "pol-pol"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159314699",
+     "ne:admin1:1159314701",
+     "ne:admin1:1159314703"
+    ]
+   },
+   "statisticalUnits": [
+    "PL8"
+   ]
+  },
+  {
+   "id": "tur-ist",
+   "name": "İstanbul",
+   "ownerId": "tur",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "tur-mar"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-eur-all",
+    "bloc-mea-all"
+   ],
+   "movementAdjacentRegionIds": [
+    "tur-mar"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159312323"
+    ]
+   },
+   "statisticalUnits": [
+    "TR1"
+   ]
+  },
+  {
+   "id": "tur-mar",
+   "name": "Marmara (Batı Marmara, Doğu Marmara)",
+   "ownerId": "tur",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "bgr-all",
+    "grc-all",
+    "tur-ban",
+    "tur-ege",
+    "tur-ist",
+    "tur-kar"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-eur-all",
+    "bloc-mea-all"
+   ],
+   "movementAdjacentRegionIds": [
+    "tur-ban",
+    "tur-ege",
+    "tur-ist",
+    "tur-kar"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159312153",
+     "ne:admin1:1159312317",
+     "ne:admin1:1159312319",
+     "ne:admin1:1159312321",
+     "ne:admin1:1159312325",
+     "ne:admin1:1159312327",
+     "ne:admin1:1159312361",
+     "ne:admin1:1159312363",
+     "ne:admin1:1159312367",
+     "ne:admin1:1159312369",
+     "ne:admin1:1159312371",
+     "ne:admin1:1159317187",
+     "ne:admin1:1159317195"
+    ]
+   },
+   "statisticalUnits": [
+    "TR2",
+    "TR4"
+   ]
+  },
+  {
+   "id": "tur-ege",
+   "name": "Ege",
+   "ownerId": "tur",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "tur-akd",
+    "tur-ban",
+    "tur-mar"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-eur-all",
+    "bloc-mea-all",
+    "grc-all"
+   ],
+   "movementAdjacentRegionIds": [
+    "tur-akd",
+    "tur-ban",
+    "tur-mar"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159312357",
+     "ne:admin1:1159312359",
+     "ne:admin1:1159312377",
+     "ne:admin1:1159312381",
+     "ne:admin1:1159312387",
+     "ne:admin1:1159312389",
+     "ne:admin1:1159312391",
+     "ne:admin1:1159314355"
+    ]
+   },
+   "statisticalUnits": [
+    "TR3"
+   ]
+  },
+  {
+   "id": "tur-ban",
+   "name": "Batı Anadolu",
+   "ownerId": "tur",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "tur-akd",
+    "tur-ege",
+    "tur-kar",
+    "tur-mar",
+    "tur-oan"
+   ],
+   "maritimeLinkedRegionIds": [],
+   "movementAdjacentRegionIds": [
+    "tur-akd",
+    "tur-ege",
+    "tur-kar",
+    "tur-mar",
+    "tur-oan"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159314343",
+     "ne:admin1:1159314351",
+     "ne:admin1:1159314353"
+    ]
+   },
+   "statisticalUnits": [
+    "TR5"
+   ]
+  },
+  {
+   "id": "tur-akd",
+   "name": "Akdeniz",
+   "ownerId": "tur",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "bloc-mea-all",
+    "tur-ban",
+    "tur-dog",
+    "tur-ege",
+    "tur-gda",
+    "tur-oan"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-eur-all"
+   ],
+   "movementAdjacentRegionIds": [
+    "tur-ban",
+    "tur-dog",
+    "tur-ege",
+    "tur-gda",
+    "tur-oan"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159312375",
+     "ne:admin1:1159312379",
+     "ne:admin1:1159312385",
+     "ne:admin1:1159312397",
+     "ne:admin1:1159312403",
+     "ne:admin1:1159312411",
+     "ne:admin1:1159314361",
+     "ne:admin1:1159315909"
+    ]
+   },
+   "statisticalUnits": [
+    "TR6"
+   ]
+  },
+  {
+   "id": "tur-oan",
+   "name": "Orta Anadolu",
+   "ownerId": "tur",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "tur-akd",
+    "tur-ban",
+    "tur-dog",
+    "tur-kar"
+   ],
+   "maritimeLinkedRegionIds": [],
+   "movementAdjacentRegionIds": [
+    "tur-akd",
+    "tur-ban",
+    "tur-dog",
+    "tur-kar"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159312339",
+     "ne:admin1:1159312405",
+     "ne:admin1:1159312407",
+     "ne:admin1:1159312409",
+     "ne:admin1:1159314365",
+     "ne:admin1:1159314367",
+     "ne:admin1:1159314369",
+     "ne:admin1:1159314371"
+    ]
+   },
+   "statisticalUnits": [
+    "TR7"
+   ]
+  },
+  {
+   "id": "tur-kar",
+   "name": "Karadeniz (Batı Karadeniz, Doğu Karadeniz)",
+   "ownerId": "tur",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "bloc-eec-all",
+    "tur-ban",
+    "tur-dog",
+    "tur-mar",
+    "tur-oan"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eur-all",
+    "bloc-mea-all"
+   ],
+   "movementAdjacentRegionIds": [
+    "tur-ban",
+    "tur-dog",
+    "tur-mar",
+    "tur-oan"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159312331",
+     "ne:admin1:1159312333",
+     "ne:admin1:1159312335",
+     "ne:admin1:1159312337",
+     "ne:admin1:1159312341",
+     "ne:admin1:1159312343",
+     "ne:admin1:1159312345",
+     "ne:admin1:1159312353",
+     "ne:admin1:1159312355",
+     "ne:admin1:1159312373",
+     "ne:admin1:1159312413",
+     "ne:admin1:1159314347",
+     "ne:admin1:1159314349",
+     "ne:admin1:1159314373",
+     "ne:admin1:1159317191",
+     "ne:admin1:1159317193"
+    ]
+   },
+   "statisticalUnits": [
+    "TR8",
+    "TR9"
+   ]
+  },
+  {
+   "id": "tur-dog",
+   "name": "Doğu Anadolu (Kuzeydoğu, Ortadoğu Anadolu)",
+   "ownerId": "tur",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "bloc-eec-all",
+    "bloc-mea-all",
+    "tur-akd",
+    "tur-gda",
+    "tur-kar",
+    "tur-oan"
+   ],
+   "maritimeLinkedRegionIds": [],
+   "movementAdjacentRegionIds": [
+    "tur-akd",
+    "tur-gda",
+    "tur-kar",
+    "tur-oan"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159312349",
+     "ne:admin1:1159312351",
+     "ne:admin1:1159312395",
+     "ne:admin1:1159312399",
+     "ne:admin1:1159312415",
+     "ne:admin1:1159312417",
+     "ne:admin1:1159312423",
+     "ne:admin1:1159312425",
+     "ne:admin1:1159314375",
+     "ne:admin1:1159314377",
+     "ne:admin1:1159314389",
+     "ne:admin1:1159314391",
+     "ne:admin1:1159314393",
+     "ne:admin1:1159315905",
+     "ne:admin1:1159315907"
+    ]
+   },
+   "statisticalUnits": [
+    "TRA",
+    "TRB"
+   ]
+  },
+  {
+   "id": "tur-gda",
+   "name": "Güneydoğu Anadolu",
+   "ownerId": "tur",
+   "kind": "province",
+   "landAdjacentRegionIds": [
+    "bloc-mea-all",
+    "tur-akd",
+    "tur-dog"
+   ],
+   "maritimeLinkedRegionIds": [],
+   "movementAdjacentRegionIds": [
+    "tur-akd",
+    "tur-dog"
+   ],
+   "naturalEarth": {
+    "admin1": [
+     "ne:admin1:1159312393",
+     "ne:admin1:1159312421",
+     "ne:admin1:1159314357",
+     "ne:admin1:1159314359",
+     "ne:admin1:1159314379",
+     "ne:admin1:1159314383",
+     "ne:admin1:1159314385",
+     "ne:admin1:1159314387",
+     "ne:admin1:1159315913"
+    ]
+   },
+   "statisticalUnits": [
+    "TRC"
+   ]
+  },
+  {
+   "id": "irl-all",
+   "name": "Ireland",
+   "ownerId": "irl",
+   "kind": "neighbour",
+   "landAdjacentRegionIds": [
+    "gbr-nir"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-eur-all",
+    "bloc-mea-all",
+    "fra-oue",
+    "gbr-wls"
+   ],
+   "movementAdjacentRegionIds": [],
+   "naturalEarth": {
+    "admin0": [
+     "IRL"
+    ]
+   },
+   "statisticalUnits": null
+  },
+  {
+   "id": "esp-all",
+   "name": "Spain",
+   "ownerId": "esp",
+   "kind": "neighbour",
+   "landAdjacentRegionIds": [
+    "bloc-eur-all",
+    "bloc-mea-all",
+    "fra-naq",
+    "fra-occ"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all"
+   ],
+   "movementAdjacentRegionIds": [],
+   "naturalEarth": {
+    "admin0": [
+     "ESP"
+    ]
+   },
+   "statisticalUnits": null
+  },
+  {
+   "id": "nld-all",
+   "name": "Netherlands",
+   "ownerId": "nld",
+   "kind": "neighbour",
+   "landAdjacentRegionIds": [
+    "bel-all",
+    "deu-nor",
+    "deu-nrw"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-eur-all",
+    "bloc-mea-all",
+    "gbr-nth"
+   ],
+   "movementAdjacentRegionIds": [],
+   "naturalEarth": {
+    "admin0": [
+     "NLD"
+    ]
+   },
+   "statisticalUnits": null
+  },
+  {
+   "id": "bel-all",
+   "name": "Belgium",
+   "ownerId": "bel",
+   "kind": "neighbour",
+   "landAdjacentRegionIds": [
+    "bloc-eur-all",
+    "deu-mit",
+    "deu-nrw",
+    "fra-ne",
+    "nld-all"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-mea-all"
+   ],
+   "movementAdjacentRegionIds": [],
+   "naturalEarth": {
+    "admin0": [
+     "BEL"
+    ]
+   },
+   "statisticalUnits": null
+  },
+  {
+   "id": "che-all",
+   "name": "Switzerland",
+   "ownerId": "che",
+   "kind": "neighbour",
+   "landAdjacentRegionIds": [
+    "aut-all",
+    "bloc-eur-all",
+    "deu-bw",
+    "fra-ara",
+    "fra-cen",
+    "fra-ne",
+    "ita-ne",
+    "ita-no"
+   ],
+   "maritimeLinkedRegionIds": [],
+   "movementAdjacentRegionIds": [],
+   "naturalEarth": {
+    "admin0": [
+     "CHE"
+    ]
+   },
+   "statisticalUnits": null
+  },
+  {
+   "id": "aut-all",
+   "name": "Austria",
+   "ownerId": "aut",
+   "kind": "neighbour",
+   "landAdjacentRegionIds": [
+    "bloc-eur-all",
+    "che-all",
+    "cze-all",
+    "deu-bw",
+    "deu-by",
+    "ita-ne"
+   ],
+   "maritimeLinkedRegionIds": [],
+   "movementAdjacentRegionIds": [],
+   "naturalEarth": {
+    "admin0": [
+     "AUT"
+    ]
+   },
+   "statisticalUnits": null
+  },
+  {
+   "id": "cze-all",
+   "name": "Czechia",
+   "ownerId": "cze",
+   "kind": "neighbour",
+   "landAdjacentRegionIds": [
+    "aut-all",
+    "bloc-eur-all",
+    "deu-by",
+    "deu-mo",
+    "pol-pdz",
+    "pol-pol"
+   ],
+   "maritimeLinkedRegionIds": [],
+   "movementAdjacentRegionIds": [],
+   "naturalEarth": {
+    "admin0": [
+     "CZE"
+    ]
+   },
+   "statisticalUnits": null
+  },
+  {
+   "id": "nor-all",
+   "name": "Norway",
+   "ownerId": "nor",
+   "kind": "neighbour",
+   "landAdjacentRegionIds": [
+    "bloc-eec-all",
+    "bloc-eur-all"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-mea-all",
+    "gbr-sco"
+   ],
+   "movementAdjacentRegionIds": [],
+   "naturalEarth": {
+    "admin0": [
+     "NOR"
+    ]
+   },
+   "statisticalUnits": null
+  },
+  {
+   "id": "grc-all",
+   "name": "Greece",
+   "ownerId": "grc",
+   "kind": "neighbour",
+   "landAdjacentRegionIds": [
+    "bgr-all",
+    "bloc-eur-all",
+    "tur-mar"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-mea-all",
+    "ita-sud",
+    "tur-ege"
+   ],
+   "movementAdjacentRegionIds": [],
+   "naturalEarth": {
+    "admin0": [
+     "GRC"
+    ]
+   },
+   "statisticalUnits": null
+  },
+  {
+   "id": "bgr-all",
+   "name": "Bulgaria",
+   "ownerId": "bgr",
+   "kind": "neighbour",
+   "landAdjacentRegionIds": [
+    "bloc-eur-all",
+    "grc-all",
+    "tur-mar"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-mea-all"
+   ],
+   "movementAdjacentRegionIds": [],
+   "naturalEarth": {
+    "admin0": [
+     "BGR"
+    ]
+   },
+   "statisticalUnits": null
+  },
+  {
+   "id": "bloc-eur-all",
+   "name": "Rest of Europe",
+   "ownerId": "bloc-eur",
+   "kind": "bloc",
+   "landAdjacentRegionIds": [
+    "aut-all",
+    "bel-all",
+    "bgr-all",
+    "bloc-eec-all",
+    "che-all",
+    "cze-all",
+    "deu-mit",
+    "deu-nor",
+    "esp-all",
+    "fra-ne",
+    "fra-occ",
+    "fra-se",
+    "grc-all",
+    "ita-cen",
+    "ita-ne",
+    "nor-all",
+    "pol-pn",
+    "pol-pol",
+    "pol-wsc"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bloc-ame-all",
+    "bloc-apa-all",
+    "bloc-mea-all",
+    "deu-no",
+    "fra-cor",
+    "fra-naq",
+    "fra-oue",
+    "gbr-mid",
+    "gbr-nir",
+    "gbr-nth",
+    "gbr-sco",
+    "gbr-se",
+    "gbr-sw",
+    "gbr-wls",
+    "irl-all",
+    "ita-no",
+    "ita-sar",
+    "ita-sic",
+    "ita-sud",
+    "nld-all",
+    "pol-pza",
+    "tur-akd",
+    "tur-ege",
+    "tur-ist",
+    "tur-kar",
+    "tur-mar"
+   ],
+   "movementAdjacentRegionIds": [],
+   "naturalEarth": {
+    "admin0": [
+     "ALB",
+     "ALD",
+     "AND",
+     "BIH",
+     "CYN",
+     "CYP",
+     "DNK",
+     "ESB",
+     "EST",
+     "FIN",
+     "FRO",
+     "GGY",
+     "GIB",
+     "GRL",
+     "HRV",
+     "HUN",
+     "IMN",
+     "ISL",
+     "JEY",
+     "KOS",
+     "LIE",
+     "LTU",
+     "LUX",
+     "LVA",
+     "MCO",
+     "MKD",
+     "MLT",
+     "MNE",
+     "PRT",
+     "ROU",
+     "SMR",
+     "SRB",
+     "SVK",
+     "SVN",
+     "SWE",
+     "VAT",
+     "WSB"
+    ]
+   },
+   "statisticalUnits": null
+  },
+  {
+   "id": "bloc-eec-all",
+   "name": "Eastern Europe and Central Asia",
+   "ownerId": "bloc-eec",
+   "kind": "bloc",
+   "landAdjacentRegionIds": [
+    "bloc-apa-all",
+    "bloc-eur-all",
+    "bloc-mea-all",
+    "nor-all",
+    "pol-pn",
+    "pol-wsc",
+    "tur-dog",
+    "tur-kar"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bel-all",
+    "bgr-all",
+    "bloc-ame-all",
+    "deu-no",
+    "deu-nor",
+    "esp-all",
+    "fra-cor",
+    "fra-naq",
+    "fra-ne",
+    "fra-occ",
+    "fra-oue",
+    "fra-se",
+    "gbr-mid",
+    "gbr-nir",
+    "gbr-nth",
+    "gbr-sco",
+    "gbr-se",
+    "gbr-sw",
+    "gbr-wls",
+    "grc-all",
+    "irl-all",
+    "ita-cen",
+    "ita-ne",
+    "ita-no",
+    "ita-sar",
+    "ita-sic",
+    "ita-sud",
+    "nld-all",
+    "pol-pza",
+    "tur-akd",
+    "tur-ege",
+    "tur-ist",
+    "tur-mar"
+   ],
+   "movementAdjacentRegionIds": [],
+   "naturalEarth": {
+    "admin0": [
+     "ARM",
+     "AZE",
+     "BLR",
+     "GEO",
+     "KAB",
+     "KAZ",
+     "KGZ",
+     "MDA",
+     "RUS",
+     "TJK",
+     "TKM",
+     "UKR",
+     "UZB"
+    ]
+   },
+   "statisticalUnits": null
+  },
+  {
+   "id": "bloc-mea-all",
+   "name": "Middle East and Africa",
+   "ownerId": "bloc-mea",
+   "kind": "bloc",
+   "landAdjacentRegionIds": [
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "esp-all",
+    "tur-akd",
+    "tur-dog",
+    "tur-gda"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bel-all",
+    "bgr-all",
+    "bloc-ame-all",
+    "bloc-eur-all",
+    "deu-no",
+    "deu-nor",
+    "fra-cor",
+    "fra-naq",
+    "fra-ne",
+    "fra-occ",
+    "fra-oue",
+    "fra-se",
+    "gbr-mid",
+    "gbr-nir",
+    "gbr-nth",
+    "gbr-sco",
+    "gbr-se",
+    "gbr-sw",
+    "gbr-wls",
+    "grc-all",
+    "irl-all",
+    "ita-cen",
+    "ita-ne",
+    "ita-no",
+    "ita-sar",
+    "ita-sic",
+    "ita-sud",
+    "nld-all",
+    "nor-all",
+    "pol-pn",
+    "pol-pza",
+    "tur-ege",
+    "tur-ist",
+    "tur-kar",
+    "tur-mar"
+   ],
+   "movementAdjacentRegionIds": [],
+   "naturalEarth": {
+    "admin0": [
+     "AGO",
+     "ARE",
+     "BDI",
+     "BEN",
+     "BFA",
+     "BHR",
+     "BWA",
+     "CAF",
+     "CIV",
+     "CMR",
+     "COD",
+     "COG",
+     "COM",
+     "CPV",
+     "DJI",
+     "DZA",
+     "EGY",
+     "ERI",
+     "ETH",
+     "GAB",
+     "GHA",
+     "GIN",
+     "GMB",
+     "GNB",
+     "GNQ",
+     "IRN",
+     "IRQ",
+     "ISR",
+     "JOR",
+     "KEN",
+     "KWT",
+     "LBN",
+     "LBR",
+     "LBY",
+     "LSO",
+     "MAR",
+     "MDG",
+     "MLI",
+     "MOZ",
+     "MRT",
+     "MUS",
+     "MWI",
+     "NAM",
+     "NER",
+     "NGA",
+     "OMN",
+     "PSX",
+     "QAT",
+     "RWA",
+     "SAH",
+     "SAU",
+     "SDN",
+     "SDS",
+     "SEN",
+     "SHN",
+     "SLE",
+     "SOL",
+     "SOM",
+     "STP",
+     "SWZ",
+     "SYC",
+     "SYR",
+     "TCD",
+     "TGO",
+     "TUN",
+     "TZA",
+     "UGA",
+     "YEM",
+     "ZAF",
+     "ZMB",
+     "ZWE"
+    ]
+   },
+   "statisticalUnits": null
+  },
+  {
+   "id": "bloc-ame-all",
+   "name": "Americas",
+   "ownerId": "bloc-ame",
+   "kind": "bloc",
+   "landAdjacentRegionIds": [],
+   "maritimeLinkedRegionIds": [
+    "bel-all",
+    "bgr-all",
+    "bloc-apa-all",
+    "bloc-eec-all",
+    "bloc-eur-all",
+    "bloc-mea-all",
+    "deu-no",
+    "deu-nor",
+    "esp-all",
+    "fra-cor",
+    "fra-naq",
+    "fra-ne",
+    "fra-occ",
+    "fra-oue",
+    "fra-se",
+    "gbr-mid",
+    "gbr-nir",
+    "gbr-nth",
+    "gbr-sco",
+    "gbr-se",
+    "gbr-sw",
+    "gbr-wls",
+    "grc-all",
+    "irl-all",
+    "ita-cen",
+    "ita-ne",
+    "ita-no",
+    "ita-sar",
+    "ita-sic",
+    "ita-sud",
+    "nld-all",
+    "nor-all",
+    "pol-pn",
+    "pol-pza",
+    "tur-akd",
+    "tur-ege",
+    "tur-ist",
+    "tur-kar",
+    "tur-mar"
+   ],
+   "movementAdjacentRegionIds": [],
+   "naturalEarth": {
+    "admin0": [
+     "ABW",
+     "AIA",
+     "ARG",
+     "ATG",
+     "BHS",
+     "BLM",
+     "BLZ",
+     "BMU",
+     "BOL",
+     "BRA",
+     "BRB",
+     "BRI",
+     "CAN",
+     "CHL",
+     "COL",
+     "CRI",
+     "CUB",
+     "CUW",
+     "CYM",
+     "DMA",
+     "DOM",
+     "ECU",
+     "FLK",
+     "GRD",
+     "GTM",
+     "GUY",
+     "HND",
+     "HTI",
+     "JAM",
+     "KNA",
+     "LCA",
+     "MAF",
+     "MEX",
+     "MSR",
+     "NIC",
+     "PAN",
+     "PER",
+     "PRI",
+     "PRY",
+     "SLV",
+     "SPM",
+     "SUR",
+     "SXM",
+     "TCA",
+     "TTO",
+     "UMI",
+     "URY",
+     "USA",
+     "VCT",
+     "VEN",
+     "VGB",
+     "VIR"
+    ]
+   },
+   "statisticalUnits": null
+  },
+  {
+   "id": "bloc-apa-all",
+   "name": "Asia-Pacific",
+   "ownerId": "bloc-apa",
+   "kind": "bloc",
+   "landAdjacentRegionIds": [
+    "bloc-eec-all",
+    "bloc-mea-all"
+   ],
+   "maritimeLinkedRegionIds": [
+    "bel-all",
+    "bgr-all",
+    "bloc-ame-all",
+    "bloc-eur-all",
+    "deu-no",
+    "deu-nor",
+    "esp-all",
+    "fra-cor",
+    "fra-naq",
+    "fra-ne",
+    "fra-occ",
+    "fra-oue",
+    "fra-se",
+    "gbr-mid",
+    "gbr-nir",
+    "gbr-nth",
+    "gbr-sco",
+    "gbr-se",
+    "gbr-sw",
+    "gbr-wls",
+    "grc-all",
+    "irl-all",
+    "ita-cen",
+    "ita-ne",
+    "ita-no",
+    "ita-sar",
+    "ita-sic",
+    "ita-sud",
+    "nld-all",
+    "nor-all",
+    "pol-pn",
+    "pol-pza",
+    "tur-akd",
+    "tur-ege",
+    "tur-ist",
+    "tur-kar",
+    "tur-mar"
+   ],
+   "movementAdjacentRegionIds": [],
+   "naturalEarth": {
+    "admin0": [
+     "AFG",
+     "ASM",
+     "AUS",
+     "BGD",
+     "BRN",
+     "BTN",
+     "CHN",
+     "COK",
+     "FJI",
+     "FSM",
+     "GUM",
+     "HKG",
+     "IDN",
+     "IND",
+     "JPN",
+     "KHM",
+     "KIR",
+     "KOR",
+     "LAO",
+     "LKA",
+     "MAC",
+     "MDV",
+     "MHL",
+     "MMR",
+     "MNG",
+     "MNP",
+     "MYS",
+     "NCL",
+     "NFK",
+     "NIU",
+     "NPL",
+     "NRU",
+     "NZL",
+     "PAK",
+     "PCN",
+     "PHL",
+     "PLW",
+     "PNG",
+     "PRK",
+     "PYF",
+     "SGP",
+     "SLB",
+     "THA",
+     "TLS",
+     "TON",
+     "TUV",
+     "TWN",
+     "VNM",
+     "VUT",
+     "WLF",
+     "WSM"
+    ]
+   },
+   "statisticalUnits": null
+  }
+ ],
+ "links": {
+  "land": [
+   {
+    "a": "aut-all",
+    "b": "bloc-eur-all",
+    "laneId": "land-aut-all|bloc-eur-all",
+    "distance": 0.8
+   },
+   {
+    "a": "aut-all",
+    "b": "che-all",
+    "laneId": "land-aut-all|che-all",
+    "distance": 0.8
+   },
+   {
+    "a": "aut-all",
+    "b": "cze-all",
+    "laneId": "land-aut-all|cze-all",
+    "distance": 0.8
+   },
+   {
+    "a": "aut-all",
+    "b": "deu-bw",
+    "laneId": "land-aut-all|deu-bw",
+    "distance": 0.8
+   },
+   {
+    "a": "aut-all",
+    "b": "deu-by",
+    "laneId": "land-aut-all|deu-by",
+    "distance": 0.8
+   },
+   {
+    "a": "aut-all",
+    "b": "ita-ne",
+    "laneId": "land-aut-all|ita-ne",
+    "distance": 0.8
+   },
+   {
+    "a": "bel-all",
+    "b": "bloc-eur-all",
+    "laneId": "land-bel-all|bloc-eur-all",
+    "distance": 0.8
+   },
+   {
+    "a": "bel-all",
+    "b": "deu-mit",
+    "laneId": "land-bel-all|deu-mit",
+    "distance": 0.8
+   },
+   {
+    "a": "bel-all",
+    "b": "deu-nrw",
+    "laneId": "land-bel-all|deu-nrw",
+    "distance": 0.8
+   },
+   {
+    "a": "bel-all",
+    "b": "fra-ne",
+    "laneId": "land-bel-all|fra-ne",
+    "distance": 0.8
+   },
+   {
+    "a": "bel-all",
+    "b": "nld-all",
+    "laneId": "land-bel-all|nld-all",
+    "distance": 0.8
+   },
+   {
+    "a": "bgr-all",
+    "b": "bloc-eur-all",
+    "laneId": "land-bgr-all|bloc-eur-all",
+    "distance": 0.8
+   },
+   {
+    "a": "bgr-all",
+    "b": "grc-all",
+    "laneId": "land-bgr-all|grc-all",
+    "distance": 0.8
+   },
+   {
+    "a": "bgr-all",
+    "b": "tur-mar",
+    "laneId": "land-bgr-all|tur-mar",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "bloc-eec-all",
+    "laneId": "land-bloc-apa-all|bloc-eec-all",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "bloc-mea-all",
+    "laneId": "land-bloc-apa-all|bloc-mea-all",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "bloc-eur-all",
+    "laneId": "land-bloc-eec-all|bloc-eur-all",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "bloc-mea-all",
+    "laneId": "land-bloc-eec-all|bloc-mea-all",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "nor-all",
+    "laneId": "land-bloc-eec-all|nor-all",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "pol-pn",
+    "laneId": "land-bloc-eec-all|pol-pn",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "pol-wsc",
+    "laneId": "land-bloc-eec-all|pol-wsc",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "tur-dog",
+    "laneId": "land-bloc-eec-all|tur-dog",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "tur-kar",
+    "laneId": "land-bloc-eec-all|tur-kar",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "che-all",
+    "laneId": "land-bloc-eur-all|che-all",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "cze-all",
+    "laneId": "land-bloc-eur-all|cze-all",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "deu-mit",
+    "laneId": "land-bloc-eur-all|deu-mit",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "deu-nor",
+    "laneId": "land-bloc-eur-all|deu-nor",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "esp-all",
+    "laneId": "land-bloc-eur-all|esp-all",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "fra-ne",
+    "laneId": "land-bloc-eur-all|fra-ne",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "fra-occ",
+    "laneId": "land-bloc-eur-all|fra-occ",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "fra-se",
+    "laneId": "land-bloc-eur-all|fra-se",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "grc-all",
+    "laneId": "land-bloc-eur-all|grc-all",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "ita-cen",
+    "laneId": "land-bloc-eur-all|ita-cen",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "ita-ne",
+    "laneId": "land-bloc-eur-all|ita-ne",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "nor-all",
+    "laneId": "land-bloc-eur-all|nor-all",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "pol-pn",
+    "laneId": "land-bloc-eur-all|pol-pn",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "pol-pol",
+    "laneId": "land-bloc-eur-all|pol-pol",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "pol-wsc",
+    "laneId": "land-bloc-eur-all|pol-wsc",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "esp-all",
+    "laneId": "land-bloc-mea-all|esp-all",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "tur-akd",
+    "laneId": "land-bloc-mea-all|tur-akd",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "tur-dog",
+    "laneId": "land-bloc-mea-all|tur-dog",
+    "distance": 0.8
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "tur-gda",
+    "laneId": "land-bloc-mea-all|tur-gda",
+    "distance": 0.8
+   },
+   {
+    "a": "che-all",
+    "b": "deu-bw",
+    "laneId": "land-che-all|deu-bw",
+    "distance": 0.8
+   },
+   {
+    "a": "che-all",
+    "b": "fra-ara",
+    "laneId": "land-che-all|fra-ara",
+    "distance": 0.8
+   },
+   {
+    "a": "che-all",
+    "b": "fra-cen",
+    "laneId": "land-che-all|fra-cen",
+    "distance": 0.8
+   },
+   {
+    "a": "che-all",
+    "b": "fra-ne",
+    "laneId": "land-che-all|fra-ne",
+    "distance": 0.8
+   },
+   {
+    "a": "che-all",
+    "b": "ita-ne",
+    "laneId": "land-che-all|ita-ne",
+    "distance": 0.8
+   },
+   {
+    "a": "che-all",
+    "b": "ita-no",
+    "laneId": "land-che-all|ita-no",
+    "distance": 0.8
+   },
+   {
+    "a": "cze-all",
+    "b": "deu-by",
+    "laneId": "land-cze-all|deu-by",
+    "distance": 0.8
+   },
+   {
+    "a": "cze-all",
+    "b": "deu-mo",
+    "laneId": "land-cze-all|deu-mo",
+    "distance": 0.8
+   },
+   {
+    "a": "cze-all",
+    "b": "pol-pdz",
+    "laneId": "land-cze-all|pol-pdz",
+    "distance": 0.8
+   },
+   {
+    "a": "cze-all",
+    "b": "pol-pol",
+    "laneId": "land-cze-all|pol-pol",
+    "distance": 0.8
+   },
+   {
+    "a": "deu-bw",
+    "b": "deu-by",
+    "laneId": "land-deu-bw|deu-by",
+    "distance": 0.8
+   },
+   {
+    "a": "deu-bw",
+    "b": "deu-mit",
+    "laneId": "land-deu-bw|deu-mit",
+    "distance": 0.8
+   },
+   {
+    "a": "deu-bw",
+    "b": "fra-ne",
+    "laneId": "land-deu-bw|fra-ne",
+    "distance": 0.8
+   },
+   {
+    "a": "deu-by",
+    "b": "deu-mit",
+    "laneId": "land-deu-by|deu-mit",
+    "distance": 0.8
+   },
+   {
+    "a": "deu-by",
+    "b": "deu-mo",
+    "laneId": "land-deu-by|deu-mo",
+    "distance": 0.8
+   },
+   {
+    "a": "deu-mit",
+    "b": "deu-mo",
+    "laneId": "land-deu-mit|deu-mo",
+    "distance": 0.8
+   },
+   {
+    "a": "deu-mit",
+    "b": "deu-nor",
+    "laneId": "land-deu-mit|deu-nor",
+    "distance": 0.8
+   },
+   {
+    "a": "deu-mit",
+    "b": "deu-nrw",
+    "laneId": "land-deu-mit|deu-nrw",
+    "distance": 0.8
+   },
+   {
+    "a": "deu-mit",
+    "b": "fra-ne",
+    "laneId": "land-deu-mit|fra-ne",
+    "distance": 0.8
+   },
+   {
+    "a": "deu-mo",
+    "b": "deu-no",
+    "laneId": "land-deu-mo|deu-no",
+    "distance": 0.8
+   },
+   {
+    "a": "deu-mo",
+    "b": "deu-nor",
+    "laneId": "land-deu-mo|deu-nor",
+    "distance": 0.8
+   },
+   {
+    "a": "deu-mo",
+    "b": "pol-pdz",
+    "laneId": "land-deu-mo|pol-pdz",
+    "distance": 0.8
+   },
+   {
+    "a": "deu-mo",
+    "b": "pol-pza",
+    "laneId": "land-deu-mo|pol-pza",
+    "distance": 0.8
+   },
+   {
+    "a": "deu-no",
+    "b": "deu-nor",
+    "laneId": "land-deu-no|deu-nor",
+    "distance": 0.8
+   },
+   {
+    "a": "deu-no",
+    "b": "pol-pza",
+    "laneId": "land-deu-no|pol-pza",
+    "distance": 0.8
+   },
+   {
+    "a": "deu-nor",
+    "b": "deu-nrw",
+    "laneId": "land-deu-nor|deu-nrw",
+    "distance": 0.8
+   },
+   {
+    "a": "deu-nor",
+    "b": "nld-all",
+    "laneId": "land-deu-nor|nld-all",
+    "distance": 0.8
+   },
+   {
+    "a": "deu-nrw",
+    "b": "nld-all",
+    "laneId": "land-deu-nrw|nld-all",
+    "distance": 0.8
+   },
+   {
+    "a": "esp-all",
+    "b": "fra-naq",
+    "laneId": "land-esp-all|fra-naq",
+    "distance": 0.8
+   },
+   {
+    "a": "esp-all",
+    "b": "fra-occ",
+    "laneId": "land-esp-all|fra-occ",
+    "distance": 0.8
+   },
+   {
+    "a": "fra-ara",
+    "b": "fra-cen",
+    "laneId": "land-fra-ara|fra-cen",
+    "distance": 0.8
+   },
+   {
+    "a": "fra-ara",
+    "b": "fra-naq",
+    "laneId": "land-fra-ara|fra-naq",
+    "distance": 0.8
+   },
+   {
+    "a": "fra-ara",
+    "b": "fra-occ",
+    "laneId": "land-fra-ara|fra-occ",
+    "distance": 0.8
+   },
+   {
+    "a": "fra-ara",
+    "b": "fra-se",
+    "laneId": "land-fra-ara|fra-se",
+    "distance": 0.8
+   },
+   {
+    "a": "fra-ara",
+    "b": "ita-no",
+    "laneId": "land-fra-ara|ita-no",
+    "distance": 0.8
+   },
+   {
+    "a": "fra-cen",
+    "b": "fra-idf",
+    "laneId": "land-fra-cen|fra-idf",
+    "distance": 0.8
+   },
+   {
+    "a": "fra-cen",
+    "b": "fra-naq",
+    "laneId": "land-fra-cen|fra-naq",
+    "distance": 0.8
+   },
+   {
+    "a": "fra-cen",
+    "b": "fra-ne",
+    "laneId": "land-fra-cen|fra-ne",
+    "distance": 0.8
+   },
+   {
+    "a": "fra-cen",
+    "b": "fra-oue",
+    "laneId": "land-fra-cen|fra-oue",
+    "distance": 0.8
+   },
+   {
+    "a": "fra-idf",
+    "b": "fra-ne",
+    "laneId": "land-fra-idf|fra-ne",
+    "distance": 0.8
+   },
+   {
+    "a": "fra-idf",
+    "b": "fra-oue",
+    "laneId": "land-fra-idf|fra-oue",
+    "distance": 0.8
+   },
+   {
+    "a": "fra-naq",
+    "b": "fra-occ",
+    "laneId": "land-fra-naq|fra-occ",
+    "distance": 0.8
+   },
+   {
+    "a": "fra-naq",
+    "b": "fra-oue",
+    "laneId": "land-fra-naq|fra-oue",
+    "distance": 0.8
+   },
+   {
+    "a": "fra-ne",
+    "b": "fra-oue",
+    "laneId": "land-fra-ne|fra-oue",
+    "distance": 0.8
+   },
+   {
+    "a": "fra-occ",
+    "b": "fra-se",
+    "laneId": "land-fra-occ|fra-se",
+    "distance": 0.8
+   },
+   {
+    "a": "fra-se",
+    "b": "ita-no",
+    "laneId": "land-fra-se|ita-no",
+    "distance": 0.8
+   },
+   {
+    "a": "gbr-lon",
+    "b": "gbr-se",
+    "laneId": "land-gbr-lon|gbr-se",
+    "distance": 0.8
+   },
+   {
+    "a": "gbr-mid",
+    "b": "gbr-nth",
+    "laneId": "land-gbr-mid|gbr-nth",
+    "distance": 0.8
+   },
+   {
+    "a": "gbr-mid",
+    "b": "gbr-se",
+    "laneId": "land-gbr-mid|gbr-se",
+    "distance": 0.8
+   },
+   {
+    "a": "gbr-mid",
+    "b": "gbr-sw",
+    "laneId": "land-gbr-mid|gbr-sw",
+    "distance": 0.8
+   },
+   {
+    "a": "gbr-mid",
+    "b": "gbr-wls",
+    "laneId": "land-gbr-mid|gbr-wls",
+    "distance": 0.8
+   },
+   {
+    "a": "gbr-nir",
+    "b": "irl-all",
+    "laneId": "land-gbr-nir|irl-all",
+    "distance": 0.8
+   },
+   {
+    "a": "gbr-nth",
+    "b": "gbr-sco",
+    "laneId": "land-gbr-nth|gbr-sco",
+    "distance": 0.8
+   },
+   {
+    "a": "gbr-nth",
+    "b": "gbr-wls",
+    "laneId": "land-gbr-nth|gbr-wls",
+    "distance": 0.8
+   },
+   {
+    "a": "gbr-se",
+    "b": "gbr-sw",
+    "laneId": "land-gbr-se|gbr-sw",
+    "distance": 0.8
+   },
+   {
+    "a": "gbr-sw",
+    "b": "gbr-wls",
+    "laneId": "land-gbr-sw|gbr-wls",
+    "distance": 0.8
+   },
+   {
+    "a": "grc-all",
+    "b": "tur-mar",
+    "laneId": "land-grc-all|tur-mar",
+    "distance": 0.8
+   },
+   {
+    "a": "ita-cen",
+    "b": "ita-ne",
+    "laneId": "land-ita-cen|ita-ne",
+    "distance": 0.8
+   },
+   {
+    "a": "ita-cen",
+    "b": "ita-no",
+    "laneId": "land-ita-cen|ita-no",
+    "distance": 0.8
+   },
+   {
+    "a": "ita-cen",
+    "b": "ita-sud",
+    "laneId": "land-ita-cen|ita-sud",
+    "distance": 0.8
+   },
+   {
+    "a": "ita-ne",
+    "b": "ita-no",
+    "laneId": "land-ita-ne|ita-no",
+    "distance": 0.8
+   },
+   {
+    "a": "pol-cen",
+    "b": "pol-maz",
+    "laneId": "land-pol-cen|pol-maz",
+    "distance": 0.8
+   },
+   {
+    "a": "pol-cen",
+    "b": "pol-pdz",
+    "laneId": "land-pol-cen|pol-pdz",
+    "distance": 0.8
+   },
+   {
+    "a": "pol-cen",
+    "b": "pol-pn",
+    "laneId": "land-pol-cen|pol-pn",
+    "distance": 0.8
+   },
+   {
+    "a": "pol-cen",
+    "b": "pol-pol",
+    "laneId": "land-pol-cen|pol-pol",
+    "distance": 0.8
+   },
+   {
+    "a": "pol-cen",
+    "b": "pol-pza",
+    "laneId": "land-pol-cen|pol-pza",
+    "distance": 0.8
+   },
+   {
+    "a": "pol-cen",
+    "b": "pol-wsc",
+    "laneId": "land-pol-cen|pol-wsc",
+    "distance": 0.8
+   },
+   {
+    "a": "pol-maz",
+    "b": "pol-pn",
+    "laneId": "land-pol-maz|pol-pn",
+    "distance": 0.8
+   },
+   {
+    "a": "pol-maz",
+    "b": "pol-wsc",
+    "laneId": "land-pol-maz|pol-wsc",
+    "distance": 0.8
+   },
+   {
+    "a": "pol-pdz",
+    "b": "pol-pol",
+    "laneId": "land-pol-pdz|pol-pol",
+    "distance": 0.8
+   },
+   {
+    "a": "pol-pdz",
+    "b": "pol-pza",
+    "laneId": "land-pol-pdz|pol-pza",
+    "distance": 0.8
+   },
+   {
+    "a": "pol-pn",
+    "b": "pol-pza",
+    "laneId": "land-pol-pn|pol-pza",
+    "distance": 0.8
+   },
+   {
+    "a": "pol-pn",
+    "b": "pol-wsc",
+    "laneId": "land-pol-pn|pol-wsc",
+    "distance": 0.8
+   },
+   {
+    "a": "pol-pol",
+    "b": "pol-wsc",
+    "laneId": "land-pol-pol|pol-wsc",
+    "distance": 0.8
+   },
+   {
+    "a": "tur-akd",
+    "b": "tur-ban",
+    "laneId": "land-tur-akd|tur-ban",
+    "distance": 0.8
+   },
+   {
+    "a": "tur-akd",
+    "b": "tur-dog",
+    "laneId": "land-tur-akd|tur-dog",
+    "distance": 0.8
+   },
+   {
+    "a": "tur-akd",
+    "b": "tur-ege",
+    "laneId": "land-tur-akd|tur-ege",
+    "distance": 0.8
+   },
+   {
+    "a": "tur-akd",
+    "b": "tur-gda",
+    "laneId": "land-tur-akd|tur-gda",
+    "distance": 0.8
+   },
+   {
+    "a": "tur-akd",
+    "b": "tur-oan",
+    "laneId": "land-tur-akd|tur-oan",
+    "distance": 0.8
+   },
+   {
+    "a": "tur-ban",
+    "b": "tur-ege",
+    "laneId": "land-tur-ban|tur-ege",
+    "distance": 0.8
+   },
+   {
+    "a": "tur-ban",
+    "b": "tur-kar",
+    "laneId": "land-tur-ban|tur-kar",
+    "distance": 0.8
+   },
+   {
+    "a": "tur-ban",
+    "b": "tur-mar",
+    "laneId": "land-tur-ban|tur-mar",
+    "distance": 0.8
+   },
+   {
+    "a": "tur-ban",
+    "b": "tur-oan",
+    "laneId": "land-tur-ban|tur-oan",
+    "distance": 0.8
+   },
+   {
+    "a": "tur-dog",
+    "b": "tur-gda",
+    "laneId": "land-tur-dog|tur-gda",
+    "distance": 0.8
+   },
+   {
+    "a": "tur-dog",
+    "b": "tur-kar",
+    "laneId": "land-tur-dog|tur-kar",
+    "distance": 0.8
+   },
+   {
+    "a": "tur-dog",
+    "b": "tur-oan",
+    "laneId": "land-tur-dog|tur-oan",
+    "distance": 0.8
+   },
+   {
+    "a": "tur-ege",
+    "b": "tur-mar",
+    "laneId": "land-tur-ege|tur-mar",
+    "distance": 0.8
+   },
+   {
+    "a": "tur-ist",
+    "b": "tur-mar",
+    "laneId": "land-tur-ist|tur-mar",
+    "distance": 0.8
+   },
+   {
+    "a": "tur-kar",
+    "b": "tur-mar",
+    "laneId": "land-tur-kar|tur-mar",
+    "distance": 0.8
+   },
+   {
+    "a": "tur-kar",
+    "b": "tur-oan",
+    "laneId": "land-tur-kar|tur-oan",
+    "distance": 0.8
+   }
+  ],
+  "maritime": [
+   {
+    "a": "bel-all",
+    "b": "bloc-ame-all",
+    "laneId": "sea-bel-all|bloc-ame-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bel-all",
+    "b": "bloc-apa-all",
+    "laneId": "sea-bel-all|bloc-apa-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bel-all",
+    "b": "bloc-eec-all",
+    "laneId": "sea-bel-all|bloc-eec-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bel-all",
+    "b": "bloc-mea-all",
+    "laneId": "sea-bel-all|bloc-mea-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bgr-all",
+    "b": "bloc-ame-all",
+    "laneId": "sea-bgr-all|bloc-ame-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bgr-all",
+    "b": "bloc-apa-all",
+    "laneId": "sea-bgr-all|bloc-apa-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bgr-all",
+    "b": "bloc-eec-all",
+    "laneId": "sea-bgr-all|bloc-eec-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bgr-all",
+    "b": "bloc-mea-all",
+    "laneId": "sea-bgr-all|bloc-mea-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "bloc-apa-all",
+    "laneId": "sea-bloc-ame-all|bloc-apa-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to bloc (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "bloc-eec-all",
+    "laneId": "sea-bloc-ame-all|bloc-eec-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to bloc (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "bloc-eur-all",
+    "laneId": "sea-bloc-ame-all|bloc-eur-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to bloc (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "bloc-mea-all",
+    "laneId": "sea-bloc-ame-all|bloc-mea-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to bloc (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "deu-no",
+    "laneId": "sea-bloc-ame-all|deu-no",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "deu-nor",
+    "laneId": "sea-bloc-ame-all|deu-nor",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "esp-all",
+    "laneId": "sea-bloc-ame-all|esp-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "fra-cor",
+    "laneId": "sea-bloc-ame-all|fra-cor",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "fra-naq",
+    "laneId": "sea-bloc-ame-all|fra-naq",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "fra-ne",
+    "laneId": "sea-bloc-ame-all|fra-ne",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "fra-occ",
+    "laneId": "sea-bloc-ame-all|fra-occ",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "fra-oue",
+    "laneId": "sea-bloc-ame-all|fra-oue",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "fra-se",
+    "laneId": "sea-bloc-ame-all|fra-se",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "gbr-mid",
+    "laneId": "sea-bloc-ame-all|gbr-mid",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "gbr-nir",
+    "laneId": "sea-bloc-ame-all|gbr-nir",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "gbr-nth",
+    "laneId": "sea-bloc-ame-all|gbr-nth",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "gbr-sco",
+    "laneId": "sea-bloc-ame-all|gbr-sco",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "gbr-se",
+    "laneId": "sea-bloc-ame-all|gbr-se",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "gbr-sw",
+    "laneId": "sea-bloc-ame-all|gbr-sw",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "gbr-wls",
+    "laneId": "sea-bloc-ame-all|gbr-wls",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "grc-all",
+    "laneId": "sea-bloc-ame-all|grc-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "irl-all",
+    "laneId": "sea-bloc-ame-all|irl-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "ita-cen",
+    "laneId": "sea-bloc-ame-all|ita-cen",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "ita-ne",
+    "laneId": "sea-bloc-ame-all|ita-ne",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "ita-no",
+    "laneId": "sea-bloc-ame-all|ita-no",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "ita-sar",
+    "laneId": "sea-bloc-ame-all|ita-sar",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "ita-sic",
+    "laneId": "sea-bloc-ame-all|ita-sic",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "ita-sud",
+    "laneId": "sea-bloc-ame-all|ita-sud",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "nld-all",
+    "laneId": "sea-bloc-ame-all|nld-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "nor-all",
+    "laneId": "sea-bloc-ame-all|nor-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "pol-pn",
+    "laneId": "sea-bloc-ame-all|pol-pn",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "pol-pza",
+    "laneId": "sea-bloc-ame-all|pol-pza",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "tur-akd",
+    "laneId": "sea-bloc-ame-all|tur-akd",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "tur-ege",
+    "laneId": "sea-bloc-ame-all|tur-ege",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "tur-ist",
+    "laneId": "sea-bloc-ame-all|tur-ist",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "tur-kar",
+    "laneId": "sea-bloc-ame-all|tur-kar",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-ame-all",
+    "b": "tur-mar",
+    "laneId": "sea-bloc-ame-all|tur-mar",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "bloc-eur-all",
+    "laneId": "sea-bloc-apa-all|bloc-eur-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to bloc (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "deu-no",
+    "laneId": "sea-bloc-apa-all|deu-no",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "deu-nor",
+    "laneId": "sea-bloc-apa-all|deu-nor",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "esp-all",
+    "laneId": "sea-bloc-apa-all|esp-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "fra-cor",
+    "laneId": "sea-bloc-apa-all|fra-cor",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "fra-naq",
+    "laneId": "sea-bloc-apa-all|fra-naq",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "fra-ne",
+    "laneId": "sea-bloc-apa-all|fra-ne",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "fra-occ",
+    "laneId": "sea-bloc-apa-all|fra-occ",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "fra-oue",
+    "laneId": "sea-bloc-apa-all|fra-oue",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "fra-se",
+    "laneId": "sea-bloc-apa-all|fra-se",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "gbr-mid",
+    "laneId": "sea-bloc-apa-all|gbr-mid",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "gbr-nir",
+    "laneId": "sea-bloc-apa-all|gbr-nir",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "gbr-nth",
+    "laneId": "sea-bloc-apa-all|gbr-nth",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "gbr-sco",
+    "laneId": "sea-bloc-apa-all|gbr-sco",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "gbr-se",
+    "laneId": "sea-bloc-apa-all|gbr-se",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "gbr-sw",
+    "laneId": "sea-bloc-apa-all|gbr-sw",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "gbr-wls",
+    "laneId": "sea-bloc-apa-all|gbr-wls",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "grc-all",
+    "laneId": "sea-bloc-apa-all|grc-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "irl-all",
+    "laneId": "sea-bloc-apa-all|irl-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "ita-cen",
+    "laneId": "sea-bloc-apa-all|ita-cen",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "ita-ne",
+    "laneId": "sea-bloc-apa-all|ita-ne",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "ita-no",
+    "laneId": "sea-bloc-apa-all|ita-no",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "ita-sar",
+    "laneId": "sea-bloc-apa-all|ita-sar",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "ita-sic",
+    "laneId": "sea-bloc-apa-all|ita-sic",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "ita-sud",
+    "laneId": "sea-bloc-apa-all|ita-sud",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "nld-all",
+    "laneId": "sea-bloc-apa-all|nld-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "nor-all",
+    "laneId": "sea-bloc-apa-all|nor-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "pol-pn",
+    "laneId": "sea-bloc-apa-all|pol-pn",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "pol-pza",
+    "laneId": "sea-bloc-apa-all|pol-pza",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "tur-akd",
+    "laneId": "sea-bloc-apa-all|tur-akd",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "tur-ege",
+    "laneId": "sea-bloc-apa-all|tur-ege",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "tur-ist",
+    "laneId": "sea-bloc-apa-all|tur-ist",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "tur-kar",
+    "laneId": "sea-bloc-apa-all|tur-kar",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-apa-all",
+    "b": "tur-mar",
+    "laneId": "sea-bloc-apa-all|tur-mar",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "deu-no",
+    "laneId": "sea-bloc-eec-all|deu-no",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "deu-nor",
+    "laneId": "sea-bloc-eec-all|deu-nor",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "esp-all",
+    "laneId": "sea-bloc-eec-all|esp-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "fra-cor",
+    "laneId": "sea-bloc-eec-all|fra-cor",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "fra-naq",
+    "laneId": "sea-bloc-eec-all|fra-naq",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "fra-ne",
+    "laneId": "sea-bloc-eec-all|fra-ne",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "fra-occ",
+    "laneId": "sea-bloc-eec-all|fra-occ",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "fra-oue",
+    "laneId": "sea-bloc-eec-all|fra-oue",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "fra-se",
+    "laneId": "sea-bloc-eec-all|fra-se",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "gbr-mid",
+    "laneId": "sea-bloc-eec-all|gbr-mid",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "gbr-nir",
+    "laneId": "sea-bloc-eec-all|gbr-nir",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "gbr-nth",
+    "laneId": "sea-bloc-eec-all|gbr-nth",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "gbr-sco",
+    "laneId": "sea-bloc-eec-all|gbr-sco",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "gbr-se",
+    "laneId": "sea-bloc-eec-all|gbr-se",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "gbr-sw",
+    "laneId": "sea-bloc-eec-all|gbr-sw",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "gbr-wls",
+    "laneId": "sea-bloc-eec-all|gbr-wls",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "grc-all",
+    "laneId": "sea-bloc-eec-all|grc-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "irl-all",
+    "laneId": "sea-bloc-eec-all|irl-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "ita-cen",
+    "laneId": "sea-bloc-eec-all|ita-cen",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "ita-ne",
+    "laneId": "sea-bloc-eec-all|ita-ne",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "ita-no",
+    "laneId": "sea-bloc-eec-all|ita-no",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "ita-sar",
+    "laneId": "sea-bloc-eec-all|ita-sar",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "ita-sic",
+    "laneId": "sea-bloc-eec-all|ita-sic",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "ita-sud",
+    "laneId": "sea-bloc-eec-all|ita-sud",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "nld-all",
+    "laneId": "sea-bloc-eec-all|nld-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "pol-pza",
+    "laneId": "sea-bloc-eec-all|pol-pza",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "tur-akd",
+    "laneId": "sea-bloc-eec-all|tur-akd",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "tur-ege",
+    "laneId": "sea-bloc-eec-all|tur-ege",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "tur-ist",
+    "laneId": "sea-bloc-eec-all|tur-ist",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eec-all",
+    "b": "tur-mar",
+    "laneId": "sea-bloc-eec-all|tur-mar",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "bloc-mea-all",
+    "laneId": "sea-bloc-eur-all|bloc-mea-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to bloc (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "deu-no",
+    "laneId": "sea-bloc-eur-all|deu-no",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "fra-cor",
+    "laneId": "sea-bloc-eur-all|fra-cor",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "fra-naq",
+    "laneId": "sea-bloc-eur-all|fra-naq",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "fra-oue",
+    "laneId": "sea-bloc-eur-all|fra-oue",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "gbr-mid",
+    "laneId": "sea-bloc-eur-all|gbr-mid",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "gbr-nir",
+    "laneId": "sea-bloc-eur-all|gbr-nir",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "gbr-nth",
+    "laneId": "sea-bloc-eur-all|gbr-nth",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "gbr-sco",
+    "laneId": "sea-bloc-eur-all|gbr-sco",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "gbr-se",
+    "laneId": "sea-bloc-eur-all|gbr-se",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "gbr-sw",
+    "laneId": "sea-bloc-eur-all|gbr-sw",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "gbr-wls",
+    "laneId": "sea-bloc-eur-all|gbr-wls",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "irl-all",
+    "laneId": "sea-bloc-eur-all|irl-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "ita-no",
+    "laneId": "sea-bloc-eur-all|ita-no",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "ita-sar",
+    "laneId": "sea-bloc-eur-all|ita-sar",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "ita-sic",
+    "laneId": "sea-bloc-eur-all|ita-sic",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "ita-sud",
+    "laneId": "sea-bloc-eur-all|ita-sud",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "nld-all",
+    "laneId": "sea-bloc-eur-all|nld-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "pol-pza",
+    "laneId": "sea-bloc-eur-all|pol-pza",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "tur-akd",
+    "laneId": "sea-bloc-eur-all|tur-akd",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "tur-ege",
+    "laneId": "sea-bloc-eur-all|tur-ege",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "tur-ist",
+    "laneId": "sea-bloc-eur-all|tur-ist",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "tur-kar",
+    "laneId": "sea-bloc-eur-all|tur-kar",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-eur-all",
+    "b": "tur-mar",
+    "laneId": "sea-bloc-eur-all|tur-mar",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "deu-no",
+    "laneId": "sea-bloc-mea-all|deu-no",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "deu-nor",
+    "laneId": "sea-bloc-mea-all|deu-nor",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "fra-cor",
+    "laneId": "sea-bloc-mea-all|fra-cor",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "fra-naq",
+    "laneId": "sea-bloc-mea-all|fra-naq",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "fra-ne",
+    "laneId": "sea-bloc-mea-all|fra-ne",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "fra-occ",
+    "laneId": "sea-bloc-mea-all|fra-occ",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "fra-oue",
+    "laneId": "sea-bloc-mea-all|fra-oue",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "fra-se",
+    "laneId": "sea-bloc-mea-all|fra-se",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "gbr-mid",
+    "laneId": "sea-bloc-mea-all|gbr-mid",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "gbr-nir",
+    "laneId": "sea-bloc-mea-all|gbr-nir",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "gbr-nth",
+    "laneId": "sea-bloc-mea-all|gbr-nth",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "gbr-sco",
+    "laneId": "sea-bloc-mea-all|gbr-sco",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "gbr-se",
+    "laneId": "sea-bloc-mea-all|gbr-se",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "gbr-sw",
+    "laneId": "sea-bloc-mea-all|gbr-sw",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "gbr-wls",
+    "laneId": "sea-bloc-mea-all|gbr-wls",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "grc-all",
+    "laneId": "sea-bloc-mea-all|grc-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "irl-all",
+    "laneId": "sea-bloc-mea-all|irl-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "ita-cen",
+    "laneId": "sea-bloc-mea-all|ita-cen",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "ita-ne",
+    "laneId": "sea-bloc-mea-all|ita-ne",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "ita-no",
+    "laneId": "sea-bloc-mea-all|ita-no",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "ita-sar",
+    "laneId": "sea-bloc-mea-all|ita-sar",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "ita-sic",
+    "laneId": "sea-bloc-mea-all|ita-sic",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "ita-sud",
+    "laneId": "sea-bloc-mea-all|ita-sud",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "nld-all",
+    "laneId": "sea-bloc-mea-all|nld-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "nor-all",
+    "laneId": "sea-bloc-mea-all|nor-all",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "pol-pn",
+    "laneId": "sea-bloc-mea-all|pol-pn",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "pol-pza",
+    "laneId": "sea-bloc-mea-all|pol-pza",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "tur-ege",
+    "laneId": "sea-bloc-mea-all|tur-ege",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "tur-ist",
+    "laneId": "sea-bloc-mea-all|tur-ist",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "tur-kar",
+    "laneId": "sea-bloc-mea-all|tur-kar",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "bloc-mea-all",
+    "b": "tur-mar",
+    "laneId": "sea-bloc-mea-all|tur-mar",
+    "kind": "sea lane",
+    "crossing": "world market by sea",
+    "status": "rule",
+    "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "fra-cor",
+    "b": "fra-se",
+    "laneId": "sea-fra-cor|fra-se",
+    "kind": "ferry",
+    "crossing": "Ajaccio/Bastia – Marseille, Toulon, Nice",
+    "status": "operating 2026 (Corsica Linea, Corsica Ferries; checked via search 2026-11)",
+    "rule": "curated (WORLD-02 sea links)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "fra-cor",
+    "b": "ita-cen",
+    "laneId": "sea-fra-cor|ita-cen",
+    "kind": "ferry",
+    "crossing": "Bastia – Livorno (Tuscany)",
+    "status": "operating 2026, year-round (Corsica Ferries, Moby; checked via search 2026-11)",
+    "rule": "curated (WORLD-02 sea links)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "fra-cor",
+    "b": "ita-sar",
+    "laneId": "sea-fra-cor|ita-sar",
+    "kind": "ferry",
+    "crossing": "Bonifacio – Santa Teresa Gallura (Strait of Bonifacio)",
+    "status": "operating 2026 (Moby / Ichnusa public-service route; checked via search 2026-11)",
+    "rule": "curated (WORLD-02 sea links)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "fra-ne",
+    "b": "gbr-se",
+    "laneId": "sea-fra-ne|gbr-se",
+    "kind": "fixed link",
+    "crossing": "Channel Tunnel, Folkestone (Kent) – Coquelles (Pas-de-Calais)",
+    "status": "fixed infrastructure",
+    "rule": "curated (WORLD-02 sea links)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "fra-oue",
+    "b": "gbr-se",
+    "laneId": "sea-fra-oue|gbr-se",
+    "kind": "ferry",
+    "crossing": "Portsmouth / Poole – Caen, Cherbourg, Le Havre, St-Malo",
+    "status": "to verify",
+    "rule": "curated (WORLD-02 sea links)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "fra-oue",
+    "b": "irl-all",
+    "laneId": "sea-fra-oue|irl-all",
+    "kind": "ferry",
+    "crossing": "Cherbourg / Roscoff – Rosslare / Cork",
+    "status": "to verify",
+    "rule": "curated (WORLD-02 sea links)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "gbr-nir",
+    "b": "gbr-nth",
+    "laneId": "sea-gbr-nir|gbr-nth",
+    "kind": "ferry",
+    "crossing": "Belfast – Liverpool (North West England)",
+    "status": "operating 2026 (Stena Line; checked via search 2026-11)",
+    "rule": "curated (WORLD-02 sea links)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "gbr-nir",
+    "b": "gbr-sco",
+    "laneId": "sea-gbr-nir|gbr-sco",
+    "kind": "ferry",
+    "crossing": "Belfast / Larne – Cairnryan",
+    "status": "operating 2026 (Stena Line, P&O; checked via search 2026-11)",
+    "rule": "curated (WORLD-02 sea links)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "gbr-nth",
+    "b": "nld-all",
+    "laneId": "sea-gbr-nth|nld-all",
+    "kind": "ferry",
+    "crossing": "Hull – Rotterdam",
+    "status": "to verify",
+    "rule": "curated (WORLD-02 sea links)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "gbr-sco",
+    "b": "nor-all",
+    "laneId": "sea-gbr-sco|nor-all",
+    "kind": "sea lane",
+    "crossing": "North Sea energy and shipping (no passenger ferry assumed)",
+    "status": "to verify",
+    "rule": "curated (WORLD-02 sea links)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "gbr-wls",
+    "b": "irl-all",
+    "laneId": "sea-gbr-wls|irl-all",
+    "kind": "ferry",
+    "crossing": "Holyhead / Fishguard / Pembroke – Dublin / Rosslare",
+    "status": "to verify",
+    "rule": "curated (WORLD-02 sea links)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "grc-all",
+    "b": "ita-sud",
+    "laneId": "sea-grc-all|ita-sud",
+    "kind": "ferry",
+    "crossing": "Bari / Brindisi – Patras / Igoumenitsa",
+    "status": "to verify",
+    "rule": "curated (WORLD-02 sea links)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "grc-all",
+    "b": "tur-ege",
+    "laneId": "sea-grc-all|tur-ege",
+    "kind": "ferry",
+    "crossing": "Aegean coastal crossings (e.g. Çeşme – Chios)",
+    "status": "to verify",
+    "rule": "curated (WORLD-02 sea links)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "ita-cen",
+    "b": "ita-sar",
+    "laneId": "sea-ita-cen|ita-sar",
+    "kind": "ferry",
+    "crossing": "Olbia / Cagliari – Civitavecchia, Livorno",
+    "status": "to verify",
+    "rule": "curated (WORLD-02 sea links)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "ita-no",
+    "b": "ita-sar",
+    "laneId": "sea-ita-no|ita-sar",
+    "kind": "ferry",
+    "crossing": "Olbia / Porto Torres – Genoa",
+    "status": "to verify",
+    "rule": "curated (WORLD-02 sea links)",
+    "distance": 0.8,
+    "movement": false
+   },
+   {
+    "a": "ita-sic",
+    "b": "ita-sud",
+    "laneId": "sea-ita-sic|ita-sud",
+    "kind": "ferry",
+    "crossing": "Messina – Villa San Giovanni (Strait of Messina)",
+    "status": "to verify",
+    "rule": "curated (WORLD-02 sea links)",
+    "distance": 0.8,
+    "movement": false
+   }
+  ],
+  "movement": [
+   {
+    "a": "deu-bw",
+    "b": "deu-by"
+   },
+   {
+    "a": "deu-bw",
+    "b": "deu-mit"
+   },
+   {
+    "a": "deu-bw",
+    "b": "fra-ne"
+   },
+   {
+    "a": "deu-by",
+    "b": "deu-mit"
+   },
+   {
+    "a": "deu-by",
+    "b": "deu-mo"
+   },
+   {
+    "a": "deu-mit",
+    "b": "deu-mo"
+   },
+   {
+    "a": "deu-mit",
+    "b": "deu-nor"
+   },
+   {
+    "a": "deu-mit",
+    "b": "deu-nrw"
+   },
+   {
+    "a": "deu-mit",
+    "b": "fra-ne"
+   },
+   {
+    "a": "deu-mo",
+    "b": "deu-no"
+   },
+   {
+    "a": "deu-mo",
+    "b": "deu-nor"
+   },
+   {
+    "a": "deu-mo",
+    "b": "pol-pdz"
+   },
+   {
+    "a": "deu-mo",
+    "b": "pol-pza"
+   },
+   {
+    "a": "deu-no",
+    "b": "deu-nor"
+   },
+   {
+    "a": "deu-no",
+    "b": "pol-pza"
+   },
+   {
+    "a": "deu-nor",
+    "b": "deu-nrw"
+   },
+   {
+    "a": "fra-ara",
+    "b": "fra-cen"
+   },
+   {
+    "a": "fra-ara",
+    "b": "fra-naq"
+   },
+   {
+    "a": "fra-ara",
+    "b": "fra-occ"
+   },
+   {
+    "a": "fra-ara",
+    "b": "fra-se"
+   },
+   {
+    "a": "fra-ara",
+    "b": "ita-no"
+   },
+   {
+    "a": "fra-cen",
+    "b": "fra-idf"
+   },
+   {
+    "a": "fra-cen",
+    "b": "fra-naq"
+   },
+   {
+    "a": "fra-cen",
+    "b": "fra-ne"
+   },
+   {
+    "a": "fra-cen",
+    "b": "fra-oue"
+   },
+   {
+    "a": "fra-idf",
+    "b": "fra-ne"
+   },
+   {
+    "a": "fra-idf",
+    "b": "fra-oue"
+   },
+   {
+    "a": "fra-naq",
+    "b": "fra-occ"
+   },
+   {
+    "a": "fra-naq",
+    "b": "fra-oue"
+   },
+   {
+    "a": "fra-ne",
+    "b": "fra-oue"
+   },
+   {
+    "a": "fra-occ",
+    "b": "fra-se"
+   },
+   {
+    "a": "fra-se",
+    "b": "ita-no"
+   },
+   {
+    "a": "gbr-lon",
+    "b": "gbr-se"
+   },
+   {
+    "a": "gbr-mid",
+    "b": "gbr-nth"
+   },
+   {
+    "a": "gbr-mid",
+    "b": "gbr-se"
+   },
+   {
+    "a": "gbr-mid",
+    "b": "gbr-sw"
+   },
+   {
+    "a": "gbr-mid",
+    "b": "gbr-wls"
+   },
+   {
+    "a": "gbr-nth",
+    "b": "gbr-sco"
+   },
+   {
+    "a": "gbr-nth",
+    "b": "gbr-wls"
+   },
+   {
+    "a": "gbr-se",
+    "b": "gbr-sw"
+   },
+   {
+    "a": "gbr-sw",
+    "b": "gbr-wls"
+   },
+   {
+    "a": "ita-cen",
+    "b": "ita-ne"
+   },
+   {
+    "a": "ita-cen",
+    "b": "ita-no"
+   },
+   {
+    "a": "ita-cen",
+    "b": "ita-sud"
+   },
+   {
+    "a": "ita-ne",
+    "b": "ita-no"
+   },
+   {
+    "a": "pol-cen",
+    "b": "pol-maz"
+   },
+   {
+    "a": "pol-cen",
+    "b": "pol-pdz"
+   },
+   {
+    "a": "pol-cen",
+    "b": "pol-pn"
+   },
+   {
+    "a": "pol-cen",
+    "b": "pol-pol"
+   },
+   {
+    "a": "pol-cen",
+    "b": "pol-pza"
+   },
+   {
+    "a": "pol-cen",
+    "b": "pol-wsc"
+   },
+   {
+    "a": "pol-maz",
+    "b": "pol-pn"
+   },
+   {
+    "a": "pol-maz",
+    "b": "pol-wsc"
+   },
+   {
+    "a": "pol-pdz",
+    "b": "pol-pol"
+   },
+   {
+    "a": "pol-pdz",
+    "b": "pol-pza"
+   },
+   {
+    "a": "pol-pn",
+    "b": "pol-pza"
+   },
+   {
+    "a": "pol-pn",
+    "b": "pol-wsc"
+   },
+   {
+    "a": "pol-pol",
+    "b": "pol-wsc"
+   },
+   {
+    "a": "tur-akd",
+    "b": "tur-ban"
+   },
+   {
+    "a": "tur-akd",
+    "b": "tur-dog"
+   },
+   {
+    "a": "tur-akd",
+    "b": "tur-ege"
+   },
+   {
+    "a": "tur-akd",
+    "b": "tur-gda"
+   },
+   {
+    "a": "tur-akd",
+    "b": "tur-oan"
+   },
+   {
+    "a": "tur-ban",
+    "b": "tur-ege"
+   },
+   {
+    "a": "tur-ban",
+    "b": "tur-kar"
+   },
+   {
+    "a": "tur-ban",
+    "b": "tur-mar"
+   },
+   {
+    "a": "tur-ban",
+    "b": "tur-oan"
+   },
+   {
+    "a": "tur-dog",
+    "b": "tur-gda"
+   },
+   {
+    "a": "tur-dog",
+    "b": "tur-kar"
+   },
+   {
+    "a": "tur-dog",
+    "b": "tur-oan"
+   },
+   {
+    "a": "tur-ege",
+    "b": "tur-mar"
+   },
+   {
+    "a": "tur-ist",
+    "b": "tur-mar"
+   },
+   {
+    "a": "tur-kar",
+    "b": "tur-mar"
+   },
+   {
+    "a": "tur-kar",
+    "b": "tur-oan"
+   }
+  ],
+  "rules": "land = economic road lanes and land borders; maritime = economic sea lanes only (never army movement); movement = land movement between playable provinces only (simulated countries and blocs cannot be entered in v1)"
+ },
+ "economy": {
+  "regions": {
+   "fra-idf": {
+    "population": 12.485304,
+    "technology": 3.657969058761524,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.1325,
+     "energy": 0.618,
+     "materials": 0.1,
+     "industrial": 0.3655,
+     "consumer": 0.1729,
+     "military": 1
+    }
+   },
+   "fra-ne": {
+    "population": 11.548435,
+    "technology": 1.3276799779711463,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.69,
+     "energy": 1.0533,
+     "materials": 0.1,
+     "industrial": 0.875,
+     "consumer": 0.414,
+     "military": 1
+    }
+   },
+   "fra-oue": {
+    "population": 10.723955,
+    "technology": 1.5194477259466659,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.6622,
+     "energy": 0.7369,
+     "materials": 0.1,
+     "industrial": 0.8924,
+     "consumer": 0.4222,
+     "military": 1
+    }
+   },
+   "fra-cen": {
+    "population": 5.388943,
+    "technology": 1.4683653422561196,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.7334,
+     "energy": 0.9982,
+     "materials": 0.1,
+     "industrial": 0.9286,
+     "consumer": 0.4394,
+     "military": 1
+    }
+   },
+   "fra-naq": {
+    "population": 6.166168,
+    "technology": 1.5529107481837345,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.6363,
+     "energy": 0.8903,
+     "materials": 0.1,
+     "industrial": 0.6633,
+     "consumer": 0.3138,
+     "military": 1
+    }
+   },
+   "fra-occ": {
+    "population": 6.145261,
+    "technology": 1.4694092414646525,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.3833,
+     "energy": 0.9757,
+     "materials": 0.1,
+     "industrial": 0.6197,
+     "consumer": 0.2932,
+     "military": 1
+    }
+   },
+   "fra-ara": {
+    "population": 8.221946,
+    "technology": 2.006095792199385,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.4308,
+     "energy": 1.1082,
+     "materials": 0.1,
+     "industrial": 0.8844,
+     "consumer": 0.4184,
+     "military": 1
+    }
+   },
+   "fra-se": {
+    "population": 5.235661,
+    "technology": 1.9137120918559263,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.2366,
+     "energy": 0.8597,
+     "materials": 0.1,
+     "industrial": 0.4392,
+     "consumer": 0.2078,
+     "military": 1
+    }
+   },
+   "fra-cor": {
+    "population": 0.35716,
+    "technology": 1.508694547605485,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.2139,
+     "energy": 1.4506,
+     "materials": 0.1,
+     "industrial": 0.1828,
+     "consumer": 0.1,
+     "military": 1
+    }
+   },
+   "deu-nor": {
+    "population": 13.483125,
+    "technology": 1.7285817137141308,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.3749,
+     "energy": 0.9251,
+     "materials": 0.1,
+     "industrial": 1.2107,
+     "consumer": 0.427,
+     "military": 1
+    }
+   },
+   "deu-nrw": {
+    "population": 17.99097,
+    "technology": 1.5401547841790613,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.2513,
+     "energy": 0.9126,
+     "materials": 0.1,
+     "industrial": 1.1964,
+     "consumer": 0.4219,
+     "military": 1
+    }
+   },
+   "deu-mit": {
+    "population": 11.382067,
+    "technology": 1.7532540779372996,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.2558,
+     "energy": 0.6667,
+     "materials": 0.1,
+     "industrial": 1.2546,
+     "consumer": 0.4424,
+     "military": 1
+    }
+   },
+   "deu-bw": {
+    "population": 11.199231,
+    "technology": 2.048702100758067,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.3597,
+     "energy": 0.539,
+     "materials": 0.1,
+     "industrial": 2.1388,
+     "consumer": 0.7542,
+     "military": 1
+    }
+   },
+   "deu-by": {
+    "population": 13.140823,
+    "technology": 2.225652540114457,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.3477,
+     "energy": 0.583,
+     "materials": 0.1,
+     "industrial": 1.6715,
+     "consumer": 0.5894,
+     "military": 1
+    }
+   },
+   "deu-no": {
+    "population": 7.774474,
+    "technology": 1.4427860668267303,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.2166,
+     "energy": 1.0986,
+     "materials": 0.1,
+     "industrial": 0.6035,
+     "consumer": 0.2128,
+     "military": 1
+    }
+   },
+   "deu-mo": {
+    "population": 8.316583,
+    "technology": 0.9832528644809719,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.4201,
+     "energy": 1.2085,
+     "materials": 0.1,
+     "industrial": 1.333,
+     "consumer": 0.4701,
+     "military": 1
+    }
+   },
+   "gbr-sco": {
+    "population": 5.506,
+    "technology": 1.4202059248283292,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.5751,
+     "energy": 1.4893,
+     "materials": 0.1,
+     "industrial": 0.4903,
+     "consumer": 0.2405,
+     "military": 1
+    }
+   },
+   "gbr-nir": {
+    "population": 1.920382,
+    "technology": 1.1498440862070032,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.5739,
+     "energy": 0.7105,
+     "materials": 0.1,
+     "industrial": 0.6123,
+     "consumer": 0.4994,
+     "military": 1
+    }
+   },
+   "gbr-wls": {
+    "population": 3.167331,
+    "technology": 0.8443696028465808,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.4482,
+     "energy": 0.9874,
+     "materials": 0.1,
+     "industrial": 0.9065,
+     "consumer": 0.4609,
+     "military": 1
+    }
+   },
+   "gbr-nth": {
+    "population": 15.969621,
+    "technology": 1.100827777318868,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.311,
+     "energy": 0.6081,
+     "materials": 0.1,
+     "industrial": 0.8009,
+     "consumer": 0.4884,
+     "military": 1
+    }
+   },
+   "gbr-mid": {
+    "population": 11.110198,
+    "technology": 0.9573559374906682,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.3847,
+     "energy": 0.6976,
+     "materials": 0.1,
+     "industrial": 0.8175,
+     "consumer": 0.4543,
+     "military": 1
+    }
+   },
+   "gbr-lon": {
+    "population": 8.999705,
+    "technology": 3.4261794317402416,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.1,
+     "energy": 0.5265,
+     "materials": 0.1,
+     "industrial": 0.1,
+     "consumer": 0.108,
+     "military": 1
+    }
+   },
+   "gbr-se": {
+    "population": 16.022794,
+    "technology": 1.5377794538652372,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.2242,
+     "energy": 0.5326,
+     "materials": 0.1,
+     "industrial": 0.5399,
+     "consumer": 0.2467,
+     "military": 1
+    }
+   },
+   "gbr-sw": {
+    "population": 5.830152,
+    "technology": 1.3106074691837148,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.2974,
+     "energy": 0.5773,
+     "materials": 0.1,
+     "industrial": 0.6273,
+     "consumer": 0.3163,
+     "military": 1
+    }
+   },
+   "ita-no": {
+    "population": 15.87716,
+    "technology": 2.166940808117186,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.4126,
+     "energy": 0.5625,
+     "materials": 0.1,
+     "industrial": 1.153,
+     "consumer": 1.315,
+     "military": 1
+    }
+   },
+   "ita-ne": {
+    "population": 11.569997,
+    "technology": 2.033199709247653,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.6117,
+     "energy": 0.4613,
+     "materials": 0.1,
+     "industrial": 1.4219,
+     "consumer": 1.6217,
+     "military": 1
+    }
+   },
+   "ita-cen": {
+    "population": 11.717156,
+    "technology": 1.7909247304211613,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.3501,
+     "energy": 0.8277,
+     "materials": 0.1,
+     "industrial": 0.7362,
+     "consumer": 0.8396,
+     "military": 1
+    }
+   },
+   "ita-sud": {
+    "population": 13.439916,
+    "technology": 0.7855401361097615,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.5776,
+     "energy": 0.6157,
+     "materials": 0.1,
+     "industrial": 0.6493,
+     "consumer": 0.7405,
+     "military": 1
+    }
+   },
+   "ita-sic": {
+    "population": 4.805688,
+    "technology": 0.7238610447407485,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.6777,
+     "energy": 0.548,
+     "materials": 0.1,
+     "industrial": 0.3681,
+     "consumer": 0.4198,
+     "military": 1
+    }
+   },
+   "ita-sar": {
+    "population": 1.574299,
+    "technology": 0.9279785134730418,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.5982,
+     "energy": 0.5734,
+     "materials": 0.1,
+     "industrial": 0.3575,
+     "consumer": 0.4078,
+     "military": 1
+    }
+   },
+   "pol-maz": {
+    "population": 5.479902,
+    "technology": 2.1907500014897123,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.5989,
+     "energy": 1.2278,
+     "materials": 0.8162,
+     "industrial": 0.8018,
+     "consumer": 0.3565,
+     "military": 1
+    }
+   },
+   "pol-pol": {
+    "population": 7.550547,
+    "technology": 1.0224363048145828,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.4954,
+     "energy": 1.5659,
+     "materials": 1.041,
+     "industrial": 1.2465,
+     "consumer": 0.5543,
+     "military": 1
+    }
+   },
+   "pol-pza": {
+    "population": 5.976056,
+    "technology": 0.9561367630011623,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.9271,
+     "energy": 0.8845,
+     "materials": 0.588,
+     "industrial": 1.382,
+     "consumer": 0.6145,
+     "military": 1
+    }
+   },
+   "pol-pdz": {
+    "population": 3.703072,
+    "technology": 1.1361736295484401,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.7089,
+     "energy": 1.2428,
+     "materials": 0.8262,
+     "industrial": 1.6072,
+     "consumer": 0.7146,
+     "military": 1
+    }
+   },
+   "pol-pn": {
+    "population": 5.532827,
+    "technology": 0.7902002737487458,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.9543,
+     "energy": 0.6926,
+     "materials": 0.4604,
+     "industrial": 1.45,
+     "consumer": 0.6447,
+     "military": 1
+    }
+   },
+   "pol-cen": {
+    "population": 3.463255,
+    "technology": 0.8174800954438681,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.922,
+     "energy": 1.495,
+     "materials": 0.9938,
+     "industrial": 1.2678,
+     "consumer": 0.5637,
+     "military": 1
+    }
+   },
+   "pol-wsc": {
+    "population": 4.981695,
+    "technology": 0.6618497049432729,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.9914,
+     "energy": 0.9046,
+     "materials": 0.6014,
+     "industrial": 1.2431,
+     "consumer": 0.5527,
+     "military": 1
+    }
+   },
+   "tur-ist": {
+    "population": 15.781937,
+    "technology": 1.7687366458791418,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.3309,
+     "energy": 0.4302,
+     "materials": 0.3432,
+     "industrial": 0.8766,
+     "consumer": 1.5096,
+     "military": 1
+    }
+   },
+   "tur-mar": {
+    "population": 12.330792,
+    "technology": 1.1996020336157562,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 1.4881,
+     "energy": 0.6521,
+     "materials": 0.5202,
+     "industrial": 2.0356,
+     "consumer": 3.5054,
+     "military": 1
+    }
+   },
+   "tur-ege": {
+    "population": 10.916792,
+    "technology": 0.8620134288670759,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 1.7411,
+     "energy": 0.7857,
+     "materials": 0.6268,
+     "industrial": 1.3619,
+     "consumer": 2.3453,
+     "military": 1
+    }
+   },
+   "tur-ban": {
+    "population": 8.363577,
+    "technology": 1.4589203772327914,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 1.0641,
+     "energy": 0.6353,
+     "materials": 0.5068,
+     "industrial": 0.9294,
+     "consumer": 1.6006,
+     "military": 1
+    }
+   },
+   "tur-akd": {
+    "population": 10.935819,
+    "technology": 0.7440778426996482,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 1.6733,
+     "energy": 0.6353,
+     "materials": 0.5068,
+     "industrial": 0.7782,
+     "consumer": 1.3401,
+     "military": 1
+    }
+   },
+   "tur-oan": {
+    "population": 4.153111,
+    "technology": 0.678325329398526,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 2.5897,
+     "energy": 0.9683,
+     "materials": 0.7725,
+     "industrial": 1.1039,
+     "consumer": 1.901,
+     "military": 1
+    }
+   },
+   "tur-kar": {
+    "population": 7.40989,
+    "technology": 0.5658937407169851,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 1.998,
+     "energy": 0.7431,
+     "materials": 0.5928,
+     "industrial": 0.8751,
+     "consumer": 1.5069,
+     "military": 1
+    }
+   },
+   "tur-dog": {
+    "population": 6.07578,
+    "technology": 0.4642733133506605,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 2.4381,
+     "energy": 0.7546,
+     "materials": 0.6019,
+     "industrial": 0.3609,
+     "consumer": 0.6215,
+     "military": 1
+    }
+   },
+   "tur-gda": {
+    "population": 9.358267,
+    "technology": 0.46197295602655297,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 2.1803,
+     "energy": 0.6242,
+     "materials": 0.4979,
+     "industrial": 0.9562,
+     "consumer": 1.6466,
+     "military": 1
+    }
+   },
+   "irl-all": {
+    "population": 5.311538,
+    "technology": 3.155750185177671,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.3752,
+     "energy": 0.3533,
+     "materials": 0.1,
+     "industrial": 2.0215,
+     "consumer": 1.37,
+     "military": 1
+    }
+   },
+   "esp-all": {
+    "population": 48.352528,
+    "technology": 1.3422089656412146,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.6588,
+     "energy": 0.7832,
+     "materials": 0.1694,
+     "industrial": 0.6508,
+     "consumer": 0.503,
+     "military": 1
+    }
+   },
+   "nld-all": {
+    "population": 17.877116,
+    "technology": 1.9133749735566674,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.4812,
+     "energy": 0.8456,
+     "materials": 0.1,
+     "industrial": 0.7076,
+     "consumer": 0.228,
+     "military": 1
+    }
+   },
+   "bel-all": {
+    "population": 11.779946,
+    "technology": 2.437991874331053,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.3901,
+     "energy": 0.5916,
+     "materials": 0.1,
+     "industrial": 0.8302,
+     "consumer": 0.2841,
+     "military": 1
+    }
+   },
+   "che-all": {
+    "population": 8.888822,
+    "technology": 2.270816335700959,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.3256,
+     "energy": 0.519,
+     "materials": 0.1,
+     "industrial": 1.3071,
+     "consumer": 0.4117,
+     "military": 1
+    }
+   },
+   "aut-all": {
+    "population": 9.131761,
+    "technology": 2.579153565166569,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.4277,
+     "energy": 1.1088,
+     "materials": 0.1,
+     "industrial": 1.1085,
+     "consumer": 0.4275,
+     "military": 1
+    }
+   },
+   "cze-all": {
+    "population": 10.864042,
+    "technology": 1.2794432832985445,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.5258,
+     "energy": 1.0139,
+     "materials": 0.2461,
+     "industrial": 1.4692,
+     "consumer": 0.5816,
+     "military": 1
+    }
+   },
+   "nor-all": {
+    "population": 5.519594,
+    "technology": 2.308677980106405,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.3686,
+     "energy": 4,
+     "materials": 0.1,
+     "industrial": 0.3622,
+     "consumer": 0.1219,
+     "military": 1
+    }
+   },
+   "grc-all": {
+    "population": 10.388816,
+    "technology": 1.2221063578913869,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.9447,
+     "energy": 0.7897,
+     "materials": 0.1545,
+     "industrial": 0.5275,
+     "consumer": 0.2297,
+     "military": 1
+    }
+   },
+   "bgr-all": {
+    "population": 6.446595,
+    "technology": 0.8658686208927101,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.6479,
+     "energy": 1.1398,
+     "materials": 0.7824,
+     "industrial": 0.8625,
+     "consumer": 0.8158,
+     "military": 1
+    }
+   },
+   "bloc-eur-all": {
+    "population": 98.563,
+    "technology": 0.9757526765833267,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.5048,
+     "energy": 0.1,
+     "materials": 0.1426,
+     "industrial": 0.781,
+     "consumer": 0.8298,
+     "military": 1
+    }
+   },
+   "bloc-eec-all": {
+    "population": 290.865,
+    "technology": 0.5842072410521589,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.7504,
+     "energy": 4,
+     "materials": 1.9881,
+     "industrial": 0.725,
+     "consumer": 0.7703,
+     "military": 1
+    }
+   },
+   "bloc-mea-all": {
+    "population": 1767.099,
+    "technology": 0.18118174183179636,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 1.3184,
+     "energy": 4,
+     "materials": 0.7737,
+     "industrial": 0.6953,
+     "consumer": 0.7388,
+     "military": 1
+    }
+   },
+   "bloc-ame-all": {
+    "population": 1034.485,
+    "technology": 0.8296962527714086,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 0.9273,
+     "energy": 0.6201,
+     "materials": 1.8779,
+     "industrial": 0.8805,
+     "consumer": 0.9355,
+     "military": 1
+    }
+   },
+   "bloc-apa-all": {
+    "population": 4312.608,
+    "technology": 0.35211841807607386,
+    "populationGrowth": 0,
+    "advantage": {
+     "food": 1.225,
+     "energy": 0.1822,
+     "materials": 0.8515,
+     "industrial": 1.1957,
+     "consumer": 1.2704,
+     "military": 1
+    }
+   }
+  },
+  "countries": {
+   "fra": {
+    "taxIncome": 0.7,
+    "taxConsumption": 0.3476311649506065,
+    "taxCorporate": 0.05476055992598645,
+    "spendAdministration": 0.2481284741026374,
+    "spendSocial": 0.20287787864019605,
+    "spendMilitary": 0.019254921948681874,
+    "spendInfrastructure": 0.043563084314080965,
+    "debtToGdp": 1.095,
+    "stability": "engine default (70, neutral)",
+    "tariff": "engine default"
+   },
+   "deu": {
+    "taxIncome": 0.42521932375695415,
+    "taxConsumption": 0.1826761098933336,
+    "taxCorporate": 0.08311248329728807,
+    "spendAdministration": 0.2210139040987193,
+    "spendSocial": 0.17016793556927998,
+    "spendMilitary": 0.013285838030391767,
+    "spendInfrastructure": 0.02914919986904367,
+    "debtToGdp": 0.618,
+    "stability": "engine default (70, neutral)",
+    "tariff": "engine default"
+   },
+   "gbr": {
+    "taxIncome": 0.3640657003654097,
+    "taxConsumption": 0.2747699039395781,
+    "taxCorporate": 0.06787625840106079,
+    "spendAdministration": 0.2065013074488107,
+    "spendSocial": 0.1416529069679707,
+    "spendMilitary": 0.023572553274576684,
+    "spendInfrastructure": 0.028191673238797888,
+    "debtToGdp": 0.988,
+    "stability": "engine default (70, neutral)",
+    "tariff": "engine default"
+   },
+   "ita": {
+    "taxIncome": 0.46568626482262515,
+    "taxConsumption": 0.2532678742197618,
+    "taxCorporate": 0.06338971411239766,
+    "spendAdministration": 0.18620437450769106,
+    "spendSocial": 0.21653466838369254,
+    "spendMilitary": 0.01281550377102771,
+    "spendInfrastructure": 0.03176588777507518,
+    "debtToGdp": 1.34,
+    "stability": "engine default (70, neutral)",
+    "tariff": "engine default"
+   },
+   "pol": {
+    "taxIncome": 0.27811534339632527,
+    "taxConsumption": 0.21655051797546476,
+    "taxCorporate": 0.09631838355842916,
+    "spendAdministration": 0.19195454601087103,
+    "spendSocial": 0.17055692751137924,
+    "spendMilitary": 0.023422661952888963,
+    "spendInfrastructure": 0.04793619359829721,
+    "debtToGdp": 0.495,
+    "stability": "engine default (70, neutral)",
+    "tariff": "engine default"
+   },
+   "tur": {
+    "taxIncome": 0.13373740763699207,
+    "taxConsumption": 0.15035968455970483,
+    "taxCorporate": 0.12858838362103017,
+    "spendAdministration": 0.1126244899822879,
+    "spendSocial": 0.1072594313999538,
+    "spendMilitary": 0.013840551091236155,
+    "spendInfrastructure": 0.03321179844953186,
+    "debtToGdp": 0.29600000000000004,
+    "stability": "engine default (70, neutral)",
+    "tariff": "engine default"
+   },
+   "irl": {
+    "taxIncome": 0.18100270696277393,
+    "taxConsumption": 0.0982491848907446,
+    "taxCorporate": 0.15414599495458775,
+    "spendAdministration": 0.1310412289763609,
+    "spendSocial": 0.05953722231334421,
+    "spendMilitary": 0.0022752323645437,
+    "spendInfrastructure": 0.02446647289061522,
+    "debtToGdp": 0.42100000000000004,
+    "stability": "engine default (70, neutral)",
+    "tariff": "engine default"
+   },
+   "esp": {
+    "taxIncome": 0.38850881755318045,
+    "taxConsumption": 0.20742753400241584,
+    "taxCorporate": 0.07540645538344647,
+    "spendAdministration": 0.20528294833365637,
+    "spendSocial": 0.18296195806333307,
+    "spendMilitary": 0.009993474679267752,
+    "spendInfrastructure": 0.030331190938497853,
+    "debtToGdp": 1.053,
+    "stability": "engine default (70, neutral)",
+    "tariff": "engine default"
+   },
+   "nld": {
+    "taxIncome": 0.3564610769944457,
+    "taxConsumption": 0.22716488740142682,
+    "taxCorporate": 0.15830996612201287,
+    "spendAdministration": 0.26326207220201037,
+    "spendSocial": 0.11482553088640278,
+    "spendMilitary": 0.014678545280988352,
+    "spendInfrastructure": 0.03358240122561579,
+    "debtToGdp": 0.45899999999999996,
+    "stability": "engine default (70, neutral)",
+    "tariff": "engine default"
+   },
+   "bel": {
+    "taxIncome": 0.7,
+    "taxConsumption": 0.2990983509746746,
+    "taxCorporate": 0.06757266598746899,
+    "spendAdministration": 0.2477739434769278,
+    "spendSocial": 0.18639367535649717,
+    "spendMilitary": 0.010098098044029358,
+    "spendInfrastructure": 0.030560137907163755,
+    "debtToGdp": 1.023,
+    "stability": "engine default (70, neutral)",
+    "tariff": "engine default"
+   },
+   "che": {
+    "taxIncome": 0.2539400808439378,
+    "taxConsumption": 0.12717899645462052,
+    "taxCorporate": 0.09755303212789374,
+    "spendAdministration": 0.12264483122990473,
+    "spendSocial": 0.10245527575733675,
+    "spendMilitary": 0.00899716827908611,
+    "spendInfrastructure": 0.030725455507584685,
+    "stability": "engine default (70, neutral)",
+    "tariff": "engine default"
+   },
+   "aut": {
+    "taxIncome": 0.7,
+    "taxConsumption": 0.30724734044538926,
+    "taxCorporate": 0.05529041475205506,
+    "spendAdministration": 0.22240947500991706,
+    "spendSocial": 0.19906698809780393,
+    "spendMilitary": 0.006393081268840815,
+    "spendInfrastructure": 0.04121705887858737,
+    "debtToGdp": 0.774,
+    "stability": "engine default (70, neutral)",
+    "tariff": "engine default"
+   },
+   "cze": {
+    "taxIncome": 0.30125529217782476,
+    "taxConsumption": 0.16970699520161048,
+    "taxCorporate": 0.13949196532427552,
+    "spendAdministration": 0.20504137903370293,
+    "spendSocial": 0.14823869766875952,
+    "spendMilitary": 0.013065896926420899,
+    "spendInfrastructure": 0.047460642696698856,
+    "debtToGdp": 0.42200000000000004,
+    "stability": "engine default (70, neutral)",
+    "tariff": "engine default"
+   },
+   "nor": {
+    "taxIncome": 0.337747742349579,
+    "taxConsumption": 0.19419215230795553,
+    "taxCorporate": 0.27029058281109564,
+    "spendAdministration": 0.21973256391733542,
+    "spendSocial": 0.13798603192907535,
+    "spendMilitary": 0.01853849728632082,
+    "spendInfrastructure": 0.04654253087656387,
+    "debtToGdp": 0.42700000000000005,
+    "stability": "engine default (70, neutral)",
+    "tariff": "engine default"
+   },
+   "grc": {
+    "taxIncome": 0.3546414209435561,
+    "taxConsumption": 0.336066285699945,
+    "taxCorporate": 0.06415345952731281,
+    "spendAdministration": 0.19211830426749454,
+    "spendSocial": 0.1885348593168189,
+    "spendMilitary": 0.02414066253777164,
+    "spendInfrastructure": 0.040501291014650435,
+    "debtToGdp": 1.5,
+    "stability": "engine default (70, neutral)",
+    "tariff": "engine default"
+   },
+   "bgr": {
+    "taxIncome": 0.17811285697263454,
+    "taxConsumption": 0.21602980587848747,
+    "taxCorporate": 0.10892165405979203,
+    "spendAdministration": 0.18875474799786496,
+    "spendSocial": 0.13566188025310932,
+    "spendMilitary": 0.016104096486205328,
+    "spendInfrastructure": 0.03624669632877747,
+    "debtToGdp": 0.228,
+    "stability": "engine default (70, neutral)",
+    "tariff": "engine default"
+   },
+   "bloc-eur": {
+    "stability": "engine default (70, neutral)",
+    "tariff": "engine default"
+   },
+   "bloc-eec": {
+    "stability": "engine default (70, neutral)",
+    "tariff": "engine default"
+   },
+   "bloc-mea": {
+    "stability": "engine default (70, neutral)",
+    "tariff": "engine default"
+   },
+   "bloc-ame": {
+    "stability": "engine default (70, neutral)",
+    "tariff": "engine default"
+   },
+   "bloc-apa": {
+    "stability": "engine default (70, neutral)",
+    "tariff": "engine default"
+   }
+  }
+ },
+ "startingRelations": {
+  "rule": "neutral: every pair of diplomatic actors at 0; blocs have no diplomacy",
+  "relations": [
+   {
+    "countryIds": [
+     "fra",
+     "deu"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "fra",
+     "gbr"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "fra",
+     "ita"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "fra",
+     "pol"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "fra",
+     "tur"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "fra",
+     "irl"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "fra",
+     "esp"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "fra",
+     "nld"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "fra",
+     "bel"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "fra",
+     "che"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "fra",
+     "aut"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "fra",
+     "cze"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "fra",
+     "nor"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "fra",
+     "grc"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "fra",
+     "bgr"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "deu",
+     "gbr"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "deu",
+     "ita"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "deu",
+     "pol"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "deu",
+     "tur"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "deu",
+     "irl"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "deu",
+     "esp"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "deu",
+     "nld"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "deu",
+     "bel"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "deu",
+     "che"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "deu",
+     "aut"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "deu",
+     "cze"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "deu",
+     "nor"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "deu",
+     "grc"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "deu",
+     "bgr"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "gbr",
+     "ita"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "gbr",
+     "pol"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "gbr",
+     "tur"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "gbr",
+     "irl"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "gbr",
+     "esp"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "gbr",
+     "nld"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "gbr",
+     "bel"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "gbr",
+     "che"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "gbr",
+     "aut"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "gbr",
+     "cze"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "gbr",
+     "nor"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "gbr",
+     "grc"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "gbr",
+     "bgr"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "ita",
+     "pol"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "ita",
+     "tur"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "ita",
+     "irl"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "ita",
+     "esp"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "ita",
+     "nld"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "ita",
+     "bel"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "ita",
+     "che"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "ita",
+     "aut"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "ita",
+     "cze"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "ita",
+     "nor"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "ita",
+     "grc"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "ita",
+     "bgr"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "pol",
+     "tur"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "pol",
+     "irl"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "pol",
+     "esp"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "pol",
+     "nld"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "pol",
+     "bel"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "pol",
+     "che"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "pol",
+     "aut"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "pol",
+     "cze"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "pol",
+     "nor"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "pol",
+     "grc"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "pol",
+     "bgr"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "tur",
+     "irl"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "tur",
+     "esp"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "tur",
+     "nld"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "tur",
+     "bel"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "tur",
+     "che"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "tur",
+     "aut"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "tur",
+     "cze"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "tur",
+     "nor"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "tur",
+     "grc"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "tur",
+     "bgr"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "irl",
+     "esp"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "irl",
+     "nld"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "irl",
+     "bel"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "irl",
+     "che"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "irl",
+     "aut"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "irl",
+     "cze"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "irl",
+     "nor"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "irl",
+     "grc"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "irl",
+     "bgr"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "esp",
+     "nld"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "esp",
+     "bel"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "esp",
+     "che"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "esp",
+     "aut"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "esp",
+     "cze"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "esp",
+     "nor"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "esp",
+     "grc"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "esp",
+     "bgr"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "nld",
+     "bel"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "nld",
+     "che"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "nld",
+     "aut"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "nld",
+     "cze"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "nld",
+     "nor"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "nld",
+     "grc"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "nld",
+     "bgr"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "bel",
+     "che"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "bel",
+     "aut"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "bel",
+     "cze"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "bel",
+     "nor"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "bel",
+     "grc"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "bel",
+     "bgr"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "che",
+     "aut"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "che",
+     "cze"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "che",
+     "nor"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "che",
+     "grc"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "che",
+     "bgr"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "aut",
+     "cze"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "aut",
+     "nor"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "aut",
+     "grc"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "aut",
+     "bgr"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "cze",
+     "nor"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "cze",
+     "grc"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "cze",
+     "bgr"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "nor",
+     "grc"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "nor",
+     "bgr"
+    ],
+    "value": 0
+   },
+   {
+    "countryIds": [
+     "grc",
+     "bgr"
+    ],
+    "value": 0
+   }
+  ]
+ },
+ "military": {
+  "status": "draft, not for gameplay until approved (M-2); placement of divisions is a game decision and is not set here",
+  "parameter": {
+   "value": 25000,
+   "sources": [],
+   "method": "Provisional game-scale parameter (WORLD-02 M-2), not a historical fact",
+   "status": "design"
+  },
+  "countries": {
+   "fra": {
+    "status": "draft",
+    "personnel_equivalents": 382086,
+    "divisions": 15,
+    "sources": [
+     "es_defence",
+     "world02-defence-cofog-2023"
+    ],
+    "method": "defence compensation of employees (COFOG 02, D1) / (whole-economy compensation / employees) / 25,000"
+   },
+   "deu": {
+    "status": "draft",
+    "personnel_equivalents": 318398,
+    "divisions": 13,
+    "sources": [
+     "es_defence",
+     "world02-defence-cofog-2023"
+    ],
+    "method": "defence compensation of employees (COFOG 02, D1) / (whole-economy compensation / employees) / 25,000"
+   },
+   "gbr": {
+    "status": "draft",
+    "personnel_equivalents": 357759,
+    "divisions": 14,
+    "sources": [
+     "oecd_uk_defence",
+     "world02-defence-cofog-2023"
+    ],
+    "method": "defence compensation of employees (COFOG 02, D1) / (whole-economy compensation / employees) / 25,000"
+   },
+   "ita": {
+    "status": "draft",
+    "personnel_equivalents": 362581,
+    "divisions": 15,
+    "sources": [
+     "es_defence",
+     "world02-defence-cofog-2023"
+    ],
+    "method": "defence compensation of employees (COFOG 02, D1) / (whole-economy compensation / employees) / 25,000"
+   },
+   "pol": {
+    "status": "draft",
+    "personnel_equivalents": 318167,
+    "divisions": 13,
+    "sources": [
+     "es_defence",
+     "world02-defence-cofog-2023"
+    ],
+    "method": "defence compensation of employees (COFOG 02, D1) / (whole-economy compensation / employees) / 25,000"
+   },
+   "tur": {
+    "status": "unresolved",
+    "divisions": null,
+    "reason": "No verified 2023 source splits Türkiye's defence spending by economic type (defence pay, ESA D1), and no whole-economy employee count was taken; rule W cannot be applied. Defence total by function is known (350,271 million TRY, Sayıştay; licence not verified) but is not used to set forces.",
+    "sources_checked": [
+     "Eurostat gov_10a_exp (no TR)",
+     "OECD Table 11 (no TUR)",
+     "OECD Table 12 (no TUR 2023)",
+     "Sayıştay 2023 report (function totals only)",
+     "Ministry of National Defence 2023 report (URL returns 404)"
+    ]
+   }
+  }
+ },
+ "territories": {
+  "policy": "WORLD-02 T-1: (b) labelled, non-playable; economy only through the bloc or none",
+  "entries": [
+   {
+    "name": "Northern Cyprus",
+    "naturalEarth": [
+     "CYN",
+     "TYPE",
+     "CYP"
+    ],
+    "handling": "(b) labelled, non-playable"
+   },
+   {
+    "name": "Cyprus UN buffer zone",
+    "naturalEarth": [
+     "CNM"
+    ],
+    "handling": "(b) labelled, non-playable"
+   },
+   {
+    "name": "Akrotiri and Dhekelia (UK Sovereign Base Areas)",
+    "naturalEarth": [
+     "WSB",
+     "ESB"
+    ],
+    "handling": "(b) labelled, non-playable"
+   },
+   {
+    "name": "Gibraltar",
+    "naturalEarth": [
+     "GIB",
+     "TYPE"
+    ],
+    "handling": "(b) labelled, non-playable"
+   },
+   {
+    "name": "Falkland Islands",
+    "naturalEarth": [
+     "FLK"
+    ],
+    "handling": "(b) labelled, non-playable"
+   },
+   {
+    "name": "South Georgia and the South Sandwich Islands",
+    "naturalEarth": [
+     "SGS"
+    ],
+    "handling": "(b) labelled, non-playable"
+   },
+   {
+    "name": "British Indian Ocean Territory (Chagos)",
+    "naturalEarth": [
+     "IOT"
+    ],
+    "handling": "(b) labelled, non-playable"
+   },
+   {
+    "name": "British Antarctic Territory",
+    "naturalEarth": [
+     "ATA"
+    ],
+    "handling": "(b) labelled, non-playable"
+   },
+   {
+    "name": "Scattered Islands and Tromelin (in the French Southern and Antarctic Lands)",
+    "naturalEarth": [
+     "ATF"
+    ],
+    "handling": "(b) labelled, non-playable"
+   },
+   {
+    "name": "New Caledonia; French Polynesia",
+    "naturalEarth": [
+     "NCL",
+     "PYF"
+    ],
+    "handling": "(b) labelled, non-playable"
+   },
+   {
+    "name": "Adélie Land",
+    "naturalEarth": [
+     "ATA"
+    ],
+    "handling": "(b) labelled, non-playable"
+   },
+   {
+    "name": "Crimea and Sevastopol",
+    "naturalEarth": [
+     "RUS",
+     "RUS-283",
+     "RUS-5482"
+    ],
+    "handling": "(b) labelled, non-playable"
+   },
+   {
+    "name": "Donetsk, Luhansk, Zaporizhzhia and Kherson oblasts",
+    "naturalEarth": [
+     "UKR"
+    ],
+    "handling": "(b) labelled, non-playable"
+   },
+   {
+    "name": "Kosovo",
+    "naturalEarth": [
+     "KOS",
+     "SRB"
+    ],
+    "handling": "(b) labelled, non-playable"
+   },
+   {
+    "name": "Western Sahara",
+    "naturalEarth": [
+     "SAH"
+    ],
+    "handling": "(b) labelled, non-playable"
+   },
+   {
+    "name": "Palestine; Golan Heights",
+    "naturalEarth": [
+     "PSX",
+     "ISR"
+    ],
+    "handling": "(b) labelled, non-playable"
+   },
+   {
+    "name": "Somaliland",
+    "naturalEarth": [
+     "SOL"
+    ],
+    "handling": "(b) labelled, non-playable"
+   }
+  ],
+  "noEconomy": [
+   "ATA",
+   "ATC",
+   "ATF",
+   "BJN",
+   "BRT",
+   "CLP",
+   "CNM",
+   "CSI",
+   "HMD",
+   "IOA",
+   "IOT",
+   "KAS",
+   "PGA",
+   "SCR",
+   "SER",
+   "SGS",
+   "SPI",
+   "USG"
+  ]
+ },
+ "overseas": {
+  "fra-om": "French overseas departments (NUTS FRY): visible as French territory, not simulated in v1, excluded from France's economic totals"
+ }
+}

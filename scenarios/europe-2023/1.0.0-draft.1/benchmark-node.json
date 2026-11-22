@@ -1,0 +1,484 @@
+{
+ "scenario": "europe-2023/1.0.0-draft.1",
+ "node": "v22.23.4",
+ "platform": "linux x64",
+ "repeats": 2,
+ "player": "fra",
+ "zones": 61,
+ "lanes": 312,
+ "week1SaveKb": 1632.0283203125,
+ "week1SaveGzipKb": 593.3857421875,
+ "loadMs": 13.322540000000004,
+ "weekMs": {
+  "median": 45.43969199999992,
+  "p95": 87.6120119999996,
+  "max": 241.277828,
+  "mean": 52.52185689032256,
+  "runMedians": [
+   46.5157479999998,
+   44.48291800000152
+  ]
+ },
+ "heapMb": {
+  "afterLoad": 12.798507690429688,
+  "after156Weeks": 16.50421905517578
+ },
+ "week156SaveKb": 1999.578125,
+ "week156SaveGzipKb": 772.0439453125,
+ "saveMs": 17.91080299999885,
+ "restoreMs": 13.046854000000167,
+ "saveRoundTripIdentical": true,
+ "trajectory": {
+  "fra": {
+   "1": {
+    "debtToGdp": 2.729,
+    "marketRate": 0.4,
+    "interestShareOfGdp": 0.179,
+    "unemployment": 0.039,
+    "stability": 68,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": false
+   },
+   "13": {
+    "debtToGdp": 2.474,
+    "marketRate": 0.4,
+    "interestShareOfGdp": 0.194,
+    "unemployment": 0.239,
+    "stability": 47.4,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": false
+   },
+   "26": {
+    "debtToGdp": 1.127,
+    "marketRate": 0.119,
+    "interestShareOfGdp": 0.033,
+    "unemployment": 0.042,
+    "stability": 47.9,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": false
+   },
+   "52": {
+    "debtToGdp": 1.013,
+    "marketRate": 0.087,
+    "interestShareOfGdp": 0.029,
+    "unemployment": 0.016,
+    "stability": 64.6,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": false
+   },
+   "104": {
+    "debtToGdp": 0.836,
+    "marketRate": 0.071,
+    "interestShareOfGdp": 0.027,
+    "unemployment": 0.013,
+    "stability": 67.3,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": true
+   },
+   "156": {
+    "debtToGdp": 0.69,
+    "marketRate": 0.062,
+    "interestShareOfGdp": 0.028,
+    "unemployment": 0.011,
+    "stability": 67.7,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": true
+   }
+  },
+  "deu": {
+   "1": {
+    "debtToGdp": 1.027,
+    "marketRate": 0.055,
+    "interestShareOfGdp": 0.083,
+    "unemployment": 0.018,
+    "stability": 68,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": true
+   },
+   "13": {
+    "debtToGdp": 0.912,
+    "marketRate": 0.039,
+    "interestShareOfGdp": 0.076,
+    "unemployment": 0.066,
+    "stability": 56.4,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": true
+   },
+   "26": {
+    "debtToGdp": 0.886,
+    "marketRate": 0.036,
+    "interestShareOfGdp": 0.068,
+    "unemployment": 0.04,
+    "stability": 60.4,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": true
+   },
+   "52": {
+    "debtToGdp": 0.833,
+    "marketRate": 0.036,
+    "interestShareOfGdp": 0.059,
+    "unemployment": 0.038,
+    "stability": 59.8,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": true
+   },
+   "104": {
+    "debtToGdp": 0.714,
+    "marketRate": 0.033,
+    "interestShareOfGdp": 0.042,
+    "unemployment": 0.014,
+    "stability": 68.3,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": true
+   },
+   "156": {
+    "debtToGdp": 0.631,
+    "marketRate": 0.031,
+    "interestShareOfGdp": 0.032,
+    "unemployment": 0.026,
+    "stability": 72.7,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": true
+   }
+  },
+  "gbr": {
+   "1": {
+    "debtToGdp": 2.132,
+    "marketRate": 0.4,
+    "interestShareOfGdp": 0.139,
+    "unemployment": 0.018,
+    "stability": 67.9,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": false
+   },
+   "13": {
+    "debtToGdp": 0.952,
+    "marketRate": 0.226,
+    "interestShareOfGdp": 0.031,
+    "unemployment": 0.085,
+    "stability": 29.9,
+    "unrestTier": 1,
+    "regime": 0,
+    "marketAccess": false
+   },
+   "26": {
+    "debtToGdp": 0.941,
+    "marketRate": 0.098,
+    "interestShareOfGdp": 0.027,
+    "unemployment": 0.023,
+    "stability": 42.9,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": false
+   },
+   "52": {
+    "debtToGdp": 0.823,
+    "marketRate": 0.079,
+    "interestShareOfGdp": 0.024,
+    "unemployment": 0.01,
+    "stability": 55.4,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": false
+   },
+   "104": {
+    "debtToGdp": 0.619,
+    "marketRate": 0.066,
+    "interestShareOfGdp": 0.02,
+    "unemployment": 0.006,
+    "stability": 61.6,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": true
+   },
+   "156": {
+    "debtToGdp": 0.462,
+    "marketRate": 0.059,
+    "interestShareOfGdp": 0.019,
+    "unemployment": 0.005,
+    "stability": 70.8,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": true
+   }
+  },
+  "ita": {
+   "1": {
+    "debtToGdp": 4.18,
+    "marketRate": 0.4,
+    "interestShareOfGdp": 0.659,
+    "unemployment": 0.018,
+    "stability": 67.8,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": false
+   },
+   "13": {
+    "debtToGdp": 1.983,
+    "marketRate": 0.4,
+    "interestShareOfGdp": 0.064,
+    "unemployment": 0.087,
+    "stability": 31.8,
+    "unrestTier": 1,
+    "regime": 0,
+    "marketAccess": false
+   },
+   "26": {
+    "debtToGdp": 1.985,
+    "marketRate": 0.4,
+    "interestShareOfGdp": 0.059,
+    "unemployment": 0.069,
+    "stability": 42.7,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": false
+   },
+   "52": {
+    "debtToGdp": 1.901,
+    "marketRate": 0.355,
+    "interestShareOfGdp": 0.056,
+    "unemployment": 0.066,
+    "stability": 48.8,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": false
+   },
+   "104": {
+    "debtToGdp": 1.492,
+    "marketRate": 0.266,
+    "interestShareOfGdp": 0.042,
+    "unemployment": 0.025,
+    "stability": 45.9,
+    "unrestTier": 0,
+    "regime": 1,
+    "marketAccess": false
+   },
+   "156": {
+    "debtToGdp": 1.237,
+    "marketRate": 0.177,
+    "interestShareOfGdp": 0.035,
+    "unemployment": 0.06,
+    "stability": 55.2,
+    "unrestTier": 0,
+    "regime": 1,
+    "marketAccess": false
+   }
+  },
+  "pol": {
+   "1": {
+    "debtToGdp": 0.924,
+    "marketRate": 0.042,
+    "interestShareOfGdp": 0.034,
+    "unemployment": 0.018,
+    "stability": 68.1,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": true
+   },
+   "13": {
+    "debtToGdp": 0.872,
+    "marketRate": 0.037,
+    "interestShareOfGdp": 0.035,
+    "unemployment": 0.09,
+    "stability": 55.7,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": true
+   },
+   "26": {
+    "debtToGdp": 0.87,
+    "marketRate": 0.036,
+    "interestShareOfGdp": 0.034,
+    "unemployment": 0.078,
+    "stability": 58.2,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": true
+   },
+   "52": {
+    "debtToGdp": 0.84,
+    "marketRate": 0.036,
+    "interestShareOfGdp": 0.032,
+    "unemployment": 0.099,
+    "stability": 57,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": true
+   },
+   "104": {
+    "debtToGdp": 0.759,
+    "marketRate": 0.034,
+    "interestShareOfGdp": 0.027,
+    "unemployment": 0.078,
+    "stability": 62.3,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": true
+   },
+   "156": {
+    "debtToGdp": 0.691,
+    "marketRate": 0.032,
+    "interestShareOfGdp": 0.024,
+    "unemployment": 0.092,
+    "stability": 63.9,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": true
+   }
+  },
+  "tur": {
+   "1": {
+    "debtToGdp": 0.386,
+    "marketRate": 0.034,
+    "interestShareOfGdp": 0.012,
+    "unemployment": 0.025,
+    "stability": 68,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": true
+   },
+   "13": {
+    "debtToGdp": 0.318,
+    "marketRate": 0.031,
+    "interestShareOfGdp": 0.01,
+    "unemployment": 0.061,
+    "stability": 55.7,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": true
+   },
+   "26": {
+    "debtToGdp": 0.295,
+    "marketRate": 0.03,
+    "interestShareOfGdp": 0.009,
+    "unemployment": 0.058,
+    "stability": 62.1,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": true
+   },
+   "52": {
+    "debtToGdp": 0.289,
+    "marketRate": 0.031,
+    "interestShareOfGdp": 0.009,
+    "unemployment": 0.072,
+    "stability": 67.4,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": true
+   },
+   "104": {
+    "debtToGdp": 0.283,
+    "marketRate": 0.03,
+    "interestShareOfGdp": 0.009,
+    "unemployment": 0.068,
+    "stability": 65.4,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": true
+   },
+   "156": {
+    "debtToGdp": 0.271,
+    "marketRate": 0.03,
+    "interestShareOfGdp": 0.008,
+    "unemployment": 0.084,
+    "stability": 65.9,
+    "unrestTier": 0,
+    "regime": 0,
+    "marketAccess": true
+   }
+  }
+ },
+ "events": {
+  "market-access-lost": {
+   "fra": [
+    1
+   ],
+   "gbr": [
+    1
+   ],
+   "ita": [
+    1
+   ],
+   "esp": [
+    1
+   ],
+   "bel": [
+    1
+   ],
+   "aut": [
+    1
+   ],
+   "grc": [
+    1
+   ]
+  },
+  "market-access-restored": {
+   "aut": [
+    5
+   ],
+   "esp": [
+    85
+   ],
+   "gbr": [
+    89
+   ],
+   "fra": [
+    93
+   ],
+   "bel": [
+    96
+   ]
+  },
+  "sovereign-default": {
+   "grc": [
+    5,
+    87
+   ],
+   "ita": [
+    6,
+    93
+   ],
+   "esp": [
+    7
+   ],
+   "gbr": [
+    11
+   ],
+   "fra": [
+    15
+   ],
+   "bel": [
+    18
+   ]
+  },
+  "regime-change": {
+   "bloc-mea": [
+    27,
+    53,
+    79,
+    105,
+    131
+   ],
+   "grc": [
+    90
+   ],
+   "ita": [
+    96
+   ]
+  }
+ }
+}

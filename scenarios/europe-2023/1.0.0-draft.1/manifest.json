@@ -1,0 +1,38 @@
+{
+ "id": "europe-2023",
+ "version": "1.0.0-draft.1",
+ "immutable": true,
+ "status": "review-draft: calibration targets not all met (see calibration-report.json)",
+ "referenceYear": 2023,
+ "worldFingerprint": "8bb2ecea2513f68b",
+ "week1EconomyHash": "3393edd582a74595",
+ "contentFingerprint": "93dbb62966f95293cdec83d9ec4ce480c3041afe7b35aa80287ab651159a2167",
+ "files": [
+  {
+   "path": "calibration-report.json",
+   "bytes": 77654,
+   "sha256": "8cb9c0375daa7d28c1717dd10579871061af0a67d8dd15f7197be558b9bc1337"
+  },
+  {
+   "path": "provenance.json",
+   "bytes": 203501,
+   "sha256": "63205f9d6b50be48c54c90adb373af1ed2dcf9cbf07e2799d46a0a485ccc4b7f"
+  },
+  {
+   "path": "scenario.json",
+   "bytes": 163986,
+   "sha256": "8bb2ecea2513f68b619e3ca21e7be14191283077cd7edfb9f4e7461dda1d8d16"
+  },
+  {
+   "path": "week1.session.json",
+   "bytes": 1671247,
+   "sha256": "1c6f4190f2a30aed333170a6eb94a3713e55161536706eda9e7e153a725053fe"
+  },
+  {
+   "path": "world-spec.json",
+   "bytes": 98979,
+   "sha256": "982339c4868872ddccf393a53ca83ca55492cea812ad552aa50db05aebfdc902"
+  }
+ ],
+ "compatibility": "New scenario. Fictional saves are unaffected: their scenario and fingerprints are unchanged. The current startEconomyFromSave refuses this package (different world fingerprint) until the proposed scenario loader exists."
+}

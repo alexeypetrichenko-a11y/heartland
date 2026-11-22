@@ -1,0 +1,19 @@
+{
+ "attribution": "Source: OECD",
+ "dataset": "OECD.SDD.NAD,DSD_NAMAIN10@DF_TABLE1_EXPENDITURE",
+ "id": "oecd_gdp",
+ "key": "country",
+ "licence": "CC BY 4.0",
+ "licence_status": "verified (search only; oecd.org blocks automated reading)",
+ "notes": [],
+ "publisher": "oecd",
+ "publisher_updated": null,
+ "query": "https://sdmx.oecd.org/public/rest/data/OECD.SDD.NAD,DSD_NAMAIN10@DF_TABLE1_EXPENDITURE,/A.GBR+TUR..........?startPeriod=2023&endPeriod=2023&dimensionAtObservation=AllDimensions",
+ "reference_year": 2023,
+ "retrieved": "2026-11-22",
+ "title": "GDP at current prices, national currency, million",
+ "values": {
+  "GBR": 2766446.0,
+  "TUR": 27091469.065
+ }
+}

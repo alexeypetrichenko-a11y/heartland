@@ -1,0 +1,19 @@
+{
+ "attribution": "Source: Eurostat",
+ "dataset": "gov_10q_ggdebt",
+ "flags": {},
+ "id": "es_debt_quarterly",
+ "key": "geo",
+ "licence": "Eurostat copyright notice: reuse authorised, commercial or not, provided the source is acknowledged (UK data excluded from commercial reuse; none is taken from Eurostat)",
+ "licence_status": "verified (primary)",
+ "notes": [],
+ "publisher": "eurostat",
+ "publisher_updated": "2026-11-12T23:00:00+0100",
+ "query": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/gov_10q_ggdebt?freq=Q&time=2023-Q4&unit=PC_GDP&sector=S13&na_item=GD&geo=NO&geo=CH",
+ "reference_year": 2023,
+ "retrieved": "2026-11-22",
+ "title": "Quarterly government debt, gross debt, % of GDP, end-2023 (EFTA countries without annual EDP data)",
+ "values": {
+  "NO": 42.7
+ }
+}
