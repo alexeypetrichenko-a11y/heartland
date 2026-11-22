@@ -153,15 +153,14 @@
  },
  {
   "id": "FRA-SE",
-  "name": "Sud-Est (Provence-Alpes-Côte d'Azur, Corse)",
+  "name": "Provence-Alpes-Côte d'Azur",
   "country": "FRA",
   "statistical_units": [
-   "FRL",
-   "FRM"
+   "FRL"
   ],
   "statistical_system": "NUTS 2024 (Eurostat)",
-  "admin1_members": 8,
-  "population": 5647378,
+  "admin1_members": 6,
+  "population": 5285125,
   "population_reference_date": "2025-01-01",
   "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
   "simulated_in_v1": true,
@@ -171,6 +170,22 @@
    "ITA-NO"
   ],
   "land_connected_to_mainland": true
+ },
+ {
+  "id": "FRA-COR",
+  "name": "Corse",
+  "country": "FRA",
+  "statistical_units": [
+   "FRM"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 2,
+  "population": 362253,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [],
+  "land_connected_to_mainland": false
  },
  {
   "id": "FRA-OM",

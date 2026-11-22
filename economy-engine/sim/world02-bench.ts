@@ -16,23 +16,34 @@ import { gzipSync } from 'node:zlib';
 import {
   advanceEconomyWeek, createEconomySession, economyFingerprint, loadEconomySession, saveEconomySession, startEconomyFromSave,
 } from '../src/integration/index.ts';
-import { BENCH_CONFIGS, benchWorld } from './world02-bench-worlds.ts';
+import { BENCH_CONFIGS, BUDGET_CONFIGS, benchWorld, realTopologyWorld } from './world02-bench-worlds.ts';
 
-const outDir = resolve(process.argv[2] ?? resolve(import.meta.dirname, '../../docs/world/data'));
+// Options: --set budget (zone-budget comparison: BUDGET_CONFIGS plus option A on the real topology),
+// --repeats N (play the 155 turns N times from the same save; week statistics pool all runs and the
+// spread of the per-run medians is reported as a noise measure). The first positional argument is outDir.
+const args = process.argv.slice(2);
+const option = (name: string) => (args.includes(name) ? args[args.indexOf(name) + 1] : undefined);
+const budget = option('--set') === 'budget';
+const repeats = Math.max(1, Number(option('--repeats') ?? 1));
+const positional = args.filter((arg, i) => !arg.startsWith('--') && !(i > 0 && args[i - 1].startsWith('--')));
+const outDir = resolve(positional[0] ?? resolve(import.meta.dirname, '../../docs/world/data'));
+const worlds = budget
+  ? [...BUDGET_CONFIGS.map(config => ({ config, ...benchWorld(config) })),
+    { config: { name: 'A: 61 zones, real draft topology' }, ...realTopologyWorld() }]
+  : BENCH_CONFIGS.map(config => ({ config, ...benchWorld(config) }));
 mkdirSync(outDir, { recursive: true });
 const gc = (globalThis as { gc?: () => void }).gc;
 const heapMb = () => { gc?.(); return process.memoryUsage().heapUsed / 1048576; };
 const pct = (values: number[], p: number) => values.slice().sort((a, b) => a - b)[Math.min(values.length - 1, Math.floor(p * values.length))];
 const results: unknown[] = [];
 
-for (const [index, config] of BENCH_CONFIGS.entries()) {
-  const { world, profiles, zones, lanes } = benchWorld(config);
+for (const [index, { config, world, profiles, zones, lanes }] of worlds.entries()) {
   const heapBefore = heapMb();
   let t = performance.now();
   const built = createEconomySession(world, { profiles });
   const buildMs = performance.now() - t;
   const week1 = saveEconomySession(built);
-  writeFileSync(resolve(outDir, `world02-week1-${index}.json`), JSON.stringify({ config, world, profiles, save: week1 }));
+  writeFileSync(resolve(outDir, `world02-week1-${budget ? 'budget-' : ''}${index}.json`), JSON.stringify({ config, world, profiles, save: week1 }));
   const starts: number[] = [];
   let session = built;
   for (let k = 0; k < 5; k++) {
@@ -43,15 +54,26 @@ for (const [index, config] of BENCH_CONFIGS.entries()) {
   const sameStart = economyFingerprint(session) === economyFingerprint(built);
   const heapStart = heapMb();
   const weeks: number[] = [];
+  const runMedians: number[] = [];
+  const runMax: number[] = [];
   const cumulative: Record<number, number> = {};
   let total = 0;
-  for (let week = 2; week <= 157; week++) {
-    t = performance.now();
-    session = advanceEconomyWeek(session, {});
-    const ms = performance.now() - t;
-    weeks.push(ms);
-    total += ms;
-    if ([53, 105, 157].includes(week)) cumulative[week - 1] = total;
+  for (let run = 0; run < repeats; run++) {
+    if (run > 0) session = startEconomyFromSave(week1, world, { profiles });
+    const runWeeks: number[] = [];
+    let runTotal = 0;
+    for (let week = 2; week <= 157; week++) {
+      t = performance.now();
+      session = advanceEconomyWeek(session, {});
+      const ms = performance.now() - t;
+      runWeeks.push(ms);
+      runTotal += ms;
+      if (run === 0 && [53, 105, 157].includes(week)) cumulative[week - 1] = runTotal;
+    }
+    weeks.push(...runWeeks);
+    total += runTotal;
+    runMedians.push(pct(runWeeks, 0.5));
+    runMax.push(Math.max(...runWeeks));
   }
   const heapEnd = heapMb();
   t = performance.now();
@@ -66,13 +88,14 @@ for (const [index, config] of BENCH_CONFIGS.entries()) {
     buildSeconds: buildMs / 1000,
     week1SaveKb: week1.length / 1024, week1SaveGzipKb: gzipSync(week1).length / 1024,
     startFromSaveMs: pct(starts, 0.5), sameStartAsBuild: sameStart,
-    weekMs: { median: pct(weeks, 0.5), p95: pct(weeks, 0.95), max: Math.max(...weeks), mean: total / weeks.length },
+    repeats, weekMs: { median: pct(weeks, 0.5), p95: pct(weeks, 0.95), max: Math.max(...weeks), mean: total / weeks.length },
+    runMedianMs: { min: Math.min(...runMedians), max: Math.max(...runMedians) }, runMaxMs: runMax,
     cumulativeSeconds: { 52: cumulative[52] / 1000, 104: cumulative[104] / 1000, 156: cumulative[156] / 1000 },
     heapMb: { beforeBuild: heapBefore, afterStart: heapStart, after156Weeks: heapEnd },
     week156SaveKb: saved.length / 1024, week156SaveGzipKb: gzipSync(saved).length / 1024,
     saveMs, restoreMs, saveRoundTripIdentical: roundTrip,
   };
   results.push(row);
-  process.stdout.write(`${config.name}: ${zones} zones, ${lanes} lanes | build ${row.buildSeconds.toFixed(1)} s | week median ${row.weekMs.median.toFixed(1)} ms, p95 ${row.weekMs.p95.toFixed(1)} | 156 weeks ${row.cumulativeSeconds[156].toFixed(1)} s | save ${row.week156SaveKb.toFixed(0)} KB (${row.week156SaveGzipKb.toFixed(0)} gz) | save ${saveMs.toFixed(0)} ms, restore ${restoreMs.toFixed(0)} ms | heap ${heapEnd.toFixed(0)} MB\n`);
+  process.stdout.write(`${config.name}: ${zones} zones, ${lanes} lanes | build ${row.buildSeconds.toFixed(1)} s | week median ${row.weekMs.median.toFixed(1)} ms (run medians ${row.runMedianMs.min.toFixed(1)}–${row.runMedianMs.max.toFixed(1)}), p95 ${row.weekMs.p95.toFixed(1)}, max ${row.weekMs.max.toFixed(0)} | 156 weeks ${row.cumulativeSeconds[156].toFixed(1)} s | save ${row.week156SaveKb.toFixed(0)} KB (${row.week156SaveGzipKb.toFixed(0)} gz) | save ${saveMs.toFixed(0)} ms, restore ${restoreMs.toFixed(0)} ms | heap ${heapEnd.toFixed(0)} MB\n`);
 }
-writeFileSync(resolve(outDir, 'world02-bench-node.json'), JSON.stringify({ node: process.version, platform: `${process.platform} ${process.arch}`, results }, null, 1));
+writeFileSync(resolve(outDir, budget ? 'world02-bench-node-budget.json' : 'world02-bench-node.json'), JSON.stringify({ node: process.version, platform: `${process.platform} ${process.arch}`, cpus: (await import('node:os')).cpus().length, results }, null, 1));

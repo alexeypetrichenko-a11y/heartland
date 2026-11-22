@@ -45,7 +45,7 @@
 | **Cyprus maritime zones** | Republic of Cyprus EEZ | Türkiye disputes parts of it | — | Not mapped | **(c)** Not representable |
 | **Turkish military presence in northern Syria and northern Iraq** | Syrian and Iraqi territory | — | Turkish forces present in some areas **(current extent not verified)** | Admin-1 units of `SYR` and `IRQ` | **(c)** Not represented: a neutral start with no active military operations (`GAME_DESIGN.md` §2). Syria and Iraq are in bloc MEA |
 | **Northern Ireland** | UK (1998 Good Friday Agreement settles the constitutional position) | No active sovereignty dispute | UK | `GBR` admin-1 (geonunit "Northern Ireland") | **(a)** Province `GBR-NIR` |
-| **Corsica, South Tyrol, Alsace-Moselle and other regions with special status** | Undisputed | — | — | Ordinary admin-1 | **(a)** Normal |
+| **Corsica, South Tyrol, Alsace-Moselle and other regions with special status** | Undisputed | — | — | Ordinary admin-1 | **(a)** Normal. Corsica is its own province `FRA-COR` (owner decision D1) |
 | **Crown dependencies** (Isle of Man, Jersey, Guernsey) | Crown dependencies, not part of the UK | — | Self-governing | `IMN`, `JEY`, `GGY`, "Country" | Shown with their real status; not UK provinces; economy in bloc EUR (no dispute) |
 
 ## 3. Territories linked to simulated neighbours and blocs

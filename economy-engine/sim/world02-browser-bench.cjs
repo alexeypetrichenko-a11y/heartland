@@ -21,6 +21,10 @@ const args = process.argv.slice(2);
 const dir = path.resolve(args[0] || path.join(engineRoot, '..', 'docs', 'world', 'data'));
 const htmlOut = args.includes('--html') ? path.resolve(args[args.indexOf('--html') + 1]) : null;
 const rates = (args.includes('--rates') ? args[args.indexOf('--rates') + 1] : '1,4,6').split(',').map(Number);
+// --set budget: use the zone-budget saves (world02-week1-budget-N.json) and write world02-bench-browser-budget.json.
+// --repeats N: run each world N times per rate (fresh page each time); every run is reported.
+const budget = args.includes('--set') && args[args.indexOf('--set') + 1] === 'budget';
+const repeats = args.includes('--repeats') ? Math.max(1, Number(args[args.indexOf('--repeats') + 1])) : 1;
 
 function bundle() {
   const out = path.join(process.env.TMPDIR || '/tmp', `world02-bench-${process.pid}.js`);
@@ -65,15 +69,19 @@ function measure(input) {
   };
 }
 
-const files = fs.readdirSync(dir).filter(name => /^world02-week1-\d+\.json$/.test(name)).sort();
+const files = fs.readdirSync(dir).filter(name => (budget ? /^world02-week1-budget-\d+\.json$/ : /^world02-week1-\d+\.json$/).test(name)).sort();
 const code = bundle();
 console.log(`engine bundle ${(code.length / 1024).toFixed(0)} KB; ${files.length} worlds; rates ${rates.join(', ')}`);
 
 if (htmlOut) {
-  const input = fs.readFileSync(path.join(dir, files.find(name => JSON.parse(fs.readFileSync(path.join(dir, name), 'utf8')).config.name === '60 zones') || files[0]), 'utf8');
+  // The iPhone page uses the largest proposed world: option A on the real draft topology when present.
+  const preferred = ['A: 61 zones, real draft topology', 'A: 61 zones (46+10+5)', '60 zones'];
+  const named = files.map(name => ({ name, config: JSON.parse(fs.readFileSync(path.join(dir, name), 'utf8')).config.name }));
+  const pick = preferred.map(p => named.find(f => f.config === p)).find(Boolean) || named[0];
+  const input = fs.readFileSync(path.join(dir, pick.name), 'utf8');
   const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Heartland WORLD-02 benchmark</title><style>body{font:16px -apple-system,system-ui,sans-serif;margin:16px;background:#fff;color:#111}pre{white-space:pre-wrap;font-size:13px}button{font-size:18px;padding:12px 20px}</style></head>
-<body><h1>WORLD-02 engine benchmark</h1><p>60-zone synthetic world: start from the pre-built save, 156 weekly turns, save and restore. Keep the screen on and the page in front until it finishes (about one to three minutes).</p>
+<body><h1>WORLD-02 engine benchmark</h1><p>${JSON.parse(input).config.name} (synthetic economy values): start from the pre-built save, 156 weekly turns, save and restore. Keep the screen on and the page in front until it finishes (about one to three minutes).</p>
 <button id="run">Run benchmark</button><pre id="out">Not started.</pre>
 <script>${code}</script>
 <script>const INPUT=${input};const measure=${measure.toString()};
@@ -89,7 +97,7 @@ document.getElementById('run').onclick=()=>{const out=document.getElementById('o
   const results = [];
   for (const file of files) {
     const input = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
-    for (const rate of rates) {
+    for (const rate of rates) for (let run = 0; run < repeats; run++) {
       const page = await browser.newPage();
       const client = await page.context().newCDPSession(page);
       await page.setContent('<html><body></body></html>');
@@ -97,11 +105,12 @@ document.getElementById('run').onclick=()=>{const out=document.getElementById('o
       await client.send('Emulation.setCPUThrottlingRate', { rate });
       const result = await page.evaluate(measure, input);
       result.cpuThrottle = rate;
+      result.run = run + 1;
       results.push(result);
-      console.log(`${result.config} @${rate}x: start ${result.startFromSaveMs.toFixed(0)} ms | week median ${result.weekMs.median.toFixed(0)} ms, p95 ${result.weekMs.p95.toFixed(0)} | 156 weeks ${result.cumulativeSeconds[156].toFixed(1)} s | save ${result.saveMs.toFixed(0)} ms, restore ${result.restoreMs.toFixed(0)} ms | heap ${result.heapMb === null ? 'n/a' : result.heapMb.toFixed(0) + ' MB'}`);
+      console.log(`${result.config} @${rate}x run ${run + 1}: start ${result.startFromSaveMs.toFixed(0)} ms | week median ${result.weekMs.median.toFixed(0)} ms, p95 ${result.weekMs.p95.toFixed(0)} | 156 weeks ${result.cumulativeSeconds[156].toFixed(1)} s | save ${result.saveMs.toFixed(0)} ms, restore ${result.restoreMs.toFixed(0)} ms | heap ${result.heapMb === null ? 'n/a' : result.heapMb.toFixed(0) + ' MB'}`);
       await page.close();
     }
   }
   await browser.close();
-  fs.writeFileSync(path.join(dir, 'world02-bench-browser.json'), JSON.stringify({ engine: 'Chromium (Playwright, headless)', results }, null, 1));
+  fs.writeFileSync(path.join(dir, budget ? 'world02-bench-browser-budget.json' : 'world02-bench-browser.json'), JSON.stringify({ engine: 'Chromium (Playwright, headless)', results }, null, 1));
 })().catch(error => { console.error(error); process.exit(1); });

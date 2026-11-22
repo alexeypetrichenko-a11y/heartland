@@ -10,6 +10,9 @@ FR, DE, IT, PL, TR; ONS ITL1 for the UK) and to a proposed province, attaches Eu
   docs/world/data/world02-admin1-to-province.csv   one row per Natural Earth admin-1 unit
   docs/world/data/world02-provinces.json           one entry per proposed province
   docs/world/data/world02-province-adjacency.json  land adjacency between provinces (incl. across borders)
+  docs/world/data/world02-sea-links.json           curated sea and fixed links (not derived from geometry)
+
+Check the outputs with:  python3 docs/world/tools/world02_validate.py
 
 Run from the repository root:  python3 docs/world/tools/world02_provinces.py
 Nothing here is a production scenario asset; all outputs are review drafts.
@@ -28,7 +31,8 @@ ONS = json.load(open(os.path.join(OUT, 'world02-ons-itl1-population-mid2025.json
 # or ITL1 codes (UK). A province is always a union of whole official statistical regions, so
 # official data can be summed exactly.
 PROVINCES = {
-    # France: 13 metropolitan NUTS-1 regions grouped into 8; overseas departments (FRY) kept separate.
+    # France: 13 metropolitan NUTS-1 regions grouped into 9 (Corsica on its own, owner decision D1);
+    # overseas departments (FRY) kept separate and not simulated.
     'FRA-IDF': ('Île-de-France', 'FRA', ['FR1']),
     'FRA-NE': ('Nord-Est (Hauts-de-France, Grand Est)', 'FRA', ['FRE', 'FRF']),
     'FRA-OUE': ('Ouest (Normandie, Bretagne, Pays de la Loire)', 'FRA', ['FRD', 'FRH', 'FRG']),
@@ -36,7 +40,8 @@ PROVINCES = {
     'FRA-NAQ': ('Nouvelle-Aquitaine', 'FRA', ['FRI']),
     'FRA-OCC': ('Occitanie', 'FRA', ['FRJ']),
     'FRA-ARA': ('Auvergne-Rhône-Alpes', 'FRA', ['FRK']),
-    'FRA-SE': ("Sud-Est (Provence-Alpes-Côte d'Azur, Corse)", 'FRA', ['FRL', 'FRM']),
+    'FRA-SE': ("Provence-Alpes-Côte d'Azur", 'FRA', ['FRL']),
+    'FRA-COR': ('Corse', 'FRA', ['FRM']),
     'FRA-OM': ('Overseas departments (not simulated in v1)', 'FRA', ['FRY']),
     # Germany: 16 Länder (NUTS-1) grouped into 7.
     'DEU-NOR': ('Norddeutschland (Schleswig-Holstein, Hamburg, Bremen, Niedersachsen)', 'DEU', ['DEF', 'DE6', 'DE5', 'DE9']),
@@ -82,6 +87,41 @@ PROVINCES = {
     'TUR-GDA': ('Güneydoğu Anadolu', 'TUR', ['TRC']),
 }
 NOT_SIMULATED = {'FRA-OM'}
+
+# ----------------------------------------------------------------------------------------------
+# Curated sea and fixed links (not derived from geometry, which only yields land borders).
+# (province or neighbour A, B, kind, crossing, status). Status says how the link was checked;
+# "to verify" means it rests on general knowledge and must be checked against operator timetables
+# before a scenario is built. 'include' = proposed for version 1; 'candidate' = documented, not proposed.
+# Neighbour codes (IRL, ESP, ...) are the simulated countries (one zone each).
+SEA_LINKS = [
+    # Corsica (D1): no land link to anything.
+    ('FRA-COR', 'FRA-SE', 'ferry', 'Ajaccio/Bastia – Marseille, Toulon, Nice', 'operating 2026 (Corsica Linea, Corsica Ferries; checked via search 2026-11)', 'include'),
+    ('FRA-COR', 'ITA-SAR', 'ferry', 'Bonifacio – Santa Teresa Gallura (Strait of Bonifacio)', 'operating 2026 (Moby / Ichnusa public-service route; checked via search 2026-11)', 'include'),
+    ('FRA-COR', 'ITA-CEN', 'ferry', 'Bastia – Livorno (Tuscany)', 'operating 2026, year-round (Corsica Ferries, Moby; checked via search 2026-11)', 'include'),
+    ('FRA-COR', 'ITA-NO', 'ferry', 'Bastia – Savona / Genoa (Liguria)', 'seasonal in 2026 (checked via search 2026-11)', 'candidate'),
+    # United Kingdom
+    ('GBR-SE', 'FRA-NE', 'fixed link', 'Channel Tunnel, Folkestone (Kent) – Coquelles (Pas-de-Calais)', 'fixed infrastructure', 'include'),
+    ('GBR-SE', 'FRA-OUE', 'ferry', 'Portsmouth / Poole – Caen, Cherbourg, Le Havre, St-Malo', 'to verify', 'include'),
+    ('GBR-NIR', 'GBR-SCO', 'ferry', 'Belfast / Larne – Cairnryan', 'operating 2026 (Stena Line, P&O; checked via search 2026-11)', 'include'),
+    ('GBR-NIR', 'GBR-NTH', 'ferry', 'Belfast – Liverpool (North West England)', 'operating 2026 (Stena Line; checked via search 2026-11)', 'include'),
+    ('GBR-WLS', 'IRL', 'ferry', 'Holyhead / Fishguard / Pembroke – Dublin / Rosslare', 'to verify', 'include'),
+    ('GBR-NTH', 'NLD', 'ferry', 'Hull – Rotterdam', 'to verify', 'include'),
+    ('GBR-SE', 'NLD', 'ferry', 'Harwich – Hook of Holland', 'to verify', 'candidate'),
+    ('GBR-SCO', 'NOR', 'sea lane', 'North Sea energy and shipping (no passenger ferry assumed)', 'to verify', 'include'),
+    # Italy
+    ('ITA-SIC', 'ITA-SUD', 'ferry', 'Messina – Villa San Giovanni (Strait of Messina)', 'to verify', 'include'),
+    ('ITA-SAR', 'ITA-CEN', 'ferry', 'Olbia / Cagliari – Civitavecchia, Livorno', 'to verify', 'include'),
+    ('ITA-SAR', 'ITA-NO', 'ferry', 'Olbia / Porto Torres – Genoa', 'to verify', 'include'),
+    ('ITA-SAR', 'ITA-SUD', 'ferry', 'Cagliari – Naples', 'to verify', 'candidate'),
+    ('ITA-SIC', 'ITA-CEN', 'ferry', 'Palermo – Civitavecchia', 'to verify', 'candidate'),
+    ('ITA-SUD', 'GRC', 'ferry', 'Bari / Brindisi – Patras / Igoumenitsa', 'to verify', 'include'),
+    ('ITA-NO', 'ESP', 'ferry', 'Genoa / Savona – Barcelona', 'to verify', 'candidate'),
+    # France
+    ('FRA-OUE', 'IRL', 'ferry', 'Cherbourg / Roscoff – Rosslare / Cork', 'to verify', 'include'),
+    # Türkiye
+    ('TUR-EGE', 'GRC', 'ferry', 'Aegean coastal crossings (e.g. Çeşme – Chios)', 'to verify', 'include'),
+]
 
 # ITL1 labels (ONS); population for UK provinces is not taken from Eurostat (no UK data after 2019).
 ITL1 = {'TLC': 'North East', 'TLD': 'North West', 'TLE': 'Yorkshire and The Humber', 'TLF': 'East Midlands',
@@ -276,6 +316,9 @@ with open(os.path.join(OUT, 'world02-admin1-to-province.csv'), 'w', newline='', 
 json.dump(provinces, open(os.path.join(OUT, 'world02-provinces.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 json.dump({p: dict(sorted(n.items())) for p, n in sorted(adjacent.items())},
           open(os.path.join(OUT, 'world02-province-adjacency.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+json.dump([{'a': a, 'b': b, 'kind': kind, 'crossing': crossing, 'status': status, 'proposal': proposal}
+           for a, b, kind, crossing, status, proposal in SEA_LINKS],
+          open(os.path.join(OUT, 'world02-sea-links.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 unassigned = [r for r in rows if not r['province_id']]
 print(f'{len(rows)} admin-1 units, {len(provinces)} provinces, {len(unassigned)} unassigned')
 for r in unassigned:

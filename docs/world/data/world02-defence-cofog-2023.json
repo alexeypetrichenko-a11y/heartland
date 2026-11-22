@@ -1,0 +1,109 @@
+{
+ "retrieved": "2026-11-22",
+ "year": 2023,
+ "note": "Raw values, millions of national currency (compensation, defence spending) and thousands of persons (employees). Review extract, not a scenario asset.",
+ "defence_cofog_GF02": {
+  "source": "OECD Table 11, Government expenditure by function (OECD.SDD.NAD,DSD_NASEC10@DF_TABLE11), general government S13; identical to Eurostat gov_10a_exp for FR, DE, IT, PL. No T\u00fcrkiye.",
+  "licence": "OECD: CC BY 4.0 (verified via search only); Eurostat: reuse with acknowledgement",
+  "transactions": {
+   "OTE": "total expenditure",
+   "D1": "compensation of employees",
+   "P2": "intermediate consumption",
+   "P51G": "gross fixed capital formation"
+  },
+  "values": {
+   "FRA": {
+    "P51G": 9590.0,
+    "D1": 20529.5,
+    "P2": 19249.8,
+    "OTE": 51179.8
+   },
+   "DEU": {
+    "P51G": 8274.0,
+    "P2": 20605.0,
+    "D1": 16865.0,
+    "OTE": 52690.0
+   },
+   "GBR": {
+    "P2": 24209.0,
+    "D1": 16543.0,
+    "P51G": 20060.0,
+    "OTE": 60678.0
+   },
+   "ITA": {
+    "D1": 14891.0,
+    "P2": 2301.0,
+    "P51G": 7245.0,
+    "OTE": 25513.0
+   },
+   "POL": {
+    "P2": 15270.1,
+    "P51G": 22516.0,
+    "D1": 30400.04,
+    "OTE": 74607.68
+   }
+  },
+  "general_government_total": {
+   "FRA": {
+    "D1": 346293.3,
+    "P2": 157695.6,
+    "P51G": 119699.4,
+    "OTE": 1607392.5
+   },
+   "DEU": {
+    "OTE": 2031433.0,
+    "P2": 265841.0,
+    "D1": 340501.0,
+    "P51G": 121483.0
+   },
+   "GBR": {
+    "P2": 233225.0,
+    "P51G": 87825.0,
+    "D1": 268585.0,
+    "OTE": 1280597.0
+   },
+   "ITA": {
+    "P2": 120161.0,
+    "D1": 188137.0,
+    "P51G": 67357.0,
+    "OTE": 1149206.0
+   },
+   "POL": {
+    "D1": 348807.4,
+    "P2": 225370.41,
+    "P51G": 174544.69,
+    "OTE": 1600364.62
+   }
+  }
+ },
+ "compensation_of_employees_total_economy_D1": {
+  "source": "Eurostat nama_10_gdp (CP_MNAC) for FR, DE, IT, PL, TR; OECD DSD_NAMAIN10@DF_TABLE1_INCOME for GBR (and FRA, TUR as cross-check)",
+  "values": {
+   "DEU": 2229861.0,
+   "FRA": 1453666.9,
+   "ITA": 823557.5,
+   "POL": 1336334.0,
+   "TUR": 7755515.4,
+   "GBR": 1335478.0
+  },
+  "oecd_crosscheck": {
+   "FRA": 1453666.9,
+   "TUR": 7755515.4,
+   "GBR": 1335478.0
+  }
+ },
+ "employees_total_economy": {
+  "source": "Eurostat nama_10_a10_e (SAL_DC, THS_PER) for FR, DE, IT, PL; OECD DSD_NAMAIN10@DF_TABLE3 (SAL, persons) for GBR. T\u00fcrkiye: not available in either (gap).",
+  "values": {
+   "DEU": 42098.0,
+   "FRA": 27055.0,
+   "ITA": 20052.8,
+   "POL": 13986.1,
+   "GBR": 28881.034
+  },
+  "oecd_crosscheck": {
+   "FRA": 27055.0,
+   "GBR": 28881.034
+  }
+ }
+}

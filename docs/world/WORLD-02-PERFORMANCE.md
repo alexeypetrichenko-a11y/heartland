@@ -4,7 +4,7 @@
 |---|---|
 | **Engine measured** | The current `main` engine (ECON-07 merged, `84f8a53`), unmodified. No optimisation was made. |
 | **Target** | Provisional: one weekly turn completed in ≤ 0.5 s on the reference iPhone |
-| **Reproduce** | `node --expose-gc --experimental-strip-types economy-engine/sim/world02-bench.ts <dir>` (Node). Then `node economy-engine/sim/world02-browser-bench.cjs <dir> --html <dir>/world02-iphone-bench.html --rates 1,4,6` (Chromium, and the iPhone page). Results: [`data/world02-bench-node.json`](data/world02-bench-node.json), [`data/world02-bench-browser.json`](data/world02-bench-browser.json) |
+| **Reproduce** | Zone-budget comparison (§2.3): `node --expose-gc --experimental-strip-types economy-engine/sim/world02-bench.ts <dir> --set budget --repeats 3`, then `node economy-engine/sim/world02-browser-bench.cjs <dir> --set budget --repeats 2 --rates 1,4,6 --html <dir>/world02-iphone-bench.html`. Results: [`data/world02-bench-node-budget.json`](data/world02-bench-node-budget.json), [`data/world02-bench-browser-budget.json`](data/world02-bench-browser-budget.json). First run (§2.1–2.2): `node --expose-gc --experimental-strip-types economy-engine/sim/world02-bench.ts <dir>` (Node). Then `node economy-engine/sim/world02-browser-bench.cjs <dir> --html <dir>/world02-iphone-bench.html --rates 1,4,6` (Chromium, and the iPhone page). Results: [`data/world02-bench-node.json`](data/world02-bench-node.json), [`data/world02-bench-browser.json`](data/world02-bench-browser.json) |
 
 ## 1. What was measured
 
@@ -61,6 +61,78 @@ The engine is bundled exactly as the game loads it (`src/integration/index.ts`, 
 | 60 zones, dense links | 4× | 51 | 93 | 145 | 478 | 6.2 | 11.0 | 16.0 | 58 | 19 | 40 |
 | 60 zones, dense links | 6× | 115 | 145 | 216 | 927 | 9.1 | 16.7 | 24.6 | 91 | 36 | 32 |
 
+### 2.3 Zone budget after decision D1: 60 vs 61 zones (measured, repeated)
+
+**Worlds compared:**
+- **A:** 61 zones (46 + 10 + 5).
+- **A on the real draft topology:**
+  - the 46 provinces, with their real land adjacency and proposed sea links;
+  - the 10 neighbours' land borders;
+  - real province populations, including Corsica at 0.36 M;
+  - synthetic productivity and blocs.
+- **B:** 60 zones (46 + 9 + 5). Merging two blocs instead gives the same zone count, so the cost is the same.
+- **60 (45 + 10 + 5):** the first WORLD-02 shape.
+- **C:** 50 zones (the fallback).
+
+**Runs:**
+- **Node:** each world 3 times (465 weeks). The median, 95th percentile and slowest week pool all runs; the range of per-run medians measures the noise.
+- **Chromium:** each world twice at each slowdown; both runs are shown.
+- Same machine as §2.1–2.2 (Linux x64, 4 CPUs), engine unchanged.
+
+**Node.js (desktop):**
+
+| World | Zones | Lanes | Build (s) | Week median (ms) | Run medians (ms) | p95 (ms) | Slowest (ms) | 156 weeks (s) | Start from save (ms) | Save wk1 raw/gz (KB) | Save wk156 raw/gz (KB) | Save / restore (ms) | Heap (MB) |
+|---|---:|---:|---:|---:|---|---:|---:|---:|---:|---|---|---|---:|
+| C: 50 zones (35+10+5) | 50 | 114 | 10.1 | 32.9 | 32.4–33.6 | 52.0 | 146 | 5.8 | 10 | 1337 / 483 | 1687 / 654 | 12 / 11 | 15 |
+| 60 zones (45+10+5) | 60 | 128 | 12.9 | 43.9 | 43.7–44.0 | 73.0 | 88 | 7.1 | 10 | 1590 / 577 | 1938 / 750 | 12 / 10 | 15 |
+| B: 60 zones (46+9+5) | 60 | 127 | 13.0 | 45.0 | 44.8–45.6 | 75.5 | 94 | 7.2 | 10 | 1583 / 576 | 1919 / 743 | 14 / 11 | 15 |
+| A: 61 zones (46+10+5) | 61 | 128 | 12.9 | 45.6 | 44.8–46.7 | 71.0 | 91 | 7.9 | 10 | 1619 / 587 | 1966 / 761 | 14 / 11 | 15 |
+| A: 61 zones, real draft topology | 61 | 143 | 13.4 | 46.5 | 46.0–49.5 | 82.3 | 99 | 8.0 | 10 | 1618 / 589 | 1966 / 762 | 17 / 12 | 17 |
+
+**Headless Chromium with CPU throttling (a proxy, not an iPhone):**
+
+| World | CPU slowdown | Runs | Start from save (ms) | Week median (ms) | p95 (ms) | Slowest week (ms) | 156 weeks (s) | Save / restore (ms) | Save wk156 (KB) | JS heap (MB) |
+|---|---:|---:|---:|---|---|---|---:|---|---:|---:|
+| C: 50 zones (35+10+5) | 1× | 2 | 20 / 13 | 15 / 15 | 39 / 44 | 199 / 150 | 3.2 / 3.0 | 9/4 / 11/5 | 1687 | 54 / 65 |
+| C: 50 zones (35+10+5) | 4× | 2 | 43 / 52 | 72 / 68 | 108 / 121 | 416 / 554 | 12.5 / 11.9 | 51/27 / 39/18 | 1687 | 61 / 58 |
+| C: 50 zones (35+10+5) | 6× | 2 | 63 / 71 | 103 / 103 | 167 / 163 | 620 / 571 | 17.4 / 17.3 | 82/32 / 71/34 | 1687 | 51 / 51 |
+| 60 zones (45+10+5) | 1× | 2 | 15 / 13 | 22 / 20 | 40 / 46 | 186 / 175 | 4.1 / 3.6 | 14/5 / 10/5 | 1938 | 61 / 65 |
+| 60 zones (45+10+5) | 4× | 2 | 50 / 50 | 94 / 92 | 138 / 137 | 491 / 525 | 15.6 / 15.6 | 57/24 / 53/26 | 1938 | 54 / 40 |
+| 60 zones (45+10+5) | 6× | 2 | 79 / 68 | 138 / 141 | 206 / 223 | 835 / 763 | 23.4 / 23.4 | 80/36 / 83/55 | 1938 | 33 / 45 |
+| B: 60 zones (46+9+5) | 1× | 2 | 14 / 12 | 20 / 21 | 34 / 48 | 171 / 176 | 3.6 / 4.1 | 12/5 / 11/5 | 1919 | 69 / 54 |
+| B: 60 zones (46+9+5) | 4× | 2 | 84 / 51 | 93 / 91 | 152 / 165 | 623 / 545 | 16.3 / 15.7 | 55/25 / 47/28 | 1919 | 58 / 32 |
+| B: 60 zones (46+9+5) | 6× | 2 | 82 / 76 | 137 / 135 | 193 / 205 | 748 / 874 | 22.0 / 22.6 | 76/33 / 77/36 | 1919 | 45 / 61 |
+| A: 61 zones (46+10+5) | 1× | 2 | 12 / 12 | 20 / 20 | 36 / 37 | 164 / 193 | 3.7 / 3.9 | 12/5 / 11/5 | 1966 | 58 / 82 |
+| A: 61 zones (46+10+5) | 4× | 2 | 50 / 49 | 93 / 93 | 137 / 133 | 525 / 488 | 15.8 / 15.7 | 52/24 / 62/24 | 1966 | 38 / 43 |
+| A: 61 zones (46+10+5) | 6× | 2 | 72 / 72 | 146 / 142 | 226 / 202 | 740 / 737 | 24.6 / 23.5 | 110/65 / 80/37 | 1966 | 58 / 61 |
+| A: 61 zones, real draft topology | 1× | 2 | 16 / 11 | 21 / 20 | 43 / 30 | 211 / 150 | 3.8 / 3.6 | 15/6 / 16/6 | 1966 | 61 / 58 |
+| A: 61 zones, real draft topology | 4× | 2 | 50 / 50 | 89 / 92 | 121 / 122 | 513 / 507 | 15.0 / 15.3 | 74/28 / 75/35 | 1966 | 65 / 36 |
+| A: 61 zones, real draft topology | 6× | 2 | 79 / 67 | 144 / 144 | 219 / 201 | 711 / 767 | 23.7 / 23.5 | 138/40 / 111/42 | 1966 | 65 / 65 |
+
+**Findings:**
+- **60 vs 61: no measurable difference.**
+  - Node medians are 45.0 ms (B) and 45.6 ms (A). They lie inside each other's run-to-run ranges (44.8–45.6 and 44.8–46.7).
+  - At 6× Chromium the medians are 135–137 ms (B) and 142–146 ms (A, both topologies). The two runs of a single world differ by up to 4 ms, and the spread between the 60-zone worlds is as large as the gap to 61.
+  - One zone changes cost by about 1–2%.
+- **Option C (50 zones) saves about a quarter:**
+  - Node median 32.9 ms;
+  - 6× Chromium median 103 ms;
+  - slowest week 0.57–0.62 s instead of 0.71–0.87 s.
+- **The real topology costs the same as the synthetic one.** It has 143 lanes instead of 128 (Node median 46.5 vs 45.6 ms; 6× median 144 vs 142–146 ms). The very small Corsica zone caused no slowdown and no error in 156 weeks × 3 runs.
+- **Against the proposed thresholds** (F-1, written for the iPhone), at 6× Chromium for option A:
+  - median 142–146 ms (≤ 250);
+  - 95th percentile 201–226 ms (≤ 500);
+  - slowest week 0.71–0.77 s (≤ 1 s);
+  - start from save 67–79 ms (≤ 1 s);
+  - save + restore 0.12–0.18 s (≤ 1 s).
+
+  **All are met in the proxy.** The slowest week is the closest to its limit.
+- **Memory and save size:**
+  - Node heap 15–17 MB;
+  - Chromium JS heap 36–82 MB;
+  - the save at week 156 is 1.97 MB raw (0.76 MB gzip) for 61 zones, against 1.92–1.94 MB for 60.
+- **iPhone page.** It is generated from option A on the real topology. It was opened and run in Chromium in this session (median 21 ms at 1×). **It has not been run on an iPhone.**
+
 ## 3. Findings
 
 | Question | Answer (measured unless marked) |
@@ -89,10 +161,10 @@ These are hypotheses for the device test to confirm or reject:
 
 1. On a computer with the repository:
    - `npm ci`
-   - `node --expose-gc --experimental-strip-types economy-engine/sim/world02-bench.ts /tmp/w02`
-   - `node economy-engine/sim/world02-browser-bench.cjs /tmp/w02 --html /tmp/w02/world02-iphone-bench.html --rates 1`
+   - `node --expose-gc --experimental-strip-types economy-engine/sim/world02-bench.ts /tmp/w02 --set budget`
+   - `node economy-engine/sim/world02-browser-bench.cjs /tmp/w02 --set budget --html /tmp/w02/world02-iphone-bench.html --rates 1`
 
-   This writes a single self-contained page (about 1.8 MB) with the engine and the 60-zone save.
+   This writes a single self-contained page (1.8 MB) with the engine and the **61-zone save on the real draft topology** (option A). It was generated and checked in Chromium in this session; it has not been opened on an iPhone.
 2. Make the page reachable from the iPhone over HTTPS, for example through the same private preview hosting used for earlier iPhone reviews. Opening it as a local file works too, if the device allows.
 3. On the reference iPhone, in Safari:
    - turn Low Power Mode off and leave the device plugged in;
@@ -110,7 +182,7 @@ These are hypotheses for the device test to confirm or reject:
    | Save + restore | ≤ 1 s |
 
    The slowest-week requirement is a proposed allowance for one-off warm-up.
-6. If the device fails at 60 zones, use the 49-zone fallback (`WORLD-02-PROVINCES.md` §5). The 45-zone results here show its expected cost. Then re-measure.
+6. If the device fails at 61 zones, go to option C, the 50-zone fallback (`WORLD-02-PROVINCES.md` §5), not to a 60-zone option: one zone fewer saves only 1–2%. §2.3 shows option C's cost. Then re-measure with the option C page (the world `C: 50 zones` from the same run).
 
 ## 5. Risks
 
@@ -121,4 +193,5 @@ These are hypotheses for the device test to confirm or reject:
 | Save download size (0.6–0.75 MB gzip) on mobile networks | not measured | Lazy loading only when a real-world game starts; future offline caching (PWA) |
 | SAVE-01 write time with a 1.9 MB economy | not measured | Measure in W8 (Codex's area); IndexedDB writes are single-transaction |
 | Safari JIT and memory differ from Chromium's | not measured | The iPhone procedure above |
-| More than 60 zones later (more simulated countries) | measured to 75 | 75 zones roughly doubles the cost of 45; add zones only after a device measurement |
+| More than 61 zones later (more simulated countries) | measured to 75 | 75 zones roughly doubles the cost of 45; add zones only after a device measurement |
+| Very small zones (Corsica, 0.36 M people, next to zones of 10 M or more) | measured on the real draft topology with synthetic productivity: no effect on cost (§2.3) | Re-check numerical behaviour of small zones on the calibrated world (WORLD-03) |

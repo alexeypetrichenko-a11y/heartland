@@ -28,6 +28,8 @@ Sources were checked by reading the publisher's own page or by querying its API 
 | **Statistics Poland (GUS)** ([copyright](https://stat.gov.pl/copyright/)) | GUS "nie ma zastrzeżeń co do kopiowania plików i stron oraz dokonywania wydruków, w tym do własnych opracowań, pod warunkiem, że będzie podane ich źródło" (no objection to copying, including for one's own work, provided the source is given). Reuse is governed by the 2021 Open Data Act. | Yes, with source | Not stated as restricted (open data act) | source | Verified (primary) for the copyright page; the reuse-conditions page did not load |
 | **TurkStat (TÜİK)** ([legal notice](https://www.tuik.gov.tr/Kurumsal/Yasal_Uyari)) | "İnternet sitemizden, yayınlarımızdan veya veri tabanlarımızdan elde edilen verilerin, kaynak gösterilmek suretiyle herhangi bir izine gerek duymaksızın yeniden kullanımı mümkündür." (data may be reused, citing the source, without any permission). "telif hakkı ve diğer her türlü hakkı TÜİK'e aittir" (copyright reserved). | Yes, citing the source (micro-data excluded) | Not stated as restricted | cite TurkStat | Verified (primary) |
 | **World Bank** ([dataset terms](https://www.worldbank.org/ext/en/legal/terms-conditions/datasets)) | "Unless specifically labeled otherwise, these Datasets are provided to you under a Creative Commons Attribution 4.0 International License (CC BY 4.0)". "Some datasets and indicators are provided by third parties, and may not be redistributed or reused without the consent of the original data provider". | Yes, for World Bank-owned indicators | Yes (CC BY 4.0) | per metadata | Verified (primary). The API shows that **"Armed forces personnel, total" comes from the IISS *Military Balance*** and **military expenditure from SIPRI**: third-party indicators |
+| **World Bank ICP (PPPs)** (WDI indicators `PA.NUS.PPP`, `NY.GDP.MKTP.PP.CD`) | WDI metadata lists the sources as the International Comparison Program (World Bank), the Eurostat PPP Programme and the OECD PPP Programme, and does **not** mark them as third-party series (unlike the SIPRI and IISS ones). The World Bank data catalog lists the ICP 2021 dataset under CC BY 4.0. | Yes | Yes (CC BY 4.0) | "World Bank, International Comparison Program" | Verified (primary) for the WDI metadata; ICP dataset licence verified (search; the catalog host was outside the session allowance) |
+| **Exchange rates** | (a) WDI `PA.NUS.FCRF` comes from the **IMF** International Financial Statistics: restricted (see IMF). (b) Eurostat `ert_bil_eur_a` (annual averages of the ECB euro reference rates) falls under the Eurostat notice. The ECB's own reuse terms were not readable from this session. (c) The rate implied by two WDI indicators, `NY.GDP.MKTP.CN` / `NY.GDP.MKTP.CD`, is CC BY 4.0 (World Bank-compiled). | (b) or (c) | (b), (c) yes; (a) no | source | (a), (c) verified (primary, API metadata); (b) Eurostat verified, ECB not verified |
 | **OECD** | Content published from 1 July 2024 under CC BY 4.0; earlier content on similar terms; third-party material excluded. | Yes (CC BY 4.0) | Yes | CC BY 4.0 | Verified (search); oecd.org returned HTTP 403 to automated requests |
 | **IMF** | Commercial reuse of IMF data requires permission (copyright@imf.org); attribution required. | Non-commercial use only without permission | **Needs permission** | "© IMF" | Verified (search); imf.org returned HTTP 403 |
 | **US EIA** ([copyrights and reuse](https://www.eia.gov/about/copyrights_reuse.php)) | "U.S. government publications are in the public domain and are not subject to copyright protection. You may use and/or distribute any of our data". | Yes | Yes | "Source: U.S. Energy Information Administration (date)" | Verified (primary) |
@@ -108,7 +110,10 @@ So 2024 would be more recent, but not consistent across the six countries, and t
 **Reconciliation rules:**
 - **Population:** for Eurostat countries, the average of 1 January 2023 and 1 January 2024 approximates the 2023 annual average. For the UK, use the ONS mid-2023 estimate. Both are documented. The province table in `WORLD-02-PROVINCES.md` currently shows **2025** figures only to size the provinces; they are not scenario values.
 - **A missing 2023 value for one country:** take the nearest available year (2024 first, then 2022) and scale it to that country's 2023 national total for the same variable. Mark it as an estimate in the provenance file. Never invent a value.
-- **Currency:** convert national currencies (GBP, PLN, TRY) to the engine's single illustrative unit through one documented rate per country for 2023. Market or PPP rates are decision D-E2. Türkiye's very high 2023 inflation makes the choice and the averaging period important.
+- **Currency:** the owner chose PPP-based calibration (decision D2). §6 gives the exact method:
+  - **PPP** for real output;
+  - **ratios to GDP in national currency** for taxes, spending and debt;
+  - **market rates** only for reference display.
 
 ---
 
@@ -186,7 +191,7 @@ Interest is not a spending input; the engine computes it from debt. Subsidies an
 |---|---|
 | `zone.infrastructure` index (1 = normal) | Start every zone at **1** (neutral) in version 1. Optionally, a later version could derive relative values from motorway and rail density (`tran_r_net`, ONS / DfT for the UK). Design choice |
 | Lane distances | Great-circle distance between province population-weighted centroids. Weights are NUTS-3 populations (Eurostat) at Natural Earth polygon centroids (public domain); one documented scale converts kilometres to engine distance units. No new dataset |
-| Sea links | Curated: Channel (GBR-SE–FRA-NE, fixed link), Irish Sea (GBR-NIR), Strait of Messina (ITA-SIC), Tyrrhenian (ITA-SAR), Bosporus and Dardanelles (inside TUR-IST / TUR-MAR), Aegean and Mediterranean waypoints. Port presence from the Natural Earth **ports** layer (public domain) or Eurostat maritime port statistics; the NGA World Port Index licence is not verified |
+| Sea links | Curated list in [`data/world02-sea-links.json`](data/world02-sea-links.json) (`WORLD-02-PROVINCES.md` §2.1): Channel (fixed link), Corsica (D1), Irish Sea, Strait of Messina, Tyrrhenian, Aegean, North Sea. The Bosporus and Dardanelles are inside TUR-IST / TUR-MAR. The current API gives every link a road of fixed length 0.8 that is also an army path (decision S-1). Port presence from the Natural Earth **ports** layer (public domain) or Eurostat maritime port statistics; the NGA World Port Index licence is not verified |
 | Capacities | Uniform in version 1 (as the fictional scenario today) |
 
 ---
@@ -206,3 +211,157 @@ Interest is not a spending input; the engine computes it from debt. Subsidies an
 3. **No invented parameters.** If a target can't be met within tolerance, the residual is reported and the case goes to the owner. Engine formulas are never tuned for a scenario, and no country parameter is set "to make it pass".
 4. **Report.** A calibration report lists every target, value, residual and estimate, and the share of revenue and spending that falls outside the engine's categories (§4.4–4.5).
 5. **Behaviour checks.** The ECON-06/07 strategy suite and the 52/104/156-week horizon checks run on the calibrated world before any release.
+
+---
+
+## 6. Currency, purchasing power and the engine's accounting unit (owner decision D2)
+
+### 6.1 What the engine does with money (measured)
+
+- **One shared money unit.** The engine has no national currencies or exchange rates ("R36 not yet implemented": `economy-engine/INTEGRATION_API.md`, `MILESTONE_2.md`). Every price, wage, tax, debt and trade flow is in that one unit.
+- **Money conservation** is tested every run (`economy-engine/tests/conservation.test.ts`, and the 520-week credit test). The unit is never converted while the game runs, so any conversion happens **once, offline, before the world is built**, and cannot break conservation.
+- **Price levels barely differ between countries.** A synthetic experiment (`economy-engine/sim/world02-price-levels.ts`) builds four countries that are identical except for productivity, runs 104 weeks and compares GDP at current and constant prices:
+
+| Country | Technology | GDP per person, current prices | GDP per person, constant prices | Price level (current / constant) | Real GDP per person relative to A |
+|---|---:|---:|---:|---:|---:|
+| A | 1 | 0.5473 | 0.6502 | 0.842 | 1.00 |
+| B | 1.5 | 0.8589 | 0.9702 | 0.885 | 1.49 |
+| C | 2 | 1.1669 | 1.2931 | 0.902 | 1.99 |
+| D | 3 | 1.7961 | 1.9406 | 0.926 | 2.98 |
+
+A **threefold** productivity gap produces only a **10%** gap in price levels (0.842 vs 0.926). Real output follows productivity almost exactly.
+
+The real-world gap is much larger. In 2023 Türkiye's price level was 41% of Germany's (World Bank) or 39% (Eurostat). The engine cannot reproduce market-exchange-rate price differences. **Its money behaves like a common purchasing-power unit,** so PPP is the consistent choice for real quantities.
+
+### 6.2 Verified 2023 data (extract: [`data/world02-ppp-fx-2023.json`](data/world02-ppp-fx-2023.json); table: `python3 docs/world/tools/world02_ppp.py`)
+
+| 2023 | GDP, national currency (bn) | GDP at market rates (US$ bn) | GDP at PPP (intl $ bn) | PPP factor (LCU per intl $) | Exchange rate (LCU per US$) | Price level (PPP / rate) | Share of the six, market | Share of the six, PPP | PPP / market share |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| France | 2,827 | 3,056 | 4,166 | 0.6785 | 0.9248 | 0.734 | 20.0% | 17.8% | 0.89 |
+| Germany | 4,219 | 4,562 | 6,019 | 0.7011 | 0.9248 | 0.758 | 29.8% | 25.7% | 0.86 |
+| United Kingdom | 2,752 | 3,421 | 4,165 | 0.6607 | 0.8045 | 0.821 | 22.3% | 17.8% | 0.80 |
+| Italy | 2,143 | 2,317 | 3,560 | 0.6019 | 0.9248 | 0.651 | 15.1% | 15.2% | 1.01 |
+| Poland | 3,415 | 812 | 1,778 | 1.9205 | 4.2037 | 0.457 | 5.3% | 7.6% | 1.43 |
+| Türkiye | 27,091 | 1,141 | 3,686 | 7.3503 | 23.7386 | 0.310 | 7.5% | 15.8% | 2.12 |
+| **Six together** | | **15,310** | **23,374** | | | | | | |
+
+**Sources:**
+- **World Bank WDI API**, last updated 11 November 2026: `NY.GDP.MKTP.CN`, `NY.GDP.MKTP.CD`, `NY.GDP.MKTP.PP.CD`, `PA.NUS.PPP`.
+- **Exchange rate:** implied by `NY.GDP.MKTP.CN` / `NY.GDP.MKTP.CD`. It is identical to the IMF-sourced `PA.NUS.FCRF` (shown only to compare).
+
+**Checks (run by the script):**
+- **Consistency:** WDI's PPP GDP equals GDP in national currency divided by the PPP factor, within 0.2%, for all six.
+- **Cross-source agreement:** price levels relative to Germany agree with Eurostat's 2023 price level indices (`prc_ppp_ind`, updated 10 July 2025) to within 1% for five countries, and 3.9% for Türkiye.
+- **Exchange-rate cross-check:** Eurostat's 2023 annual averages (`ert_bil_eur_a`: USD 1.0813, GBP 0.86979, PLN 4.542, TRY 25.7597 per euro) give the same rates to within 0.4%. Türkiye's ECB-based rate is 23.82 against WDI's 23.74.
+
+**What it changes.**
+- **Türkiye.** At PPP its economy is about **Italy's size** (15.8% vs 15.2% of the six). At market rates it is **half** that (7.5%).
+- **Poland** rises from 5.3% to 7.6%.
+- **The UK, Germany and France** fall by 2–4 points.
+
+Türkiye's exchange rate moved strongly during 2023, a year of very high inflation. A market-rate figure therefore depends on the averaging period: the annual average (23.74 TRY per US$) differs from any single month. PPP does not have this problem.
+
+### 6.3 Method (exact and auditable)
+
+| Quantity | Real-world concept | Conversion into the engine | Why |
+|---|---|---|---|
+| **Real production and domestic purchasing power**: province output, the productivity used to fit `technology`, household consumption volumes | GVA in national currency, 2023 (Eurostat `nama_10r_3gva`; ONS; TurkStat) | **Divide by the country's 2023 PPP factor** (`PA.NUS.PPP`, LCU per international $). One factor per country. No official regional price levels exist, so every province of a country uses the national factor | The engine's money is a common purchasing-power unit (§6.1) |
+| **Engine common accounting unit** | — | **1 engine unit = the engine's own output at base prices.** The calibration fits `technology` so that each zone's share of the scenario's GDP at constant prices matches its share of the PPP-converted GVA (tolerances §5). One documented scale factor `s` (engine units per international $) is recorded in the provenance file. No other conversion exists | Keeps the engine's absolute numbers in their tested range |
+| **Nominal government finances**: tax rates, spending shares, debt, treasury | Revenue/GDP, spending/GDP, debt/GDP, all in national currency, 2023 | **Ratios only.** They are the same whichever currency is used. The engine applies them to its own GDP (effective tax rates §4.4, spending shares §4.5, debt/GDP §4.6) | Ratios avoid any currency choice and keep the fiscal burden realistic |
+| **International trade prices and external purchasing power** | Imports and exports / GDP (national accounts, current prices) | **Ratio targets used as a check** (within the §5 tolerances where the engine allows). Trade happens at engine prices in one currency | See the limitation below |
+| **Market-rate values**: GDP in US$, exchange rates | `NY.GDP.MKTP.CD`; WDI-implied rate | **Not fed to the engine.** Static reference shown on country cards with year and source (for example "GDP 2023 at market exchange rates: US$1,141 bn — World Bank") | Players expect familiar headline figures |
+
+**Formulas.**
+
+For zone *z* in country *c*:
+
+- PPP-converted output: `V_z = GVA_z(LCU) / PPP_c`.
+- Calibration target: `GDPreal_z / Σ GDPreal = V_z / Σ V`.
+- Scale factor: `s = Σ GDPreal / Σ V`.
+
+For country *c*:
+
+- Fiscal inputs: `rate_c = revenue_c(LCU) / base_c(LCU)` and `share_c = spending_c(LCU) / GDP_c(LCU)`.
+- Starting debt: `debt_c = (debt_c(LCU) / GDP_c(LCU)) × GDPnominal_c(engine)`.
+
+Every value comes from one national-accounts vintage per country. For example, Eurostat's 2023 GDP for Türkiye is 26,546 bn TRY against WDI's 27,091 bn. Mixing vintages would create a 2% inconsistency.
+
+**Limitation (not solvable without a new mechanic): external purchasing power.**
+
+In reality, a low price level means a weak currency abroad. Türkiye pays for imported energy and machinery at world prices, which are expensive relative to its domestic prices. The engine has one currency and nearly uniform price levels, so it cannot represent this. With PPP calibration, Türkiye, Poland and Italy can import more cheaply than in reality.
+
+The smallest mitigations within approved scope:
+1. Calibrate trade **openness as a ratio** (above) rather than in levels.
+2. Report the residual.
+
+Representing exchange rates properly means national currencies (R36), a major mechanic. It is not proposed. **No formula was changed.**
+
+---
+
+## 7. Abstract military forces from open defence expenditure (owner decision D3)
+
+### 7.1 Verified 2023 data (extract: [`data/world02-defence-cofog-2023.json`](data/world02-defence-cofog-2023.json))
+
+**Facts:**
+- **COFOG division 02 (Defence), general government, by economic transaction.** The source is OECD Table 11 (`OECD.SDD.NAD,DSD_NASEC10@DF_TABLE11`). For France, Germany, Italy and Poland it is identical to Eurostat `gov_10a_exp`.
+- **Whole-economy compensation of employees and number of employees:**
+  - Eurostat `nama_10_gdp` and `nama_10_a10_e` for France, Germany, Italy and Poland;
+  - OECD national accounts tables 1 and 3 for the UK, which also cross-check France.
+- **Türkiye** is in neither COFOG-by-transaction dataset, and has no employee count in either.
+
+**Candidate Turkish sources, not verified:**
+- the Court of Accounts' 2023 general-government fiscal statistics report and its table set;
+- the Ministry of National Defence's 2023 annual report.
+
+Their licence and coverage are not verified.
+
+### 7.2 Two transparent rules (`python3 docs/world/tools/world02_military.py`)
+
+**Rule W (wage-equivalent personnel):**
+- `average pay = whole-economy compensation of employees / employees`
+- `personnel equivalents = defence compensation of employees (COFOG 02, D1) / average pay`
+- `divisions = round(personnel equivalents / X)`
+
+**Rule P (PPP spending):**
+- `divisions = round(defence total expenditure / PPP factor / Y)`
+
+| 2023 | Defence % GDP (COFOG) | Pay / purchases / investment, % of defence | Average pay per employee (thousand LCU) | Personnel equivalents (thousand) | Spending, bn intl $ (PPP) | Spending, bn US$ (market) | Share: personnel / PPP / market | **Divisions W** / P / market |
+|---|---:|---|---:|---:|---:|---:|---|---|
+| France | 1.81% | 40 / 38 / 19 | 53.73 | 382 | 75.4 | 55.3 | 22.0 / 23.3 / 23.7% | **15** / 16 / 17 |
+| Germany | 1.25% | 32 / 39 / 16 | 52.97 | 318 | 75.2 | 57.0 | 18.3 / 23.2 / 24.4% | **13** / 16 / 17 |
+| United Kingdom | 2.20% | 27 / 40 / 33 | 46.24 | 358 | 91.8 | 75.4 | 20.6 / 28.4 / 32.4% | **14** / 20 / 23 |
+| Italy | 1.19% | 58 / 9 / 28 | 41.07 | 363 | 42.4 | 27.6 | 20.9 / 13.1 / 11.8% | **15** / 9 / 8 |
+| Poland | 2.18% | 41 / 20 / 30 | 95.55 | 318 | 38.8 | 17.7 | 18.3 / 12.0 / 7.6% | **13** / 8 / 5 |
+| Türkiye | — | — | — | — | — | — | — | **gap** (no open data) |
+
+**Assumptions (not data):**
+- **X = 25 thousand personnel equivalents per division.** This is a game scale.
+- **Y = 4.65 bn international $ per division.** It is chosen only so that rule P has the same total, 70 divisions, as rule W.
+- **Placement** of divisions in provinces is illustrative and a game decision.
+
+**High-wage bias, and how to avoid it.** At market exchange rates, the same spending buys far fewer soldiers in a high-wage country than in a low-wage one, so ranking by spending overstates rich countries. In the table:
+- the UK gets 23 divisions at market rates but 14 by personnel;
+- Poland gets 5 at market rates but 13 by personnel.
+
+How each rule deals with it:
+- **PPP** removes the general price-level difference but not the different mix of pay and equipment.
+- **Rule W** divides each country's defence pay by its **own** average pay. Its result is independent of wage levels and close to a headcount.
+
+**Recommendation:**
+- Rule W for the number of divisions.
+- Rule P as a published cross-check.
+- Never market rates.
+
+**Limitations:**
+1. **Conscription.** Conscripts earn far less than the average wage, so Rule W undercounts them. Türkiye has conscription (and has no data); none of the five others did in 2023. The undercount cannot be corrected without personnel data, and the open personnel sources are restricted (IISS) or unverified (NATO).
+2. **Definitions.**
+   - COFOG 02 excludes military pensions, and its coverage of paramilitary forces differs by country.
+   - It records equipment when delivered.
+   - It is not NATO's definition, so the shares above are not NATO's "% of GDP" figures.
+   - Italy's very low purchases share (9%) probably reflects how Italy records defence spending across transactions. It was not investigated; check it before calibration.
+3. **Current mechanics.**
+   - A game division has only `manpower` (`src/game/models.ts`: "no equipment, morale or supply simulation").
+   - The engine's military spending does not create, maintain or pay for divisions.
+   - The engine splits military spending in fixed proportions (35% pay, 65% goods) for every country, whereas the real pay share is 27–58%.
+
+   So the formula can set only the **starting number of divisions per country** (with uniform manpower per division). Equipment intensity, upkeep and readiness would need new mechanics. **None is proposed.**

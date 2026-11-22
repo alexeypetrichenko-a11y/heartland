@@ -1,5 +1,5 @@
 country,ne_admin1_id,ne_id,name,iso_3166_2,ne_type,ne_region,ne_geonunit,statistical_unit,statistical_label,match_method,province_id,geometry_status,flags
-FRA,ne:admin1:1159308481,1159308481,Haute-Corse,FR-2B,Metropolitan department,Corse,France,FRM02,Haute-Corse,NUTS-3 name match,FRA-SE,valid,
+FRA,ne:admin1:1159308481,1159308481,Haute-Corse,FR-2B,Metropolitan department,Corse,France,FRM02,Haute-Corse,NUTS-3 name match,FRA-COR,valid,
 FRA,ne:admin1:1159310957,1159310957,Isère,FR-38,Metropolitan department,Auvergne-Rhône-Alpes,France,FRK24,Isère,NUTS-3 name match,FRA-ARA,valid,
 FRA,ne:admin1:1159311355,1159311355,Guyane française,FR-GF,Overseas department,Guyane française,French Guiana,FRY,RUP FR — Régions Ultrapériphériques Françaises,NE region attribute -> NUTS-1,FRA-OM,valid,department name not matched to NUTS-3 (NE spelling); assigned by region; overseas department (FRY)
 FRA,ne:admin1:1159311599,1159311599,Martinique,FR-MQ,Overseas department,Martinique,Martinique,FRY20,Martinique,NUTS-3 name match,FRA-OM,valid,overseas department (FRY)
@@ -99,7 +99,7 @@ FRA,ne:admin1:1159316893,1159316893,Landes,FR-40,Metropolitan department,Nouvell
 FRA,ne:admin1:1159316895,1159316895,Gironde,FR-33,Metropolitan department,Nouvelle-Aquitaine,France,FRI12,Gironde,NUTS-3 name match,FRA-NAQ,valid,
 FRA,ne:admin1:1159316897,1159316897,Dordogne,FR-24,Metropolitan department,Nouvelle-Aquitaine,France,FRI11,Dordogne,NUTS-3 name match,FRA-NAQ,valid,
 FRA,ne:admin1:1159316899,1159316899,Lot-et-Garonne,FR-47,Metropolitan department,Nouvelle-Aquitaine,France,FRI14,Lot-et-Garonne,NUTS-3 name match,FRA-NAQ,valid,
-FRA,ne:admin1:1159317105,1159317105,Corse-du-Sud,FR-2A,Metropolitan department,Corse,France,FRM01,Corse-du-Sud,NUTS-3 name match,FRA-SE,valid,
+FRA,ne:admin1:1159317105,1159317105,Corse-du-Sud,FR-2A,Metropolitan department,Corse,France,FRM01,Corse-du-Sud,NUTS-3 name match,FRA-COR,valid,
 DEU,ne:admin1:1159309703,1159309703,Schleswig-Holstein,DE-SH,State,,Germany,DEF,Schleswig-Holstein,ISO 3166-2 -> NUTS-1 (Land),DEU-NOR,valid,
 DEU,ne:admin1:1159310973,1159310973,Nordrhein-Westfalen,DE-NW,State,,Germany,DEA,Nordrhein-Westfalen,ISO 3166-2 -> NUTS-1 (Land),DEU-NRW,valid,
 DEU,ne:admin1:1159310975,1159310975,Baden-Württemberg,DE-BW,State,,Germany,DE1,Baden-Württemberg,ISO 3166-2 -> NUTS-1 (Land),DEU-BW,valid,
