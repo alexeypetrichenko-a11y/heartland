@@ -1,0 +1,166 @@
+{
+ "node": "v22.23.4",
+ "platform": "linux x64",
+ "results": [
+  {
+   "config": "30 zones",
+   "zones": 30,
+   "lanes": 65,
+   "countries": 14,
+   "buildSeconds": 5.044075887,
+   "week1SaveKb": 804.072265625,
+   "week1SaveGzipKb": 288.1171875,
+   "startFromSaveMs": 5.650356000000102,
+   "sameStartAsBuild": true,
+   "weekMs": {
+    "median": 15.45230999999967,
+    "p95": 26.43137300000035,
+    "max": 90.11884699999973,
+    "mean": 17.518413358974332
+   },
+   "cumulativeSeconds": {
+    "52": 1.1214672519999977,
+    "104": 1.9505443099999975,
+    "156": 2.732872483999996
+   },
+   "heapMb": {
+    "beforeBuild": 8.28387451171875,
+    "afterStart": 11.962982177734375,
+    "after156Weeks": 13.419502258300781
+   },
+   "week156SaveKb": 1062.0615234375,
+   "week156SaveGzipKb": 413.748046875,
+   "saveMs": 8.355904999999439,
+   "restoreMs": 6.924396000000343,
+   "saveRoundTripIdentical": true
+  },
+  {
+   "config": "45 zones",
+   "zones": 45,
+   "lanes": 100,
+   "countries": 18,
+   "buildSeconds": 8.688298803999999,
+   "week1SaveKb": 1194.0791015625,
+   "week1SaveGzipKb": 431.912109375,
+   "startFromSaveMs": 7.775680999999167,
+   "sameStartAsBuild": true,
+   "weekMs": {
+    "median": 28.50336299999981,
+    "p95": 40.8696549999986,
+    "max": 93.72172900000078,
+    "mean": 30.103516538461474
+   },
+   "cumulativeSeconds": {
+    "52": 1.5423360249999933,
+    "104": 3.1142696609999767,
+    "156": 4.69614857999999
+   },
+   "heapMb": {
+    "beforeBuild": 15.200927734375,
+    "afterStart": 16.092819213867188,
+    "after156Weeks": 16.23218536376953
+   },
+   "week156SaveKb": 1505.7265625,
+   "week156SaveGzipKb": 584.3662109375,
+   "saveMs": 11.028689000002487,
+   "restoreMs": 9.081390000003012,
+   "saveRoundTripIdentical": true
+  },
+  {
+   "config": "60 zones",
+   "zones": 60,
+   "lanes": 128,
+   "countries": 21,
+   "buildSeconds": 14.464225831,
+   "week1SaveKb": 1589.8134765625,
+   "week1SaveGzipKb": 577.23046875,
+   "startFromSaveMs": 13.926379999997152,
+   "sameStartAsBuild": true,
+   "weekMs": {
+    "median": 45.44358700000157,
+    "p95": 72.84879799999908,
+    "max": 84.51548200000252,
+    "mean": 51.39429519230753
+   },
+   "cumulativeSeconds": {
+    "52": 2.5785779410000322,
+    "104": 5.49744696400001,
+    "156": 8.017510049999975
+   },
+   "heapMb": {
+    "beforeBuild": 16.966812133789062,
+    "afterStart": 18.07562255859375,
+    "after156Weeks": 18.182846069335938
+   },
+   "week156SaveKb": 1937.599609375,
+   "week156SaveGzipKb": 750.4404296875,
+   "saveMs": 13.774570000001404,
+   "restoreMs": 12.14332199999626,
+   "saveRoundTripIdentical": true
+  },
+  {
+   "config": "75 zones",
+   "zones": 75,
+   "lanes": 164,
+   "countries": 25,
+   "buildSeconds": 20.353113789999995,
+   "week1SaveKb": 2006.6279296875,
+   "week1SaveGzipKb": 729.9775390625,
+   "startFromSaveMs": 12.33433900000091,
+   "sameStartAsBuild": true,
+   "weekMs": {
+    "median": 69.92875300000014,
+    "p95": 110.68208800000139,
+    "max": 119.1416220000101,
+    "mean": 74.9515113910261
+   },
+   "cumulativeSeconds": {
+    "52": 3.852210225000039,
+    "104": 7.58957857800008,
+    "156": 11.692435777000071
+   },
+   "heapMb": {
+    "beforeBuild": 18.905670166015625,
+    "afterStart": 19.47149658203125,
+    "after156Weeks": 19.607940673828125
+   },
+   "week156SaveKb": 2407.25,
+   "week156SaveGzipKb": 931.037109375,
+   "saveMs": 19.645086999997147,
+   "restoreMs": 19.543797999998787,
+   "saveRoundTripIdentical": true
+  },
+  {
+   "config": "60 zones, dense links",
+   "zones": 60,
+   "lanes": 194,
+   "countries": 21,
+   "buildSeconds": 13.871125940999992,
+   "week1SaveKb": 1594.2578125,
+   "week1SaveGzipKb": 577.865234375,
+   "startFromSaveMs": 9.131443999998737,
+   "sameStartAsBuild": true,
+   "weekMs": {
+    "median": 45.96791800000938,
+    "p95": 77.49058300000615,
+    "max": 86.66002500000468,
+    "mean": 50.85749079487197
+   },
+   "cumulativeSeconds": {
+    "52": 2.516338354000065,
+    "104": 5.188698174000004,
+    "156": 7.933768564000027
+   },
+   "heapMb": {
+    "beforeBuild": 20.367904663085938,
+    "afterStart": 19.640213012695312,
+    "after156Weeks": 19.748252868652344
+   },
+   "week156SaveKb": 1944.0966796875,
+   "week156SaveGzipKb": 751.728515625,
+   "saveMs": 19.95403000000806,
+   "restoreMs": 16.77487700000347,
+   "saveRoundTripIdentical": true
+  }
+ ]
+}

@@ -1,0 +1,21 @@
+{
+ "source": "ONS, Population estimates for the UK, England, Wales, Scotland and Northern Ireland: mid-2025 (mye25tablesuk.xlsx, sheet MYE2 - Persons, All ages)",
+ "url": "https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/populationestimatesforukenglandandwalesscotlandandnorthernireland",
+ "reference_date": "2025-06-30",
+ "licence": "Open Government Licence v3.0",
+ "uk_total": 69483939,
+ "itl1": {
+  "TLC": 2762746,
+  "TLD": 7772854,
+  "TLE": 5672166,
+  "TLF": 5085641,
+  "TLG": 6205854,
+  "TLH": 6613801,
+  "TLI": 9122909,
+  "TLJ": 9691844,
+  "TLK": 5906997,
+  "TLL": 3175181,
+  "TLM": 5545500,
+  "TLN": 1928446
+ }
+}

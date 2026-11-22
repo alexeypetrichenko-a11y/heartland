@@ -1,0 +1,170 @@
+[
+ {
+  "a": "FRA-COR",
+  "b": "FRA-SE",
+  "kind": "ferry",
+  "crossing": "Ajaccio/Bastia – Marseille, Toulon, Nice",
+  "status": "operating 2026 (Corsica Linea, Corsica Ferries; checked via search 2026-11)",
+  "proposal": "include"
+ },
+ {
+  "a": "FRA-COR",
+  "b": "ITA-SAR",
+  "kind": "ferry",
+  "crossing": "Bonifacio – Santa Teresa Gallura (Strait of Bonifacio)",
+  "status": "operating 2026 (Moby / Ichnusa public-service route; checked via search 2026-11)",
+  "proposal": "include"
+ },
+ {
+  "a": "FRA-COR",
+  "b": "ITA-CEN",
+  "kind": "ferry",
+  "crossing": "Bastia – Livorno (Tuscany)",
+  "status": "operating 2026, year-round (Corsica Ferries, Moby; checked via search 2026-11)",
+  "proposal": "include"
+ },
+ {
+  "a": "FRA-COR",
+  "b": "ITA-NO",
+  "kind": "ferry",
+  "crossing": "Bastia – Savona / Genoa (Liguria)",
+  "status": "seasonal in 2026 (checked via search 2026-11)",
+  "proposal": "candidate"
+ },
+ {
+  "a": "GBR-SE",
+  "b": "FRA-NE",
+  "kind": "fixed link",
+  "crossing": "Channel Tunnel, Folkestone (Kent) – Coquelles (Pas-de-Calais)",
+  "status": "fixed infrastructure",
+  "proposal": "include"
+ },
+ {
+  "a": "GBR-SE",
+  "b": "FRA-OUE",
+  "kind": "ferry",
+  "crossing": "Portsmouth / Poole – Caen, Cherbourg, Le Havre, St-Malo",
+  "status": "to verify",
+  "proposal": "include"
+ },
+ {
+  "a": "GBR-NIR",
+  "b": "GBR-SCO",
+  "kind": "ferry",
+  "crossing": "Belfast / Larne – Cairnryan",
+  "status": "operating 2026 (Stena Line, P&O; checked via search 2026-11)",
+  "proposal": "include"
+ },
+ {
+  "a": "GBR-NIR",
+  "b": "GBR-NTH",
+  "kind": "ferry",
+  "crossing": "Belfast – Liverpool (North West England)",
+  "status": "operating 2026 (Stena Line; checked via search 2026-11)",
+  "proposal": "include"
+ },
+ {
+  "a": "GBR-WLS",
+  "b": "IRL",
+  "kind": "ferry",
+  "crossing": "Holyhead / Fishguard / Pembroke – Dublin / Rosslare",
+  "status": "to verify",
+  "proposal": "include"
+ },
+ {
+  "a": "GBR-NTH",
+  "b": "NLD",
+  "kind": "ferry",
+  "crossing": "Hull – Rotterdam",
+  "status": "to verify",
+  "proposal": "include"
+ },
+ {
+  "a": "GBR-SE",
+  "b": "NLD",
+  "kind": "ferry",
+  "crossing": "Harwich – Hook of Holland",
+  "status": "to verify",
+  "proposal": "candidate"
+ },
+ {
+  "a": "GBR-SCO",
+  "b": "NOR",
+  "kind": "sea lane",
+  "crossing": "North Sea energy and shipping (no passenger ferry assumed)",
+  "status": "to verify",
+  "proposal": "include"
+ },
+ {
+  "a": "ITA-SIC",
+  "b": "ITA-SUD",
+  "kind": "ferry",
+  "crossing": "Messina – Villa San Giovanni (Strait of Messina)",
+  "status": "to verify",
+  "proposal": "include"
+ },
+ {
+  "a": "ITA-SAR",
+  "b": "ITA-CEN",
+  "kind": "ferry",
+  "crossing": "Olbia / Cagliari – Civitavecchia, Livorno",
+  "status": "to verify",
+  "proposal": "include"
+ },
+ {
+  "a": "ITA-SAR",
+  "b": "ITA-NO",
+  "kind": "ferry",
+  "crossing": "Olbia / Porto Torres – Genoa",
+  "status": "to verify",
+  "proposal": "include"
+ },
+ {
+  "a": "ITA-SAR",
+  "b": "ITA-SUD",
+  "kind": "ferry",
+  "crossing": "Cagliari – Naples",
+  "status": "to verify",
+  "proposal": "candidate"
+ },
+ {
+  "a": "ITA-SIC",
+  "b": "ITA-CEN",
+  "kind": "ferry",
+  "crossing": "Palermo – Civitavecchia",
+  "status": "to verify",
+  "proposal": "candidate"
+ },
+ {
+  "a": "ITA-SUD",
+  "b": "GRC",
+  "kind": "ferry",
+  "crossing": "Bari / Brindisi – Patras / Igoumenitsa",
+  "status": "to verify",
+  "proposal": "include"
+ },
+ {
+  "a": "ITA-NO",
+  "b": "ESP",
+  "kind": "ferry",
+  "crossing": "Genoa / Savona – Barcelona",
+  "status": "to verify",
+  "proposal": "candidate"
+ },
+ {
+  "a": "FRA-OUE",
+  "b": "IRL",
+  "kind": "ferry",
+  "crossing": "Cherbourg / Roscoff – Rosslare / Cork",
+  "status": "to verify",
+  "proposal": "include"
+ },
+ {
+  "a": "TUR-EGE",
+  "b": "GRC",
+  "kind": "ferry",
+  "crossing": "Aegean coastal crossings (e.g. Çeşme – Chios)",
+  "status": "to verify",
+  "proposal": "include"
+ }
+]
