@@ -1,0 +1,948 @@
+[
+ {
+  "id": "FRA-IDF",
+  "name": "Île-de-France",
+  "country": "FRA",
+  "statistical_units": [
+   "FR1"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 8,
+  "population": 12549288,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "FRA-CEN",
+   "FRA-NE",
+   "FRA-OUE"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "FRA-NE",
+  "name": "Nord-Est (Hauts-de-France, Grand Est)",
+  "country": "FRA",
+  "statistical_units": [
+   "FRE",
+   "FRF"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 15,
+  "population": 11524602,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "DEU-BW",
+   "DEU-MIT",
+   "FRA-CEN",
+   "FRA-IDF",
+   "FRA-OUE"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "FRA-OUE",
+  "name": "Ouest (Normandie, Bretagne, Pays de la Loire)",
+  "country": "FRA",
+  "statistical_units": [
+   "FRD",
+   "FRH",
+   "FRG"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 14,
+  "population": 10785593,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "FRA-CEN",
+   "FRA-IDF",
+   "FRA-NAQ",
+   "FRA-NE"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "FRA-CEN",
+  "name": "Centre (Centre-Val de Loire, Bourgogne-Franche-Comté)",
+  "country": "FRA",
+  "statistical_units": [
+   "FRB",
+   "FRC"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 14,
+  "population": 5385184,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "FRA-ARA",
+   "FRA-IDF",
+   "FRA-NAQ",
+   "FRA-NE",
+   "FRA-OUE"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "FRA-NAQ",
+  "name": "Nouvelle-Aquitaine",
+  "country": "FRA",
+  "statistical_units": [
+   "FRI"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 12,
+  "population": 6210839,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "FRA-ARA",
+   "FRA-CEN",
+   "FRA-OCC",
+   "FRA-OUE"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "FRA-OCC",
+  "name": "Occitanie",
+  "country": "FRA",
+  "statistical_units": [
+   "FRJ"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 13,
+  "population": 6205575,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "FRA-ARA",
+   "FRA-NAQ",
+   "FRA-SE"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "FRA-ARA",
+  "name": "Auvergne-Rhône-Alpes",
+  "country": "FRA",
+  "statistical_units": [
+   "FRK"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 12,
+  "population": 8270088,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "FRA-CEN",
+   "FRA-NAQ",
+   "FRA-OCC",
+   "FRA-SE",
+   "ITA-NO"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "FRA-SE",
+  "name": "Sud-Est (Provence-Alpes-Côte d'Azur, Corse)",
+  "country": "FRA",
+  "statistical_units": [
+   "FRL",
+   "FRM"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 8,
+  "population": 5647378,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "FRA-ARA",
+   "FRA-OCC",
+   "ITA-NO"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "FRA-OM",
+  "name": "Overseas departments (not simulated in v1)",
+  "country": "FRA",
+  "statistical_units": [
+   "FRY"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 5,
+  "population": 2304053,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": false,
+  "land_neighbours": []
+ },
+ {
+  "id": "DEU-NOR",
+  "name": "Norddeutschland (Schleswig-Holstein, Hamburg, Bremen, Niedersachsen)",
+  "country": "DEU",
+  "statistical_units": [
+   "DEF",
+   "DE6",
+   "DE5",
+   "DE9"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 4,
+  "population": 13531452,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "DEU-MIT",
+   "DEU-MO",
+   "DEU-NO",
+   "DEU-NRW"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "DEU-NRW",
+  "name": "Nordrhein-Westfalen",
+  "country": "DEU",
+  "statistical_units": [
+   "DEA"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 1,
+  "population": 18034454,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "DEU-MIT",
+   "DEU-NOR"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "DEU-MIT",
+  "name": "Mitte-West (Hessen, Rheinland-Pfalz, Saarland)",
+  "country": "DEU",
+  "statistical_units": [
+   "DE7",
+   "DEB",
+   "DEC"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 3,
+  "population": 11422503,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "DEU-BW",
+   "DEU-BY",
+   "DEU-MO",
+   "DEU-NOR",
+   "DEU-NRW",
+   "FRA-NE"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "DEU-BW",
+  "name": "Baden-Württemberg",
+  "country": "DEU",
+  "statistical_units": [
+   "DE1"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 1,
+  "population": 11245898,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "DEU-BY",
+   "DEU-MIT",
+   "FRA-NE"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "DEU-BY",
+  "name": "Bayern",
+  "country": "DEU",
+  "statistical_units": [
+   "DE2"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 1,
+  "population": 13248928,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "DEU-BW",
+   "DEU-MIT",
+   "DEU-MO"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "DEU-NO",
+  "name": "Nordost (Berlin, Brandenburg, Mecklenburg-Vorpommern)",
+  "country": "DEU",
+  "statistical_units": [
+   "DE3",
+   "DE4",
+   "DE8"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 3,
+  "population": 7815609,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "DEU-MO",
+   "DEU-NOR",
+   "POL-PZA"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "DEU-MO",
+  "name": "Mitteldeutschland (Sachsen, Sachsen-Anhalt, Thüringen)",
+  "country": "DEU",
+  "statistical_units": [
+   "DED",
+   "DEE",
+   "DEG"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 3,
+  "population": 8278296,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "DEU-BY",
+   "DEU-MIT",
+   "DEU-NO",
+   "DEU-NOR",
+   "POL-PDZ",
+   "POL-PZA"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "GBR-SCO",
+  "name": "Scotland",
+  "country": "GBR",
+  "statistical_units": [
+   "TLM"
+  ],
+  "statistical_system": "ITL1 (ONS)",
+  "admin1_members": 32,
+  "population": 5545500,
+  "population_reference_date": "2025-06-30",
+  "population_source": "ONS mid-year estimates, 30 Jun 2025 (OGL v3)",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "GBR-NTH"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "GBR-NIR",
+  "name": "Northern Ireland",
+  "country": "GBR",
+  "statistical_units": [
+   "TLN"
+  ],
+  "statistical_system": "ITL1 (ONS)",
+  "admin1_members": 26,
+  "population": 1928446,
+  "population_reference_date": "2025-06-30",
+  "population_source": "ONS mid-year estimates, 30 Jun 2025 (OGL v3)",
+  "simulated_in_v1": true,
+  "land_neighbours": [],
+  "land_connected_to_mainland": false
+ },
+ {
+  "id": "GBR-WLS",
+  "name": "Wales",
+  "country": "GBR",
+  "statistical_units": [
+   "TLL"
+  ],
+  "statistical_system": "ITL1 (ONS)",
+  "admin1_members": 22,
+  "population": 3175181,
+  "population_reference_date": "2025-06-30",
+  "population_source": "ONS mid-year estimates, 30 Jun 2025 (OGL v3)",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "GBR-MID",
+   "GBR-NTH",
+   "GBR-SW"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "GBR-NTH",
+  "name": "North of England (North East, North West, Yorkshire and the Humber)",
+  "country": "GBR",
+  "statistical_units": [
+   "TLC",
+   "TLD",
+   "TLE"
+  ],
+  "statistical_system": "ITL1 (ONS)",
+  "admin1_members": 50,
+  "population": 16207766,
+  "population_reference_date": "2025-06-30",
+  "population_source": "ONS mid-year estimates, 30 Jun 2025 (OGL v3)",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "GBR-MID",
+   "GBR-SCO",
+   "GBR-WLS"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "GBR-MID",
+  "name": "Midlands (East Midlands, West Midlands)",
+  "country": "GBR",
+  "statistical_units": [
+   "TLF",
+   "TLG"
+  ],
+  "statistical_system": "ITL1 (ONS)",
+  "admin1_members": 23,
+  "population": 11291495,
+  "population_reference_date": "2025-06-30",
+  "population_source": "ONS mid-year estimates, 30 Jun 2025 (OGL v3)",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "GBR-NTH",
+   "GBR-SE",
+   "GBR-SW",
+   "GBR-WLS"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "GBR-LON",
+  "name": "London",
+  "country": "GBR",
+  "statistical_units": [
+   "TLI"
+  ],
+  "statistical_system": "ITL1 (ONS)",
+  "admin1_members": 33,
+  "population": 9122909,
+  "population_reference_date": "2025-06-30",
+  "population_source": "ONS mid-year estimates, 30 Jun 2025 (OGL v3)",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "GBR-SE"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "GBR-SE",
+  "name": "South East and East of England",
+  "country": "GBR",
+  "statistical_units": [
+   "TLJ",
+   "TLH"
+  ],
+  "statistical_system": "ITL1 (ONS)",
+  "admin1_members": 30,
+  "population": 16305645,
+  "population_reference_date": "2025-06-30",
+  "population_source": "ONS mid-year estimates, 30 Jun 2025 (OGL v3)",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "GBR-LON",
+   "GBR-MID",
+   "GBR-SW"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "GBR-SW",
+  "name": "South West",
+  "country": "GBR",
+  "statistical_units": [
+   "TLK"
+  ],
+  "statistical_system": "ITL1 (ONS)",
+  "admin1_members": 16,
+  "population": 5906997,
+  "population_reference_date": "2025-06-30",
+  "population_source": "ONS mid-year estimates, 30 Jun 2025 (OGL v3)",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "GBR-MID",
+   "GBR-SE",
+   "GBR-WLS"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "ITA-NO",
+  "name": "Nord-Ovest",
+  "country": "ITA",
+  "statistical_units": [
+   "ITC"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 25,
+  "population": 15918461,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "FRA-ARA",
+   "FRA-SE",
+   "ITA-CEN",
+   "ITA-NE"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "ITA-NE",
+  "name": "Nord-Est",
+  "country": "ITA",
+  "statistical_units": [
+   "ITH"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 22,
+  "population": 11595006,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "ITA-CEN",
+   "ITA-NO"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "ITA-CEN",
+  "name": "Centro",
+  "country": "ITA",
+  "statistical_units": [
+   "ITI"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 22,
+  "population": 11698912,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "ITA-NE",
+   "ITA-NO",
+   "ITA-SUD"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "ITA-SUD",
+  "name": "Sud",
+  "country": "ITA",
+  "statistical_units": [
+   "ITF"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 24,
+  "population": 13381314,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "ITA-CEN"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "ITA-SIC",
+  "name": "Sicilia",
+  "country": "ITA",
+  "statistical_units": [
+   "ITG1"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 9,
+  "population": 4787390,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [],
+  "land_connected_to_mainland": false
+ },
+ {
+  "id": "ITA-SAR",
+  "name": "Sardegna",
+  "country": "ITA",
+  "statistical_units": [
+   "ITG2"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 8,
+  "population": 1562381,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [],
+  "land_connected_to_mainland": false
+ },
+ {
+  "id": "POL-MAZ",
+  "name": "Makroregion województwo mazowieckie",
+  "country": "POL",
+  "statistical_units": [
+   "PL9"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 1,
+  "population": 5484110,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "POL-CEN",
+   "POL-PN",
+   "POL-WSC"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "POL-POL",
+  "name": "Makroregion południowy",
+  "country": "POL",
+  "statistical_units": [
+   "PL2"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 2,
+  "population": 7510458,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "POL-CEN",
+   "POL-PDZ",
+   "POL-WSC"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "POL-PZA",
+  "name": "Makroregion północno-zachodni",
+  "country": "POL",
+  "statistical_units": [
+   "PL4"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 3,
+  "population": 5949043,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "DEU-MO",
+   "DEU-NO",
+   "POL-CEN",
+   "POL-PDZ",
+   "POL-PN"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "POL-PDZ",
+  "name": "Makroregion południowo-zachodni",
+  "country": "POL",
+  "statistical_units": [
+   "PL5"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 2,
+  "population": 3683074,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "DEU-MO",
+   "POL-CEN",
+   "POL-POL",
+   "POL-PZA"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "POL-PN",
+  "name": "Makroregion północny",
+  "country": "POL",
+  "statistical_units": [
+   "PL6"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 3,
+  "population": 5504196,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "POL-CEN",
+   "POL-MAZ",
+   "POL-PZA",
+   "POL-WSC"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "POL-CEN",
+  "name": "Makroregion centralny",
+  "country": "POL",
+  "statistical_units": [
+   "PL7"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 2,
+  "population": 3425297,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "POL-MAZ",
+   "POL-PDZ",
+   "POL-PN",
+   "POL-POL",
+   "POL-PZA",
+   "POL-WSC"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "POL-WSC",
+  "name": "Makroregion wschodni",
+  "country": "POL",
+  "statistical_units": [
+   "PL8"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 3,
+  "population": 4941317,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "POL-CEN",
+   "POL-MAZ",
+   "POL-PN",
+   "POL-POL"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "TUR-IST",
+  "name": "İstanbul",
+  "country": "TUR",
+  "statistical_units": [
+   "TR1"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 1,
+  "population": 15701602,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "TUR-MAR"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "TUR-MAR",
+  "name": "Marmara (Batı Marmara, Doğu Marmara)",
+  "country": "TUR",
+  "statistical_units": [
+   "TR2",
+   "TR4"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 13,
+  "population": 12508621,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "TUR-BAN",
+   "TUR-EGE",
+   "TUR-IST",
+   "TUR-KAR"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "TUR-EGE",
+  "name": "Ege",
+  "country": "TUR",
+  "statistical_units": [
+   "TR3"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 8,
+  "population": 10974357,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "TUR-AKD",
+   "TUR-BAN",
+   "TUR-MAR"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "TUR-BAN",
+  "name": "Batı Anadolu",
+  "country": "TUR",
+  "statistical_units": [
+   "TR5"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 3,
+  "population": 8456864,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "TUR-AKD",
+   "TUR-EGE",
+   "TUR-KAR",
+   "TUR-MAR",
+   "TUR-OAN"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "TUR-AKD",
+  "name": "Akdeniz",
+  "country": "TUR",
+  "statistical_units": [
+   "TR6"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 8,
+  "population": 10936452,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "TUR-BAN",
+   "TUR-DOG",
+   "TUR-EGE",
+   "TUR-GDA",
+   "TUR-OAN"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "TUR-OAN",
+  "name": "Orta Anadolu",
+  "country": "TUR",
+  "statistical_units": [
+   "TR7"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 8,
+  "population": 4160359,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "TUR-AKD",
+   "TUR-BAN",
+   "TUR-DOG",
+   "TUR-KAR"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "TUR-KAR",
+  "name": "Karadeniz (Batı Karadeniz, Doğu Karadeniz)",
+  "country": "TUR",
+  "statistical_units": [
+   "TR8",
+   "TR9"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 16,
+  "population": 7419464,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "TUR-BAN",
+   "TUR-DOG",
+   "TUR-MAR",
+   "TUR-OAN"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "TUR-DOG",
+  "name": "Doğu Anadolu (Kuzeydoğu, Ortadoğu Anadolu)",
+  "country": "TUR",
+  "statistical_units": [
+   "TRA",
+   "TRB"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 15,
+  "population": 6016939,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "TUR-AKD",
+   "TUR-GDA",
+   "TUR-KAR",
+   "TUR-OAN"
+  ],
+  "land_connected_to_mainland": true
+ },
+ {
+  "id": "TUR-GDA",
+  "name": "Güneydoğu Anadolu",
+  "country": "TUR",
+  "statistical_units": [
+   "TRC"
+  ],
+  "statistical_system": "NUTS 2024 (Eurostat)",
+  "admin1_members": 9,
+  "population": 9490286,
+  "population_reference_date": "2025-01-01",
+  "population_source": "Eurostat demo_r_pjanaggr3, 1 Jan 2025",
+  "simulated_in_v1": true,
+  "land_neighbours": [
+   "TUR-AKD",
+   "TUR-DOG"
+  ],
+  "land_connected_to_mainland": true
+ }
+]

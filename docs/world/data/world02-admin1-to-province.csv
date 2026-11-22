@@ -1,0 +1,557 @@
+country,ne_admin1_id,ne_id,name,iso_3166_2,ne_type,ne_region,ne_geonunit,statistical_unit,statistical_label,match_method,province_id,geometry_status,flags
+FRA,ne:admin1:1159308481,1159308481,Haute-Corse,FR-2B,Metropolitan department,Corse,France,FRM02,Haute-Corse,NUTS-3 name match,FRA-SE,valid,
+FRA,ne:admin1:1159310957,1159310957,Isère,FR-38,Metropolitan department,Auvergne-Rhône-Alpes,France,FRK24,Isère,NUTS-3 name match,FRA-ARA,valid,
+FRA,ne:admin1:1159311355,1159311355,Guyane française,FR-GF,Overseas department,Guyane française,French Guiana,FRY,RUP FR — Régions Ultrapériphériques Françaises,NE region attribute -> NUTS-1,FRA-OM,valid,department name not matched to NUTS-3 (NE spelling); assigned by region; overseas department (FRY)
+FRA,ne:admin1:1159311599,1159311599,Martinique,FR-MQ,Overseas department,Martinique,Martinique,FRY20,Martinique,NUTS-3 name match,FRA-OM,valid,overseas department (FRY)
+FRA,ne:admin1:1159313259,1159313259,Morbihan,FR-56,Metropolitan department,Bretagne,France,FRH04,Morbihan,NUTS-3 name match,FRA-OUE,valid,
+FRA,ne:admin1:1159313541,1159313541,Var,FR-83,Metropolitan department,Provence-Alpes-Côte-d'Azur,France,FRL05,Var,NUTS-3 name match,FRA-SE,valid,
+FRA,ne:admin1:1159313543,1159313543,Charente-Maritime,FR-17,Metropolitan department,Nouvelle-Aquitaine,France,FRI32,Charente-Maritime,NUTS-3 name match,FRA-NAQ,valid,
+FRA,ne:admin1:1159313545,1159313545,Vendée,FR-85,Metropolitan department,Pays de la Loire,France,FRG05,Vendée,NUTS-3 name match,FRA-OUE,valid,
+FRA,ne:admin1:1159313547,1159313547,Calvados,FR-14,Metropolitan department,Normandie,France,FRD11,Calvados,NUTS-3 name match,FRA-OUE,valid,
+FRA,ne:admin1:1159313549,1159313549,Pyrénées-Atlantiques,FR-64,Metropolitan department,Nouvelle-Aquitaine,France,FRI15,Pyrénées-Atlantiques,NUTS-3 name match,FRA-NAQ,valid,
+FRA,ne:admin1:1159313551,1159313551,Hérault,FR-34,Metropolitan department,Occitanie,France,FRJ13,Hérault,NUTS-3 name match,FRA-OCC,valid,
+FRA,ne:admin1:1159313555,1159313555,Haute-Garonne,FR-31,Metropolitan department,Occitanie,France,FRJ23,Haute-Garonne,NUTS-3 name match,FRA-OCC,valid,
+FRA,ne:admin1:1159313557,1159313557,Puy-de-Dôme,FR-63,Metropolitan department,Auvergne-Rhône-Alpes,France,FRK14,Puy-de-Dôme,NUTS-3 name match,FRA-ARA,valid,
+FRA,ne:admin1:1159313559,1159313559,Saône-et-Loire,FR-71,Metropolitan department,Bourgogne-Franche-Comté,France,FRC13,Saône-et-Loire,NUTS-3 name match,FRA-CEN,valid,
+FRA,ne:admin1:1159313561,1159313561,Loir-et-Cher,FR-41,Metropolitan department,Centre-Val de Loire,France,FRB05,Loir-et-Cher,NUTS-3 name match,FRA-CEN,valid,
+FRA,ne:admin1:1159313563,1159313563,Eure,FR-27,Metropolitan department,Normandie,France,FRD21,Eure,NUTS-3 name match,FRA-OUE,valid,
+FRA,ne:admin1:1159313565,1159313565,Seien-et-Marne,FR-77,Metropolitan department,Île-de-France,France,FR1,Ile de France,NE region attribute -> NUTS-1,FRA-IDF,valid,department name not matched to NUTS-3 (NE spelling); assigned by region
+FRA,ne:admin1:1159313567,1159313567,Haute-Vienne,FR-87,Metropolitan department,Nouvelle-Aquitaine,France,FRI23,Haute-Vienne,NUTS-3 name match,FRA-NAQ,valid,
+FRA,ne:admin1:1159313569,1159313569,Marne,FR-51,Metropolitan department,Grand Est,France,FRF23,Marne,NUTS-3 name match,FRA-NE,valid,
+FRA,ne:admin1:1159313573,1159313573,Pas-de-Calais,FR-62,Metropolitan department,Hauts-de-France,France,FRE12,Pas-de-Calais,NUTS-3 name match,FRA-NE,valid,
+FRA,ne:admin1:1159313575,1159313575,Oise,FR-60,Metropolitan department,Hauts-de-France,France,FRE22,Oise,NUTS-3 name match,FRA-NE,valid,
+FRA,ne:admin1:1159313577,1159313577,Doubs,FR-25,Metropolitan department,Bourgogne-Franche-Comté,France,FRC21,Doubs,NUTS-3 name match,FRA-CEN,valid,
+FRA,ne:admin1:1159313579,1159313579,Haute-Rhin,FR-68,Metropolitan department,Grand Est,France,FRF,Grand Est,NE region attribute -> NUTS-1,FRA-NE,valid,department name not matched to NUTS-3 (NE spelling); assigned by region
+FRA,ne:admin1:1159313581,1159313581,Meurthe-et-Moselle,FR-54,Metropolitan department,Grand Est,France,FRF31,Meurthe-et-Moselle,NUTS-3 name match,FRA-NE,valid,
+FRA,ne:admin1:1159315617,1159315617,La Réunion,FR-RE,Overseas department,Réunion,Reunion,FRY40,La Réunion,NUTS-3 name match,FRA-OM,valid,NE gadm_level=0; overseas department (FRY)
+FRA,ne:admin1:1159315621,1159315621,Mayotte,FR-YT,Overseas department,Mayotte,Mayotte,FRY50,Mayotte,NUTS-3 name match,FRA-OM,valid,NE gadm_level=0; overseas department (FRY)
+FRA,ne:admin1:1159315647,1159315647,Guadeloupe,FR-GP,Overseas department,Guadeloupe,Guadeloupe,FRY10,Guadeloupe,NUTS-3 name match,FRA-OM,valid,NE gadm_level=0; overseas department (FRY)
+FRA,ne:admin1:1159316737,1159316737,Nord,FR-59,Metropolitan department,Hauts-de-France,France,FRE11,Nord,NUTS-3 name match,FRA-NE,valid,
+FRA,ne:admin1:1159316741,1159316741,Somme,FR-80,Metropolitan department,Hauts-de-France,France,FRE23,Somme,NUTS-3 name match,FRA-NE,valid,
+FRA,ne:admin1:1159316743,1159316743,Aisne,FR-02,Metropolitan department,Hauts-de-France,France,FRE21,Aisne,NUTS-3 name match,FRA-NE,valid,
+FRA,ne:admin1:1159316745,1159316745,Seine-Maritime,FR-76,Metropolitan department,Normandie,France,FRD22,Seine-Maritime,NUTS-3 name match,FRA-OUE,valid,
+FRA,ne:admin1:1159316747,1159316747,Manche,FR-50,Metropolitan department,Normandie,France,FRD12,Manche,NUTS-3 name match,FRA-OUE,valid,
+FRA,ne:admin1:1159316749,1159316749,Orne,FR-61,Metropolitan department,Normandie,France,FRD13,Orne,NUTS-3 name match,FRA-OUE,valid,
+FRA,ne:admin1:1159316751,1159316751,Finistère,FR-29,Metropolitan department,Bretagne,France,FRH02,Finistère,NUTS-3 name match,FRA-OUE,valid,
+FRA,ne:admin1:1159316753,1159316753,Côtes-d'Armor,FR-22,Metropolitan department,Bretagne,France,FRH01,Côtes-d’Armor,NUTS-3 name match,FRA-OUE,valid,
+FRA,ne:admin1:1159316755,1159316755,Ille-et-Vilaine,FR-35,Metropolitan department,Bretagne,France,FRH03,Ille-et-Vilaine,NUTS-3 name match,FRA-OUE,valid,
+FRA,ne:admin1:1159316759,1159316759,Loire-Atlantique,FR-44,Metropolitan department,Pays de la Loire,France,FRG01,Loire-Atlantique,NUTS-3 name match,FRA-OUE,valid,
+FRA,ne:admin1:1159316761,1159316761,Maine-et-Loire,FR-49,Metropolitan department,Pays de la Loire,France,FRG02,Maine-et-Loire,NUTS-3 name match,FRA-OUE,valid,
+FRA,ne:admin1:1159316763,1159316763,Mayenne,FR-53,Metropolitan department,Pays de la Loire,France,FRG03,Mayenne,NUTS-3 name match,FRA-OUE,valid,
+FRA,ne:admin1:1159316765,1159316765,Sarthe,FR-72,Metropolitan department,Pays de la Loire,France,FRG04,Sarthe,NUTS-3 name match,FRA-OUE,valid,
+FRA,ne:admin1:1159316767,1159316767,Eure-et-Loir,FR-28,Metropolitan department,Centre-Val de Loire,France,FRB02,Eure-et-Loir,NUTS-3 name match,FRA-CEN,valid,
+FRA,ne:admin1:1159316769,1159316769,Loiret,FR-45,Metropolitan department,Centre-Val de Loire,France,FRB06,Loiret,NUTS-3 name match,FRA-CEN,valid,
+FRA,ne:admin1:1159316771,1159316771,Cher,FR-18,Metropolitan department,Centre-Val de Loire,France,FRB01,Cher,NUTS-3 name match,FRA-CEN,valid,
+FRA,ne:admin1:1159316773,1159316773,Indre,FR-36,Metropolitan department,Centre-Val de Loire,France,FRB03,Indre,NUTS-3 name match,FRA-CEN,valid,
+FRA,ne:admin1:1159316777,1159316777,Indre-et-Loire,FR-37,Metropolitan department,Centre-Val de Loire,France,FRB04,Indre-et-Loire,NUTS-3 name match,FRA-CEN,valid,
+FRA,ne:admin1:1159316779,1159316779,Deux-Sèvres,FR-79,Metropolitan department,Nouvelle-Aquitaine,France,FRI33,Deux-Sèvres,NUTS-3 name match,FRA-NAQ,valid,
+FRA,ne:admin1:1159316781,1159316781,Vienne,FR-86,Metropolitan department,Nouvelle-Aquitaine,France,FRI34,Vienne,NUTS-3 name match,FRA-NAQ,valid,
+FRA,ne:admin1:1159316783,1159316783,Charente,FR-16,Metropolitan department,Nouvelle-Aquitaine,France,FRI31,Charente,NUTS-3 name match,FRA-NAQ,valid,
+FRA,ne:admin1:1159316785,1159316785,Essonne,FR-91,Metropolitan department,Île-de-France,France,FR104,Essonne,NUTS-3 name match,FRA-IDF,valid,
+FRA,ne:admin1:1159316787,1159316787,Yvelines,FR-78,Metropolitan department,Île-de-France,France,FR103,Yvelines,NUTS-3 name match,FRA-IDF,valid,
+FRA,ne:admin1:1159316789,1159316789,Val-d'Oise,FR-95,Metropolitan department,Île-de-France,France,FR108,Val-d'Oise,NUTS-3 name match,FRA-IDF,valid,
+FRA,ne:admin1:1159316791,1159316791,Seine-Saint-Denis,FR-93,Metropolitan department,Île-de-France,France,FR106,Seine-Saint-Denis,NUTS-3 name match,FRA-IDF,valid,
+FRA,ne:admin1:1159316795,1159316795,Val-de-Marne,FR-94,Metropolitan department,Île-de-France,France,FR107,Val-de-Marne,NUTS-3 name match,FRA-IDF,valid,
+FRA,ne:admin1:1159316797,1159316797,Hauts-de-Seine,FR-92,Metropolitan department,Île-de-France,France,FR105,Hauts-de-Seine,NUTS-3 name match,FRA-IDF,valid,
+FRA,ne:admin1:1159316799,1159316799,Paris,FR-75,Metropolitan department,Île-de-France,France,FR101,Paris,NUTS-3 name match,FRA-IDF,valid,
+FRA,ne:admin1:1159316801,1159316801,Ardennes,FR-08,Metropolitan department,Grand Est,France,FRF21,Ardennes,NUTS-3 name match,FRA-NE,valid,
+FRA,ne:admin1:1159316803,1159316803,Aube,FR-10,Metropolitan department,Grand Est,France,FRF22,Aube,NUTS-3 name match,FRA-NE,valid,
+FRA,ne:admin1:1159316805,1159316805,Haute-Marne,FR-52,Metropolitan department,Grand Est,France,FRF24,Haute-Marne,NUTS-3 name match,FRA-NE,valid,
+FRA,ne:admin1:1159316807,1159316807,Meuse,FR-55,Metropolitan department,Grand Est,France,FRF32,Meuse,NUTS-3 name match,FRA-NE,valid,
+FRA,ne:admin1:1159316809,1159316809,Moselle,FR-57,Metropolitan department,Grand Est,France,FRF33,Moselle,NUTS-3 name match,FRA-NE,valid,
+FRA,ne:admin1:1159316813,1159316813,Vosges,FR-88,Metropolitan department,Grand Est,France,FRF34,Vosges,NUTS-3 name match,FRA-NE,valid,
+FRA,ne:admin1:1159316815,1159316815,Bas-Rhin,FR-67,Metropolitan department,Grand Est,France,FRF11,Bas-Rhin,NUTS-3 name match,FRA-NE,valid,
+FRA,ne:admin1:1159316817,1159316817,Territoire de Belfort,FR-90,Metropolitan department,Bourgogne-Franche-Comté,France,FRC24,Territoire de Belfort,NUTS-3 name match,FRA-CEN,valid,
+FRA,ne:admin1:1159316819,1159316819,Haute-Saône,FR-70,Metropolitan department,Bourgogne-Franche-Comté,France,FRC23,Haute-Saône,NUTS-3 name match,FRA-CEN,valid,
+FRA,ne:admin1:1159316821,1159316821,Jura,FR-39,Metropolitan department,Bourgogne-Franche-Comté,France,FRC22,Jura,NUTS-3 name match,FRA-CEN,valid,
+FRA,ne:admin1:1159316823,1159316823,Nièvre,FR-58,Metropolitan department,Bourgogne-Franche-Comté,France,FRC12,Nièvre,NUTS-3 name match,FRA-CEN,valid,
+FRA,ne:admin1:1159316825,1159316825,Yonne,FR-89,Metropolitan department,Bourgogne-Franche-Comté,France,FRC14,Yonne,NUTS-3 name match,FRA-CEN,valid,
+FRA,ne:admin1:1159316827,1159316827,Côte-d'Or,FR-21,Metropolitan department,Bourgogne-Franche-Comté,France,FRC11,Côte-d’Or,NUTS-3 name match,FRA-CEN,valid,
+FRA,ne:admin1:1159316831,1159316831,Drôme,FR-26,Metropolitan department,Auvergne-Rhône-Alpes,France,FRK23,Drôme,NUTS-3 name match,FRA-ARA,valid,
+FRA,ne:admin1:1159316833,1159316833,Ardèche,FR-07,Metropolitan department,Auvergne-Rhône-Alpes,France,FRK22,Ardèche,NUTS-3 name match,FRA-ARA,valid,
+FRA,ne:admin1:1159316835,1159316835,Loire,FR-42,Metropolitan department,Auvergne-Rhône-Alpes,France,FRK25,Loire,NUTS-3 name match,FRA-ARA,valid,
+FRA,ne:admin1:1159316837,1159316837,Rhône,FR-69,Metropolitan department,Auvergne-Rhône-Alpes,France,FRK26,Rhône,NUTS-3 name match,FRA-ARA,valid,
+FRA,ne:admin1:1159316839,1159316839,Ain,FR-01,Metropolitan department,Auvergne-Rhône-Alpes,France,FRK21,Ain,NUTS-3 name match,FRA-ARA,valid,
+FRA,ne:admin1:1159316841,1159316841,Haute-Savoie,FR-74,Metropolitan department,Auvergne-Rhône-Alpes,France,FRK28,Haute-Savoie,NUTS-3 name match,FRA-ARA,valid,
+FRA,ne:admin1:1159316843,1159316843,Savoie,FR-73,Metropolitan department,Auvergne-Rhône-Alpes,France,FRK27,Savoie,NUTS-3 name match,FRA-ARA,valid,
+FRA,ne:admin1:1159316845,1159316845,Bouches-du-Rhône,FR-13,Metropolitan department,Provence-Alpes-Côte-d'Azur,France,FRL04,Bouches-du-Rhône,NUTS-3 name match,FRA-SE,valid,
+FRA,ne:admin1:1159316849,1159316849,Vaucluse,FR-84,Metropolitan department,Provence-Alpes-Côte-d'Azur,France,FRL06,Vaucluse,NUTS-3 name match,FRA-SE,valid,
+FRA,ne:admin1:1159316851,1159316851,Alpes-de-Haute-Provence,FR-04,Metropolitan department,Provence-Alpes-Côte-d'Azur,France,FRL01,Alpes-de-Haute-Provence,NUTS-3 name match,FRA-SE,valid,
+FRA,ne:admin1:1159316853,1159316853,Hautes-Alpes,FR-05,Metropolitan department,Provence-Alpes-Côte-d'Azur,France,FRL02,Hautes-Alpes,NUTS-3 name match,FRA-SE,valid,
+FRA,ne:admin1:1159316855,1159316855,Alpes-Maritimes,FR-06,Metropolitan department,Provence-Alpes-Côte-d'Azur,France,FRL03,Alpes-Maritimes,NUTS-3 name match,FRA-SE,valid,
+FRA,ne:admin1:1159316857,1159316857,Lozère,FR-48,Metropolitan department,Occitanie,France,FRJ14,Lozère,NUTS-3 name match,FRA-OCC,valid,
+FRA,ne:admin1:1159316859,1159316859,Gard,FR-30,Metropolitan department,Occitanie,France,FRJ12,Gard,NUTS-3 name match,FRA-OCC,valid,
+FRA,ne:admin1:1159316861,1159316861,Aude,FR-11,Metropolitan department,Occitanie,France,FRJ11,Aude,NUTS-3 name match,FRA-OCC,valid,
+FRA,ne:admin1:1159316863,1159316863,Pyrénées-Orientales,FR-66,Metropolitan department,Occitanie,France,FRJ15,Pyrénées-Orientales,NUTS-3 name match,FRA-OCC,valid,
+FRA,ne:admin1:1159316867,1159316867,Ariège,FR-09,Metropolitan department,Occitanie,France,FRJ21,Ariège,NUTS-3 name match,FRA-OCC,valid,
+FRA,ne:admin1:1159316869,1159316869,Hautes-Pyrénées,FR-65,Metropolitan department,Occitanie,France,FRJ26,Hautes-Pyrénées,NUTS-3 name match,FRA-OCC,valid,
+FRA,ne:admin1:1159316871,1159316871,Gers,FR-32,Metropolitan department,Occitanie,France,FRJ24,Gers,NUTS-3 name match,FRA-OCC,valid,
+FRA,ne:admin1:1159316873,1159316873,Tarn-et-Garonne,FR-82,Metropolitan department,Occitanie,France,FRJ28,Tarn-et-Garonne,NUTS-3 name match,FRA-OCC,valid,
+FRA,ne:admin1:1159316875,1159316875,Lot,FR-46,Metropolitan department,Occitanie,France,FRJ25,Lot,NUTS-3 name match,FRA-OCC,valid,
+FRA,ne:admin1:1159316877,1159316877,Aveyron,FR-12,Metropolitan department,Occitanie,France,FRJ22,Aveyron,NUTS-3 name match,FRA-OCC,valid,
+FRA,ne:admin1:1159316879,1159316879,Tarn,FR-81,Metropolitan department,Occitanie,France,FRJ27,Tarn,NUTS-3 name match,FRA-OCC,valid,
+FRA,ne:admin1:1159316881,1159316881,Allier,FR-03,Metropolitan department,Auvergne-Rhône-Alpes,France,FRK11,Allier,NUTS-3 name match,FRA-ARA,valid,
+FRA,ne:admin1:1159316885,1159316885,Cantal,FR-15,Metropolitan department,Auvergne-Rhône-Alpes,France,FRK12,Cantal,NUTS-3 name match,FRA-ARA,valid,
+FRA,ne:admin1:1159316887,1159316887,Haute-Loire,FR-43,Metropolitan department,Auvergne-Rhône-Alpes,France,FRK13,Haute-Loire,NUTS-3 name match,FRA-ARA,valid,
+FRA,ne:admin1:1159316889,1159316889,Creuse,FR-23,Metropolitan department,Nouvelle-Aquitaine,France,FRI22,Creuse,NUTS-3 name match,FRA-NAQ,valid,
+FRA,ne:admin1:1159316891,1159316891,Corrèze,FR-19,Metropolitan department,Nouvelle-Aquitaine,France,FRI21,Corrèze,NUTS-3 name match,FRA-NAQ,valid,
+FRA,ne:admin1:1159316893,1159316893,Landes,FR-40,Metropolitan department,Nouvelle-Aquitaine,France,FRI13,Landes,NUTS-3 name match,FRA-NAQ,valid,
+FRA,ne:admin1:1159316895,1159316895,Gironde,FR-33,Metropolitan department,Nouvelle-Aquitaine,France,FRI12,Gironde,NUTS-3 name match,FRA-NAQ,valid,
+FRA,ne:admin1:1159316897,1159316897,Dordogne,FR-24,Metropolitan department,Nouvelle-Aquitaine,France,FRI11,Dordogne,NUTS-3 name match,FRA-NAQ,valid,
+FRA,ne:admin1:1159316899,1159316899,Lot-et-Garonne,FR-47,Metropolitan department,Nouvelle-Aquitaine,France,FRI14,Lot-et-Garonne,NUTS-3 name match,FRA-NAQ,valid,
+FRA,ne:admin1:1159317105,1159317105,Corse-du-Sud,FR-2A,Metropolitan department,Corse,France,FRM01,Corse-du-Sud,NUTS-3 name match,FRA-SE,valid,
+DEU,ne:admin1:1159309703,1159309703,Schleswig-Holstein,DE-SH,State,,Germany,DEF,Schleswig-Holstein,ISO 3166-2 -> NUTS-1 (Land),DEU-NOR,valid,
+DEU,ne:admin1:1159310973,1159310973,Nordrhein-Westfalen,DE-NW,State,,Germany,DEA,Nordrhein-Westfalen,ISO 3166-2 -> NUTS-1 (Land),DEU-NRW,valid,
+DEU,ne:admin1:1159310975,1159310975,Baden-Württemberg,DE-BW,State,,Germany,DE1,Baden-Württemberg,ISO 3166-2 -> NUTS-1 (Land),DEU-BW,valid,
+DEU,ne:admin1:1159310977,1159310977,Hessen,DE-HE,State,,Germany,DE7,Hessen,ISO 3166-2 -> NUTS-1 (Land),DEU-MIT,valid,
+DEU,ne:admin1:1159310981,1159310981,Bremen,DE-HB,State,,Germany,DE5,Bremen,ISO 3166-2 -> NUTS-1 (Land),DEU-NOR,valid,
+DEU,ne:admin1:1159310983,1159310983,Thüringen,DE-TH,State,,Germany,DEG,Thüringen,ISO 3166-2 -> NUTS-1 (Land),DEU-MO,valid,
+DEU,ne:admin1:1159310985,1159310985,Hamburg,DE-HH,State,,Germany,DE6,Hamburg,ISO 3166-2 -> NUTS-1 (Land),DEU-NOR,valid,
+DEU,ne:admin1:1159312763,1159312763,Rheinland-Pfalz,DE-RP,State,,Germany,DEB,Rheinland-Pfalz,ISO 3166-2 -> NUTS-1 (Land),DEU-MIT,valid,
+DEU,ne:admin1:1159312765,1159312765,Saarland,DE-SL,State,,Germany,DEC,Saarland,ISO 3166-2 -> NUTS-1 (Land),DEU-MIT,valid,
+DEU,ne:admin1:1159312767,1159312767,Bayern,DE-BY,State,,Germany,DE2,Bayern,ISO 3166-2 -> NUTS-1 (Land),DEU-BY,valid,
+DEU,ne:admin1:1159312769,1159312769,Berlin,DE-BE,State,,Germany,DE3,Berlin,ISO 3166-2 -> NUTS-1 (Land),DEU-NO,valid,
+DEU,ne:admin1:1159312771,1159312771,Sachsen-Anhalt,DE-ST,State,,Germany,DEE,Sachsen-Anhalt,ISO 3166-2 -> NUTS-1 (Land),DEU-MO,valid,
+DEU,ne:admin1:1159312773,1159312773,Sachsen,DE-SN,State,,Germany,DED,Sachsen,ISO 3166-2 -> NUTS-1 (Land),DEU-MO,valid,
+DEU,ne:admin1:1159314907,1159314907,Mecklenburg-Vorpommern,DE-MV,State,,Germany,DE8,Mecklenburg-Vorpommern,ISO 3166-2 -> NUTS-1 (Land),DEU-NO,valid,
+DEU,ne:admin1:1159315451,1159315451,Brandenburg,DE-BB,State,,Germany,DE4,Brandenburg,ISO 3166-2 -> NUTS-1 (Land),DEU-NO,valid,
+DEU,ne:admin1:1159315801,1159315801,Niedersachsen,DE-NI,State,,Germany,DE9,Niedersachsen,ISO 3166-2 -> NUTS-1 (Land),DEU-NOR,valid,
+GBR,ne:admin1:1159312667,1159312667,Cornwall,GB-CON,Unitary Single-Tier County,South West,England,TLK,South West,NE region attribute -> ITL1,GBR-SW,valid,NE gadm_level=2
+GBR,ne:admin1:1159312687,1159312687,Devon,GB-DEV,Administrative County,South West,England,TLK,South West,NE region attribute -> ITL1,GBR-SW,valid,NE gadm_level=2
+GBR,ne:admin1:1159312691,1159312691,Anglesey,GB-AGY,Unitary Authority (wales),East Wales,Wales,TLL,Wales,NE geonunit -> ITL1,GBR-WLS,valid,NE gadm_level=2
+GBR,ne:admin1:1159312693,1159312693,Carmarthenshire,GB-CMN,Unitary Authority (wales),East Wales,Wales,TLL,Wales,NE geonunit -> ITL1,GBR-WLS,valid,NE gadm_level=2
+GBR,ne:admin1:1159312695,1159312695,Ceredigion,GB-CGN,Principality,East Wales,Wales,TLL,Wales,NE geonunit -> ITL1,GBR-WLS,valid,NE gadm_level=2
+GBR,ne:admin1:1159312697,1159312697,Pembrokeshire,GB-PEM,Unitary Authority (wales),East Wales,Wales,TLL,Wales,NE geonunit -> ITL1,GBR-WLS,valid,NE gadm_level=2
+GBR,ne:admin1:1159312699,1159312699,Powys,GB-POW,Unitary Authority (wales),West Wales and the Valleys,Wales,TLL,Wales,NE geonunit -> ITL1,GBR-WLS,valid,NE gadm_level=2
+GBR,ne:admin1:1159312701,1159312701,Bridgend,GB-BGE,Unitary Authority (wales),East Wales,Wales,TLL,Wales,NE geonunit -> ITL1,GBR-WLS,valid,NE gadm_level=2
+GBR,ne:admin1:1159312703,1159312703,Caerphilly,GB-CAY,Unitary Authority (wales),East Wales,Wales,TLL,Wales,NE geonunit -> ITL1,GBR-WLS,valid,NE gadm_level=2
+GBR,ne:admin1:1159312705,1159312705,Merthyr Tydfil,GB-MTY,Unitary Authority (wales),East Wales,Wales,TLL,Wales,NE geonunit -> ITL1,GBR-WLS,valid,NE gadm_level=2
+GBR,ne:admin1:1159312709,1159312709,"Rhondda, Cynon, Taff",GB-RCT,Unitary Authority (wales),East Wales,Wales,TLL,Wales,NE geonunit -> ITL1,GBR-WLS,valid,NE gadm_level=2
+GBR,ne:admin1:1159312711,1159312711,Cardiff,GB-CRF,Unitary Authority (wales),West Wales and the Valleys,Wales,TLL,Wales,NE geonunit -> ITL1,GBR-WLS,valid,NE gadm_level=2
+GBR,ne:admin1:1159312713,1159312713,Vale of Glamorgan,GB-VGL,Unitary Authority (wales),West Wales and the Valleys,Wales,TLL,Wales,NE geonunit -> ITL1,GBR-WLS,valid,NE gadm_level=2
+GBR,ne:admin1:1159312715,1159312715,Neath Port Talbot,GB-NTL,Unitary Authority (wales),East Wales,Wales,TLL,Wales,NE geonunit -> ITL1,GBR-WLS,valid,NE gadm_level=2
+GBR,ne:admin1:1159312717,1159312717,Swansea,GB-SWA,Unitary Authority (wales),East Wales,Wales,TLL,Wales,NE geonunit -> ITL1,GBR-WLS,valid,NE gadm_level=2
+GBR,ne:admin1:1159312719,1159312719,Denbighshire,GB-DEN,Unitary Authority (wales),East Wales,Wales,TLL,Wales,NE geonunit -> ITL1,GBR-WLS,valid,NE gadm_level=2
+GBR,ne:admin1:1159312721,1159312721,Flintshire,GB-FLN,Unitary Authority (wales),West Wales and the Valleys,Wales,TLL,Wales,NE geonunit -> ITL1,GBR-WLS,valid,NE gadm_level=2
+GBR,ne:admin1:1159312723,1159312723,Wrexham,GB-WRX,Unitary Authority (wales),West Wales and the Valleys,Wales,TLL,Wales,NE geonunit -> ITL1,GBR-WLS,valid,NE gadm_level=2
+GBR,ne:admin1:1159312727,1159312727,Conwy,GB-CWY,Unitary Authority (wales),East Wales,Wales,TLL,Wales,NE geonunit -> ITL1,GBR-WLS,valid,NE gadm_level=2
+GBR,ne:admin1:1159312729,1159312729,Gwynedd,GB-GWN,Unitary Authority (wales),East Wales,Wales,TLL,Wales,NE geonunit -> ITL1,GBR-WLS,valid,NE gadm_level=2
+GBR,ne:admin1:1159312731,1159312731,Blaenau Gwent,GB-BGW,Unitary Authority (wales),East Wales,Wales,TLL,Wales,NE geonunit -> ITL1,GBR-WLS,valid,NE gadm_level=2
+GBR,ne:admin1:1159312733,1159312733,Monmouthshire,GB-MON,Unitary Authority (wales),West Wales and the Valleys,Wales,TLL,Wales,NE geonunit -> ITL1,GBR-WLS,valid,NE gadm_level=2
+GBR,ne:admin1:1159312735,1159312735,Newport,GB-NWP,Unitary Authority (wales),West Wales and the Valleys,Wales,TLL,Wales,NE geonunit -> ITL1,GBR-WLS,valid,NE gadm_level=2
+GBR,ne:admin1:1159312737,1159312737,Torfaen,GB-TOF,Unitary Authority (wales),East Wales,Wales,TLL,Wales,NE geonunit -> ITL1,GBR-WLS,valid,NE gadm_level=2
+GBR,ne:admin1:1159312775,1159312775,Limavady,GB-LMV,District,Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159312777,1159312777,Castlereagh,GB-CSR,District,Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159312781,1159312781,Derry,GB-DRY,London Borough (city),Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159312783,1159312783,Omagh,GB-OMH,District,Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159312785,1159312785,Armagh,GB-ARM,District,Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159312787,1159312787,Newry and Mourne,GB-NYM,District,Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159312789,1159312789,Banbridge,GB-BNB,District,Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159312791,1159312791,Craigavon,GB-CGV,District,Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159312793,1159312793,Dungannon,GB-DGN,District,Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159312795,1159312795,Lisburn,GB-LSB,District,Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159312799,1159312799,Mid Ulster,GB-CKT,Province,Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159312801,1159312801,Antrim,GB-ANT,District,Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159312803,1159312803,Magherafelt,GB-MFT,District,Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159312805,1159312805,Ballymena,GB-BLA,District,Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159312807,1159312807,Larne,GB-LRN,District,Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159312809,1159312809,Carrickfergus,GB-CKF,District,Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159312811,1159312811,Newtownabbey,GB-NTA,District,Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159312813,1159312813,North Down,GB-NDN,District,Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159312817,1159312817,Down,GB-DOW,District,Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159312819,1159312819,Coleraine,GB-CLR,District,Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159312821,1159312821,Ballymoney,GB-BLY,District,Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159312823,1159312823,Strabane,GB-STB,District,Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159312825,1159312825,Fermanagh,GB-FER,District,Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159312827,1159312827,Ards,GB-ARD,District,Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159312829,1159312829,Belfast,GB-BFS,District,Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159312837,1159312837,Knowsley,GB-KWL,Metropolitan Borough,North West,England,TLD,North West,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159312839,1159312839,Halton,GB-WRL,Metropolitan Borough,North West,England,TLD,North West,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159312841,1159312841,Cheshire East,GB-CHE,Unitary Authority,North West,England,TLD,North West,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159312843,1159312843,Newcastle upon Tyne,GB-NET,Metropolitan Borough,North East,England,TLC,North East,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159312845,1159312845,Darlington,GB-DAL,Unitary Authority,North East,England,TLC,North East,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159312847,1159312847,Durham,GB-DUR,Unitary Single-Tier County,North East,England,TLC,North East,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159312849,1159312849,Hartlepool,GB-HPL,Unitary Authority,North East,England,TLC,North East,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159312853,1159312853,Middlesbrough,GB-MDB,Unitary Authority,North East,England,TLC,North East,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159312855,1159312855,Redcar and Cleveland,GB-RCC,Unitary Authority,North East,England,TLC,North East,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159312857,1159312857,Stockton-on-Tees,GB-STT,Unitary Authority,North East,England,TLC,North East,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159312859,1159312859,Northumberland,GB-NBL,Unitary Single-Tier County,North East,England,TLC,North East,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159312861,1159312861,Hampshire,GB-HAM,Administrative County,South East,England,TLJ,South East,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159312863,1159312863,Southampton,GB-STH,Unitary Authority,South East,England,TLJ,South East,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159312865,1159312865,Birmingham,GB-BIR,Metropolitan Borough,West Midlands,England,TLG,West Midlands,NE region attribute -> ITL1,GBR-MID,valid,NE gadm_level=2
+GBR,ne:admin1:1159312867,1159312867,Milton Keynes,GB-MIK,Unitary Authority,South East,England,TLJ,South East,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159312871,1159312871,Gloucestershire,GB-GLS,Administrative County,South West,England,TLK,South West,NE region attribute -> ITL1,GBR-SW,valid,NE gadm_level=2
+GBR,ne:admin1:1159312873,1159312873,Buckinghamshire,GB-BKM,Administrative County,South East,England,TLJ,South East,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159312875,1159312875,Central Bedfordshire,GB-CBF,Unitary Authority,East,England,TLH,East of England,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159312877,1159312877,Hertfordshire,GB-HRT,Administrative County,East,England,TLH,East of England,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159312879,1159312879,Bath and North East Somerset,GB-BAS,Unitary Authority,South West,England,TLK,South West,NE region attribute -> ITL1,GBR-SW,valid,NE gadm_level=2
+GBR,ne:admin1:1159312881,1159312881,Bristol,GB-BST,Unitary Authority,South West,England,TLK,South West,NE region attribute -> ITL1,GBR-SW,valid,NE gadm_level=2
+GBR,ne:admin1:1159312883,1159312883,North Somerset,GB-NSM,Unitary Authority,South West,England,TLK,South West,NE region attribute -> ITL1,GBR-SW,valid,NE gadm_level=2
+GBR,ne:admin1:1159312885,1159312885,South Gloucestershire,GB-SGC,Unitary Authority,South West,England,TLK,South West,NE region attribute -> ITL1,GBR-SW,valid,NE gadm_level=2
+GBR,ne:admin1:1159312889,1159312889,Somerset,GB-SOM,Administrative County,South West,England,TLK,South West,NE region attribute -> ITL1,GBR-SW,valid,NE gadm_level=2
+GBR,ne:admin1:1159312891,1159312891,Reading,GB-RDG,Unitary Authority,South East,England,TLJ,South East,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159312893,1159312893,Bournemouth,GB-BMH,Unitary Authority,South West,England,TLK,South West,NE region attribute -> ITL1,GBR-SW,valid,NE gadm_level=2
+GBR,ne:admin1:1159312895,1159312895,Dorset,GB-DOR,Administrative County,South West,England,TLK,South West,NE region attribute -> ITL1,GBR-SW,valid,NE gadm_level=2
+GBR,ne:admin1:1159312897,1159312897,Poole,GB-POL,Unitary Authority,South West,England,TLK,South West,NE region attribute -> ITL1,GBR-SW,valid,NE gadm_level=2
+GBR,ne:admin1:1159312899,1159312899,Cambridgeshire,GB-CAM,Administrative County,East,England,TLH,East of England,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159312901,1159312901,Leicestershire,GB-LEC,Kingdom,East Midlands,England,TLF,East Midlands,NE region attribute -> ITL1,GBR-MID,valid,NE gadm_level=2
+GBR,ne:admin1:1159312903,1159312903,Kingston upon Hull,GB-KHL,Unitary Authority,Yorkshire and the Humber,England,TLE,Yorkshire and The Humber,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159312907,1159312907,North East Lincolnshire,GB-NEL,Unitary Authority,Yorkshire and the Humber,England,TLE,Yorkshire and The Humber,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159312909,1159312909,North Lincolnshire,GB-NLN,Unitary Authority,Yorkshire and the Humber,England,TLE,Yorkshire and The Humber,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159312911,1159312911,Derby,GB-DER,Unitary Authority,East Midlands,England,TLF,East Midlands,NE region attribute -> ITL1,GBR-MID,valid,NE gadm_level=2
+GBR,ne:admin1:1159312913,1159312913,Derbyshire,GB-DBY,Administrative County,East Midlands,England,TLF,East Midlands,NE region attribute -> ITL1,GBR-MID,valid,NE gadm_level=2
+GBR,ne:admin1:1159312915,1159312915,Barking and Dagenham,GB-BDG,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159312917,1159312917,Bexley,GB-BEX,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159312919,1159312919,Brent,GB-BEN,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159312921,1159312921,Bromley,GB-BRY,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159312925,1159312925,Camden,GB-CMD,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159312927,1159312927,Croydon,GB-CRY,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159312929,1159312929,Ealing,GB-EAL,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159312931,1159312931,Enfield,GB-ENF,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159312933,1159312933,Greenwich,GB-GRE,London Borough (royal),Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159312935,1159312935,Hammersmith and Fulham,GB-HMF,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159312937,1159312937,Hounslow,GB-HNS,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159312939,1159312939,Islington,GB-ISL,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159312943,1159312943,Kensington and Chelsea,GB-KEC,London Borough (royal),Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159312945,1159312945,Merton,GB-MRT,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159312947,1159312947,York,GB-YOR,Unitary Authority,Yorkshire and the Humber,England,TLE,Yorkshire and The Humber,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159312949,1159312949,Telford and Wrekin,GB-TFW,Unitary Authority,West Midlands,England,TLG,West Midlands,NE region attribute -> ITL1,GBR-MID,valid,NE gadm_level=2
+GBR,ne:admin1:1159312951,1159312951,Blackburn with Darwen,GB-BBD,Unitary Authority,North West,England,TLD,North West,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159312953,1159312953,Lancashire,GB-LAN,Administrative County,North West,England,TLD,North West,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159312955,1159312955,East Riding of Yorkshire,GB-ERY,Unitary Authority,Yorkshire and the Humber,England,TLE,Yorkshire and The Humber,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159312957,1159312957,Cumbria,GB-CMA,Administrative County,North West,England,TLD,North West,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159312961,1159312961,North Yorkshire,GB-NYK,Administrative County,Yorkshire and the Humber,England,TLE,Yorkshire and The Humber,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159312963,1159312963,Plymouth,GB-PLY,Unitary Authority,South West,England,TLK,South West,NE region attribute -> ITL1,GBR-SW,valid,NE gadm_level=2
+GBR,ne:admin1:1159312965,1159312965,Torbay,GB-TOB,Unitary Authority,South West,England,TLK,South West,NE region attribute -> ITL1,GBR-SW,valid,NE gadm_level=2
+GBR,ne:admin1:1159312967,1159312967,Redbridge,GB-RDB,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159312969,1159312969,Richmond upon Thames,GB-RIC,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159312971,1159312971,Sutton,GB-STN,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159312973,1159312973,Tower Hamlets,GB-TWH,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159312975,1159312975,Waltham Forest,GB-WFT,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159312979,1159312979,Wandsworth,GB-WND,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159312981,1159312981,Westminster,GB-WSM,London Borough (city),Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159312983,1159312983,Lincolnshire,GB-LIN,Administrative County,East Midlands,England,TLF,East Midlands,NE region attribute -> ITL1,GBR-MID,valid,NE gadm_level=2
+GBR,ne:admin1:1159312985,1159312985,Essex,GB-ESS,Administrative County,East,England,TLH,East of England,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159312987,1159312987,Suffolk,GB-SFK,Administrative County,East,England,TLH,East of England,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159312989,1159312989,Norfolk,GB-NFK,Administrative County,East,England,TLH,East of England,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159313009,1159313009,East Ayrshire,GB-EAY,Unitary District,South Western,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313011,1159313011,East Dunbartonshire,GB-EDU,Unitary District,South Western,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313015,1159313015,East Renfrewshire,GB-ERW,Unitary District,South Western,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313017,1159313017,Glasgow,GB-GLG,Unitary District (city),South Western,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313019,1159313019,Inverclyde,GB-IVC,Unitary District,South Western,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313021,1159313021,North Ayshire,GB-NAY,Unitary District,South Western,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313023,1159313023,North Lanarkshire,GB-NLK,Unitary District,South Western,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313025,1159313025,Renfrewshire,GB-RFW,Unitary District,South Western,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313027,1159313027,South Ayrshire,GB-SAY,Unitary District,South Western,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313029,1159313029,South Lanarkshire,GB-SLK,Unitary District,South Western,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313033,1159313033,West Dunbartonshire,GB-WDU,Unitary District,South Western,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313035,1159313035,Aberdeen,GB-ABE,Unitary District (city),North Eastern,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313037,1159313037,Aberdeenshire,GB-ABD,Unitary District,North Eastern,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313039,1159313039,Moray,GB-MRY,Unitary District,Highlands and Islands,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313041,1159313041,Falkirk,GB-FAL,Unitary District,Eastern,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313043,1159313043,Stirling,GB-STG,Unitary District,Eastern,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313045,1159313045,Clackmannanshire,GB-CLK,Unitary District,Eastern,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313047,1159313047,Perthshire and Kinross,GB-PKN,Unitary District,Eastern,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313051,1159313051,Angus,GB-ANS,Unitary District,Eastern,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313053,1159313053,Dundee,GB-DND,Unitary District (city),Eastern,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313055,1159313055,Fife,GB-FIF,Unitary District,Eastern,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313057,1159313057,East Lothian,GB-ELN,Unitary District,Eastern,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313059,1159313059,Edinburgh,GB-EDH,Unitary District (city),Eastern,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313061,1159313061,Midlothian,GB-MLN,Unitary District,Eastern,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313063,1159313063,West Lothian,GB-WLN,Unitary District,Eastern,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313065,1159313065,Scottish Borders,GB-SCB,Unitary District,Eastern,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313069,1159313069,Dumfries and Galloway,GB-DGY,Unitary District,South Western,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159313585,1159313585,Brighton and Hove,GB-BNH,Unitary Authority,South East,England,TLJ,South East,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159313587,1159313587,Havering,GB-HAV,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159313591,1159313591,Thurrock,GB-THR,Unitary Authority,East,England,TLH,East of England,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159313593,1159313593,East Sussex,GB-ESX,Administrative County,South East,England,TLJ,South East,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159313595,1159313595,Medway,GB-MDW,Unitary Authority,South East,England,TLJ,South East,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159313597,1159313597,Southend-on-Sea,GB-SOS,Unitary Authority,East,England,TLH,East of England,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159314667,1159314667,Isle of Wight,GB-IOW,Unitary Authority,South East,England,TLJ,South East,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159314671,1159314671,Portsmouth,GB-POR,Unitary Authority,South East,England,TLJ,South East,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159314711,1159314711,Moyle,GB-MYL,District,Northern Ireland,Northern Ireland,TLN,Northern Ireland,NE geonunit -> ITL1,GBR-NIR,valid,NE gadm_level=2
+GBR,ne:admin1:1159314743,1159314743,Argyll and Bute,GB-AGB,Unitary District,Highlands and Islands,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159314745,1159314745,West Sussex,GB-WSX,Administrative County,South East,England,TLJ,South East,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159314747,1159314747,Northamptonshire,GB-NTH,Administrative County,East Midlands,England,TLF,East Midlands,NE region attribute -> ITL1,GBR-MID,valid,NE gadm_level=2
+GBR,ne:admin1:1159314749,1159314749,Warwickshire,GB-WAR,Administrative County,West Midlands,England,TLG,West Midlands,NE region attribute -> ITL1,GBR-MID,valid,NE gadm_level=2
+GBR,ne:admin1:1159314751,1159314751,Oxfordshire,GB-OXF,Administrative County,South East,England,TLJ,South East,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159314753,1159314753,Luton,GB-LUT,Unitary Authority,East,England,TLH,East of England,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159314755,1159314755,Hillingdon,GB-HIL,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159314757,1159314757,Kingston upon Thames,GB-KTT,London Borough (royal),Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159314761,1159314761,Surrey,GB-SRY,Administrative County,South East,England,TLJ,South East,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159314763,1159314763,Swindon,GB-SWD,Unitary Authority,South West,England,TLK,South West,NE region attribute -> ITL1,GBR-SW,valid,NE gadm_level=2
+GBR,ne:admin1:1159314765,1159314765,Wiltshire,GB-WIL,Unitary Single-Tier County,South West,England,TLK,South West,NE region attribute -> ITL1,GBR-SW,valid,NE gadm_level=2
+GBR,ne:admin1:1159314767,1159314767,Peterborough,GB-PTE,Unitary Authority,East,England,TLH,East of England,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159314769,1159314769,Leicester,GB-LCE,Unitary Authority,East Midlands,England,TLF,East Midlands,NE region attribute -> ITL1,GBR-MID,valid,NE gadm_level=2
+GBR,ne:admin1:1159314771,1159314771,Rutland,GB-RUT,Unitary Authority,East Midlands,England,TLF,East Midlands,NE region attribute -> ITL1,GBR-MID,valid,NE gadm_level=2
+GBR,ne:admin1:1159314773,1159314773,Nottingham,GB-NGM,Unitary Authority,East Midlands,England,TLF,East Midlands,NE region attribute -> ITL1,GBR-MID,valid,NE gadm_level=2
+GBR,ne:admin1:1159314775,1159314775,Nottinghamshire,GB-NTT,Administrative County,East Midlands,England,TLF,East Midlands,NE region attribute -> ITL1,GBR-MID,valid,NE gadm_level=2
+GBR,ne:admin1:1159314779,1159314779,Hackney,GB-HCK,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159314781,1159314781,Haringey,GB-HRY,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159314783,1159314783,Harrow,GB-HRW,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159314785,1159314785,Lambeth,GB-LBH,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159314787,1159314787,Lewisham,GB-LEW,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159314789,1159314789,Newham,GB-NWM,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159314791,1159314791,Southwark,GB-SWK,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159314793,1159314793,Warrington,GB-WRT,Unitary Authority,North West,England,TLD,North West,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159314797,1159314797,Herefordshire,GB-HEF,Unitary Authority,West Midlands,England,TLG,West Midlands,NE region attribute -> ITL1,GBR-MID,valid,NE gadm_level=2
+GBR,ne:admin1:1159314799,1159314799,Worcestershire,GB-WOR,Administrative County,West Midlands,England,TLG,West Midlands,NE region attribute -> ITL1,GBR-MID,valid,NE gadm_level=2
+GBR,ne:admin1:1159314801,1159314801,Staffordshire,GB-STS,Administrative County,West Midlands,England,TLG,West Midlands,NE region attribute -> ITL1,GBR-MID,valid,NE gadm_level=2
+GBR,ne:admin1:1159314803,1159314803,Stoke-on-Trent,GB-STE,Unitary Authority,West Midlands,England,TLG,West Midlands,NE region attribute -> ITL1,GBR-MID,valid,NE gadm_level=2
+GBR,ne:admin1:1159314805,1159314805,Shropshire,GB-SHR,Unitary Single-Tier County,West Midlands,England,TLG,West Midlands,NE region attribute -> ITL1,GBR-MID,valid,NE gadm_level=2
+GBR,ne:admin1:1159314807,1159314807,Kirklees,GB-KIR,Metropolitan Borough,Yorkshire and the Humber,England,TLE,Yorkshire and The Humber,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159314809,1159314809,Salford,GB-SLF,Metropolitan Borough,North West,England,TLD,North West,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159314811,1159314811,Rotherham,GB-ROT,Metropolitan Borough,Yorkshire and the Humber,England,TLE,Yorkshire and The Humber,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159314815,1159314815,Eilean Siar,GB-ELS,Island Area,Highlands and Islands,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159314817,1159314817,Highland,GB-HLD,Unitary District,Highlands and Islands,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159314819,1159314819,Orkney,GB-ORK,Unitary District,Highlands and Islands,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159314821,1159314821,Shetland Islands,GB-ZET,Unitary District (city),Highlands and Islands,Scotland,TLM,Scotland,NE geonunit -> ITL1,GBR-SCO,valid,NE gadm_level=2
+GBR,ne:admin1:1159315381,1159315381,Kent,GB-KEN,Administrative County,South East,England,TLJ,South East,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159315835,1159315835,City,GB-LND,City Corporation,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159317473,1159317473,North Tyneside,GB-NTY,Metropolitan Borough,North East,England,TLC,North East,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159317475,1159317475,South Tyneside,GB-STY,Metropolitan Borough,North East,England,TLC,North East,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159317479,1159317479,Sunderland,GB-SND,Metropolitan Borough,North East,England,TLC,North East,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159317481,1159317481,Gateshead,GB-GAT,Metropolitan Borough,North East,England,TLC,North East,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159317483,1159317483,Blackpool,GB-BPL,Unitary Authority,North West,England,TLD,North West,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159317485,1159317485,Sefton,GB-SFT,Metropolitan Borough,North West,England,TLD,North West,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159317487,1159317487,Liverpool,GB-LIV,Metropolitan Borough,North West,England,TLD,North West,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159317489,1159317489,Merseyside,GB-SHN,Metropolitan Borough,North West,England,TLD,North West,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159317491,1159317491,Wigan,GB-WGN,Metropolitan Borough,North West,England,TLD,North West,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159317493,1159317493,Bolton,GB-BOL,Metropolitan Borough,North West,England,TLD,North West,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159317497,1159317497,Bury,GB-BUR,Metropolitan Borough,North West,England,TLD,North West,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159317499,1159317499,Rochdale,GB-RCH,Metropolitan Borough,North West,England,TLD,North West,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159317501,1159317501,Oldham,GB-OLD,Metropolitan Borough,North West,England,TLD,North West,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159317503,1159317503,Tameside,GB-TAM,Metropolitan Borough,North West,England,TLD,North West,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159317505,1159317505,Stockport,GB-SKP,Metropolitan Borough,North West,England,TLD,North West,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159317507,1159317507,Manchester,GB-MAN,Metropolitan Borough,North West,England,TLD,North West,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159317509,1159317509,Trafford,GB-TRF,Metropolitan Borough,North West,England,TLD,North West,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159317511,1159317511,Calderdale,GB-CLD,Metropolitan Borough,Yorkshire and the Humber,England,TLE,Yorkshire and The Humber,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159317515,1159317515,Bradford,GB-BRD,Metropolitan Borough,Yorkshire and the Humber,England,TLE,Yorkshire and The Humber,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159317517,1159317517,Leeds,GB-LDS,Metropolitan Borough,Yorkshire and the Humber,England,TLE,Yorkshire and The Humber,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159317519,1159317519,Wakefield,GB-WKF,Metropolitan Borough,Yorkshire and the Humber,England,TLE,Yorkshire and The Humber,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159317521,1159317521,Sheffield,GB-SHF,Metropolitan Borough,Yorkshire and the Humber,England,TLE,Yorkshire and The Humber,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159317523,1159317523,Barnsley,GB-BNS,Metropolitan Borough,Yorkshire and the Humber,England,TLE,Yorkshire and The Humber,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159317525,1159317525,Doncaster,GB-DNC,Metropolitan Borough,Yorkshire and the Humber,England,TLE,Yorkshire and The Humber,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159317527,1159317527,Sandwell,GB-SAW,Metropolitan Borough,West Midlands,England,TLG,West Midlands,NE region attribute -> ITL1,GBR-MID,valid,NE gadm_level=2
+GBR,ne:admin1:1159317529,1159317529,Dudley,GB-DUD,Metropolitan Borough,West Midlands,England,TLG,West Midlands,NE region attribute -> ITL1,GBR-MID,valid,NE gadm_level=2
+GBR,ne:admin1:1159317533,1159317533,Wolverhampton,GB-WLV,Metropolitan Borough,West Midlands,England,TLG,West Midlands,NE region attribute -> ITL1,GBR-MID,valid,NE gadm_level=2
+GBR,ne:admin1:1159317535,1159317535,Walsall,GB-WLL,Metropolitan Borough,West Midlands,England,TLG,West Midlands,NE region attribute -> ITL1,GBR-MID,valid,NE gadm_level=2
+GBR,ne:admin1:1159317537,1159317537,Solihull,GB-SOL,Metropolitan Borough,West Midlands,England,TLG,West Midlands,NE region attribute -> ITL1,GBR-MID,valid,NE gadm_level=2
+GBR,ne:admin1:1159317539,1159317539,Coventry,GB-COV,Metropolitan Borough,West Midlands,England,TLG,West Midlands,NE region attribute -> ITL1,GBR-MID,valid,NE gadm_level=2
+GBR,ne:admin1:1159317541,1159317541,West Berkshire,GB-WBK,Unitary Authority,South East,England,TLJ,South East,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159317543,1159317543,Wokingham,GB-WOK,Unitary Authority,South East,England,TLJ,South East,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159317545,1159317545,Bracknell Forest,GB-BRC,Unitary Authority,South East,England,TLJ,South East,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159317547,1159317547,Royal Borough of Windsor and Maidenhead,GB-WNM,Unitary Authority,South East,England,TLJ,South East,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159317551,1159317551,Slough,GB-SLG,Unitary Authority,South East,England,TLJ,South East,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159317553,1159317553,Bedford,GB-BDF,Unitary Authority,East,England,TLH,East of England,NE region attribute -> ITL1,GBR-SE,valid,NE gadm_level=2
+GBR,ne:admin1:1159317555,1159317555,Barnet,GB-BNE,London Borough,Greater London,England,TLI,London,NE region attribute -> ITL1,GBR-LON,valid,NE gadm_level=2
+GBR,ne:admin1:1159317557,1159317557,Cheshire West and Chester,GB-CHW,Unitary Authority,North West,England,TLD,North West,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159317559,1159317559,Halton,GB-HAL,Unitary Authority,North West,England,TLD,North West,NE region attribute -> ITL1,GBR-NTH,valid,NE gadm_level=2
+GBR,ne:admin1:1159318099,1159318099,Isles of Scilly,GB-IOS,Unitary Single-Tier County,South West,England,TLK,South West,NE region attribute -> ITL1,GBR-SW,valid,NE gadm_level=2
+ITA,ne:admin1:1159308507,1159308507,Venezia,IT-VE,Province,Veneto,Italy,ITH35,Venezia,NUTS-3 name match,ITA-NE,valid,
+ITA,ne:admin1:1159309345,1159309345,Trapani,IT-TP,Province,Sicily,Italy,ITG11,Trapani,NUTS-3 name match,ITA-SIC,valid,
+ITA,ne:admin1:1159309403,1159309403,Caserta,IT-CE,Province,Campania,Italy,ITF31,Caserta,NUTS-3 name match,ITA-SUD,valid,
+ITA,ne:admin1:1159309441,1159309441,Grosseto,IT-GR,Province,Toscana,Italy,ITI1A,Grosseto,NUTS-3 name match,ITA-CEN,valid,
+ITA,ne:admin1:1159309563,1159309563,Pescara,IT-PE,Province,Abruzzo,Italy,ITF13,Pescara,NUTS-3 name match,ITA-SUD,valid,
+ITA,ne:admin1:1159309565,1159309565,Roma,IT-RM,Province,Lazio,Italy,ITI43,Roma,NUTS-3 name match,ITA-CEN,valid,
+ITA,ne:admin1:1159309567,1159309567,Ancona,IT-AN,Province,Marche,Italy,ITI32,Ancona,NUTS-3 name match,ITA-CEN,valid,
+ITA,ne:admin1:1159309569,1159309569,Perugia,IT-PG,Province,Umbria,Italy,ITI21,Perugia,NUTS-3 name match,ITA-CEN,valid,
+ITA,ne:admin1:1159309571,1159309571,Modena,IT-MO,Province,Emilia-Romagna,Italy,ITH54,Modena,NUTS-3 name match,ITA-NE,valid,
+ITA,ne:admin1:1159309573,1159309573,Genova,IT-GE,Province,Liguria,Italy,ITC33,Genova,NUTS-3 name match,ITA-NO,valid,
+ITA,ne:admin1:1159309577,1159309577,Matera,IT-MT,Province,Basilicata,Italy,ITF52,Matera,NUTS-3 name match,ITA-SUD,valid,
+ITA,ne:admin1:1159309579,1159309579,Cosenza,IT-CS,Province,Calabria,Italy,ITF61,Cosenza,NUTS-3 name match,ITA-SUD,valid,
+ITA,ne:admin1:1159309581,1159309581,Campobasso,IT-CB,Province,Molise,Italy,ITF22,Campobasso,NUTS-3 name match,ITA-SUD,valid,
+ITA,ne:admin1:1159309583,1159309583,Bari,IT-BA,Province,Apulia,Italy,ITF47,Bari,NUTS-3 name match,ITA-SUD,valid,
+ITA,ne:admin1:1159310913,1159310913,Turin,IT-TO,Province,Piemonte,Italy,ITC1,Piemonte,NE region attribute -> NUTS-2,ITA-NO,valid,province not matched to a NUTS-3 code (2016-2024 province reforms); assigned by region
+ITA,ne:admin1:1159310915,1159310915,Aoste,IT-AO,Province,Valle d'Aosta,Italy,ITC2,Valle d’Aosta/Vallée d’Aoste,NE region attribute -> NUTS-2,ITA-NO,valid,province not matched to a NUTS-3 code (2016-2024 province reforms); assigned by region
+ITA,ne:admin1:1159310917,1159310917,Bergamo,IT-BG,Province,Lombardia,Italy,ITC46,Bergamo,NUTS-3 name match,ITA-NO,valid,
+ITA,ne:admin1:1159310919,1159310919,Udine,IT-UD,Province,Friuli-Venezia Giulia,Italy,ITH42,Udine,NUTS-3 name match,ITA-NE,valid,
+ITA,ne:admin1:1159310921,1159310921,Bozen,IT-BZ,Province,Trentino-Alto Adige,Italy,ITH1,Provincia Autonoma di Bolzano/Bozen,NE region attribute -> NUTS-2,ITA-NE,valid,province not matched to a NUTS-3 code (2016-2024 province reforms); assigned by region
+ITA,ne:admin1:1159315799,1159315799,Carbonia-Iglesias,IT-CI,Province,Sardegna,Italy,ITG2,Sardegna,NE region attribute -> NUTS-2,ITA-SAR,valid,province not matched to a NUTS-3 code (2016-2024 province reforms); assigned by region
+ITA,ne:admin1:1159316903,1159316903,Biella,IT-BI,Province,Piemonte,Italy,ITC13,Biella,NUTS-3 name match,ITA-NO,valid,
+ITA,ne:admin1:1159316905,1159316905,Vercelli,IT-VC,Province,Piemonte,Italy,ITC12,Vercelli,NUTS-3 name match,ITA-NO,valid,
+ITA,ne:admin1:1159316907,1159316907,Verbano-Cusio-Ossola,IT-VB,Province,Piemonte,Italy,ITC14,Verbano-Cusio-Ossola,NUTS-3 name match,ITA-NO,valid,
+ITA,ne:admin1:1159316909,1159316909,Novara,IT-NO,Province,Piemonte,Italy,ITC15,Novara,NUTS-3 name match,ITA-NO,valid,
+ITA,ne:admin1:1159316911,1159316911,Alessandria,IT-AL,Province,Piemonte,Italy,ITC18,Alessandria,NUTS-3 name match,ITA-NO,valid,
+ITA,ne:admin1:1159316913,1159316913,Asti,IT-AT,Province,Piemonte,Italy,ITC17,Asti,NUTS-3 name match,ITA-NO,valid,
+ITA,ne:admin1:1159316915,1159316915,Cuneo,IT-CN,Province,Piemonte,Italy,ITC16,Cuneo,NUTS-3 name match,ITA-NO,valid,
+ITA,ne:admin1:1159316917,1159316917,Savona,IT-SV,Province,Liguria,Italy,ITC32,Savona,NUTS-3 name match,ITA-NO,valid,
+ITA,ne:admin1:1159316921,1159316921,Imperia,IT-IM,Province,Liguria,Italy,ITC31,Imperia,NUTS-3 name match,ITA-NO,valid,
+ITA,ne:admin1:1159316923,1159316923,La Spezia,IT-SP,Province,Liguria,Italy,ITC34,La Spezia,NUTS-3 name match,ITA-NO,valid,
+ITA,ne:admin1:1159316925,1159316925,Sondrio,IT-SO,Province,Lombardia,Italy,ITC44,Sondrio,NUTS-3 name match,ITA-NO,valid,
+ITA,ne:admin1:1159316927,1159316927,Brescia,IT-BS,Province,Lombardia,Italy,ITC47,Brescia,NUTS-3 name match,ITA-NO,valid,
+ITA,ne:admin1:1159316929,1159316929,Mantova,IT-MN,Province,Lombardia,Italy,ITC4B,Mantova,NUTS-3 name match,ITA-NO,valid,
+ITA,ne:admin1:1159316931,1159316931,Cremona,IT-CR,Province,Lombardia,Italy,ITC4A,Cremona,NUTS-3 name match,ITA-NO,valid,
+ITA,ne:admin1:1159316933,1159316933,Lodi,IT-LO,Province,Lombardia,Italy,ITC49,Lodi,NUTS-3 name match,ITA-NO,valid,
+ITA,ne:admin1:1159316935,1159316935,Pavia,IT-PV,Province,Lombardia,Italy,ITC48,Pavia,NUTS-3 name match,ITA-NO,valid,
+ITA,ne:admin1:1159316939,1159316939,Milano,IT-MI,Province,Lombardia,Italy,ITC4C,Milano,NUTS-3 name match,ITA-NO,valid,
+ITA,ne:admin1:1159316941,1159316941,Varese,IT-VA,Province,Lombardia,Italy,ITC41,Varese,NUTS-3 name match,ITA-NO,valid,
+ITA,ne:admin1:1159316943,1159316943,Como,IT-CO,Province,Lombardia,Italy,ITC42,Como,NUTS-3 name match,ITA-NO,valid,
+ITA,ne:admin1:1159316945,1159316945,Lecco,IT-LC,Province,Lombardia,Italy,ITC43,Lecco,NUTS-3 name match,ITA-NO,valid,
+ITA,ne:admin1:1159316947,1159316947,Monza e Brianza,IT-MB,Province,Lombardia,Italy,ITC4,Lombardia,NE region attribute -> NUTS-2,ITA-NO,valid,province not matched to a NUTS-3 code (2016-2024 province reforms); assigned by region
+ITA,ne:admin1:1159316949,1159316949,Trento,IT-TN,Province,Trentino-Alto Adige,Italy,ITH20,Trento,NUTS-3 name match,ITA-NE,valid,
+ITA,ne:admin1:1159316951,1159316951,Rovigo,IT-RO,Province,Veneto,Italy,ITH37,Rovigo,NUTS-3 name match,ITA-NE,valid,
+ITA,ne:admin1:1159316953,1159316953,Padova,IT-PD,Province,Veneto,Italy,ITH36,Padova,NUTS-3 name match,ITA-NE,valid,
+ITA,ne:admin1:1159316957,1159316957,Verona,IT-VR,Province,Veneto,Italy,ITH31,Verona,NUTS-3 name match,ITA-NE,valid,
+ITA,ne:admin1:1159316959,1159316959,Vicenza,IT-VI,Province,Veneto,Italy,ITH32,Vicenza,NUTS-3 name match,ITA-NE,valid,
+ITA,ne:admin1:1159316961,1159316961,Treviso,IT-TV,Province,Veneto,Italy,ITH34,Treviso,NUTS-3 name match,ITA-NE,valid,
+ITA,ne:admin1:1159316963,1159316963,Belluno,IT-BL,Province,Veneto,Italy,ITH33,Belluno,NUTS-3 name match,ITA-NE,valid,
+ITA,ne:admin1:1159316965,1159316965,Pordenone,IT-PN,Province,Friuli-Venezia Giulia,Italy,ITH41,Pordenone,NUTS-3 name match,ITA-NE,valid,
+ITA,ne:admin1:1159316967,1159316967,Gorizia,IT-GO,Province,Friuli-Venezia Giulia,Italy,ITH43,Gorizia,NUTS-3 name match,ITA-NE,valid,
+ITA,ne:admin1:1159316969,1159316969,Trieste,IT-TS,Province,Friuli-Venezia Giulia,Italy,ITH44,Trieste,NUTS-3 name match,ITA-NE,valid,
+ITA,ne:admin1:1159316971,1159316971,Reggio Emilia,IT-RE,Province,Emilia-Romagna,Italy,ITH5,Emilia-Romagna,NE region attribute -> NUTS-2,ITA-NE,valid,province not matched to a NUTS-3 code (2016-2024 province reforms); assigned by region
+ITA,ne:admin1:1159316975,1159316975,Parma,IT-PR,Province,Emilia-Romagna,Italy,ITH52,Parma,NUTS-3 name match,ITA-NE,valid,
+ITA,ne:admin1:1159316977,1159316977,Piacenza,IT-PC,Province,Emilia-Romagna,Italy,ITH51,Piacenza,NUTS-3 name match,ITA-NE,valid,
+ITA,ne:admin1:1159316979,1159316979,Bologna,IT-BO,Province,Emilia-Romagna,Italy,ITH55,Bologna,NUTS-3 name match,ITA-NE,valid,
+ITA,ne:admin1:1159316981,1159316981,Ferrara,IT-FE,Province,Emilia-Romagna,Italy,ITH56,Ferrara,NUTS-3 name match,ITA-NE,valid,
+ITA,ne:admin1:1159316983,1159316983,Ravenna,IT-RA,Province,Emilia-Romagna,Italy,ITH57,Ravenna,NUTS-3 name match,ITA-NE,valid,
+ITA,ne:admin1:1159316985,1159316985,Forlì-Cesena,IT-FC,Province,Emilia-Romagna,Italy,ITH58,Forlì-Cesena,NUTS-3 name match,ITA-NE,valid,
+ITA,ne:admin1:1159316987,1159316987,Rimini,IT-RN,Province,Emilia-Romagna,Italy,ITH59,Rimini,NUTS-3 name match,ITA-NE,valid,
+ITA,ne:admin1:1159316989,1159316989,Livorno,IT-LI,Province,Toscana,Italy,ITI16,Livorno,NUTS-3 name match,ITA-CEN,valid,
+ITA,ne:admin1:1159316993,1159316993,Pisa,IT-PI,Province,Toscana,Italy,ITI17,Pisa,NUTS-3 name match,ITA-CEN,valid,
+ITA,ne:admin1:1159316995,1159316995,Massa-Carrara,IT-MS,Province,Toscana,Italy,ITI11,Massa-Carrara,NUTS-3 name match,ITA-CEN,valid,
+ITA,ne:admin1:1159316997,1159316997,Lucca,IT-LU,Province,Toscana,Italy,ITI12,Lucca,NUTS-3 name match,ITA-CEN,valid,
+ITA,ne:admin1:1159316999,1159316999,Pistoia,IT-PT,Province,Toscana,Italy,ITI13,Pistoia,NUTS-3 name match,ITA-CEN,valid,
+ITA,ne:admin1:1159317001,1159317001,Prato,IT-PO,Province,Toscana,Italy,ITI15,Prato,NUTS-3 name match,ITA-CEN,valid,
+ITA,ne:admin1:1159317003,1159317003,Firenze,IT-FI,Province,Toscana,Italy,ITI14,Firenze,NUTS-3 name match,ITA-CEN,valid,
+ITA,ne:admin1:1159317005,1159317005,Arezzo,IT-AR,Province,Toscana,Italy,ITI18,Arezzo,NUTS-3 name match,ITA-CEN,valid,
+ITA,ne:admin1:1159317007,1159317007,Siena,IT-SI,Province,Toscana,Italy,ITI19,Siena,NUTS-3 name match,ITA-CEN,valid,
+ITA,ne:admin1:1159317011,1159317011,Terni,IT-TR,Province,Umbria,Italy,ITI22,Terni,NUTS-3 name match,ITA-CEN,valid,
+ITA,ne:admin1:1159317013,1159317013,Viterbo,IT-VT,Province,Lazio,Italy,ITI41,Viterbo,NUTS-3 name match,ITA-CEN,valid,
+ITA,ne:admin1:1159317015,1159317015,Rieti,IT-RI,Province,Lazio,Italy,ITI42,Rieti,NUTS-3 name match,ITA-CEN,valid,
+ITA,ne:admin1:1159317017,1159317017,Frosinone,IT-FR,Province,Lazio,Italy,ITI45,Frosinone,NUTS-3 name match,ITA-CEN,valid,
+ITA,ne:admin1:1159317019,1159317019,Latina,IT-LT,Province,Lazio,Italy,ITI44,Latina,NUTS-3 name match,ITA-CEN,valid,
+ITA,ne:admin1:1159317021,1159317021,Pesaro e Urbino,IT-PU,Province,Marche,Italy,ITI31,Pesaro e Urbino,NUTS-3 name match,ITA-CEN,valid,
+ITA,ne:admin1:1159317023,1159317023,Macerata,IT-MC,Province,Marche,Italy,ITI33,Macerata,NUTS-3 name match,ITA-CEN,valid,
+ITA,ne:admin1:1159317025,1159317025,Fermo,IT-FM,Province,Marche,Italy,ITI35,Fermo,NUTS-3 name match,ITA-CEN,valid,
+ITA,ne:admin1:1159317029,1159317029,Ascoli Piceno,IT-AP,Province,Marche,Italy,ITI34,Ascoli Piceno,NUTS-3 name match,ITA-CEN,valid,
+ITA,ne:admin1:1159317031,1159317031,Teramo,IT-TE,Province,Abruzzo,Italy,ITF12,Teramo,NUTS-3 name match,ITA-SUD,valid,
+ITA,ne:admin1:1159317033,1159317033,L'Aquila,IT-AQ,Province,Abruzzo,Italy,ITF11,L’Aquila,NUTS-3 name match,ITA-SUD,valid,
+ITA,ne:admin1:1159317035,1159317035,Chieti,IT-CH,Province,Abruzzo,Italy,ITF14,Chieti,NUTS-3 name match,ITA-SUD,valid,
+ITA,ne:admin1:1159317037,1159317037,Isernia,IT-IS,Province,Molise,Italy,ITF21,Isernia,NUTS-3 name match,ITA-SUD,valid,
+ITA,ne:admin1:1159317039,1159317039,Napoli,IT-NA,Province,Campania,Italy,ITF33,Napoli,NUTS-3 name match,ITA-SUD,valid,
+ITA,ne:admin1:1159317041,1159317041,Benevento,IT-BN,Province,Campania,Italy,ITF32,Benevento,NUTS-3 name match,ITA-SUD,valid,
+ITA,ne:admin1:1159317043,1159317043,Avellino,IT-AV,Province,Campania,Italy,ITF34,Avellino,NUTS-3 name match,ITA-SUD,valid,
+ITA,ne:admin1:1159317047,1159317047,Salerno,IT-SA,Province,Campania,Italy,ITF35,Salerno,NUTS-3 name match,ITA-SUD,valid,
+ITA,ne:admin1:1159317049,1159317049,Foggia,IT-FG,Province,Apulia,Italy,ITF46,Foggia,NUTS-3 name match,ITA-SUD,valid,
+ITA,ne:admin1:1159317051,1159317051,Barletta-Andria Trani,IT-BT,Province,Apulia,Italy,ITF48,Barletta-Andria-Trani,NUTS-3 name match,ITA-SUD,valid,
+ITA,ne:admin1:1159317053,1159317053,Brindisi,IT-BR,Province,Apulia,Italy,ITF44,Brindisi,NUTS-3 name match,ITA-SUD,valid,
+ITA,ne:admin1:1159317055,1159317055,Lecce,IT-LE,Province,Apulia,Italy,ITF45,Lecce,NUTS-3 name match,ITA-SUD,valid,
+ITA,ne:admin1:1159317057,1159317057,Taranto,IT-TA,Province,Apulia,Italy,ITF43,Taranto,NUTS-3 name match,ITA-SUD,valid,
+ITA,ne:admin1:1159317059,1159317059,Potenza,IT-PZ,Province,Basilicata,Italy,ITF51,Potenza,NUTS-3 name match,ITA-SUD,valid,
+ITA,ne:admin1:1159317061,1159317061,Crotene,IT-KR,Province,Calabria,Italy,ITF6,Calabria,NE region attribute -> NUTS-2,ITA-SUD,valid,province not matched to a NUTS-3 code (2016-2024 province reforms); assigned by region
+ITA,ne:admin1:1159317065,1159317065,Catanzaro,IT-CZ,Province,Calabria,Italy,ITF63,Catanzaro,NUTS-3 name match,ITA-SUD,valid,
+ITA,ne:admin1:1159317067,1159317067,Vibo Valentia,IT-VV,Province,Calabria,Italy,ITF64,Vibo Valentia,NUTS-3 name match,ITA-SUD,valid,
+ITA,ne:admin1:1159317069,1159317069,Reggio Calabria,IT-RC,Province,Calabria,Italy,ITF65,Reggio Calabria,NUTS-3 name match,ITA-SUD,valid,
+ITA,ne:admin1:1159317071,1159317071,Palermo,IT-PA,Province,Sicily,Italy,ITG12,Palermo,NUTS-3 name match,ITA-SIC,valid,
+ITA,ne:admin1:1159317073,1159317073,Messina,IT-ME,Province,Sicily,Italy,ITG13,Messina,NUTS-3 name match,ITA-SIC,valid,
+ITA,ne:admin1:1159317075,1159317075,Enna,IT-EN,Province,Sicily,Italy,ITG16,Enna,NUTS-3 name match,ITA-SIC,valid,
+ITA,ne:admin1:1159317077,1159317077,Catania,IT-CT,Province,Sicily,Italy,ITG17,Catania,NUTS-3 name match,ITA-SIC,valid,
+ITA,ne:admin1:1159317079,1159317079,Siracusa,IT-SR,Province,Sicily,Italy,ITG19,Siracusa,NUTS-3 name match,ITA-SIC,valid,
+ITA,ne:admin1:1159317083,1159317083,Ragusa,IT-RG,Province,Sicily,Italy,ITG18,Ragusa,NUTS-3 name match,ITA-SIC,valid,
+ITA,ne:admin1:1159317085,1159317085,Caltanissetta,IT-CL,Province,Sicily,Italy,ITG15,Caltanissetta,NUTS-3 name match,ITA-SIC,valid,
+ITA,ne:admin1:1159317087,1159317087,Agrigento,IT-AG,Province,Sicily,Italy,ITG14,Agrigento,NUTS-3 name match,ITA-SIC,valid,
+ITA,ne:admin1:1159317089,1159317089,Medio Campidano,IT-VS,Province,Sardegna,Italy,ITG2,Sardegna,NE region attribute -> NUTS-2,ITA-SAR,valid,province not matched to a NUTS-3 code (2016-2024 province reforms); assigned by region
+ITA,ne:admin1:1159317091,1159317091,Oristrano,IT-OR,Province,Sardegna,Italy,ITG2,Sardegna,NE region attribute -> NUTS-2,ITA-SAR,valid,province not matched to a NUTS-3 code (2016-2024 province reforms); assigned by region
+ITA,ne:admin1:1159317093,1159317093,Sassari,IT-SS,Province,Sardegna,Italy,ITG2D,Sassari,NUTS-3 name match,ITA-SAR,valid,
+ITA,ne:admin1:1159317095,1159317095,Olbia-Tempio,IT-OT,Province,Sardegna,Italy,ITG2,Sardegna,NE region attribute -> NUTS-2,ITA-SAR,valid,province not matched to a NUTS-3 code (2016-2024 province reforms); assigned by region
+ITA,ne:admin1:1159317097,1159317097,Nuoro,IT-NU,Province,Sardegna,Italy,ITG2E,Nuoro,NUTS-3 name match,ITA-SAR,valid,
+ITA,ne:admin1:1159317101,1159317101,Ogliastra,IT-OG,Province,Sardegna,Italy,ITG2,Sardegna,NE region attribute -> NUTS-2,ITA-SAR,valid,province not matched to a NUTS-3 code (2016-2024 province reforms); assigned by region
+ITA,ne:admin1:1159317103,1159317103,Cagliari,IT-CA,Province,Sardegna,Italy,ITG2F,Cagliari,NUTS-3 name match,ITA-SAR,valid,
+POL,ne:admin1:1159314675,1159314675,Warmian-Masurian,PL-WN,Voivodeship|Province,,Poland,PL62,Warmińsko-mazurskie,ISO 3166-2 -> NUTS-2 (voivodeship),POL-PN,valid,
+POL,ne:admin1:1159314677,1159314677,Pomeranian,PL-PM,Voivodeship|Province,,Poland,PL63,Pomorskie,ISO 3166-2 -> NUTS-2 (voivodeship),POL-PN,valid,
+POL,ne:admin1:1159314679,1159314679,Lower Silesian,PL-DS,Voivodeship|Province,,Poland,PL51,Dolnośląskie,ISO 3166-2 -> NUTS-2 (voivodeship),POL-PDZ,valid,
+POL,ne:admin1:1159314681,1159314681,West Pomeranian,PL-ZP,Voivodeship|Province,,Poland,PL42,Zachodniopomorskie,ISO 3166-2 -> NUTS-2 (voivodeship),POL-PZA,valid,
+POL,ne:admin1:1159314683,1159314683,Lubusz,PL-LB,Voivodeship|Province,,Poland,PL43,Lubuskie,ISO 3166-2 -> NUTS-2 (voivodeship),POL-PZA,valid,
+POL,ne:admin1:1159314685,1159314685,Greater Poland,PL-WP,Voivodeship|Province,,Poland,PL41,Wielkopolskie,ISO 3166-2 -> NUTS-2 (voivodeship),POL-PZA,valid,
+POL,ne:admin1:1159314689,1159314689,Kuyavian-Pomeranian,PL-KP,Voivodeship|Province,,Poland,PL61,Kujawsko-pomorskie,ISO 3166-2 -> NUTS-2 (voivodeship),POL-PN,valid,
+POL,ne:admin1:1159314691,1159314691,Silesian,PL-SL,Voivodeship|Province,,Poland,PL22,Śląskie,ISO 3166-2 -> NUTS-2 (voivodeship),POL-POL,valid,
+POL,ne:admin1:1159314693,1159314693,Łódź,PL-LD,Voivodeship|Province,,Poland,PL71,Łódzkie,ISO 3166-2 -> NUTS-2 (voivodeship),POL-CEN,valid,
+POL,ne:admin1:1159314695,1159314695,Masovian,PL-MZ,Voivodeship|Province,,Poland,PL9,Makroregion województwo mazowieckie,ISO 3166-2 -> NUTS-2 (voivodeship),POL-MAZ,valid,Mazowieckie = two NUTS-2 regions (PL91 + PL92)
+POL,ne:admin1:1159314697,1159314697,Świętokrzyskie,PL-SK,Voivodeship|Province,,Poland,PL72,Świętokrzyskie,ISO 3166-2 -> NUTS-2 (voivodeship),POL-CEN,valid,
+POL,ne:admin1:1159314699,1159314699,Podlachian,PL-PD,Voivodeship|Province,,Poland,PL84,Podlaskie,ISO 3166-2 -> NUTS-2 (voivodeship),POL-WSC,valid,
+POL,ne:admin1:1159314701,1159314701,Lublin,PL-LU,Voivodeship|Province,,Poland,PL81,Lubelskie,ISO 3166-2 -> NUTS-2 (voivodeship),POL-WSC,valid,
+POL,ne:admin1:1159314703,1159314703,Subcarpathian,PL-PK,Voivodeship|Province,,Poland,PL82,Podkarpackie,ISO 3166-2 -> NUTS-2 (voivodeship),POL-WSC,valid,
+POL,ne:admin1:1159314707,1159314707,Opole,PL-OP,Voivodeship|Province,,Poland,PL52,Opolskie,ISO 3166-2 -> NUTS-2 (voivodeship),POL-PDZ,valid,
+POL,ne:admin1:1159314709,1159314709,Lesser Poland,PL-MA,Voivodeship|Province,,Poland,PL21,Małopolskie,ISO 3166-2 -> NUTS-2 (voivodeship),POL-POL,valid,
+TUR,ne:admin1:1159312153,1159312153,Balikesir,TR-10,Province,,Turkey,TR221,Balıkesir,NUTS-3 (province) name match,TUR-MAR,valid,
+TUR,ne:admin1:1159312317,1159312317,Edirne,TR-22,Province,,Turkey,TR212,Edirne,NUTS-3 (province) name match,TUR-MAR,valid,
+TUR,ne:admin1:1159312319,1159312319,Kirklareli,TR-39,Province,,Turkey,TR213,Kırklareli,NUTS-3 (province) name match,TUR-MAR,valid,
+TUR,ne:admin1:1159312321,1159312321,Tekirdag,TR-59,Province,,Turkey,TR211,Tekirdağ,NUTS-3 (province) name match,TUR-MAR,valid,
+TUR,ne:admin1:1159312323,1159312323,Istanbul,TR-34,Province,,Turkey,TR100,İstanbul,NUTS-3 (province) name match,TUR-IST,valid,
+TUR,ne:admin1:1159312325,1159312325,Bilecik,TR-11,Province,,Turkey,TR413,Bilecik,NUTS-3 (province) name match,TUR-MAR,valid,
+TUR,ne:admin1:1159312327,1159312327,Bursa,TR-16,Province,,Turkey,TR411,Bursa,NUTS-3 (province) name match,TUR-MAR,valid,
+TUR,ne:admin1:1159312331,1159312331,Çorum,TR-19,Province,,Turkey,TR833,Çorum,NUTS-3 (province) name match,TUR-KAR,valid,
+TUR,ne:admin1:1159312333,1159312333,Giresun,TR-28,Province,,Turkey,TR903,Giresun,NUTS-3 (province) name match,TUR-KAR,valid,
+TUR,ne:admin1:1159312335,1159312335,Ordu,TR-52,Province,,Turkey,TR902,Ordu,NUTS-3 (province) name match,TUR-KAR,valid,
+TUR,ne:admin1:1159312337,1159312337,Sinop,TR-57,Province,,Turkey,TR823,Sinop,NUTS-3 (province) name match,TUR-KAR,valid,
+TUR,ne:admin1:1159312339,1159312339,Sivas,TR-58,Province,,Turkey,TR722,Sivas,NUTS-3 (province) name match,TUR-OAN,valid,
+TUR,ne:admin1:1159312341,1159312341,Samsun,TR-55,Province,,Turkey,TR831,Samsun,NUTS-3 (province) name match,TUR-KAR,valid,
+TUR,ne:admin1:1159312343,1159312343,Tokat,TR-60,Province,,Turkey,TR832,Tokat,NUTS-3 (province) name match,TUR-KAR,valid,
+TUR,ne:admin1:1159312345,1159312345,Artvin,TR-08,Province,,Turkey,TR905,Artvin,NUTS-3 (province) name match,TUR-KAR,valid,
+TUR,ne:admin1:1159312349,1159312349,Erzurum,TR-25,Province,,Turkey,TRA11,Erzurum,NUTS-3 (province) name match,TUR-DOG,valid,
+TUR,ne:admin1:1159312351,1159312351,Erzincan,TR-24,Province,,Turkey,TRA12,Erzincan,NUTS-3 (province) name match,TUR-DOG,valid,
+TUR,ne:admin1:1159312353,1159312353,Rize,TR-53,Province,,Turkey,TR904,Rize,NUTS-3 (province) name match,TUR-KAR,valid,
+TUR,ne:admin1:1159312355,1159312355,Trabzon,TR-61,Province,,Turkey,TR901,Trabzon,NUTS-3 (province) name match,TUR-KAR,valid,
+TUR,ne:admin1:1159312357,1159312357,Aydin,TR-09,Province,,Turkey,TR321,Aydın,NUTS-3 (province) name match,TUR-EGE,valid,
+TUR,ne:admin1:1159312359,1159312359,Izmir,TR-35,Province,,Turkey,TR310,İzmir,NUTS-3 (province) name match,TUR-EGE,valid,
+TUR,ne:admin1:1159312361,1159312361,Çanakkale,TR-17,Province,,Turkey,TR222,Çanakkale,NUTS-3 (province) name match,TUR-MAR,valid,
+TUR,ne:admin1:1159312363,1159312363,Kocaeli,TR-41,Province,,Turkey,TR421,Kocaeli,NUTS-3 (province) name match,TUR-MAR,valid,
+TUR,ne:admin1:1159312367,1159312367,Sakarya,TR-54,Province,,Turkey,TR422,Sakarya,NUTS-3 (province) name match,TUR-MAR,valid,
+TUR,ne:admin1:1159312369,1159312369,Bolu,TR-14,Province,,Turkey,TR424,Bolu,NUTS-3 (province) name match,TUR-MAR,valid,
+TUR,ne:admin1:1159312371,1159312371,Eskisehir,TR-26,Province,,Turkey,TR412,Eskişehir,NUTS-3 (province) name match,TUR-MAR,valid,
+TUR,ne:admin1:1159312373,1159312373,Kastamonu,TR-37,Province,,Turkey,TR821,Kastamonu,NUTS-3 (province) name match,TUR-KAR,valid,
+TUR,ne:admin1:1159312375,1159312375,Antalya,TR-07,Province,,Turkey,TR611,Antalya,NUTS-3 (province) name match,TUR-AKD,valid,
+TUR,ne:admin1:1159312377,1159312377,Afyonkarahisar,TR-03,Province,,Turkey,TR332,Afyonkarahisar,NUTS-3 (province) name match,TUR-EGE,valid,
+TUR,ne:admin1:1159312379,1159312379,Burdur,TR-15,Province,,Turkey,TR613,Burdur,NUTS-3 (province) name match,TUR-AKD,valid,
+TUR,ne:admin1:1159312381,1159312381,Denizli,TR-20,Province,,Turkey,TR322,Denizli,NUTS-3 (province) name match,TUR-EGE,valid,
+TUR,ne:admin1:1159312385,1159312385,Isparta,TR-32,Province,,Turkey,TR612,Isparta,NUTS-3 (province) name match,TUR-AKD,valid,
+TUR,ne:admin1:1159312387,1159312387,Kütahya,TR-43,Province,,Turkey,TR333,Kütahya,NUTS-3 (province) name match,TUR-EGE,valid,
+TUR,ne:admin1:1159312389,1159312389,Manisa,TR-45,Province,,Turkey,TR331,Manisa,NUTS-3 (province) name match,TUR-EGE,valid,
+TUR,ne:admin1:1159312391,1159312391,Mugla,TR-48,Province,,Turkey,TR323,Muğla,NUTS-3 (province) name match,TUR-EGE,valid,
+TUR,ne:admin1:1159312393,1159312393,Adiyaman,TR-02,Province,,Turkey,TRC12,Adıyaman,NUTS-3 (province) name match,TUR-GDA,valid,
+TUR,ne:admin1:1159312395,1159312395,Elazig,TR-23,Province,,Turkey,TRB12,Elazığ,NUTS-3 (province) name match,TUR-DOG,valid,
+TUR,ne:admin1:1159312397,1159312397,K. Maras,TR-46,Province,,Turkey,TR632,Kahramanmaraş,NUTS-3 (province) name match via alias,TUR-AKD,valid,"NE spelling ""K. Maras"" differs from official ""Kahramanmaraş"""
+TUR,ne:admin1:1159312399,1159312399,Malatya,TR-44,Province,,Turkey,TRB11,Malatya,NUTS-3 (province) name match,TUR-DOG,valid,
+TUR,ne:admin1:1159312403,1159312403,Mersin,TR-33,Province,,Turkey,TR622,Mersin,NUTS-3 (province) name match,TUR-AKD,valid,
+TUR,ne:admin1:1159312405,1159312405,Kirsehir,TR-40,Province,,Turkey,TR715,Kırşehir,NUTS-3 (province) name match,TUR-OAN,valid,
+TUR,ne:admin1:1159312407,1159312407,Kayseri,TR-38,Province,,Turkey,TR721,Kayseri,NUTS-3 (province) name match,TUR-OAN,valid,
+TUR,ne:admin1:1159312409,1159312409,Nevsehir,TR-50,Province,,Turkey,TR714,Nevşehir,NUTS-3 (province) name match,TUR-OAN,valid,
+TUR,ne:admin1:1159312411,1159312411,Hatay,TR-31,Province,,Turkey,TR631,Hatay,NUTS-3 (province) name match,TUR-AKD,valid,
+TUR,ne:admin1:1159312413,1159312413,Amasya,TR-05,Province,,Turkey,TR834,Amasya,NUTS-3 (province) name match,TUR-KAR,valid,
+TUR,ne:admin1:1159312415,1159312415,Agri,TR-04,Province,,Turkey,TRA21,Ağrı,NUTS-3 (province) name match,TUR-DOG,valid,
+TUR,ne:admin1:1159312417,1159312417,Bingöl,TR-12,Province,,Turkey,TRB13,Bingöl,NUTS-3 (province) name match,TUR-DOG,valid,
+TUR,ne:admin1:1159312421,1159312421,Diyarbakir,TR-21,Province,,Turkey,TRC22,Diyarbakır,NUTS-3 (province) name match,TUR-GDA,valid,
+TUR,ne:admin1:1159312423,1159312423,Mus,TR-49,Province,,Turkey,TRB22,Muş,NUTS-3 (province) name match,TUR-DOG,valid,
+TUR,ne:admin1:1159312425,1159312425,Bitlis,TR-13,Province,,Turkey,TRB23,Bitlis,NUTS-3 (province) name match,TUR-DOG,valid,
+TUR,ne:admin1:1159314343,1159314343,Ankara,TR-06,Province,,Turkey,TR510,Ankara,NUTS-3 (province) name match,TUR-BAN,valid,
+TUR,ne:admin1:1159314347,1159314347,Çankiri,TR-18,Province,,Turkey,TR822,Çankırı,NUTS-3 (province) name match,TUR-KAR,valid,
+TUR,ne:admin1:1159314349,1159314349,Zinguldak,TR-67,Province,,Turkey,TR811,Zonguldak,NUTS-3 (province) name match via alias,TUR-KAR,valid,"NE spelling ""Zinguldak"" differs from official ""Zonguldak"""
+TUR,ne:admin1:1159314351,1159314351,Konya,TR-42,Province,,Turkey,TR521,Konya,NUTS-3 (province) name match,TUR-BAN,valid,
+TUR,ne:admin1:1159314353,1159314353,Karaman,TR-70,Province,,Turkey,TR522,Karaman,NUTS-3 (province) name match,TUR-BAN,valid,
+TUR,ne:admin1:1159314355,1159314355,Usak,TR-64,Province,,Turkey,TR334,Uşak,NUTS-3 (province) name match,TUR-EGE,valid,
+TUR,ne:admin1:1159314357,1159314357,Gaziantep,TR-27,Province,,Turkey,TRC11,Gaziantep,NUTS-3 (province) name match,TUR-GDA,valid,
+TUR,ne:admin1:1159314359,1159314359,Sanliurfa,TR-63,Province,,Turkey,TRC21,Şanlıurfa,NUTS-3 (province) name match,TUR-GDA,valid,
+TUR,ne:admin1:1159314361,1159314361,Adana,TR-01,Province,,Turkey,TR621,Adana,NUTS-3 (province) name match,TUR-AKD,valid,
+TUR,ne:admin1:1159314365,1159314365,Kinkkale,TR-71,Province,,Turkey,TR711,Kırıkkale,NUTS-3 (province) name match via alias,TUR-OAN,valid,"NE spelling ""Kinkkale"" differs from official ""Kırıkkale"""
+TUR,ne:admin1:1159314367,1159314367,Nigde,TR-51,Province,,Turkey,TR713,Niğde,NUTS-3 (province) name match,TUR-OAN,valid,
+TUR,ne:admin1:1159314369,1159314369,Aksaray,TR-68,Province,,Turkey,TR712,Aksaray,NUTS-3 (province) name match,TUR-OAN,valid,
+TUR,ne:admin1:1159314371,1159314371,Yozgat,TR-66,Province,,Turkey,TR723,Yozgat,NUTS-3 (province) name match,TUR-OAN,valid,
+TUR,ne:admin1:1159314373,1159314373,Gümüshane,TR-29,Province,,Turkey,TR906,Gümüşhane,NUTS-3 (province) name match,TUR-KAR,valid,
+TUR,ne:admin1:1159314375,1159314375,Bayburt,TR-69,Province,,Turkey,TRA13,Bayburt,NUTS-3 (province) name match,TUR-DOG,valid,
+TUR,ne:admin1:1159314377,1159314377,Kars,TR-36,Province,,Turkey,TRA22,Kars,NUTS-3 (province) name match,TUR-DOG,valid,
+TUR,ne:admin1:1159314379,1159314379,Mardin,TR-47,Province,,Turkey,TRC31,Mardin,NUTS-3 (province) name match,TUR-GDA,valid,
+TUR,ne:admin1:1159314383,1159314383,Batman,TR-72,Province,,Turkey,TRC32,Batman,NUTS-3 (province) name match,TUR-GDA,valid,
+TUR,ne:admin1:1159314385,1159314385,Siirt,TR-56,Province,,Turkey,TRC34,Siirt,NUTS-3 (province) name match,TUR-GDA,valid,
+TUR,ne:admin1:1159314387,1159314387,Sirnak,TR-73,Province,,Turkey,TRC33,Şırnak,NUTS-3 (province) name match,TUR-GDA,valid,
+TUR,ne:admin1:1159314389,1159314389,Tunceli,TR-62,Province,,Turkey,TRB14,Tunceli,NUTS-3 (province) name match,TUR-DOG,valid,
+TUR,ne:admin1:1159314391,1159314391,Hakkari,TR-30,Province,,Turkey,TRB24,Hakkari,NUTS-3 (province) name match,TUR-DOG,valid,
+TUR,ne:admin1:1159314393,1159314393,Van,TR-65,Province,,Turkey,TRB21,Van,NUTS-3 (province) name match,TUR-DOG,valid,
+TUR,ne:admin1:1159315905,1159315905,Ardahan,TR-75,Province,,Turkey,TRA24,Ardahan,NUTS-3 (province) name match,TUR-DOG,valid,
+TUR,ne:admin1:1159315907,1159315907,Iğdir,TR-76,Province,,Turkey,TRA23,Iğdır,NUTS-3 (province) name match,TUR-DOG,valid,
+TUR,ne:admin1:1159315909,1159315909,Osmaniye,TR-80,Province,,Turkey,TR633,Osmaniye,NUTS-3 (province) name match,TUR-AKD,valid,
+TUR,ne:admin1:1159315913,1159315913,Kilis,TR-79,Province,,Turkey,TRC13,Kilis,NUTS-3 (province) name match,TUR-GDA,valid,
+TUR,ne:admin1:1159317187,1159317187,Yalova,TR-77,Province,,Turkey,TR425,Yalova,NUTS-3 (province) name match,TUR-MAR,valid,
+TUR,ne:admin1:1159317191,1159317191,Bartın,TR-74,Province,,Turkey,TR813,Bartın,NUTS-3 (province) name match,TUR-KAR,valid,
+TUR,ne:admin1:1159317193,1159317193,Karabük,TR-78,Province,,Turkey,TR812,Karabük,NUTS-3 (province) name match,TUR-KAR,valid,
+TUR,ne:admin1:1159317195,1159317195,Düzce,TR-81,Province,,Turkey,TR423,Düzce,NUTS-3 (province) name match,TUR-MAR,valid,

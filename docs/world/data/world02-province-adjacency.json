@@ -1,0 +1,234 @@
+{
+ "DEU-BW": {
+  "DEU-BY": 748,
+  "DEU-MIT": 195,
+  "FRA-NE": 102
+ },
+ "DEU-BY": {
+  "DEU-BW": 748,
+  "DEU-MIT": 254,
+  "DEU-MO": 406
+ },
+ "DEU-MIT": {
+  "DEU-BW": 195,
+  "DEU-BY": 254,
+  "DEU-MO": 313,
+  "DEU-NOR": 199,
+  "DEU-NRW": 573,
+  "FRA-NE": 117
+ },
+ "DEU-MO": {
+  "DEU-BY": 406,
+  "DEU-MIT": 313,
+  "DEU-NO": 385,
+  "DEU-NOR": 462,
+  "POL-PDZ": 27,
+  "POL-PZA": 14
+ },
+ "DEU-NO": {
+  "DEU-MO": 385,
+  "DEU-NOR": 211,
+  "POL-PZA": 124
+ },
+ "DEU-NOR": {
+  "DEU-MIT": 199,
+  "DEU-MO": 462,
+  "DEU-NO": 211,
+  "DEU-NRW": 459
+ },
+ "DEU-NRW": {
+  "DEU-MIT": 573,
+  "DEU-NOR": 459
+ },
+ "FRA-ARA": {
+  "FRA-CEN": 398,
+  "FRA-NAQ": 170,
+  "FRA-OCC": 250,
+  "FRA-SE": 280,
+  "ITA-NO": 92
+ },
+ "FRA-CEN": {
+  "FRA-ARA": 398,
+  "FRA-IDF": 187,
+  "FRA-NAQ": 184,
+  "FRA-NE": 337,
+  "FRA-OUE": 217
+ },
+ "FRA-IDF": {
+  "FRA-CEN": 187,
+  "FRA-NE": 161,
+  "FRA-OUE": 24
+ },
+ "FRA-NAQ": {
+  "FRA-ARA": 170,
+  "FRA-CEN": 184,
+  "FRA-OCC": 399,
+  "FRA-OUE": 155
+ },
+ "FRA-NE": {
+  "DEU-BW": 102,
+  "DEU-MIT": 117,
+  "FRA-CEN": 337,
+  "FRA-IDF": 161,
+  "FRA-OUE": 76
+ },
+ "FRA-OCC": {
+  "FRA-ARA": 250,
+  "FRA-NAQ": 399,
+  "FRA-SE": 148
+ },
+ "FRA-OUE": {
+  "FRA-CEN": 217,
+  "FRA-IDF": 24,
+  "FRA-NAQ": 155,
+  "FRA-NE": 76
+ },
+ "FRA-SE": {
+  "FRA-ARA": 280,
+  "FRA-OCC": 148,
+  "ITA-NO": 114
+ },
+ "GBR-LON": {
+  "GBR-SE": 120
+ },
+ "GBR-MID": {
+  "GBR-NTH": 178,
+  "GBR-SE": 137,
+  "GBR-SW": 75,
+  "GBR-WLS": 262
+ },
+ "GBR-NTH": {
+  "GBR-MID": 178,
+  "GBR-SCO": 128,
+  "GBR-WLS": 33
+ },
+ "GBR-SCO": {
+  "GBR-NTH": 128
+ },
+ "GBR-SE": {
+  "GBR-LON": 120,
+  "GBR-MID": 137,
+  "GBR-SW": 105
+ },
+ "GBR-SW": {
+  "GBR-MID": 75,
+  "GBR-SE": 105,
+  "GBR-WLS": 28
+ },
+ "GBR-WLS": {
+  "GBR-MID": 262,
+  "GBR-NTH": 33,
+  "GBR-SW": 28
+ },
+ "ITA-CEN": {
+  "ITA-NE": 398,
+  "ITA-NO": 66,
+  "ITA-SUD": 378
+ },
+ "ITA-NE": {
+  "ITA-CEN": 398,
+  "ITA-NO": 513
+ },
+ "ITA-NO": {
+  "FRA-ARA": 92,
+  "FRA-SE": 114,
+  "ITA-CEN": 66,
+  "ITA-NE": 513
+ },
+ "ITA-SUD": {
+  "ITA-CEN": 378
+ },
+ "POL-CEN": {
+  "POL-MAZ": 78,
+  "POL-PDZ": 11,
+  "POL-PN": 10,
+  "POL-POL": 103,
+  "POL-PZA": 41,
+  "POL-WSC": 48
+ },
+ "POL-MAZ": {
+  "POL-CEN": 78,
+  "POL-PN": 65,
+  "POL-WSC": 141
+ },
+ "POL-PDZ": {
+  "DEU-MO": 27,
+  "POL-CEN": 11,
+  "POL-POL": 33,
+  "POL-PZA": 63
+ },
+ "POL-PN": {
+  "POL-CEN": 10,
+  "POL-MAZ": 65,
+  "POL-PZA": 101,
+  "POL-WSC": 25
+ },
+ "POL-POL": {
+  "POL-CEN": 103,
+  "POL-PDZ": 33,
+  "POL-WSC": 26
+ },
+ "POL-PZA": {
+  "DEU-MO": 14,
+  "DEU-NO": 124,
+  "POL-CEN": 41,
+  "POL-PDZ": 63,
+  "POL-PN": 101
+ },
+ "POL-WSC": {
+  "POL-CEN": 48,
+  "POL-MAZ": 141,
+  "POL-PN": 25,
+  "POL-POL": 26
+ },
+ "TUR-AKD": {
+  "TUR-BAN": 122,
+  "TUR-DOG": 19,
+  "TUR-EGE": 80,
+  "TUR-GDA": 40,
+  "TUR-OAN": 53
+ },
+ "TUR-BAN": {
+  "TUR-AKD": 122,
+  "TUR-EGE": 16,
+  "TUR-KAR": 22,
+  "TUR-MAR": 97,
+  "TUR-OAN": 83
+ },
+ "TUR-DOG": {
+  "TUR-AKD": 19,
+  "TUR-GDA": 141,
+  "TUR-KAR": 97,
+  "TUR-OAN": 71
+ },
+ "TUR-EGE": {
+  "TUR-AKD": 80,
+  "TUR-BAN": 16,
+  "TUR-MAR": 126
+ },
+ "TUR-GDA": {
+  "TUR-AKD": 40,
+  "TUR-DOG": 141
+ },
+ "TUR-IST": {
+  "TUR-MAR": 31
+ },
+ "TUR-KAR": {
+  "TUR-BAN": 22,
+  "TUR-DOG": 97,
+  "TUR-MAR": 23,
+  "TUR-OAN": 110
+ },
+ "TUR-MAR": {
+  "TUR-BAN": 97,
+  "TUR-EGE": 126,
+  "TUR-IST": 31,
+  "TUR-KAR": 23
+ },
+ "TUR-OAN": {
+  "TUR-AKD": 53,
+  "TUR-BAN": 83,
+  "TUR-DOG": 71,
+  "TUR-KAR": 110
+ }
+}
