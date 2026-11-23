@@ -1,0 +1,4727 @@
+{
+"FR1": {
+"label": "Ile de France",
+"pop2025": 12549288,
+"level": "nuts1"
+},
+"FRB": {
+"label": "Centre — Val de Loire",
+"pop2025": 2588306,
+"level": "nuts1"
+},
+"FRC": {
+"label": "Bourgogne-Franche-Comté",
+"pop2025": 2796878,
+"level": "nuts1"
+},
+"FRD": {
+"label": "Normandie",
+"pop2025": 3350982,
+"level": "nuts1"
+},
+"FRE": {
+"label": "Hauts-de-France",
+"pop2025": 5974447,
+"level": "nuts1"
+},
+"FRF": {
+"label": "Grand Est",
+"pop2025": 5550155,
+"level": "nuts1"
+},
+"FRG": {
+"label": "Pays de la Loire",
+"pop2025": 3945359,
+"level": "nuts1"
+},
+"FRH": {
+"label": "Bretagne",
+"pop2025": 3489252,
+"level": "nuts1"
+},
+"FRI": {
+"label": "Nouvelle-Aquitaine",
+"pop2025": 6210839,
+"level": "nuts1"
+},
+"FRJ": {
+"label": "Occitanie",
+"pop2025": 6205575,
+"level": "nuts1"
+},
+"FRK": {
+"label": "Auvergne-Rhône-Alpes",
+"pop2025": 8270088,
+"level": "nuts1"
+},
+"FRL": {
+"label": "Provence-Alpes-Côte d’Azur",
+"pop2025": 5285125,
+"level": "nuts1"
+},
+"FRM": {
+"label": "Corse",
+"pop2025": 362253,
+"level": "nuts1"
+},
+"FRY": {
+"label": "RUP FR — Régions Ultrapériphériques Françaises",
+"pop2025": 2304053,
+"level": "nuts1"
+},
+"FR10": {
+"label": "Ile de France",
+"pop2025": 12549288,
+"level": "nuts2"
+},
+"FRB0": {
+"label": "Centre — Val de Loire",
+"pop2025": 2588306,
+"level": "nuts2"
+},
+"FRC1": {
+"label": "Bourgogne",
+"pop2025": 1621320,
+"level": "nuts2"
+},
+"FRC2": {
+"label": "Franche-Comté",
+"pop2025": 1175558,
+"level": "nuts2"
+},
+"FRD1": {
+"label": "Basse-Normandie",
+"pop2025": 1486036,
+"level": "nuts2"
+},
+"FRD2": {
+"label": "Haute-Normandie",
+"pop2025": 1864946,
+"level": "nuts2"
+},
+"FRE1": {
+"label": "Nord-Pas de Calais",
+"pop2025": 4065757,
+"level": "nuts2"
+},
+"FRE2": {
+"label": "Picardie",
+"pop2025": 1908690,
+"level": "nuts2"
+},
+"FRF1": {
+"label": "Alsace",
+"pop2025": 1941726,
+"level": "nuts2"
+},
+"FRF2": {
+"label": "Champagne-Ardenne",
+"pop2025": 1296360,
+"level": "nuts2"
+},
+"FRF3": {
+"label": "Lorraine",
+"pop2025": 2312069,
+"level": "nuts2"
+},
+"FRG0": {
+"label": "Pays de la Loire",
+"pop2025": 3945359,
+"level": "nuts2"
+},
+"FRH0": {
+"label": "Bretagne",
+"pop2025": 3489252,
+"level": "nuts2"
+},
+"FRI1": {
+"label": "Aquitaine",
+"pop2025": 3635159,
+"level": "nuts2"
+},
+"FRI2": {
+"label": "Limousin",
+"pop2025": 729224,
+"level": "nuts2"
+},
+"FRI3": {
+"label": "Poitou-Charentes",
+"pop2025": 1846456,
+"level": "nuts2"
+},
+"FRJ1": {
+"label": "Languedoc-Roussillon",
+"pop2025": 2997570,
+"level": "nuts2"
+},
+"FRJ2": {
+"label": "Midi-Pyrénées",
+"pop2025": 3208005,
+"level": "nuts2"
+},
+"FRK1": {
+"label": "Auvergne",
+"pop2025": 1368441,
+"level": "nuts2"
+},
+"FRK2": {
+"label": "Rhône-Alpes",
+"pop2025": 6901647,
+"level": "nuts2"
+},
+"FRL0": {
+"label": "Provence-Alpes-Côte d’Azur",
+"pop2025": 5285125,
+"level": "nuts2"
+},
+"FRM0": {
+"label": "Corse",
+"pop2025": 362253,
+"level": "nuts2"
+},
+"FRY1": {
+"label": "Guadeloupe",
+"pop2025": 413791,
+"level": "nuts2"
+},
+"FRY2": {
+"label": "Martinique",
+"pop2025": 359419,
+"level": "nuts2"
+},
+"FRY3": {
+"label": "Guyane",
+"pop2025": 297455,
+"level": "nuts2"
+},
+"FRY4": {
+"label": "La Réunion",
+"pop2025": 904180,
+"level": "nuts2"
+},
+"FRY5": {
+"label": "Mayotte",
+"pop2025": 329208,
+"level": "nuts2"
+},
+"FR101": {
+"label": "Paris",
+"pop2025": 2065560,
+"level": "nuts3"
+},
+"FR102": {
+"label": "Seine-et-Marne",
+"pop2025": 1490900,
+"level": "nuts3"
+},
+"FR103": {
+"label": "Yvelines",
+"pop2025": 1504565,
+"level": "nuts3"
+},
+"FR104": {
+"label": "Essonne",
+"pop2025": 1356114,
+"level": "nuts3"
+},
+"FR105": {
+"label": "Hauts-de-Seine",
+"pop2025": 1668275,
+"level": "nuts3"
+},
+"FR106": {
+"label": "Seine-Saint-Denis",
+"pop2025": 1731789,
+"level": "nuts3"
+},
+"FR107": {
+"label": "Val-de-Marne",
+"pop2025": 1434875,
+"level": "nuts3"
+},
+"FR108": {
+"label": "Val-d'Oise",
+"pop2025": 1297210,
+"level": "nuts3"
+},
+"FRB01": {
+"label": "Cher",
+"pop2025": 296293,
+"level": "nuts3"
+},
+"FRB02": {
+"label": "Eure-et-Loir",
+"pop2025": 433124,
+"level": "nuts3"
+},
+"FRB03": {
+"label": "Indre",
+"pop2025": 213862,
+"level": "nuts3"
+},
+"FRB04": {
+"label": "Indre-et-Loire",
+"pop2025": 622694,
+"level": "nuts3"
+},
+"FRB05": {
+"label": "Loir-et-Cher",
+"pop2025": 327403,
+"level": "nuts3"
+},
+"FRB06": {
+"label": "Loiret",
+"pop2025": 694930,
+"level": "nuts3"
+},
+"FRC11": {
+"label": "Côte-d’Or",
+"pop2025": 541658,
+"level": "nuts3"
+},
+"FRC12": {
+"label": "Nièvre",
+"pop2025": 200188,
+"level": "nuts3"
+},
+"FRC13": {
+"label": "Saône-et-Loire",
+"pop2025": 548844,
+"level": "nuts3"
+},
+"FRC14": {
+"label": "Yonne",
+"pop2025": 330630,
+"level": "nuts3"
+},
+"FRC21": {
+"label": "Doubs",
+"pop2025": 546727,
+"level": "nuts3"
+},
+"FRC22": {
+"label": "Jura",
+"pop2025": 256902,
+"level": "nuts3"
+},
+"FRC23": {
+"label": "Haute-Saône",
+"pop2025": 231818,
+"level": "nuts3"
+},
+"FRC24": {
+"label": "Territoire de Belfort",
+"pop2025": 140111,
+"level": "nuts3"
+},
+"FRD11": {
+"label": "Calvados",
+"pop2025": 715481,
+"level": "nuts3"
+},
+"FRD12": {
+"label": "Manche",
+"pop2025": 497928,
+"level": "nuts3"
+},
+"FRD13": {
+"label": "Orne",
+"pop2025": 272627,
+"level": "nuts3"
+},
+"FRD21": {
+"label": "Eure",
+"pop2025": 603417,
+"level": "nuts3"
+},
+"FRD22": {
+"label": "Seine-Maritime",
+"pop2025": 1261529,
+"level": "nuts3"
+},
+"FRE11": {
+"label": "Nord",
+"pop2025": 2613781,
+"level": "nuts3"
+},
+"FRE12": {
+"label": "Pas-de-Calais",
+"pop2025": 1451976,
+"level": "nuts3"
+},
+"FRE21": {
+"label": "Aisne",
+"pop2025": 518583,
+"level": "nuts3"
+},
+"FRE22": {
+"label": "Oise",
+"pop2025": 827928,
+"level": "nuts3"
+},
+"FRE23": {
+"label": "Somme",
+"pop2025": 562179,
+"level": "nuts3"
+},
+"FRF11": {
+"label": "Bas-Rhin",
+"pop2025": 1170953,
+"level": "nuts3"
+},
+"FRF12": {
+"label": "Haut-Rhin",
+"pop2025": 770773,
+"level": "nuts3"
+},
+"FRF21": {
+"label": "Ardennes",
+"pop2025": 262992,
+"level": "nuts3"
+},
+"FRF22": {
+"label": "Aube",
+"pop2025": 308734,
+"level": "nuts3"
+},
+"FRF23": {
+"label": "Marne",
+"pop2025": 558750,
+"level": "nuts3"
+},
+"FRF24": {
+"label": "Haute-Marne",
+"pop2025": 165884,
+"level": "nuts3"
+},
+"FRF31": {
+"label": "Meurthe-et-Moselle",
+"pop2025": 730103,
+"level": "nuts3"
+},
+"FRF32": {
+"label": "Meuse",
+"pop2025": 178205,
+"level": "nuts3"
+},
+"FRF33": {
+"label": "Moselle",
+"pop2025": 1050255,
+"level": "nuts3"
+},
+"FRF34": {
+"label": "Vosges",
+"pop2025": 353506,
+"level": "nuts3"
+},
+"FRG01": {
+"label": "Loire-Atlantique",
+"pop2025": 1510599,
+"level": "nuts3"
+},
+"FRG02": {
+"label": "Maine-et-Loire",
+"pop2025": 840296,
+"level": "nuts3"
+},
+"FRG03": {
+"label": "Mayenne",
+"pop2025": 304181,
+"level": "nuts3"
+},
+"FRG04": {
+"label": "Sarthe",
+"pop2025": 565403,
+"level": "nuts3"
+},
+"FRG05": {
+"label": "Vendée",
+"pop2025": 724880,
+"level": "nuts3"
+},
+"FRH01": {
+"label": "Côtes-d’Armor",
+"pop2025": 615540,
+"level": "nuts3"
+},
+"FRH02": {
+"label": "Finistère",
+"pop2025": 941086,
+"level": "nuts3"
+},
+"FRH03": {
+"label": "Ille-et-Vilaine",
+"pop2025": 1138869,
+"level": "nuts3"
+},
+"FRH04": {
+"label": "Morbihan",
+"pop2025": 793757,
+"level": "nuts3"
+},
+"FRI11": {
+"label": "Dordogne",
+"pop2025": 420008,
+"level": "nuts3"
+},
+"FRI12": {
+"label": "Gironde",
+"pop2025": 1720562,
+"level": "nuts3"
+},
+"FRI13": {
+"label": "Landes",
+"pop2025": 442133,
+"level": "nuts3"
+},
+"FRI14": {
+"label": "Lot-et-Garonne",
+"pop2025": 334995,
+"level": "nuts3"
+},
+"FRI15": {
+"label": "Pyrénées-Atlantiques",
+"pop2025": 717461,
+"level": "nuts3"
+},
+"FRI21": {
+"label": "Corrèze",
+"pop2025": 241274,
+"level": "nuts3"
+},
+"FRI22": {
+"label": "Creuse",
+"pop2025": 115156,
+"level": "nuts3"
+},
+"FRI23": {
+"label": "Haute-Vienne",
+"pop2025": 372794,
+"level": "nuts3"
+},
+"FRI31": {
+"label": "Charente",
+"pop2025": 352677,
+"level": "nuts3"
+},
+"FRI32": {
+"label": "Charente-Maritime",
+"pop2025": 681647,
+"level": "nuts3"
+},
+"FRI33": {
+"label": "Deux-Sèvres",
+"pop2025": 374840,
+"level": "nuts3"
+},
+"FRI34": {
+"label": "Vienne",
+"pop2025": 437292,
+"level": "nuts3"
+},
+"FRJ11": {
+"label": "Aude",
+"pop2025": 381336,
+"level": "nuts3"
+},
+"FRJ12": {
+"label": "Gard",
+"pop2025": 781438,
+"level": "nuts3"
+},
+"FRJ13": {
+"label": "Hérault",
+"pop2025": 1253088,
+"level": "nuts3"
+},
+"FRJ14": {
+"label": "Lozère",
+"pop2025": 76409,
+"level": "nuts3"
+},
+"FRJ15": {
+"label": "Pyrénées-Orientales",
+"pop2025": 505299,
+"level": "nuts3"
+},
+"FRJ21": {
+"label": "Ariège",
+"pop2025": 156586,
+"level": "nuts3"
+},
+"FRJ22": {
+"label": "Aveyron",
+"pop2025": 278691,
+"level": "nuts3"
+},
+"FRJ23": {
+"label": "Haute-Garonne",
+"pop2025": 1503240,
+"level": "nuts3"
+},
+"FRJ24": {
+"label": "Gers",
+"pop2025": 192442,
+"level": "nuts3"
+},
+"FRJ25": {
+"label": "Lot",
+"pop2025": 177068,
+"level": "nuts3"
+},
+"FRJ26": {
+"label": "Hautes-Pyrénées",
+"pop2025": 232066,
+"level": "nuts3"
+},
+"FRJ27": {
+"label": "Tarn",
+"pop2025": 400746,
+"level": "nuts3"
+},
+"FRJ28": {
+"label": "Tarn-et-Garonne",
+"pop2025": 267166,
+"level": "nuts3"
+},
+"FRK11": {
+"label": "Allier",
+"pop2025": 331209,
+"level": "nuts3"
+},
+"FRK12": {
+"label": "Cantal",
+"pop2025": 143843,
+"level": "nuts3"
+},
+"FRK13": {
+"label": "Haute-Loire",
+"pop2025": 229071,
+"level": "nuts3"
+},
+"FRK14": {
+"label": "Puy-de-Dôme",
+"pop2025": 664318,
+"level": "nuts3"
+},
+"FRK21": {
+"label": "Ain",
+"pop2025": 692166,
+"level": "nuts3"
+},
+"FRK22": {
+"label": "Ardèche",
+"pop2025": 336759,
+"level": "nuts3"
+},
+"FRK23": {
+"label": "Drôme",
+"pop2025": 527156,
+"level": "nuts3"
+},
+"FRK24": {
+"label": "Isère",
+"pop2025": 1310648,
+"level": "nuts3"
+},
+"FRK25": {
+"label": "Loire",
+"pop2025": 776329,
+"level": "nuts3"
+},
+"FRK26": {
+"label": "Rhône",
+"pop2025": 1929521,
+"level": "nuts3"
+},
+"FRK27": {
+"label": "Savoie",
+"pop2025": 452844,
+"level": "nuts3"
+},
+"FRK28": {
+"label": "Haute-Savoie",
+"pop2025": 876224,
+"level": "nuts3"
+},
+"FRL01": {
+"label": "Alpes-de-Haute-Provence",
+"pop2025": 169563,
+"level": "nuts3"
+},
+"FRL02": {
+"label": "Hautes-Alpes",
+"pop2025": 145091,
+"level": "nuts3"
+},
+"FRL03": {
+"label": "Alpes-Maritimes",
+"pop2025": 1145510,
+"level": "nuts3"
+},
+"FRL04": {
+"label": "Bouches-du-Rhône",
+"pop2025": 2108963,
+"level": "nuts3"
+},
+"FRL05": {
+"label": "Var",
+"pop2025": 1139050,
+"level": "nuts3"
+},
+"FRL06": {
+"label": "Vaucluse",
+"pop2025": 576948,
+"level": "nuts3"
+},
+"FRM01": {
+"label": "Corse-du-Sud",
+"pop2025": 172854,
+"level": "nuts3"
+},
+"FRM02": {
+"label": "Haute-Corse",
+"pop2025": 189399,
+"level": "nuts3"
+},
+"FRY10": {
+"label": "Guadeloupe",
+"pop2025": 413791,
+"level": "nuts3"
+},
+"FRY20": {
+"label": "Martinique",
+"pop2025": 359419,
+"level": "nuts3"
+},
+"FRY30": {
+"label": "Guyane",
+"pop2025": 297455,
+"level": "nuts3"
+},
+"FRY40": {
+"label": "La Réunion",
+"pop2025": 904180,
+"level": "nuts3"
+},
+"FRY50": {
+"label": "Mayotte",
+"pop2025": 329208,
+"level": "nuts3"
+},
+"DE1": {
+"label": "Baden-Württemberg",
+"pop2025": 11245898,
+"level": "nuts1"
+},
+"DE2": {
+"label": "Bayern",
+"pop2025": 13248928,
+"level": "nuts1"
+},
+"DE3": {
+"label": "Berlin",
+"pop2025": 3685265,
+"level": "nuts1"
+},
+"DE4": {
+"label": "Brandenburg",
+"pop2025": 2556747,
+"level": "nuts1"
+},
+"DE5": {
+"label": "Bremen",
+"pop2025": 704881,
+"level": "nuts1"
+},
+"DE6": {
+"label": "Hamburg",
+"pop2025": 1862565,
+"level": "nuts1"
+},
+"DE7": {
+"label": "Hessen",
+"pop2025": 6280793,
+"level": "nuts1"
+},
+"DE8": {
+"label": "Mecklenburg-Vorpommern",
+"pop2025": 1573597,
+"level": "nuts1"
+},
+"DE9": {
+"label": "Niedersachsen",
+"pop2025": 8004489,
+"level": "nuts1"
+},
+"DEA": {
+"label": "Nordrhein-Westfalen",
+"pop2025": 18034454,
+"level": "nuts1"
+},
+"DEB": {
+"label": "Rheinland-Pfalz",
+"pop2025": 4129569,
+"level": "nuts1"
+},
+"DEC": {
+"label": "Saarland",
+"pop2025": 1012141,
+"level": "nuts1"
+},
+"DED": {
+"label": "Sachsen",
+"pop2025": 4042422,
+"level": "nuts1"
+},
+"DEE": {
+"label": "Sachsen-Anhalt",
+"pop2025": 2135597,
+"level": "nuts1"
+},
+"DEF": {
+"label": "Schleswig-Holstein",
+"pop2025": 2959517,
+"level": "nuts1"
+},
+"DEG": {
+"label": "Thüringen",
+"pop2025": 2100277,
+"level": "nuts1"
+},
+"DE11": {
+"label": "Stuttgart",
+"pop2025": 4167550,
+"level": "nuts2"
+},
+"DE12": {
+"label": "Karlsruhe",
+"pop2025": 2848413,
+"level": "nuts2"
+},
+"DE13": {
+"label": "Freiburg",
+"pop2025": 2325856,
+"level": "nuts2"
+},
+"DE14": {
+"label": "Tübingen",
+"pop2025": 1904079,
+"level": "nuts2"
+},
+"DE21": {
+"label": "Oberbayern",
+"pop2025": 4764548,
+"level": "nuts2"
+},
+"DE22": {
+"label": "Niederbayern",
+"pop2025": 1259204,
+"level": "nuts2"
+},
+"DE23": {
+"label": "Oberpfalz",
+"pop2025": 1121379,
+"level": "nuts2"
+},
+"DE24": {
+"label": "Oberfranken",
+"pop2025": 1055758,
+"level": "nuts2"
+},
+"DE25": {
+"label": "Mittelfranken",
+"pop2025": 1795909,
+"level": "nuts2"
+},
+"DE26": {
+"label": "Unterfranken",
+"pop2025": 1318817,
+"level": "nuts2"
+},
+"DE27": {
+"label": "Schwaben",
+"pop2025": 1933313,
+"level": "nuts2"
+},
+"DE30": {
+"label": "Berlin",
+"pop2025": 3685265,
+"level": "nuts2"
+},
+"DE40": {
+"label": "Brandenburg",
+"pop2025": 2556747,
+"level": "nuts2"
+},
+"DE50": {
+"label": "Bremen",
+"pop2025": 704881,
+"level": "nuts2"
+},
+"DE60": {
+"label": "Hamburg",
+"pop2025": 1862565,
+"level": "nuts2"
+},
+"DE71": {
+"label": "Darmstadt",
+"pop2025": 4039611,
+"level": "nuts2"
+},
+"DE72": {
+"label": "Gießen",
+"pop2025": 1040290,
+"level": "nuts2"
+},
+"DE73": {
+"label": "Kassel",
+"pop2025": 1200892,
+"level": "nuts2"
+},
+"DE80": {
+"label": "Mecklenburg-Vorpommern",
+"pop2025": 1573597,
+"level": "nuts2"
+},
+"DE91": {
+"label": "Braunschweig",
+"pop2025": 1589423,
+"level": "nuts2"
+},
+"DE92": {
+"label": "Hannover",
+"pop2025": 2123689,
+"level": "nuts2"
+},
+"DE93": {
+"label": "Lüneburg",
+"pop2025": 1721892,
+"level": "nuts2"
+},
+"DE94": {
+"label": "Weser-Ems",
+"pop2025": 2569485,
+"level": "nuts2"
+},
+"DEA1": {
+"label": "Düsseldorf",
+"pop2025": 5244379,
+"level": "nuts2"
+},
+"DEA2": {
+"label": "Köln",
+"pop2025": 4486282,
+"level": "nuts2"
+},
+"DEA3": {
+"label": "Münster",
+"pop2025": 2659034,
+"level": "nuts2"
+},
+"DEA4": {
+"label": "Detmold",
+"pop2025": 2072861,
+"level": "nuts2"
+},
+"DEA5": {
+"label": "Arnsberg",
+"pop2025": 3571898,
+"level": "nuts2"
+},
+"DEB1": {
+"label": "Koblenz",
+"pop2025": 1530208,
+"level": "nuts2"
+},
+"DEB2": {
+"label": "Trier",
+"pop2025": 525583,
+"level": "nuts2"
+},
+"DEB3": {
+"label": "Rheinhessen-Pfalz",
+"pop2025": 2073778,
+"level": "nuts2"
+},
+"DEC0": {
+"label": "Saarland",
+"pop2025": 1012141,
+"level": "nuts2"
+},
+"DED2": {
+"label": "Dresden",
+"pop2025": 1584687,
+"level": "nuts2"
+},
+"DED4": {
+"label": "Chemnitz",
+"pop2025": 1386336,
+"level": "nuts2"
+},
+"DED5": {
+"label": "Leipzig",
+"pop2025": 1071399,
+"level": "nuts2"
+},
+"DEE0": {
+"label": "Sachsen-Anhalt",
+"pop2025": 2135597,
+"level": "nuts2"
+},
+"DEF0": {
+"label": "Schleswig-Holstein",
+"pop2025": 2959517,
+"level": "nuts2"
+},
+"DEG0": {
+"label": "Thüringen",
+"pop2025": 2100277,
+"level": "nuts2"
+},
+"DE111": {
+"label": "Stuttgart, Stadtkreis",
+"pop2025": 612663,
+"level": "nuts3"
+},
+"DE112": {
+"label": "Böblingen",
+"pop2025": 395167,
+"level": "nuts3"
+},
+"DE113": {
+"label": "Esslingen",
+"pop2025": 536601,
+"level": "nuts3"
+},
+"DE114": {
+"label": "Göppingen",
+"pop2025": 258809,
+"level": "nuts3"
+},
+"DE115": {
+"label": "Ludwigsburg",
+"pop2025": 535374,
+"level": "nuts3"
+},
+"DE116": {
+"label": "Rems-Murr-Kreis",
+"pop2025": 440696,
+"level": "nuts3"
+},
+"DE117": {
+"label": "Heilbronn, Stadtkreis",
+"pop2025": 131986,
+"level": "nuts3"
+},
+"DE118": {
+"label": "Heilbronn, Landkreis",
+"pop2025": 353877,
+"level": "nuts3"
+},
+"DE119": {
+"label": "Hohenlohekreis",
+"pop2025": 115644,
+"level": "nuts3"
+},
+"DE11A": {
+"label": "Schwäbisch Hall",
+"pop2025": 200902,
+"level": "nuts3"
+},
+"DE11B": {
+"label": "Main-Tauber-Kreis",
+"pop2025": 133169,
+"level": "nuts3"
+},
+"DE11C": {
+"label": "Heidenheim",
+"pop2025": 135235,
+"level": "nuts3"
+},
+"DE11D": {
+"label": "Ostalbkreis",
+"pop2025": 317427,
+"level": "nuts3"
+},
+"DE121": {
+"label": "Baden-Baden, Stadtkreis",
+"pop2025": 56881,
+"level": "nuts3"
+},
+"DE122": {
+"label": "Karlsruhe, Stadtkreis",
+"pop2025": 309050,
+"level": "nuts3"
+},
+"DE123": {
+"label": "Karlsruhe, Landkreis",
+"pop2025": 456264,
+"level": "nuts3"
+},
+"DE124": {
+"label": "Rastatt",
+"pop2025": 230737,
+"level": "nuts3"
+},
+"DE125": {
+"label": "Heidelberg, Stadtkreis",
+"pop2025": 155756,
+"level": "nuts3"
+},
+"DE126": {
+"label": "Mannheim, Stadtkreis",
+"pop2025": 318035,
+"level": "nuts3"
+},
+"DE127": {
+"label": "Neckar-Odenwald-Kreis",
+"pop2025": 145263,
+"level": "nuts3"
+},
+"DE128": {
+"label": "Rhein-Neckar-Kreis",
+"pop2025": 558561,
+"level": "nuts3"
+},
+"DE129": {
+"label": "Pforzheim, Stadtkreis",
+"pop2025": 134912,
+"level": "nuts3"
+},
+"DE12A": {
+"label": "Calw",
+"pop2025": 161251,
+"level": "nuts3"
+},
+"DE12B": {
+"label": "Enzkreis",
+"pop2025": 199745,
+"level": "nuts3"
+},
+"DE12C": {
+"label": "Freudenstadt",
+"pop2025": 121958,
+"level": "nuts3"
+},
+"DE131": {
+"label": "Freiburg im Breisgau, Stadtkreis",
+"pop2025": 237460,
+"level": "nuts3"
+},
+"DE132": {
+"label": "Breisgau-Hochschwarzwald",
+"pop2025": 272558,
+"level": "nuts3"
+},
+"DE133": {
+"label": "Emmendingen",
+"pop2025": 169787,
+"level": "nuts3"
+},
+"DE134": {
+"label": "Ortenaukreis",
+"pop2025": 444858,
+"level": "nuts3"
+},
+"DE135": {
+"label": "Rottweil",
+"pop2025": 140237,
+"level": "nuts3"
+},
+"DE136": {
+"label": "Schwarzwald-Baar-Kreis",
+"pop2025": 214065,
+"level": "nuts3"
+},
+"DE137": {
+"label": "Tuttlingen",
+"pop2025": 145208,
+"level": "nuts3"
+},
+"DE138": {
+"label": "Konstanz",
+"pop2025": 291841,
+"level": "nuts3"
+},
+"DE139": {
+"label": "Lörrach",
+"pop2025": 238263,
+"level": "nuts3"
+},
+"DE13A": {
+"label": "Waldshut",
+"pop2025": 171579,
+"level": "nuts3"
+},
+"DE141": {
+"label": "Reutlingen",
+"pop2025": 293483,
+"level": "nuts3"
+},
+"DE142": {
+"label": "Tübingen, Landkreis",
+"pop2025": 233546,
+"level": "nuts3"
+},
+"DE143": {
+"label": "Zollernalbkreis",
+"pop2025": 193326,
+"level": "nuts3"
+},
+"DE144": {
+"label": "Ulm, Stadtkreis",
+"pop2025": 129882,
+"level": "nuts3"
+},
+"DE145": {
+"label": "Alb-Donau-Kreis",
+"pop2025": 202354,
+"level": "nuts3"
+},
+"DE146": {
+"label": "Biberach",
+"pop2025": 207415,
+"level": "nuts3"
+},
+"DE147": {
+"label": "Bodenseekreis",
+"pop2025": 220804,
+"level": "nuts3"
+},
+"DE148": {
+"label": "Ravensburg",
+"pop2025": 291102,
+"level": "nuts3"
+},
+"DE149": {
+"label": "Sigmaringen",
+"pop2025": 132167,
+"level": "nuts3"
+},
+"DE211": {
+"label": "Ingolstadt, Kreisfreie Stadt",
+"pop2025": 141185,
+"level": "nuts3"
+},
+"DE212": {
+"label": "München, Kreisfreie Stadt",
+"pop2025": 1505005,
+"level": "nuts3"
+},
+"DE213": {
+"label": "Rosenheim, Kreisfreie Stadt",
+"pop2025": 65274,
+"level": "nuts3"
+},
+"DE214": {
+"label": "Altötting",
+"pop2025": 113938,
+"level": "nuts3"
+},
+"DE215": {
+"label": "Berchtesgadener Land",
+"pop2025": 105292,
+"level": "nuts3"
+},
+"DE216": {
+"label": "Bad Tölz-Wolfratshausen",
+"pop2025": 130248,
+"level": "nuts3"
+},
+"DE217": {
+"label": "Dachau",
+"pop2025": 153595,
+"level": "nuts3"
+},
+"DE218": {
+"label": "Ebersberg",
+"pop2025": 144225,
+"level": "nuts3"
+},
+"DE219": {
+"label": "Eichstätt",
+"pop2025": 135668,
+"level": "nuts3"
+},
+"DE21A": {
+"label": "Erding",
+"pop2025": 140127,
+"level": "nuts3"
+},
+"DE21B": {
+"label": "Freising",
+"pop2025": 184564,
+"level": "nuts3"
+},
+"DE21C": {
+"label": "Fürstenfeldbruck",
+"pop2025": 218227,
+"level": "nuts3"
+},
+"DE21D": {
+"label": "Garmisch-Partenkirchen",
+"pop2025": 89296,
+"level": "nuts3"
+},
+"DE21E": {
+"label": "Landsberg am Lech",
+"pop2025": 122107,
+"level": "nuts3"
+},
+"DE21F": {
+"label": "Miesbach",
+"pop2025": 97152,
+"level": "nuts3"
+},
+"DE21G": {
+"label": "Mühldorf a. Inn",
+"pop2025": 122037,
+"level": "nuts3"
+},
+"DE21H": {
+"label": "München, Landkreis",
+"pop2025": 354396,
+"level": "nuts3"
+},
+"DE21I": {
+"label": "Neuburg-Schrobenhausen",
+"pop2025": 99364,
+"level": "nuts3"
+},
+"DE21J": {
+"label": "Pfaffenhofen a. d. Ilm",
+"pop2025": 130781,
+"level": "nuts3"
+},
+"DE21K": {
+"label": "Rosenheim, Landkreis",
+"pop2025": 258637,
+"level": "nuts3"
+},
+"DE21L": {
+"label": "Starnberg",
+"pop2025": 139329,
+"level": "nuts3"
+},
+"DE21M": {
+"label": "Traunstein",
+"pop2025": 175144,
+"level": "nuts3"
+},
+"DE21N": {
+"label": "Weilheim-Schongau",
+"pop2025": 138957,
+"level": "nuts3"
+},
+"DE221": {
+"label": "Landshut, Kreisfreie Stadt",
+"pop2025": 71863,
+"level": "nuts3"
+},
+"DE222": {
+"label": "Passau, Kreisfreie Stadt",
+"pop2025": 53039,
+"level": "nuts3"
+},
+"DE223": {
+"label": "Straubing, Kreisfreie Stadt",
+"pop2025": 49002,
+"level": "nuts3"
+},
+"DE224": {
+"label": "Deggendorf",
+"pop2025": 121844,
+"level": "nuts3"
+},
+"DE225": {
+"label": "Freyung-Grafenau",
+"pop2025": 78710,
+"level": "nuts3"
+},
+"DE226": {
+"label": "Kelheim",
+"pop2025": 126037,
+"level": "nuts3"
+},
+"DE227": {
+"label": "Landshut, Landkreis",
+"pop2025": 162170,
+"level": "nuts3"
+},
+"DE228": {
+"label": "Passau, Landkreis",
+"pop2025": 194699,
+"level": "nuts3"
+},
+"DE229": {
+"label": "Regen",
+"pop2025": 77267,
+"level": "nuts3"
+},
+"DE22A": {
+"label": "Rottal-Inn",
+"pop2025": 120497,
+"level": "nuts3"
+},
+"DE22B": {
+"label": "Straubing-Bogen",
+"pop2025": 103041,
+"level": "nuts3"
+},
+"DE22C": {
+"label": "Dingolfing-Landau",
+"pop2025": 101035,
+"level": "nuts3"
+},
+"DE231": {
+"label": "Amberg, Kreisfreie Stadt",
+"pop2025": 42553,
+"level": "nuts3"
+},
+"DE232": {
+"label": "Regensburg, Kreisfreie Stadt",
+"pop2025": 151389,
+"level": "nuts3"
+},
+"DE233": {
+"label": "Weiden i. d. Opf, Kreisfreie Stadt",
+"pop2025": 42444,
+"level": "nuts3"
+},
+"DE234": {
+"label": "Amberg-Sulzbach",
+"pop2025": 103982,
+"level": "nuts3"
+},
+"DE235": {
+"label": "Cham",
+"pop2025": 128534,
+"level": "nuts3"
+},
+"DE236": {
+"label": "Neumarkt i. d. OPf.",
+"pop2025": 138693,
+"level": "nuts3"
+},
+"DE237": {
+"label": "Neustadt a. d. Waldnaab",
+"pop2025": 96049,
+"level": "nuts3"
+},
+"DE238": {
+"label": "Regensburg, Landkreis",
+"pop2025": 196213,
+"level": "nuts3"
+},
+"DE239": {
+"label": "Schwandorf",
+"pop2025": 149312,
+"level": "nuts3"
+},
+"DE23A": {
+"label": "Tirschenreuth",
+"pop2025": 72210,
+"level": "nuts3"
+},
+"DE241": {
+"label": "Bamberg, Kreisfreie Stadt",
+"pop2025": 77150,
+"level": "nuts3"
+},
+"DE242": {
+"label": "Bayreuth, Kreisfreie Stadt",
+"pop2025": 72940,
+"level": "nuts3"
+},
+"DE243": {
+"label": "Coburg, Kreisfreie Stadt",
+"pop2025": 41064,
+"level": "nuts3"
+},
+"DE244": {
+"label": "Hof, Kreisfreie Stadt",
+"pop2025": 46778,
+"level": "nuts3"
+},
+"DE245": {
+"label": "Bamberg, Landkreis",
+"pop2025": 147777,
+"level": "nuts3"
+},
+"DE246": {
+"label": "Bayreuth, Landkreis",
+"pop2025": 103215,
+"level": "nuts3"
+},
+"DE247": {
+"label": "Coburg, Landkreis",
+"pop2025": 84468,
+"level": "nuts3"
+},
+"DE248": {
+"label": "Forchheim",
+"pop2025": 116184,
+"level": "nuts3"
+},
+"DE249": {
+"label": "Hof, Landkreis",
+"pop2025": 92191,
+"level": "nuts3"
+},
+"DE24A": {
+"label": "Kronach",
+"pop2025": 64545,
+"level": "nuts3"
+},
+"DE24B": {
+"label": "Kulmbach",
+"pop2025": 71518,
+"level": "nuts3"
+},
+"DE24C": {
+"label": "Lichtenfels",
+"pop2025": 67379,
+"level": "nuts3"
+},
+"DE24D": {
+"label": "Wunsiedel i. Fichtelgebirge",
+"pop2025": 70549,
+"level": "nuts3"
+},
+"DE251": {
+"label": "Ansbach, Kreisfreie Stadt",
+"pop2025": 40742,
+"level": "nuts3"
+},
+"DE252": {
+"label": "Erlangen, Kreisfreie Stadt",
+"pop2025": 115928,
+"level": "nuts3"
+},
+"DE253": {
+"label": "Fürth, Kreisfreie Stadt",
+"pop2025": 132036,
+"level": "nuts3"
+},
+"DE254": {
+"label": "Nürnberg, Kreisfreie Stadt",
+"pop2025": 529508,
+"level": "nuts3"
+},
+"DE255": {
+"label": "Schwabach, Kreisfreie Stadt",
+"pop2025": 40835,
+"level": "nuts3"
+},
+"DE256": {
+"label": "Ansbach, Landkreis",
+"pop2025": 187633,
+"level": "nuts3"
+},
+"DE257": {
+"label": "Erlangen-Höchstadt",
+"pop2025": 138325,
+"level": "nuts3"
+},
+"DE258": {
+"label": "Fürth, Landkreis",
+"pop2025": 117719,
+"level": "nuts3"
+},
+"DE259": {
+"label": "Nürnberger Land",
+"pop2025": 168813,
+"level": "nuts3"
+},
+"DE25A": {
+"label": "Neustadt a. d. Aisch-Bad Windsheim",
+"pop2025": 101043,
+"level": "nuts3"
+},
+"DE25B": {
+"label": "Roth",
+"pop2025": 128632,
+"level": "nuts3"
+},
+"DE25C": {
+"label": "Weißenburg-Gunzenhausen",
+"pop2025": 94695,
+"level": "nuts3"
+},
+"DE261": {
+"label": "Aschaffenburg, Kreisfreie Stadt",
+"pop2025": 73091,
+"level": "nuts3"
+},
+"DE262": {
+"label": "Schweinfurt, Kreisfreie Stadt",
+"pop2025": 54481,
+"level": "nuts3"
+},
+"DE263": {
+"label": "Würzburg, Kreisfreie Stadt",
+"pop2025": 133258,
+"level": "nuts3"
+},
+"DE264": {
+"label": "Aschaffenburg, Landkreis",
+"pop2025": 170945,
+"level": "nuts3"
+},
+"DE265": {
+"label": "Bad Kissingen",
+"pop2025": 103489,
+"level": "nuts3"
+},
+"DE266": {
+"label": "Rhön-Grabfeld",
+"pop2025": 79375,
+"level": "nuts3"
+},
+"DE267": {
+"label": "Haßberge",
+"pop2025": 83869,
+"level": "nuts3"
+},
+"DE268": {
+"label": "Kitzingen",
+"pop2025": 91287,
+"level": "nuts3"
+},
+"DE269": {
+"label": "Miltenberg",
+"pop2025": 127547,
+"level": "nuts3"
+},
+"DE26A": {
+"label": "Main-Spessart",
+"pop2025": 125282,
+"level": "nuts3"
+},
+"DE26B": {
+"label": "Schweinfurt, Landkreis",
+"pop2025": 113977,
+"level": "nuts3"
+},
+"DE26C": {
+"label": "Würzburg, Landkreis",
+"pop2025": 162216,
+"level": "nuts3"
+},
+"DE271": {
+"label": "Augsburg, Kreisfreie Stadt",
+"pop2025": 301105,
+"level": "nuts3"
+},
+"DE272": {
+"label": "Kaufbeuren, Kreisfreie Stadt",
+"pop2025": 46193,
+"level": "nuts3"
+},
+"DE273": {
+"label": "Kempten (Allgäu), Kreisfreie Stadt",
+"pop2025": 67645,
+"level": "nuts3"
+},
+"DE274": {
+"label": "Memmingen, Kreisfreie Stadt",
+"pop2025": 44192,
+"level": "nuts3"
+},
+"DE275": {
+"label": "Aichach-Friedberg",
+"pop2025": 136803,
+"level": "nuts3"
+},
+"DE276": {
+"label": "Augsburg, Landkreis",
+"pop2025": 262811,
+"level": "nuts3"
+},
+"DE277": {
+"label": "Dillingen a.d. Donau",
+"pop2025": 98899,
+"level": "nuts3"
+},
+"DE278": {
+"label": "Günzburg",
+"pop2025": 129846,
+"level": "nuts3"
+},
+"DE279": {
+"label": "Neu-Ulm",
+"pop2025": 183595,
+"level": "nuts3"
+},
+"DE27A": {
+"label": "Lindau (Bodensee)",
+"pop2025": 82411,
+"level": "nuts3"
+},
+"DE27B": {
+"label": "Ostallgäu",
+"pop2025": 142047,
+"level": "nuts3"
+},
+"DE27C": {
+"label": "Unterallgäu",
+"pop2025": 147255,
+"level": "nuts3"
+},
+"DE27D": {
+"label": "Donau-Ries",
+"pop2025": 135098,
+"level": "nuts3"
+},
+"DE27E": {
+"label": "Oberallgäu",
+"pop2025": 155413,
+"level": "nuts3"
+},
+"DE300": {
+"label": "Berlin",
+"pop2025": 3685265,
+"level": "nuts3"
+},
+"DE401": {
+"label": "Brandenburg an der Havel, Kreisfreie Stadt",
+"pop2025": 74113,
+"level": "nuts3"
+},
+"DE402": {
+"label": "Cottbus, Kreisfreie Stadt",
+"pop2025": 95123,
+"level": "nuts3"
+},
+"DE403": {
+"label": "Frankfurt (Oder), Kreisfreie Stadt",
+"pop2025": 57107,
+"level": "nuts3"
+},
+"DE404": {
+"label": "Potsdam, Kreisfreie Stadt",
+"pop2025": 184754,
+"level": "nuts3"
+},
+"DE405": {
+"label": "Barnim",
+"pop2025": 194169,
+"level": "nuts3"
+},
+"DE406": {
+"label": "Dahme-Spreewald",
+"pop2025": 178793,
+"level": "nuts3"
+},
+"DE407": {
+"label": "Elbe-Elster",
+"pop2025": 97967,
+"level": "nuts3"
+},
+"DE408": {
+"label": "Havelland",
+"pop2025": 170834,
+"level": "nuts3"
+},
+"DE409": {
+"label": "Märkisch-Oderland",
+"pop2025": 197817,
+"level": "nuts3"
+},
+"DE40A": {
+"label": "Oberhavel",
+"pop2025": 217690,
+"level": "nuts3"
+},
+"DE40B": {
+"label": "Oberspreewald-Lausitz",
+"pop2025": 107793,
+"level": "nuts3"
+},
+"DE40C": {
+"label": "Oder-Spree",
+"pop2025": 179817,
+"level": "nuts3"
+},
+"DE40D": {
+"label": "Ostprignitz-Ruppin",
+"pop2025": 99152,
+"level": "nuts3"
+},
+"DE40E": {
+"label": "Potsdam-Mittelmark",
+"pop2025": 221268,
+"level": "nuts3"
+},
+"DE40F": {
+"label": "Prignitz",
+"pop2025": 75595,
+"level": "nuts3"
+},
+"DE40G": {
+"label": "Spree-Neiße",
+"pop2025": 109635,
+"level": "nuts3"
+},
+"DE40H": {
+"label": "Teltow-Fläming",
+"pop2025": 177688,
+"level": "nuts3"
+},
+"DE40I": {
+"label": "Uckermark",
+"pop2025": 117432,
+"level": "nuts3"
+},
+"DE501": {
+"label": "Bremen, Kreisfreie Stadt",
+"pop2025": 586271,
+"level": "nuts3"
+},
+"DE502": {
+"label": "Bremerhaven, Kreisfreie Stadt",
+"pop2025": 118610,
+"level": "nuts3"
+},
+"DE600": {
+"label": "Hamburg",
+"pop2025": 1862565,
+"level": "nuts3"
+},
+"DE711": {
+"label": "Darmstadt, Kreisfreie Stadt",
+"pop2025": 167029,
+"level": "nuts3"
+},
+"DE712": {
+"label": "Frankfurt am Main, Kreisfreie Stadt",
+"pop2025": 756021,
+"level": "nuts3"
+},
+"DE713": {
+"label": "Offenbach am Main, Kreisfreie Stadt",
+"pop2025": 132746,
+"level": "nuts3"
+},
+"DE714": {
+"label": "Wiesbaden, Kreisfreie Stadt",
+"pop2025": 288850,
+"level": "nuts3"
+},
+"DE715": {
+"label": "Bergstraße",
+"pop2025": 274169,
+"level": "nuts3"
+},
+"DE716": {
+"label": "Darmstadt-Dieburg",
+"pop2025": 302021,
+"level": "nuts3"
+},
+"DE717": {
+"label": "Groß-Gerau",
+"pop2025": 268310,
+"level": "nuts3"
+},
+"DE718": {
+"label": "Hochtaunuskreis",
+"pop2025": 241664,
+"level": "nuts3"
+},
+"DE719": {
+"label": "Main-Kinzig-Kreis",
+"pop2025": 420914,
+"level": "nuts3"
+},
+"DE71A": {
+"label": "Main-Taunus-Kreis",
+"pop2025": 238775,
+"level": "nuts3"
+},
+"DE71B": {
+"label": "Odenwaldkreis",
+"pop2025": 93846,
+"level": "nuts3"
+},
+"DE71C": {
+"label": "Offenbach, Landkreis",
+"pop2025": 358022,
+"level": "nuts3"
+},
+"DE71D": {
+"label": "Rheingau-Taunus-Kreis",
+"pop2025": 185651,
+"level": "nuts3"
+},
+"DE71E": {
+"label": "Wetteraukreis",
+"pop2025": 311593,
+"level": "nuts3"
+},
+"DE721": {
+"label": "Gießen, Landkreis",
+"pop2025": 268418,
+"level": "nuts3"
+},
+"DE722": {
+"label": "Lahn-Dill-Kreis",
+"pop2025": 254074,
+"level": "nuts3"
+},
+"DE723": {
+"label": "Limburg-Weilburg",
+"pop2025": 173830,
+"level": "nuts3"
+},
+"DE724": {
+"label": "Marburg-Biedenkopf",
+"pop2025": 242805,
+"level": "nuts3"
+},
+"DE725": {
+"label": "Vogelsbergkreis",
+"pop2025": 101163,
+"level": "nuts3"
+},
+"DE731": {
+"label": "Kassel, Kreisfreie Stadt",
+"pop2025": 197230,
+"level": "nuts3"
+},
+"DE732": {
+"label": "Fulda",
+"pop2025": 222283,
+"level": "nuts3"
+},
+"DE733": {
+"label": "Hersfeld-Rotenburg",
+"pop2025": 117414,
+"level": "nuts3"
+},
+"DE734": {
+"label": "Kassel, Landkreis",
+"pop2025": 231073,
+"level": "nuts3"
+},
+"DE735": {
+"label": "Schwalm-Eder-Kreis",
+"pop2025": 180071,
+"level": "nuts3"
+},
+"DE736": {
+"label": "Waldeck-Frankenberg",
+"pop2025": 155126,
+"level": "nuts3"
+},
+"DE737": {
+"label": "Werra-Meißner-Kreis",
+"pop2025": 97695,
+"level": "nuts3"
+},
+"DE803": {
+"label": "Rostock, Kreisfreie Stadt",
+"pop2025": 205307,
+"level": "nuts3"
+},
+"DE804": {
+"label": "Schwerin, Kreisfreie Stadt",
+"pop2025": 98308,
+"level": "nuts3"
+},
+"DE80J": {
+"label": "Mecklenburgische Seenplatte",
+"pop2025": 246318,
+"level": "nuts3"
+},
+"DE80K": {
+"label": "Landkreis Rostock",
+"pop2025": 218721,
+"level": "nuts3"
+},
+"DE80L": {
+"label": "Vorpommern-Rügen",
+"pop2025": 215203,
+"level": "nuts3"
+},
+"DE80M": {
+"label": "Nordwestmecklenburg",
+"pop2025": 156692,
+"level": "nuts3"
+},
+"DE80N": {
+"label": "Vorpommern-Greifswald",
+"pop2025": 224956,
+"level": "nuts3"
+},
+"DE80O": {
+"label": "Ludwigslust-Parchim",
+"pop2025": 208092,
+"level": "nuts3"
+},
+"DE911": {
+"label": "Braunschweig, Kreisfreie Stadt",
+"pop2025": 252962,
+"level": "nuts3"
+},
+"DE912": {
+"label": "Salzgitter, Kreisfreie Stadt",
+"pop2025": 104970,
+"level": "nuts3"
+},
+"DE913": {
+"label": "Wolfsburg, Kreisfreie Stadt",
+"pop2025": 129560,
+"level": "nuts3"
+},
+"DE914": {
+"label": "Gifhorn",
+"pop2025": 175943,
+"level": "nuts3"
+},
+"DE916": {
+"label": "Goslar",
+"pop2025": 126775,
+"level": "nuts3"
+},
+"DE917": {
+"label": "Helmstedt",
+"pop2025": 90227,
+"level": "nuts3"
+},
+"DE918": {
+"label": "Northeim",
+"pop2025": 125623,
+"level": "nuts3"
+},
+"DE91A": {
+"label": "Peine",
+"pop2025": 137045,
+"level": "nuts3"
+},
+"DE91B": {
+"label": "Wolfenbüttel",
+"pop2025": 118290,
+"level": "nuts3"
+},
+"DE91C": {
+"label": "Göttingen",
+"pop2025": 328028,
+"level": "nuts3"
+},
+"DE922": {
+"label": "Diepholz",
+"pop2025": 221202,
+"level": "nuts3"
+},
+"DE923": {
+"label": "Hameln-Pyrmont",
+"pop2025": 150203,
+"level": "nuts3"
+},
+"DE925": {
+"label": "Hildesheim",
+"pop2025": 267506,
+"level": "nuts3"
+},
+"DE926": {
+"label": "Holzminden",
+"pop2025": 65581,
+"level": "nuts3"
+},
+"DE927": {
+"label": "Nienburg (Weser)",
+"pop2025": 121468,
+"level": "nuts3"
+},
+"DE928": {
+"label": "Schaumburg",
+"pop2025": 156841,
+"level": "nuts3"
+},
+"DE929": {
+"label": "Region Hannover",
+"pop2025": 1140888,
+"level": "nuts3"
+},
+"DE931": {
+"label": "Celle",
+"pop2025": 172449,
+"level": "nuts3"
+},
+"DE932": {
+"label": "Cuxhaven",
+"pop2025": 198842,
+"level": "nuts3"
+},
+"DE933": {
+"label": "Harburg",
+"pop2025": 265864,
+"level": "nuts3"
+},
+"DE934": {
+"label": "Lüchow-Dannenberg",
+"pop2025": 46502,
+"level": "nuts3"
+},
+"DE935": {
+"label": "Lüneburg, Landkreis",
+"pop2025": 179448,
+"level": "nuts3"
+},
+"DE936": {
+"label": "Osterholz",
+"pop2025": 113598,
+"level": "nuts3"
+},
+"DE937": {
+"label": "Rotenburg (Wümme)",
+"pop2025": 165904,
+"level": "nuts3"
+},
+"DE938": {
+"label": "Heidekreis",
+"pop2025": 141321,
+"level": "nuts3"
+},
+"DE939": {
+"label": "Stade",
+"pop2025": 207700,
+"level": "nuts3"
+},
+"DE93A": {
+"label": "Uelzen",
+"pop2025": 91638,
+"level": "nuts3"
+},
+"DE93B": {
+"label": "Verden",
+"pop2025": 138626,
+"level": "nuts3"
+},
+"DE941": {
+"label": "Delmenhorst, Kreisfreie Stadt",
+"pop2025": 81406,
+"level": "nuts3"
+},
+"DE942": {
+"label": "Emden, Kreisfreie Stadt",
+"pop2025": 49202,
+"level": "nuts3"
+},
+"DE943": {
+"label": "Oldenburg (Oldenburg), Kreisfreie Stadt",
+"pop2025": 176614,
+"level": "nuts3"
+},
+"DE944": {
+"label": "Osnabrück, Kreisfreie Stadt",
+"pop2025": 166057,
+"level": "nuts3"
+},
+"DE945": {
+"label": "Wilhelmshaven, Kreisfreie Stadt",
+"pop2025": 75745,
+"level": "nuts3"
+},
+"DE946": {
+"label": "Ammerland",
+"pop2025": 127751,
+"level": "nuts3"
+},
+"DE947": {
+"label": "Aurich",
+"pop2025": 188816,
+"level": "nuts3"
+},
+"DE948": {
+"label": "Cloppenburg",
+"pop2025": 177025,
+"level": "nuts3"
+},
+"DE949": {
+"label": "Emsland",
+"pop2025": 334539,
+"level": "nuts3"
+},
+"DE94A": {
+"label": "Friesland (DE)",
+"pop2025": 100411,
+"level": "nuts3"
+},
+"DE94B": {
+"label": "Grafschaft Bentheim",
+"pop2025": 144543,
+"level": "nuts3"
+},
+"DE94C": {
+"label": "Leer",
+"pop2025": 169103,
+"level": "nuts3"
+},
+"DE94D": {
+"label": "Oldenburg, Landkreis",
+"pop2025": 132008,
+"level": "nuts3"
+},
+"DE94E": {
+"label": "Osnabrück, Landkreis",
+"pop2025": 354821,
+"level": "nuts3"
+},
+"DE94F": {
+"label": "Vechta",
+"pop2025": 146539,
+"level": "nuts3"
+},
+"DE94G": {
+"label": "Wesermarsch",
+"pop2025": 88936,
+"level": "nuts3"
+},
+"DE94H": {
+"label": "Wittmund",
+"pop2025": 55969,
+"level": "nuts3"
+},
+"DEA11": {
+"label": "Düsseldorf, Kreisfreie Stadt",
+"pop2025": 618685,
+"level": "nuts3"
+},
+"DEA12": {
+"label": "Duisburg, Kreisfreie Stadt",
+"pop2025": 502270,
+"level": "nuts3"
+},
+"DEA13": {
+"label": "Essen, Kreisfreie Stadt",
+"pop2025": 574682,
+"level": "nuts3"
+},
+"DEA14": {
+"label": "Krefeld, Kreisfreie Stadt",
+"pop2025": 231406,
+"level": "nuts3"
+},
+"DEA15": {
+"label": "Mönchengladbach, Kreisfreie Stadt",
+"pop2025": 267213,
+"level": "nuts3"
+},
+"DEA16": {
+"label": "Mülheim an der Ruhr, Kreisfreie Stadt",
+"pop2025": 173050,
+"level": "nuts3"
+},
+"DEA17": {
+"label": "Oberhausen, Kreisfreie Stadt",
+"pop2025": 213646,
+"level": "nuts3"
+},
+"DEA18": {
+"label": "Remscheid, Kreisfreie Stadt",
+"pop2025": 113828,
+"level": "nuts3"
+},
+"DEA19": {
+"label": "Solingen, Kreisfreie Stadt",
+"pop2025": 165626,
+"level": "nuts3"
+},
+"DEA1A": {
+"label": "Wuppertal, Kreisfreie Stadt",
+"pop2025": 358193,
+"level": "nuts3"
+},
+"DEA1B": {
+"label": "Kleve",
+"pop2025": 322018,
+"level": "nuts3"
+},
+"DEA1C": {
+"label": "Mettmann",
+"pop2025": 490910,
+"level": "nuts3"
+},
+"DEA1D": {
+"label": "Rhein-Kreis Neuss",
+"pop2025": 457077,
+"level": "nuts3"
+},
+"DEA1E": {
+"label": "Viersen",
+"pop2025": 297857,
+"level": "nuts3"
+},
+"DEA1F": {
+"label": "Wesel",
+"pop2025": 457918,
+"level": "nuts3"
+},
+"DEA22": {
+"label": "Bonn, Kreisfreie Stadt",
+"pop2025": 323336,
+"level": "nuts3"
+},
+"DEA23": {
+"label": "Köln, Kreisfreie Stadt",
+"pop2025": 1024621,
+"level": "nuts3"
+},
+"DEA24": {
+"label": "Leverkusen, Kreisfreie Stadt",
+"pop2025": 168581,
+"level": "nuts3"
+},
+"DEA26": {
+"label": "Düren",
+"pop2025": 279285,
+"level": "nuts3"
+},
+"DEA27": {
+"label": "Rhein-Erft-Kreis",
+"pop2025": 477988,
+"level": "nuts3"
+},
+"DEA28": {
+"label": "Euskirchen",
+"pop2025": 202609,
+"level": "nuts3"
+},
+"DEA29": {
+"label": "Heinsberg",
+"pop2025": 263681,
+"level": "nuts3"
+},
+"DEA2A": {
+"label": "Oberbergischer Kreis",
+"pop2025": 274057,
+"level": "nuts3"
+},
+"DEA2B": {
+"label": "Rheinisch-Bergischer Kreis",
+"pop2025": 284273,
+"level": "nuts3"
+},
+"DEA2C": {
+"label": "Rhein-Sieg-Kreis",
+"pop2025": 605441,
+"level": "nuts3"
+},
+"DEA2D": {
+"label": "Städteregion Aachen",
+"pop2025": 582410,
+"level": "nuts3"
+},
+"DEA31": {
+"label": "Bottrop, Kreisfreie Stadt",
+"pop2025": 118535,
+"level": "nuts3"
+},
+"DEA32": {
+"label": "Gelsenkirchen, Kreisfreie Stadt",
+"pop2025": 267930,
+"level": "nuts3"
+},
+"DEA33": {
+"label": "Münster, Kreisfreie Stadt",
+"pop2025": 308258,
+"level": "nuts3"
+},
+"DEA34": {
+"label": "Borken",
+"pop2025": 380796,
+"level": "nuts3"
+},
+"DEA35": {
+"label": "Coesfeld",
+"pop2025": 227859,
+"level": "nuts3"
+},
+"DEA36": {
+"label": "Recklinghausen",
+"pop2025": 621305,
+"level": "nuts3"
+},
+"DEA37": {
+"label": "Steinfurt",
+"pop2025": 451712,
+"level": "nuts3"
+},
+"DEA38": {
+"label": "Warendorf",
+"pop2025": 282639,
+"level": "nuts3"
+},
+"DEA41": {
+"label": "Bielefeld, Kreisfreie Stadt",
+"pop2025": 331605,
+"level": "nuts3"
+},
+"DEA42": {
+"label": "Gütersloh",
+"pop2025": 363982,
+"level": "nuts3"
+},
+"DEA43": {
+"label": "Herford",
+"pop2025": 254404,
+"level": "nuts3"
+},
+"DEA44": {
+"label": "Höxter",
+"pop2025": 139252,
+"level": "nuts3"
+},
+"DEA45": {
+"label": "Lippe",
+"pop2025": 347149,
+"level": "nuts3"
+},
+"DEA46": {
+"label": "Minden-Lübbecke",
+"pop2025": 320557,
+"level": "nuts3"
+},
+"DEA47": {
+"label": "Paderborn",
+"pop2025": 315912,
+"level": "nuts3"
+},
+"DEA51": {
+"label": "Bochum, Kreisfreie Stadt",
+"pop2025": 358676,
+"level": "nuts3"
+},
+"DEA52": {
+"label": "Dortmund, Kreisfreie Stadt",
+"pop2025": 603462,
+"level": "nuts3"
+},
+"DEA53": {
+"label": "Hagen, Kreisfreie Stadt",
+"pop2025": 190384,
+"level": "nuts3"
+},
+"DEA54": {
+"label": "Hamm, Kreisfreie Stadt",
+"pop2025": 179968,
+"level": "nuts3"
+},
+"DEA55": {
+"label": "Herne, Kreisfreie Stadt",
+"pop2025": 155851,
+"level": "nuts3"
+},
+"DEA56": {
+"label": "Ennepe-Ruhr-Kreis",
+"pop2025": 314167,
+"level": "nuts3"
+},
+"DEA57": {
+"label": "Hochsauerlandkreis",
+"pop2025": 260843,
+"level": "nuts3"
+},
+"DEA58": {
+"label": "Märkischer Kreis",
+"pop2025": 408046,
+"level": "nuts3"
+},
+"DEA59": {
+"label": "Olpe",
+"pop2025": 132346,
+"level": "nuts3"
+},
+"DEA5A": {
+"label": "Siegen-Wittgenstein",
+"pop2025": 274074,
+"level": "nuts3"
+},
+"DEA5B": {
+"label": "Soest",
+"pop2025": 300297,
+"level": "nuts3"
+},
+"DEA5C": {
+"label": "Unna",
+"pop2025": 393784,
+"level": "nuts3"
+},
+"DEB11": {
+"label": "Koblenz, Kreisfreie Stadt",
+"pop2025": 113378,
+"level": "nuts3"
+},
+"DEB12": {
+"label": "Ahrweiler",
+"pop2025": 129353,
+"level": "nuts3"
+},
+"DEB13": {
+"label": "Altenkirchen (Westerwald)",
+"pop2025": 132125,
+"level": "nuts3"
+},
+"DEB14": {
+"label": "Bad Kreuznach",
+"pop2025": 164748,
+"level": "nuts3"
+},
+"DEB15": {
+"label": "Birkenfeld",
+"pop2025": 82611,
+"level": "nuts3"
+},
+"DEB17": {
+"label": "Mayen-Koblenz",
+"pop2025": 217228,
+"level": "nuts3"
+},
+"DEB18": {
+"label": "Neuwied",
+"pop2025": 189061,
+"level": "nuts3"
+},
+"DEB1A": {
+"label": "Rhein-Lahn-Kreis",
+"pop2025": 125588,
+"level": "nuts3"
+},
+"DEB1B": {
+"label": "Westerwaldkreis",
+"pop2025": 207803,
+"level": "nuts3"
+},
+"DEB1C": {
+"label": "Cochem-Zell",
+"pop2025": 61608,
+"level": "nuts3"
+},
+"DEB1D": {
+"label": "Rhein-Hunsrück-Kreis",
+"pop2025": 106705,
+"level": "nuts3"
+},
+"DEB21": {
+"label": "Trier, Kreisfreie Stadt",
+"pop2025": 104342,
+"level": "nuts3"
+},
+"DEB22": {
+"label": "Bernkastel-Wittlich",
+"pop2025": 113187,
+"level": "nuts3"
+},
+"DEB23": {
+"label": "Eifelkreis Bitburg-Prüm",
+"pop2025": 99788,
+"level": "nuts3"
+},
+"DEB24": {
+"label": "Vulkaneifel",
+"pop2025": 59313,
+"level": "nuts3"
+},
+"DEB25": {
+"label": "Trier-Saarburg",
+"pop2025": 148953,
+"level": "nuts3"
+},
+"DEB31": {
+"label": "Frankenthal (Pfalz), Kreisfreie Stadt",
+"pop2025": 48140,
+"level": "nuts3"
+},
+"DEB32": {
+"label": "Kaiserslautern, Kreisfreie Stadt",
+"pop2025": 100426,
+"level": "nuts3"
+},
+"DEB33": {
+"label": "Landau in der Pfalz, Kreisfreie Stadt",
+"pop2025": 48209,
+"level": "nuts3"
+},
+"DEB34": {
+"label": "Ludwigshafen am Rhein, Kreisfreie Stadt",
+"pop2025": 177222,
+"level": "nuts3"
+},
+"DEB35": {
+"label": "Mainz, Kreisfreie Stadt",
+"pop2025": 224684,
+"level": "nuts3"
+},
+"DEB36": {
+"label": "Neustadt an der Weinstraße, Kreisfreie Stadt",
+"pop2025": 52945,
+"level": "nuts3"
+},
+"DEB37": {
+"label": "Pirmasens, Kreisfreie Stadt",
+"pop2025": 39761,
+"level": "nuts3"
+},
+"DEB38": {
+"label": "Speyer, Kreisfreie Stadt",
+"pop2025": 49564,
+"level": "nuts3"
+},
+"DEB39": {
+"label": "Worms, Kreisfreie Stadt",
+"pop2025": 86753,
+"level": "nuts3"
+},
+"DEB3A": {
+"label": "Zweibrücken, Kreisfreie Stadt",
+"pop2025": 33323,
+"level": "nuts3"
+},
+"DEB3B": {
+"label": "Alzey-Worms",
+"pop2025": 131238,
+"level": "nuts3"
+},
+"DEB3C": {
+"label": "Bad Dürkheim",
+"pop2025": 134329,
+"level": "nuts3"
+},
+"DEB3D": {
+"label": "Donnersbergkreis",
+"pop2025": 74783,
+"level": "nuts3"
+},
+"DEB3E": {
+"label": "Germersheim",
+"pop2025": 131383,
+"level": "nuts3"
+},
+"DEB3F": {
+"label": "Kaiserslautern, Landkreis",
+"pop2025": 106343,
+"level": "nuts3"
+},
+"DEB3G": {
+"label": "Kusel",
+"pop2025": 69334,
+"level": "nuts3"
+},
+"DEB3H": {
+"label": "Südliche Weinstraße",
+"pop2025": 113031,
+"level": "nuts3"
+},
+"DEB3I": {
+"label": "Rhein-Pfalz-Kreis",
+"pop2025": 155882,
+"level": "nuts3"
+},
+"DEB3J": {
+"label": "Mainz-Bingen",
+"pop2025": 206454,
+"level": "nuts3"
+},
+"DEB3K": {
+"label": "Südwestpfalz",
+"pop2025": 89974,
+"level": "nuts3"
+},
+"DEC01": {
+"label": "Regionalverband Saarbrücken",
+"pop2025": 333149,
+"level": "nuts3"
+},
+"DEC02": {
+"label": "Merzig-Wadern",
+"pop2025": 108779,
+"level": "nuts3"
+},
+"DEC03": {
+"label": "Neunkirchen",
+"pop2025": 133179,
+"level": "nuts3"
+},
+"DEC04": {
+"label": "Saarlouis",
+"pop2025": 205129,
+"level": "nuts3"
+},
+"DEC05": {
+"label": "Saarpfalz-Kreis",
+"pop2025": 144092,
+"level": "nuts3"
+},
+"DEC06": {
+"label": "St. Wendel",
+"pop2025": 87813,
+"level": "nuts3"
+},
+"DED21": {
+"label": "Dresden, Kreisfreie Stadt",
+"pop2025": 564904,
+"level": "nuts3"
+},
+"DED2C": {
+"label": "Bautzen",
+"pop2025": 292608,
+"level": "nuts3"
+},
+"DED2D": {
+"label": "Görlitz",
+"pop2025": 243958,
+"level": "nuts3"
+},
+"DED2E": {
+"label": "Meißen",
+"pop2025": 239221,
+"level": "nuts3"
+},
+"DED2F": {
+"label": "Sächsische Schweiz-Osterzgebirge",
+"pop2025": 243996,
+"level": "nuts3"
+},
+"DED41": {
+"label": "Chemnitz, Kreisfreie Stadt",
+"pop2025": 245618,
+"level": "nuts3"
+},
+"DED42": {
+"label": "Erzgebirgskreis",
+"pop2025": 318394,
+"level": "nuts3"
+},
+"DED43": {
+"label": "Mittelsachsen",
+"pop2025": 296431,
+"level": "nuts3"
+},
+"DED44": {
+"label": "Vogtlandkreis",
+"pop2025": 219100,
+"level": "nuts3"
+},
+"DED45": {
+"label": "Zwickau",
+"pop2025": 306793,
+"level": "nuts3"
+},
+"DED51": {
+"label": "Leipzig, Kreisfreie Stadt",
+"pop2025": 611850,
+"level": "nuts3"
+},
+"DED52": {
+"label": "Leipzig",
+"pop2025": 260127,
+"level": "nuts3"
+},
+"DED53": {
+"label": "Nordsachsen",
+"pop2025": 199422,
+"level": "nuts3"
+},
+"DEE01": {
+"label": "Dessau-Roßlau, Kreisfreie Stadt",
+"pop2025": 75402,
+"level": "nuts3"
+},
+"DEE02": {
+"label": "Halle (Saale), Kreisfreie Stadt",
+"pop2025": 226767,
+"level": "nuts3"
+},
+"DEE03": {
+"label": "Magdeburg, Kreisfreie Stadt",
+"pop2025": 244329,
+"level": "nuts3"
+},
+"DEE04": {
+"label": "Altmarkkreis Salzwedel",
+"pop2025": 79980,
+"level": "nuts3"
+},
+"DEE05": {
+"label": "Anhalt-Bitterfeld",
+"pop2025": 153035,
+"level": "nuts3"
+},
+"DEE06": {
+"label": "Jerichower Land",
+"pop2025": 88509,
+"level": "nuts3"
+},
+"DEE07": {
+"label": "Börde",
+"pop2025": 167924,
+"level": "nuts3"
+},
+"DEE08": {
+"label": "Burgenlandkreis",
+"pop2025": 173684,
+"level": "nuts3"
+},
+"DEE09": {
+"label": "Harz",
+"pop2025": 205484,
+"level": "nuts3"
+},
+"DEE0A": {
+"label": "Mansfeld-Südharz",
+"pop2025": 129029,
+"level": "nuts3"
+},
+"DEE0B": {
+"label": "Saalekreis",
+"pop2025": 182451,
+"level": "nuts3"
+},
+"DEE0C": {
+"label": "Salzlandkreis",
+"pop2025": 180771,
+"level": "nuts3"
+},
+"DEE0D": {
+"label": "Stendal",
+"pop2025": 106538,
+"level": "nuts3"
+},
+"DEE0E": {
+"label": "Wittenberg",
+"pop2025": 121694,
+"level": "nuts3"
+},
+"DEF01": {
+"label": "Flensburg, Kreisfreie Stadt",
+"pop2025": 96326,
+"level": "nuts3"
+},
+"DEF02": {
+"label": "Kiel, Kreisfreie Stadt",
+"pop2025": 252668,
+"level": "nuts3"
+},
+"DEF03": {
+"label": "Lübeck, Kreisfreie Stadt",
+"pop2025": 216889,
+"level": "nuts3"
+},
+"DEF04": {
+"label": "Neumünster, Kreisfreie Stadt",
+"pop2025": 79809,
+"level": "nuts3"
+},
+"DEF05": {
+"label": "Dithmarschen",
+"pop2025": 133460,
+"level": "nuts3"
+},
+"DEF06": {
+"label": "Herzogtum Lauenburg",
+"pop2025": 206235,
+"level": "nuts3"
+},
+"DEF07": {
+"label": "Nordfriesland",
+"pop2025": 170029,
+"level": "nuts3"
+},
+"DEF08": {
+"label": "Ostholstein",
+"pop2025": 201472,
+"level": "nuts3"
+},
+"DEF09": {
+"label": "Pinneberg",
+"pop2025": 325223,
+"level": "nuts3"
+},
+"DEF0A": {
+"label": "Plön",
+"pop2025": 130609,
+"level": "nuts3"
+},
+"DEF0B": {
+"label": "Rendsburg-Eckernförde",
+"pop2025": 278058,
+"level": "nuts3"
+},
+"DEF0C": {
+"label": "Schleswig-Flensburg",
+"pop2025": 205472,
+"level": "nuts3"
+},
+"DEF0D": {
+"label": "Segeberg",
+"pop2025": 283562,
+"level": "nuts3"
+},
+"DEF0E": {
+"label": "Steinburg",
+"pop2025": 132731,
+"level": "nuts3"
+},
+"DEF0F": {
+"label": "Stormarn",
+"pop2025": 246974,
+"level": "nuts3"
+},
+"DEG01": {
+"label": "Erfurt, Kreisfreie Stadt",
+"pop2025": 218793,
+"level": "nuts3"
+},
+"DEG02": {
+"label": "Gera, Kreisfreie Stadt",
+"pop2025": 95608,
+"level": "nuts3"
+},
+"DEG03": {
+"label": "Jena, Kreisfreie Stadt",
+"pop2025": 109725,
+"level": "nuts3"
+},
+"DEG05": {
+"label": "Weimar, Kreisfreie Stadt",
+"pop2025": 65954,
+"level": "nuts3"
+},
+"DEG06": {
+"label": "Eichsfeld",
+"pop2025": 103694,
+"level": "nuts3"
+},
+"DEG07": {
+"label": "Nordhausen",
+"pop2025": 80762,
+"level": "nuts3"
+},
+"DEG09": {
+"label": "Unstrut-Hainich-Kreis",
+"pop2025": 94613,
+"level": "nuts3"
+},
+"DEG0A": {
+"label": "Kyffhäuserkreis",
+"pop2025": 71738,
+"level": "nuts3"
+},
+"DEG0C": {
+"label": "Gotha",
+"pop2025": 135838,
+"level": "nuts3"
+},
+"DEG0D": {
+"label": "Sömmerda",
+"pop2025": 67693,
+"level": "nuts3"
+},
+"DEG0E": {
+"label": "Hildburghausen",
+"pop2025": 59987,
+"level": "nuts3"
+},
+"DEG0G": {
+"label": "Weimarer Land",
+"pop2025": 82392,
+"level": "nuts3"
+},
+"DEG0J": {
+"label": "Saale-Holzland-Kreis",
+"pop2025": 83342,
+"level": "nuts3"
+},
+"DEG0K": {
+"label": "Saale-Orla-Kreis",
+"pop2025": 77341,
+"level": "nuts3"
+},
+"DEG0L": {
+"label": "Greiz",
+"pop2025": 93707,
+"level": "nuts3"
+},
+"DEG0M": {
+"label": "Altenburger Land",
+"pop2025": 87508,
+"level": "nuts3"
+},
+"DEG0Q": {
+"label": "Schmalkalden-Meiningen",
+"pop2025": 120214,
+"level": "nuts3"
+},
+"DEG0R": {
+"label": "Wartburgkreis",
+"pop2025": 154957,
+"level": "nuts3"
+},
+"DEG0S": {
+"label": "Suhl, Kreisfreie Stadt",
+"pop2025": 34685,
+"level": "nuts3"
+},
+"DEG0T": {
+"label": "Ilm-Kreis",
+"pop2025": 106657,
+"level": "nuts3"
+},
+"DEG0U": {
+"label": "Saalfeld-Rudolstadt",
+"pop2025": 100105,
+"level": "nuts3"
+},
+"DEG0V": {
+"label": "Sonneberg",
+"pop2025": 54964,
+"level": "nuts3"
+},
+"ITC": {
+"label": "Nord-Ovest",
+"pop2025": 15918461,
+"level": "nuts1"
+},
+"ITF": {
+"label": "Sud",
+"pop2025": 13381314,
+"level": "nuts1"
+},
+"ITG": {
+"label": "Isole",
+"pop2025": 6349771,
+"level": "nuts1"
+},
+"ITH": {
+"label": "Nord-Est",
+"pop2025": 11595006,
+"level": "nuts1"
+},
+"ITI": {
+"label": "Centro (IT)",
+"pop2025": 11698912,
+"level": "nuts1"
+},
+"ITC1": {
+"label": "Piemonte",
+"pop2025": 4251868,
+"level": "nuts2"
+},
+"ITC2": {
+"label": "Valle d’Aosta/Vallée d’Aoste",
+"pop2025": 122532,
+"level": "nuts2"
+},
+"ITC3": {
+"label": "Liguria",
+"pop2025": 1510143,
+"level": "nuts2"
+},
+"ITC4": {
+"label": "Lombardia",
+"pop2025": 10033918,
+"level": "nuts2"
+},
+"ITF1": {
+"label": "Abruzzo",
+"pop2025": 1269118,
+"level": "nuts2"
+},
+"ITF2": {
+"label": "Molise",
+"pop2025": 287814,
+"level": "nuts2"
+},
+"ITF3": {
+"label": "Campania",
+"pop2025": 5582337,
+"level": "nuts2"
+},
+"ITF4": {
+"label": "Puglia",
+"pop2025": 3877395,
+"level": "nuts2"
+},
+"ITF5": {
+"label": "Basilicata",
+"pop2025": 530004,
+"level": "nuts2"
+},
+"ITF6": {
+"label": "Calabria",
+"pop2025": 1834646,
+"level": "nuts2"
+},
+"ITG1": {
+"label": "Sicilia",
+"pop2025": 4787390,
+"level": "nuts2"
+},
+"ITG2": {
+"label": "Sardegna",
+"pop2025": 1562381,
+"level": "nuts2"
+},
+"ITH1": {
+"label": "Provincia Autonoma di Bolzano/Bozen",
+"pop2025": 539679,
+"level": "nuts2"
+},
+"ITH2": {
+"label": "Provincia Autonoma di Trento",
+"pop2025": 546573,
+"level": "nuts2"
+},
+"ITH3": {
+"label": "Veneto",
+"pop2025": 4853472,
+"level": "nuts2"
+},
+"ITH4": {
+"label": "Friuli-Venezia Giulia",
+"pop2025": 1193284,
+"level": "nuts2"
+},
+"ITH5": {
+"label": "Emilia-Romagna",
+"pop2025": 4461998,
+"level": "nuts2"
+},
+"ITI1": {
+"label": "Toscana",
+"pop2025": 3657716,
+"level": "nuts2"
+},
+"ITI2": {
+"label": "Umbria",
+"pop2025": 851473,
+"level": "nuts2"
+},
+"ITI3": {
+"label": "Marche",
+"pop2025": 1480545,
+"level": "nuts2"
+},
+"ITI4": {
+"label": "Lazio",
+"pop2025": 5709178,
+"level": "nuts2"
+},
+"ITC11": {
+"label": "Torino",
+"pop2025": 2204276,
+"level": "nuts3"
+},
+"ITC12": {
+"label": "Vercelli",
+"pop2025": 165910,
+"level": "nuts3"
+},
+"ITC13": {
+"label": "Biella",
+"pop2025": 168328,
+"level": "nuts3"
+},
+"ITC14": {
+"label": "Verbano-Cusio-Ossola",
+"pop2025": 153283,
+"level": "nuts3"
+},
+"ITC15": {
+"label": "Novara",
+"pop2025": 364140,
+"level": "nuts3"
+},
+"ITC16": {
+"label": "Cuneo",
+"pop2025": 581526,
+"level": "nuts3"
+},
+"ITC17": {
+"label": "Asti",
+"pop2025": 207203,
+"level": "nuts3"
+},
+"ITC18": {
+"label": "Alessandria",
+"pop2025": 407202,
+"level": "nuts3"
+},
+"ITC20": {
+"label": "Valle d’Aosta/Vallée d’Aoste",
+"pop2025": 122532,
+"level": "nuts3"
+},
+"ITC31": {
+"label": "Imperia",
+"pop2025": 209348,
+"level": "nuts3"
+},
+"ITC32": {
+"label": "Savona",
+"pop2025": 267064,
+"level": "nuts3"
+},
+"ITC33": {
+"label": "Genova",
+"pop2025": 818812,
+"level": "nuts3"
+},
+"ITC34": {
+"label": "La Spezia",
+"pop2025": 214919,
+"level": "nuts3"
+},
+"ITC41": {
+"label": "Varese",
+"pop2025": 882592,
+"level": "nuts3"
+},
+"ITC42": {
+"label": "Como",
+"pop2025": 598191,
+"level": "nuts3"
+},
+"ITC43": {
+"label": "Lecco",
+"pop2025": 333747,
+"level": "nuts3"
+},
+"ITC44": {
+"label": "Sondrio",
+"pop2025": 179100,
+"level": "nuts3"
+},
+"ITC46": {
+"label": "Bergamo",
+"pop2025": 1114780,
+"level": "nuts3"
+},
+"ITC47": {
+"label": "Brescia",
+"pop2025": 1265884,
+"level": "nuts3"
+},
+"ITC48": {
+"label": "Pavia",
+"pop2025": 541949,
+"level": "nuts3"
+},
+"ITC49": {
+"label": "Lodi",
+"pop2025": 230250,
+"level": "nuts3"
+},
+"ITC4A": {
+"label": "Cremona",
+"pop2025": 353923,
+"level": "nuts3"
+},
+"ITC4B": {
+"label": "Mantova",
+"pop2025": 407744,
+"level": "nuts3"
+},
+"ITC4C": {
+"label": "Milano",
+"pop2025": 3246455,
+"level": "nuts3"
+},
+"ITC4D": {
+"label": "Monza e della Brianza",
+"pop2025": 879303,
+"level": "nuts3"
+},
+"ITF11": {
+"label": "L’Aquila",
+"pop2025": 286706,
+"level": "nuts3"
+},
+"ITF12": {
+"label": "Teramo",
+"pop2025": 300049,
+"level": "nuts3"
+},
+"ITF13": {
+"label": "Pescara",
+"pop2025": 311876,
+"level": "nuts3"
+},
+"ITF14": {
+"label": "Chieti",
+"pop2025": 370487,
+"level": "nuts3"
+},
+"ITF21": {
+"label": "Isernia",
+"pop2025": 78755,
+"level": "nuts3"
+},
+"ITF22": {
+"label": "Campobasso",
+"pop2025": 209059,
+"level": "nuts3"
+},
+"ITF31": {
+"label": "Caserta",
+"pop2025": 908451,
+"level": "nuts3"
+},
+"ITF32": {
+"label": "Benevento",
+"pop2025": 259809,
+"level": "nuts3"
+},
+"ITF33": {
+"label": "Napoli",
+"pop2025": 2963633,
+"level": "nuts3"
+},
+"ITF34": {
+"label": "Avellino",
+"pop2025": 395072,
+"level": "nuts3"
+},
+"ITF35": {
+"label": "Salerno",
+"pop2025": 1055372,
+"level": "nuts3"
+},
+"ITF43": {
+"label": "Taranto",
+"pop2025": 550436,
+"level": "nuts3"
+},
+"ITF44": {
+"label": "Brindisi",
+"pop2025": 375567,
+"level": "nuts3"
+},
+"ITF45": {
+"label": "Lecce",
+"pop2025": 764491,
+"level": "nuts3"
+},
+"ITF46": {
+"label": "Foggia",
+"pop2025": 590263,
+"level": "nuts3"
+},
+"ITF47": {
+"label": "Bari",
+"pop2025": 1219545,
+"level": "nuts3"
+},
+"ITF48": {
+"label": "Barletta-Andria-Trani",
+"pop2025": 377093,
+"level": "nuts3"
+},
+"ITF51": {
+"label": "Potenza",
+"pop2025": 340909,
+"level": "nuts3"
+},
+"ITF52": {
+"label": "Matera",
+"pop2025": 189095,
+"level": "nuts3"
+},
+"ITF61": {
+"label": "Cosenza",
+"pop2025": 669535,
+"level": "nuts3"
+},
+"ITF62": {
+"label": "Crotone",
+"pop2025": 161898,
+"level": "nuts3"
+},
+"ITF63": {
+"label": "Catanzaro",
+"pop2025": 339741,
+"level": "nuts3"
+},
+"ITF64": {
+"label": "Vibo Valentia",
+"pop2025": 150516,
+"level": "nuts3"
+},
+"ITF65": {
+"label": "Reggio Calabria",
+"pop2025": 512956,
+"level": "nuts3"
+},
+"ITG11": {
+"label": "Trapani",
+"pop2025": 411393,
+"level": "nuts3"
+},
+"ITG12": {
+"label": "Palermo",
+"pop2025": 1198738,
+"level": "nuts3"
+},
+"ITG13": {
+"label": "Messina",
+"pop2025": 596147,
+"level": "nuts3"
+},
+"ITG14": {
+"label": "Agrigento",
+"pop2025": 408401,
+"level": "nuts3"
+},
+"ITG15": {
+"label": "Caltanissetta",
+"pop2025": 245421,
+"level": "nuts3"
+},
+"ITG16": {
+"label": "Enna",
+"pop2025": 152544,
+"level": "nuts3"
+},
+"ITG17": {
+"label": "Catania",
+"pop2025": 1070169,
+"level": "nuts3"
+},
+"ITG18": {
+"label": "Ragusa",
+"pop2025": 321300,
+"level": "nuts3"
+},
+"ITG19": {
+"label": "Siracusa",
+"pop2025": 383277,
+"level": "nuts3"
+},
+"ITG2D": {
+"label": "Sassari",
+"pop2025": 471957,
+"level": "nuts3"
+},
+"ITG2E": {
+"label": "Nuoro",
+"pop2025": 195331,
+"level": "nuts3"
+},
+"ITG2F": {
+"label": "Cagliari",
+"pop2025": 417532,
+"level": "nuts3"
+},
+"ITG2G": {
+"label": "Oristano",
+"pop2025": 148005,
+"level": "nuts3"
+},
+"ITG2H": {
+"label": "Sud Sardegna",
+"pop2025": 329556,
+"level": "nuts3"
+},
+"ITH10": {
+"label": "Bolzano-Bozen",
+"pop2025": 539679,
+"level": "nuts3"
+},
+"ITH20": {
+"label": "Trento",
+"pop2025": 546573,
+"level": "nuts3"
+},
+"ITH31": {
+"label": "Verona",
+"pop2025": 928622,
+"level": "nuts3"
+},
+"ITH32": {
+"label": "Vicenza",
+"pop2025": 854163,
+"level": "nuts3"
+},
+"ITH33": {
+"label": "Belluno",
+"pop2025": 197708,
+"level": "nuts3"
+},
+"ITH34": {
+"label": "Treviso",
+"pop2025": 879255,
+"level": "nuts3"
+},
+"ITH35": {
+"label": "Venezia",
+"pop2025": 834306,
+"level": "nuts3"
+},
+"ITH36": {
+"label": "Padova",
+"pop2025": 932284,
+"level": "nuts3"
+},
+"ITH37": {
+"label": "Rovigo",
+"pop2025": 227134,
+"level": "nuts3"
+},
+"ITH41": {
+"label": "Pordenone",
+"pop2025": 310742,
+"level": "nuts3"
+},
+"ITH42": {
+"label": "Udine",
+"pop2025": 516323,
+"level": "nuts3"
+},
+"ITH43": {
+"label": "Gorizia",
+"pop2025": 138427,
+"level": "nuts3"
+},
+"ITH44": {
+"label": "Trieste",
+"pop2025": 227792,
+"level": "nuts3"
+},
+"ITH51": {
+"label": "Piacenza",
+"pop2025": 286452,
+"level": "nuts3"
+},
+"ITH52": {
+"label": "Parma",
+"pop2025": 455713,
+"level": "nuts3"
+},
+"ITH53": {
+"label": "Reggio nell’Emilia",
+"pop2025": 530740,
+"level": "nuts3"
+},
+"ITH54": {
+"label": "Modena",
+"pop2025": 708340,
+"level": "nuts3"
+},
+"ITH55": {
+"label": "Bologna",
+"pop2025": 1020193,
+"level": "nuts3"
+},
+"ITH56": {
+"label": "Ferrara",
+"pop2025": 339612,
+"level": "nuts3"
+},
+"ITH57": {
+"label": "Ravenna",
+"pop2025": 387205,
+"level": "nuts3"
+},
+"ITH58": {
+"label": "Forlì-Cesena",
+"pop2025": 393367,
+"level": "nuts3"
+},
+"ITH59": {
+"label": "Rimini",
+"pop2025": 340376,
+"level": "nuts3"
+},
+"ITI11": {
+"label": "Massa-Carrara",
+"pop2025": 186783,
+"level": "nuts3"
+},
+"ITI12": {
+"label": "Lucca",
+"pop2025": 381390,
+"level": "nuts3"
+},
+"ITI13": {
+"label": "Pistoia",
+"pop2025": 289925,
+"level": "nuts3"
+},
+"ITI14": {
+"label": "Firenze",
+"pop2025": 988068,
+"level": "nuts3"
+},
+"ITI15": {
+"label": "Prato",
+"pop2025": 259657,
+"level": "nuts3"
+},
+"ITI16": {
+"label": "Livorno",
+"pop2025": 325749,
+"level": "nuts3"
+},
+"ITI17": {
+"label": "Pisa",
+"pop2025": 418439,
+"level": "nuts3"
+},
+"ITI18": {
+"label": "Arezzo",
+"pop2025": 333240,
+"level": "nuts3"
+},
+"ITI19": {
+"label": "Siena",
+"pop2025": 259460,
+"level": "nuts3"
+},
+"ITI1A": {
+"label": "Grosseto",
+"pop2025": 215005,
+"level": "nuts3"
+},
+"ITI21": {
+"label": "Perugia",
+"pop2025": 636188,
+"level": "nuts3"
+},
+"ITI22": {
+"label": "Terni",
+"pop2025": 215285,
+"level": "nuts3"
+},
+"ITI31": {
+"label": "Pesaro e Urbino",
+"pop2025": 349558,
+"level": "nuts3"
+},
+"ITI32": {
+"label": "Ancona",
+"pop2025": 461503,
+"level": "nuts3"
+},
+"ITI33": {
+"label": "Macerata",
+"pop2025": 302030,
+"level": "nuts3"
+},
+"ITI34": {
+"label": "Ascoli Piceno",
+"pop2025": 200497,
+"level": "nuts3"
+},
+"ITI35": {
+"label": "Fermo",
+"pop2025": 166957,
+"level": "nuts3"
+},
+"ITI41": {
+"label": "Viterbo",
+"pop2025": 307405,
+"level": "nuts3"
+},
+"ITI42": {
+"label": "Rieti",
+"pop2025": 149766,
+"level": "nuts3"
+},
+"ITI43": {
+"label": "Roma",
+"pop2025": 4222648,
+"level": "nuts3"
+},
+"ITI44": {
+"label": "Latina",
+"pop2025": 566698,
+"level": "nuts3"
+},
+"ITI45": {
+"label": "Frosinone",
+"pop2025": 462661,
+"level": "nuts3"
+},
+"PL2": {
+"label": "Makroregion południowy",
+"pop2025": 7510458,
+"level": "nuts1"
+},
+"PL4": {
+"label": "Makroregion północno-zachodni",
+"pop2025": 5949043,
+"level": "nuts1"
+},
+"PL5": {
+"label": "Makroregion południowo-zachodni",
+"pop2025": 3683074,
+"level": "nuts1"
+},
+"PL6": {
+"label": "Makroregion północny",
+"pop2025": 5504196,
+"level": "nuts1"
+},
+"PL7": {
+"label": "Makroregion centralny",
+"pop2025": 3425297,
+"level": "nuts1"
+},
+"PL8": {
+"label": "Makroregion wschodni",
+"pop2025": 4941317,
+"level": "nuts1"
+},
+"PL9": {
+"label": "Makroregion województwo mazowieckie",
+"pop2025": 5484110,
+"level": "nuts1"
+},
+"PL21": {
+"label": "Małopolskie",
+"pop2025": 3319792,
+"level": "nuts2"
+},
+"PL22": {
+"label": "Śląskie",
+"pop2025": 4190666,
+"level": "nuts2"
+},
+"PL41": {
+"label": "Wielkopolskie",
+"pop2025": 3433354,
+"level": "nuts2"
+},
+"PL42": {
+"label": "Zachodniopomorskie",
+"pop2025": 1571895,
+"level": "nuts2"
+},
+"PL43": {
+"label": "Lubuskie",
+"pop2025": 943794,
+"level": "nuts2"
+},
+"PL51": {
+"label": "Dolnośląskie",
+"pop2025": 2798300,
+"level": "nuts2"
+},
+"PL52": {
+"label": "Opolskie",
+"pop2025": 884774,
+"level": "nuts2"
+},
+"PL61": {
+"label": "Kujawsko-pomorskie",
+"pop2025": 1920440,
+"level": "nuts2"
+},
+"PL62": {
+"label": "Warmińsko-mazurskie",
+"pop2025": 1286015,
+"level": "nuts2"
+},
+"PL63": {
+"label": "Pomorskie",
+"pop2025": 2297741,
+"level": "nuts2"
+},
+"PL71": {
+"label": "Łódzkie",
+"pop2025": 2312616,
+"level": "nuts2"
+},
+"PL72": {
+"label": "Świętokrzyskie",
+"pop2025": 1112681,
+"level": "nuts2"
+},
+"PL81": {
+"label": "Lubelskie",
+"pop2025": 1920632,
+"level": "nuts2"
+},
+"PL82": {
+"label": "Podkarpackie",
+"pop2025": 1947062,
+"level": "nuts2"
+},
+"PL84": {
+"label": "Podlaskie",
+"pop2025": 1073623,
+"level": "nuts2"
+},
+"PL91": {
+"label": "Warszawski stołeczny",
+"pop2025": 3298955,
+"level": "nuts2"
+},
+"PL92": {
+"label": "Mazowiecki regionalny",
+"pop2025": 2185155,
+"level": "nuts2"
+},
+"PL213": {
+"label": "Miasto Kraków",
+"pop2025": 798719,
+"level": "nuts3"
+},
+"PL214": {
+"label": "Krakowski",
+"pop2025": 757831,
+"level": "nuts3"
+},
+"PL217": {
+"label": "Tarnowski",
+"pop2025": 421304,
+"level": "nuts3"
+},
+"PL218": {
+"label": "Nowosądecki",
+"pop2025": 510746,
+"level": "nuts3"
+},
+"PL219": {
+"label": "Nowotarski",
+"pop2025": 318460,
+"level": "nuts3"
+},
+"PL21A": {
+"label": "Oświęcimski",
+"pop2025": 512732,
+"level": "nuts3"
+},
+"PL224": {
+"label": "Częstochowski",
+"pop2025": 471593,
+"level": "nuts3"
+},
+"PL225": {
+"label": "Bielski",
+"pop2025": 638022,
+"level": "nuts3"
+},
+"PL227": {
+"label": "Rybnicki",
+"pop2025": 580514,
+"level": "nuts3"
+},
+"PL228": {
+"label": "Bytomski",
+"pop2025": 398258,
+"level": "nuts3"
+},
+"PL229": {
+"label": "Gliwicki",
+"pop2025": 422023,
+"level": "nuts3"
+},
+"PL22A": {
+"label": "Katowicki",
+"pop2025": 672672,
+"level": "nuts3"
+},
+"PL22B": {
+"label": "Sosnowiecki",
+"pop2025": 624177,
+"level": "nuts3"
+},
+"PL22C": {
+"label": "Tyski",
+"pop2025": 383407,
+"level": "nuts3"
+},
+"PL411": {
+"label": "Pilski",
+"pop2025": 380310,
+"level": "nuts3"
+},
+"PL414": {
+"label": "Koniński",
+"pop2025": 617476,
+"level": "nuts3"
+},
+"PL415": {
+"label": "Miasto Poznań",
+"pop2025": 532887,
+"level": "nuts3"
+},
+"PL416": {
+"label": "Kaliski",
+"pop2025": 637755,
+"level": "nuts3"
+},
+"PL417": {
+"label": "Leszczyński",
+"pop2025": 541062,
+"level": "nuts3"
+},
+"PL418": {
+"label": "Poznański",
+"pop2025": 723864,
+"level": "nuts3"
+},
+"PL424": {
+"label": "Miasto Szczecin",
+"pop2025": 382393,
+"level": "nuts3"
+},
+"PL426": {
+"label": "Koszaliński",
+"pop2025": 330149,
+"level": "nuts3"
+},
+"PL427": {
+"label": "Szczecinecko-pyrzycki",
+"pop2025": 373579,
+"level": "nuts3"
+},
+"PL428": {
+"label": "Szczeciński",
+"pop2025": 485774,
+"level": "nuts3"
+},
+"PL431": {
+"label": "Gorzowski",
+"pop2025": 358621,
+"level": "nuts3"
+},
+"PL432": {
+"label": "Zielonogórski",
+"pop2025": 585173,
+"level": "nuts3"
+},
+"PL514": {
+"label": "Miasto Wrocław",
+"pop2025": 672400,
+"level": "nuts3"
+},
+"PL515": {
+"label": "Jeleniogórski",
+"pop2025": 503919,
+"level": "nuts3"
+},
+"PL516": {
+"label": "Legnicko-głogowski",
+"pop2025": 415243,
+"level": "nuts3"
+},
+"PL517": {
+"label": "Wałbrzyski",
+"pop2025": 570996,
+"level": "nuts3"
+},
+"PL518": {
+"label": "Wrocławski",
+"pop2025": 635742,
+"level": "nuts3"
+},
+"PL523": {
+"label": "Nyski",
+"pop2025": 329909,
+"level": "nuts3"
+},
+"PL524": {
+"label": "Opolski",
+"pop2025": 554865,
+"level": "nuts3"
+},
+"PL613": {
+"label": "Bydgosko-toruński",
+"pop2025": 739881,
+"level": "nuts3"
+},
+"PL616": {
+"label": "Grudziądzki",
+"pop2025": 356076,
+"level": "nuts3"
+},
+"PL617": {
+"label": "Inowrocławski",
+"pop2025": 330095,
+"level": "nuts3"
+},
+"PL618": {
+"label": "Świecki",
+"pop2025": 171925,
+"level": "nuts3"
+},
+"PL619": {
+"label": "Włocławski",
+"pop2025": 322463,
+"level": "nuts3"
+},
+"PL621": {
+"label": "Elbląski",
+"pop2025": 472672,
+"level": "nuts3"
+},
+"PL622": {
+"label": "Olsztyński",
+"pop2025": 559272,
+"level": "nuts3"
+},
+"PL623": {
+"label": "Ełcki",
+"pop2025": 254071,
+"level": "nuts3"
+},
+"PL633": {
+"label": "Trójmiejski",
+"pop2025": 743681,
+"level": "nuts3"
+},
+"PL634": {
+"label": "Gdański",
+"pop2025": 635034,
+"level": "nuts3"
+},
+"PL636": {
+"label": "Słupski",
+"pop2025": 309653,
+"level": "nuts3"
+},
+"PL637": {
+"label": "Chojnicki",
+"pop2025": 212687,
+"level": "nuts3"
+},
+"PL638": {
+"label": "Starogardzki",
+"pop2025": 396686,
+"level": "nuts3"
+},
+"PL711": {
+"label": "Miasto Łódź",
+"pop2025": 641392,
+"level": "nuts3"
+},
+"PL712": {
+"label": "Łódzki",
+"pop2025": 384855,
+"level": "nuts3"
+},
+"PL713": {
+"label": "Piotrkowski",
+"pop2025": 538482,
+"level": "nuts3"
+},
+"PL714": {
+"label": "Sieradzki",
+"pop2025": 414009,
+"level": "nuts3"
+},
+"PL715": {
+"label": "Skierniewicki",
+"pop2025": 333878,
+"level": "nuts3"
+},
+"PL721": {
+"label": "Kielecki",
+"pop2025": 684787,
+"level": "nuts3"
+},
+"PL722": {
+"label": "Sandomiersko-jędrzejowski",
+"pop2025": 427894,
+"level": "nuts3"
+},
+"PL811": {
+"label": "Bialski",
+"pop2025": 270225,
+"level": "nuts3"
+},
+"PL812": {
+"label": "Chełmsko-zamojski",
+"pop2025": 543081,
+"level": "nuts3"
+},
+"PL814": {
+"label": "Lubelski",
+"pop2025": 680432,
+"level": "nuts3"
+},
+"PL815": {
+"label": "Puławski",
+"pop2025": 426894,
+"level": "nuts3"
+},
+"PL821": {
+"label": "Krośnieński",
+"pop2025": 430415,
+"level": "nuts3"
+},
+"PL822": {
+"label": "Przemyski",
+"pop2025": 346128,
+"level": "nuts3"
+},
+"PL823": {
+"label": "Rzeszowski",
+"pop2025": 620149,
+"level": "nuts3"
+},
+"PL824": {
+"label": "Tarnobrzeski",
+"pop2025": 550370,
+"level": "nuts3"
+},
+"PL841": {
+"label": "Białostocki",
+"pop2025": 487214,
+"level": "nuts3"
+},
+"PL842": {
+"label": "Łomżyński",
+"pop2025": 345601,
+"level": "nuts3"
+},
+"PL843": {
+"label": "Suwalski",
+"pop2025": 240808,
+"level": "nuts3"
+},
+"PL911": {
+"label": "Miasto Warszawa",
+"pop2025": 1875287,
+"level": "nuts3"
+},
+"PL912": {
+"label": "Warszawski wschodni",
+"pop2025": 695641,
+"level": "nuts3"
+},
+"PL913": {
+"label": "Warszawski zachodni",
+"pop2025": 728027,
+"level": "nuts3"
+},
+"PL921": {
+"label": "Radomski",
+"pop2025": 558575,
+"level": "nuts3"
+},
+"PL922": {
+"label": "Ciechanowski",
+"pop2025": 317859,
+"level": "nuts3"
+},
+"PL923": {
+"label": "Płocki",
+"pop2025": 301682,
+"level": "nuts3"
+},
+"PL924": {
+"label": "Ostrołęcki",
+"pop2025": 357441,
+"level": "nuts3"
+},
+"PL925": {
+"label": "Siedlecki",
+"pop2025": 395631,
+"level": "nuts3"
+},
+"PL926": {
+"label": "Żyrardowski",
+"pop2025": 253967,
+"level": "nuts3"
+},
+"TR1": {
+"label": "İstanbul",
+"pop2025": 15701602,
+"level": "nuts1"
+},
+"TR2": {
+"label": "Batı Marmara",
+"pop2025": 3832502,
+"level": "nuts1"
+},
+"TR3": {
+"label": "Ege",
+"pop2025": 10974357,
+"level": "nuts1"
+},
+"TR4": {
+"label": "Doğu Marmara",
+"pop2025": 8676119,
+"level": "nuts1"
+},
+"TR5": {
+"label": "Batı Anadolu",
+"pop2025": 8456864,
+"level": "nuts1"
+},
+"TR6": {
+"label": "Akdeniz",
+"pop2025": 10936452,
+"level": "nuts1"
+},
+"TR7": {
+"label": "Orta Anadolu",
+"pop2025": 4160359,
+"level": "nuts1"
+},
+"TR8": {
+"label": "Batı Karadeniz",
+"pop2025": 4711687,
+"level": "nuts1"
+},
+"TR9": {
+"label": "Doğu Karadeniz",
+"pop2025": 2707777,
+"level": "nuts1"
+},
+"TRA": {
+"label": "Kuzeydoğu Anadolu",
+"pop2025": 2140232,
+"level": "nuts1"
+},
+"TRB": {
+"label": "Ortadoğu Anadolu",
+"pop2025": 3876707,
+"level": "nuts1"
+},
+"TRC": {
+"label": "Güneydoğu Anadolu",
+"pop2025": 9490286,
+"level": "nuts1"
+},
+"TR10": {
+"label": "İstanbul",
+"pop2025": 15701602,
+"level": "nuts2"
+},
+"TR21": {
+"label": "Tekirdağ, Edirne, Kırklareli",
+"pop2025": 1987440,
+"level": "nuts2"
+},
+"TR22": {
+"label": "Balıkesir, Çanakkale",
+"pop2025": 1845062,
+"level": "nuts2"
+},
+"TR31": {
+"label": "İzmir",
+"pop2025": 4493242,
+"level": "nuts2"
+},
+"TR32": {
+"label": "Aydın, Denizli, Muğla",
+"pop2025": 3309181,
+"level": "nuts2"
+},
+"TR33": {
+"label": "Manisa, Afyonkarahisar, Kütahya, Uşak",
+"pop2025": 3171934,
+"level": "nuts2"
+},
+"TR41": {
+"label": "Bursa, Eskişehir, Bilecik",
+"pop2025": 4388743,
+"level": "nuts2"
+},
+"TR42": {
+"label": "Kocaeli, Sakarya, Düzce, Bolu, Yalova",
+"pop2025": 4287376,
+"level": "nuts2"
+},
+"TR51": {
+"label": "Ankara",
+"pop2025": 5864049,
+"level": "nuts2"
+},
+"TR52": {
+"label": "Konya, Karaman",
+"pop2025": 2592815,
+"level": "nuts2"
+},
+"TR61": {
+"label": "Antalya, Isparta, Burdur",
+"pop2025": 3444338,
+"level": "nuts2"
+},
+"TR62": {
+"label": "Adana, Mersin",
+"pop2025": 4234763,
+"level": "nuts2"
+},
+"TR63": {
+"label": "Hatay, Kahramanmaraş, Osmaniye",
+"pop2025": 3257351,
+"level": "nuts2"
+},
+"TR71": {
+"label": "Kırıkkale, Aksaray, Niğde, Nevşehir, Kırşehir",
+"pop2025": 1657733,
+"level": "nuts2"
+},
+"TR72": {
+"label": "Kayseri, Sivas, Yozgat",
+"pop2025": 2502626,
+"level": "nuts2"
+},
+"TR81": {
+"label": "Zonguldak, Karabük, Bartın",
+"pop2025": 1043995,
+"level": "nuts2"
+},
+"TR82": {
+"label": "Kastamonu, Çankırı, Sinop",
+"pop2025": 808929,
+"level": "nuts2"
+},
+"TR83": {
+"label": "Samsun, Tokat, Çorum, Amasya",
+"pop2025": 2858763,
+"level": "nuts2"
+},
+"TR90": {
+"label": "Trabzon, Ordu, Giresun, Rize, Artvin, Gümüşhane",
+"pop2025": 2707777,
+"level": "nuts2"
+},
+"TRA1": {
+"label": "Erzurum, Erzincan, Bayburt",
+"pop2025": 1069920,
+"level": "nuts2"
+},
+"TRA2": {
+"label": "Ağrı, Kars, Iğdır, Ardahan",
+"pop2025": 1070312,
+"level": "nuts2"
+},
+"TRB1": {
+"label": "Malatya, Elazığ, Bingöl, Tunceli",
+"pop2025": 1724320,
+"level": "nuts2"
+},
+"TRB2": {
+"label": "Van, Muş, Bitlis, Hakkari",
+"pop2025": 2152387,
+"level": "nuts2"
+},
+"TRC1": {
+"label": "Gaziantep, Adıyaman, Kilis",
+"pop2025": 2961139,
+"level": "nuts2"
+},
+"TRC2": {
+"label": "Şanlıurfa, Diyarbakır",
+"pop2025": 4071429,
+"level": "nuts2"
+},
+"TRC3": {
+"label": "Mardin, Batman, Şırnak, Siirt",
+"pop2025": 2457718,
+"level": "nuts2"
+},
+"TR100": {
+"label": "İstanbul",
+"pop2025": 15701602,
+"level": "nuts3"
+},
+"TR211": {
+"label": "Tekirdağ",
+"pop2025": 1187162,
+"level": "nuts3"
+},
+"TR212": {
+"label": "Edirne",
+"pop2025": 421247,
+"level": "nuts3"
+},
+"TR213": {
+"label": "Kırklareli",
+"pop2025": 379031,
+"level": "nuts3"
+},
+"TR221": {
+"label": "Balıkesir",
+"pop2025": 1276096,
+"level": "nuts3"
+},
+"TR222": {
+"label": "Çanakkale",
+"pop2025": 568966,
+"level": "nuts3"
+},
+"TR310": {
+"label": "İzmir",
+"pop2025": 4493242,
+"level": "nuts3"
+},
+"TR321": {
+"label": "Aydın",
+"pop2025": 1165943,
+"level": "nuts3"
+},
+"TR322": {
+"label": "Denizli",
+"pop2025": 1061371,
+"level": "nuts3"
+},
+"TR323": {
+"label": "Muğla",
+"pop2025": 1081867,
+"level": "nuts3"
+},
+"TR331": {
+"label": "Manisa",
+"pop2025": 1475353,
+"level": "nuts3"
+},
+"TR332": {
+"label": "Afyonkarahisar",
+"pop2025": 750193,
+"level": "nuts3"
+},
+"TR333": {
+"label": "Kütahya",
+"pop2025": 571078,
+"level": "nuts3"
+},
+"TR334": {
+"label": "Uşak",
+"pop2025": 375310,
+"level": "nuts3"
+},
+"TR411": {
+"label": "Bursa",
+"pop2025": 3238618,
+"level": "nuts3"
+},
+"TR412": {
+"label": "Eskişehir",
+"pop2025": 921630,
+"level": "nuts3"
+},
+"TR413": {
+"label": "Bilecik",
+"pop2025": 228495,
+"level": "nuts3"
+},
+"TR421": {
+"label": "Kocaeli",
+"pop2025": 2130006,
+"level": "nuts3"
+},
+"TR422": {
+"label": "Sakarya",
+"pop2025": 1110735,
+"level": "nuts3"
+},
+"TR423": {
+"label": "Düzce",
+"pop2025": 412344,
+"level": "nuts3"
+},
+"TR424": {
+"label": "Bolu",
+"pop2025": 326409,
+"level": "nuts3"
+},
+"TR425": {
+"label": "Yalova",
+"pop2025": 307882,
+"level": "nuts3"
+},
+"TR510": {
+"label": "Ankara",
+"pop2025": 5864049,
+"level": "nuts3"
+},
+"TR521": {
+"label": "Konya",
+"pop2025": 2330024,
+"level": "nuts3"
+},
+"TR522": {
+"label": "Karaman",
+"pop2025": 262791,
+"level": "nuts3"
+},
+"TR611": {
+"label": "Antalya",
+"pop2025": 2722103,
+"level": "nuts3"
+},
+"TR612": {
+"label": "Isparta",
+"pop2025": 446409,
+"level": "nuts3"
+},
+"TR613": {
+"label": "Burdur",
+"pop2025": 275826,
+"level": "nuts3"
+},
+"TR621": {
+"label": "Adana",
+"pop2025": 2280484,
+"level": "nuts3"
+},
+"TR622": {
+"label": "Mersin",
+"pop2025": 1954279,
+"level": "nuts3"
+},
+"TR631": {
+"label": "Hatay",
+"pop2025": 1562185,
+"level": "nuts3"
+},
+"TR632": {
+"label": "Kahramanmaraş",
+"pop2025": 1134105,
+"level": "nuts3"
+},
+"TR633": {
+"label": "Osmaniye",
+"pop2025": 561061,
+"level": "nuts3"
+},
+"TR711": {
+"label": "Kırıkkale",
+"pop2025": 283053,
+"level": "nuts3"
+},
+"TR712": {
+"label": "Aksaray",
+"pop2025": 439474,
+"level": "nuts3"
+},
+"TR713": {
+"label": "Niğde",
+"pop2025": 372708,
+"level": "nuts3"
+},
+"TR714": {
+"label": "Nevşehir",
+"pop2025": 317952,
+"level": "nuts3"
+},
+"TR715": {
+"label": "Kırşehir",
+"pop2025": 244546,
+"level": "nuts3"
+},
+"TR721": {
+"label": "Kayseri",
+"pop2025": 1452458,
+"level": "nuts3"
+},
+"TR722": {
+"label": "Sivas",
+"pop2025": 637007,
+"level": "nuts3"
+},
+"TR723": {
+"label": "Yozgat",
+"pop2025": 413161,
+"level": "nuts3"
+},
+"TR811": {
+"label": "Zonguldak",
+"pop2025": 586802,
+"level": "nuts3"
+},
+"TR812": {
+"label": "Karabük",
+"pop2025": 250478,
+"level": "nuts3"
+},
+"TR813": {
+"label": "Bartın",
+"pop2025": 206715,
+"level": "nuts3"
+},
+"TR821": {
+"label": "Kastamonu",
+"pop2025": 381991,
+"level": "nuts3"
+},
+"TR822": {
+"label": "Çankırı",
+"pop2025": 199981,
+"level": "nuts3"
+},
+"TR823": {
+"label": "Sinop",
+"pop2025": 226957,
+"level": "nuts3"
+},
+"TR831": {
+"label": "Samsun",
+"pop2025": 1382376,
+"level": "nuts3"
+},
+"TR832": {
+"label": "Tokat",
+"pop2025": 612674,
+"level": "nuts3"
+},
+"TR833": {
+"label": "Çorum",
+"pop2025": 521335,
+"level": "nuts3"
+},
+"TR834": {
+"label": "Amasya",
+"pop2025": 342378,
+"level": "nuts3"
+},
+"TR901": {
+"label": "Trabzon",
+"pop2025": 822270,
+"level": "nuts3"
+},
+"TR902": {
+"label": "Ordu",
+"pop2025": 770711,
+"level": "nuts3"
+},
+"TR903": {
+"label": "Giresun",
+"pop2025": 455922,
+"level": "nuts3"
+},
+"TR904": {
+"label": "Rize",
+"pop2025": 346977,
+"level": "nuts3"
+},
+"TR905": {
+"label": "Artvin",
+"pop2025": 169280,
+"level": "nuts3"
+},
+"TR906": {
+"label": "Gümüşhane",
+"pop2025": 142617,
+"level": "nuts3"
+},
+"TRA11": {
+"label": "Erzurum",
+"pop2025": 745005,
+"level": "nuts3"
+},
+"TRA12": {
+"label": "Erzincan",
+"pop2025": 241239,
+"level": "nuts3"
+},
+"TRA13": {
+"label": "Bayburt",
+"pop2025": 83676,
+"level": "nuts3"
+},
+"TRA21": {
+"label": "Ağrı",
+"pop2025": 499801,
+"level": "nuts3"
+},
+"TRA22": {
+"label": "Kars",
+"pop2025": 272300,
+"level": "nuts3"
+},
+"TRA23": {
+"label": "Iğdır",
+"pop2025": 206857,
+"level": "nuts3"
+},
+"TRA24": {
+"label": "Ardahan",
+"pop2025": 91354,
+"level": "nuts3"
+},
+"TRB11": {
+"label": "Malatya",
+"pop2025": 750491,
+"level": "nuts3"
+},
+"TRB12": {
+"label": "Elazığ",
+"pop2025": 603941,
+"level": "nuts3"
+},
+"TRB13": {
+"label": "Bingöl",
+"pop2025": 283276,
+"level": "nuts3"
+},
+"TRB14": {
+"label": "Tunceli",
+"pop2025": 86612,
+"level": "nuts3"
+},
+"TRB21": {
+"label": "Van",
+"pop2025": 1118087,
+"level": "nuts3"
+},
+"TRB22": {
+"label": "Muş",
+"pop2025": 392301,
+"level": "nuts3"
+},
+"TRB23": {
+"label": "Bitlis",
+"pop2025": 359808,
+"level": "nuts3"
+},
+"TRB24": {
+"label": "Hakkari",
+"pop2025": 282191,
+"level": "nuts3"
+},
+"TRC11": {
+"label": "Gaziantep",
+"pop2025": 2193363,
+"level": "nuts3"
+},
+"TRC12": {
+"label": "Adıyaman",
+"pop2025": 611037,
+"level": "nuts3"
+},
+"TRC13": {
+"label": "Kilis",
+"pop2025": 156739,
+"level": "nuts3"
+},
+"TRC21": {
+"label": "Şanlıurfa",
+"pop2025": 2237745,
+"level": "nuts3"
+},
+"TRC22": {
+"label": "Diyarbakır",
+"pop2025": 1833684,
+"level": "nuts3"
+},
+"TRC31": {
+"label": "Mardin",
+"pop2025": 895911,
+"level": "nuts3"
+},
+"TRC32": {
+"label": "Batman",
+"pop2025": 654528,
+"level": "nuts3"
+},
+"TRC33": {
+"label": "Şırnak",
+"pop2025": 570826,
+"level": "nuts3"
+},
+"TRC34": {
+"label": "Siirt",
+"pop2025": 336453,
+"level": "nuts3"
+}
+}

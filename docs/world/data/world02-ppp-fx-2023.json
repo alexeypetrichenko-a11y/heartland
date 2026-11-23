@@ -1,0 +1,159 @@
+{
+ "retrieved": "2026-11-22",
+ "note": "Raw values as returned by the APIs, unrounded. Review extract, not a scenario asset.",
+ "world_bank_wdi": {
+  "api": "https://api.worldbank.org/v2/country/FRA;DEU;GBR;ITA;POL;TUR/indicator/<id>?date=2023&format=json",
+  "licence": "CC BY 4.0 (World Bank WDI) except third-party series; see sources per indicator",
+  "series": {
+   "NY.GDP.MKTP.CN": {
+    "name": "GDP (current LCU)",
+    "source_organization": "Country official statistics, National Statistical Organizations and/or Central Banks",
+    "last_updated": "2026-11-11",
+    "year": 2023,
+    "values": {
+     "DEU": 4219310000000,
+     "FRA": 2826541500000,
+     "GBR": 2752164000000,
+     "ITA": 2142744400000,
+     "POL": 3415274000000,
+     "TUR": 27091469064700
+    }
+   },
+   "NY.GDP.MKTP.CD": {
+    "name": "GDP (current US$)",
+    "source_organization": "Country official statistics, National Statistical Organizations and/or Central Banks",
+    "last_updated": "2026-11-11",
+    "year": 2023,
+    "values": {
+     "DEU": 4562207532490.28,
+     "FRA": 3056250648138.29,
+     "GBR": 3420796653789.08,
+     "ITA": 2316882296366.32,
+     "POL": 812451193396.143,
+     "TUR": 1141242864657.45
+    }
+   },
+   "NY.GDP.MKTP.PP.CD": {
+    "name": "GDP, PPP (current international $)",
+    "source_organization": "International Comparison Program (ICP), World Bank (WB)",
+    "last_updated": "2026-11-11",
+    "year": 2023,
+    "values": {
+     "DEU": 6018523537416.52,
+     "FRA": 4165720740902.3,
+     "GBR": 4165470729171.24,
+     "ITA": 3559677647109.66,
+     "POL": 1778349511630.98,
+     "TUR": 3685769235019.18
+    }
+   },
+   "PA.NUS.PPP": {
+    "name": "PPP conversion factor, GDP (LCU per international $)",
+    "source_organization": "International Comparison Program (ICP), World Bank (WB)",
+    "last_updated": "2026-11-11",
+    "year": 2023,
+    "values": {
+     "DEU": 0.701054,
+     "FRA": 0.678524,
+     "GBR": 0.660709,
+     "ITA": 0.601949,
+     "POL": 1.920474,
+     "TUR": 7.350289
+    }
+   },
+   "PA.NUS.FCRF": {
+    "name": "Official exchange rate (LCU per US$, period average)",
+    "source_organization": "International Financial Statistics database, International Monetary Fund (IMF)",
+    "last_updated": "2026-11-11",
+    "year": 2023,
+    "values": {
+     "DEU": 0.924839558470698,
+     "FRA": 0.924839558470698,
+     "GBR": 0.804538906734352,
+     "ITA": 0.924839558470698,
+     "POL": 4.20366666666666,
+     "TUR": 23.7385661219918
+    },
+    "restriction": "Third-party series (IMF International Financial Statistics): commercial reuse needs IMF permission. Kept for comparison only, not for bundling."
+   }
+  }
+ },
+ "eurostat": {
+  "ert_bil_eur_a": {
+   "label": "Euro/ECU exchange rates - annual data",
+   "updated": "2026-07-08T11:00:00+0200",
+   "unit": "national currency per euro, annual average (statinfo AVG)",
+   "year": 2023,
+   "values": {
+    "PLN": 4.542,
+    "GBP": 0.86979,
+    "TRY": 25.7597,
+    "USD": 1.0813
+   },
+   "licence": "Eurostat copyright notice: reuse with acknowledgement"
+  },
+  "prc_ppp_ind": {
+   "label": "Purchasing power parities, price level indices, nominal and real expenditures by analytical categories - based on COICOP 1999",
+   "updated": "2025-07-10T11:00:00+0200",
+   "year": 2023,
+   "ppp_cat": "GDP",
+   "licence": "Eurostat copyright notice: reuse with acknowledgement; UK values are excluded from commercial reuse (non-EU/EFTA/candidate country)",
+   "values": {
+    "PPP_EU27_2020": {
+     "DE": 1.11948,
+     "FR": 1.09252,
+     "IT": 0.962005,
+     "PL": 3.06905,
+     "UK": 1.05359,
+     "TR": 11.3306,
+     "EU27_2020": 1.0
+    },
+    "PLI_EU27_2020": {
+     "DE": 111.9,
+     "FR": 109.3,
+     "IT": 96.2,
+     "PL": 67.6,
+     "UK": 121.1,
+     "TR": 44.0,
+     "EU27_2020": 100.0
+    },
+    "EXP_NAC": {
+     "DE": 4185550,
+     "FR": 2826542,
+     "IT": 2131390,
+     "PL": 3415274,
+     "UK": 2711185,
+     "TR": 26545722,
+     "EU27_2020": 17202668
+    },
+    "EXP_EUR": {
+     "DE": 4185550,
+     "FR": 2826542,
+     "IT": 2131390,
+     "PL": 751932,
+     "UK": 3117057,
+     "TR": 1030514,
+     "EU27_2020": 17202668
+    },
+    "EXP_PPS_EU27_2020": {
+     "DE": 3738841,
+     "FR": 2587165,
+     "IT": 2215572,
+     "PL": 1112810,
+     "UK": 2573283,
+     "TR": 2342843,
+     "EU27_2020": 17202668
+    },
+    "VI_PPS_EU27_2020_HAB": {
+     "DE": 116,
+     "FR": 99,
+     "IT": 98,
+     "PL": 78,
+     "UK": 99,
+     "TR": 72,
+     "EU27_2020": 100
+    }
+   }
+  }
+ }
+}
