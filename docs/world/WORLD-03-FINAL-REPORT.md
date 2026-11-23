@@ -20,8 +20,8 @@ Each country's spending is now mapped on a cash basis. Greece starts at its obse
 
 | Order | PR | Branch | Head |
 |---:|---|---|---|
-| 1 | #31 WORLD-01 architecture | `analysis/world-01-real-world-architecture` | `d2088f3` |
-| 2 | #32 WORLD-02 data and performance | `analysis/world-02-european-scenario` | `77730c6` |
+| 1 | #31 WORLD-01 architecture | `docs/world-01-architecture` | `d2088f3` |
+| 2 | #32 WORLD-02 data and performance | `analysis/world-02-european-feasibility` | `77730c6` |
 | 3 | #33 WORLD-03 pipeline and draft.1 | `analysis/world-03-europe-scenario` | `28ead75` |
 | 4 | #34 ECON-08 sovereign debt | `feature/econ-08-sovereign-debt` | `b85d80f` |
 | 5 | **this PR** WORLD-03-FINAL | `world-03-final` (from `b85d80f`) | see PR |
