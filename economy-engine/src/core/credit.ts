@@ -246,8 +246,24 @@ export function settleBanks(s: EconomyState, w: Workspace, events: EconomyEvent[
     if (profit > 0 && spareCapital > 0) {
       const payout = Math.min(profit * p.cbProfitPayout, spareCapital);
       country.cbIssued[c] += payout;
-      country.treasury[c] += payout;
-      w.revenueCentralBank[c] += payout;
+      // WORLD-03-FINAL (opt-in): part of the payout goes to the owners of commercial banks (the country's households),
+      // taxed like dividends; the money paid out is the same, only its recipient changes.
+      const share = s.countries[c].bankProfitToHouseholds ?? 0;
+      let held = 0;
+      if (share > 0) for (let z = 0; z < Z; z++) if (s.zone.owner[z] === c) held += s.zone.householdMoney[z];
+      const toPeople = share > 0 && held > 0 ? payout * share : 0;
+      const tax = toPeople * country.taxIncome[c];
+      if (toPeople > 0) {
+        for (let z = 0; z < Z; z++) {
+          if (s.zone.owner[z] !== c) continue;
+          const part = (toPeople - tax) * s.zone.householdMoney[z] / held;
+          s.zone.householdMoney[z] += part;
+          w.householdIncome[z] += part;
+        }
+        w.revenueIncomeTax[c] += tax;
+      }
+      country.treasury[c] += payout - toPeople + tax;
+      w.revenueCentralBank[c] += payout - toPeople;
     }
     if (w.revenueMoneyCreation[c] > 0) {
       events.push({ type: 'money-created', turn: s.turn + 1, countryId: s.countries[c].id, amount: w.revenueMoneyCreation[c] });

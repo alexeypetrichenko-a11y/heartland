@@ -1,0 +1,44 @@
+{
+ "id": "europe-2023",
+ "version": "1.0.0-draft.2",
+ "immutable": true,
+ "status": "review-draft",
+ "referenceYear": 2023,
+ "worldFingerprint": "73db3573d9e4cef4",
+ "week1EconomyHash": "e0f18a0898bae961",
+ "contentFingerprint": "666abb752e2947517b8dcf1e9fa89c0e2f87c1f5f657a8398b5d1fce130313aa",
+ "files": [
+  {
+   "path": "calibration-report.json",
+   "bytes": 87851,
+   "sha256": "0bf2c6b9d50c9d86d0aa3227fb12bc4a42eaa2765b0b21a4b75320aa67efae4c"
+  },
+  {
+   "path": "provenance.json",
+   "bytes": 242279,
+   "sha256": "ffa78c2a181407ffca4a7403e44f3b0faf9d695941e02322efbccab5a0bc2e2a"
+  },
+  {
+   "path": "scenario.json",
+   "bytes": 165000,
+   "sha256": "73db3573d9e4cef4b6baed7839e6af2dc8ff8b5c20e1598c09d5b19e0080e5f0"
+  },
+  {
+   "path": "week1.session.json",
+   "bytes": 1712911,
+   "sha256": "188930e94e1ade7b354070f19a129869052ccdc8d68ee2673873582062c1922a"
+  },
+  {
+   "path": "world-spec.json",
+   "bytes": 100864,
+   "sha256": "47bfdc368c408d560c034ed8073c151a38899cec809e5ed075559089c9f43f64"
+  }
+ ],
+ "compatibility": "New scenario. Fictional saves are unaffected: their scenario and fingerprints are unchanged. The current startEconomyFromSave refuses this package (different world fingerprint) until the proposed scenario loader exists.",
+ "supersedes": "1.0.0-draft.1 (kept unchanged)",
+ "engineRequirements": "economy-engine with the ECON-08 options (holdStartingDebt, effectiveRate) and the WORLD-03-FINAL opt-in inputs (maxStartingDebt, economicAggregate, bankProfitToHouseholds)",
+ "distributable": false,
+ "notDistributableBecause": [
+  "tr_sayistay_government (tr_sayistay): NOT VERIFIED: official public report without published reuse terms (licensing risk W3-L1)"
+ ]
+}

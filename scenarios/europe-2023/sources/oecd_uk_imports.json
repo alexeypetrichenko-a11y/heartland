@@ -1,0 +1,20 @@
+{
+ "attribution": "Source: OECD",
+ "dataset": "OECD.SDD.NAD,DSD_NAMAIN10@DF_TABLE1_EXPENDITURE",
+ "id": "oecd_uk_imports",
+ "key": "country|transaction",
+ "licence": "CC BY 4.0",
+ "licence_status": "verified (search only; oecd.org blocks automated reading)",
+ "notes": [],
+ "publisher": "oecd",
+ "publisher_updated": null,
+ "query": "https://sdmx.oecd.org/public/rest/data/OECD.SDD.NAD,DSD_NAMAIN10@DF_TABLE1_EXPENDITURE,/A.GBR..........?startPeriod=2023&endPeriod=2023&dimensionAtObservation=AllDimensions",
+ "reference_year": 2023,
+ "retrieved": "2026-11-23",
+ "title": "UK imports of goods and services (P7), goods (P71) and GDP, pounds million",
+ "values": {
+  "GBR|B1GQ": 2766446.0,
+  "GBR|P7": 903828.0,
+  "GBR|P71": 603175.0
+ }
+}

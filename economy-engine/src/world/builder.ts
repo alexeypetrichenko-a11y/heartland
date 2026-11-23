@@ -110,8 +110,19 @@ export function createEconomy(spec: WorldSpec): EconomyState {
   }
 
   // --- Policies ------------------------------------------------------------------
+  // WORLD-03-FINAL (opt-in): a world may accept historically observed starting debt above the default limit.
+  if (spec.maxStartingDebt !== undefined && (typeof spec.maxStartingDebt !== 'number' || !(spec.maxStartingDebt >= MAX_STARTING_DEBT) || spec.maxStartingDebt > 3)) {
+    fail(`maxStartingDebt must be between ${MAX_STARTING_DEBT} and 3.`);
+  }
+  const startingDebtLimit = spec.maxStartingDebt ?? MAX_STARTING_DEBT;
+  for (const country of spec.countries) {
+    if (country.economicAggregate !== undefined && typeof country.economicAggregate !== 'boolean') fail(`country ${country.id}: economicAggregate must be true or false.`);
+    if (country.bankProfitToHouseholds !== undefined && !(country.bankProfitToHouseholds >= 0 && country.bankProfitToHouseholds <= 1)) {
+      fail(`country ${country.id}: bankProfitToHouseholds must be between 0 and 1.`);
+    }
+  }
   const policy = spec.countries.map((country: CountrySpec) => ({
-    debtToGdp: fraction(country.debtToGdp, DEFAULT_COUNTRY_POLICY.debtToGdp, MAX_STARTING_DEBT, 'debtToGdp'),
+    debtToGdp: fraction(country.debtToGdp, DEFAULT_COUNTRY_POLICY.debtToGdp, startingDebtLimit, 'debtToGdp'),
     taxConsumption: fraction(country.taxConsumption, DEFAULT_COUNTRY_POLICY.taxConsumption, p.maxTaxRate, 'taxConsumption'),
     taxCorporate: fraction(country.taxCorporate, DEFAULT_COUNTRY_POLICY.taxCorporate, p.maxTaxRate, 'taxCorporate'),
     administration: fraction(country.spendAdministration, DEFAULT_COUNTRY_POLICY.spendAdministration, p.maxSpendingShare, 'spendAdministration'),
@@ -459,7 +470,12 @@ export function createEconomy(spec: WorldSpec): EconomyState {
     turn: 0,
     seed: spec.seed,
     config,
-    countries: deepFreeze(spec.countries.map(entry => ({ id: entry.id, name: entry.name }))),
+    // Optional WORLD-03-FINAL fields are written only when used, so other worlds keep exactly their old state.
+    countries: deepFreeze(spec.countries.map(entry => ({
+      id: entry.id, name: entry.name,
+      ...(entry.economicAggregate === true ? { aggregate: true as const } : {}),
+      ...(entry.bankProfitToHouseholds !== undefined && entry.bankProfitToHouseholds > 0 ? { bankProfitToHouseholds: entry.bankProfitToHouseholds } : {}),
+    }))),
     zones: deepFreeze(spec.zones.map(entry => ({ id: entry.id, name: entry.name }))),
     waypoints: deepFreeze(waypoints.map(entry => ({ id: entry.id, name: entry.name }))),
     lanes,

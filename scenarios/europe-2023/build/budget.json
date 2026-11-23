@@ -1,0 +1,743 @@
+{
+ "note": "WORLD-03-FINAL budget reconciliation, 2023, % of GDP (fractions). See the script header for the mapping.",
+ "countries": {
+  "fra": {
+   "observed": {
+    "revenue": 0.5139166252385821,
+    "expenditure": 0.5675262253185305,
+    "net_lending": -0.05360960007994844,
+    "taxes_and_contributions": 0.4530799769527167,
+    "sales": 0.04214217215281783,
+    "dividends_D42": 0.002288425289566079,
+    "interest_paid": 0.01884727307219666,
+    "subsidies": 0.024879435098776694,
+    "other_current_transfers_paid": 0.033217736979230625,
+    "capital_transfers_paid": 0.014599341723967284,
+    "other_current_transfers_received": 0.006976785875098065,
+    "capital_transfers_received_ex_capital_taxes": 0.0027856328813931582,
+    "property_income_ex_dividends": 0.004736316945879254,
+    "consumption_of_fixed_capital": 0.038089630331625116,
+    "customs_kept_by_national_government": 0.00023395928557938482,
+    "taxes_draft1_inputs": 0.45307997695271673
+   },
+   "targets": {
+    "tariff_revenue": 0.00023395928557938482,
+    "dividends_and_bank_profit": 0.002288425289566079,
+    "spend_administration": 0.18449383490816515,
+    "spend_social": 0.24868605218724765,
+    "spend_military": 0.018060315903613577,
+    "spend_infrastructure": 0.03889052625100818,
+    "net_lending": -0.05360960007994844,
+    "net_other_folded_into_social": 0.06133950195396591,
+    "customs_inside_taxes": 0.0,
+    "tax_scale_to_national_accounts": 0.9999999999999999
+   },
+   "identity_check": -6.938893903907228e-18,
+   "draft1_administration_P3_basis": 0.22668625713981633,
+   "sources": [
+    "es_government_accounts",
+    "es_tax",
+    "es_defence",
+    "es_customs",
+    "es_national_gdp"
+   ],
+   "euro_customs_union": true,
+   "licence": "verified"
+  },
+  "deu": {
+   "observed": {
+    "revenue": 0.45474473140568705,
+    "expenditure": 0.4770684829127624,
+    "net_lending": -0.022323751507075322,
+    "taxes_and_contributions": 0.3955345916384053,
+    "sales": 0.04124674201455723,
+    "dividends_D42": 0.0022505658142437128,
+    "interest_paid": 0.008728228196468566,
+    "subsidies": 0.01884284817846592,
+    "other_current_transfers_paid": 0.021710815454073273,
+    "capital_transfers_paid": 0.016803331664680735,
+    "other_current_transfers_received": 0.007268509705212541,
+    "capital_transfers_received_ex_capital_taxes": 0.0030677355444155368,
+    "property_income_ex_dividends": 0.005320181530600973,
+    "consumption_of_fixed_capital": 0.02724862688692881,
+    "customs_kept_by_national_government": 0.0,
+    "taxes_draft1_inputs": 0.3955345916384053
+   },
+   "targets": {
+    "tariff_revenue": 0.0,
+    "dividends_and_bank_profit": 0.0022505658142437128,
+    "spend_administration": 0.17686001884872368,
+    "spend_social": 0.1952208379456301,
+    "spend_military": 0.01238328245118016,
+    "spend_infrastructure": 0.026916541517721795,
+    "net_lending": -0.022323751507075322,
+    "net_other_folded_into_social": 0.039659876895742116,
+    "customs_inside_taxes": 0.0,
+    "tax_scale_to_national_accounts": 1.0
+   },
+   "identity_check": 1.0408340855860843e-16,
+   "draft1_administration_P3_basis": 0.20237136686149948,
+   "sources": [
+    "es_government_accounts",
+    "es_tax",
+    "es_defence",
+    "es_customs",
+    "es_national_gdp"
+   ],
+   "euro_customs_union": true,
+   "licence": "verified"
+  },
+  "ita": {
+   "observed": {
+    "revenue": 0.4652811835943585,
+    "expenditure": 0.5362349521010937,
+    "net_lending": -0.07095376850673521,
+    "taxes_and_contributions": 0.4122654593360753,
+    "sales": 0.02335881766068368,
+    "dividends_D42": 0.0024839375153378473,
+    "interest_paid": 0.03631264518428015,
+    "subsidies": 0.0181089316790185,
+    "other_current_transfers_paid": 0.0173011850809857,
+    "capital_transfers_paid": 0.05939925691048226,
+    "other_current_transfers_received": 0.01121180292402401,
+    "capital_transfers_received_ex_capital_taxes": 0.010691203238008653,
+    "property_income_ex_dividends": 0.005132692689118225,
+    "consumption_of_fixed_capital": 0.02733218387412824,
+    "customs_kept_by_national_government": 0.0,
+    "taxes_draft1_inputs": 0.4122654593360752
+   },
+   "targets": {
+    "tariff_revenue": 0.0,
+    "dividends_and_bank_profit": 0.0024839375153378473,
+    "spend_administration": 0.13748734219059383,
+    "spend_social": 0.27143554032737927,
+    "spend_military": 0.011912161246017764,
+    "spend_infrastructure": 0.02855547640987733,
+    "net_lending": -0.07095376850673521,
+    "net_other_folded_into_social": 0.073332185368226,
+    "customs_inside_taxes": 0.0,
+    "tax_scale_to_national_accounts": 1.0000000000000002
+   },
+   "identity_check": 0.0,
+   "draft1_administration_P3_basis": 0.1703462870363488,
+   "sources": [
+    "es_government_accounts",
+    "es_tax",
+    "es_defence",
+    "es_customs",
+    "es_national_gdp"
+   ],
+   "euro_customs_union": true,
+   "licence": "verified"
+  },
+  "pol": {
+   "observed": {
+    "revenue": 0.4166342144144218,
+    "expenditure": 0.46858992865579746,
+    "net_lending": -0.051955421439099765,
+    "taxes_and_contributions": 0.35722756065838346,
+    "sales": 0.023464003181003924,
+    "dividends_D42": 0.0016956179796994326,
+    "interest_paid": 0.020716932228570826,
+    "subsidies": 0.023047638344683326,
+    "other_current_transfers_paid": 0.01584821598501321,
+    "capital_transfers_paid": 0.012749782301507874,
+    "other_current_transfers_received": 0.014851224235595739,
+    "capital_transfers_received_ex_capital_taxes": 0.009464247963706573,
+    "property_income_ex_dividends": 0.009295886655067793,
+    "consumption_of_fixed_capital": 0.02323122537166857,
+    "customs_kept_by_national_government": 0.0,
+    "taxes_draft1_inputs": 0.35722756065838346
+   },
+   "targets": {
+    "tariff_revenue": 0.0,
+    "dividends_and_bank_profit": 0.0016956179796994326,
+    "spend_administration": 0.15073106872245096,
+    "spend_social": 0.1730717359719894,
+    "spend_military": 0.021845304359181722,
+    "spend_infrastructure": 0.044513851597265695,
+    "net_lending": -0.051955421439099765,
+    "net_other_folded_into_social": 0.017079859478331794,
+    "customs_inside_taxes": 0.0,
+    "tax_scale_to_national_accounts": 1.0
+   },
+   "identity_check": -2.928022759460247e-07,
+   "draft1_administration_P3_basis": 0.17610999878779857,
+   "sources": [
+    "es_government_accounts",
+    "es_tax",
+    "es_defence",
+    "es_customs",
+    "es_national_gdp"
+   ],
+   "euro_customs_union": true,
+   "licence": "verified"
+  },
+  "irl": {
+   "observed": {
+    "revenue": 0.2381579447618455,
+    "expenditure": 0.22360031505848205,
+    "net_lending": 0.014557629703363453,
+    "taxes_and_contributions": 0.22144916916958432,
+    "sales": 0.009497070040603527,
+    "dividends_D42": 0.0010126879780457542,
+    "interest_paid": 0.006463230440087236,
+    "subsidies": 0.005519283890964573,
+    "other_current_transfers_paid": 0.010203877861457987,
+    "capital_transfers_paid": 0.004393114950646342,
+    "other_current_transfers_received": 0.0022872846405917755,
+    "capital_transfers_received_ex_capital_taxes": 0.0013295129996186577,
+    "property_income_ex_dividends": 0.002582795978895229,
+    "consumption_of_fixed_capital": 0.013954126041058218,
+    "customs_kept_by_national_government": 0.0,
+    "taxes_draft1_inputs": 0.22144916916958432
+   },
+   "targets": {
+    "tariff_revenue": 0.0,
+    "dividends_and_bank_profit": 0.0010126879780457542,
+    "spend_administration": 0.10653423764795246,
+    "spend_social": 0.06996226133955154,
+    "spend_military": 0.0021284880994761443,
+    "spend_infrastructure": 0.022816009917199218,
+    "net_lending": 0.014557629703363453,
+    "net_other_folded_into_social": 0.014360430129329884,
+    "customs_inside_taxes": 0.0,
+    "tax_scale_to_national_accounts": 1.0
+   },
+   "identity_check": 6.418476861114186e-17,
+   "draft1_administration_P3_basis": 0.1204883636890107,
+   "sources": [
+    "es_government_accounts",
+    "es_tax",
+    "es_defence",
+    "es_customs",
+    "es_national_gdp"
+   ],
+   "euro_customs_union": true,
+   "licence": "verified"
+  },
+  "esp": {
+   "observed": {
+    "revenue": 0.4211773622130127,
+    "expenditure": 0.45461167952190673,
+    "net_lending": -0.033434317308894006,
+    "taxes_and_contributions": 0.3686068822818235,
+    "sales": 0.0217152305355225,
+    "dividends_D42": 0.0,
+    "interest_paid": 0.02375963808840208,
+    "subsidies": 0.013671265414091107,
+    "other_current_transfers_paid": 0.016113994935429737,
+    "capital_transfers_paid": 0.008696919086506041,
+    "other_current_transfers_received": 0.010286865333090063,
+    "capital_transfers_received_ex_capital_taxes": 0.01107348438825164,
+    "property_income_ex_dividends": 0.009494899674325008,
+    "consumption_of_fixed_capital": 0.023744934928492518,
+    "customs_kept_by_national_government": 9.356556306085036e-05,
+    "taxes_draft1_inputs": 0.3686068822818235
+   },
+   "targets": {
+    "tariff_revenue": 9.356556306085036e-05,
+    "dividends_and_bank_profit": 0.0,
+    "spend_administration": 0.16517396177312088,
+    "spend_social": 0.1760897213550699,
+    "spend_military": 0.009361902909688514,
+    "spend_infrastructure": 0.027655975464436065,
+    "net_lending": -0.033434317308894006,
+    "net_other_folded_into_social": 0.007860843948012241,
+    "customs_inside_taxes": 0.0,
+    "tax_scale_to_national_accounts": 1.0
+   },
+   "identity_check": 6.245004513516506e-17,
+   "draft1_administration_P3_basis": 0.18938739284236808,
+   "sources": [
+    "es_government_accounts",
+    "es_tax",
+    "es_defence",
+    "es_customs",
+    "es_national_gdp"
+   ],
+   "euro_customs_union": true,
+   "licence": "verified"
+  },
+  "nld": {
+   "observed": {
+    "revenue": 0.4366656413997084,
+    "expenditure": 0.440105205721561,
+    "net_lending": -0.0034395643218525654,
+    "taxes_and_contributions": 0.3933977886610553,
+    "sales": 0.030295210225752357,
+    "dividends_D42": 0.002003555740082447,
+    "interest_paid": 0.006784854870763989,
+    "subsidies": 0.01697213591040373,
+    "other_current_transfers_paid": 0.018511940868442378,
+    "capital_transfers_paid": 0.007059105846592765,
+    "other_current_transfers_received": 0.005143158057122288,
+    "capital_transfers_received_ex_capital_taxes": 0.0008779840267851786,
+    "property_income_ex_dividends": 0.004582276721139132,
+    "consumption_of_fixed_capital": 0.02938484934765406,
+    "customs_kept_by_national_government": 0.0,
+    "taxes_draft1_inputs": 0.39339778866105524
+   },
+   "targets": {
+    "tariff_revenue": 0.0,
+    "dividends_and_bank_profit": 0.002003555740082447,
+    "spend_administration": 0.21165033381485965,
+    "spend_social": 0.13545046198910035,
+    "spend_military": 0.013700169407113194,
+    "spend_infrastructure": 0.031255088641153075,
+    "net_lending": -0.0034395643218525654,
+    "net_other_folded_into_social": 0.03126461124448038,
+    "customs_inside_taxes": 0.0,
+    "tax_scale_to_national_accounts": 1.0000000000000002
+   },
+   "identity_check": -6.071532165918825e-18,
+   "draft1_administration_P3_basis": 0.24165796142012488,
+   "sources": [
+    "es_government_accounts",
+    "es_tax",
+    "es_defence",
+    "es_customs",
+    "es_national_gdp"
+   ],
+   "euro_customs_union": true,
+   "licence": "verified"
+  },
+  "bel": {
+   "observed": {
+    "revenue": 0.4862554663780446,
+    "expenditure": 0.527406996963897,
+    "net_lending": -0.04115169638439796,
+    "taxes_and_contributions": 0.4363650260568995,
+    "sales": 0.030752480014643327,
+    "dividends_D42": 0.003156970104532667,
+    "interest_paid": 0.0194426980330987,
+    "subsidies": 0.03717833424190936,
+    "other_current_transfers_paid": 0.020440473679812502,
+    "capital_transfers_paid": 0.009464112573233218,
+    "other_current_transfers_received": 0.0074499918427115615,
+    "capital_transfers_received_ex_capital_taxes": 0.0004660597113513641,
+    "property_income_ex_dividends": 0.005823010715891592,
+    "consumption_of_fixed_capital": 0.02392837768112828,
+    "customs_kept_by_national_government": 0.0,
+    "taxes_draft1_inputs": 0.4363650260568995
+   },
+   "targets": {
+    "tariff_revenue": 0.0,
+    "dividends_and_bank_profit": 0.003156970104532667,
+    "spend_administration": 0.20289431204877928,
+    "spend_social": 0.22172571084468384,
+    "spend_military": 0.00939447718413056,
+    "spend_infrastructure": 0.027216328636592138,
+    "net_lending": -0.04115169638439796,
+    "net_other_folded_into_social": 0.05134034860138974,
+    "customs_inside_taxes": 0.0,
+    "tax_scale_to_national_accounts": 1.0
+   },
+   "identity_check": 1.6579854557330354e-07,
+   "draft1_administration_P3_basis": 0.22576157903881944,
+   "sources": [
+    "es_government_accounts",
+    "es_tax",
+    "es_defence",
+    "es_customs",
+    "es_national_gdp"
+   ],
+   "euro_customs_union": true,
+   "licence": "verified"
+  },
+  "che": {
+   "observed": {
+    "revenue": 0.3258568973152153,
+    "expenditure": 0.3225027445792312,
+    "net_lending": 0.003354152735984065,
+    "taxes_and_contributions": 0.26473771316791456,
+    "sales": 0.04140448612533981,
+    "dividends_D42": 0.004233089400038216,
+    "interest_paid": 0.0026911141804898597,
+    "subsidies": 0.02870569743240687,
+    "other_current_transfers_paid": 0.023535051615351806,
+    "capital_transfers_paid": 0.01062575926965302,
+    "other_current_transfers_received": 0.009626106672606162,
+    "capital_transfers_received_ex_capital_taxes": 0.00025581708143638306,
+    "property_income_ex_dividends": 0.004320359707107423,
+    "consumption_of_fixed_capital": 0.027713357319880918,
+    "customs_kept_by_national_government": 0.0014188617506471547,
+    "taxes_draft1_inputs": 0.26473771316791456
+   },
+   "targets": {
+    "tariff_revenue": 0.0014188617506471547,
+    "dividends_and_bank_profit": 0.004233089400038216,
+    "spend_administration": 0.08472064750731788,
+    "spend_social": 0.14122637318269782,
+    "spend_military": 0.008392214817299373,
+    "spend_infrastructure": 0.028586300144163832,
+    "net_lending": 0.003354152735984065,
+    "net_other_folded_into_social": 0.04760103755763981,
+    "customs_inside_taxes": 0.0014188617506471547,
+    "tax_scale_to_national_accounts": 1.0
+   },
+   "identity_check": -8.977193988179977e-17,
+   "draft1_administration_P3_basis": 0.1124340048271988,
+   "sources": [
+    "es_government_accounts",
+    "es_tax",
+    "es_defence",
+    "es_customs",
+    "es_national_gdp"
+   ],
+   "euro_customs_union": false,
+   "licence": "verified",
+   "starting_debt": {
+    "value": 0.2600763039778237,
+    "status": "estimate",
+    "sources": [
+     "oecd_che_debt",
+     "es_national_gdp"
+    ],
+    "method": "F2 + F3 + F4 liabilities of general government, non-consolidated, / GDP"
+   },
+   "effective_rate": 0.010347402432784982
+  },
+  "aut": {
+   "observed": {
+    "revenue": 0.49534660616060006,
+    "expenditure": 0.5208708839489585,
+    "net_lending": -0.025524277788358512,
+    "taxes_and_contributions": 0.42682094352290173,
+    "sales": 0.04515867422867476,
+    "dividends_D42": 0.0,
+    "interest_paid": 0.011957088424068124,
+    "subsidies": 0.022282405078642188,
+    "other_current_transfers_paid": 0.03323305018172241,
+    "capital_transfers_paid": 0.010948144622779626,
+    "other_current_transfers_received": 0.009689986284865552,
+    "capital_transfers_received_ex_capital_taxes": 0.0033085521843987534,
+    "property_income_ex_dividends": 0.010368449939759262,
+    "consumption_of_fixed_capital": 0.029148932357423656,
+    "customs_kept_by_national_government": 0.0,
+    "taxes_draft1_inputs": 0.42682094352290173
+   },
+   "targets": {
+    "tariff_revenue": 0.0,
+    "dividends_and_bank_profit": 0.0,
+    "spend_administration": 0.1678401559632913,
+    "spend_social": 0.23088768300911128,
+    "spend_military": 0.0059548938358576385,
+    "spend_infrastructure": 0.03570540007893183,
+    "net_lending": -0.025524277788358512,
+    "net_other_folded_into_social": 0.0482248881972745,
+    "customs_inside_taxes": 0.0,
+    "tax_scale_to_national_accounts": 1.0
+   },
+   "identity_check": 8.673617379884035e-17,
+   "draft1_administration_P3_basis": 0.2002605500473216,
+   "sources": [
+    "es_government_accounts",
+    "es_tax",
+    "es_defence",
+    "es_customs",
+    "es_national_gdp"
+   ],
+   "euro_customs_union": true,
+   "licence": "verified"
+  },
+  "cze": {
+   "observed": {
+    "revenue": 0.4029497412089709,
+    "expenditure": 0.4398722918982643,
+    "net_lending": -0.03692255068929345,
+    "taxes_and_contributions": 0.3411530937098342,
+    "sales": 0.03152491855050913,
+    "dividends_D42": 0.0041324315520738205,
+    "interest_paid": 0.012861284222331163,
+    "subsidies": 0.026988552356470363,
+    "other_current_transfers_paid": 0.021961171880456758,
+    "capital_transfers_paid": 0.005209111898642955,
+    "other_current_transfers_received": 0.008586809719236702,
+    "capital_transfers_received_ex_capital_taxes": 0.00915759260697773,
+    "property_income_ex_dividends": 0.00839489507033933,
+    "consumption_of_fixed_capital": 0.03952684553024908,
+    "customs_kept_by_national_government": 0.0,
+    "taxes_draft1_inputs": 0.3411530937098342
+   },
+   "targets": {
+    "tariff_revenue": 0.0,
+    "dividends_and_bank_profit": 0.0041324315520738205,
+    "spend_administration": 0.14751421571859308,
+    "spend_social": 0.16542755515751031,
+    "spend_military": 0.012204074465494855,
+    "spend_infrastructure": 0.04420094638727201,
+    "net_lending": -0.03692255068929345,
+    "net_other_folded_into_social": 0.030044173007792083,
+    "customs_inside_taxes": 0.0,
+    "tax_scale_to_national_accounts": 1.0
+   },
+   "identity_check": 1.3877787807814457e-17,
+   "draft1_administration_P3_basis": 0.18872782129221224,
+   "sources": [
+    "es_government_accounts",
+    "es_tax",
+    "es_defence",
+    "es_customs",
+    "es_national_gdp"
+   ],
+   "euro_customs_union": true,
+   "licence": "verified"
+  },
+  "nor": {
+   "observed": {
+    "revenue": 0.6087687923631087,
+    "expenditure": 0.44984760261351764,
+    "net_lending": 0.158921189749591,
+    "taxes_and_contributions": 0.40289801034179656,
+    "sales": 0.03599779146789532,
+    "dividends_D42": 0.12908036956908175,
+    "interest_paid": 0.010206072483058527,
+    "subsidies": 0.01886866076731976,
+    "other_current_transfers_paid": 0.024170193450145254,
+    "capital_transfers_paid": 0.004680972108516666,
+    "other_current_transfers_received": 0.004075680491230623,
+    "capital_transfers_received_ex_capital_taxes": 0.0,
+    "property_income_ex_dividends": 0.036716940493104366,
+    "consumption_of_fixed_capital": 0.03375947547174008,
+    "customs_kept_by_national_government": 0.0006522295222079439,
+    "taxes_draft1_inputs": 0.40289801034179656
+   },
+   "targets": {
+    "tariff_revenue": 0.0006522295222079439,
+    "dividends_and_bank_profit": 0.12908036956908175,
+    "spend_administration": 0.1678482514499383,
+    "spend_social": 0.13451140562813757,
+    "spend_military": 0.017273903033828655,
+    "spend_infrastructure": 0.0432175575663243,
+    "net_lending": 0.158921189749591,
+    "net_other_folded_into_social": 0.008978712246325626,
+    "customs_inside_taxes": 0.0006522295222079439,
+    "tax_scale_to_national_accounts": 1.0
+   },
+   "identity_check": 5.551115123125783e-17,
+   "draft1_administration_P3_basis": 0.20164128092600006,
+   "sources": [
+    "es_government_accounts",
+    "es_tax",
+    "es_defence",
+    "es_customs",
+    "es_national_gdp"
+   ],
+   "euro_customs_union": false,
+   "licence": "verified"
+  },
+  "grc": {
+   "observed": {
+    "revenue": 0.48010397342901256,
+    "expenditure": 0.4948779756284505,
+    "net_lending": -0.01477400219943792,
+    "taxes_and_contributions": 0.40305255323639516,
+    "sales": 0.03056107883540873,
+    "dividends_D42": 0.003279161991935394,
+    "interest_paid": 0.033822467591615474,
+    "subsidies": 0.020528087266587426,
+    "other_current_transfers_paid": 0.013103318040945092,
+    "capital_transfers_paid": 0.023340701820645834,
+    "other_current_transfers_received": 0.01260122413161081,
+    "capital_transfers_received_ex_capital_taxes": 0.023367361674238807,
+    "property_income_ex_dividends": 0.007242593559423703,
+    "consumption_of_fixed_capital": 0.03369805494151495,
+    "customs_kept_by_national_government": 0.0,
+    "taxes_draft1_inputs": 0.40305255323639516
+   },
+   "targets": {
+    "tariff_revenue": 0.0,
+    "dividends_and_bank_profit": 0.003279161991935394,
+    "spend_administration": 0.14163935883052112,
+    "spend_social": 0.18686780045099594,
+    "spend_military": 0.022460926652077804,
+    "spend_infrastructure": 0.036315163902558234,
+    "net_lending": -0.01477400219943792,
+    "net_other_folded_into_social": 0.014534063517101264,
+    "customs_inside_taxes": 0.0,
+    "tax_scale_to_national_accounts": 1.0
+   },
+   "identity_check": -1.3704315460216776e-16,
+   "draft1_administration_P3_basis": 0.175692878486609,
+   "sources": [
+    "es_government_accounts",
+    "es_tax",
+    "es_defence",
+    "es_customs",
+    "es_national_gdp"
+   ],
+   "euro_customs_union": true,
+   "licence": "verified"
+  },
+  "bgr": {
+   "observed": {
+    "revenue": 0.3664100625544815,
+    "expenditure": 0.38621530140029925,
+    "net_lending": -0.019805238845817766,
+    "taxes_and_contributions": 0.2960985729923208,
+    "sales": 0.020822051479951337,
+    "dividends_D42": 0.008657102809536377,
+    "interest_paid": 0.004914769650403623,
+    "subsidies": 0.02406596769122544,
+    "other_current_transfers_paid": 0.01341835162789915,
+    "capital_transfers_paid": 0.0031566406697714324,
+    "other_current_transfers_received": 0.024100667605316865,
+    "capital_transfers_received_ex_capital_taxes": 0.011050345369296465,
+    "property_income_ex_dividends": 0.005685528348252544,
+    "consumption_of_fixed_capital": 0.025196343680567307,
+    "customs_kept_by_national_government": 0.0,
+    "taxes_draft1_inputs": 0.2960985729923208
+   },
+   "targets": {
+    "tariff_revenue": 0.0,
+    "dividends_and_bank_profit": 0.008657102809536377,
+    "spend_administration": 0.14849039601014077,
+    "spend_social": 0.12234453649852634,
+    "spend_military": 0.015046093052551442,
+    "spend_infrastructure": 0.033765119436052794,
+    "net_lending": -0.019805238845817766,
+    "net_other_folded_into_social": -0.0013606572374030915,
+    "customs_inside_taxes": 0.0,
+    "tax_scale_to_national_accounts": 1.0
+   },
+   "identity_check": -5.898059818321144e-17,
+   "draft1_administration_P3_basis": 0.1736867396907081,
+   "sources": [
+    "es_government_accounts",
+    "es_tax",
+    "es_defence",
+    "es_customs",
+    "es_national_gdp"
+   ],
+   "euro_customs_union": true,
+   "licence": "verified"
+  },
+  "gbr": {
+   "observed": {
+    "revenue": 0.4034356716162181,
+    "expenditure": 0.46449234866684547,
+    "net_lending": -0.06105667705062741,
+    "taxes_and_contributions": 0.3677429452806959,
+    "sales": 0.024340254608259115,
+    "dividends_D42": 0.0019888333262243325,
+    "interest_paid": 0.031358645713670176,
+    "subsidies": 0.021026978296341228,
+    "other_current_transfers_paid": 0.014845762396952624,
+    "capital_transfers_paid": 0.02731627510531563,
+    "other_current_transfers_received": 0.0016472398159949626,
+    "capital_transfers_received_ex_capital_taxes": 0.0013956534846514264,
+    "property_income_ex_dividends": 0.006320745100392345,
+    "consumption_of_fixed_capital": 0.020209684194088733,
+    "customs_kept_by_national_government": 0.0019131900000000002,
+    "taxes_draft1_inputs": 0.34965313000000003
+   },
+   "targets": {
+    "tariff_revenue": 0.0019131900000000002,
+    "dividends_and_bank_profit": 0.0019888333262243325,
+    "spend_administration": 0.16899516563851238,
+    "spend_social": 0.18313063041895622,
+    "spend_military": 0.021933556628251555,
+    "spend_infrastructure": 0.02537045725815722,
+    "net_lending": -0.06105667705062741,
+    "net_other_folded_into_social": 0.05440373677996961,
+    "customs_inside_taxes": 0.0019131900000000002,
+    "tax_scale_to_national_accounts": 1.0517364603048052
+   },
+   "identity_check": 3.469446951953614e-17,
+   "draft1_administration_P3_basis": 0.1892048498326011,
+   "sources": [
+    "oecd_uk_government_accounts",
+    "oecd_uk_defence",
+    "oecd_customs",
+    "oecd_gdp"
+   ],
+   "euro_customs_union": false,
+   "licence": "verified"
+  },
+  "tur": {
+   "observed": {
+    "revenue": 0.29664480761667394,
+    "expenditure": 0.3449558269936514,
+    "net_lending": -0.048311019376977446,
+    "taxes_and_contributions": 0.23216833999999995,
+    "sales": 0.0,
+    "dividends_D42": 0.0,
+    "interest_paid": 0.03867639074928106,
+    "subsidies": 0.020086115281692643,
+    "other_current_transfers_paid": 0.04143569665589857,
+    "capital_transfers_paid": 0.0,
+    "other_current_transfers_received": 0.0,
+    "capital_transfers_received_ex_capital_taxes": 0.0,
+    "property_income_ex_dividends": 0.0,
+    "consumption_of_fixed_capital": 0.020409926123731232,
+    "customs_kept_by_national_government": 0.005483900000000001,
+    "taxes_draft1_inputs": 0.23216833999999997
+   },
+   "targets": {
+    "tariff_revenue": 0.005483900000000001,
+    "dividends_and_bank_profit": 0.0,
+    "spend_administration": 0.10294375159348709,
+    "spend_social": 0.09516910952803666,
+    "spend_military": 0.01292920340567733,
+    "spend_infrastructure": 0.030760904100495298,
+    "net_lending": -0.048311019376977446,
+    "net_other_folded_into_social": -0.002117078589942395,
+    "customs_inside_taxes": 0.005483900000000001,
+    "tax_scale_to_national_accounts": 0.9999999999999999
+   },
+   "identity_check": -6.938893903907228e-17,
+   "draft1_administration_P3_basis": 0.10294375159348709,
+   "sources": [
+    "tr_sayistay_government",
+    "oecd_revenue",
+    "oecd_customs",
+    "oecd_gdp"
+   ],
+   "euro_customs_union": false,
+   "licence": "NOT VERIFIED (Court of Accounts report): review-only, not distributable"
+  }
+ },
+ "issues": [
+  {
+   "country": "ita",
+   "item": "D2121 S13",
+   "text": "customs duties kept by national government not published for IT; taken as 0 (EU member: duties are EU revenue)"
+  },
+  {
+   "country": "esp",
+   "item": "D42REC",
+   "text": "D42REC not published for ES; taken as 0.0"
+  },
+  {
+   "country": "nld",
+   "item": "D2121 S13",
+   "text": "customs duties kept by national government not published for NL; taken as 0 (EU member: duties are EU revenue)"
+  },
+  {
+   "country": "aut",
+   "item": "D42REC",
+   "text": "D42REC not published for AT; taken as 0.0"
+  },
+  {
+   "country": "cze",
+   "item": "D2121 S13",
+   "text": "customs duties kept by national government not published for CZ; taken as 0 (EU member: duties are EU revenue)"
+  },
+  {
+   "country": "bgr",
+   "item": "D2121 S13",
+   "text": "customs duties kept by national government not published for BG; taken as 0 (EU member: duties are EU revenue)"
+  },
+  {
+   "country": "tur",
+   "item": "all spending lines",
+   "text": "GFS concepts from the Court of Accounts report (licence not verified): review-only, not distributable. Defence is not split by type, so administration keeps all personnel and goods-and-services spending and the defence total is taken out of it; other revenue (non-tax) is folded with the other expense. TurkStat \"Government Accounts 2023\" (verified licence) reports a 4.8% deficit, consistent with this report's 4.83%, but its tables need an authenticated TurkStat portal."
+  },
+  {
+   "country": "che",
+   "item": "starting debt",
+   "text": "No Eurostat or national consolidated figure in the pipeline; OECD non-consolidated debt instruments give 26.0% of GDP (estimate). Consolidated (Maastricht) debt may be somewhat lower."
+  }
+ ]
+}
