@@ -1,0 +1,30 @@
+{
+ "attribution": "Source: Eurostat",
+ "dataset": "gov_10dd_edpt1",
+ "flags": {},
+ "id": "es_debt",
+ "key": "geo",
+ "licence": "Eurostat copyright notice: reuse authorised, commercial or not, provided the source is acknowledged (UK data excluded from commercial reuse; none is taken from Eurostat)",
+ "licence_status": "verified (primary)",
+ "notes": [],
+ "publisher": "eurostat",
+ "publisher_updated": "2026-10-21T11:00:00+0200",
+ "query": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/gov_10dd_edpt1?time=2023&unit=PC_GDP&sector=S13&na_item=GD&geo=FR&geo=DE&geo=IT&geo=PL&geo=IE&geo=ES&geo=NL&geo=BE&geo=CH&geo=AT&geo=CZ&geo=NO&geo=EL&geo=BG",
+ "reference_year": 2023,
+ "retrieved": "2026-11-22",
+ "title": "Government deficit and debt (EDP), gross debt, % of GDP",
+ "values": {
+  "AT": 77.4,
+  "BE": 102.3,
+  "BG": 22.8,
+  "CZ": 42.2,
+  "DE": 61.8,
+  "EL": 164.0,
+  "ES": 105.3,
+  "FR": 109.5,
+  "IE": 42.1,
+  "IT": 134.0,
+  "NL": 45.9,
+  "PL": 49.5
+ }
+}

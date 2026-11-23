@@ -1,0 +1,95 @@
+{
+ "scenario": "europe-2023",
+ "results": [
+  {
+   "check": "G1",
+   "result": "pass",
+   "detail": "61 zones: {'province': 46, 'neighbour': 10, 'bloc': 5}; region/country id overlap: []"
+  },
+  {
+   "check": "G2",
+   "result": "pass",
+   "detail": "all checks passed"
+  },
+  {
+   "check": "G3",
+   "result": "pass",
+   "detail": "Corsica land links []; maritime links ['bloc-ame-all', 'bloc-apa-all', 'bloc-eec-all', 'bloc-eur-all', 'bloc-mea-all', 'fra-se', 'ita-cen', 'ita-sar']"
+  },
+  {
+   "check": "G4",
+   "result": "pass",
+   "detail": "132 land, 180 maritime; overlap []"
+  },
+  {
+   "check": "G5",
+   "result": "pass",
+   "detail": "74 movement links, all land links between playable provinces; islands without movement links: ['fra-cor', 'gbr-nir', 'ita-sar', 'ita-sic']"
+  },
+  {
+   "check": "G6",
+   "result": "pass",
+   "detail": "whole graph connected: True; countries not connected internally: []"
+  },
+  {
+   "check": "G7",
+   "result": "pass",
+   "detail": "curated WORLD-02 neighbour borders missing from geometry: []; borders found by geometry beyond the curated list: ['aut-all/deu-bw', 'che-all/fra-cen', 'che-all/ita-ne']"
+  },
+  {
+   "check": "D1",
+   "result": "pass",
+   "detail": "playable mandatory fiscal inputs unavailable: []"
+  },
+  {
+   "check": "D2",
+   "result": "pass",
+   "detail": "28 sources cited; unknown []; values without source []; snapshots without licence []"
+  },
+  {
+   "check": "D3",
+   "result": "warn",
+   "detail": "snapshots with a licence that is not verified for commercial reuse: {'tr_sayistay_government': 'NOT VERIFIED: official public report without published reuse terms (licensing risk W3-L1)'}"
+  },
+  {
+   "check": "D4",
+   "result": "pass",
+   "detail": "zones with invalid inputs: []"
+  },
+  {
+   "check": "C1",
+   "result": "pass",
+   "detail": "worst zone output share error 0.92%; outside ±3%: []"
+  },
+  {
+   "check": "C2",
+   "result": "pass",
+   "detail": "worst country GDP share error 0.52%; outside ±3%: []"
+  },
+  {
+   "check": "C3",
+   "result": "fail",
+   "detail": "112 tax/spending ratios; outside ±1 pp: ['fra.taxIncome -5.2', 'bel.taxIncome -7.9', 'aut.taxIncome -6.9']"
+  },
+  {
+   "check": "C4",
+   "result": "fail",
+   "detail": "15 debt ratios; outside ±1 pp: ['fra +163', 'deu +41', 'gbr +114', 'ita +284', 'pol +43', 'tur +9', 'irl +7', 'esp +115', 'nld +9', 'bel +145', 'aut +67', 'cze +31', 'nor +3', 'grc +767', 'bgr +14']"
+  },
+  {
+   "check": "M1",
+   "result": "pass",
+   "detail": "draft: ['deu', 'fra', 'gbr', 'ita', 'pol']; unresolved (no value inserted): ['tur']"
+  },
+  {
+   "check": "P1",
+   "result": "pass",
+   "detail": "files 5; hash mismatches []; fingerprint 93dbb62966f95293"
+  }
+ ],
+ "summary": {
+  "pass": 14,
+  "warn": 1,
+  "fail": 2
+ }
+}

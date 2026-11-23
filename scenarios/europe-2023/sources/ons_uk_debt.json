@@ -1,0 +1,19 @@
+{
+ "attribution": "Source: Office for National Statistics licensed under the Open Government Licence v.3.0",
+ "dataset": "Time series YEQJ (dataset EDP)",
+ "id": "ons_uk_debt",
+ "licence": "Open Government Licence v3.0",
+ "licence_status": "verified (primary)",
+ "notes": [
+  "Calendar year 2023, Maastricht (ESA 2010) definition."
+ ],
+ "publisher": "ons",
+ "publisher_updated": "2026-09-21T23:00:00.000Z",
+ "query": "https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicspending/timeseries/yeqj/edp/data",
+ "reference_year": 2023,
+ "retrieved": "2026-11-22",
+ "title": "GG Gross consolidated debt as a percentage of GDP (Maastricht ESA 10)",
+ "values": {
+  "GBR|gross_consolidated_debt_pct_GDP": 98.8
+ }
+}

@@ -1,0 +1,3 @@
+# Large intermediates: the versioned package holds the authoritative copies; regenerate with calibrate.ts.
+week1.economy.json
+world-spec.json

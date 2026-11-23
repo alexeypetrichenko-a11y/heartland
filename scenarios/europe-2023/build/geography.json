@@ -1,0 +1,3647 @@
+{
+ "zones": [
+  {
+   "id": "aut-all",
+   "kind": "neighbour",
+   "coastal": false,
+   "coast_vertices": 0,
+   "centroid_lon_lat": [
+    14.009,
+    47.575
+   ]
+  },
+  {
+   "id": "bel-all",
+   "kind": "neighbour",
+   "coastal": true,
+   "coast_vertices": 26,
+   "centroid_lon_lat": [
+    4.732,
+    50.604
+   ]
+  },
+  {
+   "id": "bgr-all",
+   "kind": "neighbour",
+   "coastal": true,
+   "coast_vertices": 172,
+   "centroid_lon_lat": [
+    25.2,
+    42.715
+   ]
+  },
+  {
+   "id": "bloc-ame-all",
+   "kind": "bloc",
+   "coastal": true,
+   "coast_vertices": 149271,
+   "centroid_lon_lat": [
+    -82.759,
+    20.609
+   ]
+  },
+  {
+   "id": "bloc-apa-all",
+   "kind": "bloc",
+   "coastal": true,
+   "coast_vertices": 95150,
+   "centroid_lon_lat": [
+    106.89,
+    16.445
+   ]
+  },
+  {
+   "id": "bloc-eec-all",
+   "kind": "bloc",
+   "coastal": true,
+   "coast_vertices": 33287,
+   "centroid_lon_lat": [
+    70.397,
+    55.004
+   ]
+  },
+  {
+   "id": "bloc-eur-all",
+   "kind": "bloc",
+   "coastal": true,
+   "coast_vertices": 36864,
+   "centroid_lon_lat": [
+    6.055,
+    53.679
+   ]
+  },
+  {
+   "id": "bloc-mea-all",
+   "kind": "bloc",
+   "coastal": true,
+   "coast_vertices": 24001,
+   "centroid_lon_lat": [
+    21.111,
+    6.279
+   ]
+  },
+  {
+   "id": "che-all",
+   "kind": "neighbour",
+   "coastal": false,
+   "coast_vertices": 0,
+   "centroid_lon_lat": [
+    8.104,
+    46.978
+   ]
+  },
+  {
+   "id": "cze-all",
+   "kind": "neighbour",
+   "coastal": false,
+   "coast_vertices": 0,
+   "centroid_lon_lat": [
+    15.332,
+    49.813
+   ]
+  },
+  {
+   "id": "deu-bw",
+   "kind": "province",
+   "coastal": false,
+   "coast_vertices": 0,
+   "centroid_lon_lat": [
+    9.433,
+    48.839
+   ]
+  },
+  {
+   "id": "deu-by",
+   "kind": "province",
+   "coastal": false,
+   "coast_vertices": 0,
+   "centroid_lon_lat": [
+    10.675,
+    49.228
+   ]
+  },
+  {
+   "id": "deu-mit",
+   "kind": "province",
+   "coastal": false,
+   "coast_vertices": 0,
+   "centroid_lon_lat": [
+    8.44,
+    50.374
+   ]
+  },
+  {
+   "id": "deu-mo",
+   "kind": "province",
+   "coastal": false,
+   "coast_vertices": 0,
+   "centroid_lon_lat": [
+    11.663,
+    51.269
+   ]
+  },
+  {
+   "id": "deu-no",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 717,
+   "centroid_lon_lat": [
+    12.886,
+    53.242
+   ]
+  },
+  {
+   "id": "deu-nor",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 674,
+   "centroid_lon_lat": [
+    9.468,
+    53.038
+   ]
+  },
+  {
+   "id": "deu-nrw",
+   "kind": "province",
+   "coastal": false,
+   "coast_vertices": 0,
+   "centroid_lon_lat": [
+    7.941,
+    51.45
+   ]
+  },
+  {
+   "id": "esp-all",
+   "kind": "neighbour",
+   "coastal": true,
+   "coast_vertices": 2102,
+   "centroid_lon_lat": [
+    -3.638,
+    40.488
+   ]
+  },
+  {
+   "id": "fra-ara",
+   "kind": "province",
+   "coastal": false,
+   "coast_vertices": 0,
+   "centroid_lon_lat": [
+    4.542,
+    45.515
+   ]
+  },
+  {
+   "id": "fra-cen",
+   "kind": "province",
+   "coastal": false,
+   "coast_vertices": 0,
+   "centroid_lon_lat": [
+    3.5,
+    47.348
+   ]
+  },
+  {
+   "id": "fra-cor",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 403,
+   "centroid_lon_lat": [
+    9.014,
+    42.099
+   ]
+  },
+  {
+   "id": "fra-idf",
+   "kind": "province",
+   "coastal": false,
+   "coast_vertices": 0,
+   "centroid_lon_lat": [
+    2.422,
+    48.729
+   ]
+  },
+  {
+   "id": "fra-naq",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 275,
+   "centroid_lon_lat": [
+    0.306,
+    45.299
+   ]
+  },
+  {
+   "id": "fra-ne",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 66,
+   "centroid_lon_lat": [
+    4.676,
+    49.146
+   ]
+  },
+  {
+   "id": "fra-occ",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 58,
+   "centroid_lon_lat": [
+    2.082,
+    43.669
+   ]
+  },
+  {
+   "id": "fra-oue",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 1310,
+   "centroid_lon_lat": [
+    -1.475,
+    48.166
+   ]
+  },
+  {
+   "id": "fra-se",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 303,
+   "centroid_lon_lat": [
+    5.937,
+    43.985
+   ]
+  },
+  {
+   "id": "gbr-lon",
+   "kind": "province",
+   "coastal": false,
+   "coast_vertices": 0,
+   "centroid_lon_lat": [
+    -0.106,
+    51.5
+   ]
+  },
+  {
+   "id": "gbr-mid",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 42,
+   "centroid_lon_lat": [
+    -1.734,
+    52.653
+   ]
+  },
+  {
+   "id": "gbr-nir",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 244,
+   "centroid_lon_lat": [
+    -6.53,
+    54.63
+   ]
+  },
+  {
+   "id": "gbr-nth",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 429,
+   "centroid_lon_lat": [
+    -1.883,
+    54.098
+   ]
+  },
+  {
+   "id": "gbr-sco",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 4526,
+   "centroid_lon_lat": [
+    -4.332,
+    57.172
+   ]
+  },
+  {
+   "id": "gbr-se",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 429,
+   "centroid_lon_lat": [
+    -0.191,
+    51.663
+   ]
+  },
+  {
+   "id": "gbr-sw",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 515,
+   "centroid_lon_lat": [
+    -3.153,
+    50.988
+   ]
+  },
+  {
+   "id": "gbr-wls",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 575,
+   "centroid_lon_lat": [
+    -3.736,
+    52.278
+   ]
+  },
+  {
+   "id": "grc-all",
+   "kind": "neighbour",
+   "coastal": true,
+   "coast_vertices": 5456,
+   "centroid_lon_lat": [
+    23.633,
+    38.38
+   ]
+  },
+  {
+   "id": "irl-all",
+   "kind": "neighbour",
+   "coastal": true,
+   "coast_vertices": 2134,
+   "centroid_lon_lat": [
+    -8.054,
+    53.223
+   ]
+  },
+  {
+   "id": "ita-cen",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 341,
+   "centroid_lon_lat": [
+    12.13,
+    42.984
+   ]
+  },
+  {
+   "id": "ita-ne",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 323,
+   "centroid_lon_lat": [
+    11.695,
+    45.366
+   ]
+  },
+  {
+   "id": "ita-no",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 131,
+   "centroid_lon_lat": [
+    8.952,
+    45.214
+   ]
+  },
+  {
+   "id": "ita-sar",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 692,
+   "centroid_lon_lat": [
+    9.008,
+    40.098
+   ]
+  },
+  {
+   "id": "ita-sic",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 511,
+   "centroid_lon_lat": [
+    14.174,
+    37.573
+   ]
+  },
+  {
+   "id": "ita-sud",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 566,
+   "centroid_lon_lat": [
+    15.383,
+    40.852
+   ]
+  },
+  {
+   "id": "nld-all",
+   "kind": "neighbour",
+   "coastal": true,
+   "coast_vertices": 432,
+   "centroid_lon_lat": [
+    3.663,
+    51.209
+   ]
+  },
+  {
+   "id": "nor-all",
+   "kind": "neighbour",
+   "coastal": true,
+   "coast_vertices": 15204,
+   "centroid_lon_lat": [
+    14.047,
+    67.038
+   ]
+  },
+  {
+   "id": "pol-cen",
+   "kind": "province",
+   "coastal": false,
+   "coast_vertices": 0,
+   "centroid_lon_lat": [
+    20.231,
+    51.098
+   ]
+  },
+  {
+   "id": "pol-maz",
+   "kind": "province",
+   "coastal": false,
+   "coast_vertices": 0,
+   "centroid_lon_lat": [
+    21.229,
+    52.211
+   ]
+  },
+  {
+   "id": "pol-pdz",
+   "kind": "province",
+   "coastal": false,
+   "coast_vertices": 0,
+   "centroid_lon_lat": [
+    16.719,
+    50.68
+   ]
+  },
+  {
+   "id": "pol-pn",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 82,
+   "centroid_lon_lat": [
+    19.031,
+    53.744
+   ]
+  },
+  {
+   "id": "pol-pol",
+   "kind": "province",
+   "coastal": false,
+   "coast_vertices": 0,
+   "centroid_lon_lat": [
+    19.788,
+    49.889
+   ]
+  },
+  {
+   "id": "pol-pza",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 156,
+   "centroid_lon_lat": [
+    15.922,
+    52.883
+   ]
+  },
+  {
+   "id": "pol-wsc",
+   "kind": "province",
+   "coastal": false,
+   "coast_vertices": 0,
+   "centroid_lon_lat": [
+    22.817,
+    51.434
+   ]
+  },
+  {
+   "id": "tur-akd",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 471,
+   "centroid_lon_lat": [
+    33.515,
+    36.877
+   ]
+  },
+  {
+   "id": "tur-ban",
+   "kind": "province",
+   "coastal": false,
+   "coast_vertices": 0,
+   "centroid_lon_lat": [
+    32.751,
+    38.476
+   ]
+  },
+  {
+   "id": "tur-dog",
+   "kind": "province",
+   "coastal": false,
+   "coast_vertices": 0,
+   "centroid_lon_lat": [
+    41.629,
+    39.206
+   ]
+  },
+  {
+   "id": "tur-ege",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 1099,
+   "centroid_lon_lat": [
+    28.12,
+    37.768
+   ]
+  },
+  {
+   "id": "tur-gda",
+   "kind": "province",
+   "coastal": false,
+   "coast_vertices": 0,
+   "centroid_lon_lat": [
+    39.605,
+    37.557
+   ]
+  },
+  {
+   "id": "tur-ist",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 124,
+   "centroid_lon_lat": [
+    28.932,
+    41.086
+   ]
+  },
+  {
+   "id": "tur-kar",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 375,
+   "centroid_lon_lat": [
+    36.489,
+    41.005
+   ]
+  },
+  {
+   "id": "tur-mar",
+   "kind": "province",
+   "coastal": true,
+   "coast_vertices": 659,
+   "centroid_lon_lat": [
+    28.35,
+    40.502
+   ]
+  },
+  {
+   "id": "tur-oan",
+   "kind": "province",
+   "coastal": false,
+   "coast_vertices": 0,
+   "centroid_lon_lat": [
+    35.471,
+    39.131
+   ]
+  }
+ ],
+ "land": [
+  {
+   "a": "aut-all",
+   "b": "bloc-eur-all",
+   "shared_vertices": 369,
+   "distance": 0.8,
+   "great_circle_km": 880
+  },
+  {
+   "a": "aut-all",
+   "b": "che-all",
+   "shared_vertices": 62,
+   "distance": 0.8,
+   "great_circle_km": 450
+  },
+  {
+   "a": "aut-all",
+   "b": "cze-all",
+   "shared_vertices": 168,
+   "distance": 0.8,
+   "great_circle_km": 267
+  },
+  {
+   "a": "aut-all",
+   "b": "deu-bw",
+   "shared_vertices": 3,
+   "distance": 0.8,
+   "great_circle_km": 367
+  },
+  {
+   "a": "aut-all",
+   "b": "deu-by",
+   "shared_vertices": 356,
+   "distance": 0.8,
+   "great_circle_km": 307
+  },
+  {
+   "a": "aut-all",
+   "b": "ita-ne",
+   "shared_vertices": 153,
+   "distance": 0.8,
+   "great_circle_km": 303
+  },
+  {
+   "a": "bel-all",
+   "b": "bloc-eur-all",
+   "shared_vertices": 101,
+   "distance": 0.8,
+   "great_circle_km": 354
+  },
+  {
+   "a": "bel-all",
+   "b": "deu-mit",
+   "shared_vertices": 32,
+   "distance": 0.8,
+   "great_circle_km": 264
+  },
+  {
+   "a": "bel-all",
+   "b": "deu-nrw",
+   "shared_vertices": 56,
+   "distance": 0.8,
+   "great_circle_km": 243
+  },
+  {
+   "a": "bel-all",
+   "b": "fra-ne",
+   "shared_vertices": 249,
+   "distance": 0.8,
+   "great_circle_km": 162
+  },
+  {
+   "a": "bel-all",
+   "b": "nld-all",
+   "shared_vertices": 186,
+   "distance": 0.8,
+   "great_circle_km": 101
+  },
+  {
+   "a": "bgr-all",
+   "b": "bloc-eur-all",
+   "shared_vertices": 377,
+   "distance": 0.8,
+   "great_circle_km": 1860
+  },
+  {
+   "a": "bgr-all",
+   "b": "grc-all",
+   "shared_vertices": 215,
+   "distance": 0.8,
+   "great_circle_km": 500
+  },
+  {
+   "a": "bgr-all",
+   "b": "tur-mar",
+   "shared_vertices": 114,
+   "distance": 0.8,
+   "great_circle_km": 359
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "bloc-eec-all",
+   "shared_vertices": 3510,
+   "distance": 0.8,
+   "great_circle_km": 5294
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "bloc-mea-all",
+   "shared_vertices": 417,
+   "distance": 0.8,
+   "great_circle_km": 9362
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "bloc-eur-all",
+   "shared_vertices": 1361,
+   "distance": 0.8,
+   "great_circle_km": 4024
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "bloc-mea-all",
+   "shared_vertices": 547,
+   "distance": 0.8,
+   "great_circle_km": 6952
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "nor-all",
+   "shared_vertices": 66,
+   "distance": 0.8,
+   "great_circle_km": 3176
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "pol-pn",
+   "shared_vertices": 15,
+   "distance": 0.8,
+   "great_circle_km": 3254
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "pol-wsc",
+   "shared_vertices": 308,
+   "distance": 0.8,
+   "great_circle_km": 3130
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "tur-dog",
+   "shared_vertices": 156,
+   "distance": 0.8,
+   "great_circle_km": 2764
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "tur-kar",
+   "shared_vertices": 34,
+   "distance": 0.8,
+   "great_circle_km": 2921
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "che-all",
+   "shared_vertices": 19,
+   "distance": 0.8,
+   "great_circle_km": 759
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "cze-all",
+   "shared_vertices": 72,
+   "distance": 0.8,
+   "great_circle_km": 769
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "deu-mit",
+   "shared_vertices": 73,
+   "distance": 0.8,
+   "great_circle_km": 402
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "deu-nor",
+   "shared_vertices": 23,
+   "distance": 0.8,
+   "great_circle_km": 237
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "esp-all",
+   "shared_vertices": 515,
+   "distance": 0.8,
+   "great_circle_km": 1637
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "fra-ne",
+   "shared_vertices": 25,
+   "distance": 0.8,
+   "great_circle_km": 513
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "fra-occ",
+   "shared_vertices": 19,
+   "distance": 0.8,
+   "great_circle_km": 1150
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "fra-se",
+   "shared_vertices": 7,
+   "distance": 0.8,
+   "great_circle_km": 1078
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "grc-all",
+   "shared_vertices": 240,
+   "distance": 0.8,
+   "great_circle_km": 2164
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "ita-cen",
+   "shared_vertices": 17,
+   "distance": 0.8,
+   "great_circle_km": 1270
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "ita-ne",
+   "shared_vertices": 110,
+   "distance": 0.8,
+   "great_circle_km": 1009
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "nor-all",
+   "shared_vertices": 415,
+   "distance": 0.8,
+   "great_circle_km": 1546
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "pol-pn",
+   "shared_vertices": 3,
+   "distance": 0.8,
+   "great_circle_km": 853
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "pol-pol",
+   "shared_vertices": 170,
+   "distance": 0.8,
+   "great_circle_km": 1032
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "pol-wsc",
+   "shared_vertices": 95,
+   "distance": 0.8,
+   "great_circle_km": 1157
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "esp-all",
+   "shared_vertices": 10,
+   "distance": 0.8,
+   "great_circle_km": 4531
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "tur-akd",
+   "shared_vertices": 89,
+   "distance": 0.8,
+   "great_circle_km": 3628
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "tur-dog",
+   "shared_vertices": 270,
+   "distance": 0.8,
+   "great_circle_km": 4200
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "tur-gda",
+   "shared_vertices": 131,
+   "distance": 0.8,
+   "great_circle_km": 3949
+  },
+  {
+   "a": "che-all",
+   "b": "deu-bw",
+   "shared_vertices": 145,
+   "distance": 0.8,
+   "great_circle_km": 229
+  },
+  {
+   "a": "che-all",
+   "b": "fra-ara",
+   "shared_vertices": 96,
+   "distance": 0.8,
+   "great_circle_km": 318
+  },
+  {
+   "a": "che-all",
+   "b": "fra-cen",
+   "shared_vertices": 96,
+   "distance": 0.8,
+   "great_circle_km": 350
+  },
+  {
+   "a": "che-all",
+   "b": "fra-ne",
+   "shared_vertices": 53,
+   "distance": 0.8,
+   "great_circle_km": 351
+  },
+  {
+   "a": "che-all",
+   "b": "ita-ne",
+   "shared_vertices": 24,
+   "distance": 0.8,
+   "great_circle_km": 330
+  },
+  {
+   "a": "che-all",
+   "b": "ita-no",
+   "shared_vertices": 270,
+   "distance": 0.8,
+   "great_circle_km": 207
+  },
+  {
+   "a": "cze-all",
+   "b": "deu-by",
+   "shared_vertices": 133,
+   "distance": 0.8,
+   "great_circle_km": 342
+  },
+  {
+   "a": "cze-all",
+   "b": "deu-mo",
+   "shared_vertices": 206,
+   "distance": 0.8,
+   "great_circle_km": 306
+  },
+  {
+   "a": "cze-all",
+   "b": "pol-pdz",
+   "shared_vertices": 296,
+   "distance": 0.8,
+   "great_circle_km": 138
+  },
+  {
+   "a": "cze-all",
+   "b": "pol-pol",
+   "shared_vertices": 55,
+   "distance": 0.8,
+   "great_circle_km": 320
+  },
+  {
+   "a": "deu-bw",
+   "b": "deu-by",
+   "shared_vertices": 748,
+   "distance": 0.8,
+   "great_circle_km": 100
+  },
+  {
+   "a": "deu-bw",
+   "b": "deu-mit",
+   "shared_vertices": 194,
+   "distance": 0.8,
+   "great_circle_km": 185
+  },
+  {
+   "a": "deu-bw",
+   "b": "fra-ne",
+   "shared_vertices": 101,
+   "distance": 0.8,
+   "great_circle_km": 349
+  },
+  {
+   "a": "deu-by",
+   "b": "deu-mit",
+   "shared_vertices": 254,
+   "distance": 0.8,
+   "great_circle_km": 205
+  },
+  {
+   "a": "deu-by",
+   "b": "deu-mo",
+   "shared_vertices": 405,
+   "distance": 0.8,
+   "great_circle_km": 238
+  },
+  {
+   "a": "deu-mit",
+   "b": "deu-mo",
+   "shared_vertices": 313,
+   "distance": 0.8,
+   "great_circle_km": 247
+  },
+  {
+   "a": "deu-mit",
+   "b": "deu-nor",
+   "shared_vertices": 199,
+   "distance": 0.8,
+   "great_circle_km": 305
+  },
+  {
+   "a": "deu-mit",
+   "b": "deu-nrw",
+   "shared_vertices": 572,
+   "distance": 0.8,
+   "great_circle_km": 125
+  },
+  {
+   "a": "deu-mit",
+   "b": "fra-ne",
+   "shared_vertices": 115,
+   "distance": 0.8,
+   "great_circle_km": 303
+  },
+  {
+   "a": "deu-mo",
+   "b": "deu-no",
+   "shared_vertices": 384,
+   "distance": 0.8,
+   "great_circle_km": 235
+  },
+  {
+   "a": "deu-mo",
+   "b": "deu-nor",
+   "shared_vertices": 461,
+   "distance": 0.8,
+   "great_circle_km": 247
+  },
+  {
+   "a": "deu-mo",
+   "b": "pol-pdz",
+   "shared_vertices": 27,
+   "distance": 0.8,
+   "great_circle_km": 360
+  },
+  {
+   "a": "deu-mo",
+   "b": "pol-pza",
+   "shared_vertices": 14,
+   "distance": 0.8,
+   "great_circle_km": 342
+  },
+  {
+   "a": "deu-no",
+   "b": "deu-nor",
+   "shared_vertices": 209,
+   "distance": 0.8,
+   "great_circle_km": 229
+  },
+  {
+   "a": "deu-no",
+   "b": "pol-pza",
+   "shared_vertices": 122,
+   "distance": 0.8,
+   "great_circle_km": 207
+  },
+  {
+   "a": "deu-nor",
+   "b": "deu-nrw",
+   "shared_vertices": 459,
+   "distance": 0.8,
+   "great_circle_km": 205
+  },
+  {
+   "a": "deu-nor",
+   "b": "nld-all",
+   "shared_vertices": 60,
+   "distance": 0.8,
+   "great_circle_km": 445
+  },
+  {
+   "a": "deu-nrw",
+   "b": "nld-all",
+   "shared_vertices": 161,
+   "distance": 0.8,
+   "great_circle_km": 298
+  },
+  {
+   "a": "esp-all",
+   "b": "fra-naq",
+   "shared_vertices": 111,
+   "distance": 0.8,
+   "great_circle_km": 624
+  },
+  {
+   "a": "esp-all",
+   "b": "fra-occ",
+   "shared_vertices": 183,
+   "distance": 0.8,
+   "great_circle_km": 590
+  },
+  {
+   "a": "fra-ara",
+   "b": "fra-cen",
+   "shared_vertices": 392,
+   "distance": 0.8,
+   "great_circle_km": 219
+  },
+  {
+   "a": "fra-ara",
+   "b": "fra-naq",
+   "shared_vertices": 167,
+   "distance": 0.8,
+   "great_circle_km": 332
+  },
+  {
+   "a": "fra-ara",
+   "b": "fra-occ",
+   "shared_vertices": 245,
+   "distance": 0.8,
+   "great_circle_km": 283
+  },
+  {
+   "a": "fra-ara",
+   "b": "fra-se",
+   "shared_vertices": 275,
+   "distance": 0.8,
+   "great_circle_km": 203
+  },
+  {
+   "a": "fra-ara",
+   "b": "ita-no",
+   "shared_vertices": 90,
+   "distance": 0.8,
+   "great_circle_km": 346
+  },
+  {
+   "a": "fra-cen",
+   "b": "fra-idf",
+   "shared_vertices": 183,
+   "distance": 0.8,
+   "great_circle_km": 173
+  },
+  {
+   "a": "fra-cen",
+   "b": "fra-naq",
+   "shared_vertices": 180,
+   "distance": 0.8,
+   "great_circle_km": 335
+  },
+  {
+   "a": "fra-cen",
+   "b": "fra-ne",
+   "shared_vertices": 331,
+   "distance": 0.8,
+   "great_circle_km": 218
+  },
+  {
+   "a": "fra-cen",
+   "b": "fra-oue",
+   "shared_vertices": 212,
+   "distance": 0.8,
+   "great_circle_km": 383
+  },
+  {
+   "a": "fra-idf",
+   "b": "fra-ne",
+   "shared_vertices": 157,
+   "distance": 0.8,
+   "great_circle_km": 171
+  },
+  {
+   "a": "fra-idf",
+   "b": "fra-oue",
+   "shared_vertices": 23,
+   "distance": 0.8,
+   "great_circle_km": 294
+  },
+  {
+   "a": "fra-naq",
+   "b": "fra-occ",
+   "shared_vertices": 392,
+   "distance": 0.8,
+   "great_circle_km": 229
+  },
+  {
+   "a": "fra-naq",
+   "b": "fra-oue",
+   "shared_vertices": 152,
+   "distance": 0.8,
+   "great_circle_km": 346
+  },
+  {
+   "a": "fra-ne",
+   "b": "fra-oue",
+   "shared_vertices": 74,
+   "distance": 0.8,
+   "great_circle_km": 465
+  },
+  {
+   "a": "fra-occ",
+   "b": "fra-se",
+   "shared_vertices": 147,
+   "distance": 0.8,
+   "great_circle_km": 311
+  },
+  {
+   "a": "fra-se",
+   "b": "ita-no",
+   "shared_vertices": 110,
+   "distance": 0.8,
+   "great_circle_km": 275
+  },
+  {
+   "a": "gbr-lon",
+   "b": "gbr-se",
+   "shared_vertices": 100,
+   "distance": 0.8,
+   "great_circle_km": 19
+  },
+  {
+   "a": "gbr-mid",
+   "b": "gbr-nth",
+   "shared_vertices": 162,
+   "distance": 0.8,
+   "great_circle_km": 161
+  },
+  {
+   "a": "gbr-mid",
+   "b": "gbr-se",
+   "shared_vertices": 128,
+   "distance": 0.8,
+   "great_circle_km": 152
+  },
+  {
+   "a": "gbr-mid",
+   "b": "gbr-sw",
+   "shared_vertices": 73,
+   "distance": 0.8,
+   "great_circle_km": 209
+  },
+  {
+   "a": "gbr-mid",
+   "b": "gbr-wls",
+   "shared_vertices": 259,
+   "distance": 0.8,
+   "great_circle_km": 142
+  },
+  {
+   "a": "gbr-nir",
+   "b": "irl-all",
+   "shared_vertices": 238,
+   "distance": 0.8,
+   "great_circle_km": 186
+  },
+  {
+   "a": "gbr-nth",
+   "b": "gbr-sco",
+   "shared_vertices": 126,
+   "distance": 0.8,
+   "great_circle_km": 375
+  },
+  {
+   "a": "gbr-nth",
+   "b": "gbr-wls",
+   "shared_vertices": 32,
+   "distance": 0.8,
+   "great_circle_km": 237
+  },
+  {
+   "a": "gbr-se",
+   "b": "gbr-sw",
+   "shared_vertices": 100,
+   "distance": 0.8,
+   "great_circle_km": 219
+  },
+  {
+   "a": "gbr-sw",
+   "b": "gbr-wls",
+   "shared_vertices": 28,
+   "distance": 0.8,
+   "great_circle_km": 149
+  },
+  {
+   "a": "grc-all",
+   "b": "tur-mar",
+   "shared_vertices": 104,
+   "distance": 0.8,
+   "great_circle_km": 469
+  },
+  {
+   "a": "ita-cen",
+   "b": "ita-ne",
+   "shared_vertices": 386,
+   "distance": 0.8,
+   "great_circle_km": 267
+  },
+  {
+   "a": "ita-cen",
+   "b": "ita-no",
+   "shared_vertices": 66,
+   "distance": 0.8,
+   "great_circle_km": 355
+  },
+  {
+   "a": "ita-cen",
+   "b": "ita-sud",
+   "shared_vertices": 371,
+   "distance": 0.8,
+   "great_circle_km": 359
+  },
+  {
+   "a": "ita-ne",
+   "b": "ita-no",
+   "shared_vertices": 497,
+   "distance": 0.8,
+   "great_circle_km": 215
+  },
+  {
+   "a": "pol-cen",
+   "b": "pol-maz",
+   "shared_vertices": 77,
+   "distance": 0.8,
+   "great_circle_km": 142
+  },
+  {
+   "a": "pol-cen",
+   "b": "pol-pdz",
+   "shared_vertices": 11,
+   "distance": 0.8,
+   "great_circle_km": 251
+  },
+  {
+   "a": "pol-cen",
+   "b": "pol-pn",
+   "shared_vertices": 10,
+   "distance": 0.8,
+   "great_circle_km": 305
+  },
+  {
+   "a": "pol-cen",
+   "b": "pol-pol",
+   "shared_vertices": 101,
+   "distance": 0.8,
+   "great_circle_km": 138
+  },
+  {
+   "a": "pol-cen",
+   "b": "pol-pza",
+   "shared_vertices": 41,
+   "distance": 0.8,
+   "great_circle_km": 355
+  },
+  {
+   "a": "pol-cen",
+   "b": "pol-wsc",
+   "shared_vertices": 47,
+   "distance": 0.8,
+   "great_circle_km": 184
+  },
+  {
+   "a": "pol-maz",
+   "b": "pol-pn",
+   "shared_vertices": 64,
+   "distance": 0.8,
+   "great_circle_km": 225
+  },
+  {
+   "a": "pol-maz",
+   "b": "pol-wsc",
+   "shared_vertices": 140,
+   "distance": 0.8,
+   "great_circle_km": 139
+  },
+  {
+   "a": "pol-pdz",
+   "b": "pol-pol",
+   "shared_vertices": 33,
+   "distance": 0.8,
+   "great_circle_km": 235
+  },
+  {
+   "a": "pol-pdz",
+   "b": "pol-pza",
+   "shared_vertices": 61,
+   "distance": 0.8,
+   "great_circle_km": 251
+  },
+  {
+   "a": "pol-pn",
+   "b": "pol-pza",
+   "shared_vertices": 99,
+   "distance": 0.8,
+   "great_circle_km": 228
+  },
+  {
+   "a": "pol-pn",
+   "b": "pol-wsc",
+   "shared_vertices": 25,
+   "distance": 0.8,
+   "great_circle_km": 362
+  },
+  {
+   "a": "pol-pol",
+   "b": "pol-wsc",
+   "shared_vertices": 26,
+   "distance": 0.8,
+   "great_circle_km": 274
+  },
+  {
+   "a": "tur-akd",
+   "b": "tur-ban",
+   "shared_vertices": 118,
+   "distance": 0.8,
+   "great_circle_km": 190
+  },
+  {
+   "a": "tur-akd",
+   "b": "tur-dog",
+   "shared_vertices": 19,
+   "distance": 0.8,
+   "great_circle_km": 756
+  },
+  {
+   "a": "tur-akd",
+   "b": "tur-ege",
+   "shared_vertices": 76,
+   "distance": 0.8,
+   "great_circle_km": 487
+  },
+  {
+   "a": "tur-akd",
+   "b": "tur-gda",
+   "shared_vertices": 37,
+   "distance": 0.8,
+   "great_circle_km": 544
+  },
+  {
+   "a": "tur-akd",
+   "b": "tur-oan",
+   "shared_vertices": 49,
+   "distance": 0.8,
+   "great_circle_km": 304
+  },
+  {
+   "a": "tur-ban",
+   "b": "tur-ege",
+   "shared_vertices": 16,
+   "distance": 0.8,
+   "great_circle_km": 413
+  },
+  {
+   "a": "tur-ban",
+   "b": "tur-kar",
+   "shared_vertices": 22,
+   "distance": 0.8,
+   "great_circle_km": 426
+  },
+  {
+   "a": "tur-ban",
+   "b": "tur-mar",
+   "shared_vertices": 95,
+   "distance": 0.8,
+   "great_circle_km": 440
+  },
+  {
+   "a": "tur-ban",
+   "b": "tur-oan",
+   "shared_vertices": 79,
+   "distance": 0.8,
+   "great_circle_km": 247
+  },
+  {
+   "a": "tur-dog",
+   "b": "tur-gda",
+   "shared_vertices": 131,
+   "distance": 0.8,
+   "great_circle_km": 254
+  },
+  {
+   "a": "tur-dog",
+   "b": "tur-kar",
+   "shared_vertices": 91,
+   "distance": 0.8,
+   "great_circle_km": 481
+  },
+  {
+   "a": "tur-dog",
+   "b": "tur-oan",
+   "shared_vertices": 70,
+   "distance": 0.8,
+   "great_circle_km": 531
+  },
+  {
+   "a": "tur-ege",
+   "b": "tur-mar",
+   "shared_vertices": 120,
+   "distance": 0.8,
+   "great_circle_km": 305
+  },
+  {
+   "a": "tur-ist",
+   "b": "tur-mar",
+   "shared_vertices": 30,
+   "distance": 0.8,
+   "great_circle_km": 81
+  },
+  {
+   "a": "tur-kar",
+   "b": "tur-mar",
+   "shared_vertices": 20,
+   "distance": 0.8,
+   "great_circle_km": 688
+  },
+  {
+   "a": "tur-kar",
+   "b": "tur-oan",
+   "shared_vertices": 103,
+   "distance": 0.8,
+   "great_circle_km": 226
+  }
+ ],
+ "maritime": [
+  {
+   "a": "bel-all",
+   "b": "bloc-ame-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 8080
+  },
+  {
+   "a": "bel-all",
+   "b": "bloc-apa-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9430
+  },
+  {
+   "a": "bel-all",
+   "b": "bloc-eec-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4276
+  },
+  {
+   "a": "bel-all",
+   "b": "bloc-mea-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 5158
+  },
+  {
+   "a": "bgr-all",
+   "b": "bloc-ame-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9837
+  },
+  {
+   "a": "bgr-all",
+   "b": "bloc-apa-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 8107
+  },
+  {
+   "a": "bgr-all",
+   "b": "bloc-eec-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 3503
+  },
+  {
+   "a": "bgr-all",
+   "b": "bloc-mea-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4071
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "bloc-apa-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to bloc (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 15762
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "bloc-eec-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to bloc (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 11230
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "bloc-eur-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to bloc (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 8099
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "bloc-mea-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to bloc (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 11190
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "deu-no",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 8549
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "deu-nor",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 8336
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "esp-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 7642
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "fra-cor",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 8630
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "fra-naq",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 7867
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "fra-ne",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 8109
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "fra-occ",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 8040
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "fra-oue",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 7683
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "fra-se",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 8333
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "gbr-mid",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 7604
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "gbr-nir",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 7274
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "gbr-nth",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 7578
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "gbr-sco",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 7403
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "gbr-se",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 7721
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "gbr-sw",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 7526
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "gbr-wls",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 7473
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "grc-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9934
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "irl-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 7177
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "ita-cen",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 8844
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "ita-ne",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 8729
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "ita-no",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 8528
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "ita-sar",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 8695
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "ita-sic",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9209
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "ita-sud",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9177
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "nld-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 7993
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "nor-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 8194
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "pol-pn",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 8915
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "pol-pza",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 8754
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "tur-akd",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 10775
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "tur-ege",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 10314
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "tur-ist",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 10195
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "tur-kar",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 10737
+  },
+  {
+   "a": "bloc-ame-all",
+   "b": "tur-mar",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 10184
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "bloc-eur-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to bloc (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9233
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "deu-no",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 8811
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "deu-nor",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9037
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "esp-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 10467
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "fra-cor",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9419
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "fra-naq",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9952
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "fra-ne",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9488
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "fra-occ",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9892
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "fra-oue",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9948
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "fra-se",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9590
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "gbr-mid",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9757
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "gbr-nir",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9943
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "gbr-nth",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9700
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "gbr-sco",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9691
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "gbr-se",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9706
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "gbr-sw",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9924
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "gbr-wls",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9898
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "grc-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 8305
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "irl-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 10106
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "ita-cen",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9146
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "ita-ne",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9110
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "ita-no",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9321
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "ita-sar",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9486
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "ita-sic",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9135
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "ita-sud",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 8944
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "nld-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 9477
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "nor-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 8450
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "pol-pn",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 8401
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "pol-pza",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 8621
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "tur-akd",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 7459
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "tur-ege",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 7925
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "tur-ist",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 7819
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "tur-kar",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 7186
+  },
+  {
+   "a": "bloc-apa-all",
+   "b": "tur-mar",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 7873
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "deu-no",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 3646
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "deu-nor",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 3859
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "esp-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 5484
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "fra-cor",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4575
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "fra-naq",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4890
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "fra-ne",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4370
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "fra-occ",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4896
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "fra-oue",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4800
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "fra-se",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4635
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "gbr-mid",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4527
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "gbr-nir",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4671
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "gbr-nth",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4449
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "gbr-sco",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4406
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "gbr-se",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4500
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "gbr-sw",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4712
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "gbr-wls",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4663
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "grc-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 3920
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "irl-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4841
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "ita-cen",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4316
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "ita-ne",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4181
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "ita-no",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4363
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "ita-sar",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4722
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "ita-sic",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4583
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "ita-sud",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4261
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "nld-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4303
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "pol-pza",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 3482
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "tur-akd",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 3430
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "tur-ege",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 3687
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "tur-ist",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 3383
+  },
+  {
+   "a": "bloc-eec-all",
+   "b": "tur-mar",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 3463
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "bloc-mea-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to bloc (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 5443
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "deu-no",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 455
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "fra-cor",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 1306
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "fra-naq",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 1019
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "fra-oue",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 808
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "gbr-mid",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 531
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "gbr-nir",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 825
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "gbr-nth",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 522
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "gbr-sco",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 761
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "gbr-se",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 477
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "gbr-sw",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 693
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "gbr-wls",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 673
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "irl-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 934
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "ita-no",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 964
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "ita-sar",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 1526
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "ita-sic",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 1896
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "ita-sud",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 1587
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "nld-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 319
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "pol-pza",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 661
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "tur-akd",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 2816
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "tur-ege",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 2443
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "tur-ist",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 2203
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "tur-kar",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 2661
+  },
+  {
+   "a": "bloc-eur-all",
+   "b": "tur-mar",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 2218
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "deu-no",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 5275
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "deu-nor",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 5306
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "fra-cor",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4158
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "fra-naq",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4781
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "fra-ne",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 5010
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "fra-occ",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4554
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "fra-oue",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 5124
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "fra-se",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4446
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "gbr-mid",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 5561
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "gbr-nir",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 5917
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "gbr-nth",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 5705
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "gbr-sco",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 6077
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "gbr-se",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 5413
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "gbr-sw",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 5454
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "gbr-wls",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 5596
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "grc-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 3579
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "irl-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 5850
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "ita-cen",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4175
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "ita-ne",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4440
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "ita-no",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4486
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "ita-sar",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 3950
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "ita-sic",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 3550
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "ita-sud",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 3886
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "nld-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 5249
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "nor-all",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 6777
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "pol-pn",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 5281
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "pol-pza",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 5204
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "tur-ege",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 3572
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "tur-ist",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 3947
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "tur-kar",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 4152
+  },
+  {
+   "a": "bloc-mea-all",
+   "b": "tur-mar",
+   "kind": "sea lane",
+   "crossing": "world market by sea",
+   "status": "rule",
+   "rule": "bloc to coastal zone (WORLD-02 PROVINCES.md §4.3)",
+   "distance": 0.8,
+   "great_circle_km": 3873
+  },
+  {
+   "a": "fra-cor",
+   "b": "fra-se",
+   "kind": "ferry",
+   "crossing": "Ajaccio/Bastia – Marseille, Toulon, Nice",
+   "status": "operating 2026 (Corsica Linea, Corsica Ferries; checked via search 2026-11)",
+   "rule": "curated (WORLD-02 sea links)",
+   "distance": 0.8,
+   "great_circle_km": 326
+  },
+  {
+   "a": "fra-cor",
+   "b": "ita-cen",
+   "kind": "ferry",
+   "crossing": "Bastia – Livorno (Tuscany)",
+   "status": "operating 2026, year-round (Corsica Ferries, Moby; checked via search 2026-11)",
+   "rule": "curated (WORLD-02 sea links)",
+   "distance": 0.8,
+   "great_circle_km": 274
+  },
+  {
+   "a": "fra-cor",
+   "b": "ita-sar",
+   "kind": "ferry",
+   "crossing": "Bonifacio – Santa Teresa Gallura (Strait of Bonifacio)",
+   "status": "operating 2026 (Moby / Ichnusa public-service route; checked via search 2026-11)",
+   "rule": "curated (WORLD-02 sea links)",
+   "distance": 0.8,
+   "great_circle_km": 222
+  },
+  {
+   "a": "fra-ne",
+   "b": "gbr-se",
+   "kind": "fixed link",
+   "crossing": "Channel Tunnel, Folkestone (Kent) – Coquelles (Pas-de-Calais)",
+   "status": "fixed infrastructure",
+   "rule": "curated (WORLD-02 sea links)",
+   "distance": 0.8,
+   "great_circle_km": 444
+  },
+  {
+   "a": "fra-oue",
+   "b": "gbr-se",
+   "kind": "ferry",
+   "crossing": "Portsmouth / Poole – Caen, Cherbourg, Le Havre, St-Malo",
+   "status": "to verify",
+   "rule": "curated (WORLD-02 sea links)",
+   "distance": 0.8,
+   "great_circle_km": 400
+  },
+  {
+   "a": "fra-oue",
+   "b": "irl-all",
+   "kind": "ferry",
+   "crossing": "Cherbourg / Roscoff – Rosslare / Cork",
+   "status": "to verify",
+   "rule": "curated (WORLD-02 sea links)",
+   "distance": 0.8,
+   "great_circle_km": 728
+  },
+  {
+   "a": "gbr-nir",
+   "b": "gbr-nth",
+   "kind": "ferry",
+   "crossing": "Belfast – Liverpool (North West England)",
+   "status": "operating 2026 (Stena Line; checked via search 2026-11)",
+   "rule": "curated (WORLD-02 sea links)",
+   "distance": 0.8,
+   "great_circle_km": 307
+  },
+  {
+   "a": "gbr-nir",
+   "b": "gbr-sco",
+   "kind": "ferry",
+   "crossing": "Belfast / Larne – Cairnryan",
+   "status": "operating 2026 (Stena Line, P&O; checked via search 2026-11)",
+   "rule": "curated (WORLD-02 sea links)",
+   "distance": 0.8,
+   "great_circle_km": 314
+  },
+  {
+   "a": "gbr-nth",
+   "b": "nld-all",
+   "kind": "ferry",
+   "crossing": "Hull – Rotterdam",
+   "status": "to verify",
+   "rule": "curated (WORLD-02 sea links)",
+   "distance": 0.8,
+   "great_circle_km": 493
+  },
+  {
+   "a": "gbr-sco",
+   "b": "nor-all",
+   "kind": "sea lane",
+   "crossing": "North Sea energy and shipping (no passenger ferry assumed)",
+   "status": "to verify",
+   "rule": "curated (WORLD-02 sea links)",
+   "distance": 0.8,
+   "great_circle_km": 1444
+  },
+  {
+   "a": "gbr-wls",
+   "b": "irl-all",
+   "kind": "ferry",
+   "crossing": "Holyhead / Fishguard / Pembroke – Dublin / Rosslare",
+   "status": "to verify",
+   "rule": "curated (WORLD-02 sea links)",
+   "distance": 0.8,
+   "great_circle_km": 309
+  },
+  {
+   "a": "grc-all",
+   "b": "ita-sud",
+   "kind": "ferry",
+   "crossing": "Bari / Brindisi – Patras / Igoumenitsa",
+   "status": "to verify",
+   "rule": "curated (WORLD-02 sea links)",
+   "distance": 0.8,
+   "great_circle_km": 758
+  },
+  {
+   "a": "grc-all",
+   "b": "tur-ege",
+   "kind": "ferry",
+   "crossing": "Aegean coastal crossings (e.g. Çeşme – Chios)",
+   "status": "to verify",
+   "rule": "curated (WORLD-02 sea links)",
+   "distance": 0.8,
+   "great_circle_km": 399
+  },
+  {
+   "a": "ita-cen",
+   "b": "ita-sar",
+   "kind": "ferry",
+   "crossing": "Olbia / Cagliari – Civitavecchia, Livorno",
+   "status": "to verify",
+   "rule": "curated (WORLD-02 sea links)",
+   "distance": 0.8,
+   "great_circle_km": 413
+  },
+  {
+   "a": "ita-no",
+   "b": "ita-sar",
+   "kind": "ferry",
+   "crossing": "Olbia / Porto Torres – Genoa",
+   "status": "to verify",
+   "rule": "curated (WORLD-02 sea links)",
+   "distance": 0.8,
+   "great_circle_km": 569
+  },
+  {
+   "a": "ita-sic",
+   "b": "ita-sud",
+   "kind": "ferry",
+   "crossing": "Messina – Villa San Giovanni (Strait of Messina)",
+   "status": "to verify",
+   "rule": "curated (WORLD-02 sea links)",
+   "distance": 0.8,
+   "great_circle_km": 379
+  }
+ ],
+ "movement": [
+  {
+   "a": "deu-bw",
+   "b": "deu-by"
+  },
+  {
+   "a": "deu-bw",
+   "b": "deu-mit"
+  },
+  {
+   "a": "deu-bw",
+   "b": "fra-ne"
+  },
+  {
+   "a": "deu-by",
+   "b": "deu-mit"
+  },
+  {
+   "a": "deu-by",
+   "b": "deu-mo"
+  },
+  {
+   "a": "deu-mit",
+   "b": "deu-mo"
+  },
+  {
+   "a": "deu-mit",
+   "b": "deu-nor"
+  },
+  {
+   "a": "deu-mit",
+   "b": "deu-nrw"
+  },
+  {
+   "a": "deu-mit",
+   "b": "fra-ne"
+  },
+  {
+   "a": "deu-mo",
+   "b": "deu-no"
+  },
+  {
+   "a": "deu-mo",
+   "b": "deu-nor"
+  },
+  {
+   "a": "deu-mo",
+   "b": "pol-pdz"
+  },
+  {
+   "a": "deu-mo",
+   "b": "pol-pza"
+  },
+  {
+   "a": "deu-no",
+   "b": "deu-nor"
+  },
+  {
+   "a": "deu-no",
+   "b": "pol-pza"
+  },
+  {
+   "a": "deu-nor",
+   "b": "deu-nrw"
+  },
+  {
+   "a": "fra-ara",
+   "b": "fra-cen"
+  },
+  {
+   "a": "fra-ara",
+   "b": "fra-naq"
+  },
+  {
+   "a": "fra-ara",
+   "b": "fra-occ"
+  },
+  {
+   "a": "fra-ara",
+   "b": "fra-se"
+  },
+  {
+   "a": "fra-ara",
+   "b": "ita-no"
+  },
+  {
+   "a": "fra-cen",
+   "b": "fra-idf"
+  },
+  {
+   "a": "fra-cen",
+   "b": "fra-naq"
+  },
+  {
+   "a": "fra-cen",
+   "b": "fra-ne"
+  },
+  {
+   "a": "fra-cen",
+   "b": "fra-oue"
+  },
+  {
+   "a": "fra-idf",
+   "b": "fra-ne"
+  },
+  {
+   "a": "fra-idf",
+   "b": "fra-oue"
+  },
+  {
+   "a": "fra-naq",
+   "b": "fra-occ"
+  },
+  {
+   "a": "fra-naq",
+   "b": "fra-oue"
+  },
+  {
+   "a": "fra-ne",
+   "b": "fra-oue"
+  },
+  {
+   "a": "fra-occ",
+   "b": "fra-se"
+  },
+  {
+   "a": "fra-se",
+   "b": "ita-no"
+  },
+  {
+   "a": "gbr-lon",
+   "b": "gbr-se"
+  },
+  {
+   "a": "gbr-mid",
+   "b": "gbr-nth"
+  },
+  {
+   "a": "gbr-mid",
+   "b": "gbr-se"
+  },
+  {
+   "a": "gbr-mid",
+   "b": "gbr-sw"
+  },
+  {
+   "a": "gbr-mid",
+   "b": "gbr-wls"
+  },
+  {
+   "a": "gbr-nth",
+   "b": "gbr-sco"
+  },
+  {
+   "a": "gbr-nth",
+   "b": "gbr-wls"
+  },
+  {
+   "a": "gbr-se",
+   "b": "gbr-sw"
+  },
+  {
+   "a": "gbr-sw",
+   "b": "gbr-wls"
+  },
+  {
+   "a": "ita-cen",
+   "b": "ita-ne"
+  },
+  {
+   "a": "ita-cen",
+   "b": "ita-no"
+  },
+  {
+   "a": "ita-cen",
+   "b": "ita-sud"
+  },
+  {
+   "a": "ita-ne",
+   "b": "ita-no"
+  },
+  {
+   "a": "pol-cen",
+   "b": "pol-maz"
+  },
+  {
+   "a": "pol-cen",
+   "b": "pol-pdz"
+  },
+  {
+   "a": "pol-cen",
+   "b": "pol-pn"
+  },
+  {
+   "a": "pol-cen",
+   "b": "pol-pol"
+  },
+  {
+   "a": "pol-cen",
+   "b": "pol-pza"
+  },
+  {
+   "a": "pol-cen",
+   "b": "pol-wsc"
+  },
+  {
+   "a": "pol-maz",
+   "b": "pol-pn"
+  },
+  {
+   "a": "pol-maz",
+   "b": "pol-wsc"
+  },
+  {
+   "a": "pol-pdz",
+   "b": "pol-pol"
+  },
+  {
+   "a": "pol-pdz",
+   "b": "pol-pza"
+  },
+  {
+   "a": "pol-pn",
+   "b": "pol-pza"
+  },
+  {
+   "a": "pol-pn",
+   "b": "pol-wsc"
+  },
+  {
+   "a": "pol-pol",
+   "b": "pol-wsc"
+  },
+  {
+   "a": "tur-akd",
+   "b": "tur-ban"
+  },
+  {
+   "a": "tur-akd",
+   "b": "tur-dog"
+  },
+  {
+   "a": "tur-akd",
+   "b": "tur-ege"
+  },
+  {
+   "a": "tur-akd",
+   "b": "tur-gda"
+  },
+  {
+   "a": "tur-akd",
+   "b": "tur-oan"
+  },
+  {
+   "a": "tur-ban",
+   "b": "tur-ege"
+  },
+  {
+   "a": "tur-ban",
+   "b": "tur-kar"
+  },
+  {
+   "a": "tur-ban",
+   "b": "tur-mar"
+  },
+  {
+   "a": "tur-ban",
+   "b": "tur-oan"
+  },
+  {
+   "a": "tur-dog",
+   "b": "tur-gda"
+  },
+  {
+   "a": "tur-dog",
+   "b": "tur-kar"
+  },
+  {
+   "a": "tur-dog",
+   "b": "tur-oan"
+  },
+  {
+   "a": "tur-ege",
+   "b": "tur-mar"
+  },
+  {
+   "a": "tur-ist",
+   "b": "tur-mar"
+  },
+  {
+   "a": "tur-kar",
+   "b": "tur-mar"
+  },
+  {
+   "a": "tur-kar",
+   "b": "tur-oan"
+  }
+ ],
+ "method": {
+  "vertex_rounding_degrees": 1e-05,
+  "min_shared_vertices": 2,
+  "coast_min_vertices": 20,
+  "lane_distance": 0.8,
+  "note": "Centroid = mean of boundary vertices (shape only, not population weighted). Distances are metadata; all lanes use the existing 0.8."
+ }
+}

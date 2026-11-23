@@ -1,0 +1,131 @@
+{
+ "engine": "Chromium (Playwright, headless)",
+ "results": [
+  {
+   "config": "europe-2023 1.0.0-draft.1 (calibrated scenario)",
+   "startFromSaveMs": 18.5,
+   "weekMs": {
+    "median": 22.200000000186265,
+    "p95": 54,
+    "max": 228.79999999981374,
+    "mean": 26.701923076923077
+   },
+   "cumulativeSeconds": {
+    "52": 1.660800000000745,
+    "104": 2.9780999999996274,
+    "156": 4.1655
+   },
+   "saveMs": 15.799999999813735,
+   "restoreMs": 7,
+   "week156SaveKb": 2008.5537109375,
+   "heapMb": 87.45193481445312,
+   "cpuThrottle": 1,
+   "run": 1
+  },
+  {
+   "config": "europe-2023 1.0.0-draft.1 (calibrated scenario)",
+   "startFromSaveMs": 11.299999999813735,
+   "weekMs": {
+    "median": 21.700000000186265,
+    "p95": 44.700000000186265,
+    "max": 180.29999999981374,
+    "mean": 25.448717948723917
+   },
+   "cumulativeSeconds": {
+    "52": 1.83560000000149,
+    "104": 2.9947000000011177,
+    "156": 3.9700000000009315
+   },
+   "saveMs": 15.700000000186265,
+   "restoreMs": 9.399999999441206,
+   "week156SaveKb": 2008.5537109375,
+   "heapMb": 54.168701171875,
+   "cpuThrottle": 1,
+   "run": 2
+  },
+  {
+   "config": "europe-2023 1.0.0-draft.1 (calibrated scenario)",
+   "startFromSaveMs": 71.40000000037253,
+   "weekMs": {
+    "median": 104.1000000005588,
+    "p95": 177.5,
+    "max": 679.4000000003725,
+    "mean": 116.82435897433868
+   },
+   "cumulativeSeconds": {
+    "52": 6.676299999997951,
+    "104": 12.637299999997019,
+    "156": 18.224599999996833
+   },
+   "saveMs": 79.90000000037253,
+   "restoreMs": 34.89999999944121,
+   "week156SaveKb": 2008.5537109375,
+   "heapMb": 51.021575927734375,
+   "cpuThrottle": 4,
+   "run": 1
+  },
+  {
+   "config": "europe-2023 1.0.0-draft.1 (calibrated scenario)",
+   "startFromSaveMs": 53.5,
+   "weekMs": {
+    "median": 88.29999999981374,
+    "p95": 128,
+    "max": 594.4000000003725,
+    "mean": 96.0237179487251
+   },
+   "cumulativeSeconds": {
+    "52": 6.3076000000005585,
+    "104": 10.927100000000559,
+    "156": 14.979700000001118
+   },
+   "saveMs": 59.200000000186265,
+   "restoreMs": 23.5,
+   "week156SaveKb": 2008.5537109375,
+   "heapMb": 40.149688720703125,
+   "cpuThrottle": 4,
+   "run": 2
+  },
+  {
+   "config": "europe-2023 1.0.0-draft.1 (calibrated scenario)",
+   "startFromSaveMs": 78.5,
+   "weekMs": {
+    "median": 146.59999999962747,
+    "p95": 222.20000000018626,
+    "max": 933.3999999994412,
+    "mean": 156.98141025641385
+   },
+   "cumulativeSeconds": {
+    "52": 9.380099999999628,
+    "104": 17.709799999999813,
+    "156": 24.48910000000056
+   },
+   "saveMs": 97.09999999962747,
+   "restoreMs": 36.59999999962747,
+   "week156SaveKb": 2008.5537109375,
+   "heapMb": 57.506561279296875,
+   "cpuThrottle": 6,
+   "run": 1
+  },
+  {
+   "config": "europe-2023 1.0.0-draft.1 (calibrated scenario)",
+   "startFromSaveMs": 65.79999999981374,
+   "weekMs": {
+    "median": 150,
+    "p95": 225.20000000018626,
+    "max": 949.9000000003725,
+    "mean": 159.88076923076565
+   },
+   "cumulativeSeconds": {
+    "52": 9.477,
+    "104": 16.878499999999068,
+    "156": 24.94139999999944
+   },
+   "saveMs": 100.79999999981374,
+   "restoreMs": 41.5,
+   "week156SaveKb": 2008.5537109375,
+   "heapMb": 29.754638671875,
+   "cpuThrottle": 6,
+   "run": 2
+  }
+ ]
+}

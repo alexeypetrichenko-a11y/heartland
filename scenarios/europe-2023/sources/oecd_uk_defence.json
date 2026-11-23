@@ -1,0 +1,21 @@
+{
+ "attribution": "Source: OECD",
+ "dataset": "OECD.SDD.NAD,DSD_NASEC10@DF_TABLE11",
+ "id": "oecd_uk_defence",
+ "key": "country|transaction",
+ "licence": "CC BY 4.0",
+ "licence_status": "verified (search only; oecd.org blocks automated reading)",
+ "notes": [],
+ "publisher": "oecd",
+ "publisher_updated": null,
+ "query": "https://sdmx.oecd.org/public/rest/data/OECD.SDD.NAD,DSD_NASEC10@DF_TABLE11,/A.GBR.S13._Z.D.OTE+P51G+D1+P2..GF02.XDC.S.V.N.T1100?startPeriod=2023&endPeriod=2023&dimensionAtObservation=AllDimensions",
+ "reference_year": 2023,
+ "retrieved": "2026-11-22",
+ "title": "Government expenditure by function, COFOG 02 defence, UK, pounds million",
+ "values": {
+  "GBR|D1": 16543.0,
+  "GBR|OTE": 60678.0,
+  "GBR|P2": 24209.0,
+  "GBR|P51G": 20060.0
+ }
+}

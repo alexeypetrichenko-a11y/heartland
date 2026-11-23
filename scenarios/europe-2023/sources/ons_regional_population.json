@@ -1,0 +1,31 @@
+{
+ "attribution": "Source: Office for National Statistics licensed under the Open Government Licence v.3.0",
+ "dataset": "Regional GDP: all ITL regions, Table 6 total resident population",
+ "download_sha256": "1bbe0ab22701bdf9a360d5ffee1a3f842931f8ea53e40f74ff45e0e34da60333",
+ "id": "ons_regional_population",
+ "key": "itl",
+ "licence": "Open Government Licence v3.0",
+ "licence_status": "verified (primary)",
+ "notes": [],
+ "publisher": "ons",
+ "publisher_updated": null,
+ "query": "https://www.ons.gov.uk/file?uri=/economy/grossdomesticproductgdp/datasets/regionalgrossdomesticproductallnutslevelregions/1998to2024/regionalgrossdomesticproductgdpbyallinternationalterritoriallevelitlregions.xlsx",
+ "reference_year": 2023,
+ "retrieved": "2026-11-22",
+ "title": "Total resident population, persons, ITL1 regions, 2023 (mid-year)",
+ "values": {
+  "TLC": 2724805.0,
+  "TLD": 7634293.0,
+  "TLE": 5610523.0,
+  "TLF": 5004242.0,
+  "TLG": 6105956.0,
+  "TLH": 6493348.0,
+  "TLI": 8999705.0,
+  "TLJ": 9529446.0,
+  "TLK": 5830152.0,
+  "TLL": 3167331.0,
+  "TLM": 5506000.0,
+  "TLN": 1920382.0,
+  "UK": 68526183.0
+ }
+}

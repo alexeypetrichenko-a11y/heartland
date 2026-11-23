@@ -1,0 +1,30 @@
+{
+ "attribution": "Source: T.C. Sayıştay Başkanlığı, 2023 Yılı Mali İstatistikleri Değerlendirme Raporu",
+ "dataset": "2023 Yılı Mali İstatistikleri Değerlendirme Raporu (September 2024)",
+ "download_sha256": "c517b74496e62dcc491fceee98d035b3cd7a63bae387b6ce1ad68ba82f3c5b1f",
+ "id": "tr_sayistay_government",
+ "key": "country|item",
+ "licence": "No reuse terms published on sayistay.gov.tr (checked 2026-11-22)",
+ "licence_status": "NOT VERIFIED: official public report without published reuse terms (licensing risk W3-L1)",
+ "notes": [
+  "GFS concepts (not ESA 2010). Thousand Turkish lira. Table 4 (expense), Table 11 (net acquisition of non-financial assets), functional classification table (defence services, 2023 column)."
+ ],
+ "publisher": "tr_sayistay",
+ "publisher_updated": null,
+ "query": "https://www.sayistay.gov.tr/reports/download/bmg0qm6Q0O-2023-yili-mali-istatistikleri-degerlendirme-raporu",
+ "reference_year": 2023,
+ "retrieved": "2026-11-22",
+ "title": "General government (GFS 2014) expense by economic type, net acquisition of non-financial assets, defence by function; thousand TRY",
+ "values": {
+  "TUR|defence_cofog02_total": 350271114.1,
+  "TUR|depreciation": 552934882.2,
+  "TUR|expense_total": 9064936916.14,
+  "TUR|goods_services": 1175414853.77,
+  "TUR|interest": 1047800243.53,
+  "TUR|net_nonfinancial_assets": 280423199.65,
+  "TUR|other_expense": 1122553894.14,
+  "TUR|personnel": 1963753722.06,
+  "TUR|social_benefits": 2635625755.85,
+  "TUR|subsidies": 544162370.79
+ }
+}

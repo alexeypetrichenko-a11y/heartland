@@ -1,0 +1,4291 @@
+{
+ "note": "Engine WorldSpec without its goods config; rebuild with toCatalogueSpec(createCatalogueConfig) as in economy-engine/sim/world03/calibrate.ts",
+ "spec": {
+  "seed": 2401,
+  "countries": [
+   {
+    "id": "fra",
+    "name": "France",
+    "taxIncome": 0.7,
+    "taxConsumption": 0.3476311649506065,
+    "taxCorporate": 0.05476055992598645,
+    "spendAdministration": 0.2481284741026374,
+    "spendSocial": 0.20287787864019605,
+    "spendMilitary": 0.019254921948681874,
+    "spendInfrastructure": 0.043563084314080965,
+    "debtToGdp": 1.095
+   },
+   {
+    "id": "deu",
+    "name": "Germany",
+    "taxIncome": 0.42521932375695415,
+    "taxConsumption": 0.1826761098933336,
+    "taxCorporate": 0.08311248329728807,
+    "spendAdministration": 0.2210139040987193,
+    "spendSocial": 0.17016793556927998,
+    "spendMilitary": 0.013285838030391767,
+    "spendInfrastructure": 0.02914919986904367,
+    "debtToGdp": 0.618
+   },
+   {
+    "id": "gbr",
+    "name": "United Kingdom",
+    "taxIncome": 0.3640657003654097,
+    "taxConsumption": 0.2747699039395781,
+    "taxCorporate": 0.06787625840106079,
+    "spendAdministration": 0.2065013074488107,
+    "spendSocial": 0.1416529069679707,
+    "spendMilitary": 0.023572553274576684,
+    "spendInfrastructure": 0.028191673238797888,
+    "debtToGdp": 0.988
+   },
+   {
+    "id": "ita",
+    "name": "Italy",
+    "taxIncome": 0.46568626482262515,
+    "taxConsumption": 0.2532678742197618,
+    "taxCorporate": 0.06338971411239766,
+    "spendAdministration": 0.18620437450769106,
+    "spendSocial": 0.21653466838369254,
+    "spendMilitary": 0.01281550377102771,
+    "spendInfrastructure": 0.03176588777507518,
+    "debtToGdp": 1.34
+   },
+   {
+    "id": "pol",
+    "name": "Poland",
+    "taxIncome": 0.27811534339632527,
+    "taxConsumption": 0.21655051797546476,
+    "taxCorporate": 0.09631838355842916,
+    "spendAdministration": 0.19195454601087103,
+    "spendSocial": 0.17055692751137924,
+    "spendMilitary": 0.023422661952888963,
+    "spendInfrastructure": 0.04793619359829721,
+    "debtToGdp": 0.495
+   },
+   {
+    "id": "tur",
+    "name": "Türkiye",
+    "taxIncome": 0.13373740763699207,
+    "taxConsumption": 0.15035968455970483,
+    "taxCorporate": 0.12858838362103017,
+    "spendAdministration": 0.1126244899822879,
+    "spendSocial": 0.1072594313999538,
+    "spendMilitary": 0.013840551091236155,
+    "spendInfrastructure": 0.03321179844953186,
+    "debtToGdp": 0.29600000000000004
+   },
+   {
+    "id": "irl",
+    "name": "Ireland",
+    "taxIncome": 0.18100270696277393,
+    "taxConsumption": 0.0982491848907446,
+    "taxCorporate": 0.15414599495458775,
+    "spendAdministration": 0.1310412289763609,
+    "spendSocial": 0.05953722231334421,
+    "spendMilitary": 0.0022752323645437,
+    "spendInfrastructure": 0.02446647289061522,
+    "debtToGdp": 0.42100000000000004
+   },
+   {
+    "id": "esp",
+    "name": "Spain",
+    "taxIncome": 0.38850881755318045,
+    "taxConsumption": 0.20742753400241584,
+    "taxCorporate": 0.07540645538344647,
+    "spendAdministration": 0.20528294833365637,
+    "spendSocial": 0.18296195806333307,
+    "spendMilitary": 0.009993474679267752,
+    "spendInfrastructure": 0.030331190938497853,
+    "debtToGdp": 1.053
+   },
+   {
+    "id": "nld",
+    "name": "Netherlands",
+    "taxIncome": 0.3564610769944457,
+    "taxConsumption": 0.22716488740142682,
+    "taxCorporate": 0.15830996612201287,
+    "spendAdministration": 0.26326207220201037,
+    "spendSocial": 0.11482553088640278,
+    "spendMilitary": 0.014678545280988352,
+    "spendInfrastructure": 0.03358240122561579,
+    "debtToGdp": 0.45899999999999996
+   },
+   {
+    "id": "bel",
+    "name": "Belgium",
+    "taxIncome": 0.7,
+    "taxConsumption": 0.2990983509746746,
+    "taxCorporate": 0.06757266598746899,
+    "spendAdministration": 0.2477739434769278,
+    "spendSocial": 0.18639367535649717,
+    "spendMilitary": 0.010098098044029358,
+    "spendInfrastructure": 0.030560137907163755,
+    "debtToGdp": 1.023
+   },
+   {
+    "id": "che",
+    "name": "Switzerland",
+    "taxIncome": 0.2539400808439378,
+    "taxConsumption": 0.12717899645462052,
+    "taxCorporate": 0.09755303212789374,
+    "spendAdministration": 0.12264483122990473,
+    "spendSocial": 0.10245527575733675,
+    "spendMilitary": 0.00899716827908611,
+    "spendInfrastructure": 0.030725455507584685
+   },
+   {
+    "id": "aut",
+    "name": "Austria",
+    "taxIncome": 0.7,
+    "taxConsumption": 0.30724734044538926,
+    "taxCorporate": 0.05529041475205506,
+    "spendAdministration": 0.22240947500991706,
+    "spendSocial": 0.19906698809780393,
+    "spendMilitary": 0.006393081268840815,
+    "spendInfrastructure": 0.04121705887858737,
+    "debtToGdp": 0.774
+   },
+   {
+    "id": "cze",
+    "name": "Czechia",
+    "taxIncome": 0.30125529217782476,
+    "taxConsumption": 0.16970699520161048,
+    "taxCorporate": 0.13949196532427552,
+    "spendAdministration": 0.20504137903370293,
+    "spendSocial": 0.14823869766875952,
+    "spendMilitary": 0.013065896926420899,
+    "spendInfrastructure": 0.047460642696698856,
+    "debtToGdp": 0.42200000000000004
+   },
+   {
+    "id": "nor",
+    "name": "Norway",
+    "taxIncome": 0.337747742349579,
+    "taxConsumption": 0.19419215230795553,
+    "taxCorporate": 0.27029058281109564,
+    "spendAdministration": 0.21973256391733542,
+    "spendSocial": 0.13798603192907535,
+    "spendMilitary": 0.01853849728632082,
+    "spendInfrastructure": 0.04654253087656387,
+    "debtToGdp": 0.42700000000000005
+   },
+   {
+    "id": "grc",
+    "name": "Greece",
+    "taxIncome": 0.3546414209435561,
+    "taxConsumption": 0.336066285699945,
+    "taxCorporate": 0.06415345952731281,
+    "spendAdministration": 0.19211830426749454,
+    "spendSocial": 0.1885348593168189,
+    "spendMilitary": 0.02414066253777164,
+    "spendInfrastructure": 0.040501291014650435,
+    "debtToGdp": 1.5
+   },
+   {
+    "id": "bgr",
+    "name": "Bulgaria",
+    "taxIncome": 0.17811285697263454,
+    "taxConsumption": 0.21602980587848747,
+    "taxCorporate": 0.10892165405979203,
+    "spendAdministration": 0.18875474799786496,
+    "spendSocial": 0.13566188025310932,
+    "spendMilitary": 0.016104096486205328,
+    "spendInfrastructure": 0.03624669632877747,
+    "debtToGdp": 0.228
+   },
+   {
+    "id": "bloc-eur",
+    "name": "Rest of Europe"
+   },
+   {
+    "id": "bloc-eec",
+    "name": "Eastern Europe and Central Asia"
+   },
+   {
+    "id": "bloc-mea",
+    "name": "Middle East and Africa"
+   },
+   {
+    "id": "bloc-ame",
+    "name": "Americas"
+   },
+   {
+    "id": "bloc-apa",
+    "name": "Asia-Pacific"
+   }
+  ],
+  "zones": [
+   {
+    "id": "fra-idf",
+    "name": "Île-de-France",
+    "countryId": "fra",
+    "population": 12.485304,
+    "technology": 3.657969058761524,
+    "advantage": {
+     "cereals": 0.1325,
+     "other_agri": 0.1325,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.618,
+     "natural_gas": 0.618,
+     "fuels": 0.49175,
+     "steel": 0.3655,
+     "aluminium": 0.3655,
+     "chemicals": 0.3655,
+     "cement": 0.23275,
+     "machinery": 0.3655,
+     "electronic_components": 0.2692,
+     "semiconductors": 0.3655,
+     "vehicles": 0.2692,
+     "processed_food": 0.1527,
+     "everyday_goods": 0.1729,
+     "durable_goods": 0.1729,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.23275
+    }
+   },
+   {
+    "id": "fra-ne",
+    "name": "Nord-Est (Hauts-de-France, Grand Est)",
+    "countryId": "fra",
+    "population": 11.548435,
+    "technology": 1.3276799779711463,
+    "advantage": {
+     "cereals": 0.69,
+     "other_agri": 0.69,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 1.0533,
+     "natural_gas": 1.0533,
+     "fuels": 0.96415,
+     "steel": 0.875,
+     "aluminium": 0.875,
+     "chemicals": 0.875,
+     "cement": 0.4875,
+     "machinery": 0.875,
+     "electronic_components": 0.6445,
+     "semiconductors": 0.875,
+     "vehicles": 0.6445,
+     "processed_food": 0.5519999999999999,
+     "everyday_goods": 0.414,
+     "durable_goods": 0.414,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.4875
+    }
+   },
+   {
+    "id": "fra-oue",
+    "name": "Ouest (Normandie, Bretagne, Pays de la Loire)",
+    "countryId": "fra",
+    "population": 10.723955,
+    "technology": 1.5194477259466659,
+    "advantage": {
+     "cereals": 0.6622,
+     "other_agri": 0.6622,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.7369,
+     "natural_gas": 0.7369,
+     "fuels": 0.81465,
+     "steel": 0.8924,
+     "aluminium": 0.8924,
+     "chemicals": 0.8924,
+     "cement": 0.4962,
+     "machinery": 0.8924,
+     "electronic_components": 0.6573,
+     "semiconductors": 0.8924,
+     "vehicles": 0.6573,
+     "processed_food": 0.5422,
+     "everyday_goods": 0.4222,
+     "durable_goods": 0.4222,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.4962
+    }
+   },
+   {
+    "id": "fra-cen",
+    "name": "Centre (Centre-Val de Loire, Bourgogne-Franche-Comté)",
+    "countryId": "fra",
+    "population": 5.388943,
+    "technology": 1.4683653422561196,
+    "advantage": {
+     "cereals": 0.7334,
+     "other_agri": 0.7334,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.9982,
+     "natural_gas": 0.9982,
+     "fuels": 0.9634,
+     "steel": 0.9286,
+     "aluminium": 0.9286,
+     "chemicals": 0.9286,
+     "cement": 0.5143,
+     "machinery": 0.9286,
+     "electronic_components": 0.6839999999999999,
+     "semiconductors": 0.9286,
+     "vehicles": 0.6839999999999999,
+     "processed_food": 0.5864,
+     "everyday_goods": 0.4394,
+     "durable_goods": 0.4394,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.5143
+    }
+   },
+   {
+    "id": "fra-naq",
+    "name": "Nouvelle-Aquitaine",
+    "countryId": "fra",
+    "population": 6.166168,
+    "technology": 1.5529107481837345,
+    "advantage": {
+     "cereals": 0.6363,
+     "other_agri": 0.6363,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.8903,
+     "natural_gas": 0.8903,
+     "fuels": 0.7767999999999999,
+     "steel": 0.6633,
+     "aluminium": 0.6633,
+     "chemicals": 0.6633,
+     "cement": 0.38165,
+     "machinery": 0.6633,
+     "electronic_components": 0.48855000000000004,
+     "semiconductors": 0.6633,
+     "vehicles": 0.48855000000000004,
+     "processed_food": 0.47505,
+     "everyday_goods": 0.3138,
+     "durable_goods": 0.3138,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.38165
+    }
+   },
+   {
+    "id": "fra-occ",
+    "name": "Occitanie",
+    "countryId": "fra",
+    "population": 6.145261,
+    "technology": 1.4694092414646525,
+    "advantage": {
+     "cereals": 0.3833,
+     "other_agri": 0.3833,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.9757,
+     "natural_gas": 0.9757,
+     "fuels": 0.7977000000000001,
+     "steel": 0.6197,
+     "aluminium": 0.6197,
+     "chemicals": 0.6197,
+     "cement": 0.35985,
+     "machinery": 0.6197,
+     "electronic_components": 0.45645,
+     "semiconductors": 0.6197,
+     "vehicles": 0.45645,
+     "processed_food": 0.33825,
+     "everyday_goods": 0.2932,
+     "durable_goods": 0.2932,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.35985
+    }
+   },
+   {
+    "id": "fra-ara",
+    "name": "Auvergne-Rhône-Alpes",
+    "countryId": "fra",
+    "population": 8.221946,
+    "technology": 2.006095792199385,
+    "advantage": {
+     "cereals": 0.4308,
+     "other_agri": 0.4308,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 1.1082,
+     "natural_gas": 1.1082,
+     "fuels": 0.9963,
+     "steel": 0.8844,
+     "aluminium": 0.8844,
+     "chemicals": 0.8844,
+     "cement": 0.49219999999999997,
+     "machinery": 0.8844,
+     "electronic_components": 0.6514,
+     "semiconductors": 0.8844,
+     "vehicles": 0.6514,
+     "processed_food": 0.4246,
+     "everyday_goods": 0.4184,
+     "durable_goods": 0.4184,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.49219999999999997
+    }
+   },
+   {
+    "id": "fra-se",
+    "name": "Provence-Alpes-Côte d'Azur",
+    "countryId": "fra",
+    "population": 5.235661,
+    "technology": 1.9137120918559263,
+    "advantage": {
+     "cereals": 0.2366,
+     "other_agri": 0.2366,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.8597,
+     "natural_gas": 0.8597,
+     "fuels": 0.64945,
+     "steel": 0.4392,
+     "aluminium": 0.4392,
+     "chemicals": 0.4392,
+     "cement": 0.2696,
+     "machinery": 0.4392,
+     "electronic_components": 0.3235,
+     "semiconductors": 0.4392,
+     "vehicles": 0.3235,
+     "processed_food": 0.2222,
+     "everyday_goods": 0.2078,
+     "durable_goods": 0.2078,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.2696
+    }
+   },
+   {
+    "id": "fra-cor",
+    "name": "Corse",
+    "countryId": "fra",
+    "population": 0.35716,
+    "technology": 1.508694547605485,
+    "advantage": {
+     "cereals": 0.2139,
+     "other_agri": 0.2139,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 1.4506,
+     "natural_gas": 1.4506,
+     "fuels": 0.8167,
+     "steel": 0.1828,
+     "aluminium": 0.1828,
+     "chemicals": 0.1828,
+     "cement": 0.1414,
+     "machinery": 0.1828,
+     "electronic_components": 0.1414,
+     "semiconductors": 0.1828,
+     "vehicles": 0.1414,
+     "processed_food": 0.15695,
+     "everyday_goods": 0.1,
+     "durable_goods": 0.1,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.1414
+    }
+   },
+   {
+    "id": "deu-nor",
+    "name": "Norddeutschland (Schleswig-Holstein, Hamburg, Bremen, Niedersachsen)",
+    "countryId": "deu",
+    "population": 13.483125,
+    "technology": 1.7285817137141308,
+    "advantage": {
+     "cereals": 0.3749,
+     "other_agri": 0.3749,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.9251,
+     "natural_gas": 0.9251,
+     "fuels": 1.0679,
+     "steel": 1.2107,
+     "aluminium": 1.2107,
+     "chemicals": 1.2107,
+     "cement": 0.6553500000000001,
+     "machinery": 1.2107,
+     "electronic_components": 0.8188500000000001,
+     "semiconductors": 1.2107,
+     "vehicles": 0.8188500000000001,
+     "processed_food": 0.40095000000000003,
+     "everyday_goods": 0.427,
+     "durable_goods": 0.427,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.6553500000000001
+    }
+   },
+   {
+    "id": "deu-nrw",
+    "name": "Nordrhein-Westfalen",
+    "countryId": "deu",
+    "population": 17.99097,
+    "technology": 1.5401547841790613,
+    "advantage": {
+     "cereals": 0.2513,
+     "other_agri": 0.2513,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.9126,
+     "natural_gas": 0.9126,
+     "fuels": 1.0545,
+     "steel": 1.1964,
+     "aluminium": 1.1964,
+     "chemicals": 1.1964,
+     "cement": 0.6482,
+     "machinery": 1.1964,
+     "electronic_components": 0.8091499999999999,
+     "semiconductors": 1.1964,
+     "vehicles": 0.8091499999999999,
+     "processed_food": 0.3366,
+     "everyday_goods": 0.4219,
+     "durable_goods": 0.4219,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.6482
+    }
+   },
+   {
+    "id": "deu-mit",
+    "name": "Mitte-West (Hessen, Rheinland-Pfalz, Saarland)",
+    "countryId": "deu",
+    "population": 11.382067,
+    "technology": 1.7532540779372996,
+    "advantage": {
+     "cereals": 0.2558,
+     "other_agri": 0.2558,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.6667,
+     "natural_gas": 0.6667,
+     "fuels": 0.96065,
+     "steel": 1.2546,
+     "aluminium": 1.2546,
+     "chemicals": 1.2546,
+     "cement": 0.6773,
+     "machinery": 1.2546,
+     "electronic_components": 0.8485,
+     "semiconductors": 1.2546,
+     "vehicles": 0.8485,
+     "processed_food": 0.3491,
+     "everyday_goods": 0.4424,
+     "durable_goods": 0.4424,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.6773
+    }
+   },
+   {
+    "id": "deu-bw",
+    "name": "Baden-Württemberg",
+    "countryId": "deu",
+    "population": 11.199231,
+    "technology": 2.048702100758067,
+    "advantage": {
+     "cereals": 0.3597,
+     "other_agri": 0.3597,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.539,
+     "natural_gas": 0.539,
+     "fuels": 1.3389,
+     "steel": 2.1388,
+     "aluminium": 2.1388,
+     "chemicals": 2.1388,
+     "cement": 1.1194,
+     "machinery": 2.1388,
+     "electronic_components": 1.4465,
+     "semiconductors": 2.1388,
+     "vehicles": 1.4465,
+     "processed_food": 0.5569500000000001,
+     "everyday_goods": 0.7542,
+     "durable_goods": 0.7542,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 1.1194
+    }
+   },
+   {
+    "id": "deu-by",
+    "name": "Bayern",
+    "countryId": "deu",
+    "population": 13.140823,
+    "technology": 2.225652540114457,
+    "advantage": {
+     "cereals": 0.3477,
+     "other_agri": 0.3477,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.583,
+     "natural_gas": 0.583,
+     "fuels": 1.12725,
+     "steel": 1.6715,
+     "aluminium": 1.6715,
+     "chemicals": 1.6715,
+     "cement": 0.88575,
+     "machinery": 1.6715,
+     "electronic_components": 1.13045,
+     "semiconductors": 1.6715,
+     "vehicles": 1.13045,
+     "processed_food": 0.46855,
+     "everyday_goods": 0.5894,
+     "durable_goods": 0.5894,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.88575
+    }
+   },
+   {
+    "id": "deu-no",
+    "name": "Nordost (Berlin, Brandenburg, Mecklenburg-Vorpommern)",
+    "countryId": "deu",
+    "population": 7.774474,
+    "technology": 1.4427860668267303,
+    "advantage": {
+     "cereals": 0.2166,
+     "other_agri": 0.2166,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 1.0986,
+     "natural_gas": 1.0986,
+     "fuels": 0.8510500000000001,
+     "steel": 0.6035,
+     "aluminium": 0.6035,
+     "chemicals": 0.6035,
+     "cement": 0.35175,
+     "machinery": 0.6035,
+     "electronic_components": 0.40815,
+     "semiconductors": 0.6035,
+     "vehicles": 0.40815,
+     "processed_food": 0.2147,
+     "everyday_goods": 0.2128,
+     "durable_goods": 0.2128,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.35175
+    }
+   },
+   {
+    "id": "deu-mo",
+    "name": "Mitteldeutschland (Sachsen, Sachsen-Anhalt, Thüringen)",
+    "countryId": "deu",
+    "population": 8.316583,
+    "technology": 0.9832528644809719,
+    "advantage": {
+     "cereals": 0.4201,
+     "other_agri": 0.4201,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 1.2085,
+     "natural_gas": 1.2085,
+     "fuels": 1.27075,
+     "steel": 1.333,
+     "aluminium": 1.333,
+     "chemicals": 1.333,
+     "cement": 0.7165,
+     "machinery": 1.333,
+     "electronic_components": 0.90155,
+     "semiconductors": 1.333,
+     "vehicles": 0.90155,
+     "processed_food": 0.4451,
+     "everyday_goods": 0.4701,
+     "durable_goods": 0.4701,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.7165
+    }
+   },
+   {
+    "id": "gbr-sco",
+    "name": "Scotland",
+    "countryId": "gbr",
+    "population": 5.506,
+    "technology": 1.4202059248283292,
+    "advantage": {
+     "cereals": 0.5751,
+     "other_agri": 0.5751,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 1.4893,
+     "natural_gas": 1.4893,
+     "fuels": 0.9898,
+     "steel": 0.4903,
+     "aluminium": 0.4903,
+     "chemicals": 0.4903,
+     "cement": 0.29515,
+     "machinery": 0.4903,
+     "electronic_components": 0.3654,
+     "semiconductors": 0.4903,
+     "vehicles": 0.3654,
+     "processed_food": 0.40779999999999994,
+     "everyday_goods": 0.2405,
+     "durable_goods": 0.2405,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.29515
+    }
+   },
+   {
+    "id": "gbr-nir",
+    "name": "Northern Ireland",
+    "countryId": "gbr",
+    "population": 1.920382,
+    "technology": 1.1498440862070032,
+    "advantage": {
+     "cereals": 0.5739,
+     "other_agri": 0.5739,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.7105,
+     "natural_gas": 0.7105,
+     "fuels": 0.6614,
+     "steel": 0.6123,
+     "aluminium": 0.6123,
+     "chemicals": 0.6123,
+     "cement": 0.35614999999999997,
+     "machinery": 0.6123,
+     "electronic_components": 0.55585,
+     "semiconductors": 0.6123,
+     "vehicles": 0.55585,
+     "processed_food": 0.53665,
+     "everyday_goods": 0.4994,
+     "durable_goods": 0.4994,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.35614999999999997
+    }
+   },
+   {
+    "id": "gbr-wls",
+    "name": "Wales",
+    "countryId": "gbr",
+    "population": 3.167331,
+    "technology": 0.8443696028465808,
+    "advantage": {
+     "cereals": 0.4482,
+     "other_agri": 0.4482,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.9874,
+     "natural_gas": 0.9874,
+     "fuels": 0.94695,
+     "steel": 0.9065,
+     "aluminium": 0.9065,
+     "chemicals": 0.9065,
+     "cement": 0.50325,
+     "machinery": 0.9065,
+     "electronic_components": 0.6837,
+     "semiconductors": 0.9065,
+     "vehicles": 0.6837,
+     "processed_food": 0.45455,
+     "everyday_goods": 0.4609,
+     "durable_goods": 0.4609,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.50325
+    }
+   },
+   {
+    "id": "gbr-nth",
+    "name": "North of England (North East, North West, Yorkshire and the Humber)",
+    "countryId": "gbr",
+    "population": 15.969621,
+    "technology": 1.100827777318868,
+    "advantage": {
+     "cereals": 0.311,
+     "other_agri": 0.311,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.6081,
+     "natural_gas": 0.6081,
+     "fuels": 0.7044999999999999,
+     "steel": 0.8009,
+     "aluminium": 0.8009,
+     "chemicals": 0.8009,
+     "cement": 0.45044999999999996,
+     "machinery": 0.8009,
+     "electronic_components": 0.64465,
+     "semiconductors": 0.8009,
+     "vehicles": 0.64465,
+     "processed_food": 0.3997,
+     "everyday_goods": 0.4884,
+     "durable_goods": 0.4884,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.45044999999999996
+    }
+   },
+   {
+    "id": "gbr-mid",
+    "name": "Midlands (East Midlands, West Midlands)",
+    "countryId": "gbr",
+    "population": 11.110198,
+    "technology": 0.9573559374906682,
+    "advantage": {
+     "cereals": 0.3847,
+     "other_agri": 0.3847,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.6976,
+     "natural_gas": 0.6976,
+     "fuels": 0.75755,
+     "steel": 0.8175,
+     "aluminium": 0.8175,
+     "chemicals": 0.8175,
+     "cement": 0.45875,
+     "machinery": 0.8175,
+     "electronic_components": 0.6359,
+     "semiconductors": 0.8175,
+     "vehicles": 0.6359,
+     "processed_food": 0.4195,
+     "everyday_goods": 0.4543,
+     "durable_goods": 0.4543,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.45875
+    }
+   },
+   {
+    "id": "gbr-lon",
+    "name": "London",
+    "countryId": "gbr",
+    "population": 8.999705,
+    "technology": 3.4261794317402416,
+    "advantage": {
+     "cereals": 0.1,
+     "other_agri": 0.1,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.5265,
+     "natural_gas": 0.5265,
+     "fuels": 0.31325,
+     "steel": 0.1,
+     "aluminium": 0.1,
+     "chemicals": 0.1,
+     "cement": 0.1,
+     "machinery": 0.1,
+     "electronic_components": 0.10400000000000001,
+     "semiconductors": 0.1,
+     "vehicles": 0.10400000000000001,
+     "processed_food": 0.10400000000000001,
+     "everyday_goods": 0.108,
+     "durable_goods": 0.108,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.1
+    }
+   },
+   {
+    "id": "gbr-se",
+    "name": "South East and East of England",
+    "countryId": "gbr",
+    "population": 16.022794,
+    "technology": 1.5377794538652372,
+    "advantage": {
+     "cereals": 0.2242,
+     "other_agri": 0.2242,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.5326,
+     "natural_gas": 0.5326,
+     "fuels": 0.53625,
+     "steel": 0.5399,
+     "aluminium": 0.5399,
+     "chemicals": 0.5399,
+     "cement": 0.31995,
+     "machinery": 0.5399,
+     "electronic_components": 0.39330000000000004,
+     "semiconductors": 0.5399,
+     "vehicles": 0.39330000000000004,
+     "processed_food": 0.23545,
+     "everyday_goods": 0.2467,
+     "durable_goods": 0.2467,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.31995
+    }
+   },
+   {
+    "id": "gbr-sw",
+    "name": "South West",
+    "countryId": "gbr",
+    "population": 5.830152,
+    "technology": 1.3106074691837148,
+    "advantage": {
+     "cereals": 0.2974,
+     "other_agri": 0.2974,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.5773,
+     "natural_gas": 0.5773,
+     "fuels": 0.6023000000000001,
+     "steel": 0.6273,
+     "aluminium": 0.6273,
+     "chemicals": 0.6273,
+     "cement": 0.36365,
+     "machinery": 0.6273,
+     "electronic_components": 0.4718,
+     "semiconductors": 0.6273,
+     "vehicles": 0.4718,
+     "processed_food": 0.30685,
+     "everyday_goods": 0.3163,
+     "durable_goods": 0.3163,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.36365
+    }
+   },
+   {
+    "id": "ita-no",
+    "name": "Nord-Ovest",
+    "countryId": "ita",
+    "population": 15.87716,
+    "technology": 2.166940808117186,
+    "advantage": {
+     "cereals": 0.4126,
+     "other_agri": 0.4126,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.5625,
+     "natural_gas": 0.5625,
+     "fuels": 0.85775,
+     "steel": 1.153,
+     "aluminium": 1.153,
+     "chemicals": 1.153,
+     "cement": 0.6265000000000001,
+     "machinery": 1.153,
+     "electronic_components": 1.234,
+     "semiconductors": 1.153,
+     "vehicles": 1.234,
+     "processed_food": 0.8638,
+     "everyday_goods": 1.315,
+     "durable_goods": 1.315,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.6265000000000001
+    }
+   },
+   {
+    "id": "ita-ne",
+    "name": "Nord-Est",
+    "countryId": "ita",
+    "population": 11.569997,
+    "technology": 2.033199709247653,
+    "advantage": {
+     "cereals": 0.6117,
+     "other_agri": 0.6117,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.4613,
+     "natural_gas": 0.4613,
+     "fuels": 0.9416,
+     "steel": 1.4219,
+     "aluminium": 1.4219,
+     "chemicals": 1.4219,
+     "cement": 0.76095,
+     "machinery": 1.4219,
+     "electronic_components": 1.5217999999999998,
+     "semiconductors": 1.4219,
+     "vehicles": 1.5217999999999998,
+     "processed_food": 1.1167,
+     "everyday_goods": 1.6217,
+     "durable_goods": 1.6217,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.76095
+    }
+   },
+   {
+    "id": "ita-cen",
+    "name": "Centro",
+    "countryId": "ita",
+    "population": 11.717156,
+    "technology": 1.7909247304211613,
+    "advantage": {
+     "cereals": 0.3501,
+     "other_agri": 0.3501,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.8277,
+     "natural_gas": 0.8277,
+     "fuels": 0.7819499999999999,
+     "steel": 0.7362,
+     "aluminium": 0.7362,
+     "chemicals": 0.7362,
+     "cement": 0.41809999999999997,
+     "machinery": 0.7362,
+     "electronic_components": 0.7879,
+     "semiconductors": 0.7362,
+     "vehicles": 0.7879,
+     "processed_food": 0.59485,
+     "everyday_goods": 0.8396,
+     "durable_goods": 0.8396,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.41809999999999997
+    }
+   },
+   {
+    "id": "ita-sud",
+    "name": "Sud",
+    "countryId": "ita",
+    "population": 13.439916,
+    "technology": 0.7855401361097615,
+    "advantage": {
+     "cereals": 0.5776,
+     "other_agri": 0.5776,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.6157,
+     "natural_gas": 0.6157,
+     "fuels": 0.6325000000000001,
+     "steel": 0.6493,
+     "aluminium": 0.6493,
+     "chemicals": 0.6493,
+     "cement": 0.37465,
+     "machinery": 0.6493,
+     "electronic_components": 0.6949000000000001,
+     "semiconductors": 0.6493,
+     "vehicles": 0.6949000000000001,
+     "processed_food": 0.65905,
+     "everyday_goods": 0.7405,
+     "durable_goods": 0.7405,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.37465
+    }
+   },
+   {
+    "id": "ita-sic",
+    "name": "Sicilia",
+    "countryId": "ita",
+    "population": 4.805688,
+    "technology": 0.7238610447407485,
+    "advantage": {
+     "cereals": 0.6777,
+     "other_agri": 0.6777,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.548,
+     "natural_gas": 0.548,
+     "fuels": 0.45805,
+     "steel": 0.3681,
+     "aluminium": 0.3681,
+     "chemicals": 0.3681,
+     "cement": 0.23404999999999998,
+     "machinery": 0.3681,
+     "electronic_components": 0.39395,
+     "semiconductors": 0.3681,
+     "vehicles": 0.39395,
+     "processed_food": 0.54875,
+     "everyday_goods": 0.4198,
+     "durable_goods": 0.4198,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.23404999999999998
+    }
+   },
+   {
+    "id": "ita-sar",
+    "name": "Sardegna",
+    "countryId": "ita",
+    "population": 1.574299,
+    "technology": 0.9279785134730418,
+    "advantage": {
+     "cereals": 0.5982,
+     "other_agri": 0.5982,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.5734,
+     "natural_gas": 0.5734,
+     "fuels": 0.46545000000000003,
+     "steel": 0.3575,
+     "aluminium": 0.3575,
+     "chemicals": 0.3575,
+     "cement": 0.22875,
+     "machinery": 0.3575,
+     "electronic_components": 0.38265,
+     "semiconductors": 0.3575,
+     "vehicles": 0.38265,
+     "processed_food": 0.503,
+     "everyday_goods": 0.4078,
+     "durable_goods": 0.4078,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.22875
+    }
+   },
+   {
+    "id": "pol-maz",
+    "name": "Makroregion województwo mazowieckie",
+    "countryId": "pol",
+    "population": 5.479902,
+    "technology": 2.1907500014897123,
+    "advantage": {
+     "cereals": 0.5989,
+     "other_agri": 0.5989,
+     "iron_ore": 0.8162,
+     "nonferrous_ore": 0.8162,
+     "strategic_minerals": 0.8162,
+     "uranium": 0.8162,
+     "coal": 0.8162,
+     "crude_oil": 1.2278,
+     "natural_gas": 1.2278,
+     "fuels": 1.0148,
+     "steel": 0.8018,
+     "aluminium": 0.8018,
+     "chemicals": 0.8018,
+     "cement": 0.8089999999999999,
+     "machinery": 0.8018,
+     "electronic_components": 0.5791499999999999,
+     "semiconductors": 0.8018,
+     "vehicles": 0.5791499999999999,
+     "processed_food": 0.4777,
+     "everyday_goods": 0.3565,
+     "durable_goods": 0.3565,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.8089999999999999
+    }
+   },
+   {
+    "id": "pol-pol",
+    "name": "Makroregion południowy",
+    "countryId": "pol",
+    "population": 7.550547,
+    "technology": 1.0224363048145828,
+    "advantage": {
+     "cereals": 0.4954,
+     "other_agri": 0.4954,
+     "iron_ore": 1.041,
+     "nonferrous_ore": 1.041,
+     "strategic_minerals": 1.041,
+     "uranium": 1.041,
+     "coal": 1.041,
+     "crude_oil": 1.5659,
+     "natural_gas": 1.5659,
+     "fuels": 1.4062000000000001,
+     "steel": 1.2465,
+     "aluminium": 1.2465,
+     "chemicals": 1.2465,
+     "cement": 1.1437499999999998,
+     "machinery": 1.2465,
+     "electronic_components": 0.9004,
+     "semiconductors": 1.2465,
+     "vehicles": 0.9004,
+     "processed_food": 0.52485,
+     "everyday_goods": 0.5543,
+     "durable_goods": 0.5543,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 1.1437499999999998
+    }
+   },
+   {
+    "id": "pol-pza",
+    "name": "Makroregion północno-zachodni",
+    "countryId": "pol",
+    "population": 5.976056,
+    "technology": 0.9561367630011623,
+    "advantage": {
+     "cereals": 0.9271,
+     "other_agri": 0.9271,
+     "iron_ore": 0.588,
+     "nonferrous_ore": 0.588,
+     "strategic_minerals": 0.588,
+     "uranium": 0.588,
+     "coal": 0.588,
+     "crude_oil": 0.8845,
+     "natural_gas": 0.8845,
+     "fuels": 1.1332499999999999,
+     "steel": 1.382,
+     "aluminium": 1.382,
+     "chemicals": 1.382,
+     "cement": 0.9849999999999999,
+     "machinery": 1.382,
+     "electronic_components": 0.99825,
+     "semiconductors": 1.382,
+     "vehicles": 0.99825,
+     "processed_food": 0.7708,
+     "everyday_goods": 0.6145,
+     "durable_goods": 0.6145,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.9849999999999999
+    }
+   },
+   {
+    "id": "pol-pdz",
+    "name": "Makroregion południowo-zachodni",
+    "countryId": "pol",
+    "population": 3.703072,
+    "technology": 1.1361736295484401,
+    "advantage": {
+     "cereals": 0.7089,
+     "other_agri": 0.7089,
+     "iron_ore": 0.8262,
+     "nonferrous_ore": 0.8262,
+     "strategic_minerals": 0.8262,
+     "uranium": 0.8262,
+     "coal": 0.8262,
+     "crude_oil": 1.2428,
+     "natural_gas": 1.2428,
+     "fuels": 1.4249999999999998,
+     "steel": 1.6072,
+     "aluminium": 1.6072,
+     "chemicals": 1.6072,
+     "cement": 1.2167,
+     "machinery": 1.6072,
+     "electronic_components": 1.1609,
+     "semiconductors": 1.6072,
+     "vehicles": 1.1609,
+     "processed_food": 0.71175,
+     "everyday_goods": 0.7146,
+     "durable_goods": 0.7146,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 1.2167
+    }
+   },
+   {
+    "id": "pol-pn",
+    "name": "Makroregion północny",
+    "countryId": "pol",
+    "population": 5.532827,
+    "technology": 0.7902002737487458,
+    "advantage": {
+     "cereals": 0.9543,
+     "other_agri": 0.9543,
+     "iron_ore": 0.4604,
+     "nonferrous_ore": 0.4604,
+     "strategic_minerals": 0.4604,
+     "uranium": 0.4604,
+     "coal": 0.4604,
+     "crude_oil": 0.6926,
+     "natural_gas": 0.6926,
+     "fuels": 1.0713,
+     "steel": 1.45,
+     "aluminium": 1.45,
+     "chemicals": 1.45,
+     "cement": 0.9551999999999999,
+     "machinery": 1.45,
+     "electronic_components": 1.04735,
+     "semiconductors": 1.45,
+     "vehicles": 1.04735,
+     "processed_food": 0.7995000000000001,
+     "everyday_goods": 0.6447,
+     "durable_goods": 0.6447,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.9551999999999999
+    }
+   },
+   {
+    "id": "pol-cen",
+    "name": "Makroregion centralny",
+    "countryId": "pol",
+    "population": 3.463255,
+    "technology": 0.8174800954438681,
+    "advantage": {
+     "cereals": 0.922,
+     "other_agri": 0.922,
+     "iron_ore": 0.9938,
+     "nonferrous_ore": 0.9938,
+     "strategic_minerals": 0.9938,
+     "uranium": 0.9938,
+     "coal": 0.9938,
+     "crude_oil": 1.495,
+     "natural_gas": 1.495,
+     "fuels": 1.3814000000000002,
+     "steel": 1.2678,
+     "aluminium": 1.2678,
+     "chemicals": 1.2678,
+     "cement": 1.1308,
+     "machinery": 1.2678,
+     "electronic_components": 0.9157500000000001,
+     "semiconductors": 1.2678,
+     "vehicles": 0.9157500000000001,
+     "processed_food": 0.74285,
+     "everyday_goods": 0.5637,
+     "durable_goods": 0.5637,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 1.1308
+    }
+   },
+   {
+    "id": "pol-wsc",
+    "name": "Makroregion wschodni",
+    "countryId": "pol",
+    "population": 4.981695,
+    "technology": 0.6618497049432729,
+    "advantage": {
+     "cereals": 0.9914,
+     "other_agri": 0.9914,
+     "iron_ore": 0.6014,
+     "nonferrous_ore": 0.6014,
+     "strategic_minerals": 0.6014,
+     "uranium": 0.6014,
+     "coal": 0.6014,
+     "crude_oil": 0.9046,
+     "natural_gas": 0.9046,
+     "fuels": 1.07385,
+     "steel": 1.2431,
+     "aluminium": 1.2431,
+     "chemicals": 1.2431,
+     "cement": 0.92225,
+     "machinery": 1.2431,
+     "electronic_components": 0.8979,
+     "semiconductors": 1.2431,
+     "vehicles": 0.8979,
+     "processed_food": 0.7720499999999999,
+     "everyday_goods": 0.5527,
+     "durable_goods": 0.5527,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.92225
+    }
+   },
+   {
+    "id": "tur-ist",
+    "name": "İstanbul",
+    "countryId": "tur",
+    "population": 15.781937,
+    "technology": 1.7687366458791418,
+    "advantage": {
+     "cereals": 0.3309,
+     "other_agri": 0.3309,
+     "iron_ore": 0.3432,
+     "nonferrous_ore": 0.3432,
+     "strategic_minerals": 0.3432,
+     "uranium": 0.3432,
+     "coal": 0.3432,
+     "crude_oil": 0.4302,
+     "natural_gas": 0.4302,
+     "fuels": 0.6534,
+     "steel": 0.8766,
+     "aluminium": 0.8766,
+     "chemicals": 0.8766,
+     "cement": 0.6099,
+     "machinery": 0.8766,
+     "electronic_components": 1.1931,
+     "semiconductors": 0.8766,
+     "vehicles": 1.1931,
+     "processed_food": 0.92025,
+     "everyday_goods": 1.5096,
+     "durable_goods": 1.5096,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.6099
+    }
+   },
+   {
+    "id": "tur-mar",
+    "name": "Marmara (Batı Marmara, Doğu Marmara)",
+    "countryId": "tur",
+    "population": 12.330792,
+    "technology": 1.1996020336157562,
+    "advantage": {
+     "cereals": 1.4881,
+     "other_agri": 1.4881,
+     "iron_ore": 0.5202,
+     "nonferrous_ore": 0.5202,
+     "strategic_minerals": 0.5202,
+     "uranium": 0.5202,
+     "coal": 0.5202,
+     "crude_oil": 0.6521,
+     "natural_gas": 0.6521,
+     "fuels": 1.34385,
+     "steel": 2.0356,
+     "aluminium": 2.0356,
+     "chemicals": 2.0356,
+     "cement": 1.2779,
+     "machinery": 2.0356,
+     "electronic_components": 2.7705,
+     "semiconductors": 2.0356,
+     "vehicles": 2.7705,
+     "processed_food": 2.49675,
+     "everyday_goods": 3.5054,
+     "durable_goods": 3.5054,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 1.2779
+    }
+   },
+   {
+    "id": "tur-ege",
+    "name": "Ege",
+    "countryId": "tur",
+    "population": 10.916792,
+    "technology": 0.8620134288670759,
+    "advantage": {
+     "cereals": 1.7411,
+     "other_agri": 1.7411,
+     "iron_ore": 0.6268,
+     "nonferrous_ore": 0.6268,
+     "strategic_minerals": 0.6268,
+     "uranium": 0.6268,
+     "coal": 0.6268,
+     "crude_oil": 0.7857,
+     "natural_gas": 0.7857,
+     "fuels": 1.0738,
+     "steel": 1.3619,
+     "aluminium": 1.3619,
+     "chemicals": 1.3619,
+     "cement": 0.9943500000000001,
+     "machinery": 1.3619,
+     "electronic_components": 1.8536000000000001,
+     "semiconductors": 1.3619,
+     "vehicles": 1.8536000000000001,
+     "processed_food": 2.0432,
+     "everyday_goods": 2.3453,
+     "durable_goods": 2.3453,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.9943500000000001
+    }
+   },
+   {
+    "id": "tur-ban",
+    "name": "Batı Anadolu",
+    "countryId": "tur",
+    "population": 8.363577,
+    "technology": 1.4589203772327914,
+    "advantage": {
+     "cereals": 1.0641,
+     "other_agri": 1.0641,
+     "iron_ore": 0.5068,
+     "nonferrous_ore": 0.5068,
+     "strategic_minerals": 0.5068,
+     "uranium": 0.5068,
+     "coal": 0.5068,
+     "crude_oil": 0.6353,
+     "natural_gas": 0.6353,
+     "fuels": 0.78235,
+     "steel": 0.9294,
+     "aluminium": 0.9294,
+     "chemicals": 0.9294,
+     "cement": 0.7181,
+     "machinery": 0.9294,
+     "electronic_components": 1.2650000000000001,
+     "semiconductors": 0.9294,
+     "vehicles": 1.2650000000000001,
+     "processed_food": 1.33235,
+     "everyday_goods": 1.6006,
+     "durable_goods": 1.6006,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.7181
+    }
+   },
+   {
+    "id": "tur-akd",
+    "name": "Akdeniz",
+    "countryId": "tur",
+    "population": 10.935819,
+    "technology": 0.7440778426996482,
+    "advantage": {
+     "cereals": 1.6733,
+     "other_agri": 1.6733,
+     "iron_ore": 0.5068,
+     "nonferrous_ore": 0.5068,
+     "strategic_minerals": 0.5068,
+     "uranium": 0.5068,
+     "coal": 0.5068,
+     "crude_oil": 0.6353,
+     "natural_gas": 0.6353,
+     "fuels": 0.70675,
+     "steel": 0.7782,
+     "aluminium": 0.7782,
+     "chemicals": 0.7782,
+     "cement": 0.6425000000000001,
+     "machinery": 0.7782,
+     "electronic_components": 1.05915,
+     "semiconductors": 0.7782,
+     "vehicles": 1.05915,
+     "processed_food": 1.5067,
+     "everyday_goods": 1.3401,
+     "durable_goods": 1.3401,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.6425000000000001
+    }
+   },
+   {
+    "id": "tur-oan",
+    "name": "Orta Anadolu",
+    "countryId": "tur",
+    "population": 4.153111,
+    "technology": 0.678325329398526,
+    "advantage": {
+     "cereals": 2.5897,
+     "other_agri": 2.5897,
+     "iron_ore": 0.7725,
+     "nonferrous_ore": 0.7725,
+     "strategic_minerals": 0.7725,
+     "uranium": 0.7725,
+     "coal": 0.7725,
+     "crude_oil": 0.9683,
+     "natural_gas": 0.9683,
+     "fuels": 1.0361,
+     "steel": 1.1039,
+     "aluminium": 1.1039,
+     "chemicals": 1.1039,
+     "cement": 0.9382,
+     "machinery": 1.1039,
+     "electronic_components": 1.50245,
+     "semiconductors": 1.1039,
+     "vehicles": 1.50245,
+     "processed_food": 2.24535,
+     "everyday_goods": 1.901,
+     "durable_goods": 1.901,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.9382
+    }
+   },
+   {
+    "id": "tur-kar",
+    "name": "Karadeniz (Batı Karadeniz, Doğu Karadeniz)",
+    "countryId": "tur",
+    "population": 7.40989,
+    "technology": 0.5658937407169851,
+    "advantage": {
+     "cereals": 1.998,
+     "other_agri": 1.998,
+     "iron_ore": 0.5928,
+     "nonferrous_ore": 0.5928,
+     "strategic_minerals": 0.5928,
+     "uranium": 0.5928,
+     "coal": 0.5928,
+     "crude_oil": 0.7431,
+     "natural_gas": 0.7431,
+     "fuels": 0.8090999999999999,
+     "steel": 0.8751,
+     "aluminium": 0.8751,
+     "chemicals": 0.8751,
+     "cement": 0.73395,
+     "machinery": 0.8751,
+     "electronic_components": 1.1909999999999998,
+     "semiconductors": 0.8751,
+     "vehicles": 1.1909999999999998,
+     "processed_food": 1.75245,
+     "everyday_goods": 1.5069,
+     "durable_goods": 1.5069,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.73395
+    }
+   },
+   {
+    "id": "tur-dog",
+    "name": "Doğu Anadolu (Kuzeydoğu, Ortadoğu Anadolu)",
+    "countryId": "tur",
+    "population": 6.07578,
+    "technology": 0.4642733133506605,
+    "advantage": {
+     "cereals": 2.4381,
+     "other_agri": 2.4381,
+     "iron_ore": 0.6019,
+     "nonferrous_ore": 0.6019,
+     "strategic_minerals": 0.6019,
+     "uranium": 0.6019,
+     "coal": 0.6019,
+     "crude_oil": 0.7546,
+     "natural_gas": 0.7546,
+     "fuels": 0.55775,
+     "steel": 0.3609,
+     "aluminium": 0.3609,
+     "chemicals": 0.3609,
+     "cement": 0.4814,
+     "machinery": 0.3609,
+     "electronic_components": 0.4912,
+     "semiconductors": 0.3609,
+     "vehicles": 0.4912,
+     "processed_food": 1.5298,
+     "everyday_goods": 0.6215,
+     "durable_goods": 0.6215,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.4814
+    }
+   },
+   {
+    "id": "tur-gda",
+    "name": "Güneydoğu Anadolu",
+    "countryId": "tur",
+    "population": 9.358267,
+    "technology": 0.46197295602655297,
+    "advantage": {
+     "cereals": 2.1803,
+     "other_agri": 2.1803,
+     "iron_ore": 0.4979,
+     "nonferrous_ore": 0.4979,
+     "strategic_minerals": 0.4979,
+     "uranium": 0.4979,
+     "coal": 0.4979,
+     "crude_oil": 0.6242,
+     "natural_gas": 0.6242,
+     "fuels": 0.7902,
+     "steel": 0.9562,
+     "aluminium": 0.9562,
+     "chemicals": 0.9562,
+     "cement": 0.72705,
+     "machinery": 0.9562,
+     "electronic_components": 1.3014000000000001,
+     "semiconductors": 0.9562,
+     "vehicles": 1.3014000000000001,
+     "processed_food": 1.91345,
+     "everyday_goods": 1.6466,
+     "durable_goods": 1.6466,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.72705
+    }
+   },
+   {
+    "id": "irl-all",
+    "name": "Ireland",
+    "countryId": "irl",
+    "population": 5.311538,
+    "technology": 3.155750185177671,
+    "advantage": {
+     "cereals": 0.3752,
+     "other_agri": 0.3752,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.3533,
+     "natural_gas": 0.3533,
+     "fuels": 1.1874,
+     "steel": 2.0215,
+     "aluminium": 2.0215,
+     "chemicals": 2.0215,
+     "cement": 1.06075,
+     "machinery": 2.0215,
+     "electronic_components": 1.69575,
+     "semiconductors": 2.0215,
+     "vehicles": 1.69575,
+     "processed_food": 0.8726,
+     "everyday_goods": 1.37,
+     "durable_goods": 1.37,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 1.06075
+    }
+   },
+   {
+    "id": "esp-all",
+    "name": "Spain",
+    "countryId": "esp",
+    "population": 48.352528,
+    "technology": 1.3422089656412146,
+    "advantage": {
+     "cereals": 0.6588,
+     "other_agri": 0.6588,
+     "iron_ore": 0.1694,
+     "nonferrous_ore": 0.1694,
+     "strategic_minerals": 0.1694,
+     "uranium": 0.1694,
+     "coal": 0.1694,
+     "crude_oil": 0.7832,
+     "natural_gas": 0.7832,
+     "fuels": 0.7170000000000001,
+     "steel": 0.6508,
+     "aluminium": 0.6508,
+     "chemicals": 0.6508,
+     "cement": 0.4101,
+     "machinery": 0.6508,
+     "electronic_components": 0.5769,
+     "semiconductors": 0.6508,
+     "vehicles": 0.5769,
+     "processed_food": 0.5809,
+     "everyday_goods": 0.503,
+     "durable_goods": 0.503,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.4101
+    }
+   },
+   {
+    "id": "nld-all",
+    "name": "Netherlands",
+    "countryId": "nld",
+    "population": 17.877116,
+    "technology": 1.9133749735566674,
+    "advantage": {
+     "cereals": 0.4812,
+     "other_agri": 0.4812,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.8456,
+     "natural_gas": 0.8456,
+     "fuels": 0.7766,
+     "steel": 0.7076,
+     "aluminium": 0.7076,
+     "chemicals": 0.7076,
+     "cement": 0.4038,
+     "machinery": 0.7076,
+     "electronic_components": 0.4678,
+     "semiconductors": 0.7076,
+     "vehicles": 0.4678,
+     "processed_food": 0.3546,
+     "everyday_goods": 0.228,
+     "durable_goods": 0.228,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.4038
+    }
+   },
+   {
+    "id": "bel-all",
+    "name": "Belgium",
+    "countryId": "bel",
+    "population": 11.779946,
+    "technology": 2.437991874331053,
+    "advantage": {
+     "cereals": 0.3901,
+     "other_agri": 0.3901,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.5916,
+     "natural_gas": 0.5916,
+     "fuels": 0.7109000000000001,
+     "steel": 0.8302,
+     "aluminium": 0.8302,
+     "chemicals": 0.8302,
+     "cement": 0.4651,
+     "machinery": 0.8302,
+     "electronic_components": 0.55715,
+     "semiconductors": 0.8302,
+     "vehicles": 0.55715,
+     "processed_food": 0.3371,
+     "everyday_goods": 0.2841,
+     "durable_goods": 0.2841,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.4651
+    }
+   },
+   {
+    "id": "che-all",
+    "name": "Switzerland",
+    "countryId": "che",
+    "population": 8.888822,
+    "technology": 2.270816335700959,
+    "advantage": {
+     "cereals": 0.3256,
+     "other_agri": 0.3256,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 0.519,
+     "natural_gas": 0.519,
+     "fuels": 0.9130499999999999,
+     "steel": 1.3071,
+     "aluminium": 1.3071,
+     "chemicals": 1.3071,
+     "cement": 0.70355,
+     "machinery": 1.3071,
+     "electronic_components": 0.8593999999999999,
+     "semiconductors": 1.3071,
+     "vehicles": 0.8593999999999999,
+     "processed_food": 0.36865000000000003,
+     "everyday_goods": 0.4117,
+     "durable_goods": 0.4117,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.70355
+    }
+   },
+   {
+    "id": "aut-all",
+    "name": "Austria",
+    "countryId": "aut",
+    "population": 9.131761,
+    "technology": 2.579153565166569,
+    "advantage": {
+     "cereals": 0.4277,
+     "other_agri": 0.4277,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 1.1088,
+     "natural_gas": 1.1088,
+     "fuels": 1.10865,
+     "steel": 1.1085,
+     "aluminium": 1.1085,
+     "chemicals": 1.1085,
+     "cement": 0.6042500000000001,
+     "machinery": 1.1085,
+     "electronic_components": 0.768,
+     "semiconductors": 1.1085,
+     "vehicles": 0.768,
+     "processed_food": 0.4276,
+     "everyday_goods": 0.4275,
+     "durable_goods": 0.4275,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.6042500000000001
+    }
+   },
+   {
+    "id": "cze-all",
+    "name": "Czechia",
+    "countryId": "cze",
+    "population": 10.864042,
+    "technology": 1.2794432832985445,
+    "advantage": {
+     "cereals": 0.5258,
+     "other_agri": 0.5258,
+     "iron_ore": 0.2461,
+     "nonferrous_ore": 0.2461,
+     "strategic_minerals": 0.2461,
+     "uranium": 0.2461,
+     "coal": 0.2461,
+     "crude_oil": 1.0139,
+     "natural_gas": 1.0139,
+     "fuels": 1.2415500000000002,
+     "steel": 1.4692,
+     "aluminium": 1.4692,
+     "chemicals": 1.4692,
+     "cement": 0.85765,
+     "machinery": 1.4692,
+     "electronic_components": 1.0254,
+     "semiconductors": 1.4692,
+     "vehicles": 1.0254,
+     "processed_food": 0.5537000000000001,
+     "everyday_goods": 0.5816,
+     "durable_goods": 0.5816,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.85765
+    }
+   },
+   {
+    "id": "nor-all",
+    "name": "Norway",
+    "countryId": "nor",
+    "population": 5.519594,
+    "technology": 2.308677980106405,
+    "advantage": {
+     "cereals": 0.3686,
+     "other_agri": 0.3686,
+     "iron_ore": 0.1,
+     "nonferrous_ore": 0.1,
+     "strategic_minerals": 0.1,
+     "uranium": 0.1,
+     "coal": 0.1,
+     "crude_oil": 4,
+     "natural_gas": 4,
+     "fuels": 2.1811,
+     "steel": 0.3622,
+     "aluminium": 0.3622,
+     "chemicals": 0.3622,
+     "cement": 0.23110000000000003,
+     "machinery": 0.3622,
+     "electronic_components": 0.24205000000000002,
+     "semiconductors": 0.3622,
+     "vehicles": 0.24205000000000002,
+     "processed_food": 0.24525,
+     "everyday_goods": 0.1219,
+     "durable_goods": 0.1219,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.23110000000000003
+    }
+   },
+   {
+    "id": "grc-all",
+    "name": "Greece",
+    "countryId": "grc",
+    "population": 10.388816,
+    "technology": 1.2221063578913869,
+    "advantage": {
+     "cereals": 0.9447,
+     "other_agri": 0.9447,
+     "iron_ore": 0.1545,
+     "nonferrous_ore": 0.1545,
+     "strategic_minerals": 0.1545,
+     "uranium": 0.1545,
+     "coal": 0.1545,
+     "crude_oil": 0.7897,
+     "natural_gas": 0.7897,
+     "fuels": 0.6586,
+     "steel": 0.5275,
+     "aluminium": 0.5275,
+     "chemicals": 0.5275,
+     "cement": 0.34099999999999997,
+     "machinery": 0.5275,
+     "electronic_components": 0.3786,
+     "semiconductors": 0.5275,
+     "vehicles": 0.3786,
+     "processed_food": 0.5871999999999999,
+     "everyday_goods": 0.2297,
+     "durable_goods": 0.2297,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.34099999999999997
+    }
+   },
+   {
+    "id": "bgr-all",
+    "name": "Bulgaria",
+    "countryId": "bgr",
+    "population": 6.446595,
+    "technology": 0.8658686208927101,
+    "advantage": {
+     "cereals": 0.6479,
+     "other_agri": 0.6479,
+     "iron_ore": 0.7824,
+     "nonferrous_ore": 0.7824,
+     "strategic_minerals": 0.7824,
+     "uranium": 0.7824,
+     "coal": 0.7824,
+     "crude_oil": 1.1398,
+     "natural_gas": 1.1398,
+     "fuels": 1.00115,
+     "steel": 0.8625,
+     "aluminium": 0.8625,
+     "chemicals": 0.8625,
+     "cement": 0.82245,
+     "machinery": 0.8625,
+     "electronic_components": 0.8391500000000001,
+     "semiconductors": 0.8625,
+     "vehicles": 0.8391500000000001,
+     "processed_food": 0.73185,
+     "everyday_goods": 0.8158,
+     "durable_goods": 0.8158,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.82245
+    }
+   },
+   {
+    "id": "bloc-eur-all",
+    "name": "Rest of Europe",
+    "countryId": "bloc-eur",
+    "population": 98.563,
+    "technology": 0.9757526765833267,
+    "advantage": {
+     "cereals": 0.5048,
+     "other_agri": 0.5048,
+     "iron_ore": 0.1426,
+     "nonferrous_ore": 0.1426,
+     "strategic_minerals": 0.1426,
+     "uranium": 0.1426,
+     "coal": 0.1426,
+     "crude_oil": 0.1,
+     "natural_gas": 0.1,
+     "fuels": 0.4405,
+     "steel": 0.781,
+     "aluminium": 0.781,
+     "chemicals": 0.781,
+     "cement": 0.4618,
+     "machinery": 0.781,
+     "electronic_components": 0.8054,
+     "semiconductors": 0.781,
+     "vehicles": 0.8054,
+     "processed_food": 0.6673,
+     "everyday_goods": 0.8298,
+     "durable_goods": 0.8298,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.4618
+    }
+   },
+   {
+    "id": "bloc-eec-all",
+    "name": "Eastern Europe and Central Asia",
+    "countryId": "bloc-eec",
+    "population": 290.865,
+    "technology": 0.5842072410521589,
+    "advantage": {
+     "cereals": 0.7504,
+     "other_agri": 0.7504,
+     "iron_ore": 1.9881,
+     "nonferrous_ore": 1.9881,
+     "strategic_minerals": 1.9881,
+     "uranium": 1.9881,
+     "coal": 1.9881,
+     "crude_oil": 4,
+     "natural_gas": 4,
+     "fuels": 2.3625,
+     "steel": 0.725,
+     "aluminium": 0.725,
+     "chemicals": 0.725,
+     "cement": 1.35655,
+     "machinery": 0.725,
+     "electronic_components": 0.7476499999999999,
+     "semiconductors": 0.725,
+     "vehicles": 0.7476499999999999,
+     "processed_food": 0.76035,
+     "everyday_goods": 0.7703,
+     "durable_goods": 0.7703,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 1.35655
+    }
+   },
+   {
+    "id": "bloc-mea-all",
+    "name": "Middle East and Africa",
+    "countryId": "bloc-mea",
+    "population": 1767.099,
+    "technology": 0.18118174183179636,
+    "advantage": {
+     "cereals": 1.3184,
+     "other_agri": 1.3184,
+     "iron_ore": 0.7737,
+     "nonferrous_ore": 0.7737,
+     "strategic_minerals": 0.7737,
+     "uranium": 0.7737,
+     "coal": 0.7737,
+     "crude_oil": 4,
+     "natural_gas": 4,
+     "fuels": 2.34765,
+     "steel": 0.6953,
+     "aluminium": 0.6953,
+     "chemicals": 0.6953,
+     "cement": 0.7345,
+     "machinery": 0.6953,
+     "electronic_components": 0.71705,
+     "semiconductors": 0.6953,
+     "vehicles": 0.71705,
+     "processed_food": 1.0286,
+     "everyday_goods": 0.7388,
+     "durable_goods": 0.7388,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 0.7345
+    }
+   },
+   {
+    "id": "bloc-ame-all",
+    "name": "Americas",
+    "countryId": "bloc-ame",
+    "population": 1034.485,
+    "technology": 0.8296962527714086,
+    "advantage": {
+     "cereals": 0.9273,
+     "other_agri": 0.9273,
+     "iron_ore": 1.8779,
+     "nonferrous_ore": 1.8779,
+     "strategic_minerals": 1.8779,
+     "uranium": 1.8779,
+     "coal": 1.8779,
+     "crude_oil": 0.6201,
+     "natural_gas": 0.6201,
+     "fuels": 0.7503,
+     "steel": 0.8805,
+     "aluminium": 0.8805,
+     "chemicals": 0.8805,
+     "cement": 1.3792,
+     "machinery": 0.8805,
+     "electronic_components": 0.9079999999999999,
+     "semiconductors": 0.8805,
+     "vehicles": 0.9079999999999999,
+     "processed_food": 0.9314,
+     "everyday_goods": 0.9355,
+     "durable_goods": 0.9355,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 1.3792
+    }
+   },
+   {
+    "id": "bloc-apa-all",
+    "name": "Asia-Pacific",
+    "countryId": "bloc-apa",
+    "population": 4312.608,
+    "technology": 0.35211841807607386,
+    "advantage": {
+     "cereals": 1.225,
+     "other_agri": 1.225,
+     "iron_ore": 0.8515,
+     "nonferrous_ore": 0.8515,
+     "strategic_minerals": 0.8515,
+     "uranium": 0.8515,
+     "coal": 0.8515,
+     "crude_oil": 0.1822,
+     "natural_gas": 0.1822,
+     "fuels": 0.68895,
+     "steel": 1.1957,
+     "aluminium": 1.1957,
+     "chemicals": 1.1957,
+     "cement": 1.0236,
+     "machinery": 1.1957,
+     "electronic_components": 1.23305,
+     "semiconductors": 1.1957,
+     "vehicles": 1.23305,
+     "processed_food": 1.2477,
+     "everyday_goods": 1.2704,
+     "durable_goods": 1.2704,
+     "small_arms": 1,
+     "munitions": 1,
+     "military_vehicles": 1,
+     "military_aircraft": 1,
+     "naval_vessels": 1,
+     "construction_materials": 1.0236
+    }
+   }
+  ],
+  "lanes": [
+   {
+    "id": "land-aut-all|bloc-eur-all",
+    "from": "aut-all",
+    "to": "bloc-eur-all",
+    "distance": 0.8
+   },
+   {
+    "id": "land-aut-all|che-all",
+    "from": "aut-all",
+    "to": "che-all",
+    "distance": 0.8
+   },
+   {
+    "id": "land-aut-all|cze-all",
+    "from": "aut-all",
+    "to": "cze-all",
+    "distance": 0.8
+   },
+   {
+    "id": "land-aut-all|deu-bw",
+    "from": "aut-all",
+    "to": "deu-bw",
+    "distance": 0.8
+   },
+   {
+    "id": "land-aut-all|deu-by",
+    "from": "aut-all",
+    "to": "deu-by",
+    "distance": 0.8
+   },
+   {
+    "id": "land-aut-all|ita-ne",
+    "from": "aut-all",
+    "to": "ita-ne",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bel-all|bloc-eur-all",
+    "from": "bel-all",
+    "to": "bloc-eur-all",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bel-all|deu-mit",
+    "from": "bel-all",
+    "to": "deu-mit",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bel-all|deu-nrw",
+    "from": "bel-all",
+    "to": "deu-nrw",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bel-all|fra-ne",
+    "from": "bel-all",
+    "to": "fra-ne",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bel-all|nld-all",
+    "from": "bel-all",
+    "to": "nld-all",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bgr-all|bloc-eur-all",
+    "from": "bgr-all",
+    "to": "bloc-eur-all",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bgr-all|grc-all",
+    "from": "bgr-all",
+    "to": "grc-all",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bgr-all|tur-mar",
+    "from": "bgr-all",
+    "to": "tur-mar",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-apa-all|bloc-eec-all",
+    "from": "bloc-apa-all",
+    "to": "bloc-eec-all",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-apa-all|bloc-mea-all",
+    "from": "bloc-apa-all",
+    "to": "bloc-mea-all",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-eec-all|bloc-eur-all",
+    "from": "bloc-eec-all",
+    "to": "bloc-eur-all",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-eec-all|bloc-mea-all",
+    "from": "bloc-eec-all",
+    "to": "bloc-mea-all",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-eec-all|nor-all",
+    "from": "bloc-eec-all",
+    "to": "nor-all",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-eec-all|pol-pn",
+    "from": "bloc-eec-all",
+    "to": "pol-pn",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-eec-all|pol-wsc",
+    "from": "bloc-eec-all",
+    "to": "pol-wsc",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-eec-all|tur-dog",
+    "from": "bloc-eec-all",
+    "to": "tur-dog",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-eec-all|tur-kar",
+    "from": "bloc-eec-all",
+    "to": "tur-kar",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-eur-all|che-all",
+    "from": "bloc-eur-all",
+    "to": "che-all",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-eur-all|cze-all",
+    "from": "bloc-eur-all",
+    "to": "cze-all",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-eur-all|deu-mit",
+    "from": "bloc-eur-all",
+    "to": "deu-mit",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-eur-all|deu-nor",
+    "from": "bloc-eur-all",
+    "to": "deu-nor",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-eur-all|esp-all",
+    "from": "bloc-eur-all",
+    "to": "esp-all",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-eur-all|fra-ne",
+    "from": "bloc-eur-all",
+    "to": "fra-ne",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-eur-all|fra-occ",
+    "from": "bloc-eur-all",
+    "to": "fra-occ",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-eur-all|fra-se",
+    "from": "bloc-eur-all",
+    "to": "fra-se",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-eur-all|grc-all",
+    "from": "bloc-eur-all",
+    "to": "grc-all",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-eur-all|ita-cen",
+    "from": "bloc-eur-all",
+    "to": "ita-cen",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-eur-all|ita-ne",
+    "from": "bloc-eur-all",
+    "to": "ita-ne",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-eur-all|nor-all",
+    "from": "bloc-eur-all",
+    "to": "nor-all",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-eur-all|pol-pn",
+    "from": "bloc-eur-all",
+    "to": "pol-pn",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-eur-all|pol-pol",
+    "from": "bloc-eur-all",
+    "to": "pol-pol",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-eur-all|pol-wsc",
+    "from": "bloc-eur-all",
+    "to": "pol-wsc",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-mea-all|esp-all",
+    "from": "bloc-mea-all",
+    "to": "esp-all",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-mea-all|tur-akd",
+    "from": "bloc-mea-all",
+    "to": "tur-akd",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-mea-all|tur-dog",
+    "from": "bloc-mea-all",
+    "to": "tur-dog",
+    "distance": 0.8
+   },
+   {
+    "id": "land-bloc-mea-all|tur-gda",
+    "from": "bloc-mea-all",
+    "to": "tur-gda",
+    "distance": 0.8
+   },
+   {
+    "id": "land-che-all|deu-bw",
+    "from": "che-all",
+    "to": "deu-bw",
+    "distance": 0.8
+   },
+   {
+    "id": "land-che-all|fra-ara",
+    "from": "che-all",
+    "to": "fra-ara",
+    "distance": 0.8
+   },
+   {
+    "id": "land-che-all|fra-cen",
+    "from": "che-all",
+    "to": "fra-cen",
+    "distance": 0.8
+   },
+   {
+    "id": "land-che-all|fra-ne",
+    "from": "che-all",
+    "to": "fra-ne",
+    "distance": 0.8
+   },
+   {
+    "id": "land-che-all|ita-ne",
+    "from": "che-all",
+    "to": "ita-ne",
+    "distance": 0.8
+   },
+   {
+    "id": "land-che-all|ita-no",
+    "from": "che-all",
+    "to": "ita-no",
+    "distance": 0.8
+   },
+   {
+    "id": "land-cze-all|deu-by",
+    "from": "cze-all",
+    "to": "deu-by",
+    "distance": 0.8
+   },
+   {
+    "id": "land-cze-all|deu-mo",
+    "from": "cze-all",
+    "to": "deu-mo",
+    "distance": 0.8
+   },
+   {
+    "id": "land-cze-all|pol-pdz",
+    "from": "cze-all",
+    "to": "pol-pdz",
+    "distance": 0.8
+   },
+   {
+    "id": "land-cze-all|pol-pol",
+    "from": "cze-all",
+    "to": "pol-pol",
+    "distance": 0.8
+   },
+   {
+    "id": "land-deu-bw|deu-by",
+    "from": "deu-bw",
+    "to": "deu-by",
+    "distance": 0.8
+   },
+   {
+    "id": "land-deu-bw|deu-mit",
+    "from": "deu-bw",
+    "to": "deu-mit",
+    "distance": 0.8
+   },
+   {
+    "id": "land-deu-bw|fra-ne",
+    "from": "deu-bw",
+    "to": "fra-ne",
+    "distance": 0.8
+   },
+   {
+    "id": "land-deu-by|deu-mit",
+    "from": "deu-by",
+    "to": "deu-mit",
+    "distance": 0.8
+   },
+   {
+    "id": "land-deu-by|deu-mo",
+    "from": "deu-by",
+    "to": "deu-mo",
+    "distance": 0.8
+   },
+   {
+    "id": "land-deu-mit|deu-mo",
+    "from": "deu-mit",
+    "to": "deu-mo",
+    "distance": 0.8
+   },
+   {
+    "id": "land-deu-mit|deu-nor",
+    "from": "deu-mit",
+    "to": "deu-nor",
+    "distance": 0.8
+   },
+   {
+    "id": "land-deu-mit|deu-nrw",
+    "from": "deu-mit",
+    "to": "deu-nrw",
+    "distance": 0.8
+   },
+   {
+    "id": "land-deu-mit|fra-ne",
+    "from": "deu-mit",
+    "to": "fra-ne",
+    "distance": 0.8
+   },
+   {
+    "id": "land-deu-mo|deu-no",
+    "from": "deu-mo",
+    "to": "deu-no",
+    "distance": 0.8
+   },
+   {
+    "id": "land-deu-mo|deu-nor",
+    "from": "deu-mo",
+    "to": "deu-nor",
+    "distance": 0.8
+   },
+   {
+    "id": "land-deu-mo|pol-pdz",
+    "from": "deu-mo",
+    "to": "pol-pdz",
+    "distance": 0.8
+   },
+   {
+    "id": "land-deu-mo|pol-pza",
+    "from": "deu-mo",
+    "to": "pol-pza",
+    "distance": 0.8
+   },
+   {
+    "id": "land-deu-no|deu-nor",
+    "from": "deu-no",
+    "to": "deu-nor",
+    "distance": 0.8
+   },
+   {
+    "id": "land-deu-no|pol-pza",
+    "from": "deu-no",
+    "to": "pol-pza",
+    "distance": 0.8
+   },
+   {
+    "id": "land-deu-nor|deu-nrw",
+    "from": "deu-nor",
+    "to": "deu-nrw",
+    "distance": 0.8
+   },
+   {
+    "id": "land-deu-nor|nld-all",
+    "from": "deu-nor",
+    "to": "nld-all",
+    "distance": 0.8
+   },
+   {
+    "id": "land-deu-nrw|nld-all",
+    "from": "deu-nrw",
+    "to": "nld-all",
+    "distance": 0.8
+   },
+   {
+    "id": "land-esp-all|fra-naq",
+    "from": "esp-all",
+    "to": "fra-naq",
+    "distance": 0.8
+   },
+   {
+    "id": "land-esp-all|fra-occ",
+    "from": "esp-all",
+    "to": "fra-occ",
+    "distance": 0.8
+   },
+   {
+    "id": "land-fra-ara|fra-cen",
+    "from": "fra-ara",
+    "to": "fra-cen",
+    "distance": 0.8
+   },
+   {
+    "id": "land-fra-ara|fra-naq",
+    "from": "fra-ara",
+    "to": "fra-naq",
+    "distance": 0.8
+   },
+   {
+    "id": "land-fra-ara|fra-occ",
+    "from": "fra-ara",
+    "to": "fra-occ",
+    "distance": 0.8
+   },
+   {
+    "id": "land-fra-ara|fra-se",
+    "from": "fra-ara",
+    "to": "fra-se",
+    "distance": 0.8
+   },
+   {
+    "id": "land-fra-ara|ita-no",
+    "from": "fra-ara",
+    "to": "ita-no",
+    "distance": 0.8
+   },
+   {
+    "id": "land-fra-cen|fra-idf",
+    "from": "fra-cen",
+    "to": "fra-idf",
+    "distance": 0.8
+   },
+   {
+    "id": "land-fra-cen|fra-naq",
+    "from": "fra-cen",
+    "to": "fra-naq",
+    "distance": 0.8
+   },
+   {
+    "id": "land-fra-cen|fra-ne",
+    "from": "fra-cen",
+    "to": "fra-ne",
+    "distance": 0.8
+   },
+   {
+    "id": "land-fra-cen|fra-oue",
+    "from": "fra-cen",
+    "to": "fra-oue",
+    "distance": 0.8
+   },
+   {
+    "id": "land-fra-idf|fra-ne",
+    "from": "fra-idf",
+    "to": "fra-ne",
+    "distance": 0.8
+   },
+   {
+    "id": "land-fra-idf|fra-oue",
+    "from": "fra-idf",
+    "to": "fra-oue",
+    "distance": 0.8
+   },
+   {
+    "id": "land-fra-naq|fra-occ",
+    "from": "fra-naq",
+    "to": "fra-occ",
+    "distance": 0.8
+   },
+   {
+    "id": "land-fra-naq|fra-oue",
+    "from": "fra-naq",
+    "to": "fra-oue",
+    "distance": 0.8
+   },
+   {
+    "id": "land-fra-ne|fra-oue",
+    "from": "fra-ne",
+    "to": "fra-oue",
+    "distance": 0.8
+   },
+   {
+    "id": "land-fra-occ|fra-se",
+    "from": "fra-occ",
+    "to": "fra-se",
+    "distance": 0.8
+   },
+   {
+    "id": "land-fra-se|ita-no",
+    "from": "fra-se",
+    "to": "ita-no",
+    "distance": 0.8
+   },
+   {
+    "id": "land-gbr-lon|gbr-se",
+    "from": "gbr-lon",
+    "to": "gbr-se",
+    "distance": 0.8
+   },
+   {
+    "id": "land-gbr-mid|gbr-nth",
+    "from": "gbr-mid",
+    "to": "gbr-nth",
+    "distance": 0.8
+   },
+   {
+    "id": "land-gbr-mid|gbr-se",
+    "from": "gbr-mid",
+    "to": "gbr-se",
+    "distance": 0.8
+   },
+   {
+    "id": "land-gbr-mid|gbr-sw",
+    "from": "gbr-mid",
+    "to": "gbr-sw",
+    "distance": 0.8
+   },
+   {
+    "id": "land-gbr-mid|gbr-wls",
+    "from": "gbr-mid",
+    "to": "gbr-wls",
+    "distance": 0.8
+   },
+   {
+    "id": "land-gbr-nir|irl-all",
+    "from": "gbr-nir",
+    "to": "irl-all",
+    "distance": 0.8
+   },
+   {
+    "id": "land-gbr-nth|gbr-sco",
+    "from": "gbr-nth",
+    "to": "gbr-sco",
+    "distance": 0.8
+   },
+   {
+    "id": "land-gbr-nth|gbr-wls",
+    "from": "gbr-nth",
+    "to": "gbr-wls",
+    "distance": 0.8
+   },
+   {
+    "id": "land-gbr-se|gbr-sw",
+    "from": "gbr-se",
+    "to": "gbr-sw",
+    "distance": 0.8
+   },
+   {
+    "id": "land-gbr-sw|gbr-wls",
+    "from": "gbr-sw",
+    "to": "gbr-wls",
+    "distance": 0.8
+   },
+   {
+    "id": "land-grc-all|tur-mar",
+    "from": "grc-all",
+    "to": "tur-mar",
+    "distance": 0.8
+   },
+   {
+    "id": "land-ita-cen|ita-ne",
+    "from": "ita-cen",
+    "to": "ita-ne",
+    "distance": 0.8
+   },
+   {
+    "id": "land-ita-cen|ita-no",
+    "from": "ita-cen",
+    "to": "ita-no",
+    "distance": 0.8
+   },
+   {
+    "id": "land-ita-cen|ita-sud",
+    "from": "ita-cen",
+    "to": "ita-sud",
+    "distance": 0.8
+   },
+   {
+    "id": "land-ita-ne|ita-no",
+    "from": "ita-ne",
+    "to": "ita-no",
+    "distance": 0.8
+   },
+   {
+    "id": "land-pol-cen|pol-maz",
+    "from": "pol-cen",
+    "to": "pol-maz",
+    "distance": 0.8
+   },
+   {
+    "id": "land-pol-cen|pol-pdz",
+    "from": "pol-cen",
+    "to": "pol-pdz",
+    "distance": 0.8
+   },
+   {
+    "id": "land-pol-cen|pol-pn",
+    "from": "pol-cen",
+    "to": "pol-pn",
+    "distance": 0.8
+   },
+   {
+    "id": "land-pol-cen|pol-pol",
+    "from": "pol-cen",
+    "to": "pol-pol",
+    "distance": 0.8
+   },
+   {
+    "id": "land-pol-cen|pol-pza",
+    "from": "pol-cen",
+    "to": "pol-pza",
+    "distance": 0.8
+   },
+   {
+    "id": "land-pol-cen|pol-wsc",
+    "from": "pol-cen",
+    "to": "pol-wsc",
+    "distance": 0.8
+   },
+   {
+    "id": "land-pol-maz|pol-pn",
+    "from": "pol-maz",
+    "to": "pol-pn",
+    "distance": 0.8
+   },
+   {
+    "id": "land-pol-maz|pol-wsc",
+    "from": "pol-maz",
+    "to": "pol-wsc",
+    "distance": 0.8
+   },
+   {
+    "id": "land-pol-pdz|pol-pol",
+    "from": "pol-pdz",
+    "to": "pol-pol",
+    "distance": 0.8
+   },
+   {
+    "id": "land-pol-pdz|pol-pza",
+    "from": "pol-pdz",
+    "to": "pol-pza",
+    "distance": 0.8
+   },
+   {
+    "id": "land-pol-pn|pol-pza",
+    "from": "pol-pn",
+    "to": "pol-pza",
+    "distance": 0.8
+   },
+   {
+    "id": "land-pol-pn|pol-wsc",
+    "from": "pol-pn",
+    "to": "pol-wsc",
+    "distance": 0.8
+   },
+   {
+    "id": "land-pol-pol|pol-wsc",
+    "from": "pol-pol",
+    "to": "pol-wsc",
+    "distance": 0.8
+   },
+   {
+    "id": "land-tur-akd|tur-ban",
+    "from": "tur-akd",
+    "to": "tur-ban",
+    "distance": 0.8
+   },
+   {
+    "id": "land-tur-akd|tur-dog",
+    "from": "tur-akd",
+    "to": "tur-dog",
+    "distance": 0.8
+   },
+   {
+    "id": "land-tur-akd|tur-ege",
+    "from": "tur-akd",
+    "to": "tur-ege",
+    "distance": 0.8
+   },
+   {
+    "id": "land-tur-akd|tur-gda",
+    "from": "tur-akd",
+    "to": "tur-gda",
+    "distance": 0.8
+   },
+   {
+    "id": "land-tur-akd|tur-oan",
+    "from": "tur-akd",
+    "to": "tur-oan",
+    "distance": 0.8
+   },
+   {
+    "id": "land-tur-ban|tur-ege",
+    "from": "tur-ban",
+    "to": "tur-ege",
+    "distance": 0.8
+   },
+   {
+    "id": "land-tur-ban|tur-kar",
+    "from": "tur-ban",
+    "to": "tur-kar",
+    "distance": 0.8
+   },
+   {
+    "id": "land-tur-ban|tur-mar",
+    "from": "tur-ban",
+    "to": "tur-mar",
+    "distance": 0.8
+   },
+   {
+    "id": "land-tur-ban|tur-oan",
+    "from": "tur-ban",
+    "to": "tur-oan",
+    "distance": 0.8
+   },
+   {
+    "id": "land-tur-dog|tur-gda",
+    "from": "tur-dog",
+    "to": "tur-gda",
+    "distance": 0.8
+   },
+   {
+    "id": "land-tur-dog|tur-kar",
+    "from": "tur-dog",
+    "to": "tur-kar",
+    "distance": 0.8
+   },
+   {
+    "id": "land-tur-dog|tur-oan",
+    "from": "tur-dog",
+    "to": "tur-oan",
+    "distance": 0.8
+   },
+   {
+    "id": "land-tur-ege|tur-mar",
+    "from": "tur-ege",
+    "to": "tur-mar",
+    "distance": 0.8
+   },
+   {
+    "id": "land-tur-ist|tur-mar",
+    "from": "tur-ist",
+    "to": "tur-mar",
+    "distance": 0.8
+   },
+   {
+    "id": "land-tur-kar|tur-mar",
+    "from": "tur-kar",
+    "to": "tur-mar",
+    "distance": 0.8
+   },
+   {
+    "id": "land-tur-kar|tur-oan",
+    "from": "tur-kar",
+    "to": "tur-oan",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bel-all|bloc-ame-all",
+    "from": "bel-all",
+    "to": "bloc-ame-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bel-all|bloc-apa-all",
+    "from": "bel-all",
+    "to": "bloc-apa-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bel-all|bloc-eec-all",
+    "from": "bel-all",
+    "to": "bloc-eec-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bel-all|bloc-mea-all",
+    "from": "bel-all",
+    "to": "bloc-mea-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bgr-all|bloc-ame-all",
+    "from": "bgr-all",
+    "to": "bloc-ame-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bgr-all|bloc-apa-all",
+    "from": "bgr-all",
+    "to": "bloc-apa-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bgr-all|bloc-eec-all",
+    "from": "bgr-all",
+    "to": "bloc-eec-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bgr-all|bloc-mea-all",
+    "from": "bgr-all",
+    "to": "bloc-mea-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|bloc-apa-all",
+    "from": "bloc-ame-all",
+    "to": "bloc-apa-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|bloc-eec-all",
+    "from": "bloc-ame-all",
+    "to": "bloc-eec-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|bloc-eur-all",
+    "from": "bloc-ame-all",
+    "to": "bloc-eur-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|bloc-mea-all",
+    "from": "bloc-ame-all",
+    "to": "bloc-mea-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|deu-no",
+    "from": "bloc-ame-all",
+    "to": "deu-no",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|deu-nor",
+    "from": "bloc-ame-all",
+    "to": "deu-nor",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|esp-all",
+    "from": "bloc-ame-all",
+    "to": "esp-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|fra-cor",
+    "from": "bloc-ame-all",
+    "to": "fra-cor",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|fra-naq",
+    "from": "bloc-ame-all",
+    "to": "fra-naq",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|fra-ne",
+    "from": "bloc-ame-all",
+    "to": "fra-ne",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|fra-occ",
+    "from": "bloc-ame-all",
+    "to": "fra-occ",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|fra-oue",
+    "from": "bloc-ame-all",
+    "to": "fra-oue",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|fra-se",
+    "from": "bloc-ame-all",
+    "to": "fra-se",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|gbr-mid",
+    "from": "bloc-ame-all",
+    "to": "gbr-mid",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|gbr-nir",
+    "from": "bloc-ame-all",
+    "to": "gbr-nir",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|gbr-nth",
+    "from": "bloc-ame-all",
+    "to": "gbr-nth",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|gbr-sco",
+    "from": "bloc-ame-all",
+    "to": "gbr-sco",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|gbr-se",
+    "from": "bloc-ame-all",
+    "to": "gbr-se",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|gbr-sw",
+    "from": "bloc-ame-all",
+    "to": "gbr-sw",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|gbr-wls",
+    "from": "bloc-ame-all",
+    "to": "gbr-wls",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|grc-all",
+    "from": "bloc-ame-all",
+    "to": "grc-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|irl-all",
+    "from": "bloc-ame-all",
+    "to": "irl-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|ita-cen",
+    "from": "bloc-ame-all",
+    "to": "ita-cen",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|ita-ne",
+    "from": "bloc-ame-all",
+    "to": "ita-ne",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|ita-no",
+    "from": "bloc-ame-all",
+    "to": "ita-no",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|ita-sar",
+    "from": "bloc-ame-all",
+    "to": "ita-sar",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|ita-sic",
+    "from": "bloc-ame-all",
+    "to": "ita-sic",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|ita-sud",
+    "from": "bloc-ame-all",
+    "to": "ita-sud",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|nld-all",
+    "from": "bloc-ame-all",
+    "to": "nld-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|nor-all",
+    "from": "bloc-ame-all",
+    "to": "nor-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|pol-pn",
+    "from": "bloc-ame-all",
+    "to": "pol-pn",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|pol-pza",
+    "from": "bloc-ame-all",
+    "to": "pol-pza",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|tur-akd",
+    "from": "bloc-ame-all",
+    "to": "tur-akd",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|tur-ege",
+    "from": "bloc-ame-all",
+    "to": "tur-ege",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|tur-ist",
+    "from": "bloc-ame-all",
+    "to": "tur-ist",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|tur-kar",
+    "from": "bloc-ame-all",
+    "to": "tur-kar",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-ame-all|tur-mar",
+    "from": "bloc-ame-all",
+    "to": "tur-mar",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|bloc-eur-all",
+    "from": "bloc-apa-all",
+    "to": "bloc-eur-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|deu-no",
+    "from": "bloc-apa-all",
+    "to": "deu-no",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|deu-nor",
+    "from": "bloc-apa-all",
+    "to": "deu-nor",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|esp-all",
+    "from": "bloc-apa-all",
+    "to": "esp-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|fra-cor",
+    "from": "bloc-apa-all",
+    "to": "fra-cor",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|fra-naq",
+    "from": "bloc-apa-all",
+    "to": "fra-naq",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|fra-ne",
+    "from": "bloc-apa-all",
+    "to": "fra-ne",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|fra-occ",
+    "from": "bloc-apa-all",
+    "to": "fra-occ",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|fra-oue",
+    "from": "bloc-apa-all",
+    "to": "fra-oue",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|fra-se",
+    "from": "bloc-apa-all",
+    "to": "fra-se",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|gbr-mid",
+    "from": "bloc-apa-all",
+    "to": "gbr-mid",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|gbr-nir",
+    "from": "bloc-apa-all",
+    "to": "gbr-nir",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|gbr-nth",
+    "from": "bloc-apa-all",
+    "to": "gbr-nth",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|gbr-sco",
+    "from": "bloc-apa-all",
+    "to": "gbr-sco",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|gbr-se",
+    "from": "bloc-apa-all",
+    "to": "gbr-se",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|gbr-sw",
+    "from": "bloc-apa-all",
+    "to": "gbr-sw",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|gbr-wls",
+    "from": "bloc-apa-all",
+    "to": "gbr-wls",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|grc-all",
+    "from": "bloc-apa-all",
+    "to": "grc-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|irl-all",
+    "from": "bloc-apa-all",
+    "to": "irl-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|ita-cen",
+    "from": "bloc-apa-all",
+    "to": "ita-cen",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|ita-ne",
+    "from": "bloc-apa-all",
+    "to": "ita-ne",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|ita-no",
+    "from": "bloc-apa-all",
+    "to": "ita-no",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|ita-sar",
+    "from": "bloc-apa-all",
+    "to": "ita-sar",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|ita-sic",
+    "from": "bloc-apa-all",
+    "to": "ita-sic",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|ita-sud",
+    "from": "bloc-apa-all",
+    "to": "ita-sud",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|nld-all",
+    "from": "bloc-apa-all",
+    "to": "nld-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|nor-all",
+    "from": "bloc-apa-all",
+    "to": "nor-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|pol-pn",
+    "from": "bloc-apa-all",
+    "to": "pol-pn",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|pol-pza",
+    "from": "bloc-apa-all",
+    "to": "pol-pza",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|tur-akd",
+    "from": "bloc-apa-all",
+    "to": "tur-akd",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|tur-ege",
+    "from": "bloc-apa-all",
+    "to": "tur-ege",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|tur-ist",
+    "from": "bloc-apa-all",
+    "to": "tur-ist",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|tur-kar",
+    "from": "bloc-apa-all",
+    "to": "tur-kar",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-apa-all|tur-mar",
+    "from": "bloc-apa-all",
+    "to": "tur-mar",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|deu-no",
+    "from": "bloc-eec-all",
+    "to": "deu-no",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|deu-nor",
+    "from": "bloc-eec-all",
+    "to": "deu-nor",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|esp-all",
+    "from": "bloc-eec-all",
+    "to": "esp-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|fra-cor",
+    "from": "bloc-eec-all",
+    "to": "fra-cor",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|fra-naq",
+    "from": "bloc-eec-all",
+    "to": "fra-naq",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|fra-ne",
+    "from": "bloc-eec-all",
+    "to": "fra-ne",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|fra-occ",
+    "from": "bloc-eec-all",
+    "to": "fra-occ",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|fra-oue",
+    "from": "bloc-eec-all",
+    "to": "fra-oue",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|fra-se",
+    "from": "bloc-eec-all",
+    "to": "fra-se",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|gbr-mid",
+    "from": "bloc-eec-all",
+    "to": "gbr-mid",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|gbr-nir",
+    "from": "bloc-eec-all",
+    "to": "gbr-nir",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|gbr-nth",
+    "from": "bloc-eec-all",
+    "to": "gbr-nth",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|gbr-sco",
+    "from": "bloc-eec-all",
+    "to": "gbr-sco",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|gbr-se",
+    "from": "bloc-eec-all",
+    "to": "gbr-se",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|gbr-sw",
+    "from": "bloc-eec-all",
+    "to": "gbr-sw",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|gbr-wls",
+    "from": "bloc-eec-all",
+    "to": "gbr-wls",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|grc-all",
+    "from": "bloc-eec-all",
+    "to": "grc-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|irl-all",
+    "from": "bloc-eec-all",
+    "to": "irl-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|ita-cen",
+    "from": "bloc-eec-all",
+    "to": "ita-cen",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|ita-ne",
+    "from": "bloc-eec-all",
+    "to": "ita-ne",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|ita-no",
+    "from": "bloc-eec-all",
+    "to": "ita-no",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|ita-sar",
+    "from": "bloc-eec-all",
+    "to": "ita-sar",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|ita-sic",
+    "from": "bloc-eec-all",
+    "to": "ita-sic",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|ita-sud",
+    "from": "bloc-eec-all",
+    "to": "ita-sud",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|nld-all",
+    "from": "bloc-eec-all",
+    "to": "nld-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|pol-pza",
+    "from": "bloc-eec-all",
+    "to": "pol-pza",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|tur-akd",
+    "from": "bloc-eec-all",
+    "to": "tur-akd",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|tur-ege",
+    "from": "bloc-eec-all",
+    "to": "tur-ege",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|tur-ist",
+    "from": "bloc-eec-all",
+    "to": "tur-ist",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eec-all|tur-mar",
+    "from": "bloc-eec-all",
+    "to": "tur-mar",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eur-all|bloc-mea-all",
+    "from": "bloc-eur-all",
+    "to": "bloc-mea-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eur-all|deu-no",
+    "from": "bloc-eur-all",
+    "to": "deu-no",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eur-all|fra-cor",
+    "from": "bloc-eur-all",
+    "to": "fra-cor",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eur-all|fra-naq",
+    "from": "bloc-eur-all",
+    "to": "fra-naq",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eur-all|fra-oue",
+    "from": "bloc-eur-all",
+    "to": "fra-oue",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eur-all|gbr-mid",
+    "from": "bloc-eur-all",
+    "to": "gbr-mid",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eur-all|gbr-nir",
+    "from": "bloc-eur-all",
+    "to": "gbr-nir",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eur-all|gbr-nth",
+    "from": "bloc-eur-all",
+    "to": "gbr-nth",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eur-all|gbr-sco",
+    "from": "bloc-eur-all",
+    "to": "gbr-sco",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eur-all|gbr-se",
+    "from": "bloc-eur-all",
+    "to": "gbr-se",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eur-all|gbr-sw",
+    "from": "bloc-eur-all",
+    "to": "gbr-sw",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eur-all|gbr-wls",
+    "from": "bloc-eur-all",
+    "to": "gbr-wls",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eur-all|irl-all",
+    "from": "bloc-eur-all",
+    "to": "irl-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eur-all|ita-no",
+    "from": "bloc-eur-all",
+    "to": "ita-no",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eur-all|ita-sar",
+    "from": "bloc-eur-all",
+    "to": "ita-sar",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eur-all|ita-sic",
+    "from": "bloc-eur-all",
+    "to": "ita-sic",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eur-all|ita-sud",
+    "from": "bloc-eur-all",
+    "to": "ita-sud",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eur-all|nld-all",
+    "from": "bloc-eur-all",
+    "to": "nld-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eur-all|pol-pza",
+    "from": "bloc-eur-all",
+    "to": "pol-pza",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eur-all|tur-akd",
+    "from": "bloc-eur-all",
+    "to": "tur-akd",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eur-all|tur-ege",
+    "from": "bloc-eur-all",
+    "to": "tur-ege",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eur-all|tur-ist",
+    "from": "bloc-eur-all",
+    "to": "tur-ist",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eur-all|tur-kar",
+    "from": "bloc-eur-all",
+    "to": "tur-kar",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-eur-all|tur-mar",
+    "from": "bloc-eur-all",
+    "to": "tur-mar",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|deu-no",
+    "from": "bloc-mea-all",
+    "to": "deu-no",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|deu-nor",
+    "from": "bloc-mea-all",
+    "to": "deu-nor",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|fra-cor",
+    "from": "bloc-mea-all",
+    "to": "fra-cor",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|fra-naq",
+    "from": "bloc-mea-all",
+    "to": "fra-naq",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|fra-ne",
+    "from": "bloc-mea-all",
+    "to": "fra-ne",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|fra-occ",
+    "from": "bloc-mea-all",
+    "to": "fra-occ",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|fra-oue",
+    "from": "bloc-mea-all",
+    "to": "fra-oue",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|fra-se",
+    "from": "bloc-mea-all",
+    "to": "fra-se",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|gbr-mid",
+    "from": "bloc-mea-all",
+    "to": "gbr-mid",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|gbr-nir",
+    "from": "bloc-mea-all",
+    "to": "gbr-nir",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|gbr-nth",
+    "from": "bloc-mea-all",
+    "to": "gbr-nth",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|gbr-sco",
+    "from": "bloc-mea-all",
+    "to": "gbr-sco",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|gbr-se",
+    "from": "bloc-mea-all",
+    "to": "gbr-se",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|gbr-sw",
+    "from": "bloc-mea-all",
+    "to": "gbr-sw",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|gbr-wls",
+    "from": "bloc-mea-all",
+    "to": "gbr-wls",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|grc-all",
+    "from": "bloc-mea-all",
+    "to": "grc-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|irl-all",
+    "from": "bloc-mea-all",
+    "to": "irl-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|ita-cen",
+    "from": "bloc-mea-all",
+    "to": "ita-cen",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|ita-ne",
+    "from": "bloc-mea-all",
+    "to": "ita-ne",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|ita-no",
+    "from": "bloc-mea-all",
+    "to": "ita-no",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|ita-sar",
+    "from": "bloc-mea-all",
+    "to": "ita-sar",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|ita-sic",
+    "from": "bloc-mea-all",
+    "to": "ita-sic",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|ita-sud",
+    "from": "bloc-mea-all",
+    "to": "ita-sud",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|nld-all",
+    "from": "bloc-mea-all",
+    "to": "nld-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|nor-all",
+    "from": "bloc-mea-all",
+    "to": "nor-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|pol-pn",
+    "from": "bloc-mea-all",
+    "to": "pol-pn",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|pol-pza",
+    "from": "bloc-mea-all",
+    "to": "pol-pza",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|tur-ege",
+    "from": "bloc-mea-all",
+    "to": "tur-ege",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|tur-ist",
+    "from": "bloc-mea-all",
+    "to": "tur-ist",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|tur-kar",
+    "from": "bloc-mea-all",
+    "to": "tur-kar",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-bloc-mea-all|tur-mar",
+    "from": "bloc-mea-all",
+    "to": "tur-mar",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-fra-cor|fra-se",
+    "from": "fra-cor",
+    "to": "fra-se",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-fra-cor|ita-cen",
+    "from": "fra-cor",
+    "to": "ita-cen",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-fra-cor|ita-sar",
+    "from": "fra-cor",
+    "to": "ita-sar",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-fra-ne|gbr-se",
+    "from": "fra-ne",
+    "to": "gbr-se",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-fra-oue|gbr-se",
+    "from": "fra-oue",
+    "to": "gbr-se",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-fra-oue|irl-all",
+    "from": "fra-oue",
+    "to": "irl-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-gbr-nir|gbr-nth",
+    "from": "gbr-nir",
+    "to": "gbr-nth",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-gbr-nir|gbr-sco",
+    "from": "gbr-nir",
+    "to": "gbr-sco",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-gbr-nth|nld-all",
+    "from": "gbr-nth",
+    "to": "nld-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-gbr-sco|nor-all",
+    "from": "gbr-sco",
+    "to": "nor-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-gbr-wls|irl-all",
+    "from": "gbr-wls",
+    "to": "irl-all",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-grc-all|ita-sud",
+    "from": "grc-all",
+    "to": "ita-sud",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-grc-all|tur-ege",
+    "from": "grc-all",
+    "to": "tur-ege",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-ita-cen|ita-sar",
+    "from": "ita-cen",
+    "to": "ita-sar",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-ita-no|ita-sar",
+    "from": "ita-no",
+    "to": "ita-sar",
+    "distance": 0.8
+   },
+   {
+    "id": "sea-ita-sic|ita-sud",
+    "from": "ita-sic",
+    "to": "ita-sud",
+    "distance": 0.8
+   }
+  ]
+ }
+}

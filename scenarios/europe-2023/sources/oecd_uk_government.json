@@ -1,0 +1,24 @@
+{
+ "attribution": "Source: OECD",
+ "dataset": "OECD.SDD.NAD,DSD_NASEC10@DF_TABLE12",
+ "id": "oecd_uk_government",
+ "key": "country|transaction",
+ "licence": "CC BY 4.0",
+ "licence_status": "verified (search only; oecd.org blocks automated reading)",
+ "notes": [],
+ "publisher": "oecd",
+ "publisher_updated": null,
+ "query": "https://sdmx.oecd.org/public/rest/data/OECD.SDD.NAD,DSD_NASEC10@DF_TABLE12,/A.GBR.S13..............?startPeriod=2023&endPeriod=2023&dimensionAtObservation=AllDimensions",
+ "reference_year": 2023,
+ "retrieved": "2026-11-22",
+ "title": "Government deficit/surplus, revenue, expenditure and main aggregates, UK, pounds million",
+ "values": {
+  "GBR|D1": 268379.0,
+  "GBR|D3": 58170.0,
+  "GBR|D41": 86752.0,
+  "GBR|D62": 356116.0,
+  "GBR|OTE": 1284993.0,
+  "GBR|P3": 564177.0,
+  "GBR|P51G": 90246.0
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "attribution": "Source: OECD",
+ "dataset": "OECD.CTP.TPS,DSD_REV_COMP_OECD@DF_RSOECD",
+ "id": "oecd_revenue",
+ "key": "country|revenue category",
+ "licence": "CC BY 4.0",
+ "licence_status": "verified (search only; oecd.org blocks automated reading)",
+ "notes": [],
+ "publisher": "oecd",
+ "publisher_updated": null,
+ "query": "https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_REV_COMP_OECD@DF_RSOECD,/GBR+TUR.TAX_REV.S13.T_1100+T_1200+T_2000+T_5110+T_5120+T_5000+_T._T.PT_B1GQ.A?startPeriod=2023&endPeriod=2023&dimensionAtObservation=AllDimensions",
+ "reference_year": 2023,
+ "retrieved": "2026-11-22",
+ "title": "Revenue Statistics: tax revenue by category, general government, % of GDP",
+ "values": {
+  "GBR|T_1100": 10.546536,
+  "GBR|T_1200": 3.376096,
+  "GBR|T_2000": 6.673171,
+  "GBR|T_5000": 10.553061,
+  "GBR|T_5110": 7.213488,
+  "GBR|T_5120": 2.760269,
+  "GBR|_T": 34.965313,
+  "TUR|T_1100": 2.614524,
+  "TUR|T_1200": 2.962128,
+  "TUR|T_2000": 6.145718,
+  "TUR|T_5000": 10.583743,
+  "TUR|T_5110": 5.481131,
+  "TUR|T_5120": 4.817556,
+  "TUR|_T": 23.216834
+ }
+}

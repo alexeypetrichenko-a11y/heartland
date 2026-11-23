@@ -1,0 +1,20 @@
+{
+ "attribution": "Source: Republic of Türkiye Ministry of Treasury and Finance, Public Debt Management Report",
+ "dataset": "Public Debt Management Report",
+ "download_sha256": "315ae4e1faacb554477c96e047c8d07e77bd9f1bc33eef55124ccab4a8aeb456",
+ "id": "tr_treasury_debt",
+ "licence": "Republic of Türkiye Ministry of Treasury and Finance: \"May not be copied or duplicated, in whole or in part without reference.\"",
+ "licence_status": "verified (primary): reuse with reference; commercial use not addressed",
+ "notes": [
+  "Quoted sentence: \"the EU-defined general government debt stock to GDP ratio realized at 29.6 percent\" (report covering 2023)."
+ ],
+ "publisher": "tr_treasury",
+ "publisher_updated": null,
+ "query": "https://ms.hmb.gov.tr/uploads/sites/2/2025/02/Public-Debt-Management-Report-2024.pdf",
+ "reference_year": 2023,
+ "retrieved": "2026-11-22",
+ "title": "EU-defined general government debt stock, % of GDP, end-2023",
+ "values": {
+  "TUR|EU_defined_GG_debt_pct_GDP": 29.6
+ }
+}
