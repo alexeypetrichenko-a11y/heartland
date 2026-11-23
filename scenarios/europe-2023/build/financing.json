@@ -1,0 +1,293 @@
+{
+ "reference": "Germany 10-year yield 2023 (the engine world rate stands for it)",
+ "reference_yield": 0.024300000000000002,
+ "fit": {
+  "countries": [
+   "fra",
+   "deu",
+   "ita",
+   "irl",
+   "esp",
+   "nld",
+   "bel",
+   "aut",
+   "grc"
+  ],
+  "default_params": {
+   "spreadLinear": 0.02,
+   "spreadDebtThreshold": 0.6,
+   "spreadQuadThreshold": 0.9,
+   "spreadQuad": 0.25,
+   "spreadDeficit": 0.5
+  },
+  "default_rms": 0.05299154612104806,
+  "fitted_params": {
+   "spreadLinear": 0.016,
+   "spreadDebtThreshold": 0.6,
+   "spreadQuadThreshold": 1.65,
+   "spreadQuad": 0.25,
+   "spreadDeficit": 0.1
+  },
+  "fitted_rms": 0.0030856321096034405,
+  "method": "grid search, least squares on euro-area spreads over Germany; spreadDebtThreshold and spreadQuad kept at defaults"
+ },
+ "countries": {
+  "fra": {
+   "debt": 1.095,
+   "interest_paid_pct_gdp": 0.01884727307219666,
+   "deficit": 0.05360960007994846,
+   "effective_rate": 0.017212121527120237,
+   "yield_10y": 0.029900000000000003,
+   "euro_area": true,
+   "sources": [
+    "es_government",
+    "es_national_gdp",
+    "es_debt",
+    "es_bond_yields"
+   ],
+   "spread_model_default": 0.031211050039974226,
+   "spread_model_fitted": 0.010280960007994847,
+   "spread_observed": 0.005600000000000001
+  },
+  "deu": {
+   "debt": 0.618,
+   "interest_paid_pct_gdp": 0.008728228196468566,
+   "deficit": 0.022323751507075322,
+   "effective_rate": 0.014123346596227455,
+   "yield_10y": 0.024300000000000002,
+   "euro_area": true,
+   "sources": [
+    "es_government",
+    "es_national_gdp",
+    "es_debt",
+    "es_bond_yields"
+   ],
+   "spread_model_default": 0.00036000000000000035,
+   "spread_model_fitted": 0.0002880000000000003,
+   "spread_observed": 0.0
+  },
+  "ita": {
+   "debt": 1.34,
+   "interest_paid_pct_gdp": 0.03631264518428015,
+   "deficit": 0.07095376850673521,
+   "effective_rate": 0.02709898894349265,
+   "yield_10y": 0.042800000000000005,
+   "euro_area": true,
+   "sources": [
+    "es_government",
+    "es_national_gdp",
+    "es_debt",
+    "es_bond_yields"
+   ],
+   "spread_model_default": 0.08367688425336763,
+   "spread_model_fitted": 0.015935376850673522,
+   "spread_observed": 0.018500000000000003
+  },
+  "pol": {
+   "debt": 0.495,
+   "interest_paid_pct_gdp": 0.020716932228570826,
+   "deficit": 0.051955714241375656,
+   "effective_rate": 0.04185238834054712,
+   "yield_10y": 0.057999999999999996,
+   "euro_area": false,
+   "sources": [
+    "es_government",
+    "es_national_gdp",
+    "es_debt",
+    "es_bond_yields"
+   ],
+   "spread_model_default": 0.010977857120687828,
+   "spread_model_fitted": 0.0021955714241375657
+  },
+  "irl": {
+   "debt": 0.42100000000000004,
+   "interest_paid_pct_gdp": 0.006463230440087236,
+   "deficit": -0.014557629703363453,
+   "effective_rate": 0.015352091306620512,
+   "yield_10y": 0.0287,
+   "euro_area": true,
+   "sources": [
+    "es_government",
+    "es_national_gdp",
+    "es_debt",
+    "es_bond_yields"
+   ],
+   "spread_model_default": 0.0,
+   "spread_model_fitted": 0.0,
+   "spread_observed": 0.004399999999999998
+  },
+  "esp": {
+   "debt": 1.053,
+   "interest_paid_pct_gdp": 0.02375963808840208,
+   "deficit": 0.033434317308894006,
+   "effective_rate": 0.022563758868378046,
+   "yield_10y": 0.0348,
+   "euro_area": true,
+   "sources": [
+    "es_government",
+    "es_national_gdp",
+    "es_debt",
+    "es_bond_yields"
+   ],
+   "spread_model_default": 0.016629408654446995,
+   "spread_model_fitted": 0.0075914317308894,
+   "spread_observed": 0.010499999999999995
+  },
+  "nld": {
+   "debt": 0.45899999999999996,
+   "interest_paid_pct_gdp": 0.006784854870763989,
+   "deficit": 0.0034395643218525654,
+   "effective_rate": 0.014781818890553354,
+   "yield_10y": 0.0279,
+   "euro_area": true,
+   "sources": [
+    "es_government",
+    "es_national_gdp",
+    "es_debt",
+    "es_bond_yields"
+   ],
+   "spread_model_default": 0.0,
+   "spread_model_fitted": 0.0,
+   "spread_observed": 0.003599999999999999
+  },
+  "bel": {
+   "debt": 1.023,
+   "interest_paid_pct_gdp": 0.0194426980330987,
+   "deficit": 0.0411515305858524,
+   "effective_rate": 0.019005569924827666,
+   "yield_10y": 0.030899999999999997,
+   "euro_area": true,
+   "sources": [
+    "es_government",
+    "es_national_gdp",
+    "es_debt",
+    "es_bond_yields"
+   ],
+   "spread_model_default": 0.017818015292926193,
+   "spread_model_fitted": 0.00788315305858524,
+   "spread_observed": 0.006599999999999995
+  },
+  "che": {
+   "debt": null,
+   "interest_paid_pct_gdp": 0.0026911141804898597,
+   "deficit": -0.003354152735984065,
+   "effective_rate": null,
+   "yield_10y": null,
+   "euro_area": false,
+   "sources": [
+    "es_government",
+    "es_national_gdp",
+    "es_debt",
+    "es_bond_yields"
+   ]
+  },
+  "aut": {
+   "debt": 0.774,
+   "interest_paid_pct_gdp": 0.011957088424068124,
+   "deficit": 0.02552427778835849,
+   "effective_rate": 0.015448434656418764,
+   "yield_10y": 0.0308,
+   "euro_area": true,
+   "sources": [
+    "es_government",
+    "es_national_gdp",
+    "es_debt",
+    "es_bond_yields"
+   ],
+   "spread_model_default": 0.003480000000000001,
+   "spread_model_fitted": 0.002784000000000001,
+   "spread_observed": 0.006499999999999999
+  },
+  "cze": {
+   "debt": 0.42200000000000004,
+   "interest_paid_pct_gdp": 0.012861284222331163,
+   "deficit": 0.03692255068929345,
+   "effective_rate": 0.030476976830168628,
+   "yield_10y": 0.0444,
+   "euro_area": false,
+   "sources": [
+    "es_government",
+    "es_national_gdp",
+    "es_debt",
+    "es_bond_yields"
+   ],
+   "spread_model_default": 0.003461275344646724,
+   "spread_model_fitted": 0.0006922550689293449
+  },
+  "nor": {
+   "debt": 0.42700000000000005,
+   "interest_paid_pct_gdp": 0.010206072483058527,
+   "deficit": -0.158921189749591,
+   "effective_rate": 0.02390180909381388,
+   "yield_10y": null,
+   "euro_area": false,
+   "sources": [
+    "es_government",
+    "es_national_gdp",
+    "es_debt_quarterly",
+    "es_bond_yields"
+   ],
+   "spread_model_default": 0.0,
+   "spread_model_fitted": 0.0
+  },
+  "grc": {
+   "debt": 1.64,
+   "interest_paid_pct_gdp": 0.033822467591615474,
+   "deficit": 0.01477400219943792,
+   "effective_rate": 0.02062345584854602,
+   "yield_10y": 0.04,
+   "euro_area": true,
+   "sources": [
+    "es_government",
+    "es_national_gdp",
+    "es_debt",
+    "es_bond_yields"
+   ],
+   "spread_model_default": 0.15769999999999998,
+   "spread_model_fitted": 0.016640000000000002,
+   "spread_observed": 0.0157
+  },
+  "bgr": {
+   "debt": 0.228,
+   "interest_paid_pct_gdp": 0.004914769650403623,
+   "deficit": 0.019805238845817766,
+   "effective_rate": 0.02155600723861238,
+   "yield_10y": 0.037587100000000005,
+   "euro_area": false,
+   "sources": [
+    "es_government",
+    "es_national_gdp",
+    "es_debt",
+    "es_bond_yields"
+   ],
+   "spread_model_default": 0.0,
+   "spread_model_fitted": 0.0
+  },
+  "gbr": {
+   "debt": 0.988,
+   "interest_paid_pct_gdp": 0.031358645713670176,
+   "deficit": null,
+   "yield_10y": null,
+   "euro_area": false,
+   "sources": [
+    "oecd_uk_government",
+    "oecd_gdp",
+    "ons_uk_debt"
+   ],
+   "effective_rate": 0.03173951995310747
+  },
+  "tur": {
+   "debt": 0.29600000000000004,
+   "interest_paid_pct_gdp": 0.03867639074928106,
+   "deficit": null,
+   "yield_10y": null,
+   "euro_area": false,
+   "sources": [
+    "tr_sayistay_government",
+    "oecd_gdp",
+    "tr_treasury_debt"
+   ],
+   "effective_rate": 0.13066348226108465
+  }
+ }
+}

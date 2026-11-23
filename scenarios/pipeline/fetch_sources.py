@@ -287,7 +287,12 @@ def fetch_turkey():
                              'functional classification table (defence services, 2023 column).'],
          extra={'download_sha256': hashlib.sha256(data).hexdigest(), 'key': 'country|item'})
 
-STEPS = {'eurostat': fetch_eurostat, 'ons': fetch_ons, 'ons_debt': fetch_ons_debt, 'oecd': fetch_oecd, 'worldbank': fetch_worldbank, 'turkey': fetch_turkey}
+def fetch_financing():
+    """ECON-08: long-term government bond yields (EMU convergence criterion, 10-year benchmark, annual average 2023)."""
+    es_save('es_bond_yields', 'irt_lt_mcby_a', 'EMU convergence criterion series: long-term government bond yields, annual average, % per year',
+            ['time=2023'] + [f'geo={g}' for g in ES_PLAYABLE[:4] + ES_NEIGHBOURS])
+
+STEPS = {'financing': fetch_financing, 'eurostat': fetch_eurostat, 'ons': fetch_ons, 'ons_debt': fetch_ons_debt, 'oecd': fetch_oecd, 'worldbank': fetch_worldbank, 'turkey': fetch_turkey}
 
 if __name__ == '__main__':
     only = sys.argv[sys.argv.index('--only') + 1].split(',') if '--only' in sys.argv else list(STEPS)

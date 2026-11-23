@@ -1026,6 +1026,13 @@ export interface CountrySpec {
   name: string;
   /** Public debt as a multiple of yearly GDP at the start. */
   debtToGdp?: number;
+  /**
+   * ECON-08: average interest rate the state pays on its outstanding bonds at the start (yearly), for example
+   * interest paid divided by debt in the reference year. It differs from the market rate on NEW debt because
+   * old bonds carry the rates at which they were issued; it then converges to the market rate as debt is
+   * refinanced (debtMaturityWeeks). Omit to start, as before, with every bond at the current market rate.
+   */
+  effectiveRate?: number;
   stability?: number;
   taxConsumption?: number;
   taxCorporate?: number;
@@ -1074,4 +1081,13 @@ export interface WorldSpec {
   config?: EconomyConfig;
   /** Weeks simulated with structure frozen so prices and stocks settle. */
   warmupTurns?: number;
+  /**
+   * ECON-08: keep every state's starting balance sheet at its requested size while the builder settles prices
+   * (opt-in; omitted or false = the previous behaviour, used by the fictional scenario). After each settling
+   * week, (1) every holder's bonds are scaled by one common factor so public debt equals debtToGdp x the GDP the
+   * economy has reached, (2) the treasury is brought back to its starting cash buffer by a transfer to or from
+   * the country's households, and (3) the average rate on the stock stays at its starting value. Bonds always
+   * equal the debt held against them and no money is created or destroyed; the game starts from this state.
+   */
+  holdStartingDebt?: boolean;
 }

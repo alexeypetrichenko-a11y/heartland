@@ -25,6 +25,14 @@ const ROOT = resolve(import.meta.dirname, '../../..');
 const BUILD = resolve(ROOT, 'scenarios/europe-2023/build');
 const inputs = JSON.parse(readFileSync(resolve(BUILD, 'inputs.json'), 'utf8'));
 const geo = JSON.parse(readFileSync(resolve(BUILD, 'geography.json'), 'utf8'));
+/**
+ * ECON-08 (opt-in: WORLD03_FINANCE=econ08): 2023 sovereign financing (build/financing.json: effective rates on the
+ * stock, the spread parameters fitted to euro-area yields) and the builder's starting-balance-sheet hold. Outputs
+ * then go to build-econ08/ so the WORLD-03 1.0.0-draft.1 build is not touched.
+ */
+export const FINANCE = process.env.WORLD03_FINANCE === 'econ08';
+const financing = FINANCE ? JSON.parse(readFileSync(resolve(BUILD, 'financing.json'), 'utf8')) : null;
+const OUT_DIR = FINANCE ? resolve(ROOT, 'scenarios/europe-2023/build-econ08') : BUILD;
 
 export const SEED = 2401;
 const MAX_ROUNDS = Number(process.env.WORLD03_ROUNDS ?? 12);
@@ -60,11 +68,19 @@ const lanes: LaneSpec[] = [
 ];
 
 export function worldSpec(technology: Record<string, number>, policy: Record<string, Record<string, number>>): WorldSpec {
-  const countrySpecs: CountrySpec[] = countries.map(c => ({ id: c.id, name: c.name, ...policy[c.id] }));
+  const countrySpecs: CountrySpec[] = countries.map(c => {
+    const effective = financing?.countries[c.id]?.effective_rate;
+    return { id: c.id, name: c.name, ...policy[c.id], ...(typeof effective === 'number' ? { effectiveRate: effective } : {}) };
+  });
   const zoneSpecs: ZoneSpec[] = zones.map(z => ({
     id: z.id, name: z.name, countryId: z.country, population: z.population.value, technology: technology[z.id], advantage: { ...z.advantage.value },
   }));
-  return toCatalogueSpec({ seed: SEED, countries: countrySpecs, zones: zoneSpecs, lanes });
+  const spec = toCatalogueSpec({ seed: SEED, countries: countrySpecs, zones: zoneSpecs, lanes });
+  if (financing) {
+    spec.config = { ...spec.config!, params: { ...spec.config!.params, ...financing.fit.fitted_params } };
+    spec.holdStartingDebt = true;
+  }
+  return spec;
 }
 
 /** Week 1 as createEconomySession resolves it: the autopilot for every country, full report. */
@@ -212,14 +228,14 @@ function main() {
     const z = zones.find(x => x.id === zr.zoneId)!;
     return { id: zr.zoneId, data: z.groups.value, engine: Object.fromEntries(['food', 'energy', 'materials', 'industrial', 'consumer'].map(k => [k, (totals[k] ?? 0) / sum])) };
   });
-  mkdirSync(BUILD, { recursive: true });
+  mkdirSync(OUT_DIR, { recursive: true });
   const spec = worldSpec(b.technology, b.policy);
   const { config: _config, ...specWithoutConfig } = spec;
-  writeFileSync(resolve(BUILD, 'world-spec.json'), JSON.stringify({ note: 'Engine WorldSpec without its goods config: rebuild with toCatalogueSpec() from the legacy zone advantages, or use createCatalogueConfig().',
+  writeFileSync(resolve(OUT_DIR, 'world-spec.json'), JSON.stringify({ note: 'Engine WorldSpec without its goods config: rebuild with toCatalogueSpec() from the legacy zone advantages, or use createCatalogueConfig().',
     legacyZones: zones.map(z => ({ id: z.id, advantage: z.advantage.value })), spec: specWithoutConfig }, null, 1) + '\n');
-  writeFileSync(resolve(BUILD, 'week1.economy.json'), serializeEconomy(b.state));
-  writeFileSync(resolve(BUILD, 'calibration.json'), JSON.stringify({
-    engine: 'economy-engine (unchanged)', seed: SEED, provinceTechnologyMean: PROVINCE_TECH_MEAN, tolerances: TOL, rounds,
+  writeFileSync(resolve(OUT_DIR, 'week1.economy.json'), serializeEconomy(b.state));
+  writeFileSync(resolve(OUT_DIR, 'calibration.json'), JSON.stringify({
+    engine: FINANCE ? 'economy-engine with ECON-08 options (effectiveRate, holdStartingDebt) and the 2023 spread fit' : 'economy-engine (unchanged)', seed: SEED, provinceTechnologyMean: PROVINCE_TECH_MEAN, tolerances: TOL, rounds,
     met: b.score < 1, targetsMissed: Math.floor(b.score), week1StateHash: hashEconomy(b.state),
     zones: zoneTable,
     countries: Object.keys(countryTarget).map(id => ({ id, targetShare: countryTarget[id], achievedShare: countryAchieved[id], relativeError: countryAchieved[id] / countryTarget[id] - 1 })),

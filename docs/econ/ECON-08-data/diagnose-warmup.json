@@ -1,0 +1,451 @@
+{
+ "note": "ECON-08 diagnosis on the WORLD-03 1.0.0-draft.1 inputs, unchanged engine",
+ "runs": {
+  "0": {
+   "ita": {
+    "debt": 4493.174226249556,
+    "cbStateLoans": 0,
+    "yearlyGdp": 3353.1150942160875,
+    "debtToGdp": 1.3399999999999996,
+    "treasuryWeeksOfGdp": 2.236602172187432,
+    "averageRate": 0.0932,
+    "marketRate": 0.0932,
+    "deficit": 0,
+    "marketAccess": 1
+   },
+   "fra": {
+    "debt": 5333.348490728686,
+    "cbStateLoans": 0,
+    "yearlyGdp": 4870.637891076425,
+    "debtToGdp": 1.095,
+    "treasuryWeeksOfGdp": 2.5691217950279817,
+    "averageRate": 0.04940624999999999,
+    "marketRate": 0.04940624999999999,
+    "deficit": 0,
+    "marketAccess": 1
+   },
+   "grc": {
+    "debt": 672.4392690885859,
+    "cbStateLoans": 0,
+    "yearlyGdp": 448.29284605905724,
+    "debtToGdp": 1.5,
+    "treasuryWeeksOfGdp": 2.2264755856836778,
+    "averageRate": 0.138,
+    "marketRate": 0.138,
+    "deficit": 0,
+    "marketAccess": 1
+   },
+   "deu": {
+    "debt": 3304.11968494139,
+    "cbStateLoans": 0,
+    "yearlyGdp": 5346.47198210581,
+    "debtToGdp": 0.6179999999999999,
+    "treasuryWeeksOfGdp": 2.1680843878371734,
+    "averageRate": 0.030359999999999998,
+    "marketRate": 0.030359999999999998,
+    "deficit": 0,
+    "marketAccess": 1
+   },
+   "pol": {
+    "debt": 725.3225843165486,
+    "cbStateLoans": 0,
+    "yearlyGdp": 1465.2981501344416,
+    "debtToGdp": 0.495,
+    "treasuryWeeksOfGdp": 2.169351645367182,
+    "averageRate": 0.03,
+    "marketRate": 0.03,
+    "deficit": 0,
+    "marketAccess": 1
+   },
+   "gbr": {
+    "debt": 3884.862486345578,
+    "cbStateLoans": 0,
+    "yearlyGdp": 3932.0470509570623,
+    "debtToGdp": 0.9880000000000001,
+    "treasuryWeeksOfGdp": 1.99959220465078,
+    "averageRate": 0.039696,
+    "marketRate": 0.039696,
+    "deficit": 0,
+    "marketAccess": 1
+   },
+   "esp": {
+    "debt": 2440.0018415808345,
+    "cbStateLoans": 0,
+    "yearlyGdp": 2317.190732745332,
+    "debtToGdp": 1.053,
+    "treasuryWeeksOfGdp": 2.1428478600737755,
+    "averageRate": 0.044912249999999994,
+    "marketRate": 0.044912249999999994,
+    "deficit": 0,
+    "marketAccess": 1
+   }
+  },
+  "4": {
+   "ita": {
+    "debt": 4527.073838174047,
+    "cbStateLoans": 0,
+    "yearlyGdp": 2492.684892408175,
+    "debtToGdp": 1.8161436497496701,
+    "treasuryWeeksOfGdp": 2.395537972297822,
+    "averageRate": 0.09722536217789512,
+    "marketRate": 0.24762941819206497,
+    "deficit": 0.041290183868548554,
+    "marketAccess": 1
+   },
+   "fra": {
+    "debt": 5217.636011003311,
+    "cbStateLoans": 0,
+    "yearlyGdp": 3546.13484068096,
+    "debtToGdp": 1.4713586046269391,
+    "treasuryWeeksOfGdp": 4.12758262513496,
+    "averageRate": 0.05312164622949727,
+    "marketRate": 0.11809911862158662,
+    "deficit": -0.11502490057109158,
+    "marketAccess": 1
+   },
+   "grc": {
+    "debt": 694.6402915620354,
+    "cbStateLoans": 0,
+    "yearlyGdp": 319.31750213577266,
+    "debtToGdp": 2.1753905968695597,
+    "treasuryWeeksOfGdp": 2.3565441118864023,
+    "averageRate": 0.14244162077536288,
+    "marketRate": 0.3920619722587332,
+    "deficit": 0.16985817754907656,
+    "marketAccess": 1
+   },
+   "deu": {
+    "debt": 3266.0460943620997,
+    "cbStateLoans": 0,
+    "yearlyGdp": 4055.991691675822,
+    "debtToGdp": 0.8052398384013112,
+    "treasuryWeeksOfGdp": 2.7747370306063877,
+    "averageRate": 0.0306153972398194,
+    "marketRate": 0.0340849946171016,
+    "deficit": -0.037399212344867774,
+    "marketAccess": 1
+   },
+   "pol": {
+    "debt": 730.5518215557648,
+    "cbStateLoans": 0,
+    "yearlyGdp": 1078.7275827635601,
+    "debtToGdp": 0.6772347655041747,
+    "treasuryWeeksOfGdp": 2.363839018852089,
+    "averageRate": 0.03024518126462535,
+    "marketRate": 0.0319176670995511,
+    "deficit": 0.014924616889484795,
+    "marketAccess": 1
+   },
+   "gbr": {
+    "debt": 3850.955256335335,
+    "cbStateLoans": 0,
+    "yearlyGdp": 2952.501709265963,
+    "debtToGdp": 1.3043024646691028,
+    "treasuryWeeksOfGdp": 2.645851596203957,
+    "averageRate": 0.04183212689322964,
+    "marketRate": 0.07923583408388427,
+    "deficit": -0.04127422610880131,
+    "marketAccess": 1
+   },
+   "esp": {
+    "debt": 2440.819145009127,
+    "cbStateLoans": 0,
+    "yearlyGdp": 1782.30027936759,
+    "debtToGdp": 1.3694769468785575,
+    "treasuryWeeksOfGdp": 2.4613307134037874,
+    "averageRate": 0.04765097622402598,
+    "marketRate": 0.09397055286777047,
+    "deficit": -0.0028772857260696023,
+    "marketAccess": 1
+   }
+  },
+  "16": {
+   "ita": {
+    "debt": 4554.858065252768,
+    "cbStateLoans": 0,
+    "yearlyGdp": 2433.3193656716408,
+    "debtToGdp": 1.8718702236586786,
+    "treasuryWeeksOfGdp": 2.403615212916517,
+    "averageRate": 0.0999519868547807,
+    "marketRate": 0.28572284770446243,
+    "deficit": 0.034095853655000875,
+    "marketAccess": 1
+   },
+   "fra": {
+    "debt": 5040.056674714589,
+    "cbStateLoans": 0,
+    "yearlyGdp": 3423.451133780113,
+    "debtToGdp": 1.4722151646865917,
+    "treasuryWeeksOfGdp": 5.114437624367975,
+    "averageRate": 0.06206093955219087,
+    "marketRate": 0.1303278085059332,
+    "deficit": -0.15498584673621651,
+    "marketAccess": 1
+   },
+   "grc": {
+    "debt": 719.9334994686617,
+    "cbStateLoans": 0,
+    "yearlyGdp": 317.3166604839349,
+    "debtToGdp": 2.268817207299175,
+    "treasuryWeeksOfGdp": 2.3756217405368067,
+    "averageRate": 0.15126681942003564,
+    "marketRate": 0.39995711733471606,
+    "deficit": 0.19561819897298535,
+    "marketAccess": 1
+   },
+   "deu": {
+    "debt": 3179.562428719498,
+    "cbStateLoans": 0,
+    "yearlyGdp": 3999.1043622030415,
+    "debtToGdp": 0.7950686305590506,
+    "treasuryWeeksOfGdp": 3.176471835599608,
+    "averageRate": 0.03103329624236193,
+    "marketRate": 0.034167962242737035,
+    "deficit": -0.06601220406747797,
+    "marketAccess": 1
+   },
+   "pol": {
+    "debt": 730.4560801113945,
+    "cbStateLoans": 0,
+    "yearlyGdp": 1086.4372949848103,
+    "debtToGdp": 0.6723407632297888,
+    "treasuryWeeksOfGdp": 2.3908414822384945,
+    "averageRate": 0.030276877395791563,
+    "marketRate": 0.031605830796013465,
+    "deficit": -0.001881167250906141,
+    "marketAccess": 1
+   },
+   "gbr": {
+    "debt": 3781.4109021328536,
+    "cbStateLoans": 0,
+    "yearlyGdp": 2902.9980225768904,
+    "debtToGdp": 1.30258817702405,
+    "treasuryWeeksOfGdp": 3.1256230672848395,
+    "averageRate": 0.04632631459346067,
+    "marketRate": 0.08416244578895267,
+    "deficit": -0.07341702295453988,
+    "marketAccess": 1
+   },
+   "esp": {
+    "debt": 2424.8854389188164,
+    "cbStateLoans": 0,
+    "yearlyGdp": 1775.4943107088782,
+    "debtToGdp": 1.3657523002428908,
+    "treasuryWeeksOfGdp": 2.51758251343284,
+    "averageRate": 0.052903405457270805,
+    "marketRate": 0.09834952167514108,
+    "deficit": -0.01905500744990953,
+    "marketAccess": 1
+   }
+  },
+  "40": {
+   "ita": {
+    "debt": 4644.944879366069,
+    "cbStateLoans": 0,
+    "yearlyGdp": 2252.1645168536993,
+    "debtToGdp": 2.062435867631514,
+    "treasuryWeeksOfGdp": 2.392016808474325,
+    "averageRate": 0.10634712547063796,
+    "marketRate": 0.39971548832589543,
+    "deficit": 0.07187778375273719,
+    "marketAccess": 1
+   },
+   "fra": {
+    "debt": 4749.704146612115,
+    "cbStateLoans": 0,
+    "yearlyGdp": 3149.856996597511,
+    "debtToGdp": 1.5079110422291444,
+    "treasuryWeeksOfGdp": 7.0304852991828986,
+    "averageRate": 0.08225587257192658,
+    "marketRate": 0.1554984507633868,
+    "deficit": -0.13810924220109044,
+    "marketAccess": 1
+   },
+   "grc": {
+    "debt": 783.1823008940584,
+    "cbStateLoans": 0,
+    "yearlyGdp": 300.5523605187643,
+    "debtToGdp": 2.6058098480486303,
+    "treasuryWeeksOfGdp": 2.3707758053533174,
+    "averageRate": 0.17142319975516662,
+    "marketRate": 0.3999999997574202,
+    "deficit": 0.2916320646887644,
+    "marketAccess": 1
+   },
+   "deu": {
+    "debt": 3000.6640340416043,
+    "cbStateLoans": 0,
+    "yearlyGdp": 3748.149262339465,
+    "debtToGdp": 0.800572182167765,
+    "treasuryWeeksOfGdp": 4.220695342458188,
+    "averageRate": 0.03204544444451911,
+    "marketRate": 0.03488547635803403,
+    "deficit": -0.0821703490811778,
+    "marketAccess": 1
+   },
+   "pol": {
+    "debt": 717.895451143718,
+    "cbStateLoans": 0,
+    "yearlyGdp": 1041.6558605499617,
+    "debtToGdp": 0.6891867826334617,
+    "treasuryWeeksOfGdp": 2.460977380649585,
+    "averageRate": 0.03066269720424242,
+    "marketRate": 0.032372366244536765,
+    "deficit": -0.010145785943269987,
+    "marketAccess": 1
+   },
+   "gbr": {
+    "debt": 3652.9191751466087,
+    "cbStateLoans": 0,
+    "yearlyGdp": 2708.4896738450575,
+    "debtToGdp": 1.3486923027329873,
+    "treasuryWeeksOfGdp": 4.090439445594923,
+    "averageRate": 0.06004631617972087,
+    "marketRate": 0.10137692524066759,
+    "deficit": -0.07084904880595129,
+    "marketAccess": 1
+   },
+   "esp": {
+    "debt": 2407.5987107965243,
+    "cbStateLoans": 0,
+    "yearlyGdp": 1674.660358648918,
+    "debtToGdp": 1.4376638811340385,
+    "treasuryWeeksOfGdp": 2.6669955065974533,
+    "averageRate": 0.06786867584114123,
+    "marketRate": 0.12269821945147887,
+    "deficit": -0.009773756764710042,
+    "marketAccess": 1
+   }
+  },
+  "160": {
+   "ita": {
+    "debt": 5887.621207947859,
+    "cbStateLoans": 0,
+    "yearlyGdp": 1404.0919139866467,
+    "debtToGdp": 4.193187888413302,
+    "treasuryWeeksOfGdp": 2.305481799508432,
+    "averageRate": 0.1694141109023142,
+    "marketRate": 0.3999999999999999,
+    "deficit": 0.5687383707593485,
+    "marketAccess": 1
+   },
+   "fra": {
+    "debt": 4299.925415347017,
+    "cbStateLoans": 0,
+    "yearlyGdp": 1553.4101409167151,
+    "debtToGdp": 2.768055455598802,
+    "treasuryWeeksOfGdp": 15.812206677403681,
+    "averageRate": 0.06875653646672009,
+    "marketRate": 0.3999999999999999,
+    "deficit": 0.06017794930261678,
+    "marketAccess": 1
+   },
+   "grc": {
+    "debt": 1673.028781975036,
+    "cbStateLoans": 0,
+    "yearlyGdp": 182.31114352142924,
+    "debtToGdp": 9.176777401861806,
+    "treasuryWeeksOfGdp": 2.294418828852804,
+    "averageRate": 0.2929981257807774,
+    "marketRate": 0.3999999999999999,
+    "deficit": 0.9999998174002698,
+    "marketAccess": 1
+   },
+   "deu": {
+    "debt": 2501.89055406383,
+    "cbStateLoans": 0,
+    "yearlyGdp": 2391.1593026882397,
+    "debtToGdp": 1.046308604889311,
+    "treasuryWeeksOfGdp": 8.916079172865173,
+    "averageRate": 0.08555890220263987,
+    "marketRate": 0.05799657286657166,
+    "deficit": 0.02463661116701094,
+    "marketAccess": 1
+   },
+   "pol": {
+    "debt": 667.1888309413418,
+    "cbStateLoans": 0,
+    "yearlyGdp": 715.7999660423693,
+    "debtToGdp": 0.9320883802638374,
+    "treasuryWeeksOfGdp": 3.875707721338034,
+    "averageRate": 0.0397481128627599,
+    "marketRate": 0.04238496918423915,
+    "deficit": 0.014998350809136805,
+    "marketAccess": 1
+   },
+   "gbr": {
+    "debt": 3513.0962592356136,
+    "cbStateLoans": 0,
+    "yearlyGdp": 1632.0269486685977,
+    "debtToGdp": 2.152596966674837,
+    "treasuryWeeksOfGdp": 6.269083869964592,
+    "averageRate": 0.06959202293900872,
+    "marketRate": 0.3999999999999999,
+    "deficit": 0.06280343639483099,
+    "marketAccess": 1
+   },
+   "esp": {
+    "debt": 2522.512576369159,
+    "cbStateLoans": 0,
+    "yearlyGdp": 1140.9734350415497,
+    "debtToGdp": 2.210842512978665,
+    "treasuryWeeksOfGdp": 2.1678234168458377,
+    "averageRate": 0.08794024518210457,
+    "marketRate": 0.3999999999999999,
+    "deficit": 0.1231173961077931,
+    "marketAccess": 1
+   }
+  }
+ },
+ "decomposition": {
+  "ita": {
+   "requested": 1.34,
+   "atBuildStart": 1.3399999999999996,
+   "atWeek0": 4.193187888413302,
+   "newDebtFactor": 1.3103478546529108,
+   "gdpFactor": 2.38810227508224
+  },
+  "fra": {
+   "requested": 1.095,
+   "atBuildStart": 1.095,
+   "atWeek0": 2.768055455598802,
+   "newDebtFactor": 0.8062337240519467,
+   "gdpFactor": 3.1354487541854925
+  },
+  "grc": {
+   "requested": 1.5,
+   "atBuildStart": 1.5,
+   "atWeek0": 9.176777401861806,
+   "newDebtFactor": 2.4879998222629593,
+   "gdpFactor": 2.4589437452920366
+  },
+  "deu": {
+   "requested": 0.618,
+   "atBuildStart": 0.6179999999999999,
+   "atWeek0": 1.046308604889311,
+   "newDebtFactor": 0.7572033681062645,
+   "gdpFactor": 2.235932995386416
+  },
+  "pol": {
+   "requested": 0.495,
+   "atBuildStart": 0.495,
+   "atWeek0": 0.9320883802638374,
+   "newDebtFactor": 0.9198511743157913,
+   "gdpFactor": 2.0470777027778015
+  },
+  "gbr": {
+   "requested": 0.988,
+   "atBuildStart": 0.9880000000000001,
+   "atWeek0": 2.152596966674837,
+   "newDebtFactor": 0.9043038901848806,
+   "gdpFactor": 2.4093027717249482
+  },
+  "esp": {
+   "requested": 1.053,
+   "atBuildStart": 1.053,
+   "atWeek0": 2.210842512978665,
+   "newDebtFactor": 1.0338158493908625,
+   "gdpFactor": 2.030889292931653
+  }
+ }
+}

@@ -1,0 +1,3 @@
+# Large intermediates; regenerate with WORLD03_FINANCE=econ08 calibrate.ts.
+week1.economy.json
+world-spec.json

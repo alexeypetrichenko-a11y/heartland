@@ -1,0 +1,6073 @@
+{
+ "policyFrom": "scenarios/europe-2023/1.0.0-draft.1/calibration-report.json",
+ "financingFit": {
+  "countries": [
+   "fra",
+   "deu",
+   "ita",
+   "irl",
+   "esp",
+   "nld",
+   "bel",
+   "aut",
+   "grc"
+  ],
+  "default_params": {
+   "spreadLinear": 0.02,
+   "spreadDebtThreshold": 0.6,
+   "spreadQuadThreshold": 0.9,
+   "spreadQuad": 0.25,
+   "spreadDeficit": 0.5
+  },
+  "default_rms": 0.05299154612104806,
+  "fitted_params": {
+   "spreadLinear": 0.016,
+   "spreadDebtThreshold": 0.6,
+   "spreadQuadThreshold": 1.65,
+   "spreadQuad": 0.25,
+   "spreadDeficit": 0.1
+  },
+  "fitted_rms": 0.0030856321096034405,
+  "method": "grid search, least squares on euro-area spreads over Germany; spreadDebtThreshold and spreadQuad kept at defaults"
+ },
+ "results": [
+  {
+   "summary": {
+    "name": "base",
+    "a": false,
+    "b": false,
+    "buildSeconds": 11.716876622,
+    "countriesWithDebtWithin1pp": 0,
+    "countriesWithDebtTarget": 15,
+    "accessLostWeek1": [
+     "fra",
+     "gbr",
+     "ita",
+     "esp",
+     "bel",
+     "aut",
+     "grc"
+    ],
+    "defaults": {
+     "grc": [
+      5,
+      87
+     ],
+     "ita": [
+      6,
+      93
+     ],
+     "esp": [
+      7
+     ],
+     "gbr": [
+      11
+     ],
+     "fra": [
+      15
+     ],
+     "bel": [
+      18
+     ]
+    },
+    "regimeChanges": {
+     "bloc-mea": [
+      27,
+      53,
+      79,
+      105,
+      131
+     ],
+     "grc": [
+      90
+     ],
+     "ita": [
+      96
+     ]
+    },
+    "accessLost": {
+     "fra": [
+      1
+     ],
+     "gbr": [
+      1
+     ],
+     "ita": [
+      1
+     ],
+     "esp": [
+      1
+     ],
+     "bel": [
+      1
+     ],
+     "aut": [
+      1
+     ],
+     "grc": [
+      1
+     ]
+    },
+    "audit": {
+     "worstMoneyError": 1.3096723705530167e-10,
+     "worstBondError": 8.110038056253537e-16,
+     "worstIssuedError": 2.7308954596794295e-14
+    },
+    "week1StateHash": null
+   },
+   "comparison": [
+    {
+     "id": "fra",
+     "targetDebt": 1.095,
+     "week1Debt": 2.7290055201316843,
+     "debtGapPoints": 163.40055201316844,
+     "effectiveRate2023": 0.017212121527120237,
+     "week1AverageRate": 0.06875653646672009,
+     "newIssueModel": 0.3999999999999999,
+     "observedNewIssueInEngineTerms": 0.060735262117912865,
+     "interest2023": 0.01884727307219666,
+     "week1Interest": 0.17854265417501697,
+     "week1Access": 0
+    },
+    {
+     "id": "deu",
+     "targetDebt": 0.618,
+     "week1Debt": 1.02743441044264,
+     "debtGapPoints": 40.943441044264006,
+     "effectiveRate2023": 0.014123346596227455,
+     "week1AverageRate": 0.08536387886876341,
+     "newIssueModel": 0.055135262117912864,
+     "observedNewIssueInEngineTerms": 0.055135262117912864,
+     "interest2023": 0.008728228196468566,
+     "week1Interest": 0.08331254962068188,
+     "week1Access": 1
+    },
+    {
+     "id": "gbr",
+     "targetDebt": 0.988,
+     "week1Debt": 2.131797648833249,
+     "debtGapPoints": 114.37976488332491,
+     "effectiveRate2023": 0.03173951995310747,
+     "week1AverageRate": 0.06959202293900872,
+     "newIssueModel": 0.3999999999999999,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.031358645713670176,
+     "week1Interest": 0.1390304583444715,
+     "week1Access": 0
+    },
+    {
+     "id": "ita",
+     "targetDebt": 1.34,
+     "week1Debt": 4.180296266200869,
+     "debtGapPoints": 284.0296266200869,
+     "effectiveRate2023": 0.02709898894349265,
+     "week1AverageRate": 0.17007474949275017,
+     "newIssueModel": 0.3999999999999999,
+     "observedNewIssueInEngineTerms": 0.07363526211791287,
+     "interest2023": 0.03631264518428015,
+     "week1Interest": 0.6592544183424197,
+     "week1Access": 0
+    },
+    {
+     "id": "pol",
+     "targetDebt": 0.495,
+     "week1Debt": 0.9235190801379951,
+     "debtGapPoints": 42.85190801379951,
+     "effectiveRate2023": 0.04185238834054712,
+     "week1AverageRate": 0.039762077420306276,
+     "newIssueModel": 0.041926583839994896,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.020716932228570826,
+     "week1Interest": 0.03449396783029743,
+     "week1Access": 1
+    },
+    {
+     "id": "tur",
+     "targetDebt": 0.29600000000000004,
+     "week1Debt": 0.38604875981152237,
+     "debtGapPoints": 9.004875981152233,
+     "effectiveRate2023": 0.13066348226108465,
+     "week1AverageRate": 0.031814224429078844,
+     "newIssueModel": 0.034245489917606495,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.03867639074928106,
+     "week1Interest": 0.011737191129879374,
+     "week1Access": 1
+    },
+    {
+     "id": "irl",
+     "targetDebt": 0.42100000000000004,
+     "week1Debt": 0.49224954622046535,
+     "debtGapPoints": 7.1249546220465305,
+     "effectiveRate2023": 0.015352091306620512,
+     "week1AverageRate": 0.03622559342699743,
+     "newIssueModel": 0.03475055618865304,
+     "observedNewIssueInEngineTerms": 0.059535262117912865,
+     "interest2023": 0.006463230440087236,
+     "week1Interest": 0.017325189229816212,
+     "week1Access": 1
+    },
+    {
+     "id": "esp",
+     "targetDebt": 1.053,
+     "week1Debt": 2.2019733980629703,
+     "debtGapPoints": 114.89733980629704,
+     "effectiveRate2023": 0.022563758868378046,
+     "week1AverageRate": 0.08835891490998228,
+     "newIssueModel": 0.3999999999999999,
+     "observedNewIssueInEngineTerms": 0.06563526211791286,
+     "interest2023": 0.02375963808840208,
+     "week1Interest": 0.18172042119486498,
+     "week1Access": 0
+    },
+    {
+     "id": "nld",
+     "targetDebt": 0.45899999999999996,
+     "week1Debt": 0.5523614753216327,
+     "debtGapPoints": 9.336147532163274,
+     "effectiveRate2023": 0.014781818890553354,
+     "week1AverageRate": 0.038135878941785335,
+     "newIssueModel": 0.035118307775462765,
+     "observedNewIssueInEngineTerms": 0.05873526211791286,
+     "interest2023": 0.006784854870763989,
+     "week1Interest": 0.020309234305935727,
+     "week1Access": 1
+    },
+    {
+     "id": "bel",
+     "targetDebt": 1.023,
+     "week1Debt": 2.4771294134357915,
+     "debtGapPoints": 145.41294134357915,
+     "effectiveRate2023": 0.019005569924827666,
+     "week1AverageRate": 0.06253283397668638,
+     "newIssueModel": 0.3999999999999999,
+     "observedNewIssueInEngineTerms": 0.06173526211791286,
+     "interest2023": 0.0194426980330987,
+     "week1Interest": 0.14702151507709568,
+     "week1Access": 0
+    },
+    {
+     "id": "che",
+     "targetDebt": null,
+     "week1Debt": 0.6453316091680673,
+     "debtGapPoints": null,
+     "effectiveRate2023": null,
+     "week1AverageRate": 0.05480538967336872,
+     "newIssueModel": 0.037776482982965064,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.0026911141804898597,
+     "week1Interest": 0.03424872354580771,
+     "week1Access": 1
+    },
+    {
+     "id": "aut",
+     "targetDebt": 0.774,
+     "week1Debt": 1.4473381218249162,
+     "debtGapPoints": 67.33381218249161,
+     "effectiveRate2023": 0.015448434656418764,
+     "week1AverageRate": 0.05328888918300167,
+     "newIssueModel": 0.20353300774479163,
+     "observedNewIssueInEngineTerms": 0.06163526211791286,
+     "interest2023": 0.011957088424068124,
+     "week1Interest": 0.07485010790241377,
+     "week1Access": 0
+    },
+    {
+     "id": "cze",
+     "targetDebt": 0.42200000000000004,
+     "week1Debt": 0.7319287729203118,
+     "debtGapPoints": 30.992877292031174,
+     "effectiveRate2023": 0.030476976830168628,
+     "week1AverageRate": 0.03596401212480784,
+     "newIssueModel": 0.03758255996316723,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.012861284222331163,
+     "week1Interest": 0.024888263650888393,
+     "week1Access": 1
+    },
+    {
+     "id": "nor",
+     "targetDebt": 0.42700000000000005,
+     "week1Debt": 0.46085629727567806,
+     "debtGapPoints": 3.3856297275678013,
+     "effectiveRate2023": 0.02390180909381388,
+     "week1AverageRate": 0.03594607432598408,
+     "newIssueModel": 0.034682191121934755,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.010206072483058527,
+     "week1Interest": 0.016094466964883092,
+     "week1Access": 1
+    },
+    {
+     "id": "grc",
+     "targetDebt": 1.5,
+     "week1Debt": 9.17366677278593,
+     "debtGapPoints": 767.366677278593,
+     "effectiveRate2023": 0.02062345584854602,
+     "week1AverageRate": 0.2935792643300368,
+     "newIssueModel": 0.3999999999999999,
+     "observedNewIssueInEngineTerms": 0.07083526211791286,
+     "interest2023": 0.033822467591615474,
+     "week1Interest": 2.5002077176370445,
+     "week1Access": 0
+    },
+    {
+     "id": "bgr",
+     "targetDebt": 0.228,
+     "week1Debt": 0.3723147161511383,
+     "debtGapPoints": 14.43147161511383,
+     "effectiveRate2023": 0.02155600723861238,
+     "week1AverageRate": 0.03181443640181028,
+     "newIssueModel": 0.034245489917606495,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.004914769650403623,
+     "week1Interest": 0.011204019767810125,
+     "week1Access": 1
+    }
+   ],
+   "checkpoints": {
+    "0": {
+     "fra": {
+      "debtToGdp": 2.768055455598802,
+      "averageRate": 0.06875653646672009,
+      "marketRate": 0.3999999999999999,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 1.046308604889311,
+      "averageRate": 0.08555890220263987,
+      "marketRate": 0.05799657286657166,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 2.152596966674837,
+      "averageRate": 0.06959202293900872,
+      "marketRate": 0.3999999999999999,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 4.193187888413302,
+      "averageRate": 0.1694141109023142,
+      "marketRate": 0.3999999999999999,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 0.9320883802638374,
+      "averageRate": 0.0397481128627599,
+      "marketRate": 0.04238496918423915,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.3955047961973801,
+      "averageRate": 0.031798538845281894,
+      "marketRate": 0.0343464000828527,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.5118835527426768,
+      "averageRate": 0.036235109796277074,
+      "marketRate": 0.03501982177758143,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 2.210842512978665,
+      "averageRate": 0.08794024518210457,
+      "marketRate": 0.3999999999999999,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.5713433644298935,
+      "averageRate": 0.038155347142858384,
+      "marketRate": 0.035510157226661065,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 2.52489985303088,
+      "averageRate": 0.06253283397668638,
+      "marketRate": 0.3999999999999999,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.6696989878159153,
+      "averageRate": 0.05491525358750035,
+      "marketRate": 0.038752180108877016,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 1.5062150374896286,
+      "averageRate": 0.05328888918300167,
+      "marketRate": 0.2294492514066979,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.742616075176134,
+      "averageRate": 0.035953569880689394,
+      "marketRate": 0.03791630165746494,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.48141427195167197,
+      "averageRate": 0.0359542284111715,
+      "marketRate": 0.03492866835529039,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 9.176777401861806,
+      "averageRate": 0.2929981257807774,
+      "marketRate": 0.3999999999999999,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bgr": {
+      "debtToGdp": 0.37784478175138986,
+      "averageRate": 0.031798752185579336,
+      "marketRate": 0.0343464000828527,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     }
+    },
+    "1": {
+     "fra": {
+      "debtToGdp": 2.7290055201316843,
+      "averageRate": 0.06875653646672009,
+      "marketRate": 0.3999999999999999,
+      "interestToGdp": 0.17854265417501697,
+      "balanceToGdp": -0.14437768586608832,
+      "marketAccess": 0,
+      "stability": 67.96659741945905,
+      "defaults": 0,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 1.02743441044264,
+      "averageRate": 0.08536387886876341,
+      "marketRate": 0.055135262117912864,
+      "interestToGdp": 0.08331254962068188,
+      "balanceToGdp": -0.010234758755058183,
+      "marketAccess": 1,
+      "stability": 68.03272829560615,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 2.131797648833249,
+      "averageRate": 0.06959202293900872,
+      "marketRate": 0.3999999999999999,
+      "interestToGdp": 0.1390304583444715,
+      "balanceToGdp": -0.0708602689509068,
+      "marketAccess": 0,
+      "stability": 67.93940976154887,
+      "defaults": 0,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 4.180296266200869,
+      "averageRate": 0.17007474949275017,
+      "marketRate": 0.3999999999999999,
+      "interestToGdp": 0.6592544183424197,
+      "balanceToGdp": -0.5733705973496013,
+      "marketAccess": 0,
+      "stability": 67.83408249055876,
+      "defaults": 0,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 0.9235190801379951,
+      "averageRate": 0.039762077420306276,
+      "marketRate": 0.041926583839994896,
+      "interestToGdp": 0.03449396783029743,
+      "balanceToGdp": -0.0012360039419187685,
+      "marketAccess": 1,
+      "stability": 68.08237075384831,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.38604875981152237,
+      "averageRate": 0.031814224429078844,
+      "marketRate": 0.034245489917606495,
+      "interestToGdp": 0.011737191129879374,
+      "balanceToGdp": 0.04592864523560015,
+      "marketAccess": 1,
+      "stability": 67.95870501889078,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.49224954622046535,
+      "averageRate": 0.03622559342699743,
+      "marketRate": 0.03475055618865304,
+      "interestToGdp": 0.017325189229816212,
+      "balanceToGdp": 0.07958195205165303,
+      "marketAccess": 1,
+      "stability": 67.36779301734722,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 2.2019733980629703,
+      "averageRate": 0.08835891490998228,
+      "marketRate": 0.3999999999999999,
+      "interestToGdp": 0.18172042119486498,
+      "balanceToGdp": -0.1393531733077166,
+      "marketAccess": 0,
+      "stability": 68.07635856273701,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.5523614753216327,
+      "averageRate": 0.038135878941785335,
+      "marketRate": 0.035118307775462765,
+      "interestToGdp": 0.020309234305935727,
+      "balanceToGdp": 0.05269674067262633,
+      "marketAccess": 1,
+      "stability": 67.84216079991882,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 2.4771294134357915,
+      "averageRate": 0.06253283397668638,
+      "marketRate": 0.3999999999999999,
+      "interestToGdp": 0.14702151507709568,
+      "balanceToGdp": -0.11687604402531976,
+      "marketAccess": 0,
+      "stability": 68.20464833644795,
+      "defaults": 0,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.6453316091680673,
+      "averageRate": 0.05480538967336872,
+      "marketRate": 0.037776482982965064,
+      "interestToGdp": 0.03424872354580771,
+      "balanceToGdp": 0.07021399898935161,
+      "marketAccess": 1,
+      "stability": 67.92936453655578,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 1.4473381218249162,
+      "averageRate": 0.05328888918300167,
+      "marketRate": 0.20353300774479163,
+      "interestToGdp": 0.07485010790241377,
+      "balanceToGdp": -0.026666696405306188,
+      "marketAccess": 0,
+      "stability": 68.15261217502727,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.7319287729203118,
+      "averageRate": 0.03596401212480784,
+      "marketRate": 0.03758255996316723,
+      "interestToGdp": 0.024888263650888393,
+      "balanceToGdp": 0.012297114221197978,
+      "marketAccess": 1,
+      "stability": 67.99170393937882,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.46085629727567806,
+      "averageRate": 0.03594607432598408,
+      "marketRate": 0.034682191121934755,
+      "interestToGdp": 0.016094466964883092,
+      "balanceToGdp": 0.08531027349211713,
+      "marketAccess": 1,
+      "stability": 67.72612902938516,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 9.17366677278593,
+      "averageRate": 0.2935792643300368,
+      "marketRate": 0.3999999999999999,
+      "interestToGdp": 2.5002077176370445,
+      "balanceToGdp": -2.4141491006238436,
+      "marketAccess": 0,
+      "stability": 67.65349322842022,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bgr": {
+      "debtToGdp": 0.3723147161511383,
+      "averageRate": 0.03181443640181028,
+      "marketRate": 0.034245489917606495,
+      "interestToGdp": 0.011204019767810125,
+      "balanceToGdp": 0.015000189814880606,
+      "marketAccess": 1,
+      "stability": 67.9100198035231,
+      "defaults": 0,
+      "regime": 0
+     }
+    },
+    "13": {
+     "fra": {
+      "debtToGdp": 2.473710160085182,
+      "averageRate": 0.06875653646672009,
+      "marketRate": 0.3999999999999999,
+      "interestToGdp": 0.1942439353168156,
+      "balanceToGdp": 0.3924831515728662,
+      "marketAccess": 0,
+      "stability": 47.3742890360199,
+      "defaults": 0,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 0.9120197988420771,
+      "averageRate": 0.08226591863418989,
+      "marketRate": 0.038546779751640364,
+      "interestToGdp": 0.07603474026183062,
+      "balanceToGdp": -0.0015347339239492486,
+      "marketAccess": 1,
+      "stability": 56.43348104377394,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 0.9523384155110906,
+      "averageRate": 0.03,
+      "marketRate": 0.22610229638073792,
+      "interestToGdp": 0.030660672839170046,
+      "balanceToGdp": 0.06216990342277523,
+      "marketAccess": 0,
+      "stability": 29.931835003137248,
+      "defaults": 1,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 1.9833521352214294,
+      "averageRate": 0.03,
+      "marketRate": 0.3999999999999999,
+      "interestToGdp": 0.06368303781098221,
+      "balanceToGdp": 0.0161364459111685,
+      "marketAccess": 0,
+      "stability": 31.77733438287385,
+      "defaults": 1,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 0.8724669920824174,
+      "averageRate": 0.0396889510470371,
+      "marketRate": 0.03694549735521138,
+      "interestToGdp": 0.035001411682880734,
+      "balanceToGdp": -0.006894778847944938,
+      "marketAccess": 1,
+      "stability": 55.66763717544631,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.3179979307795714,
+      "averageRate": 0.031868917581012256,
+      "marketRate": 0.03134929848908391,
+      "interestToGdp": 0.010021082575964055,
+      "balanceToGdp": 0.03456660576886435,
+      "marketAccess": 1,
+      "stability": 55.6823568759565,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.3620330707955377,
+      "averageRate": 0.03596157460197085,
+      "marketRate": 0.03136529714608107,
+      "interestToGdp": 0.013293797824630952,
+      "balanceToGdp": 0.07452912435600764,
+      "marketAccess": 1,
+      "stability": 52.10114838470152,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 0.9941559775309804,
+      "averageRate": 0.03,
+      "marketRate": 0.14189378443863443,
+      "interestToGdp": 0.03067559057701747,
+      "balanceToGdp": 0.010177966177592094,
+      "marketAccess": 0,
+      "stability": 35.08992145615645,
+      "defaults": 1,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.42697521702266034,
+      "averageRate": 0.037736475994919604,
+      "marketRate": 0.03137694617480227,
+      "interestToGdp": 0.016274559595303797,
+      "balanceToGdp": 0.03675511589186832,
+      "marketAccess": 1,
+      "stability": 55.41090237445522,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 2.164597167968311,
+      "averageRate": 0.06253283397668638,
+      "marketRate": 0.3999999999999999,
+      "interestToGdp": 0.13720783502006897,
+      "balanceToGdp": -0.07325140188070133,
+      "marketAccess": 0,
+      "stability": 57.177020069965444,
+      "defaults": 0,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.487771271671468,
+      "averageRate": 0.05321786456099444,
+      "marketRate": 0.03146667963889332,
+      "interestToGdp": 0.02657700590663872,
+      "balanceToGdp": 0.06738064907919761,
+      "marketAccess": 1,
+      "stability": 56.58507151088145,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 1.0545477666851233,
+      "averageRate": 0.05462192792193812,
+      "marketRate": 0.05854932969774242,
+      "interestToGdp": 0.05504296887101119,
+      "balanceToGdp": 0.01741035534261063,
+      "marketAccess": 1,
+      "stability": 58.301158829928234,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.6661199039447144,
+      "averageRate": 0.03587041515083585,
+      "marketRate": 0.03286786481025492,
+      "interestToGdp": 0.024229110457232705,
+      "balanceToGdp": 0.0051308006028532895,
+      "marketAccess": 1,
+      "stability": 55.68784671927442,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.3184569922716005,
+      "averageRate": 0.035701608513887186,
+      "marketRate": 0.03136313159016156,
+      "interestToGdp": 0.011544895909609582,
+      "balanceToGdp": 0.09227546303363002,
+      "marketAccess": 1,
+      "stability": 54.42999665636803,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 4.452068967917414,
+      "averageRate": 0.03,
+      "marketRate": 0.3999999999999999,
+      "interestToGdp": 0.14046862488707754,
+      "balanceToGdp": 0.008067007687518817,
+      "marketAccess": 0,
+      "stability": 30.45970825862327,
+      "defaults": 1,
+      "regime": 0
+     },
+     "bgr": {
+      "debtToGdp": 0.33471436591884907,
+      "averageRate": 0.031869113810917366,
+      "marketRate": 0.03134929848908391,
+      "interestToGdp": 0.010717202454632766,
+      "balanceToGdp": 0.008472397601116267,
+      "marketAccess": 1,
+      "stability": 54.75956633432639,
+      "defaults": 0,
+      "regime": 0
+     }
+    },
+    "26": {
+     "fra": {
+      "debtToGdp": 1.1271776630813217,
+      "averageRate": 0.03,
+      "marketRate": 0.11924486714258518,
+      "interestToGdp": 0.03268410189195666,
+      "balanceToGdp": -0.00010384836768886315,
+      "marketAccess": 0,
+      "stability": 47.793895425264445,
+      "defaults": 1,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 0.8862501657180695,
+      "averageRate": 0.07863033214413122,
+      "marketRate": 0.036190724856309885,
+      "interestToGdp": 0.06847182645687873,
+      "balanceToGdp": -0.009794933113917869,
+      "marketAccess": 1,
+      "stability": 60.42819305509842,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 0.9410328335585691,
+      "averageRate": 0.03,
+      "marketRate": 0.0975195525164463,
+      "interestToGdp": 0.027113188470302408,
+      "balanceToGdp": 0.12185527485844501,
+      "marketAccess": 0,
+      "stability": 42.89312781018895,
+      "defaults": 1,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 1.9851528211240388,
+      "averageRate": 0.03,
+      "marketRate": 0.3999999999999999,
+      "interestToGdp": 0.0585133860838524,
+      "balanceToGdp": -0.005949946044620045,
+      "marketAccess": 0,
+      "stability": 42.75013743924271,
+      "defaults": 1,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 0.8699068299360743,
+      "averageRate": 0.03940443735853548,
+      "marketRate": 0.035766915361808066,
+      "interestToGdp": 0.0335776774204135,
+      "balanceToGdp": -0.02986584338620201,
+      "marketAccess": 1,
+      "stability": 58.18246210123698,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.29526448060122623,
+      "averageRate": 0.03177234237859529,
+      "marketRate": 0.030318041781203384,
+      "interestToGdp": 0.009203752280884603,
+      "balanceToGdp": -0.005380486404610682,
+      "marketAccess": 1,
+      "stability": 62.10869437282606,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.31505694017690694,
+      "averageRate": 0.03553704164199979,
+      "marketRate": 0.0303184218655216,
+      "interestToGdp": 0.011059423727486598,
+      "balanceToGdp": 0.03261046611092174,
+      "marketAccess": 1,
+      "stability": 56.569451058418544,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 0.9738935288271499,
+      "averageRate": 0.03,
+      "marketRate": 0.0934276695090821,
+      "interestToGdp": 0.027957268822173642,
+      "balanceToGdp": 0.055267209537885796,
+      "marketAccess": 0,
+      "stability": 45.95698363150394,
+      "defaults": 1,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.3884324585517672,
+      "averageRate": 0.037169797792706995,
+      "marketRate": 0.030318698614572485,
+      "interestToGdp": 0.01419182307556158,
+      "balanceToGdp": 0.004482948310831344,
+      "marketAccess": 1,
+      "stability": 61.48011425817861,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 1.0130159825619702,
+      "averageRate": 0.03,
+      "marketRate": 0.12326698324705004,
+      "interestToGdp": 0.028509724174814847,
+      "balanceToGdp": 0.01840007864252752,
+      "marketAccess": 0,
+      "stability": 43.134059655498476,
+      "defaults": 1,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.43456581888598855,
+      "averageRate": 0.05141112961544569,
+      "marketRate": 0.03032083043617015,
+      "interestToGdp": 0.021979551395950817,
+      "balanceToGdp": 0.02618250713598526,
+      "marketAccess": 1,
+      "stability": 62.4271745111682,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 0.9258552027918777,
+      "averageRate": 0.0537747215062704,
+      "marketRate": 0.038254009204735,
+      "interestToGdp": 0.04897641546615268,
+      "balanceToGdp": 0.0022197033583090777,
+      "marketAccess": 1,
+      "stability": 68.05481893016366,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.654288400461389,
+      "averageRate": 0.03555631950043439,
+      "marketRate": 0.03147113928303394,
+      "interestToGdp": 0.022808989499218196,
+      "balanceToGdp": -0.022442980784892937,
+      "marketAccess": 1,
+      "stability": 59.29956345162893,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.2652649002178756,
+      "averageRate": 0.03529788714615425,
+      "marketRate": 0.030318370417837876,
+      "interestToGdp": 0.009201085337588417,
+      "balanceToGdp": 0.08403573748032753,
+      "marketAccess": 1,
+      "stability": 60.70302507897334,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 4.5122763482548525,
+      "averageRate": 0.03,
+      "marketRate": 0.3999999999999999,
+      "interestToGdp": 0.1357932055268826,
+      "balanceToGdp": -0.003285258349151027,
+      "marketAccess": 0,
+      "stability": 34.91313440802712,
+      "defaults": 1,
+      "regime": 0
+     },
+     "bgr": {
+      "debtToGdp": 0.3280478607118459,
+      "averageRate": 0.031772522870401686,
+      "marketRate": 0.030318041781203384,
+      "interestToGdp": 0.010214796400802386,
+      "balanceToGdp": -0.021194110428461466,
+      "marketAccess": 1,
+      "stability": 59.153734939697564,
+      "defaults": 0,
+      "regime": 0
+     }
+    },
+    "52": {
+     "fra": {
+      "debtToGdp": 1.0128160608729158,
+      "averageRate": 0.03,
+      "marketRate": 0.08713588567946833,
+      "interestToGdp": 0.029322462491943528,
+      "balanceToGdp": 0.07835899263610334,
+      "marketAccess": 0,
+      "stability": 64.51516152824807,
+      "defaults": 1,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 0.8326713712755462,
+      "averageRate": 0.07202470329476243,
+      "marketRate": 0.03566122507740718,
+      "interestToGdp": 0.059430791498350545,
+      "balanceToGdp": 0.059217793407114326,
+      "marketAccess": 1,
+      "stability": 59.81737609536238,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 0.8231726309887027,
+      "averageRate": 0.03,
+      "marketRate": 0.07885654986654407,
+      "interestToGdp": 0.024032154761206605,
+      "balanceToGdp": 0.1349593457647065,
+      "marketAccess": 0,
+      "stability": 55.39206470428832,
+      "defaults": 1,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 1.9013124996571562,
+      "averageRate": 0.03,
+      "marketRate": 0.35527662538931454,
+      "interestToGdp": 0.055830057703499365,
+      "balanceToGdp": 0.08402434339257821,
+      "marketAccess": 0,
+      "stability": 48.77239685621155,
+      "defaults": 1,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 0.840098174612218,
+      "averageRate": 0.03878604194302411,
+      "marketRate": 0.03575853110749656,
+      "interestToGdp": 0.032159492745353874,
+      "balanceToGdp": 0.017732643803116285,
+      "marketAccess": 1,
+      "stability": 56.967735208009294,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.28874406177894485,
+      "averageRate": 0.03155875434966037,
+      "marketRate": 0.030912098842373056,
+      "interestToGdp": 0.00902804675469647,
+      "balanceToGdp": -0.02455855476735011,
+      "marketAccess": 1,
+      "stability": 67.38726524656096,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.2795872875494694,
+      "averageRate": 0.03476545102129651,
+      "marketRate": 0.03091209905689553,
+      "interestToGdp": 0.009586723741156019,
+      "balanceToGdp": 0.018200726370678225,
+      "marketAccess": 1,
+      "stability": 60.860834257513964,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 0.895888558020991,
+      "averageRate": 0.03,
+      "marketRate": 0.07955821984045251,
+      "interestToGdp": 0.02619398245973799,
+      "balanceToGdp": 0.09446558828301985,
+      "marketAccess": 0,
+      "stability": 54.92436491191418,
+      "defaults": 1,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.3546074560717327,
+      "averageRate": 0.03614681261025945,
+      "marketRate": 0.030912099213094797,
+      "interestToGdp": 0.012620422708856547,
+      "balanceToGdp": 0.031449301936026484,
+      "marketAccess": 1,
+      "stability": 66.71399636178947,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 0.9266336089911488,
+      "averageRate": 0.03,
+      "marketRate": 0.08241200290217615,
+      "interestToGdp": 0.026701982950784846,
+      "balanceToGdp": 0.11775877696714206,
+      "marketAccess": 0,
+      "stability": 62.5062463635377,
+      "defaults": 1,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.3838324824219199,
+      "averageRate": 0.048195409739917115,
+      "marketRate": 0.03091210041631109,
+      "interestToGdp": 0.01819000796520819,
+      "balanceToGdp": 0.03670132373396323,
+      "marketAccess": 1,
+      "stability": 68.10903591794863,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 0.8394530519548509,
+      "averageRate": 0.051112990912326635,
+      "marketRate": 0.03592770800807371,
+      "interestToGdp": 0.04178094530144067,
+      "balanceToGdp": 0.10346190077944994,
+      "marketAccess": 1,
+      "stability": 68.35198281285838,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.6289496608139642,
+      "averageRate": 0.034895651335389986,
+      "marketRate": 0.03153722167869429,
+      "interestToGdp": 0.021686697600356034,
+      "balanceToGdp": 0.03379502092721224,
+      "marketAccess": 1,
+      "stability": 59.02811582690186,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.20122728892099603,
+      "averageRate": 0.03456311882886653,
+      "marketRate": 0.03091209902785807,
+      "interestToGdp": 0.006892881520612521,
+      "balanceToGdp": 0.0876507190460953,
+      "marketAccess": 1,
+      "stability": 67.46260270255176,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 4.470841430092947,
+      "averageRate": 0.03,
+      "marketRate": 0.3999999999999999,
+      "interestToGdp": 0.13089090150985003,
+      "balanceToGdp": 0.009193577748354657,
+      "marketAccess": 0,
+      "stability": 28.171000762975634,
+      "defaults": 1,
+      "regime": 0
+     },
+     "bgr": {
+      "debtToGdp": 0.3213527183549544,
+      "averageRate": 0.03155673989427912,
+      "marketRate": 0.030912098842373056,
+      "interestToGdp": 0.010039749486643148,
+      "balanceToGdp": 0.00983763052239682,
+      "marketAccess": 1,
+      "stability": 61.591615476560776,
+      "defaults": 0,
+      "regime": 0
+     }
+    },
+    "104": {
+     "fra": {
+      "debtToGdp": 0.8203662720371907,
+      "averageRate": 0.032875589932365334,
+      "marketRate": 0.07097023567846775,
+      "interestToGdp": 0.02605110937371767,
+      "balanceToGdp": 0.12201504298308259,
+      "marketAccess": 1,
+      "stability": 64.6266676075876,
+      "defaults": 1,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 0.7145528916673602,
+      "averageRate": 0.06127723997785676,
+      "marketRate": 0.03290430321632379,
+      "interestToGdp": 0.041859922739038505,
+      "balanceToGdp": 0.03772045598190913,
+      "marketAccess": 1,
+      "stability": 68.32439443965397,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 0.6191666377285518,
+      "averageRate": 0.03348569691810276,
+      "marketRate": 0.06638359206085613,
+      "interestToGdp": 0.020027977913335805,
+      "balanceToGdp": 0.12421086906680867,
+      "marketAccess": 1,
+      "stability": 61.66178177583597,
+      "defaults": 1,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 1.493166101691549,
+      "averageRate": 0.03,
+      "marketRate": 0.26600704199150543,
+      "interestToGdp": 0.042421226230920296,
+      "balanceToGdp": 0.13968162747458762,
+      "marketAccess": 0,
+      "stability": 45.916906705513036,
+      "defaults": 2,
+      "regime": 1
+     },
+     "pol": {
+      "debtToGdp": 0.7596436739823416,
+      "averageRate": 0.03763632713637109,
+      "marketRate": 0.033776910836870004,
+      "interestToGdp": 0.027240124821947296,
+      "balanceToGdp": 0.013124177762459976,
+      "marketAccess": 1,
+      "stability": 62.289961088697375,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.2827871656191367,
+      "averageRate": 0.031280404158576226,
+      "marketRate": 0.030405809478034004,
+      "interestToGdp": 0.00851780715852216,
+      "balanceToGdp": 0.004709743131845507,
+      "marketAccess": 1,
+      "stability": 65.44087606598885,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.24608886117812934,
+      "averageRate": 0.03358746771710617,
+      "marketRate": 0.030405809478034077,
+      "interestToGdp": 0.007945545518181302,
+      "balanceToGdp": 0.008215165610851628,
+      "marketAccess": 1,
+      "stability": 65.52989152623933,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 0.7345848535648303,
+      "averageRate": 0.03459640910807516,
+      "marketRate": 0.06814401492455542,
+      "interestToGdp": 0.02424391021460585,
+      "balanceToGdp": 0.08075881679728025,
+      "marketAccess": 1,
+      "stability": 62.40294544330405,
+      "defaults": 1,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.31530030006547066,
+      "averageRate": 0.034576195110947616,
+      "marketRate": 0.030405809478034125,
+      "interestToGdp": 0.010435538238332813,
+      "balanceToGdp": 0.0018636405740086789,
+      "marketAccess": 1,
+      "stability": 72.50910163591541,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 0.708556241643468,
+      "averageRate": 0.03200389791410337,
+      "marketRate": 0.06914921642743703,
+      "interestToGdp": 0.022109384975730638,
+      "balanceToGdp": 0.14848320848352808,
+      "marketAccess": 1,
+      "stability": 64.3218645051867,
+      "defaults": 1,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.329404869960854,
+      "averageRate": 0.0432001340792293,
+      "marketRate": 0.03040580947803451,
+      "interestToGdp": 0.01361758809454202,
+      "balanceToGdp": -0.0010794760895874815,
+      "marketAccess": 1,
+      "stability": 72.40990240277391,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 0.6624572188316536,
+      "averageRate": 0.046150630081042636,
+      "marketRate": 0.03185407119203712,
+      "interestToGdp": 0.030107796903780785,
+      "balanceToGdp": 0.09608219139779967,
+      "marketAccess": 1,
+      "stability": 72.0491101857069,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.5489619525555405,
+      "averageRate": 0.033721242742148876,
+      "marketRate": 0.03040582314594439,
+      "interestToGdp": 0.017617153431380463,
+      "balanceToGdp": 0.021102684286052338,
+      "marketAccess": 1,
+      "stability": 65.0795584628857,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.12397017286097273,
+      "averageRate": 0.03344264583771552,
+      "marketRate": 0.030405809478034063,
+      "interestToGdp": 0.003947083264347793,
+      "balanceToGdp": 0.03363068375010967,
+      "marketAccess": 1,
+      "stability": 69.87382056943065,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 3.860024047055157,
+      "averageRate": 0.03,
+      "marketRate": 0.3999999999999999,
+      "interestToGdp": 0.10966380107522655,
+      "balanceToGdp": 0.08546661759847095,
+      "marketAccess": 0,
+      "stability": 33.77948694226844,
+      "defaults": 2,
+      "regime": 1
+     },
+     "bgr": {
+      "debtToGdp": 0.2911201734398564,
+      "averageRate": 0.03129079129823057,
+      "marketRate": 0.030405809478034004,
+      "interestToGdp": 0.008704579850520998,
+      "balanceToGdp": 0.006783573347602175,
+      "marketAccess": 1,
+      "stability": 63.713779645241935,
+      "defaults": 0,
+      "regime": 0
+     }
+    },
+    "156": {
+     "fra": {
+      "debtToGdp": 0.6528289260583959,
+      "averageRate": 0.04212785123866213,
+      "marketRate": 0.061021217385149075,
+      "interestToGdp": 0.026791117918539265,
+      "balanceToGdp": 0.08554674130206567,
+      "marketAccess": 1,
+      "stability": 69.66375378460876,
+      "defaults": 1,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 0.6317321291945904,
+      "averageRate": 0.05290811497536964,
+      "marketRate": 0.031134988249936463,
+      "interestToGdp": 0.032209471527331515,
+      "balanceToGdp": 0.008154264261810587,
+      "marketAccess": 1,
+      "stability": 72.70674932273583,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 0.46198908737102534,
+      "averageRate": 0.0416566897485942,
+      "marketRate": 0.059331916587927386,
+      "interestToGdp": 0.018656756090388787,
+      "balanceToGdp": 0.08468996269719686,
+      "marketAccess": 1,
+      "stability": 70.79077948370202,
+      "defaults": 1,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 1.2380716407557386,
+      "averageRate": 0.03,
+      "marketRate": 0.177099995508879,
+      "interestToGdp": 0.03533301653982382,
+      "balanceToGdp": 0.11172467469110119,
+      "marketAccess": 0,
+      "stability": 55.23072665777593,
+      "defaults": 2,
+      "regime": 1
+     },
+     "pol": {
+      "debtToGdp": 0.6918353019807549,
+      "averageRate": 0.03630637975916635,
+      "marketRate": 0.03235371866291445,
+      "interestToGdp": 0.02414844486737247,
+      "balanceToGdp": 0.017195317649510232,
+      "marketAccess": 1,
+      "stability": 63.95820963342628,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.2714430662663726,
+      "averageRate": 0.031025124482183992,
+      "marketRate": 0.03040113652967473,
+      "interestToGdp": 0.00816009910325365,
+      "balanceToGdp": -0.0014761640312532644,
+      "marketAccess": 1,
+      "stability": 65.9354851420445,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.22702681242209982,
+      "averageRate": 0.032680357887523215,
+      "marketRate": 0.03040113652967473,
+      "interestToGdp": 0.007195121733908835,
+      "balanceToGdp": 0.005882280416689868,
+      "marketAccess": 1,
+      "stability": 66.23350458543473,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 0.6160542149074641,
+      "averageRate": 0.04272456930259338,
+      "marketRate": 0.05934907255371272,
+      "interestToGdp": 0.025361806665267942,
+      "balanceToGdp": 0.03769826516001757,
+      "marketAccess": 1,
+      "stability": 72.53388666361495,
+      "defaults": 1,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.3040784387567372,
+      "averageRate": 0.033332587229424684,
+      "marketRate": 0.03040113652967473,
+      "interestToGdp": 0.009787806696101185,
+      "balanceToGdp": -0.00538552853777001,
+      "marketAccess": 1,
+      "stability": 71.22208201734549,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 0.521231095421828,
+      "averageRate": 0.04101784436962927,
+      "marketRate": 0.0601232767103198,
+      "interestToGdp": 0.02098338244755656,
+      "balanceToGdp": 0.11235452241693979,
+      "marketAccess": 1,
+      "stability": 69.22649817708304,
+      "defaults": 1,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.31199966935330137,
+      "averageRate": 0.03934887198366668,
+      "marketRate": 0.03040113652967473,
+      "interestToGdp": 0.011862502580420493,
+      "balanceToGdp": -0.008575323786839364,
+      "marketAccess": 1,
+      "stability": 74.0915769768664,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 0.5296003153307841,
+      "averageRate": 0.04175840608593079,
+      "marketRate": 0.030401176507624753,
+      "interestToGdp": 0.021852141264676456,
+      "balanceToGdp": 0.057111501282995955,
+      "marketAccess": 1,
+      "stability": 74.49649433117852,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.49660056008531883,
+      "averageRate": 0.03277610928191084,
+      "marketRate": 0.03040113652967908,
+      "interestToGdp": 0.015603032260972604,
+      "balanceToGdp": 0.004426932325971828,
+      "marketAccess": 1,
+      "stability": 66.46879694318422,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.11015485052532638,
+      "averageRate": 0.03257669975759862,
+      "marketRate": 0.03040113652967473,
+      "interestToGdp": 0.0034363488816157237,
+      "balanceToGdp": 0.005141941174297662,
+      "marketAccess": 1,
+      "stability": 69.3118929584257,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 3.4789961064216297,
+      "averageRate": 0.03,
+      "marketRate": 0.3999999999999999,
+      "interestToGdp": 0.09974632288404772,
+      "balanceToGdp": 0.09724725527219556,
+      "marketAccess": 0,
+      "stability": 30.840205206166484,
+      "defaults": 2,
+      "regime": 1
+     },
+     "bgr": {
+      "debtToGdp": 0.27686954196890057,
+      "averageRate": 0.03103134287389753,
+      "marketRate": 0.03040113652967473,
+      "interestToGdp": 0.008270296036765495,
+      "balanceToGdp": -0.0024407911909827052,
+      "marketAccess": 1,
+      "stability": 64.79426604413882,
+      "defaults": 0,
+      "regime": 0
+     }
+    }
+   }
+  },
+  {
+   "summary": {
+    "name": "A",
+    "a": true,
+    "b": false,
+    "buildSeconds": 11.751409993999998,
+    "countriesWithDebtWithin1pp": 0,
+    "countriesWithDebtTarget": 15,
+    "accessLostWeek1": [
+     "fra",
+     "ita",
+     "bel",
+     "grc"
+    ],
+    "defaults": {
+     "grc": [
+      6
+     ],
+     "ita": [
+      10
+     ]
+    },
+    "regimeChanges": {
+     "bloc-mea": [
+      27,
+      53,
+      79,
+      105,
+      131
+     ]
+    },
+    "accessLost": {
+     "fra": [
+      1
+     ],
+     "ita": [
+      1
+     ],
+     "bel": [
+      1
+     ],
+     "grc": [
+      1
+     ]
+    },
+    "audit": {
+     "worstMoneyError": 1.3460521586239338e-10,
+     "worstBondError": 7.120016338023262e-16,
+     "worstIssuedError": 1.1364564810247956e-14
+    },
+    "week1StateHash": null
+   },
+   "comparison": [
+    {
+     "id": "fra",
+     "targetDebt": 1.095,
+     "week1Debt": 2.681998646875402,
+     "debtGapPoints": 158.69986468754018,
+     "effectiveRate2023": 0.017212121527120237,
+     "week1AverageRate": 0.043074297118828736,
+     "newIssueModel": 0.37567326292840497,
+     "observedNewIssueInEngineTerms": 0.04400913585555085,
+     "interest2023": 0.01884727307219666,
+     "week1Interest": 0.10779704038628997,
+     "week1Access": 0
+    },
+    {
+     "id": "deu",
+     "targetDebt": 0.618,
+     "week1Debt": 1.0351897947198048,
+     "debtGapPoints": 41.718979471980475,
+     "effectiveRate2023": 0.014123346596227455,
+     "week1AverageRate": 0.03807968507584092,
+     "newIssueModel": 0.03840913585555085,
+     "observedNewIssueInEngineTerms": 0.03840913585555085,
+     "interest2023": 0.008728228196468566,
+     "week1Interest": 0.03720059783529995,
+     "week1Access": 1
+    },
+    {
+     "id": "gbr",
+     "targetDebt": 0.988,
+     "week1Debt": 2.2697372951593477,
+     "debtGapPoints": 128.17372951593478,
+     "effectiveRate2023": 0.03173951995310747,
+     "week1AverageRate": 0.06086875023072742,
+     "newIssueModel": 0.1908770738903622,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.031358645713670176,
+     "week1Interest": 0.12617306960514368,
+     "week1Access": 1
+    },
+    {
+     "id": "ita",
+     "targetDebt": 1.34,
+     "week1Debt": 3.307654141908075,
+     "debtGapPoints": 196.7654141908075,
+     "effectiveRate2023": 0.02709898894349265,
+     "week1AverageRate": 0.05093705367645463,
+     "newIssueModel": 0.3999999999999999,
+     "observedNewIssueInEngineTerms": 0.05690913585555085,
+     "interest2023": 0.03631264518428015,
+     "week1Interest": 0.15605123593926518,
+     "week1Access": 0
+    },
+    {
+     "id": "pol",
+     "targetDebt": 0.495,
+     "week1Debt": 1.0460236782384553,
+     "debtGapPoints": 55.10236782384553,
+     "effectiveRate2023": 0.04185238834054712,
+     "week1AverageRate": 0.03724312660139861,
+     "newIssueModel": 0.03750276773358307,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.020716932228570826,
+     "week1Interest": 0.036240105338394404,
+     "week1Access": 1
+    },
+    {
+     "id": "tur",
+     "targetDebt": 0.29600000000000004,
+     "week1Debt": 0.555210797755102,
+     "debtGapPoints": 25.921079775510194,
+     "effectiveRate2023": 0.13066348226108465,
+     "week1AverageRate": 0.04534710632923203,
+     "newIssueModel": 0.030031930272972122,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.03867639074928106,
+     "week1Interest": 0.023591033751779903,
+     "week1Access": 1
+    },
+    {
+     "id": "irl",
+     "targetDebt": 0.42100000000000004,
+     "week1Debt": 0.544345626975064,
+     "debtGapPoints": 12.33456269750639,
+     "effectiveRate2023": 0.015352091306620512,
+     "week1AverageRate": 0.0319840449394839,
+     "newIssueModel": 0.030777998895957497,
+     "observedNewIssueInEngineTerms": 0.04280913585555085,
+     "interest2023": 0.006463230440087236,
+     "week1Interest": 0.016740167142894453,
+     "week1Access": 1
+    },
+    {
+     "id": "esp",
+     "targetDebt": 1.053,
+     "week1Debt": 2.2487989223699074,
+     "debtGapPoints": 119.57989223699074,
+     "effectiveRate2023": 0.022563758868378046,
+     "week1AverageRate": 0.09802049530029372,
+     "newIssueModel": 0.16904058166579503,
+     "observedNewIssueInEngineTerms": 0.048909135855550845,
+     "interest2023": 0.02375963808840208,
+     "week1Interest": 0.2037407889616227,
+     "week1Access": 1
+    },
+    {
+     "id": "nld",
+     "targetDebt": 0.45899999999999996,
+     "week1Debt": 0.6074068616553837,
+     "debtGapPoints": 14.840686165538376,
+     "effectiveRate2023": 0.014781818890553354,
+     "week1AverageRate": 0.032668730359107674,
+     "newIssueModel": 0.03141198380320002,
+     "observedNewIssueInEngineTerms": 0.04200913585555085,
+     "interest2023": 0.006784854870763989,
+     "week1Interest": 0.018961123647773224,
+     "week1Access": 1
+    },
+    {
+     "id": "bel",
+     "targetDebt": 1.023,
+     "week1Debt": 2.397092941017667,
+     "debtGapPoints": 137.40929410176673,
+     "effectiveRate2023": 0.019005569924827666,
+     "week1AverageRate": 0.043071649422018084,
+     "newIssueModel": 0.2811643397874149,
+     "observedNewIssueInEngineTerms": 0.045009135855550844,
+     "interest2023": 0.0194426980330987,
+     "week1Interest": 0.09610189214957379,
+     "week1Access": 0
+    },
+    {
+     "id": "che",
+     "targetDebt": null,
+     "week1Debt": 0.742046088196423,
+     "debtGapPoints": null,
+     "effectiveRate2023": null,
+     "week1AverageRate": 0.03788674047820525,
+     "newIssueModel": 0.033902148555470996,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.0026911141804898597,
+     "week1Interest": 0.026892641022162884,
+     "week1Access": 1
+    },
+    {
+     "id": "aut",
+     "targetDebt": 0.774,
+     "week1Debt": 1.5613541349098368,
+     "debtGapPoints": 78.73541349098367,
+     "effectiveRate2023": 0.015448434656418764,
+     "week1AverageRate": 0.05144591416257689,
+     "newIssueModel": 0.07988338885733871,
+     "observedNewIssueInEngineTerms": 0.04490913585555085,
+     "interest2023": 0.011957088424068124,
+     "week1Interest": 0.076393498750111,
+     "week1Access": 1
+    },
+    {
+     "id": "cze",
+     "targetDebt": 0.42200000000000004,
+     "week1Debt": 0.8268807038093351,
+     "debtGapPoints": 40.48807038093351,
+     "effectiveRate2023": 0.030476976830168628,
+     "week1AverageRate": 0.03422075886086975,
+     "newIssueModel": 0.03423513871086472,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.012861284222331163,
+     "week1Interest": 0.02649109746886227,
+     "week1Access": 1
+    },
+    {
+     "id": "nor",
+     "targetDebt": 0.42700000000000005,
+     "week1Debt": 0.5184936848339254,
+     "debtGapPoints": 9.14936848339254,
+     "effectiveRate2023": 0.02390180909381388,
+     "week1AverageRate": 0.03291698095420422,
+     "newIssueModel": 0.03061784149733326,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.010206072483058527,
+     "week1Interest": 0.016397198440671036,
+     "week1Access": 1
+    },
+    {
+     "id": "grc",
+     "targetDebt": 1.5,
+     "week1Debt": 4.192376534502007,
+     "debtGapPoints": 269.23765345020075,
+     "effectiveRate2023": 0.02062345584854602,
+     "week1AverageRate": 0.05171555948602849,
+     "newIssueModel": 0.3999999999999999,
+     "observedNewIssueInEngineTerms": 0.05410913585555085,
+     "interest2023": 0.033822467591615474,
+     "week1Interest": 0.20091204932117965,
+     "week1Access": 0
+    },
+    {
+     "id": "bgr",
+     "targetDebt": 0.228,
+     "week1Debt": 0.4098592845917296,
+     "debtGapPoints": 18.18592845917296,
+     "effectiveRate2023": 0.02155600723861238,
+     "week1AverageRate": 0.02873545987085781,
+     "newIssueModel": 0.03000000000000004,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.004914769650403623,
+     "week1Interest": 0.0110710504330079,
+     "week1Access": 1
+    }
+   ],
+   "checkpoints": {
+    "0": {
+     "fra": {
+      "debtToGdp": 2.745162269478412,
+      "averageRate": 0.043074297118828736,
+      "marketRate": 0.39104192385848274,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 1.061343847040084,
+      "averageRate": 0.03807755958693956,
+      "marketRate": 0.03889116890222883,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 2.3001813118798213,
+      "averageRate": 0.060029986852278165,
+      "marketRate": 0.20297574793841933,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 3.342278724830319,
+      "averageRate": 0.05093705367645463,
+      "marketRate": 0.3999999999999999,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 1.055540893563302,
+      "averageRate": 0.037241451497320006,
+      "marketRate": 0.03762489736083899,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.5621034930228411,
+      "averageRate": 0.04544591391669177,
+      "marketRate": 0.030042573697296154,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.5670553326931549,
+      "averageRate": 0.031991825881700194,
+      "marketRate": 0.031037331861276652,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 2.265711506909551,
+      "averageRate": 0.09756230119470984,
+      "marketRate": 0.17305101277284057,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.6295611755580681,
+      "averageRate": 0.032676838401403854,
+      "marketRate": 0.0318431418087713,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 2.461464810155109,
+      "averageRate": 0.043071649422018084,
+      "marketRate": 0.30878896882125667,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.7700941820151161,
+      "averageRate": 0.03791244752286805,
+      "marketRate": 0.03444528560358039,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 1.629789442803746,
+      "averageRate": 0.05126244658390101,
+      "marketRate": 0.09138396309026581,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.8393165456751803,
+      "averageRate": 0.03422066608764397,
+      "marketRate": 0.03443682119416983,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.5408784273857616,
+      "averageRate": 0.03293181411199048,
+      "marketRate": 0.030823788663111005,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 4.221898124284225,
+      "averageRate": 0.05171555948602849,
+      "marketRate": 0.3999999999999999,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bgr": {
+      "debtToGdp": 0.41670232783174643,
+      "averageRate": 0.02872730154744399,
+      "marketRate": 0.030000000000000047,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     }
+    },
+    "1": {
+     "fra": {
+      "debtToGdp": 2.681998646875402,
+      "averageRate": 0.043074297118828736,
+      "marketRate": 0.37567326292840497,
+      "interestToGdp": 0.10779704038628997,
+      "balanceToGdp": -0.04905098311181786,
+      "marketAccess": 0,
+      "stability": 67.5643104248271,
+      "defaults": 0,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 1.0351897947198048,
+      "averageRate": 0.03807968507584092,
+      "marketRate": 0.03840913585555085,
+      "interestToGdp": 0.03720059783529995,
+      "balanceToGdp": 0.05598047808665879,
+      "marketAccess": 1,
+      "stability": 67.47323791632759,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 2.2697372951593477,
+      "averageRate": 0.06086875023072742,
+      "marketRate": 0.1908770738903622,
+      "interestToGdp": 0.12617306960514368,
+      "balanceToGdp": -0.04536016715803216,
+      "marketAccess": 1,
+      "stability": 67.43529317021022,
+      "defaults": 0,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 3.307654141908075,
+      "averageRate": 0.05093705367645463,
+      "marketRate": 0.3999999999999999,
+      "interestToGdp": 0.15605123593926518,
+      "balanceToGdp": -0.058652723916681755,
+      "marketAccess": 0,
+      "stability": 67.26245867000091,
+      "defaults": 0,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 1.0460236782384553,
+      "averageRate": 0.03724312660139861,
+      "marketRate": 0.03750276773358307,
+      "interestToGdp": 0.036240105338394404,
+      "balanceToGdp": 0.007151683438309505,
+      "marketAccess": 1,
+      "stability": 67.53583686521327,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.555210797755102,
+      "averageRate": 0.04534710632923203,
+      "marketRate": 0.030031930272972122,
+      "interestToGdp": 0.023591033751779903,
+      "balanceToGdp": 0.04540572253575042,
+      "marketAccess": 1,
+      "stability": 67.35144466412883,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.544345626975064,
+      "averageRate": 0.0319840449394839,
+      "marketRate": 0.030777998895957497,
+      "interestToGdp": 0.016740167142894453,
+      "balanceToGdp": 0.09210259331789471,
+      "marketAccess": 1,
+      "stability": 66.76238451496091,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 2.2487989223699074,
+      "averageRate": 0.09802049530029372,
+      "marketRate": 0.16904058166579503,
+      "interestToGdp": 0.2037407889616227,
+      "balanceToGdp": -0.12483594380927261,
+      "marketAccess": 1,
+      "stability": 67.52607537360753,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.6074068616553837,
+      "averageRate": 0.032668730359107674,
+      "marketRate": 0.03141198380320002,
+      "interestToGdp": 0.018961123647773224,
+      "balanceToGdp": 0.06481923283412679,
+      "marketAccess": 1,
+      "stability": 67.29816807959874,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 2.397092941017667,
+      "averageRate": 0.043071649422018084,
+      "marketRate": 0.2811643397874149,
+      "interestToGdp": 0.09610189214957379,
+      "balanceToGdp": -0.060752897091988535,
+      "marketAccess": 0,
+      "stability": 67.99437185960353,
+      "defaults": 0,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.742046088196423,
+      "averageRate": 0.03788674047820525,
+      "marketRate": 0.033902148555470996,
+      "interestToGdp": 0.026892641022162884,
+      "balanceToGdp": 0.09149034768436094,
+      "marketAccess": 1,
+      "stability": 67.27686999672997,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 1.5613541349098368,
+      "averageRate": 0.05144591416257689,
+      "marketRate": 0.07988338885733871,
+      "interestToGdp": 0.076393498750111,
+      "balanceToGdp": -0.014420649305283457,
+      "marketAccess": 1,
+      "stability": 67.51569959331341,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.8268807038093351,
+      "averageRate": 0.03422075886086975,
+      "marketRate": 0.03423513871086472,
+      "interestToGdp": 0.02649109746886227,
+      "balanceToGdp": 0.021811691261931873,
+      "marketAccess": 1,
+      "stability": 67.44246419489565,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.5184936848339254,
+      "averageRate": 0.03291698095420422,
+      "marketRate": 0.03061784149733326,
+      "interestToGdp": 0.016397198440671036,
+      "balanceToGdp": 0.07335529564350167,
+      "marketAccess": 1,
+      "stability": 67.26472692098034,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 4.192376534502007,
+      "averageRate": 0.05171555948602849,
+      "marketRate": 0.3999999999999999,
+      "interestToGdp": 0.20091204932117965,
+      "balanceToGdp": -0.09939009858607847,
+      "marketAccess": 0,
+      "stability": 66.9869343400143,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bgr": {
+      "debtToGdp": 0.4098592845917296,
+      "averageRate": 0.02873545987085781,
+      "marketRate": 0.03000000000000004,
+      "interestToGdp": 0.0110710504330079,
+      "balanceToGdp": 0.026822530431361066,
+      "marketAccess": 1,
+      "stability": 67.32825515663916,
+      "defaults": 0,
+      "regime": 0
+     }
+    },
+    "13": {
+     "fra": {
+      "debtToGdp": 2.21261159458376,
+      "averageRate": 0.043074297118828736,
+      "marketRate": 0.16700216927530015,
+      "interestToGdp": 0.09168650310895887,
+      "balanceToGdp": 0.012199133954952876,
+      "marketAccess": 0,
+      "stability": 51.06261352586335,
+      "defaults": 0,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 0.8546103110106469,
+      "averageRate": 0.037926191582351616,
+      "marketRate": 0.03465596950113735,
+      "interestToGdp": 0.03232676301130102,
+      "balanceToGdp": 0.05889799818686392,
+      "marketAccess": 1,
+      "stability": 52.464670654199175,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 2.067710206742748,
+      "averageRate": 0.06647478813255343,
+      "marketRate": 0.10739328287872962,
+      "interestToGdp": 0.13315806222706017,
+      "balanceToGdp": -0.016701310042396406,
+      "marketAccess": 1,
+      "stability": 50.50116315736005,
+      "defaults": 0,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 1.4391284885811988,
+      "averageRate": 0.03,
+      "marketRate": 0.20168800994362268,
+      "interestToGdp": 0.04563559099604066,
+      "balanceToGdp": 0.04149563606116823,
+      "marketAccess": 0,
+      "stability": 28.184295361236497,
+      "defaults": 1,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 0.9703750515303509,
+      "averageRate": 0.037199896245848886,
+      "marketRate": 0.03616716838394163,
+      "interestToGdp": 0.03586258850653717,
+      "balanceToGdp": 0.014887735340237811,
+      "marketAccess": 1,
+      "stability": 51.74747922550649,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.49219070804866355,
+      "averageRate": 0.04420935606600488,
+      "marketRate": 0.030066651164258298,
+      "interestToGdp": 0.02105417329126285,
+      "balanceToGdp": 0.04203557149352836,
+      "marketAccess": 1,
+      "stability": 50.80844863987733,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.38759088954618837,
+      "averageRate": 0.03186615367902561,
+      "marketRate": 0.031097675696232275,
+      "interestToGdp": 0.01235554775107661,
+      "balanceToGdp": 0.09336788360369064,
+      "marketAccess": 1,
+      "stability": 47.464435330935835,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 2.112559857317828,
+      "averageRate": 0.10138841516700926,
+      "marketRate": 0.12242284488005582,
+      "interestToGdp": 0.20807190694749486,
+      "balanceToGdp": -0.11003334768122328,
+      "marketAccess": 1,
+      "stability": 51.65679078513491,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.4540738826339476,
+      "averageRate": 0.03249693203805737,
+      "marketRate": 0.030110366225693866,
+      "interestToGdp": 0.014630969706134625,
+      "balanceToGdp": 0.057125607518848064,
+      "marketAccess": 1,
+      "stability": 51.43300045428946,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 2.0010213757563404,
+      "averageRate": 0.04475798513326422,
+      "marketRate": 0.10008523022568833,
+      "interestToGdp": 0.08580274375673848,
+      "balanceToGdp": -0.003996269644594957,
+      "marketAccess": 1,
+      "stability": 53.707299421904075,
+      "defaults": 0,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.5496002208575028,
+      "averageRate": 0.037405731325382933,
+      "marketRate": 0.0302962684138745,
+      "interestToGdp": 0.020597066978902432,
+      "balanceToGdp": 0.09993000897267057,
+      "marketAccess": 1,
+      "stability": 51.846800237171976,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 1.1151853738226312,
+      "averageRate": 0.051376785493001016,
+      "marketRate": 0.04070755840294197,
+      "interestToGdp": 0.05466435169888434,
+      "balanceToGdp": 0.04739066020078477,
+      "marketAccess": 1,
+      "stability": 53.20734228049086,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.7363021058230667,
+      "averageRate": 0.03413881990650225,
+      "marketRate": 0.03248334295481312,
+      "interestToGdp": 0.0250251185183223,
+      "balanceToGdp": 0.022254356163195304,
+      "marketAccess": 1,
+      "stability": 51.83987561884004,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.36183229599284056,
+      "averageRate": 0.03271273221478977,
+      "marketRate": 0.03008521069445602,
+      "interestToGdp": 0.01177710073936981,
+      "balanceToGdp": 0.06898928504041325,
+      "marketAccess": 1,
+      "stability": 50.63102325806401,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 1.9556383879982142,
+      "averageRate": 0.03,
+      "marketRate": 0.16507148990968848,
+      "interestToGdp": 0.06231283718687413,
+      "balanceToGdp": 0.04849136521790486,
+      "marketAccess": 0,
+      "stability": 24.707432349098212,
+      "defaults": 1,
+      "regime": 0
+     },
+     "bgr": {
+      "debtToGdp": 0.3560294907810278,
+      "averageRate": 0.028830862712314033,
+      "marketRate": 0.03006563972969141,
+      "interestToGdp": 0.010092107790301123,
+      "balanceToGdp": 0.025276670227942773,
+      "marketAccess": 1,
+      "stability": 50.122930022360855,
+      "defaults": 0,
+      "regime": 0
+     }
+    },
+    "26": {
+     "fra": {
+      "debtToGdp": 2.106779186414512,
+      "averageRate": 0.04936095196955125,
+      "marketRate": 0.1137064447405008,
+      "interestToGdp": 0.09786144100178633,
+      "balanceToGdp": -0.043389318207471515,
+      "marketAccess": 1,
+      "stability": 58.77540960531507,
+      "defaults": 0,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 0.795360754786475,
+      "averageRate": 0.03762074326731371,
+      "marketRate": 0.03378951730696682,
+      "interestToGdp": 0.02922744286844166,
+      "balanceToGdp": 0.014392603898781714,
+      "marketAccess": 1,
+      "stability": 60.338287161951065,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 1.9614258994233869,
+      "averageRate": 0.06847769606343282,
+      "marketRate": 0.08096341361983087,
+      "interestToGdp": 0.12943154891333006,
+      "balanceToGdp": 0.008647049527816949,
+      "marketAccess": 1,
+      "stability": 55.75972870215074,
+      "defaults": 0,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 1.4107240637949745,
+      "averageRate": 0.03,
+      "marketRate": 0.104212745879563,
+      "interestToGdp": 0.04083773416395709,
+      "balanceToGdp": 0.0436909849511677,
+      "marketAccess": 0,
+      "stability": 40.947270114586345,
+      "defaults": 1,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 0.9518002210504701,
+      "averageRate": 0.03711798709896045,
+      "marketRate": 0.03617415417203401,
+      "interestToGdp": 0.03452189608063081,
+      "balanceToGdp": -0.01429264205015874,
+      "marketAccess": 1,
+      "stability": 57.10365481190043,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.46489038967368745,
+      "averageRate": 0.043094620249410395,
+      "marketRate": 0.030461479644366903,
+      "interestToGdp": 0.019505905429234485,
+      "balanceToGdp": -0.000729861045020853,
+      "marketAccess": 1,
+      "stability": 58.5721693146253,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.3281316238446371,
+      "averageRate": 0.03181720754405287,
+      "marketRate": 0.030653493556992217,
+      "interestToGdp": 0.010248934957239294,
+      "balanceToGdp": 0.0460968054806153,
+      "marketAccess": 1,
+      "stability": 54.48579882742321,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 2.0987551833255775,
+      "averageRate": 0.10288319904893152,
+      "marketRate": 0.11523913419920405,
+      "interestToGdp": 0.21069242402177818,
+      "balanceToGdp": -0.13006039012624254,
+      "marketAccess": 1,
+      "stability": 56.2821617229254,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.40205622225061055,
+      "averageRate": 0.03232233320553809,
+      "marketRate": 0.030462518194622996,
+      "interestToGdp": 0.012694247563332416,
+      "balanceToGdp": 0.01578589675321127,
+      "marketAccess": 1,
+      "stability": 58.92704239819435,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 1.8485003756324063,
+      "averageRate": 0.04735937737100142,
+      "marketRate": 0.06455263946882375,
+      "interestToGdp": 0.08426929665547972,
+      "balanceToGdp": -0.01627705392965424,
+      "marketAccess": 1,
+      "stability": 62.77716007319839,
+      "defaults": 0,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.47985529859432013,
+      "averageRate": 0.03684072295623964,
+      "marketRate": 0.030466934721989136,
+      "interestToGdp": 0.01733910054907786,
+      "balanceToGdp": 0.0522386396692687,
+      "marketAccess": 1,
+      "stability": 59.76999610333232,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 0.9478117580411138,
+      "averageRate": 0.05029645380629435,
+      "marketRate": 0.03652293190887709,
+      "interestToGdp": 0.04653270828279901,
+      "balanceToGdp": 0.01254165645542328,
+      "marketAccess": 1,
+      "stability": 63.13853514410117,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.7088242137072231,
+      "averageRate": 0.03399764795479732,
+      "marketRate": 0.03230588846962306,
+      "interestToGdp": 0.02352479122143769,
+      "balanceToGdp": -0.014221988368661613,
+      "marketAccess": 1,
+      "stability": 58.81739367188399,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.3071878883610471,
+      "averageRate": 0.03252038082609355,
+      "marketRate": 0.030461920568025862,
+      "interestToGdp": 0.009758116524188945,
+      "balanceToGdp": 0.07602062189664587,
+      "marketAccess": 1,
+      "stability": 57.6961010001878,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 1.8479765849709942,
+      "averageRate": 0.03,
+      "marketRate": 0.12316317339241917,
+      "interestToGdp": 0.05220286194675789,
+      "balanceToGdp": 0.030118652806521096,
+      "marketAccess": 0,
+      "stability": 40.081961348884,
+      "defaults": 1,
+      "regime": 0
+     },
+     "bgr": {
+      "debtToGdp": 0.3377872183034128,
+      "averageRate": 0.02894950025141887,
+      "marketRate": 0.03046145561544886,
+      "interestToGdp": 0.00950987573774695,
+      "balanceToGdp": -0.014058951935914457,
+      "marketAccess": 1,
+      "stability": 56.866024953430006,
+      "defaults": 0,
+      "regime": 0
+     }
+    },
+    "52": {
+     "fra": {
+      "debtToGdp": 1.9680761822574657,
+      "averageRate": 0.05672148481788031,
+      "marketRate": 0.08195604099080228,
+      "interestToGdp": 0.10778994369974348,
+      "balanceToGdp": 0.01401996284080068,
+      "marketAccess": 1,
+      "stability": 68.48767872116795,
+      "defaults": 0,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 0.740111224366942,
+      "averageRate": 0.037041096799727107,
+      "marketRate": 0.033973357474061855,
+      "interestToGdp": 0.02677369441741515,
+      "balanceToGdp": 0.03667501902998631,
+      "marketAccess": 1,
+      "stability": 67.88578510052398,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 1.844306006234078,
+      "averageRate": 0.06870520890164147,
+      "marketRate": 0.06268794037439607,
+      "interestToGdp": 0.123777338004582,
+      "balanceToGdp": 0.05815133685396491,
+      "marketAccess": 1,
+      "stability": 59.12756482777049,
+      "defaults": 0,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 1.2787586881071271,
+      "averageRate": 0.03,
+      "marketRate": 0.08576429581823107,
+      "interestToGdp": 0.03703528051760001,
+      "balanceToGdp": 0.08145833665887137,
+      "marketAccess": 0,
+      "stability": 54.26758198157384,
+      "defaults": 1,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 0.9193447210697413,
+      "averageRate": 0.037020105247049746,
+      "marketRate": 0.03680477147552039,
+      "interestToGdp": 0.0333072860940991,
+      "balanceToGdp": 0.001663519010599075,
+      "marketAccess": 1,
+      "stability": 58.72104886065597,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.4507474537124667,
+      "averageRate": 0.041115674198454306,
+      "marketRate": 0.03165031042598172,
+      "interestToGdp": 0.01826608292470673,
+      "balanceToGdp": -0.02538900574257276,
+      "marketAccess": 1,
+      "stability": 67.20823579085983,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.28786123880279196,
+      "averageRate": 0.031721623861299605,
+      "marketRate": 0.03165041880009208,
+      "interestToGdp": 0.00894287389696656,
+      "balanceToGdp": 0.0027697429636747892,
+      "marketAccess": 1,
+      "stability": 62.18847782801532,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 2.0971890803164994,
+      "averageRate": 0.10482115832550708,
+      "marketRate": 0.1139659634450427,
+      "interestToGdp": 0.21556823792330854,
+      "balanceToGdp": -0.07824812085664959,
+      "marketAccess": 1,
+      "stability": 54.15553216941148,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.368406430537726,
+      "averageRate": 0.03214578741220141,
+      "marketRate": 0.03165031101214737,
+      "interestToGdp": 0.011560044735283402,
+      "balanceToGdp": 0.025969968402115625,
+      "marketAccess": 1,
+      "stability": 67.21458682870363,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 1.7412348609307118,
+      "averageRate": 0.048813559404202934,
+      "marketRate": 0.05292514244131336,
+      "interestToGdp": 0.08338793191458757,
+      "balanceToGdp": 0.07860202474189253,
+      "marketAccess": 1,
+      "stability": 68.47527849729892,
+      "defaults": 0,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.4230449260549772,
+      "averageRate": 0.03596854410918067,
+      "marketRate": 0.03165031350486895,
+      "interestToGdp": 0.014795494552158096,
+      "balanceToGdp": 0.03215014399455945,
+      "marketAccess": 1,
+      "stability": 67.99267707506765,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 0.8581086989686386,
+      "averageRate": 0.048109307471942545,
+      "marketRate": 0.03593079582903339,
+      "interestToGdp": 0.040518378099925055,
+      "balanceToGdp": 0.09241733684384153,
+      "marketAccess": 1,
+      "stability": 70.29260600440718,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.6846350965270444,
+      "averageRate": 0.033790981419566705,
+      "marketRate": 0.033040254546544884,
+      "interestToGdp": 0.022650671336280865,
+      "balanceToGdp": 0.011710748949505585,
+      "marketAccess": 1,
+      "stability": 61.77002864894159,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.24311408524525377,
+      "averageRate": 0.03231333121750958,
+      "marketRate": 0.031650310674842384,
+      "interestToGdp": 0.007677932039102469,
+      "balanceToGdp": 0.08860774889615736,
+      "marketAccess": 1,
+      "stability": 67.02981318030244,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 1.649551445604916,
+      "averageRate": 0.03,
+      "marketRate": 0.09127972907510765,
+      "interestToGdp": 0.04746398518871575,
+      "balanceToGdp": 0.03875560144111914,
+      "marketAccess": 0,
+      "stability": 53.67907968113109,
+      "defaults": 1,
+      "regime": 0
+     },
+     "bgr": {
+      "debtToGdp": 0.3338366348166349,
+      "averageRate": 0.029354090244243902,
+      "marketRate": 0.03165031041241961,
+      "interestToGdp": 0.009623601650642766,
+      "balanceToGdp": -0.013443556066310876,
+      "marketAccess": 1,
+      "stability": 63.576755368908515,
+      "defaults": 0,
+      "regime": 0
+     }
+    },
+    "104": {
+     "fra": {
+      "debtToGdp": 1.7186384450088636,
+      "averageRate": 0.05808555563227193,
+      "marketRate": 0.050502794179974005,
+      "interestToGdp": 0.09806690427057134,
+      "balanceToGdp": 0.07630160031967266,
+      "marketAccess": 1,
+      "stability": 63.83089333280669,
+      "defaults": 0,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 0.638556957658962,
+      "averageRate": 0.035730171575872806,
+      "marketRate": 0.03135894643253863,
+      "interestToGdp": 0.022004493752433713,
+      "balanceToGdp": 0.02528882796049274,
+      "marketAccess": 1,
+      "stability": 71.33804366254736,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 1.6436958526167817,
+      "averageRate": 0.06409098568420528,
+      "marketRate": 0.047600428605498145,
+      "interestToGdp": 0.10307809675098147,
+      "balanceToGdp": 0.07175822748738347,
+      "marketAccess": 1,
+      "stability": 59.78769288036831,
+      "defaults": 0,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 1.055631405836406,
+      "averageRate": 0.034391731381477386,
+      "marketRate": 0.073347917000109,
+      "interestToGdp": 0.035141190258942356,
+      "balanceToGdp": 0.11965693431717415,
+      "marketAccess": 1,
+      "stability": 60.60493133595783,
+      "defaults": 1,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 0.8285501123851798,
+      "averageRate": 0.03656898509108897,
+      "marketRate": 0.03441196759277161,
+      "interestToGdp": 0.029113190826056262,
+      "balanceToGdp": 0.015704201027323762,
+      "marketAccess": 1,
+      "stability": 60.33558613392821,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.44067038629807803,
+      "averageRate": 0.038101678851985295,
+      "marketRate": 0.030626233098805366,
+      "interestToGdp": 0.0163252465616666,
+      "balanceToGdp": 0.012040143258868909,
+      "marketAccess": 1,
+      "stability": 62.97889088847133,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.25764422470477993,
+      "averageRate": 0.03150379240330754,
+      "marketRate": 0.030626233098839887,
+      "interestToGdp": 0.007855300748210177,
+      "balanceToGdp": 0.006059608136267052,
+      "marketAccess": 1,
+      "stability": 65.41550312164546,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 2.0379478200054035,
+      "averageRate": 0.10437662584848484,
+      "marketRate": 0.09511284757664923,
+      "interestToGdp": 0.2062792759071194,
+      "balanceToGdp": -0.040255967564978255,
+      "marketAccess": 1,
+      "stability": 53.47315356520917,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.3247605942936226,
+      "averageRate": 0.031807391418401866,
+      "marketRate": 0.030626233098805553,
+      "interestToGdp": 0.00996722207432002,
+      "balanceToGdp": 0.004705009487225308,
+      "marketAccess": 1,
+      "stability": 72.01029842337037,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 1.516540933387774,
+      "averageRate": 0.04853064007914185,
+      "marketRate": 0.04549202376653698,
+      "interestToGdp": 0.07305654034158504,
+      "balanceToGdp": 0.11987641307694964,
+      "marketAccess": 1,
+      "stability": 63.965184898647756,
+      "defaults": 0,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.3605632683361665,
+      "averageRate": 0.034543578913915005,
+      "marketRate": 0.030626233098806348,
+      "interestToGdp": 0.01201027546474635,
+      "balanceToGdp": 0.0018868764798001003,
+      "marketAccess": 1,
+      "stability": 71.60342180031925,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 0.6770832033514389,
+      "averageRate": 0.04400449240041506,
+      "marketRate": 0.03201170734219439,
+      "interestToGdp": 0.029524237618414884,
+      "balanceToGdp": 0.09855279473086359,
+      "marketAccess": 1,
+      "stability": 72.51939871730161,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.600161246692114,
+      "averageRate": 0.03320110445140954,
+      "marketRate": 0.030738936014443084,
+      "interestToGdp": 0.019144027988182506,
+      "balanceToGdp": 0.02413950841476983,
+      "marketAccess": 1,
+      "stability": 64.06619251601964,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.15861307497934127,
+      "averageRate": 0.0319273130553926,
+      "marketRate": 0.030626233098805442,
+      "interestToGdp": 0.004888302798191343,
+      "balanceToGdp": 0.038972938389735826,
+      "marketAccess": 1,
+      "stability": 70.69697869088964,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 1.4278947243161237,
+      "averageRate": 0.03612110374763931,
+      "marketRate": 0.07878810043383463,
+      "interestToGdp": 0.049631759430201414,
+      "balanceToGdp": 0.09132986804907114,
+      "marketAccess": 1,
+      "stability": 59.50907939172473,
+      "defaults": 1,
+      "regime": 0
+     },
+     "bgr": {
+      "debtToGdp": 0.30531236624715513,
+      "averageRate": 0.02981203590576128,
+      "marketRate": 0.03062623309880536,
+      "interestToGdp": 0.00877277133600594,
+      "balanceToGdp": 0.01013530003041301,
+      "marketAccess": 1,
+      "stability": 62.45812629501677,
+      "defaults": 0,
+      "regime": 0
+     }
+    },
+    "156": {
+     "fra": {
+      "debtToGdp": 1.529997336596836,
+      "averageRate": 0.054996315569662994,
+      "marketRate": 0.04562060690439917,
+      "interestToGdp": 0.08264963199621854,
+      "balanceToGdp": 0.10017074273972797,
+      "marketAccess": 1,
+      "stability": 58.405972959058396,
+      "defaults": 0,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 0.5782149572684281,
+      "averageRate": 0.03431800094750097,
+      "marketRate": 0.030537534123351757,
+      "interestToGdp": 0.01911208539146003,
+      "balanceToGdp": 0.003240846859414244,
+      "marketAccess": 1,
+      "stability": 73.12554470541296,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 1.4737033848672194,
+      "averageRate": 0.05894892794183329,
+      "marketRate": 0.044725196838182504,
+      "interestToGdp": 0.08483639456954861,
+      "balanceToGdp": 0.09454419694584404,
+      "marketAccess": 1,
+      "stability": 59.601536215021994,
+      "defaults": 0,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 0.8638013186176482,
+      "averageRate": 0.043966863528317295,
+      "marketRate": 0.06378788185186422,
+      "interestToGdp": 0.03680692609843196,
+      "balanceToGdp": 0.128008876016941,
+      "marketAccess": 1,
+      "stability": 60.451827637400314,
+      "defaults": 1,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 0.7495723991279581,
+      "averageRate": 0.03573259461357919,
+      "marketRate": 0.03303908825423048,
+      "interestToGdp": 0.025714656584810716,
+      "balanceToGdp": 0.017481436982631906,
+      "marketAccess": 1,
+      "stability": 65.33112112902943,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.41496967671338625,
+      "averageRate": 0.03596257927916892,
+      "marketRate": 0.03053745451660173,
+      "interestToGdp": 0.014456011115890097,
+      "balanceToGdp": 0.0024587331937211323,
+      "marketAccess": 1,
+      "stability": 66.62428941775826,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.23882736636672913,
+      "averageRate": 0.031240056870245815,
+      "marketRate": 0.03053745451660173,
+      "interestToGdp": 0.007232463074733109,
+      "balanceToGdp": 0.0038123568896780533,
+      "marketAccess": 1,
+      "stability": 67.46019413518174,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 1.9740302692102645,
+      "averageRate": 0.09921531352075612,
+      "marketRate": 0.08162267044133181,
+      "interestToGdp": 0.18931771952402146,
+      "balanceToGdp": -0.031194648142932626,
+      "marketAccess": 1,
+      "stability": 55.62828830500574,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.3099052712780085,
+      "averageRate": 0.03144578152899119,
+      "marketRate": 0.03053745451660173,
+      "interestToGdp": 0.009398721785065683,
+      "balanceToGdp": -0.005191471639548314,
+      "marketAccess": 1,
+      "stability": 72.34439247300719,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 1.3089744893941115,
+      "averageRate": 0.04714528397823798,
+      "marketRate": 0.04207703777594157,
+      "interestToGdp": 0.061000403062077165,
+      "balanceToGdp": 0.13899980929130482,
+      "marketAccess": 1,
+      "stability": 58.3654141704989,
+      "defaults": 0,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.33870861202362545,
+      "averageRate": 0.03336861930776449,
+      "marketRate": 0.03053745451660173,
+      "interestToGdp": 0.010906921868237343,
+      "balanceToGdp": -0.008513039720866339,
+      "marketAccess": 1,
+      "stability": 74.23878643338229,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 0.541631609645289,
+      "averageRate": 0.04028571747546754,
+      "marketRate": 0.030537568753299493,
+      "interestToGdp": 0.02157964170589673,
+      "balanceToGdp": 0.06353027593378768,
+      "marketAccess": 1,
+      "stability": 74.60893285587764,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.5405168784777554,
+      "averageRate": 0.03245652202420804,
+      "marketRate": 0.03053745455250391,
+      "interestToGdp": 0.016808618555061553,
+      "balanceToGdp": 0.004313571135910785,
+      "marketAccess": 1,
+      "stability": 67.77110775193773,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.13739947008422543,
+      "averageRate": 0.03154319724492004,
+      "marketRate": 0.03053745451660173,
+      "interestToGdp": 0.00414285262965632,
+      "balanceToGdp": 0.008704120609991652,
+      "marketAccess": 1,
+      "stability": 70.55450532559938,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 1.2572210500007788,
+      "averageRate": 0.04679927037477118,
+      "marketRate": 0.069641317872423,
+      "interestToGdp": 0.05689968415297432,
+      "balanceToGdp": 0.09831328427004643,
+      "marketAccess": 1,
+      "stability": 60.25789296367209,
+      "defaults": 1,
+      "regime": 0
+     },
+     "bgr": {
+      "debtToGdp": 0.28683727622075805,
+      "averageRate": 0.030030662838816065,
+      "marketRate": 0.03053745451660173,
+      "interestToGdp": 0.008282533314718996,
+      "balanceToGdp": -0.0021078327471671953,
+      "marketAccess": 1,
+      "stability": 66.14033551790735,
+      "defaults": 0,
+      "regime": 0
+     }
+    }
+   }
+  },
+  {
+   "summary": {
+    "name": "B",
+    "a": false,
+    "b": true,
+    "buildSeconds": 12.644631481000005,
+    "countriesWithDebtWithin1pp": 15,
+    "countriesWithDebtTarget": 15,
+    "accessLostWeek1": [],
+    "defaults": {
+     "grc": [
+      106
+     ]
+    },
+    "regimeChanges": {
+     "bloc-mea": [
+      27,
+      53,
+      79,
+      105,
+      131
+     ],
+     "grc": [
+      47,
+      109
+     ]
+    },
+    "accessLost": {
+     "grc": [
+      99
+     ]
+    },
+    "audit": {
+     "worstMoneyError": 1.5279510989785194e-10,
+     "worstBondError": 1.6602373209842618e-15,
+     "worstIssuedError": 1.2042747401349945e-14
+    },
+    "week1StateHash": null
+   },
+   "comparison": [
+    {
+     "id": "fra",
+     "targetDebt": 1.095,
+     "week1Debt": 1.0956664812175743,
+     "debtGapPoints": 0.06664812175742885,
+     "effectiveRate2023": 0.017212121527120237,
+     "week1AverageRate": 0.049453975922006246,
+     "newIssueModel": 0.056134222237384256,
+     "observedNewIssueInEngineTerms": 0.04266159165794429,
+     "interest2023": 0.01884727307219666,
+     "week1Interest": 0.054045056894838954,
+     "week1Access": 1
+    },
+    {
+     "id": "deu",
+     "targetDebt": 0.618,
+     "week1Debt": 0.6179324869824627,
+     "debtGapPoints": -0.006751301753726846,
+     "effectiveRate2023": 0.014123346596227455,
+     "week1AverageRate": 0.030403742310876024,
+     "newIssueModel": 0.03706159165794429,
+     "observedNewIssueInEngineTerms": 0.03706159165794429,
+     "interest2023": 0.008728228196468566,
+     "week1Interest": 0.018707432686492973,
+     "week1Access": 1
+    },
+    {
+     "id": "gbr",
+     "targetDebt": 0.988,
+     "week1Debt": 0.9883059603358029,
+     "debtGapPoints": 0.03059603358028795,
+     "effectiveRate2023": 0.03173951995310747,
+     "week1AverageRate": 0.03974227211247418,
+     "newIssueModel": 0.046420802669709854,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.031358645713670176,
+     "week1Interest": 0.039137380888533135,
+     "week1Access": 1
+    },
+    {
+     "id": "ita",
+     "targetDebt": 1.34,
+     "week1Debt": 1.3429173661373592,
+     "debtGapPoints": 0.29173661373591564,
+     "effectiveRate2023": 0.02709898894349265,
+     "week1AverageRate": 0.09325910272995716,
+     "newIssueModel": 0.10060473620533089,
+     "observedNewIssueInEngineTerms": 0.05556159165794429,
+     "interest2023": 0.03631264518428015,
+     "week1Interest": 0.12586780098359926,
+     "week1Access": 1
+    },
+    {
+     "id": "pol",
+     "targetDebt": 0.495,
+     "week1Debt": 0.49485976309456703,
+     "debtGapPoints": -0.014023690543296663,
+     "effectiveRate2023": 0.04185238834054712,
+     "week1AverageRate": 0.030042949073687722,
+     "newIssueModel": 0.03670005549528502,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.020716932228570826,
+     "week1Interest": 0.014795492913671705,
+     "week1Access": 1
+    },
+    {
+     "id": "tur",
+     "targetDebt": 0.29600000000000004,
+     "week1Debt": 0.2961843531621136,
+     "debtGapPoints": 0.018435316211357078,
+     "effectiveRate2023": 0.13066348226108465,
+     "week1AverageRate": 0.030042949073687722,
+     "newIssueModel": 0.03670005549528502,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.03867639074928106,
+     "week1Interest": 0.008952439127094864,
+     "week1Access": 1
+    },
+    {
+     "id": "irl",
+     "targetDebt": 0.42100000000000004,
+     "week1Debt": 0.4212563824546746,
+     "debtGapPoints": 0.02563824546745752,
+     "effectiveRate2023": 0.015352091306620512,
+     "week1AverageRate": 0.030046806101608307,
+     "newIssueModel": 0.03670005549528502,
+     "observedNewIssueInEngineTerms": 0.04146159165794429,
+     "interest2023": 0.006463230440087236,
+     "week1Interest": 0.012635263145817158,
+     "week1Access": 1
+    },
+    {
+     "id": "esp",
+     "targetDebt": 1.053,
+     "week1Debt": 1.053403164353327,
+     "debtGapPoints": 0.04031643533271012,
+     "effectiveRate2023": 0.022563758868378046,
+     "week1AverageRate": 0.044959534632410494,
+     "newIssueModel": 0.051667985348869384,
+     "observedNewIssueInEngineTerms": 0.04756159165794428,
+     "interest2023": 0.02375963808840208,
+     "week1Interest": 0.04716579674512959,
+     "week1Access": 1
+    },
+    {
+     "id": "nld",
+     "targetDebt": 0.45899999999999996,
+     "week1Debt": 0.4588768152500942,
+     "debtGapPoints": -0.012318474990574702,
+     "effectiveRate2023": 0.014781818890553354,
+     "week1AverageRate": 0.030042949073687722,
+     "newIssueModel": 0.03670005549528502,
+     "observedNewIssueInEngineTerms": 0.040661591657944286,
+     "interest2023": 0.006784854870763989,
+     "week1Interest": 0.01372211217107217,
+     "week1Access": 1
+    },
+    {
+     "id": "bel",
+     "targetDebt": 1.023,
+     "week1Debt": 1.023514412478747,
+     "debtGapPoints": 0.051441247874706164,
+     "effectiveRate2023": 0.019005569924827666,
+     "week1AverageRate": 0.042288809594894915,
+     "newIssueModel": 0.04895241431556191,
+     "observedNewIssueInEngineTerms": 0.04366159165794428,
+     "interest2023": 0.0194426980330987,
+     "week1Interest": 0.0431983704480202,
+     "week1Access": 1
+    },
+    {
+     "id": "che",
+     "targetDebt": null,
+     "week1Debt": 0.49968018186116075,
+     "debtGapPoints": null,
+     "effectiveRate2023": null,
+     "week1AverageRate": 0.03004364974320197,
+     "newIssueModel": 0.03670005549528502,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.0026911141804898597,
+     "week1Interest": 0.014954801703582161,
+     "week1Access": 1
+    },
+    {
+     "id": "aut",
+     "targetDebt": 0.774,
+     "week1Debt": 0.7741986577429394,
+     "debtGapPoints": 0.019865774293936767,
+     "effectiveRate2023": 0.015448434656418764,
+     "week1AverageRate": 0.03352473793894195,
+     "newIssueModel": 0.04017648718916014,
+     "observedNewIssueInEngineTerms": 0.043561591657944286,
+     "interest2023": 0.011957088424068124,
+     "week1Interest": 0.025908639805683354,
+     "week1Access": 1
+    },
+    {
+     "id": "cze",
+     "targetDebt": 0.42200000000000004,
+     "week1Debt": 0.4218830880441907,
+     "debtGapPoints": -0.01169119558093179,
+     "effectiveRate2023": 0.030476976830168628,
+     "week1AverageRate": 0.030042949073687722,
+     "newIssueModel": 0.03670005549528502,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.012861284222331163,
+     "week1Interest": 0.012614555418227784,
+     "week1Access": 1
+    },
+    {
+     "id": "nor",
+     "targetDebt": 0.42700000000000005,
+     "week1Debt": 0.4269765878079709,
+     "debtGapPoints": -0.0023412192029170775,
+     "effectiveRate2023": 0.02390180909381388,
+     "week1AverageRate": 0.030042949073687722,
+     "newIssueModel": 0.03670005549528502,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.010206072483058527,
+     "week1Interest": 0.012800875248774051,
+     "week1Access": 1
+    },
+    {
+     "id": "grc",
+     "targetDebt": 1.5,
+     "week1Debt": 1.5041768397296371,
+     "debtGapPoints": 0.4176839729637116,
+     "effectiveRate2023": 0.02062345584854602,
+     "week1AverageRate": 0.13826748811021936,
+     "newIssueModel": 0.16845236549340598,
+     "observedNewIssueInEngineTerms": 0.052761591657944286,
+     "interest2023": 0.033822467591615474,
+     "week1Interest": 0.20787048196132604,
+     "week1Access": 1
+    },
+    {
+     "id": "bgr",
+     "targetDebt": 0.228,
+     "week1Debt": 0.2279954603727968,
+     "debtGapPoints": -0.00045396272032038887,
+     "effectiveRate2023": 0.02155600723861238,
+     "week1AverageRate": 0.030042949073687722,
+     "newIssueModel": 0.03670005549528502,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.004914769650403623,
+     "week1Interest": 0.00683822996830045,
+     "week1Access": 1
+    }
+   ],
+   "checkpoints": {
+    "0": {
+     "fra": {
+      "debtToGdp": 1.0950000000000002,
+      "averageRate": 0.04940624999999999,
+      "marketRate": 0.05614986078822505,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 0.618,
+      "averageRate": 0.030359999999999998,
+      "marketRate": 0.037095027633211444,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 0.9880000000000002,
+      "averageRate": 0.039696,
+      "marketRate": 0.04645499060730757,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 1.3399999999999994,
+      "averageRate": 0.0932,
+      "marketRate": 0.10063800506652298,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 0.49500000000000005,
+      "averageRate": 0.03,
+      "marketRate": 0.03673252932954884,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.29600000000000004,
+      "averageRate": 0.03,
+      "marketRate": 0.03673252932954884,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.4210000000000001,
+      "averageRate": 0.03,
+      "marketRate": 0.03673252932954884,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 1.0529999999999997,
+      "averageRate": 0.044912249999999994,
+      "marketRate": 0.05170603713583799,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.459,
+      "averageRate": 0.03,
+      "marketRate": 0.03673252932954884,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 1.0230000000000001,
+      "averageRate": 0.04224224999999999,
+      "marketRate": 0.048974260832562205,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.5000000000000002,
+      "averageRate": 0.03,
+      "marketRate": 0.03673252932954884,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 0.774,
+      "averageRate": 0.03348,
+      "marketRate": 0.040206447203096074,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.42200000000000015,
+      "averageRate": 0.03,
+      "marketRate": 0.03673252932954884,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.42700000000000005,
+      "averageRate": 0.03,
+      "marketRate": 0.03673252932954884,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 1.5000000000000002,
+      "averageRate": 0.138,
+      "marketRate": 0.1676262018268163,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bgr": {
+      "debtToGdp": 0.22799999999999998,
+      "averageRate": 0.03,
+      "marketRate": 0.03673252932954884,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     }
+    },
+    "1": {
+     "fra": {
+      "debtToGdp": 1.0956664812175743,
+      "averageRate": 0.049453975922006246,
+      "marketRate": 0.056134222237384256,
+      "interestToGdp": 0.054045056894838954,
+      "balanceToGdp": 0.13523259249751096,
+      "marketAccess": 1,
+      "stability": 68.83520527120908,
+      "defaults": 0,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 0.6179324869824627,
+      "averageRate": 0.030403742310876024,
+      "marketRate": 0.03706159165794429,
+      "interestToGdp": 0.018707432686492973,
+      "balanceToGdp": 0.10022364053097041,
+      "marketAccess": 1,
+      "stability": 69.34228461872726,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 0.9883059603358029,
+      "averageRate": 0.03974227211247418,
+      "marketRate": 0.046420802669709854,
+      "interestToGdp": 0.039137380888533135,
+      "balanceToGdp": 0.13962564648371778,
+      "marketAccess": 1,
+      "stability": 69.27252317649486,
+      "defaults": 0,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 1.3429173661373592,
+      "averageRate": 0.09325910272995716,
+      "marketRate": 0.10060473620533089,
+      "interestToGdp": 0.12586780098359926,
+      "balanceToGdp": 0.014394210100437524,
+      "marketAccess": 1,
+      "stability": 68.91671146964357,
+      "defaults": 0,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 0.49485976309456703,
+      "averageRate": 0.030042949073687722,
+      "marketRate": 0.03670005549528502,
+      "interestToGdp": 0.014795492913671705,
+      "balanceToGdp": 0.020653195795798992,
+      "marketAccess": 1,
+      "stability": 69.75396705213682,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.2961843531621136,
+      "averageRate": 0.030042949073687722,
+      "marketRate": 0.03670005549528502,
+      "interestToGdp": 0.008952439127094864,
+      "balanceToGdp": 0.0034020135229835967,
+      "marketAccess": 1,
+      "stability": 69.58270015744745,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.4212563824546746,
+      "averageRate": 0.030046806101608307,
+      "marketRate": 0.03670005549528502,
+      "interestToGdp": 0.012635263145817158,
+      "balanceToGdp": 0.07665188102636314,
+      "marketAccess": 1,
+      "stability": 69.15799346319984,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 1.053403164353327,
+      "averageRate": 0.044959534632410494,
+      "marketRate": 0.051667985348869384,
+      "interestToGdp": 0.04716579674512959,
+      "balanceToGdp": 0.05522191667706692,
+      "marketAccess": 1,
+      "stability": 69.38198172900229,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.4588768152500942,
+      "averageRate": 0.030042949073687722,
+      "marketRate": 0.03670005549528502,
+      "interestToGdp": 0.01372211217107217,
+      "balanceToGdp": 0.09003028173061516,
+      "marketAccess": 1,
+      "stability": 69.29439168121979,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 1.023514412478747,
+      "averageRate": 0.042288809594894915,
+      "marketRate": 0.04895241431556191,
+      "interestToGdp": 0.0431983704480202,
+      "balanceToGdp": 0.15581099930775982,
+      "marketAccess": 1,
+      "stability": 68.78691063809775,
+      "defaults": 0,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.49968018186116075,
+      "averageRate": 0.03004364974320197,
+      "marketRate": 0.03670005549528502,
+      "interestToGdp": 0.014954801703582161,
+      "balanceToGdp": 0.11777781118836293,
+      "marketAccess": 1,
+      "stability": 69.81678075209291,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 0.7741986577429394,
+      "averageRate": 0.03352473793894195,
+      "marketRate": 0.04017648718916014,
+      "interestToGdp": 0.025908639805683354,
+      "balanceToGdp": 0.1885481292788917,
+      "marketAccess": 1,
+      "stability": 68.7528935186782,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.4218830880441907,
+      "averageRate": 0.030042949073687722,
+      "marketRate": 0.03670005549528502,
+      "interestToGdp": 0.012614555418227784,
+      "balanceToGdp": 0.03528703621389843,
+      "marketAccess": 1,
+      "stability": 69.66471265718228,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.4269765878079709,
+      "averageRate": 0.030042949073687722,
+      "marketRate": 0.03670005549528502,
+      "interestToGdp": 0.012800875248774051,
+      "balanceToGdp": 0.123521756260344,
+      "marketAccess": 1,
+      "stability": 69.35672282598482,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 1.5041768397296371,
+      "averageRate": 0.13826748811021936,
+      "marketRate": 0.16845236549340598,
+      "interestToGdp": 0.20787048196132604,
+      "balanceToGdp": -0.08023636875475963,
+      "marketAccess": 1,
+      "stability": 69.0534460740396,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bgr": {
+      "debtToGdp": 0.2279954603727968,
+      "averageRate": 0.030042949073687722,
+      "marketRate": 0.03670005549528502,
+      "interestToGdp": 0.00683822996830045,
+      "balanceToGdp": -0.0005966012127476209,
+      "marketAccess": 1,
+      "stability": 69.65936830091238,
+      "defaults": 0,
+      "regime": 0
+     }
+    },
+    "13": {
+     "fra": {
+      "debtToGdp": 1.0636080629821245,
+      "averageRate": 0.04968146185519875,
+      "marketRate": 0.0492601615889689,
+      "interestToGdp": 0.05249198610291408,
+      "balanceToGdp": 0.16015318138485907,
+      "marketAccess": 1,
+      "stability": 61.530335530895236,
+      "defaults": 0,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 0.6067550360273025,
+      "averageRate": 0.03070652598861638,
+      "marketRate": 0.03258103426749027,
+      "interestToGdp": 0.018682579821036997,
+      "balanceToGdp": 0.08158515013273895,
+      "marketAccess": 1,
+      "stability": 64.70659692104623,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 0.9757666355375767,
+      "averageRate": 0.040034211584255845,
+      "marketRate": 0.041552140904214045,
+      "interestToGdp": 0.03938071243198576,
+      "balanceToGdp": 0.13451634318961378,
+      "marketAccess": 1,
+      "stability": 63.07727075022231,
+      "defaults": 0,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 1.3499510820344185,
+      "averageRate": 0.09366874279482001,
+      "marketRate": 0.09763992601535096,
+      "interestToGdp": 0.1274718669210968,
+      "balanceToGdp": 0.032049811130652146,
+      "marketAccess": 1,
+      "stability": 58.36119667626019,
+      "defaults": 0,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 0.49274894028828464,
+      "averageRate": 0.030350691513423206,
+      "marketRate": 0.03237960500900997,
+      "interestToGdp": 0.014916996996571764,
+      "balanceToGdp": 0.014992715867614295,
+      "marketAccess": 1,
+      "stability": 68.15960657876172,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.2977299470059215,
+      "averageRate": 0.030350691513423206,
+      "marketRate": 0.03237960500900997,
+      "interestToGdp": 0.009034612437593525,
+      "balanceToGdp": 0.005947669792789484,
+      "marketAccess": 1,
+      "stability": 64.82374129241387,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.41235458743618825,
+      "averageRate": 0.030354262086948296,
+      "marketRate": 0.03237960500900997,
+      "interestToGdp": 0.012515264950386393,
+      "balanceToGdp": 0.06017839259482386,
+      "marketAccess": 1,
+      "stability": 63.18950628095131,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 1.0481394059456046,
+      "averageRate": 0.045261005128840535,
+      "marketRate": 0.04699761591800852,
+      "interestToGdp": 0.04755524643754866,
+      "balanceToGdp": 0.06171906991118292,
+      "marketAccess": 1,
+      "stability": 64.31771735251002,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.44785704306467367,
+      "averageRate": 0.030350691513423206,
+      "marketRate": 0.03237960500900997,
+      "interestToGdp": 0.013602035159141868,
+      "balanceToGdp": 0.07258459497928844,
+      "marketAccess": 1,
+      "stability": 64.31695332690964,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 0.9904681077714232,
+      "averageRate": 0.04254051860515167,
+      "marketRate": 0.04286906693612414,
+      "interestToGdp": 0.04190997626370347,
+      "balanceToGdp": 0.18378585458106025,
+      "marketAccess": 1,
+      "stability": 61.421314181200565,
+      "defaults": 0,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.48664861251984254,
+      "averageRate": 0.030351340145496637,
+      "marketRate": 0.03237960500900997,
+      "interestToGdp": 0.014808841768483696,
+      "balanceToGdp": 0.09211674517356129,
+      "marketAccess": 1,
+      "stability": 68.22554454981744,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 0.7403765722708678,
+      "averageRate": 0.03381746609792536,
+      "marketRate": 0.03537901369075244,
+      "interestToGdp": 0.024871843940001248,
+      "balanceToGdp": 0.19296460268385618,
+      "marketAccess": 1,
+      "stability": 61.62741890325021,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.4169152703827455,
+      "averageRate": 0.030350691513423206,
+      "marketRate": 0.03237960500900997,
+      "interestToGdp": 0.012606405666170554,
+      "balanceToGdp": 0.02197218130923969,
+      "marketAccess": 1,
+      "stability": 67.71681742627479,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.41319305598199396,
+      "averageRate": 0.030350691513423206,
+      "marketRate": 0.03237960500900997,
+      "interestToGdp": 0.012605709495795136,
+      "balanceToGdp": 0.1068412758539799,
+      "marketAccess": 1,
+      "stability": 64.44160810203549,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 1.5326245963411216,
+      "averageRate": 0.14096081736158436,
+      "marketRate": 0.1710094715774626,
+      "interestToGdp": 0.21729674835663143,
+      "balanceToGdp": -0.05922066047599515,
+      "marketAccess": 1,
+      "stability": 59.05172833285547,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bgr": {
+      "debtToGdp": 0.22791843015353924,
+      "averageRate": 0.030350691513423206,
+      "marketRate": 0.03237960500900997,
+      "interestToGdp": 0.006898705149310997,
+      "balanceToGdp": 0.009342043087909887,
+      "marketAccess": 1,
+      "stability": 67.24947753557099,
+      "defaults": 0,
+      "regime": 0
+     }
+    },
+    "26": {
+     "fra": {
+      "debtToGdp": 1.019345704507713,
+      "averageRate": 0.04939724867931496,
+      "marketRate": 0.04394837992169599,
+      "interestToGdp": 0.050258905482635036,
+      "balanceToGdp": 0.14655703019913646,
+      "marketAccess": 1,
+      "stability": 59.005024750193265,
+      "defaults": 0,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 0.5844811969832944,
+      "averageRate": 0.030774538431082018,
+      "marketRate": 0.031136952012174087,
+      "interestToGdp": 0.017905231233426147,
+      "balanceToGdp": 0.06504211211119926,
+      "marketAccess": 1,
+      "stability": 63.482708414763515,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 0.9477216789034002,
+      "averageRate": 0.040030081147651456,
+      "marketRate": 0.038982387689454015,
+      "interestToGdp": 0.03809533824815648,
+      "balanceToGdp": 0.12994332524892124,
+      "marketAccess": 1,
+      "stability": 57.6407740647532,
+      "defaults": 0,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 1.343592548986808,
+      "averageRate": 0.0939142188876662,
+      "marketRate": 0.09569783484872542,
+      "interestToGdp": 0.1262444113788214,
+      "balanceToGdp": 0.03734461239139123,
+      "marketAccess": 1,
+      "stability": 51.822387688394805,
+      "defaults": 0,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 0.48313843850209076,
+      "averageRate": 0.030442222325908028,
+      "marketRate": 0.03112952962927832,
+      "interestToGdp": 0.014556738926652968,
+      "balanceToGdp": 0.012174668128014755,
+      "marketAccess": 1,
+      "stability": 67.73187492001358,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.293414061298563,
+      "averageRate": 0.030442222325908028,
+      "marketRate": 0.03112952962927832,
+      "interestToGdp": 0.008830754814385068,
+      "balanceToGdp": 0.007942426214178715,
+      "marketAccess": 1,
+      "stability": 63.94396930664273,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.3951516508141622,
+      "averageRate": 0.030445506531060307,
+      "marketRate": 0.03112952962927832,
+      "interestToGdp": 0.011941609356489578,
+      "balanceToGdp": 0.04174159939334681,
+      "marketAccess": 1,
+      "stability": 62.0391449536742,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 1.0305227534227726,
+      "averageRate": 0.045276321325406314,
+      "marketRate": 0.04438589564149468,
+      "interestToGdp": 0.04661181790058896,
+      "balanceToGdp": 0.06760035067934886,
+      "marketAccess": 1,
+      "stability": 60.76450458812529,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.4274296026502227,
+      "averageRate": 0.030442222325908028,
+      "marketRate": 0.03112952962927832,
+      "interestToGdp": 0.012909685890541806,
+      "balanceToGdp": 0.05274456361506464,
+      "marketAccess": 1,
+      "stability": 62.94714823059891,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 0.9444826630260473,
+      "averageRate": 0.04237846162082113,
+      "marketRate": 0.039027513318680096,
+      "interestToGdp": 0.040072294707614475,
+      "balanceToGdp": 0.17121091752019743,
+      "marketAccess": 1,
+      "stability": 58.83829542488297,
+      "defaults": 0,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.4628087545631672,
+      "averageRate": 0.030442818936167574,
+      "marketRate": 0.03112952962927832,
+      "interestToGdp": 0.014008134314884558,
+      "balanceToGdp": 0.06819302033395852,
+      "marketAccess": 1,
+      "stability": 67.52262496889459,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 0.6901343232448038,
+      "averageRate": 0.03383038360732927,
+      "marketRate": 0.03316413459007872,
+      "interestToGdp": 0.0232841106035493,
+      "balanceToGdp": 0.16632046571838616,
+      "marketAccess": 1,
+      "stability": 60.49981529139746,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.4058802654816359,
+      "averageRate": 0.030442222325908028,
+      "marketRate": 0.03112952962927832,
+      "interestToGdp": 0.012228826330863897,
+      "balanceToGdp": 0.014719802502025573,
+      "marketAccess": 1,
+      "stability": 67.8076609757807,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.38561738993652617,
+      "averageRate": 0.030442222325908028,
+      "marketRate": 0.03112952962927832,
+      "interestToGdp": 0.011692171445464295,
+      "balanceToGdp": 0.09525494796886043,
+      "marketAccess": 1,
+      "stability": 61.61711427986523,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 1.5476924403101915,
+      "averageRate": 0.14355284609631094,
+      "marketRate": 0.16878228038814957,
+      "interestToGdp": 0.22200639844060863,
+      "balanceToGdp": -0.04415545009200757,
+      "marketAccess": 1,
+      "stability": 50.20673895235925,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bgr": {
+      "debtToGdp": 0.22291425853894944,
+      "averageRate": 0.030442222325908028,
+      "marketRate": 0.03112952962927832,
+      "interestToGdp": 0.006726115426608574,
+      "balanceToGdp": 0.012838570370809101,
+      "marketAccess": 1,
+      "stability": 66.75080184572076,
+      "defaults": 0,
+      "regime": 0
+     }
+    },
+    "52": {
+     "fra": {
+      "debtToGdp": 0.9436851162161863,
+      "averageRate": 0.04808334232081425,
+      "marketRate": 0.038869384615832774,
+      "interestToGdp": 0.0448998063671126,
+      "balanceToGdp": 0.12278858704147337,
+      "marketAccess": 1,
+      "stability": 49.89279813879712,
+      "defaults": 0,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 0.542964682187685,
+      "averageRate": 0.03080905178010503,
+      "marketRate": 0.03105188447771457,
+      "interestToGdp": 0.01643009517411317,
+      "balanceToGdp": 0.03725009812760878,
+      "marketAccess": 1,
+      "stability": 65.6003483801045,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 0.8860851873299102,
+      "averageRate": 0.03967174502087219,
+      "marketRate": 0.03703474604989775,
+      "interestToGdp": 0.034831690989032243,
+      "balanceToGdp": 0.11411805457231747,
+      "marketAccess": 1,
+      "stability": 49.720204669040875,
+      "defaults": 0,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 1.3201056750104374,
+      "averageRate": 0.09402887420787676,
+      "marketRate": 0.09374723973139014,
+      "interestToGdp": 0.12261171221983931,
+      "balanceToGdp": 0.03836703664483203,
+      "marketAccess": 1,
+      "stability": 45.92972971121105,
+      "defaults": 0,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 0.4640801058732981,
+      "averageRate": 0.03052777928617557,
+      "marketRate": 0.031051880288465297,
+      "interestToGdp": 0.013848317092107432,
+      "balanceToGdp": 0.011811783878797347,
+      "marketAccess": 1,
+      "stability": 65.91094632050877,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.28233672768447393,
+      "averageRate": 0.03052777928617557,
+      "marketRate": 0.031051880288465297,
+      "interestToGdp": 0.008411584601209238,
+      "balanceToGdp": 0.00420749058902874,
+      "marketAccess": 1,
+      "stability": 67.88142603721083,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.36905677253474856,
+      "averageRate": 0.030530557814787484,
+      "marketRate": 0.031051880288465297,
+      "interestToGdp": 0.011044101234633327,
+      "balanceToGdp": 0.007148508183304434,
+      "marketAccess": 1,
+      "stability": 64.18176898384841,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 0.9882617272661941,
+      "averageRate": 0.04487022412466841,
+      "marketRate": 0.04122450454326698,
+      "interestToGdp": 0.04368097378523534,
+      "balanceToGdp": 0.06673349454198069,
+      "marketAccess": 1,
+      "stability": 55.53859757233105,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.3951387607116301,
+      "averageRate": 0.03052777928617557,
+      "marketRate": 0.031051880288465297,
+      "interestToGdp": 0.011786120790729802,
+      "balanceToGdp": 0.014942054619991693,
+      "marketAccess": 1,
+      "stability": 66.3676883496561,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 0.8628289618465046,
+      "averageRate": 0.041608860015069055,
+      "marketRate": 0.03652026615764794,
+      "interestToGdp": 0.035599500453457965,
+      "balanceToGdp": 0.13739505604950966,
+      "marketAccess": 1,
+      "stability": 50.94810975213216,
+      "defaults": 0,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.4229377348611552,
+      "averageRate": 0.030528284034995894,
+      "marketRate": 0.031051880288465297,
+      "interestToGdp": 0.012643887471674565,
+      "balanceToGdp": 0.025769874713133103,
+      "marketAccess": 1,
+      "stability": 69.01722968849856,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 0.6043452808928869,
+      "averageRate": 0.03355950847900088,
+      "marketRate": 0.03133785664329652,
+      "interestToGdp": 0.019988807861709684,
+      "balanceToGdp": 0.1135629559639046,
+      "marketAccess": 1,
+      "stability": 57.63129110053246,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.38815770602958294,
+      "averageRate": 0.03052777928617557,
+      "marketRate": 0.031051880288465297,
+      "interestToGdp": 0.011580044611426508,
+      "balanceToGdp": 0.010854764751871242,
+      "marketAccess": 1,
+      "stability": 66.44654357693602,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.3338512098002294,
+      "averageRate": 0.03052777928617557,
+      "marketRate": 0.031051880288465297,
+      "interestToGdp": 0.009947547768316835,
+      "balanceToGdp": 0.06496327742386473,
+      "marketAccess": 1,
+      "stability": 59.428764406257514,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 1.5688972770969543,
+      "averageRate": 0.14777270463355915,
+      "marketRate": 0.16568151082665572,
+      "interestToGdp": 0.22841618458208626,
+      "balanceToGdp": -0.021263703433049622,
+      "marketAccess": 1,
+      "stability": 47.11890468494559,
+      "defaults": 0,
+      "regime": 1
+     },
+     "bgr": {
+      "debtToGdp": 0.21117549705921965,
+      "averageRate": 0.03052777928617557,
+      "marketRate": 0.031051880288465297,
+      "interestToGdp": 0.006296089637122666,
+      "balanceToGdp": 0.008725404862820644,
+      "marketAccess": 1,
+      "stability": 66.25030251855777,
+      "defaults": 0,
+      "regime": 0
+     }
+    },
+    "104": {
+     "fra": {
+      "debtToGdp": 0.8081235679559986,
+      "averageRate": 0.045725677732059225,
+      "marketRate": 0.036411964866477166,
+      "interestToGdp": 0.03545820071316152,
+      "balanceToGdp": 0.04994785933512537,
+      "marketAccess": 1,
+      "stability": 50.72052426794007,
+      "defaults": 0,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 0.4911610463838386,
+      "averageRate": 0.030846003211782592,
+      "marketRate": 0.030725771164286365,
+      "interestToGdp": 0.014587096153150883,
+      "balanceToGdp": 0.007526182833824868,
+      "marketAccess": 1,
+      "stability": 69.53107910162065,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 0.7658648005424824,
+      "averageRate": 0.038504960664238634,
+      "marketRate": 0.034218556130955105,
+      "interestToGdp": 0.028400511540244457,
+      "balanceToGdp": 0.03346135764935957,
+      "marketAccess": 1,
+      "stability": 64.70187227041322,
+      "defaults": 0,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 1.2444862161337245,
+      "averageRate": 0.09212692594659698,
+      "marketRate": 0.07949586897482082,
+      "interestToGdp": 0.11085486526596858,
+      "balanceToGdp": 0.038243994189864905,
+      "marketAccess": 1,
+      "stability": 45.91503161381532,
+      "defaults": 0,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 0.42823349232392305,
+      "averageRate": 0.03064467873364885,
+      "marketRate": 0.03072577116428503,
+      "interestToGdp": 0.012569436729562447,
+      "balanceToGdp": 0.006751903975722645,
+      "marketAccess": 1,
+      "stability": 62.08809483262459,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.2699525285946726,
+      "averageRate": 0.030645368141400495,
+      "marketRate": 0.03072577116428503,
+      "interestToGdp": 0.007998138534237597,
+      "balanceToGdp": -0.0031857956858503005,
+      "marketAccess": 1,
+      "stability": 68.35763623676891,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.3523531473057318,
+      "averageRate": 0.030647050986175414,
+      "marketRate": 0.03072577116428503,
+      "interestToGdp": 0.010454847803941038,
+      "balanceToGdp": -0.0032422499062555667,
+      "marketAccess": 1,
+      "stability": 65.28317929331944,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 0.8926397804552288,
+      "averageRate": 0.04307855991225766,
+      "marketRate": 0.0367909516354807,
+      "interestToGdp": 0.03717428706965159,
+      "balanceToGdp": 0.06299818211103834,
+      "marketAccess": 1,
+      "stability": 54.71455007614646,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.3738008662815862,
+      "averageRate": 0.030644766882773067,
+      "marketRate": 0.03072577116428503,
+      "interestToGdp": 0.011037289301366967,
+      "balanceToGdp": -0.004515832140748509,
+      "marketAccess": 1,
+      "stability": 68.37877079176391,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 0.7295265512845731,
+      "averageRate": 0.03971882700994314,
+      "marketRate": 0.03349999551184371,
+      "interestToGdp": 0.027920164804225125,
+      "balanceToGdp": 0.04370087456719863,
+      "marketAccess": 1,
+      "stability": 60.02474828737113,
+      "defaults": 0,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.39031982785992664,
+      "averageRate": 0.03064504001413365,
+      "marketRate": 0.03072577116428503,
+      "interestToGdp": 0.011525576539789115,
+      "balanceToGdp": -0.0032892209692731962,
+      "marketAccess": 1,
+      "stability": 70.75532569947586,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 0.4950460178555421,
+      "averageRate": 0.032818788276079494,
+      "marketRate": 0.030725771256969132,
+      "interestToGdp": 0.015592908614168004,
+      "balanceToGdp": 0.03365455047113253,
+      "marketAccess": 1,
+      "stability": 64.48915109399434,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.3607044169162231,
+      "averageRate": 0.03064467873364885,
+      "marketRate": 0.03072577116428503,
+      "interestToGdp": 0.010587637026734705,
+      "balanceToGdp": -0.0013566110375556203,
+      "marketAccess": 1,
+      "stability": 63.372554234270744,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.2772970110999034,
+      "averageRate": 0.03064467873364885,
+      "marketRate": 0.03072577116428503,
+      "interestToGdp": 0.008080204347232948,
+      "balanceToGdp": 0.01066836418357231,
+      "marketAccess": 1,
+      "stability": 64.8187183529811,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 1.5685462315254737,
+      "averageRate": 0.1570858012555925,
+      "marketRate": 0.188045416431778,
+      "interestToGdp": 0.2666799938214395,
+      "balanceToGdp": 0.36635547646150163,
+      "marketAccess": 0,
+      "stability": 23.31016945854765,
+      "defaults": 0,
+      "regime": 1
+     },
+     "bgr": {
+      "debtToGdp": 0.20217604484891796,
+      "averageRate": 0.030647011513191668,
+      "marketRate": 0.03072577116428503,
+      "interestToGdp": 0.005942025739208628,
+      "balanceToGdp": -0.008157092646166894,
+      "marketAccess": 1,
+      "stability": 66.39530215028458,
+      "defaults": 0,
+      "regime": 0
+     }
+    },
+    "156": {
+     "fra": {
+      "debtToGdp": 0.7297617486682421,
+      "averageRate": 0.04243801732211444,
+      "marketRate": 0.03323877616044893,
+      "interestToGdp": 0.030029837838458934,
+      "balanceToGdp": 0.017746640081988153,
+      "marketAccess": 1,
+      "stability": 63.37152672488621,
+      "defaults": 0,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 0.4676750479332865,
+      "averageRate": 0.03082868450892225,
+      "marketRate": 0.03055268385159871,
+      "interestToGdp": 0.013996130382240415,
+      "balanceToGdp": 0.0024919278285188986,
+      "marketAccess": 1,
+      "stability": 68.46281150452752,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 0.7015451504116594,
+      "averageRate": 0.03705323614416141,
+      "marketRate": 0.03265755736994447,
+      "interestToGdp": 0.02529124815995279,
+      "balanceToGdp": 0.01057142922172904,
+      "marketAccess": 1,
+      "stability": 69.08014482184664,
+      "defaults": 0,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 1.1527928553894904,
+      "averageRate": 0.0849912291168951,
+      "marketRate": 0.058822334301412066,
+      "interestToGdp": 0.09544597840403722,
+      "balanceToGdp": 0.04598911521041675,
+      "marketAccess": 1,
+      "stability": 50.43654694050062,
+      "defaults": 0,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 0.40437638839370516,
+      "averageRate": 0.030684583914459582,
+      "marketRate": 0.03055268385159871,
+      "interestToGdp": 0.012008062280434403,
+      "balanceToGdp": 0.0016925777255995637,
+      "marketAccess": 1,
+      "stability": 62.85866096371986,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.2685292852297987,
+      "averageRate": 0.030687148583438337,
+      "marketRate": 0.03055268385159871,
+      "interestToGdp": 0.00804357297314234,
+      "balanceToGdp": -0.00427281038723261,
+      "marketAccess": 1,
+      "stability": 64.77665569277451,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.3453387320945603,
+      "averageRate": 0.03068722863587114,
+      "marketRate": 0.03055268385159871,
+      "interestToGdp": 0.01034232143162616,
+      "balanceToGdp": -0.0015499142084233976,
+      "marketAccess": 1,
+      "stability": 63.24685735607618,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 0.8095098406934937,
+      "averageRate": 0.04099843060141387,
+      "marketRate": 0.03484334867837942,
+      "interestToGdp": 0.032246867040008446,
+      "balanceToGdp": 0.020919361357832678,
+      "marketAccess": 1,
+      "stability": 65.83540356142237,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.37075342772559017,
+      "averageRate": 0.030687235768821677,
+      "marketRate": 0.03055268385159871,
+      "interestToGdp": 0.011070201448851891,
+      "balanceToGdp": -0.004186135124314305,
+      "marketAccess": 1,
+      "stability": 65.01138293268298,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 0.658388978924636,
+      "averageRate": 0.03769877146709455,
+      "marketRate": 0.031805940198763025,
+      "interestToGdp": 0.024137195348561295,
+      "balanceToGdp": 0.01968175088561715,
+      "marketAccess": 1,
+      "stability": 67.89141515866552,
+      "defaults": 0,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.3790494369545036,
+      "averageRate": 0.030686012691114366,
+      "marketRate": 0.03055268385159871,
+      "interestToGdp": 0.011292084771503983,
+      "balanceToGdp": -0.004183252925769991,
+      "marketAccess": 1,
+      "stability": 68.30102275779385,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 0.4450160006042971,
+      "averageRate": 0.032240730890023196,
+      "marketRate": 0.03055268385159874,
+      "interestToGdp": 0.013899278001466292,
+      "balanceToGdp": 0.015476624891562726,
+      "marketAccess": 1,
+      "stability": 68.37484993410368,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.34609717803083556,
+      "averageRate": 0.03068601664573392,
+      "marketRate": 0.03055268385159871,
+      "interestToGdp": 0.01027125562281645,
+      "balanceToGdp": -0.0014601562113622187,
+      "marketAccess": 1,
+      "stability": 64.04580245218516,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.2656601100371845,
+      "averageRate": 0.0306845463130211,
+      "marketRate": 0.03055268385159871,
+      "interestToGdp": 0.007852939862825162,
+      "balanceToGdp": -0.00038634154826508964,
+      "marketAccess": 1,
+      "stability": 65.64155668182713,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 0.5997642780857333,
+      "averageRate": 0.03,
+      "marketRate": 0.08762544681768762,
+      "interestToGdp": 0.017322339037417617,
+      "balanceToGdp": 0.14858670583255876,
+      "marketAccess": 0,
+      "stability": 32.0908627231187,
+      "defaults": 1,
+      "regime": 2
+     },
+     "bgr": {
+      "debtToGdp": 0.20690975076571935,
+      "averageRate": 0.030691950884051293,
+      "marketRate": 0.03055268385159871,
+      "interestToGdp": 0.006154987263017912,
+      "balanceToGdp": -0.010393446977466553,
+      "marketAccess": 1,
+      "stability": 63.67908832840332,
+      "defaults": 0,
+      "regime": 0
+     }
+    }
+   }
+  },
+  {
+   "summary": {
+    "name": "C",
+    "a": true,
+    "b": true,
+    "buildSeconds": 12.578390172000006,
+    "countriesWithDebtWithin1pp": 15,
+    "countriesWithDebtTarget": 15,
+    "accessLostWeek1": [],
+    "defaults": {},
+    "regimeChanges": {
+     "bloc-mea": [
+      27,
+      53,
+      79,
+      105,
+      131
+     ]
+    },
+    "accessLost": {},
+    "audit": {
+     "worstMoneyError": 1.0913936421275139e-10,
+     "worstBondError": 1.7450879732850916e-15,
+     "worstIssuedError": 2.0651803896650994e-14
+    },
+    "week1StateHash": null
+   },
+   "comparison": [
+    {
+     "id": "fra",
+     "targetDebt": 1.095,
+     "week1Debt": 1.0950800192090167,
+     "debtGapPoints": 0.008001920901667958,
+     "effectiveRate2023": 0.017212121527120237,
+     "week1AverageRate": 0.017376480078205695,
+     "newIssueModel": 0.04258611733346934,
+     "observedNewIssueInEngineTerms": 0.04055843750971966,
+     "interest2023": 0.01884727307219666,
+     "week1Interest": 0.018848623041873836,
+     "week1Access": 1
+    },
+    {
+     "id": "deu",
+     "targetDebt": 0.618,
+     "week1Debt": 0.6178673203244285,
+     "debtGapPoints": -0.013267967557151206,
+     "effectiveRate2023": 0.014123346596227455,
+     "week1AverageRate": 0.014256904871313944,
+     "newIssueModel": 0.03495843750971966,
+     "observedNewIssueInEngineTerms": 0.03495843750971966,
+     "interest2023": 0.008728228196468566,
+     "week1Interest": 0.008703930341561823,
+     "week1Access": 1
+    },
+    {
+     "id": "gbr",
+     "targetDebt": 0.988,
+     "week1Debt": 0.9881876735049249,
+     "debtGapPoints": 0.0187673504924879,
+     "effectiveRate2023": 0.03173951995310747,
+     "week1AverageRate": 0.031801036686704254,
+     "newIssueModel": 0.04088381831677691,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.031358645713670176,
+     "week1Interest": 0.03130637571044847,
+     "week1Access": 1
+    },
+    {
+     "id": "ita",
+     "targetDebt": 1.34,
+     "week1Debt": 1.341208172142146,
+     "debtGapPoints": 0.1208172142145969,
+     "effectiveRate2023": 0.02709898894349265,
+     "week1AverageRate": 0.027229458580416442,
+     "newIssueModel": 0.04653024119367239,
+     "observedNewIssueInEngineTerms": 0.05345843750971966,
+     "interest2023": 0.03631264518428015,
+     "week1Interest": 0.03659581838029574,
+     "week1Access": 1
+    },
+    {
+     "id": "pol",
+     "targetDebt": 0.495,
+     "week1Debt": 0.4949771298166408,
+     "debtGapPoints": -0.002287018335916935,
+     "effectiveRate2023": 0.04185238834054712,
+     "week1AverageRate": 0.0418047793265702,
+     "newIssueModel": 0.034671737054315616,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.020716932228570826,
+     "week1Interest": 0.020644920027597425,
+     "week1Access": 1
+    },
+    {
+     "id": "tur",
+     "targetDebt": 0.29600000000000004,
+     "week1Debt": 0.2966431453192576,
+     "debtGapPoints": 0.06431453192575765,
+     "effectiveRate2023": 0.13066348226108465,
+     "week1AverageRate": 0.12990170038510582,
+     "newIssueModel": 0.034671737054315616,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.03867639074928106,
+     "week1Interest": 0.03899739430522839,
+     "week1Access": 1
+    },
+    {
+     "id": "irl",
+     "targetDebt": 0.42100000000000004,
+     "week1Debt": 0.42118973628694895,
+     "debtGapPoints": 0.0189736286948905,
+     "effectiveRate2023": 0.015352091306620512,
+     "week1AverageRate": 0.015481607482468298,
+     "newIssueModel": 0.034671737054315616,
+     "observedNewIssueInEngineTerms": 0.03935843750971965,
+     "interest2023": 0.006463230440087236,
+     "week1Interest": 0.00647631198837051,
+     "week1Access": 1
+    },
+    {
+     "id": "esp",
+     "targetDebt": 1.053,
+     "week1Debt": 1.0530275832027476,
+     "debtGapPoints": 0.0027583202747649693,
+     "effectiveRate2023": 0.022563758868378046,
+     "week1AverageRate": 0.022690937506044076,
+     "newIssueModel": 0.04192307087490227,
+     "observedNewIssueInEngineTerms": 0.04545843750971965,
+     "interest2023": 0.02375963808840208,
+     "week1Interest": 0.023718389266076917,
+     "week1Access": 1
+    },
+    {
+     "id": "nld",
+     "targetDebt": 0.45899999999999996,
+     "week1Debt": 0.4588853381613489,
+     "debtGapPoints": -0.01146618386510534,
+     "effectiveRate2023": 0.014781818890553354,
+     "week1AverageRate": 0.014909318365962087,
+     "newIssueModel": 0.034671737054315616,
+     "observedNewIssueInEngineTerms": 0.038558437509719656,
+     "interest2023": 0.006784854870763989,
+     "week1Interest": 0.0067628868871576235,
+     "week1Access": 1
+    },
+    {
+     "id": "bel",
+     "targetDebt": 1.023,
+     "week1Debt": 1.0231234661641881,
+     "debtGapPoints": 0.012346616418823508,
+     "effectiveRate2023": 0.019005569924827666,
+     "week1AverageRate": 0.019151215007809395,
+     "newIssueModel": 0.04143560091714608,
+     "observedNewIssueInEngineTerms": 0.04155843750971965,
+     "interest2023": 0.0194426980330987,
+     "week1Interest": 0.01945209752175445,
+     "week1Access": 1
+    },
+    {
+     "id": "che",
+     "targetDebt": null,
+     "week1Debt": 0.49968710909642117,
+     "debtGapPoints": null,
+     "effectiveRate2023": null,
+     "week1AverageRate": 0.030030435622720387,
+     "newIssueModel": 0.034671737054315616,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.0026911141804898597,
+     "week1Interest": 0.014957372070671902,
+     "week1Access": 1
+    },
+    {
+     "id": "aut",
+     "targetDebt": 0.774,
+     "week1Debt": 0.7740372396147557,
+     "debtGapPoints": 0.0037239614755657513,
+     "effectiveRate2023": 0.015448434656418764,
+     "week1AverageRate": 0.015589468498838847,
+     "newIssueModel": 0.0374497140739518,
+     "observedNewIssueInEngineTerms": 0.041458437509719656,
+     "interest2023": 0.011957088424068124,
+     "week1Interest": 0.01196457156333863,
+     "week1Access": 1
+    },
+    {
+     "id": "cze",
+     "targetDebt": 0.42200000000000004,
+     "week1Debt": 0.42188934302857434,
+     "debtGapPoints": -0.011065697142570441,
+     "effectiveRate2023": 0.030476976830168628,
+     "week1AverageRate": 0.030503866318784954,
+     "newIssueModel": 0.034671737054315616,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.012861284222331163,
+     "week1Interest": 0.012817579376505467,
+     "week1Access": 1
+    },
+    {
+     "id": "nor",
+     "targetDebt": 0.42700000000000005,
+     "week1Debt": 0.42698210249763857,
+     "debtGapPoints": -0.0017897502361474693,
+     "effectiveRate2023": 0.02390180909381388,
+     "week1AverageRate": 0.023970847093560687,
+     "newIssueModel": 0.034671737054315616,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.010206072483058527,
+     "week1Interest": 0.010200514103879316,
+     "week1Access": 1
+    },
+    {
+     "id": "grc",
+     "targetDebt": 1.5,
+     "week1Debt": 1.5004481120136632,
+     "debtGapPoints": 0.04481120136632377,
+     "effectiveRate2023": 0.02062345584854602,
+     "week1AverageRate": 0.02081165210609064,
+     "newIssueModel": 0.04908039331623271,
+     "observedNewIssueInEngineTerms": 0.050658437509719656,
+     "interest2023": 0.033822467591615474,
+     "week1Interest": 0.030973200490104106,
+     "week1Access": 1
+    },
+    {
+     "id": "bgr",
+     "targetDebt": 0.228,
+     "week1Debt": 0.22801934701588886,
+     "debtGapPoints": 0.0019347015888848684,
+     "effectiveRate2023": 0.02155600723861238,
+     "week1AverageRate": 0.02164008242973868,
+     "newIssueModel": 0.034671737054315616,
+     "observedNewIssueInEngineTerms": null,
+     "interest2023": 0.004914769650403623,
+     "week1Interest": 0.004920196754016923,
+     "week1Access": 1
+    }
+   ],
+   "checkpoints": {
+    "0": {
+     "fra": {
+      "debtToGdp": 1.095,
+      "averageRate": 0.017212121527120237,
+      "marketRate": 0.042606802387538355,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 0.6179999999999997,
+      "averageRate": 0.014123346596227455,
+      "marketRate": 0.03498169701658991,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 0.9880000000000003,
+      "averageRate": 0.03173951995310747,
+      "marketRate": 0.040907162875703604,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 1.3399999999999996,
+      "averageRate": 0.02709898894349265,
+      "marketRate": 0.04655295071883239,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 0.495,
+      "averageRate": 0.04185238834054712,
+      "marketRate": 0.034694722117781476,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.296,
+      "averageRate": 0.13066348226108465,
+      "marketRate": 0.034694722117781476,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.42100000000000015,
+      "averageRate": 0.015352091306620512,
+      "marketRate": 0.034694722117781476,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 1.053,
+      "averageRate": 0.022563758868378046,
+      "marketRate": 0.04194702010148235,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.4590000000000001,
+      "averageRate": 0.014781818890553354,
+      "marketRate": 0.034694722117781476,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 1.023,
+      "averageRate": 0.019005569924827666,
+      "marketRate": 0.04145654878201309,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.5,
+      "averageRate": 0.03,
+      "marketRate": 0.034694722117781476,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 0.7739999999999998,
+      "averageRate": 0.015448434656418764,
+      "marketRate": 0.03747049286601769,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.42200000000000004,
+      "averageRate": 0.030476976830168628,
+      "marketRate": 0.034694722117781476,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.42700000000000016,
+      "averageRate": 0.02390180909381388,
+      "marketRate": 0.034694722117781476,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 1.5,
+      "averageRate": 0.02062345584854602,
+      "marketRate": 0.04910387386959805,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bgr": {
+      "debtToGdp": 0.22799999999999995,
+      "averageRate": 0.02155600723861238,
+      "marketRate": 0.034694722117781476,
+      "interestToGdp": null,
+      "balanceToGdp": null,
+      "marketAccess": 1,
+      "stability": 70,
+      "defaults": 0,
+      "regime": 0
+     }
+    },
+    "1": {
+     "fra": {
+      "debtToGdp": 1.0950800192090167,
+      "averageRate": 0.017376480078205695,
+      "marketRate": 0.04258611733346934,
+      "interestToGdp": 0.018848623041873836,
+      "balanceToGdp": 0.16772877918082454,
+      "marketAccess": 1,
+      "stability": 68.81539998663239,
+      "defaults": 0,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 0.6178673203244285,
+      "averageRate": 0.014256904871313944,
+      "marketRate": 0.03495843750971966,
+      "interestToGdp": 0.008703930341561823,
+      "balanceToGdp": 0.11016149895747372,
+      "marketAccess": 1,
+      "stability": 69.33439532851193,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 0.9881876735049249,
+      "averageRate": 0.031801036686704254,
+      "marketRate": 0.04088381831677691,
+      "interestToGdp": 0.03130637571044847,
+      "balanceToGdp": 0.14714246730885755,
+      "marketAccess": 1,
+      "stability": 69.2663825282963,
+      "defaults": 0,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 1.341208172142146,
+      "averageRate": 0.027229458580416442,
+      "marketRate": 0.04653024119367239,
+      "interestToGdp": 0.03659581838029574,
+      "balanceToGdp": 0.09749347410327507,
+      "marketAccess": 1,
+      "stability": 68.88707311707758,
+      "defaults": 0,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 0.4949771298166408,
+      "averageRate": 0.0418047793265702,
+      "marketRate": 0.034671737054315616,
+      "interestToGdp": 0.020644920027597425,
+      "balanceToGdp": 0.01571027879095109,
+      "marketAccess": 1,
+      "stability": 69.74128226217753,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.2966431453192576,
+      "averageRate": 0.12990170038510582,
+      "marketRate": 0.034671737054315616,
+      "interestToGdp": 0.03899739430522839,
+      "balanceToGdp": -0.02198770954244055,
+      "marketAccess": 1,
+      "stability": 69.5774050669724,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.42118973628694895,
+      "averageRate": 0.015481607482468298,
+      "marketRate": 0.034671737054315616,
+      "interestToGdp": 0.00647631198837051,
+      "balanceToGdp": 0.07915149918587103,
+      "marketAccess": 1,
+      "stability": 69.11661878411147,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 1.0530275832027476,
+      "averageRate": 0.022690937506044076,
+      "marketRate": 0.04192307087490227,
+      "interestToGdp": 0.023718389266076917,
+      "balanceToGdp": 0.07177788570630225,
+      "marketAccess": 1,
+      "stability": 69.33779159263291,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.4588853381613489,
+      "averageRate": 0.014909318365962087,
+      "marketRate": 0.034671737054315616,
+      "interestToGdp": 0.0067628868871576235,
+      "balanceToGdp": 0.09675244933239305,
+      "marketAccess": 1,
+      "stability": 69.28859030410453,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 1.0231234661641881,
+      "averageRate": 0.019151215007809395,
+      "marketRate": 0.04143560091714608,
+      "interestToGdp": 0.01945209752175445,
+      "balanceToGdp": 0.17513271891037896,
+      "marketAccess": 1,
+      "stability": 68.77053960994466,
+      "defaults": 0,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.49968710909642117,
+      "averageRate": 0.030030435622720387,
+      "marketRate": 0.034671737054315616,
+      "interestToGdp": 0.014957372070671902,
+      "balanceToGdp": 0.11764065674192858,
+      "marketAccess": 1,
+      "stability": 69.81243759234258,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 0.7740372396147557,
+      "averageRate": 0.015589468498838847,
+      "marketRate": 0.0374497140739518,
+      "interestToGdp": 0.01196457156333863,
+      "balanceToGdp": 0.19871894407688354,
+      "marketAccess": 1,
+      "stability": 68.74074801357804,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.42188934302857434,
+      "averageRate": 0.030503866318784954,
+      "marketRate": 0.034671737054315616,
+      "interestToGdp": 0.012817579376505467,
+      "balanceToGdp": 0.03482586180511687,
+      "marketAccess": 1,
+      "stability": 69.66029307070504,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.42698210249763857,
+      "averageRate": 0.023970847093560687,
+      "marketRate": 0.034671737054315616,
+      "interestToGdp": 0.010200514103879316,
+      "balanceToGdp": 0.1259804363875768,
+      "marketAccess": 1,
+      "stability": 69.35895351368912,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 1.5004481120136632,
+      "averageRate": 0.02081165210609064,
+      "marketRate": 0.04908039331623271,
+      "interestToGdp": 0.030973200490104106,
+      "balanceToGdp": 0.0799470891082173,
+      "marketAccess": 1,
+      "stability": 69.06000104768677,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bgr": {
+      "debtToGdp": 0.22801934701588886,
+      "averageRate": 0.02164008242973868,
+      "marketRate": 0.034671737054315616,
+      "interestToGdp": 0.004920196754016923,
+      "balanceToGdp": -0.002955021644497318,
+      "marketAccess": 1,
+      "stability": 69.61293963127991,
+      "defaults": 0,
+      "regime": 0
+     }
+    },
+    "13": {
+     "fra": {
+      "debtToGdp": 1.060456264789059,
+      "averageRate": 0.019117259144958314,
+      "marketRate": 0.03939385909692654,
+      "interestToGdp": 0.020043127827648444,
+      "balanceToGdp": 0.19086015009490453,
+      "marketAccess": 1,
+      "stability": 61.381732467295976,
+      "defaults": 0,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 0.6059397046375871,
+      "averageRate": 0.015671104117132486,
+      "marketRate": 0.03202771293963984,
+      "interestToGdp": 0.00947114111239467,
+      "balanceToGdp": 0.09029666125586172,
+      "marketAccess": 1,
+      "stability": 64.62067523039212,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 0.9755065084128967,
+      "averageRate": 0.03235205016127475,
+      "marketRate": 0.03794469313768045,
+      "interestToGdp": 0.03181955782513703,
+      "balanceToGdp": 0.14128256606261536,
+      "marketAccess": 1,
+      "stability": 62.96314615961851,
+      "defaults": 0,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 1.3402871139486643,
+      "averageRate": 0.028544301733711884,
+      "marketRate": 0.04373430606378706,
+      "interestToGdp": 0.03852905075238799,
+      "balanceToGdp": 0.11124044447758727,
+      "marketAccess": 1,
+      "stability": 57.950240988300465,
+      "defaults": 0,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 0.49376142328683076,
+      "averageRate": 0.041155930593280786,
+      "marketRate": 0.03187603708636551,
+      "interestToGdp": 0.020335057428388224,
+      "balanceToGdp": 0.012687379496342103,
+      "marketAccess": 1,
+      "stability": 67.92419212574764,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.30243552773449056,
+      "averageRate": 0.12169269755019911,
+      "marketRate": 0.03187603708636551,
+      "interestToGdp": 0.0371497679844504,
+      "balanceToGdp": -0.007327167594059087,
+      "marketAccess": 1,
+      "stability": 64.09973809567082,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.41246714752544184,
+      "averageRate": 0.01678773248370272,
+      "marketRate": 0.03187603708636551,
+      "interestToGdp": 0.006892489847967469,
+      "balanceToGdp": 0.0637877642275902,
+      "marketAccess": 1,
+      "stability": 62.79137976121772,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 1.047113522491378,
+      "averageRate": 0.02399822278866895,
+      "marketRate": 0.039061286673053114,
+      "interestToGdp": 0.025138773350010024,
+      "balanceToGdp": 0.08035975533364882,
+      "marketAccess": 1,
+      "stability": 63.83557677586312,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.4473675721282671,
+      "averageRate": 0.016257946231135155,
+      "marketRate": 0.03187603708636551,
+      "interestToGdp": 0.0072438348941965556,
+      "balanceToGdp": 0.07845223584691889,
+      "marketAccess": 1,
+      "stability": 64.24830161178052,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 0.9892412419821103,
+      "averageRate": 0.02067520343130213,
+      "marketRate": 0.03825470441032413,
+      "interestToGdp": 0.02026466848595254,
+      "balanceToGdp": 0.20298677637458476,
+      "marketAccess": 1,
+      "stability": 61.27574638318244,
+      "defaults": 0,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.48694553453222666,
+      "averageRate": 0.03025604581932775,
+      "marketRate": 0.03187603708636551,
+      "interestToGdp": 0.014784000566116083,
+      "balanceToGdp": 0.09173551803444431,
+      "marketAccess": 1,
+      "stability": 68.17355508160378,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 0.7399403716785584,
+      "averageRate": 0.017082231178785837,
+      "marketRate": 0.034270835380537164,
+      "interestToGdp": 0.012496055209788378,
+      "balanceToGdp": 0.20357650334319588,
+      "marketAccess": 1,
+      "stability": 61.498405771505105,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.4171989373015777,
+      "averageRate": 0.030694315685177588,
+      "marketRate": 0.03187603708636551,
+      "interestToGdp": 0.012770474183068118,
+      "balanceToGdp": 0.021555876052840137,
+      "marketAccess": 1,
+      "stability": 67.66450032921571,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.41323563394197227,
+      "averageRate": 0.02464649182577374,
+      "marketRate": 0.03187603708636551,
+      "interestToGdp": 0.010234421253598226,
+      "balanceToGdp": 0.1086147438684976,
+      "marketAccess": 1,
+      "stability": 64.37994120602117,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 1.4972805167830194,
+      "averageRate": 0.022791458113130006,
+      "marketRate": 0.0462551483787127,
+      "interestToGdp": 0.03407249324649329,
+      "balanceToGdp": 0.09047840386644244,
+      "marketAccess": 1,
+      "stability": 60.39364521287743,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bgr": {
+      "debtToGdp": 0.22823829773587723,
+      "averageRate": 0.022488828782307915,
+      "marketRate": 0.03187603708636551,
+      "interestToGdp": 0.005113343344880938,
+      "balanceToGdp": 0.009594539120753197,
+      "marketAccess": 1,
+      "stability": 66.79698371471942,
+      "defaults": 0,
+      "regime": 0
+     }
+    },
+    "26": {
+     "fra": {
+      "debtToGdp": 1.0110266207388467,
+      "averageRate": 0.02066257051783455,
+      "marketRate": 0.037788348290579137,
+      "interestToGdp": 0.02073614269031129,
+      "balanceToGdp": 0.17270949125496368,
+      "marketAccess": 1,
+      "stability": 58.73842671106984,
+      "defaults": 0,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 0.5819796505754385,
+      "averageRate": 0.016925488638348425,
+      "marketRate": 0.031032694417565142,
+      "interestToGdp": 0.009753435587094347,
+      "balanceToGdp": 0.07275589425823259,
+      "marketAccess": 1,
+      "stability": 63.35185924988518,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 0.946686604314828,
+      "averageRate": 0.03273557671984662,
+      "marketRate": 0.03668914540100193,
+      "interestToGdp": 0.031077888486382894,
+      "balanceToGdp": 0.13349871915034925,
+      "marketAccess": 1,
+      "stability": 57.46198915108103,
+      "defaults": 0,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 1.3179578043706461,
+      "averageRate": 0.029704522693726396,
+      "marketRate": 0.042613023255546216,
+      "interestToGdp": 0.03908534500326743,
+      "balanceToGdp": 0.11705207278782236,
+      "marketAccess": 1,
+      "stability": 51.104063915504646,
+      "defaults": 0,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 0.48511048264367296,
+      "averageRate": 0.04036288181296162,
+      "marketRate": 0.031027755484297117,
+      "interestToGdp": 0.019433244016185756,
+      "balanceToGdp": 0.011871253987146667,
+      "marketAccess": 1,
+      "stability": 66.9927613930867,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.30135655832571834,
+      "averageRate": 0.11430226554304931,
+      "marketRate": 0.031027755484297117,
+      "interestToGdp": 0.03436235799965562,
+      "balanceToGdp": 0.005419420227166806,
+      "marketAccess": 1,
+      "stability": 61.47015607026084,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.3945116605628018,
+      "averageRate": 0.017949070356420748,
+      "marketRate": 0.031027755484297117,
+      "interestToGdp": 0.006993244388090943,
+      "balanceToGdp": 0.04558432048808848,
+      "marketAccess": 1,
+      "stability": 61.65631299998107,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 1.0258930090452554,
+      "averageRate": 0.025146852288611275,
+      "marketRate": 0.0379290153199714,
+      "interestToGdp": 0.02567601593411667,
+      "balanceToGdp": 0.08658970321225026,
+      "marketAccess": 1,
+      "stability": 60.183083539937336,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.4258386175374403,
+      "averageRate": 0.0174617742041193,
+      "marketRate": 0.031027755484297117,
+      "interestToGdp": 0.007342375227727931,
+      "balanceToGdp": 0.05780900825883333,
+      "marketAccess": 1,
+      "stability": 62.83665758803222,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 0.9399800954235006,
+      "averageRate": 0.02200421981933471,
+      "marketRate": 0.03665101885062892,
+      "interestToGdp": 0.02062199686353865,
+      "balanceToGdp": 0.18928351551070793,
+      "marketAccess": 1,
+      "stability": 58.57263121402768,
+      "defaults": 0,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.463327780324256,
+      "averageRate": 0.03033719336760311,
+      "marketRate": 0.031027755484297117,
+      "interestToGdp": 0.013971330429616015,
+      "balanceToGdp": 0.06771207527837976,
+      "marketAccess": 1,
+      "stability": 67.43460272676387,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 0.6879193458458348,
+      "averageRate": 0.018378283957274973,
+      "marketRate": 0.03262789154380697,
+      "interestToGdp": 0.012546552055796726,
+      "balanceToGdp": 0.17592488076578,
+      "marketAccess": 1,
+      "stability": 60.305020199987936,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.4063795385573486,
+      "averageRate": 0.030740312962087225,
+      "marketRate": 0.031027755484297117,
+      "interestToGdp": 0.01236003133667644,
+      "balanceToGdp": 0.014541079322802302,
+      "marketAccess": 1,
+      "stability": 67.66600294280818,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.3854944261959902,
+      "averageRate": 0.02517753876362211,
+      "marketRate": 0.031027755484297117,
+      "interestToGdp": 0.009654045969290202,
+      "balanceToGdp": 0.09655896585031971,
+      "marketAccess": 1,
+      "stability": 61.45240692662545,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 1.4706387479770253,
+      "averageRate": 0.024612731177047705,
+      "marketRate": 0.0450713210676078,
+      "interestToGdp": 0.03583461142070267,
+      "balanceToGdp": 0.09043311399940643,
+      "marketAccess": 1,
+      "stability": 54.660824204011746,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bgr": {
+      "debtToGdp": 0.22319993271291386,
+      "averageRate": 0.023192925357841385,
+      "marketRate": 0.031027755484297117,
+      "interestToGdp": 0.005117096416890227,
+      "balanceToGdp": 0.014249321703529981,
+      "marketAccess": 1,
+      "stability": 66.25861180757236,
+      "defaults": 0,
+      "regime": 0
+     }
+    },
+    "52": {
+     "fra": {
+      "debtToGdp": 0.9243735461939319,
+      "averageRate": 0.02317571874094108,
+      "marketRate": 0.03652048799323249,
+      "interestToGdp": 0.02110510220690123,
+      "balanceToGdp": 0.14402303872263564,
+      "marketAccess": 1,
+      "stability": 49.35768647025622,
+      "defaults": 0,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 0.5370152762392304,
+      "averageRate": 0.019088181868052046,
+      "marketRate": 0.03103924184948507,
+      "interestToGdp": 0.010025859557061154,
+      "balanceToGdp": 0.043361382370699794,
+      "marketAccess": 1,
+      "stability": 65.48019200026563,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 0.8833236835340578,
+      "averageRate": 0.03325750686564663,
+      "marketRate": 0.03576383662068,
+      "interestToGdp": 0.029073075470424776,
+      "balanceToGdp": 0.11703269703904173,
+      "marketAccess": 1,
+      "stability": 49.80629296590206,
+      "defaults": 0,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 1.2546892060146337,
+      "averageRate": 0.03187417646665073,
+      "marketRate": 0.04518427957467011,
+      "interestToGdp": 0.039410949615734686,
+      "balanceToGdp": 0.11715960822701303,
+      "marketAccess": 1,
+      "stability": 45.37583019633446,
+      "defaults": 0,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 0.46647011964067825,
+      "averageRate": 0.03891678386987511,
+      "marketRate": 0.031039239061913634,
+      "interestToGdp": 0.01776278102830148,
+      "balanceToGdp": 0.012769105068831044,
+      "marketAccess": 1,
+      "stability": 64.7554803887213,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.29159673793370106,
+      "averageRate": 0.10147155244102206,
+      "marketRate": 0.031039239061913634,
+      "interestToGdp": 0.029043736962661194,
+      "balanceToGdp": 0.010172964804883639,
+      "marketAccess": 1,
+      "stability": 63.32214234474595,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.36643491556673474,
+      "averageRate": 0.019954077965001683,
+      "marketRate": 0.031039239061913634,
+      "interestToGdp": 0.007135976441905036,
+      "balanceToGdp": 0.00903243247101527,
+      "marketAccess": 1,
+      "stability": 64.12013253589687,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 0.9747407167892866,
+      "averageRate": 0.027045007464905672,
+      "marketRate": 0.03715961215680402,
+      "interestToGdp": 0.02588099201444236,
+      "balanceToGdp": 0.08155323658261343,
+      "marketAccess": 1,
+      "stability": 55.59113391723784,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.39134516649427126,
+      "averageRate": 0.0195418119100924,
+      "marketRate": 0.031039239061913634,
+      "interestToGdp": 0.007442701115350626,
+      "balanceToGdp": 0.018161652143477963,
+      "marketAccess": 1,
+      "stability": 66.25856185490598,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 0.8506559801581874,
+      "averageRate": 0.024132599704815585,
+      "marketRate": 0.035232654800304505,
+      "interestToGdp": 0.020254593670846397,
+      "balanceToGdp": 0.14618560747485904,
+      "marketAccess": 1,
+      "stability": 50.87891328339433,
+      "defaults": 0,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.42371278903566245,
+      "averageRate": 0.030434773487489162,
+      "marketRate": 0.031039239061913634,
+      "interestToGdp": 0.012622653027238008,
+      "balanceToGdp": 0.02545443326726351,
+      "marketAccess": 1,
+      "stability": 68.9387327282687,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 0.5985452759964578,
+      "averageRate": 0.02044001016790464,
+      "marketRate": 0.03118730201223514,
+      "interestToGdp": 0.012006584608196744,
+      "balanceToGdp": 0.11870801934596734,
+      "marketAccess": 1,
+      "stability": 57.37589678544216,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.3885519948781825,
+      "averageRate": 0.030775823840728522,
+      "marketRate": 0.031039239061913634,
+      "interestToGdp": 0.011691124590531374,
+      "balanceToGdp": 0.01101577290902636,
+      "marketAccess": 1,
+      "stability": 66.31027713387167,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.3332556776973047,
+      "averageRate": 0.02606956264346442,
+      "marketRate": 0.031039239061913634,
+      "interestToGdp": 0.008465932726233487,
+      "balanceToGdp": 0.06593500938375609,
+      "marketAccess": 1,
+      "stability": 59.20073252525852,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 1.402955681026911,
+      "averageRate": 0.027681607690872637,
+      "marketRate": 0.044359713705706176,
+      "interestToGdp": 0.037926426435161795,
+      "balanceToGdp": 0.08321216811251295,
+      "marketAccess": 1,
+      "stability": 49.546704407134364,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bgr": {
+      "debtToGdp": 0.21058255005230544,
+      "averageRate": 0.02439052467967774,
+      "marketRate": 0.031039239061913634,
+      "interestToGdp": 0.005011007847040785,
+      "balanceToGdp": 0.009758465824018268,
+      "marketAccess": 1,
+      "stability": 66.12053200356492,
+      "defaults": 0,
+      "regime": 0
+     }
+    },
+    "104": {
+     "fra": {
+      "debtToGdp": 0.7756228653204136,
+      "averageRate": 0.027250626272368513,
+      "marketRate": 0.03404476458072484,
+      "interestToGdp": 0.020205339907007853,
+      "balanceToGdp": 0.05445799049424988,
+      "marketAccess": 1,
+      "stability": 52.64912889471557,
+      "defaults": 0,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 0.48178085642740104,
+      "averageRate": 0.022449843975612577,
+      "marketRate": 0.030678902430425186,
+      "interestToGdp": 0.010368133052175963,
+      "balanceToGdp": 0.006997910377531528,
+      "marketAccess": 1,
+      "stability": 69.78814292225944,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 0.7595334725228083,
+      "averageRate": 0.033623567065321096,
+      "marketRate": 0.03337569422261708,
+      "interestToGdp": 0.02455394208032984,
+      "balanceToGdp": 0.03682271698513982,
+      "marketAccess": 1,
+      "stability": 64.36332083568992,
+      "defaults": 0,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 1.105022831004495,
+      "averageRate": 0.03557307619313381,
+      "marketRate": 0.043282716354769525,
+      "interestToGdp": 0.03792949678432867,
+      "balanceToGdp": 0.1080333746013916,
+      "marketAccess": 1,
+      "stability": 45.79185234007402,
+      "defaults": 0,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 0.4291649846381771,
+      "averageRate": 0.036642421820019096,
+      "marketRate": 0.030678902430424298,
+      "interestToGdp": 0.01505775876890078,
+      "balanceToGdp": 0.007912190670533352,
+      "marketAccess": 1,
+      "stability": 61.68005465374182,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.27468933798166634,
+      "averageRate": 0.08141680505019337,
+      "marketRate": 0.030678902430424298,
+      "interestToGdp": 0.02165107787542827,
+      "balanceToGdp": -0.0010912181309417064,
+      "marketAccess": 1,
+      "stability": 67.57496065321867,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.34893278293583035,
+      "averageRate": 0.023110300727687196,
+      "marketRate": 0.030678902430424298,
+      "interestToGdp": 0.007781254008601556,
+      "balanceToGdp": -0.004667490284800133,
+      "marketAccess": 1,
+      "stability": 65.53448125356341,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 0.8652825900539165,
+      "averageRate": 0.029624947744687647,
+      "marketRate": 0.03509116214036748,
+      "interestToGdp": 0.02461194445763376,
+      "balanceToGdp": 0.05684077304279382,
+      "marketAccess": 1,
+      "stability": 56.26462239690381,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.36860395937053275,
+      "averageRate": 0.022798246725763388,
+      "marketRate": 0.030678902430424298,
+      "interestToGdp": 0.0080673880550341,
+      "balanceToGdp": -0.0054048762298706315,
+      "marketAccess": 1,
+      "stability": 68.92533276024538,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 0.7084626193797927,
+      "averageRate": 0.026884388848434502,
+      "marketRate": 0.032566173699878354,
+      "interestToGdp": 0.01829578056593222,
+      "balanceToGdp": 0.0494268814141244,
+      "marketAccess": 1,
+      "stability": 60.282101404934416,
+      "defaults": 0,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.39112892856897413,
+      "averageRate": 0.03057131338019927,
+      "marketRate": 0.030678902430424298,
+      "interestToGdp": 0.011509889567530154,
+      "balanceToGdp": -0.003100284367362635,
+      "marketAccess": 1,
+      "stability": 70.6659176579894,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 0.4851641997978921,
+      "averageRate": 0.02341952416438754,
+      "marketRate": 0.030678902477590628,
+      "interestToGdp": 0.010868450572610853,
+      "balanceToGdp": 0.035963833026714416,
+      "marketAccess": 1,
+      "stability": 64.43571254445382,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.3613392037972176,
+      "averageRate": 0.030815424573726557,
+      "marketRate": 0.030678902430424298,
+      "interestToGdp": 0.010653643962354532,
+      "balanceToGdp": -0.0009303736642311404,
+      "marketAccess": 1,
+      "stability": 63.38391718060492,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.2757978509800991,
+      "averageRate": 0.027446857360694053,
+      "marketRate": 0.030678902430424298,
+      "interestToGdp": 0.0071719233141826644,
+      "balanceToGdp": 0.011088305878898193,
+      "marketAccess": 1,
+      "stability": 64.7623582600671,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 1.2649355183210458,
+      "averageRate": 0.032383305975221176,
+      "marketRate": 0.0430491249078514,
+      "interestToGdp": 0.039289537964384134,
+      "balanceToGdp": 0.07000597085462669,
+      "marketAccess": 1,
+      "stability": 49.31402730940233,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bgr": {
+      "debtToGdp": 0.20090306879245468,
+      "averageRate": 0.026304015402067196,
+      "marketRate": 0.030678902430424298,
+      "interestToGdp": 0.005056460944907748,
+      "balanceToGdp": -0.005299412498318434,
+      "marketAccess": 1,
+      "stability": 66.61189143590836,
+      "defaults": 0,
+      "regime": 0
+     }
+    },
+    "156": {
+     "fra": {
+      "debtToGdp": 0.6963807558420814,
+      "averageRate": 0.028850623472044826,
+      "marketRate": 0.032140896199299704,
+      "interestToGdp": 0.01944753966115932,
+      "balanceToGdp": 0.015765408554041647,
+      "marketAccess": 1,
+      "stability": 64.51847900116346,
+      "defaults": 0,
+      "regime": 0
+     },
+     "deu": {
+      "debtToGdp": 0.4582036466086722,
+      "averageRate": 0.024808832380245675,
+      "marketRate": 0.03052472764740557,
+      "interestToGdp": 0.011014542767088893,
+      "balanceToGdp": 0.000633852695541838,
+      "marketAccess": 1,
+      "stability": 68.77695215052563,
+      "defaults": 0,
+      "regime": 0
+     },
+     "gbr": {
+      "debtToGdp": 0.6926526409024617,
+      "averageRate": 0.033363949274444006,
+      "marketRate": 0.03206427691639635,
+      "interestToGdp": 0.02245221824085543,
+      "balanceToGdp": 0.010444075516171998,
+      "marketAccess": 1,
+      "stability": 69.21079616139488,
+      "defaults": 0,
+      "regime": 0
+     },
+     "ita": {
+      "debtToGdp": 0.9537179312439272,
+      "averageRate": 0.036605436060166974,
+      "marketRate": 0.036502804477669314,
+      "interestToGdp": 0.033978885274334326,
+      "balanceToGdp": 0.1061707776453095,
+      "marketAccess": 1,
+      "stability": 50.49173053400025,
+      "defaults": 0,
+      "regime": 0
+     },
+     "pol": {
+      "debtToGdp": 0.40441730248144986,
+      "averageRate": 0.0349673532083867,
+      "marketRate": 0.03052472764740557,
+      "interestToGdp": 0.013689750494499935,
+      "balanceToGdp": 0.0025848035436282215,
+      "marketAccess": 1,
+      "stability": 62.92980461596939,
+      "defaults": 0,
+      "regime": 0
+     },
+     "tur": {
+      "debtToGdp": 0.2674353568356871,
+      "averageRate": 0.06666208618861864,
+      "marketRate": 0.03052472764740557,
+      "interestToGdp": 0.01744191157818891,
+      "balanceToGdp": 0.00003278038754362738,
+      "marketAccess": 1,
+      "stability": 65.09764965645716,
+      "defaults": 0,
+      "regime": 0
+     },
+     "irl": {
+      "debtToGdp": 0.34370158391439076,
+      "averageRate": 0.02537420699534833,
+      "marketRate": 0.03052472764740557,
+      "interestToGdp": 0.008495949634898812,
+      "balanceToGdp": -0.004010777553233297,
+      "marketAccess": 1,
+      "stability": 63.50197493527626,
+      "defaults": 0,
+      "regime": 0
+     },
+     "esp": {
+      "debtToGdp": 0.7835841703720783,
+      "averageRate": 0.030948069479105,
+      "marketRate": 0.03353790522365169,
+      "interestToGdp": 0.023536881225256972,
+      "balanceToGdp": 0.018629092235410632,
+      "marketAccess": 1,
+      "stability": 67.56465682427225,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nld": {
+      "debtToGdp": 0.3659444953601188,
+      "averageRate": 0.02522141205301303,
+      "marketRate": 0.03052472764740557,
+      "interestToGdp": 0.008965815028439395,
+      "balanceToGdp": -0.004733544185934035,
+      "marketAccess": 1,
+      "stability": 65.31985999177468,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bel": {
+      "debtToGdp": 0.6338606200898707,
+      "averageRate": 0.02829179035279551,
+      "marketRate": 0.031133325677338633,
+      "interestToGdp": 0.017399764505290374,
+      "balanceToGdp": 0.019011103432782298,
+      "marketAccess": 1,
+      "stability": 68.62389252909836,
+      "defaults": 0,
+      "regime": 0
+     },
+     "che": {
+      "debtToGdp": 0.3792857459757176,
+      "averageRate": 0.030623347429181824,
+      "marketRate": 0.03052472764740557,
+      "interestToGdp": 0.011272411140698442,
+      "balanceToGdp": -0.003802830564895058,
+      "marketAccess": 1,
+      "stability": 68.29156476676653,
+      "defaults": 0,
+      "regime": 0
+     },
+     "aut": {
+      "debtToGdp": 0.4343981308269093,
+      "averageRate": 0.025502893495270317,
+      "marketRate": 0.030524727647405586,
+      "interestToGdp": 0.010701709463818277,
+      "balanceToGdp": 0.014710927497355045,
+      "marketAccess": 1,
+      "stability": 68.78470156916207,
+      "defaults": 0,
+      "regime": 0
+     },
+     "cze": {
+      "debtToGdp": 0.34569440771220117,
+      "averageRate": 0.030795715147202397,
+      "marketRate": 0.03052472764740557,
+      "interestToGdp": 0.010293560753038729,
+      "balanceToGdp": -0.0009398493745155117,
+      "marketAccess": 1,
+      "stability": 64.12060059778426,
+      "defaults": 0,
+      "regime": 0
+     },
+     "nor": {
+      "debtToGdp": 0.2636436931825311,
+      "averageRate": 0.028385509225520515,
+      "marketRate": 0.03052472764740557,
+      "interestToGdp": 0.00720576146213918,
+      "balanceToGdp": -0.000286286018512234,
+      "marketAccess": 1,
+      "stability": 65.7999904788138,
+      "defaults": 0,
+      "regime": 0
+     },
+     "grc": {
+      "debtToGdp": 1.1367675341432966,
+      "averageRate": 0.03470840838933671,
+      "marketRate": 0.039259125278658005,
+      "interestToGdp": 0.03817215802249734,
+      "balanceToGdp": 0.0611434812546822,
+      "marketAccess": 1,
+      "stability": 53.255742943107975,
+      "defaults": 0,
+      "regime": 0
+     },
+     "bgr": {
+      "debtToGdp": 0.20533062001680197,
+      "averageRate": 0.027769902867579053,
+      "marketRate": 0.03052472764740557,
+      "interestToGdp": 0.005520834868338185,
+      "balanceToGdp": -0.010634889640502193,
+      "marketAccess": 1,
+      "stability": 63.889907295676196,
+      "defaults": 0,
+      "regime": 0
+     }
+    }
+   }
+  }
+ ]
+}

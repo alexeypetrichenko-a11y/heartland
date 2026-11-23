@@ -1,0 +1,30 @@
+{
+ "attribution": "Source: Eurostat",
+ "dataset": "irt_lt_mcby_a",
+ "flags": {},
+ "id": "es_bond_yields",
+ "key": "geo",
+ "licence": "Eurostat copyright notice: reuse authorised, commercial or not, provided the source is acknowledged (UK data excluded from commercial reuse; none is taken from Eurostat)",
+ "licence_status": "verified (primary)",
+ "notes": [],
+ "publisher": "eurostat",
+ "publisher_updated": "2026-02-25T23:00:00+0100",
+ "query": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/irt_lt_mcby_a?time=2023&geo=FR&geo=DE&geo=IT&geo=PL&geo=IE&geo=ES&geo=NL&geo=BE&geo=CH&geo=AT&geo=CZ&geo=NO&geo=EL&geo=BG",
+ "reference_year": 2023,
+ "retrieved": "2026-11-22",
+ "title": "EMU convergence criterion series: long-term government bond yields, annual average, % per year",
+ "values": {
+  "AT": 3.08,
+  "BE": 3.09,
+  "BG": 3.75871,
+  "CZ": 4.44,
+  "DE": 2.43,
+  "EL": 4.0,
+  "ES": 3.48,
+  "FR": 2.99,
+  "IE": 2.87,
+  "IT": 4.28,
+  "NL": 2.79,
+  "PL": 5.8
+ }
+}
