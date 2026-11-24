@@ -1,0 +1,1056 @@
+{
+ "policyFrom": "scenarios/europe-2023/build-econ08/calibration.json",
+ "deterministic": true,
+ "runs": {
+  "baseline": {
+   "country": null,
+   "path": {
+    "1": {
+     "debtToGdp": 1.341,
+     "marketRate": 0.0473,
+     "averageRate": 0.0272,
+     "balanceToGdp": 0.02,
+     "access": 1,
+     "defaults": 0,
+     "stability": 69.6,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.055,
+     "realGdpIndex": 0.999
+    },
+    "13": {
+     "debtToGdp": 1.344,
+     "marketRate": 0.044,
+     "averageRate": 0.0286,
+     "balanceToGdp": 0.033,
+     "access": 1,
+     "defaults": 0,
+     "stability": 65.7,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.074,
+     "realGdpIndex": 0.99
+    },
+    "26": {
+     "debtToGdp": 1.334,
+     "marketRate": 0.043,
+     "averageRate": 0.0298,
+     "balanceToGdp": 0.04,
+     "access": 1,
+     "defaults": 0,
+     "stability": 63.2,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.075,
+     "realGdpIndex": 1.002
+    },
+    "52": {
+     "debtToGdp": 1.31,
+     "marketRate": 0.0427,
+     "averageRate": 0.0318,
+     "balanceToGdp": 0.046,
+     "access": 1,
+     "defaults": 0,
+     "stability": 58.3,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.092,
+     "realGdpIndex": 1.005
+    },
+    "104": {
+     "debtToGdp": 1.229,
+     "marketRate": 0.0413,
+     "averageRate": 0.0347,
+     "balanceToGdp": 0.039,
+     "access": 1,
+     "defaults": 0,
+     "stability": 58.7,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.102,
+     "realGdpIndex": 1.019
+    },
+    "156": {
+     "debtToGdp": 1.138,
+     "marketRate": 0.0394,
+     "averageRate": 0.0363,
+     "balanceToGdp": 0.043,
+     "access": 1,
+     "defaults": 0,
+     "stability": 61.6,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.081,
+     "realGdpIndex": 1.069
+    }
+   },
+   "events": {
+    "regime-change": {
+     "bloc-mea": [
+      100,
+      127
+     ]
+    }
+   },
+   "audit": {
+    "worstMoneyError": 1.964508555829525e-10,
+    "worstBondError": 1.4450844284452141e-15
+   },
+   "finalHash": "47c856e6f44e00ce"
+  },
+  "baseline-repeat": {
+   "country": null,
+   "path": {
+    "1": {
+     "debtToGdp": 1.341,
+     "marketRate": 0.0473,
+     "averageRate": 0.0272,
+     "balanceToGdp": 0.02,
+     "access": 1,
+     "defaults": 0,
+     "stability": 69.6,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.055,
+     "realGdpIndex": 0.999
+    },
+    "13": {
+     "debtToGdp": 1.344,
+     "marketRate": 0.044,
+     "averageRate": 0.0286,
+     "balanceToGdp": 0.033,
+     "access": 1,
+     "defaults": 0,
+     "stability": 65.7,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.074,
+     "realGdpIndex": 0.99
+    },
+    "26": {
+     "debtToGdp": 1.334,
+     "marketRate": 0.043,
+     "averageRate": 0.0298,
+     "balanceToGdp": 0.04,
+     "access": 1,
+     "defaults": 0,
+     "stability": 63.2,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.075,
+     "realGdpIndex": 1.002
+    },
+    "52": {
+     "debtToGdp": 1.31,
+     "marketRate": 0.0427,
+     "averageRate": 0.0318,
+     "balanceToGdp": 0.046,
+     "access": 1,
+     "defaults": 0,
+     "stability": 58.3,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.092,
+     "realGdpIndex": 1.005
+    },
+    "104": {
+     "debtToGdp": 1.229,
+     "marketRate": 0.0413,
+     "averageRate": 0.0347,
+     "balanceToGdp": 0.039,
+     "access": 1,
+     "defaults": 0,
+     "stability": 58.7,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.102,
+     "realGdpIndex": 1.019
+    },
+    "156": {
+     "debtToGdp": 1.138,
+     "marketRate": 0.0394,
+     "averageRate": 0.0363,
+     "balanceToGdp": 0.043,
+     "access": 1,
+     "defaults": 0,
+     "stability": 61.6,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.081,
+     "realGdpIndex": 1.069
+    }
+   },
+   "events": {
+    "regime-change": {
+     "bloc-mea": [
+      100,
+      127
+     ]
+    }
+   },
+   "audit": {
+    "worstMoneyError": 1.964508555829525e-10,
+    "worstBondError": 1.4450844284452141e-15
+   },
+   "finalHash": "47c856e6f44e00ce"
+  },
+  "passive-ita": {
+   "country": "ita",
+   "path": {
+    "1": {
+     "debtToGdp": 1.341,
+     "marketRate": 0.0473,
+     "averageRate": 0.0272,
+     "balanceToGdp": 0.02,
+     "access": 1,
+     "defaults": 0,
+     "stability": 69.6,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.055,
+     "realGdpIndex": 0.999
+    },
+    "13": {
+     "debtToGdp": 1.344,
+     "marketRate": 0.044,
+     "averageRate": 0.0286,
+     "balanceToGdp": 0.023,
+     "access": 1,
+     "defaults": 0,
+     "stability": 66,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.071,
+     "realGdpIndex": 0.992
+    },
+    "26": {
+     "debtToGdp": 1.333,
+     "marketRate": 0.043,
+     "averageRate": 0.0298,
+     "balanceToGdp": 0.023,
+     "access": 1,
+     "defaults": 0,
+     "stability": 64.6,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.069,
+     "realGdpIndex": 1.007
+    },
+    "52": {
+     "debtToGdp": 1.311,
+     "marketRate": 0.0427,
+     "averageRate": 0.0318,
+     "balanceToGdp": 0.02,
+     "access": 1,
+     "defaults": 0,
+     "stability": 62.8,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.081,
+     "realGdpIndex": 1.012
+    },
+    "104": {
+     "debtToGdp": 1.256,
+     "marketRate": 0.0417,
+     "averageRate": 0.0348,
+     "balanceToGdp": 0.012,
+     "access": 1,
+     "defaults": 0,
+     "stability": 62.7,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.097,
+     "realGdpIndex": 1.022
+    },
+    "156": {
+     "debtToGdp": 1.196,
+     "marketRate": 0.0403,
+     "averageRate": 0.0365,
+     "balanceToGdp": 0.007,
+     "access": 1,
+     "defaults": 0,
+     "stability": 65,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.079,
+     "realGdpIndex": 1.069
+    }
+   },
+   "events": {
+    "regime-change": {
+     "bloc-mea": [
+      100,
+      127,
+      153
+     ]
+    }
+   },
+   "audit": {
+    "worstMoneyError": 1.964508555829525e-10,
+    "worstBondError": 1.4924773428630494e-15
+   },
+   "finalHash": "9038493ea6687e64"
+  },
+  "mismanage-ita": {
+   "country": "ita",
+   "path": {
+    "1": {
+     "debtToGdp": 1.341,
+     "marketRate": 0.0473,
+     "averageRate": 0.0272,
+     "balanceToGdp": 0.02,
+     "access": 1,
+     "defaults": 0,
+     "stability": 69.6,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.055,
+     "realGdpIndex": 0.999
+    },
+    "13": {
+     "debtToGdp": 1.341,
+     "marketRate": 0.0478,
+     "averageRate": 0.0292,
+     "balanceToGdp": -0.102,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70.2,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.016,
+     "realGdpIndex": 1.036
+    },
+    "26": {
+     "debtToGdp": 1.332,
+     "marketRate": 0.0497,
+     "averageRate": 0.0311,
+     "balanceToGdp": -0.102,
+     "access": 1,
+     "defaults": 0,
+     "stability": 71.3,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.026,
+     "realGdpIndex": 1.04
+    },
+    "52": {
+     "debtToGdp": 1.351,
+     "marketRate": 0.0516,
+     "averageRate": 0.0348,
+     "balanceToGdp": -0.113,
+     "access": 1,
+     "defaults": 0,
+     "stability": 73.6,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.053,
+     "realGdpIndex": 1.035
+    },
+    "104": {
+     "debtToGdp": 1.441,
+     "marketRate": 0.0556,
+     "averageRate": 0.0415,
+     "balanceToGdp": -0.138,
+     "access": 1,
+     "defaults": 0,
+     "stability": 72.8,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.08,
+     "realGdpIndex": 1.037
+    },
+    "156": {
+     "debtToGdp": 1.555,
+     "marketRate": 0.0589,
+     "averageRate": 0.0471,
+     "balanceToGdp": -0.154,
+     "access": 1,
+     "defaults": 0,
+     "stability": 71.7,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.07,
+     "realGdpIndex": 1.075
+    }
+   },
+   "events": {
+    "regime-change": {
+     "bloc-mea": [
+      101,
+      127,
+      153
+     ]
+    }
+   },
+   "audit": {
+    "worstMoneyError": 1.5279510989785194e-10,
+    "worstBondError": 9.327686475384878e-16
+   },
+   "finalHash": "2b69fd596d421ad1"
+  },
+  "reckless-ita": {
+   "country": "ita",
+   "path": {
+    "1": {
+     "debtToGdp": 1.341,
+     "marketRate": 0.0473,
+     "averageRate": 0.0272,
+     "balanceToGdp": 0.02,
+     "access": 1,
+     "defaults": 0,
+     "stability": 69.6,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.055,
+     "realGdpIndex": 0.999
+    },
+    "13": {
+     "debtToGdp": 1.374,
+     "marketRate": 0.0575,
+     "averageRate": 0.0303,
+     "balanceToGdp": -0.229,
+     "access": 1,
+     "defaults": 0,
+     "stability": 67.4,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.016,
+     "realGdpIndex": 1.032
+    },
+    "26": {
+     "debtToGdp": 1.357,
+     "marketRate": 0.0632,
+     "averageRate": 0.0341,
+     "balanceToGdp": -0.233,
+     "access": 1,
+     "defaults": 0,
+     "stability": 67.7,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.011,
+     "realGdpIndex": 1.051
+    },
+    "52": {
+     "debtToGdp": 1.398,
+     "marketRate": 0.0683,
+     "averageRate": 0.0415,
+     "balanceToGdp": -0.266,
+     "access": 1,
+     "defaults": 0,
+     "stability": 74.6,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.026,
+     "realGdpIndex": 1.061
+    },
+    "104": {
+     "debtToGdp": 1.645,
+     "marketRate": 0.0771,
+     "averageRate": 0.0545,
+     "balanceToGdp": -0.312,
+     "access": 1,
+     "defaults": 0,
+     "stability": 78,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.056,
+     "realGdpIndex": 1.063
+    },
+    "156": {
+     "debtToGdp": 1.993,
+     "marketRate": 0.1126,
+     "averageRate": 0.0691,
+     "balanceToGdp": -0.369,
+     "access": 1,
+     "defaults": 0,
+     "stability": 76.5,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.073,
+     "realGdpIndex": 1.066
+    },
+    "312": {
+     "debtToGdp": 1.29,
+     "marketRate": 0.1004,
+     "averageRate": 0.0521,
+     "balanceToGdp": -0.281,
+     "access": 1,
+     "defaults": 1,
+     "stability": 64.7,
+     "unrestTier": 0,
+     "regime": 2,
+     "unemployment": 0.061,
+     "realGdpIndex": 1.084
+    }
+   },
+   "events": {
+    "regime-change": {
+     "bloc-mea": [
+      29,
+      112,
+      138,
+      164,
+      190,
+      216,
+      242,
+      276,
+      305
+     ],
+     "ita": [
+      243,
+      269
+     ]
+    },
+    "market-access-lost": {
+     "ita": [
+      197
+     ]
+    },
+    "sovereign-default": {
+     "ita": [
+      203
+     ]
+    },
+    "market-access-restored": {
+     "ita": [
+      281
+     ]
+    }
+   },
+   "audit": {
+    "worstMoneyError": 2.1827872842550278e-10,
+    "worstBondError": 2.0128162519544614e-15
+   },
+   "finalHash": "c20ab916f70d263c"
+  },
+  "reckless-grc": {
+   "country": "grc",
+   "path": {
+    "1": {
+     "debtToGdp": 1.5,
+     "marketRate": 0.0498,
+     "averageRate": 0.0208,
+     "balanceToGdp": 0.023,
+     "access": 1,
+     "defaults": 0,
+     "stability": 69.6,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.048,
+     "realGdpIndex": 0.999
+    },
+    "13": {
+     "debtToGdp": 1.505,
+     "marketRate": 0.054,
+     "averageRate": 0.0241,
+     "balanceToGdp": -0.164,
+     "access": 1,
+     "defaults": 0,
+     "stability": 69.2,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.02,
+     "realGdpIndex": 1.041
+    },
+    "26": {
+     "debtToGdp": 1.478,
+     "marketRate": 0.0578,
+     "averageRate": 0.0276,
+     "balanceToGdp": -0.169,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70.3,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.03,
+     "realGdpIndex": 1.055
+    },
+    "52": {
+     "debtToGdp": 1.499,
+     "marketRate": 0.0613,
+     "averageRate": 0.0343,
+     "balanceToGdp": -0.193,
+     "access": 1,
+     "defaults": 0,
+     "stability": 75.7,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.067,
+     "realGdpIndex": 1.059
+    },
+    "104": {
+     "debtToGdp": 1.659,
+     "marketRate": 0.0677,
+     "averageRate": 0.0458,
+     "balanceToGdp": -0.233,
+     "access": 1,
+     "defaults": 0,
+     "stability": 74.5,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.092,
+     "realGdpIndex": 1.08
+    },
+    "156": {
+     "debtToGdp": 1.887,
+     "marketRate": 0.0874,
+     "averageRate": 0.0574,
+     "balanceToGdp": -0.262,
+     "access": 1,
+     "defaults": 0,
+     "stability": 73.2,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.076,
+     "realGdpIndex": 1.141
+    },
+    "312": {
+     "debtToGdp": 1.146,
+     "marketRate": 0.0815,
+     "averageRate": 0.03,
+     "balanceToGdp": 0,
+     "access": 0,
+     "defaults": 1,
+     "stability": 45.1,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.112,
+     "realGdpIndex": 1.111
+    }
+   },
+   "events": {
+    "regime-change": {
+     "bloc-mea": [
+      101,
+      128,
+      154,
+      180,
+      206,
+      232,
+      258,
+      284
+     ]
+    },
+    "market-access-lost": {
+     "grc": [
+      232
+     ]
+    },
+    "sovereign-default": {
+     "grc": [
+      238
+     ]
+    }
+   },
+   "audit": {
+    "worstMoneyError": 2.3283064365386963e-10,
+    "worstBondError": 1.3029607111629315e-15
+   },
+   "finalHash": "2052f3ca7d146dbd"
+  },
+  "high-tax-fra": {
+   "country": "fra",
+   "path": {
+    "1": {
+     "debtToGdp": 1.095,
+     "marketRate": 0.0433,
+     "averageRate": 0.0174,
+     "balanceToGdp": 0.043,
+     "access": 1,
+     "defaults": 0,
+     "stability": 69.6,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.043,
+     "realGdpIndex": 0.999
+    },
+    "13": {
+     "debtToGdp": 1.107,
+     "marketRate": 0.0402,
+     "averageRate": 0.0192,
+     "balanceToGdp": 0.15,
+     "access": 1,
+     "defaults": 0,
+     "stability": 49.6,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.12,
+     "realGdpIndex": 0.949
+    },
+    "26": {
+     "debtToGdp": 1.089,
+     "marketRate": 0.045,
+     "averageRate": 0.021,
+     "balanceToGdp": 0.132,
+     "access": 1,
+     "defaults": 0,
+     "stability": 40.5,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.118,
+     "realGdpIndex": 0.974
+    },
+    "52": {
+     "debtToGdp": 1.035,
+     "marketRate": 0.0503,
+     "averageRate": 0.0253,
+     "balanceToGdp": 0.12,
+     "access": 1,
+     "defaults": 0,
+     "stability": 34.8,
+     "unrestTier": 1,
+     "regime": 0,
+     "unemployment": 0.125,
+     "realGdpIndex": 0.97
+    },
+    "104": {
+     "debtToGdp": 0.886,
+     "marketRate": 0.0462,
+     "averageRate": 0.032,
+     "balanceToGdp": 0.108,
+     "access": 1,
+     "defaults": 0,
+     "stability": 37.6,
+     "unrestTier": 1,
+     "regime": 0,
+     "unemployment": 0.132,
+     "realGdpIndex": 0.992
+    },
+    "156": {
+     "debtToGdp": 0.725,
+     "marketRate": 0.0373,
+     "averageRate": 0.0349,
+     "balanceToGdp": 0.104,
+     "access": 1,
+     "defaults": 0,
+     "stability": 45.8,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.108,
+     "realGdpIndex": 1.067
+    }
+   },
+   "events": {
+    "regime-change": {
+     "bloc-mea": [
+      101,
+      129,
+      156
+     ]
+    }
+   },
+   "audit": {
+    "worstMoneyError": 1.8917489796876907e-10,
+    "worstBondError": 1.4963676648240076e-15
+   },
+   "finalHash": "523eff11d0ac9519"
+  },
+  "austerity-grc": {
+   "country": "grc",
+   "path": {
+    "1": {
+     "debtToGdp": 1.5,
+     "marketRate": 0.0498,
+     "averageRate": 0.0208,
+     "balanceToGdp": 0.023,
+     "access": 1,
+     "defaults": 0,
+     "stability": 69.6,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.048,
+     "realGdpIndex": 0.999
+    },
+    "13": {
+     "debtToGdp": 1.527,
+     "marketRate": 0.0469,
+     "averageRate": 0.0228,
+     "balanceToGdp": 0.135,
+     "access": 1,
+     "defaults": 0,
+     "stability": 59.5,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.119,
+     "realGdpIndex": 0.939
+    },
+    "26": {
+     "debtToGdp": 1.544,
+     "marketRate": 0.0463,
+     "averageRate": 0.0247,
+     "balanceToGdp": 0.128,
+     "access": 1,
+     "defaults": 0,
+     "stability": 50.1,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.142,
+     "realGdpIndex": 0.926
+    },
+    "52": {
+     "debtToGdp": 1.512,
+     "marketRate": 0.0514,
+     "averageRate": 0.0285,
+     "balanceToGdp": 0.126,
+     "access": 1,
+     "defaults": 0,
+     "stability": 42.8,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.149,
+     "realGdpIndex": 0.928
+    },
+    "104": {
+     "debtToGdp": 1.323,
+     "marketRate": 0.0437,
+     "averageRate": 0.0342,
+     "balanceToGdp": 0.125,
+     "access": 1,
+     "defaults": 0,
+     "stability": 49.8,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.124,
+     "realGdpIndex": 0.969
+    },
+    "156": {
+     "debtToGdp": 1.107,
+     "marketRate": 0.039,
+     "averageRate": 0.0361,
+     "balanceToGdp": 0.129,
+     "access": 1,
+     "defaults": 0,
+     "stability": 62.5,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.062,
+     "realGdpIndex": 1.041
+    }
+   },
+   "events": {
+    "regime-change": {
+     "bloc-mea": [
+      100,
+      127
+     ]
+    }
+   },
+   "audit": {
+    "worstMoneyError": 2.1100277081131935e-10,
+    "worstBondError": 1.492929311618302e-15
+   },
+   "finalHash": "1bd2410ba284f7b6"
+  },
+  "default-ita": {
+   "country": "ita",
+   "path": {
+    "1": {
+     "debtToGdp": 1.341,
+     "marketRate": 0.0473,
+     "averageRate": 0.0272,
+     "balanceToGdp": 0.02,
+     "access": 1,
+     "defaults": 0,
+     "stability": 69.6,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.055,
+     "realGdpIndex": 0.999
+    },
+    "13": {
+     "debtToGdp": 0.615,
+     "marketRate": 0.087,
+     "averageRate": 0.0282,
+     "balanceToGdp": 0.047,
+     "access": 0,
+     "defaults": 1,
+     "stability": 52.4,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.018,
+     "realGdpIndex": 0.912
+    },
+    "26": {
+     "debtToGdp": 0.63,
+     "marketRate": 0.1025,
+     "averageRate": 0.0282,
+     "balanceToGdp": 0.041,
+     "access": 0,
+     "defaults": 1,
+     "stability": 57.7,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.07,
+     "realGdpIndex": 0.901
+    },
+    "52": {
+     "debtToGdp": 0.622,
+     "marketRate": 0.0962,
+     "averageRate": 0.0282,
+     "balanceToGdp": 0.021,
+     "access": 0,
+     "defaults": 1,
+     "stability": 55.5,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.105,
+     "realGdpIndex": 0.919
+    },
+    "104": {
+     "debtToGdp": 0.571,
+     "marketRate": 0.084,
+     "averageRate": 0.0282,
+     "balanceToGdp": 0.031,
+     "access": 0,
+     "defaults": 1,
+     "stability": 55.1,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.126,
+     "realGdpIndex": 0.957
+    },
+    "156": {
+     "debtToGdp": 0.51,
+     "marketRate": 0.074,
+     "averageRate": 0.0414,
+     "balanceToGdp": 0.026,
+     "access": 1,
+     "defaults": 1,
+     "stability": 60.5,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.117,
+     "realGdpIndex": 1.006
+    }
+   },
+   "events": {
+    "sovereign-default": {
+     "ita": [
+      10
+     ]
+    },
+    "regime-change": {
+     "bloc-mea": [
+      99,
+      125,
+      151
+     ]
+    },
+    "market-access-restored": {
+     "ita": [
+      108
+     ]
+    }
+   },
+   "audit": {
+    "worstMoneyError": 2.473825588822365e-10,
+    "worstBondError": 1.3057901324766795e-15
+   },
+   "finalHash": "0d00446aad81545a"
+  },
+  "repeat-ita": {
+   "country": "ita",
+   "path": {
+    "1": {
+     "debtToGdp": 1.341,
+     "marketRate": 0.0473,
+     "averageRate": 0.0272,
+     "balanceToGdp": 0.02,
+     "access": 1,
+     "defaults": 0,
+     "stability": 69.6,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.055,
+     "realGdpIndex": 0.999
+    },
+    "13": {
+     "debtToGdp": 0.615,
+     "marketRate": 0.087,
+     "averageRate": 0.0282,
+     "balanceToGdp": 0.047,
+     "access": 0,
+     "defaults": 1,
+     "stability": 52.4,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.018,
+     "realGdpIndex": 0.912
+    },
+    "26": {
+     "debtToGdp": 0.63,
+     "marketRate": 0.1025,
+     "averageRate": 0.0282,
+     "balanceToGdp": 0.041,
+     "access": 0,
+     "defaults": 1,
+     "stability": 57.7,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.07,
+     "realGdpIndex": 0.901
+    },
+    "52": {
+     "debtToGdp": 0.622,
+     "marketRate": 0.0962,
+     "averageRate": 0.0282,
+     "balanceToGdp": 0.021,
+     "access": 0,
+     "defaults": 1,
+     "stability": 55.5,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.105,
+     "realGdpIndex": 0.919
+    },
+    "104": {
+     "debtToGdp": 0.617,
+     "marketRate": 0.1667,
+     "averageRate": 0.0282,
+     "balanceToGdp": 0.015,
+     "access": 0,
+     "defaults": 2,
+     "stability": 48.6,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.148,
+     "realGdpIndex": 0.885
+    },
+    "156": {
+     "debtToGdp": 0.639,
+     "marketRate": 0.265,
+     "averageRate": 0.0282,
+     "balanceToGdp": 0.004,
+     "access": 0,
+     "defaults": 3,
+     "stability": 40.3,
+     "unrestTier": 0,
+     "regime": 0,
+     "unemployment": 0.185,
+     "realGdpIndex": 0.841
+    }
+   },
+   "events": {
+    "sovereign-default": {
+     "ita": [
+      10,
+      60,
+      110
+     ]
+    },
+    "regime-change": {
+     "bloc-mea": [
+      100,
+      126,
+      152
+     ]
+    }
+   },
+   "audit": {
+    "worstMoneyError": 2.473825588822365e-10,
+    "worstBondError": 1.4405314411881402e-15
+   },
+   "finalHash": "ec731883212d0a1c"
+  }
+ }
+}

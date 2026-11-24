@@ -375,7 +375,9 @@ export function createEconomy(spec: WorldSpec): EconomyState {
     const over = Math.max(0, rule.debtToGdp - p.spreadQuadThreshold);
     country.marketRate[c] = Math.min(p.maxRate, p.baseRate + p.spreadLinear * Math.max(0, rule.debtToGdp - p.spreadDebtThreshold)
       + p.spreadQuad * over * over + p.spreadInstability * Math.max(0, (50 - rule.stability) / 50));
-    country.averageRate[c] = country.marketRate[c];
+    // ECON-08: an optional starting average rate on the outstanding stock (old bonds carry old rates).
+    const effective = spec.countries[c].effectiveRate;
+    country.averageRate[c] = effective === undefined ? country.marketRate[c] : fraction(effective, 0, p.maxRate, 'effectiveRate');
     const given = spec.countries[c].taxIncome;
     if (given !== undefined) country.taxIncome[c] = fraction(given, 0, p.maxTaxRate, 'taxIncome');
     else {
@@ -486,8 +488,9 @@ export function createEconomy(spec: WorldSpec): EconomyState {
     history: createHistory(C, G, p.historyWeekly, p.historyQuarterly, p.historyYearly),
   };
 
+  if (spec.holdStartingDebt !== undefined && typeof spec.holdStartingDebt !== 'boolean') fail('holdStartingDebt must be true or false.');
   settle(state, spec.warmupTurns === undefined ? DEFAULT_WARMUP_TURNS : spec.warmupTurns,
-    spec.countries.map(entry => entry.taxIncome === undefined));
+    spec.countries.map(entry => entry.taxIncome === undefined), spec.holdStartingDebt === true);
   setLaneCapacities(state);
   return state;
 }
@@ -529,9 +532,65 @@ function setLaneCapacities(state: EconomyState): void {
  *
  * The result becomes week 0 and the baseline for "progress since the start".
  */
-function settle(state: EconomyState, turns: number, balanceBudget: boolean[]): void {
+/**
+ * ECON-08 (opt-in, `holdStartingDebt`): each state's starting balance sheet, as multiples of its GDP. The
+ * builder sets debt and cash against the GDP it starts from, but settling prices changes nominal GDP (by a
+ * factor of 2-3 in the European scenario), so without this the starting debt ratio is not the one requested.
+ */
+interface StartingBalanceSheet { debtRatio: number[]; cashWeeks: number[]; averageRate: number[] }
+
+function startingBalanceSheet(state: EconomyState): StartingBalanceSheet {
+  const k = state.country;
+  return {
+    debtRatio: k.debt.map((debt, c) => (k.gdp[c] > 0 ? (debt + k.cbStateLoans[c]) / (52 * k.gdp[c]) : 0)),
+    cashWeeks: k.treasury.map((cash, c) => (k.gdp[c] > 0 ? cash / k.gdp[c] : 0)),
+    averageRate: k.averageRate.slice(),
+  };
+}
+
+/**
+ * After a settling week: scale every holder's bonds by one factor so public debt = requested ratio x yearly GDP
+ * (bonds stay equal to the debt held against them), bring the treasury back to its starting cash buffer by a
+ * transfer between the treasury and the country's own households (money moves, none is created or destroyed),
+ * and keep the stock's average rate. Only the builder calls this, before the first game week.
+ */
+function holdBalanceSheet(state: EconomyState, sheet: StartingBalanceSheet): void {
+  const C = state.countries.length;
+  const Z = state.zones.length;
+  const k = state.country;
+  for (let c = 0; c < C; c++) {
+    const yearly = 52 * k.gdp[c];
+    const bondsWanted = Math.max(0, sheet.debtRatio[c] * yearly - k.cbStateLoans[c]);
+    if (k.debt[c] > EPSILON) {
+      const factor = bondsWanted / k.debt[c];
+      let total = 0;
+      for (let z = 0; z < Z; z++) {
+        const value = state.bonds[z * C + c] * factor;
+        state.bonds[z * C + c] = value;
+        total += value;
+      }
+      k.debt[c] = total;
+    }
+    k.averageRate[c] = sheet.averageRate[c];
+    // Treasury surplus or shortfall against the starting buffer, settled with the country's households in
+    // proportion to their cash (a shortfall can take at most what they hold).
+    let excess = k.treasury[c] - sheet.cashWeeks[c] * k.gdp[c];
+    let held = 0;
+    for (let z = 0; z < Z; z++) if (state.zone.owner[z] === c) held += state.zone.householdMoney[z];
+    if (!(held > EPSILON)) continue;
+    if (excess < 0) excess = -Math.min(-excess, held * 0.5);
+    for (let z = 0; z < Z; z++) {
+      if (state.zone.owner[z] !== c) continue;
+      state.zone.householdMoney[z] += excess * state.zone.householdMoney[z] / held;
+    }
+    k.treasury[c] -= excess;
+  }
+}
+
+function settle(state: EconomyState, turns: number, balanceBudget: boolean[], holdDebt = false): void {
   if (!Number.isInteger(turns) || turns < 0) fail('warmupTurns must be a whole number of weeks.');
   const C = state.countries.length;
+  const hold = holdDebt ? startingBalanceSheet(state) : null;
   const zg = state.zoneGood;
   const zone = state.zone;
   const country = state.country;
@@ -553,6 +612,7 @@ function settle(state: EconomyState, turns: number, balanceBudget: boolean[]): v
       // ECON-07 (A): while the world is being built the spending base follows GDP exactly, as before, so the
       // starting economy is calibrated as it always was; the slow-falling base applies from the first real week.
       for (let c = 0; c < country.gdp.length; c++) country.spendingBase[c] = country.gdp[c];
+      if (hold) holdBalanceSheet(state, hold);
       state.turn = 0;
     }
     return report;

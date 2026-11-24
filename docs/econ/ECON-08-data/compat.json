@@ -1,0 +1,6 @@
+{
+ "note": "economy-engine/sim/econ08/compat.ts run against the engine before ECON-08 (commit 28ead75, git worktree) and after; identical hashes mean identical play.",
+ "before": {"world03-package-save, 26 weeks":"316f4d3c35b23218","v5 fixture save, 26 weeks":"12e5fb54c70cf5a4","fictional world built and played 26 weeks":"ccdb2e7f9d719117"},
+ "after": {"world03-package-save, 26 weeks":"316f4d3c35b23218","v5 fixture save, 26 weeks":"12e5fb54c70cf5a4","fictional world built and played 26 weeks":"ccdb2e7f9d719117"},
+ "identical": true
+}
