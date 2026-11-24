@@ -1,0 +1,3789 @@
+{
+ "engine": "economy-engine with ECON-08 and WORLD-03-FINAL opt-in inputs; 2023 spread fit; budget mapping draft.2",
+ "seed": 2401,
+ "provinceTechnologyMean": 1.5,
+ "tolerances": {
+  "outputShareRelative": 0.03,
+  "fiscalPoints": 0.01
+ },
+ "rounds": [
+  {
+   "round": 1,
+   "seconds": 10.036159611,
+   "worstZoneShareRelative": 0.22003137151269914,
+   "worstTaxSpendPoints": 0.07766545797002901,
+   "worstFiscalPoints": 0.07766545797002901,
+   "failing": [
+    "nor.taxCorporate -7.8",
+    "bel.netLending -7.2",
+    "nld.netLending -7.0",
+    "grc.netLending -6.7",
+    "aut.netLending -6.2",
+    "ita.netLending -6.1",
+    "fra.netLending -5.9",
+    "grc.taxConsumption -5.7"
+   ]
+  },
+  {
+   "round": 2,
+   "seconds": 10.281123425,
+   "worstZoneShareRelative": 0.07847508726370134,
+   "worstTaxSpendPoints": 0.05457857702002849,
+   "worstFiscalPoints": 0.05457857702002849,
+   "failing": [
+    "nor.taxCorporate -5.5",
+    "nld.netLending -3.2",
+    "irl.netLending -3.1",
+    "nld.taxCorporate -3.0",
+    "irl.taxCorporate -2.9",
+    "ita.netLending -2.9",
+    "bgr.netLending -2.8",
+    "cze.netLending -2.8"
+   ]
+  },
+  {
+   "round": 3,
+   "seconds": 10.833836636,
+   "worstZoneShareRelative": 0.033900457063101186,
+   "worstTaxSpendPoints": 0.022777430026712082,
+   "worstFiscalPoints": 0.022777430026712082,
+   "failing": [
+    "irl.netLending -2.3",
+    "nld.netLending -2.2",
+    "bgr.netLending -2.1",
+    "irl.taxCorporate -2.0",
+    "nld.taxCorporate -2.0",
+    "cze.netLending -1.9",
+    "grc.netLending -1.8",
+    "tur.netLending -1.7"
+   ]
+  },
+  {
+   "round": 4,
+   "seconds": 11.148348942,
+   "worstZoneShareRelative": 0.01680130939822666,
+   "worstTaxSpendPoints": 0.01414318220226695,
+   "worstFiscalPoints": 0.01414318220226695,
+   "failing": [
+    "bgr.netLending -1.4",
+    "grc.netLending -1.2",
+    "nld.netLending -1.0"
+   ]
+  },
+  {
+   "round": 5,
+   "seconds": 11.262783444,
+   "worstZoneShareRelative": 0.010825306060800899,
+   "worstTaxSpendPoints": 0.009902716443113722,
+   "worstFiscalPoints": 0.009902716443113722,
+   "failing": []
+  },
+  {
+   "round": 6,
+   "seconds": 10.846132591000002,
+   "worstZoneShareRelative": 0.008075961053284453,
+   "worstTaxSpendPoints": 0.008192446458371958,
+   "worstFiscalPoints": 0.008192446458371958,
+   "failing": []
+  },
+  {
+   "round": 7,
+   "seconds": 10.184647726000003,
+   "worstZoneShareRelative": 0.0074010975044651595,
+   "worstTaxSpendPoints": 0.007487628660831084,
+   "worstFiscalPoints": 0.007487628660831084,
+   "failing": []
+  },
+  {
+   "round": 8,
+   "seconds": 10.741553118000011,
+   "worstZoneShareRelative": 0.006132674564043539,
+   "worstTaxSpendPoints": 0.00719452986532956,
+   "worstFiscalPoints": 0.00719452986532956,
+   "failing": []
+  },
+  {
+   "round": 9,
+   "seconds": 12.488768698999992,
+   "worstZoneShareRelative": 0.00526217265589346,
+   "worstTaxSpendPoints": 0.007073434006954874,
+   "worstFiscalPoints": 0.007073434006954874,
+   "failing": []
+  }
+ ],
+ "met": true,
+ "targetsMissed": 0,
+ "week1StateHash": "e0f18a0898bae961",
+ "mode": "final",
+ "ownershipScale": 0.05426190644932831,
+ "ownershipRounds": [
+  {
+   "round": 1,
+   "scale": 1,
+   "target": 0.0018616502597904139,
+   "achieved": 0.03511219684536385
+  },
+  {
+   "round": 2,
+   "scale": 0.3333333333333333,
+   "target": 0.00184235564528663,
+   "achieved": 0.011394574099683844
+  },
+  {
+   "round": 3,
+   "scale": 0.1111111111111111,
+   "target": 0.001839046607976549,
+   "achieved": 0.0037962522053471702
+  },
+  {
+   "round": 4,
+   "scale": 0.05787238777313515,
+   "target": 0.001839067568777969,
+   "achieved": 0.001972933135720497
+  },
+  {
+   "round": 5,
+   "scale": 0.05432605743616255,
+   "target": 0.0018398222752213835,
+   "achieved": 0.001847111880952235
+  },
+  {
+   "round": 6,
+   "scale": 0.05413306186264028,
+   "target": 0.001840333930469948,
+   "achieved": 0.0018377715920765729
+  },
+  {
+   "round": 7,
+   "scale": 0.05420098532098453,
+   "target": 0.0018405159502151273,
+   "achieved": 0.00183847603496627
+  },
+  {
+   "round": 8,
+   "scale": 0.05425510805882262,
+   "target": 0.0018407000704874167,
+   "achieved": 0.001840443829525822
+  },
+  {
+   "round": 9,
+   "scale": 0.05426190644932831,
+   "target": 0.001840705144775963,
+   "achieved": 0.0018412840682331822
+  }
+ ],
+ "maxStartingDebt": 2,
+ "nonComparableBalance": [
+  "nor"
+ ],
+ "zones": [
+  {
+   "id": "fra-idf",
+   "kind": "province",
+   "country": "fra",
+   "technology": 3.055626038244533,
+   "targetShare": 0.006587732028185076,
+   "achievedShare": 0.006586691482689805,
+   "relativeError": -0.00015795200697577005
+  },
+  {
+   "id": "fra-ne",
+   "kind": "province",
+   "country": "fra",
+   "technology": 1.1739155190611286,
+   "targetShare": 0.0030574140575539963,
+   "achievedShare": 0.003057441637192819,
+   "relativeError": 0.000009020576965834692
+  },
+  {
+   "id": "fra-oue",
+   "kind": "province",
+   "country": "fra",
+   "technology": 1.2597372151652495,
+   "targetShare": 0.003024496611782641,
+   "achievedShare": 0.0030245282054284593,
+   "relativeError": 0.000010445918734225401
+  },
+  {
+   "id": "fra-cen",
+   "kind": "province",
+   "country": "fra",
+   "technology": 1.2016800289848868,
+   "targetShare": 0.0014522441583853382,
+   "achievedShare": 0.0014522679938846865,
+   "relativeError": 0.000016412873283577767
+  },
+  {
+   "id": "fra-naq",
+   "kind": "province",
+   "country": "fra",
+   "technology": 1.248350106923911,
+   "targetShare": 0.0017325543353582799,
+   "achievedShare": 0.0017325730004623626,
+   "relativeError": 0.00001077317097752939
+  },
+  {
+   "id": "fra-occ",
+   "kind": "province",
+   "country": "fra",
+   "technology": 1.1968698456260713,
+   "targetShare": 0.0017091517223704344,
+   "achievedShare": 0.0017091697557663362,
+   "relativeError": 0.000010551079617782122
+  },
+  {
+   "id": "fra-ara",
+   "kind": "province",
+   "country": "fra",
+   "technology": 1.409807356501799,
+   "targetShare": 0.0026727539582034254,
+   "achievedShare": 0.002672788591975791,
+   "relativeError": 0.000012958084772307643
+  },
+  {
+   "id": "fra-se",
+   "kind": "province",
+   "country": "fra",
+   "technology": 1.3460825593259638,
+   "targetShare": 0.001669535933423112,
+   "achievedShare": 0.0016695521761660957,
+   "relativeError": 0.000009728896909866336
+  },
+  {
+   "id": "fra-cor",
+   "kind": "province",
+   "country": "fra",
+   "technology": 1.157180633670206,
+   "targetShare": 0.0001010184478654077,
+   "achievedShare": 0.0001010194325099884,
+   "relativeError": 0.0000097471759021861
+  },
+  {
+   "id": "deu-nor",
+   "kind": "province",
+   "country": "deu",
+   "technology": 1.6990308369829559,
+   "targetShare": 0.005298738194146533,
+   "achievedShare": 0.005298835428196723,
+   "relativeError": 0.000018350416009838
+  },
+  {
+   "id": "deu-nrw",
+   "kind": "province",
+   "country": "deu",
+   "technology": 1.5549852242828266,
+   "targetShare": 0.0065787279063845554,
+   "achievedShare": 0.006579186980713692,
+   "relativeError": 0.00006978162582016445
+  },
+  {
+   "id": "deu-mit",
+   "kind": "province",
+   "country": "deu",
+   "technology": 1.6905506651000257,
+   "targetShare": 0.004480578850894433,
+   "achievedShare": 0.004480649500647927,
+   "relativeError": 0.000015767996914162197
+  },
+  {
+   "id": "deu-bw",
+   "kind": "province",
+   "country": "deu",
+   "technology": 2.1166993925113884,
+   "targetShare": 0.0049248337904769296,
+   "achievedShare": 0.004898918464769862,
+   "relativeError": -0.00526217265589346
+  },
+  {
+   "id": "deu-by",
+   "kind": "province",
+   "country": "deu",
+   "technology": 2.3203699025925917,
+   "targetShare": 0.006022793532150263,
+   "achievedShare": 0.0060199649810368135,
+   "relativeError": -0.00046964105582414373
+  },
+  {
+   "id": "deu-no",
+   "kind": "province",
+   "country": "deu",
+   "technology": 1.463882802177794,
+   "targetShare": 0.0027229887756423017,
+   "achievedShare": 0.0027230611580082186,
+   "relativeError": 0.000026581955300253313
+  },
+  {
+   "id": "deu-mo",
+   "kind": "province",
+   "country": "deu",
+   "technology": 1.2431926104655604,
+   "targetShare": 0.0024097259582103606,
+   "achievedShare": 0.002409820351626434,
+   "relativeError": 0.000039171846803576216
+  },
+  {
+   "id": "gbr-sco",
+   "kind": "province",
+   "country": "gbr",
+   "technology": 1.3463277791260662,
+   "targetShare": 0.001706565180457597,
+   "achievedShare": 0.001706599273569453,
+   "relativeError": 0.000019977620688838016
+  },
+  {
+   "id": "gbr-nir",
+   "kind": "province",
+   "country": "gbr",
+   "technology": 1.219708204978742,
+   "targetShare": 0.0005220754424088736,
+   "achievedShare": 0.0005220867146967482,
+   "relativeError": 0.000021591300718215578
+  },
+  {
+   "id": "gbr-wls",
+   "kind": "province",
+   "country": "gbr",
+   "technology": 1.0510649699563426,
+   "targetShare": 0.0007679638762114824,
+   "achievedShare": 0.0007679833492735851,
+   "relativeError": 0.000025356742297200086
+  },
+  {
+   "id": "gbr-nth",
+   "kind": "province",
+   "country": "gbr",
+   "technology": 1.1859869438687707,
+   "targetShare": 0.004356831425276775,
+   "achievedShare": 0.004356923697662226,
+   "relativeError": 0.00002117878257035244
+  },
+  {
+   "id": "gbr-mid",
+   "kind": "province",
+   "country": "gbr",
+   "technology": 1.1312228031264462,
+   "targetShare": 0.00288550972479788,
+   "achievedShare": 0.002885576205618542,
+   "relativeError": 0.00002303954136451125
+  },
+  {
+   "id": "gbr-lon",
+   "kind": "province",
+   "country": "gbr",
+   "technology": 3.643178077637732,
+   "targetShare": 0.005336830782224916,
+   "achievedShare": 0.005337122462180321,
+   "relativeError": 0.000054654150994704054
+  },
+  {
+   "id": "gbr-se",
+   "kind": "province",
+   "country": "gbr",
+   "technology": 1.369116708247725,
+   "targetShare": 0.0051502759211026145,
+   "achievedShare": 0.005150394332911933,
+   "relativeError": 0.000022991352528034525
+  },
+  {
+   "id": "gbr-sw",
+   "kind": "province",
+   "country": "gbr",
+   "technology": 1.2764390063696445,
+   "targetShare": 0.0017248279577694917,
+   "achievedShare": 0.0017248673073084286,
+   "relativeError": 0.000022813602226001706
+  },
+  {
+   "id": "ita-no",
+   "kind": "province",
+   "country": "ita",
+   "technology": 2.169715063390707,
+   "targetShare": 0.006396464337038895,
+   "achievedShare": 0.006392565261992708,
+   "relativeError": -0.0006095672297599108
+  },
+  {
+   "id": "ita-ne",
+   "kind": "province",
+   "country": "ita",
+   "technology": 1.917506792113446,
+   "targetShare": 0.004434850774023843,
+   "achievedShare": 0.004453081139850756,
+   "relativeError": 0.004110705580826712
+  },
+  {
+   "id": "ita-cen",
+   "kind": "province",
+   "country": "ita",
+   "technology": 1.5743215940977295,
+   "targetShare": 0.004095824268953451,
+   "achievedShare": 0.004096914677448925,
+   "relativeError": 0.0002662244334405983
+  },
+  {
+   "id": "ita-sud",
+   "kind": "province",
+   "country": "ita",
+   "technology": 0.9966765584261972,
+   "targetShare": 0.0029250418618081823,
+   "achievedShare": 0.0029268289447036107,
+   "relativeError": 0.0006109597673666922
+  },
+  {
+   "id": "ita-sic",
+   "kind": "province",
+   "country": "ita",
+   "technology": 0.9263091222417937,
+   "targetShare": 0.000959155228360399,
+   "achievedShare": 0.0009595003334682701,
+   "relativeError": 0.0003598011017058589
+  },
+  {
+   "id": "ita-sar",
+   "kind": "province",
+   "country": "ita",
+   "technology": 1.0874934087123291,
+   "targetShare": 0.0003744655662228701,
+   "achievedShare": 0.00037455487871451893,
+   "relativeError": 0.00023850655361901119
+  },
+  {
+   "id": "pol-maz",
+   "kind": "province",
+   "country": "pol",
+   "technology": 2.3003370543601442,
+   "targetShare": 0.0022765238522878934,
+   "achievedShare": 0.00227660053786822,
+   "relativeError": 0.00003368538407788613
+  },
+  {
+   "id": "pol-pol",
+   "kind": "province",
+   "country": "pol",
+   "technology": 1.0922910752433541,
+   "targetShare": 0.001909694363865662,
+   "achievedShare": 0.0019097258946151464,
+   "relativeError": 0.000016510887857812406
+  },
+  {
+   "id": "pol-pza",
+   "kind": "province",
+   "country": "pol",
+   "technology": 1.1186685095140845,
+   "targetShare": 0.0014816986734900758,
+   "achievedShare": 0.0014817184392543208,
+   "relativeError": 0.000013339935169387473
+  },
+  {
+   "id": "pol-pdz",
+   "kind": "province",
+   "country": "pol",
+   "technology": 1.1702204825259526,
+   "targetShare": 0.0009813210621110375,
+   "achievedShare": 0.00098133841478145,
+   "relativeError": 0.000017682969501553458
+  },
+  {
+   "id": "pol-pn",
+   "kind": "province",
+   "country": "pol",
+   "technology": 0.9917687116155675,
+   "targetShare": 0.0012139781241898464,
+   "achievedShare": 0.0012139998523197154,
+   "relativeError": 0.000017898287815842906
+  },
+  {
+   "id": "pol-cen",
+   "kind": "province",
+   "country": "pol",
+   "technology": 1.0227817402245383,
+   "targetShare": 0.0007966546051396919,
+   "achievedShare": 0.000796666845888143,
+   "relativeError": 0.000015365188843707855
+  },
+  {
+   "id": "pol-wsc",
+   "kind": "province",
+   "country": "pol",
+   "technology": 0.8358241438796536,
+   "targetShare": 0.0009250033058616987,
+   "achievedShare": 0.0009250203204793687,
+   "relativeError": 0.000018394115526065846
+  },
+  {
+   "id": "tur-ist",
+   "kind": "province",
+   "country": "tur",
+   "technology": 2.0627994488220525,
+   "targetShare": 0.005880562805627784,
+   "achievedShare": 0.005880513132414347,
+   "relativeError": -0.000008447016906165672
+  },
+  {
+   "id": "tur-mar",
+   "kind": "province",
+   "country": "tur",
+   "technology": 1.2645894687179884,
+   "targetShare": 0.003237272839016067,
+   "achievedShare": 0.003237173489802123,
+   "relativeError": -0.00003068916921256104
+  },
+  {
+   "id": "tur-ege",
+   "kind": "province",
+   "country": "tur",
+   "technology": 1.0753935641104355,
+   "targetShare": 0.0024308087001249875,
+   "achievedShare": 0.002430746427306374,
+   "relativeError": -0.000025618148647543748
+  },
+  {
+   "id": "tur-ban",
+   "kind": "province",
+   "country": "tur",
+   "technology": 1.4528861460082152,
+   "targetShare": 0.0025246017630047818,
+   "achievedShare": 0.0025247347728389598,
+   "relativeError": 0.00005268547147796454
+  },
+  {
+   "id": "tur-akd",
+   "kind": "province",
+   "country": "tur",
+   "technology": 0.9357639237962018,
+   "targetShare": 0.002115253736729174,
+   "achievedShare": 0.002115183544112082,
+   "relativeError": -0.00003318401753571454
+  },
+  {
+   "id": "tur-oan",
+   "kind": "province",
+   "country": "tur",
+   "technology": 0.8543518406799496,
+   "targetShare": 0.0007252143298143482,
+   "achievedShare": 0.0007252025351977666,
+   "relativeError": -0.000016263628691115528
+  },
+  {
+   "id": "tur-kar",
+   "kind": "province",
+   "country": "tur",
+   "technology": 0.7179213125626507,
+   "targetShare": 0.0010966637658531364,
+   "achievedShare": 0.0010966388093013968,
+   "relativeError": -0.000022756794303524508
+  },
+  {
+   "id": "tur-dog",
+   "kind": "province",
+   "country": "tur",
+   "technology": 0.5957189246916139,
+   "targetShare": 0.0007255623932695978,
+   "achievedShare": 0.0007255621083833515,
+   "relativeError": -3.926419684940896e-7
+  },
+  {
+   "id": "tur-gda",
+   "kind": "province",
+   "country": "tur",
+   "technology": 0.5943240106810487,
+   "targetShare": 0.001129464881658008,
+   "achievedShare": 0.0011294690653465723,
+   "relativeError": 0.0000037041333751375305
+  },
+  {
+   "id": "irl-all",
+   "kind": "neighbour",
+   "country": "irl",
+   "technology": 3.215258467414565,
+   "targetShare": 0.0038201203114072504,
+   "achievedShare": 0.0038202072315631588,
+   "relativeError": 0.000022753250898510657
+  },
+  {
+   "id": "esp-all",
+   "kind": "neighbour",
+   "country": "esp",
+   "technology": 1.3534767441674496,
+   "targetShare": 0.014505808986724234,
+   "achievedShare": 0.01450592762024773,
+   "relativeError": 0.000008178345902942752
+  },
+  {
+   "id": "nld-all",
+   "kind": "neighbour",
+   "country": "nld",
+   "technology": 1.8958713760396784,
+   "targetShare": 0.007745999385738706,
+   "achievedShare": 0.007746198969883241,
+   "relativeError": 0.000025766093514345556
+  },
+  {
+   "id": "bel-all",
+   "kind": "neighbour",
+   "country": "bel",
+   "technology": 1.7094454966207058,
+   "targetShare": 0.004611331529460492,
+   "achievedShare": 0.004611434712316239,
+   "relativeError": 0.000022375935256002677
+  },
+  {
+   "id": "che-all",
+   "kind": "neighbour",
+   "country": "che",
+   "technology": 2.172029069081721,
+   "targetShare": 0.004500523449082248,
+   "achievedShare": 0.0045006260778565,
+   "relativeError": 0.000022803741700938573
+  },
+  {
+   "id": "aut-all",
+   "kind": "neighbour",
+   "country": "aut",
+   "technology": 1.7345665498786664,
+   "targetShare": 0.0036549863892997637,
+   "achievedShare": 0.0036550752403280424,
+   "relativeError": 0.00002430953738685737
+  },
+  {
+   "id": "cze-all",
+   "kind": "neighbour",
+   "country": "cze",
+   "technology": 1.321372852948999,
+   "targetShare": 0.0032827089279977907,
+   "achievedShare": 0.003282778620984916,
+   "relativeError": 0.000021230327955867878
+  },
+  {
+   "id": "nor-all",
+   "kind": "neighbour",
+   "country": "nor",
+   "technology": 2.349223830016302,
+   "targetShare": 0.0032060235152468635,
+   "achievedShare": 0.003206080841348066,
+   "relativeError": 0.000017880748824694592
+  },
+  {
+   "id": "grc-all",
+   "kind": "neighbour",
+   "country": "grc",
+   "technology": 1.0556580115817102,
+   "targetShare": 0.0023903324091220433,
+   "achievedShare": 0.0023903607489208227,
+   "relativeError": 0.000011856007420263381
+  },
+  {
+   "id": "bgr-all",
+   "kind": "neighbour",
+   "country": "bgr",
+   "technology": 0.9431754512326991,
+   "targetShare": 0.0013491470075774844,
+   "achievedShare": 0.0013491688516353974,
+   "relativeError": 0.00001619101387051458
+  },
+  {
+   "id": "bloc-eur-all",
+   "kind": "bloc",
+   "country": "bloc-eur",
+   "technology": 1.2212923675197005,
+   "targetShare": 0.02643703050763549,
+   "achievedShare": 0.026437500862015587,
+   "relativeError": 0.000017791498177599507
+  },
+  {
+   "id": "bloc-eec-all",
+   "kind": "bloc",
+   "country": "bloc-eec",
+   "technology": 0.7291219095585649,
+   "targetShare": 0.049999501319693766,
+   "achievedShare": 0.049999738901268034,
+   "relativeError": 0.000004751678876813159
+  },
+  {
+   "id": "bloc-mea-all",
+   "kind": "bloc",
+   "country": "bloc-mea",
+   "technology": 0.2284504150867505,
+   "targetShare": 0.0945054974819399,
+   "achievedShare": 0.09450641498713408,
+   "relativeError": 0.000009708484888459878
+  },
+  {
+   "id": "bloc-ame-all",
+   "kind": "bloc",
+   "country": "bloc-ame",
+   "technology": 1.0501379972544345,
+   "targetShare": 0.23737590411328544,
+   "achievedShare": 0.23737842531655692,
+   "relativeError": 0.000010621142364497516
+  },
+  {
+   "id": "bloc-apa-all",
+   "kind": "bloc",
+   "country": "bloc-apa",
+   "technology": 0.4484382662425955,
+   "targetShare": 0.41708283485605446,
+   "achievedShare": 0.41708829910755596,
+   "relativeError": 0.000013101118158997949
+  }
+ ],
+ "countries": [
+  {
+   "id": "fra",
+   "targetShare": 0.022006901253127712,
+   "achievedShare": 0.02200603227607634,
+   "relativeError": -0.00003948657020702573
+  },
+  {
+   "id": "deu",
+   "targetShare": 0.03243838700790538,
+   "achievedShare": 0.03241043686499968,
+   "relativeError": -0.0008616378767195565
+  },
+  {
+   "id": "gbr",
+   "targetShare": 0.02245088031024963,
+   "achievedShare": 0.02245155334322124,
+   "relativeError": 0.000029978021454324377
+  },
+  {
+   "id": "ita",
+   "targetShare": 0.019185802036407643,
+   "achievedShare": 0.01920344523617879,
+   "relativeError": 0.0009195966755868312
+  },
+  {
+   "id": "pol",
+   "targetShare": 0.009584873986945908,
+   "achievedShare": 0.009585070305206365,
+   "relativeError": 0.0000204820909199821
+  },
+  {
+   "id": "tur",
+   "targetShare": 0.01986540521509788,
+   "achievedShare": 0.019865223884702972,
+   "relativeError": -0.000009127948458309554
+  },
+  {
+   "id": "irl",
+   "targetShare": 0.0038201203114072504,
+   "achievedShare": 0.0038202072315631588,
+   "relativeError": 0.000022753250898510657
+  },
+  {
+   "id": "esp",
+   "targetShare": 0.014505808986724234,
+   "achievedShare": 0.01450592762024773,
+   "relativeError": 0.000008178345902942752
+  },
+  {
+   "id": "nld",
+   "targetShare": 0.007745999385738706,
+   "achievedShare": 0.007746198969883241,
+   "relativeError": 0.000025766093514345556
+  },
+  {
+   "id": "bel",
+   "targetShare": 0.004611331529460492,
+   "achievedShare": 0.004611434712316239,
+   "relativeError": 0.000022375935256002677
+  },
+  {
+   "id": "che",
+   "targetShare": 0.004500523449082248,
+   "achievedShare": 0.0045006260778565,
+   "relativeError": 0.000022803741700938573
+  },
+  {
+   "id": "aut",
+   "targetShare": 0.0036549863892997637,
+   "achievedShare": 0.0036550752403280424,
+   "relativeError": 0.00002430953738685737
+  },
+  {
+   "id": "cze",
+   "targetShare": 0.0032827089279977907,
+   "achievedShare": 0.003282778620984916,
+   "relativeError": 0.000021230327955867878
+  },
+  {
+   "id": "nor",
+   "targetShare": 0.0032060235152468635,
+   "achievedShare": 0.003206080841348066,
+   "relativeError": 0.000017880748824694592
+  },
+  {
+   "id": "grc",
+   "targetShare": 0.0023903324091220433,
+   "achievedShare": 0.0023903607489208227,
+   "relativeError": 0.000011856007420263381
+  },
+  {
+   "id": "bgr",
+   "targetShare": 0.0013491470075774844,
+   "achievedShare": 0.0013491688516353974,
+   "relativeError": 0.00001619101387051458
+  },
+  {
+   "id": "bloc-eur",
+   "targetShare": 0.02643703050763549,
+   "achievedShare": 0.026437500862015587,
+   "relativeError": 0.000017791498177599507
+  },
+  {
+   "id": "bloc-eec",
+   "targetShare": 0.049999501319693766,
+   "achievedShare": 0.049999738901268034,
+   "relativeError": 0.000004751678876813159
+  },
+  {
+   "id": "bloc-mea",
+   "targetShare": 0.0945054974819399,
+   "achievedShare": 0.09450641498713408,
+   "relativeError": 0.000009708484888459878
+  },
+  {
+   "id": "bloc-ame",
+   "targetShare": 0.23737590411328544,
+   "achievedShare": 0.23737842531655692,
+   "relativeError": 0.000010621142364497516
+  },
+  {
+   "id": "bloc-apa",
+   "targetShare": 0.41708283485605446,
+   "achievedShare": 0.41708829910755596,
+   "relativeError": 0.000013101118158997949
+  }
+ ],
+ "fiscal": [
+  {
+   "id": "fra",
+   "kind": "playable",
+   "rows": [
+    {
+     "field": "taxIncome",
+     "target": 0.25816154440511946,
+     "status": "data",
+     "input": 0.298899673250739,
+     "achieved": 0.2581540941792831
+    },
+    {
+     "field": "taxConsumption",
+     "target": 0.16584360989791053,
+     "status": "estimate",
+     "input": 0.2504215874673255,
+     "achieved": 0.1657866783624776
+    },
+    {
+     "field": "taxCorporate",
+     "target": 0.029074822649686655,
+     "status": "data",
+     "input": 0.10048974898759166,
+     "achieved": 0.02907594040180093
+    },
+    {
+     "field": "spendAdministration",
+     "target": 0.18449383490816515,
+     "status": "data",
+     "input": 0.18541872407658525,
+     "achieved": 0.18449168001971633
+    },
+    {
+     "field": "spendSocial",
+     "target": 0.24868605218724765,
+     "status": "data",
+     "input": 0.25303080101850783,
+     "achieved": 0.24868298774596295
+    },
+    {
+     "field": "spendMilitary",
+     "target": 0.018060315903613577,
+     "status": "data",
+     "input": 0.01815209883734148,
+     "achieved": 0.018060102878108848
+    },
+    {
+     "field": "spendInfrastructure",
+     "target": 0.03889052625100818,
+     "status": "data",
+     "input": 0.039074167550523904,
+     "achieved": 0.03889006426432698
+    },
+    {
+     "field": "debtToGdp",
+     "target": 1.095,
+     "status": "data",
+     "input": 1.095,
+     "achieved": 1.0946176310985034
+    },
+    {
+     "field": "tariffRevenue",
+     "target": 0.00023395928557938482,
+     "status": "data",
+     "input": 0.00039018442310623366,
+     "achieved": 0.00033494099847429515
+    },
+    {
+     "field": "netLending",
+     "target": -0.05360960007994844,
+     "status": "data",
+     "input": null,
+     "achieved": -0.05316956854797466
+    },
+    {
+     "field": "dividends",
+     "target": 0.002288425289566079,
+     "status": "reported (fitted scenario-wide)",
+     "input": null,
+     "achieved": 0.0023492875883846806
+    },
+    {
+     "field": "interest",
+     "target": 0.01884727307219666,
+     "status": "reported",
+     "input": null,
+     "achieved": 0.018745675170280144
+    }
+   ]
+  },
+  {
+   "id": "deu",
+   "kind": "playable",
+   "rows": [
+    {
+     "field": "taxIncome",
+     "target": 0.25569280810730144,
+     "status": "data",
+     "input": 0.29914394028026536,
+     "achieved": 0.25563262772460926
+    },
+    {
+     "field": "taxConsumption",
+     "target": 0.11027913502689818,
+     "status": "estimate",
+     "input": 0.16092407102456396,
+     "achieved": 0.11027323454849879
+    },
+    {
+     "field": "taxCorporate",
+     "target": 0.02956264850420571,
+     "status": "data",
+     "input": 0.10032469945285302,
+     "achieved": 0.029568050832321807
+    },
+    {
+     "field": "spendAdministration",
+     "target": 0.17686001884872368,
+     "status": "data",
+     "input": 0.1776789981805102,
+     "achieved": 0.17685768339372535
+    },
+    {
+     "field": "spendSocial",
+     "target": 0.1952208379456301,
+     "status": "data",
+     "input": 0.1991961552870084,
+     "achieved": 0.19521811100948844
+    },
+    {
+     "field": "spendMilitary",
+     "target": 0.01238328245118016,
+     "status": "data",
+     "input": 0.012441159108724757,
+     "achieved": 0.012383117406988284
+    },
+    {
+     "field": "spendInfrastructure",
+     "target": 0.026916541517721795,
+     "status": "data",
+     "input": 0.02703045423239825,
+     "achieved": 0.026916151402174186
+    },
+    {
+     "field": "debtToGdp",
+     "target": 0.618,
+     "status": "data",
+     "input": 0.618,
+     "achieved": 0.6177619236834421
+    },
+    {
+     "field": "tariffRevenue",
+     "target": 0,
+     "status": "data",
+     "input": 0,
+     "achieved": 0
+    },
+    {
+     "field": "netLending",
+     "target": -0.022323751507075322,
+     "status": "data",
+     "input": null,
+     "achieved": -0.022567461304391623
+    },
+    {
+     "field": "dividends",
+     "target": 0.0022505658142437128,
+     "status": "reported (fitted scenario-wide)",
+     "input": null,
+     "achieved": 0.002018406494814233
+    },
+    {
+     "field": "interest",
+     "target": 0.008728228196468566,
+     "status": "reported",
+     "input": null,
+     "achieved": 0.008684717692259362
+    }
+   ]
+  },
+  {
+   "id": "gbr",
+   "kind": "playable",
+   "rows": [
+    {
+     "field": "taxIncome",
+     "target": 0.18110593687665877,
+     "status": "data",
+     "input": 0.20865314891426404,
+     "achieved": 0.1811007288309293
+    },
+    {
+     "field": "taxConsumption",
+     "target": 0.14921618583714502,
+     "status": "estimate",
+     "input": 0.216969304962072,
+     "achieved": 0.14921333748151747
+    },
+    {
+     "field": "taxCorporate",
+     "target": 0.035507632566892114,
+     "status": "data",
+     "input": 0.11443338034247894,
+     "achieved": 0.03550793858073741
+    },
+    {
+     "field": "spendAdministration",
+     "target": 0.16899516563851238,
+     "status": "data",
+     "input": 0.1697104108971107,
+     "achieved": 0.168993414142227
+    },
+    {
+     "field": "spendSocial",
+     "target": 0.18313063041895622,
+     "status": "data",
+     "input": 0.1869767306607371,
+     "achieved": 0.18312860305135106
+    },
+    {
+     "field": "spendMilitary",
+     "target": 0.021933556628251555,
+     "status": "data",
+     "input": 0.022027780686589393,
+     "achieved": 0.021933327001790588
+    },
+    {
+     "field": "spendInfrastructure",
+     "target": 0.02537045725815722,
+     "status": "data",
+     "input": 0.025469899602119674,
+     "achieved": 0.025370185384104075
+    },
+    {
+     "field": "debtToGdp",
+     "target": 0.988,
+     "status": "data",
+     "input": 0.988,
+     "achieved": 0.9879626221509971
+    },
+    {
+     "field": "tariffRevenue",
+     "target": 0.0019131900000000002,
+     "status": "data",
+     "input": 0.002225088950970897,
+     "achieved": 0.0019133214354615658
+    },
+    {
+     "field": "netLending",
+     "target": -0.06105667705062741,
+     "status": "data",
+     "input": null,
+     "achieved": -0.06031207920498414
+    },
+    {
+     "field": "dividends",
+     "target": 0.0019888333262243325,
+     "status": "reported (fitted scenario-wide)",
+     "input": null,
+     "achieved": 0.002592207275294525
+    },
+    {
+     "field": "interest",
+     "target": 0.031358645713670176,
+     "status": "reported",
+     "input": null,
+     "achieved": 0.031214083229451656
+    }
+   ]
+  },
+  {
+   "id": "ita",
+   "kind": "playable",
+   "rows": [
+    {
+     "field": "taxIncome",
+     "target": 0.2423286484653189,
+     "status": "data",
+     "input": 0.28545323687193697,
+     "achieved": 0.2425047461849479
+    },
+    {
+     "field": "taxConsumption",
+     "target": 0.1425929543579283,
+     "status": "estimate",
+     "input": 0.2030876700334485,
+     "achieved": 0.14268264723230326
+    },
+    {
+     "field": "taxCorporate",
+     "target": 0.027343856512828144,
+     "status": "data",
+     "input": 0.10575833093835725,
+     "achieved": 0.02734794124645164
+    },
+    {
+     "field": "spendAdministration",
+     "target": 0.13748734219059383,
+     "status": "data",
+     "input": 0.137791137723839,
+     "achieved": 0.13747072019018491
+    },
+    {
+     "field": "spendSocial",
+     "target": 0.27143554032737927,
+     "status": "data",
+     "input": 0.2748619213124608,
+     "achieved": 0.2713823762327986
+    },
+    {
+     "field": "spendMilitary",
+     "target": 0.011912161246017764,
+     "status": "data",
+     "input": 0.011928328485225546,
+     "achieved": 0.011909914881065667
+    },
+    {
+     "field": "spendInfrastructure",
+     "target": 0.02855547640987733,
+     "status": "data",
+     "input": 0.02858039865358796,
+     "achieved": 0.02854997488889232
+    },
+    {
+     "field": "debtToGdp",
+     "target": 1.34,
+     "status": "data",
+     "input": 1.34,
+     "achieved": 1.340227685971868
+    },
+    {
+     "field": "tariffRevenue",
+     "target": 0,
+     "status": "data",
+     "input": 0,
+     "achieved": 0
+    },
+    {
+     "field": "netLending",
+     "target": -0.07095376850673521,
+     "status": "data",
+     "input": null,
+     "achieved": -0.07167741852672513
+    },
+    {
+     "field": "dividends",
+     "target": 0.0024839375153378473,
+     "status": "reported (fitted scenario-wide)",
+     "input": null,
+     "achieved": 0.0013488252652092618
+    },
+    {
+     "field": "interest",
+     "target": 0.03631264518428015,
+     "status": "reported",
+     "input": null,
+     "achieved": 0.03624859226269566
+    }
+   ]
+  },
+  {
+   "id": "pol",
+   "kind": "playable",
+   "rows": [
+    {
+     "field": "taxIncome",
+     "target": 0.1859789287770176,
+     "status": "data",
+     "input": 0.21269671418924302,
+     "achieved": 0.18597097417916758
+    },
+    {
+     "field": "taxConsumption",
+     "target": 0.14460684560008946,
+     "status": "estimate",
+     "input": 0.210396061895731,
+     "achieved": 0.14460384072617127
+    },
+    {
+     "field": "taxCorporate",
+     "target": 0.026641786281276406,
+     "status": "data",
+     "input": 0.09945481858040965,
+     "achieved": 0.02664304142619408
+    },
+    {
+     "field": "spendAdministration",
+     "target": 0.15073106872245096,
+     "status": "data",
+     "input": 0.15165951385234944,
+     "achieved": 0.1507293860570009
+    },
+    {
+     "field": "spendSocial",
+     "target": 0.1730717359719894,
+     "status": "data",
+     "input": 0.1772130756729248,
+     "achieved": 0.1730696892841744
+    },
+    {
+     "field": "spendMilitary",
+     "target": 0.021845304359181722,
+     "status": "data",
+     "input": 0.021982158011381262,
+     "achieved": 0.021845058878018343
+    },
+    {
+     "field": "spendInfrastructure",
+     "target": 0.044513851597265695,
+     "status": "data",
+     "input": 0.044780454540574686,
+     "achieved": 0.044513341470669696
+    },
+    {
+     "field": "debtToGdp",
+     "target": 0.495,
+     "status": "data",
+     "input": 0.495,
+     "achieved": 0.49485845741599144
+    },
+    {
+     "field": "tariffRevenue",
+     "target": 0,
+     "status": "data",
+     "input": 0,
+     "achieved": 0
+    },
+    {
+     "field": "netLending",
+     "target": -0.051955421439099765,
+     "status": "data",
+     "input": null,
+     "achieved": -0.05168553289604684
+    },
+    {
+     "field": "dividends",
+     "target": 0.0016956179796994326,
+     "status": "reported (fitted scenario-wide)",
+     "input": null,
+     "achieved": 0.0018350503759886952
+    },
+    {
+     "field": "interest",
+     "target": 0.020716932228570826,
+     "status": "reported",
+     "input": null,
+     "achieved": 0.02058096391370516
+    }
+   ]
+  },
+  {
+   "id": "tur",
+   "kind": "playable",
+   "rows": [
+    {
+     "field": "taxIncome",
+     "target": 0.08760241999999997,
+     "status": "data",
+     "input": 0.09864259219254892,
+     "achieved": 0.08756510790573006
+    },
+    {
+     "field": "taxConsumption",
+     "target": 0.10946073999999997,
+     "status": "estimate",
+     "input": 0.15044411386392056,
+     "achieved": 0.10944341057599315
+    },
+    {
+     "field": "taxCorporate",
+     "target": 0.029621279999999996,
+     "status": "data",
+     "input": 0.13326801244365882,
+     "achieved": 0.029618837978130533
+    },
+    {
+     "field": "spendAdministration",
+     "target": 0.10294375159348709,
+     "status": "estimate",
+     "input": 0.10303738694942334,
+     "achieved": 0.10294596117466225
+    },
+    {
+     "field": "spendSocial",
+     "target": 0.09516910952803666,
+     "status": "estimate",
+     "input": 0.09512929788586738,
+     "achieved": 0.09517137903677839
+    },
+    {
+     "field": "spendMilitary",
+     "target": 0.01292920340567733,
+     "status": "data",
+     "input": 0.012922018470733246,
+     "achieved": 0.0129295129968253
+    },
+    {
+     "field": "spendInfrastructure",
+     "target": 0.030760904100495298,
+     "status": "estimate",
+     "input": 0.030731045185026916,
+     "achieved": 0.030761643861619278
+    },
+    {
+     "field": "debtToGdp",
+     "target": 0.29600000000000004,
+     "status": "data",
+     "input": 0.29600000000000004,
+     "achieved": 0.2967538700708403
+    },
+    {
+     "field": "tariffRevenue",
+     "target": 0.005483900000000001,
+     "status": "data",
+     "input": 0.006176315177093452,
+     "achieved": 0.005483908882791839
+    },
+    {
+     "field": "netLending",
+     "target": -0.048311019376977446,
+     "status": "data",
+     "input": null,
+     "achieved": -0.04762390530521392
+    },
+    {
+     "field": "dividends",
+     "target": 0,
+     "status": "reported (fitted scenario-wide)",
+     "input": null,
+     "achieved": 0.0007668259597870782
+    },
+    {
+     "field": "interest",
+     "target": 0.03867639074928106,
+     "status": "reported",
+     "input": null,
+     "achieved": 0.03869349953776141
+    }
+   ]
+  },
+  {
+   "id": "irl",
+   "kind": "neighbour",
+   "rows": [
+    {
+     "field": "taxIncome",
+     "target": 0.10763947693533044,
+     "status": "data",
+     "input": 0.1369903544823224,
+     "achieved": 0.10758719570298014
+    },
+    {
+     "field": "taxConsumption",
+     "target": 0.06741594824192836,
+     "status": "estimate",
+     "input": 0.08934560844759945,
+     "achieved": 0.06741386689718314
+    },
+    {
+     "field": "taxCorporate",
+     "target": 0.046393743992325535,
+     "status": "data",
+     "input": 0.16892851132250347,
+     "achieved": 0.04639415972084095
+    },
+    {
+     "field": "spendAdministration",
+     "target": 0.10653423764795246,
+     "status": "data",
+     "input": 0.10718599341502172,
+     "achieved": 0.1065332104991536
+    },
+    {
+     "field": "spendSocial",
+     "target": 0.06996226133955154,
+     "status": "data",
+     "input": 0.07042112888622792,
+     "achieved": 0.06996155684899237
+    },
+    {
+     "field": "spendMilitary",
+     "target": 0.0021284880994761443,
+     "status": "data",
+     "input": 0.002141744722897081,
+     "achieved": 0.0021284675254440036
+    },
+    {
+     "field": "spendInfrastructure",
+     "target": 0.022816009917199218,
+     "status": "data",
+     "input": 0.022948447565648695,
+     "achieved": 0.022815781599504932
+    },
+    {
+     "field": "debtToGdp",
+     "target": 0.42100000000000004,
+     "status": "data",
+     "input": 0.42100000000000004,
+     "achieved": 0.42091160553385804
+    },
+    {
+     "field": "tariffRevenue",
+     "target": 0,
+     "status": "data",
+     "input": 0,
+     "achieved": 0
+    },
+    {
+     "field": "netLending",
+     "target": 0.014557629703363453,
+     "status": "data",
+     "input": null,
+     "achieved": 0.014776933878986697
+    },
+    {
+     "field": "dividends",
+     "target": 0.0010126879780457542,
+     "status": "reported (fitted scenario-wide)",
+     "input": null,
+     "achieved": 0.0012417790851272537
+    },
+    {
+     "field": "interest",
+     "target": 0.006463230440087236,
+     "status": "reported",
+     "input": null,
+     "achieved": 0.006421051054049949
+    }
+   ]
+  },
+  {
+   "id": "esp",
+   "kind": "neighbour",
+   "rows": [
+    {
+     "field": "taxIncome",
+     "target": 0.22146567781233023,
+     "status": "data",
+     "input": 0.2529952956814241,
+     "achieved": 0.22145807028319583
+    },
+    {
+     "field": "taxConsumption",
+     "target": 0.1180556808665775,
+     "status": "estimate",
+     "input": 0.1708057861269544,
+     "achieved": 0.11802316914346399
+    },
+    {
+     "field": "taxCorporate",
+     "target": 0.02908552360291577,
+     "status": "data",
+     "input": 0.11711738635335052,
+     "achieved": 0.029078454693457954
+    },
+    {
+     "field": "spendAdministration",
+     "target": 0.16517396177312088,
+     "status": "data",
+     "input": 0.16609325342743828,
+     "achieved": 0.16517201819163552
+    },
+    {
+     "field": "spendSocial",
+     "target": 0.1760897213550699,
+     "status": "data",
+     "input": 0.18014153840997937,
+     "achieved": 0.17608753935542837
+    },
+    {
+     "field": "spendMilitary",
+     "target": 0.009361902909688514,
+     "status": "data",
+     "input": 0.009414763950922207,
+     "achieved": 0.009361791740037755
+    },
+    {
+     "field": "spendInfrastructure",
+     "target": 0.027655975464436065,
+     "status": "data",
+     "input": 0.027802089372141923,
+     "achieved": 0.027655642021751414
+    },
+    {
+     "field": "debtToGdp",
+     "target": 1.053,
+     "status": "data",
+     "input": 1.053,
+     "achieved": 1.0526837622252154
+    },
+    {
+     "field": "tariffRevenue",
+     "target": 0.00009356556306085036,
+     "status": "data",
+     "input": 0.00039018442310623366,
+     "achieved": 0.00031518211496486326
+    },
+    {
+     "field": "netLending",
+     "target": -0.033434317308894006,
+     "status": "data",
+     "input": null,
+     "achieved": -0.03130481533742821
+    },
+    {
+     "field": "dividends",
+     "target": 0,
+     "status": "reported (fitted scenario-wide)",
+     "input": null,
+     "achieved": 0.0017155670524995005
+    },
+    {
+     "field": "interest",
+     "target": 0.02375963808840208,
+     "status": "reported",
+     "input": null,
+     "achieved": 0.02361826731615728
+    }
+   ]
+  },
+  {
+   "id": "nld",
+   "kind": "neighbour",
+   "rows": [
+    {
+     "field": "taxIncome",
+     "target": 0.21961884827921802,
+     "status": "data",
+     "input": 0.2652740049480515,
+     "achieved": 0.21953006283143292
+    },
+    {
+     "field": "taxConsumption",
+     "target": 0.12507463340357838,
+     "status": "estimate",
+     "input": 0.1958918359985402,
+     "achieved": 0.1250701841222996
+    },
+    {
+     "field": "taxCorporate",
+     "target": 0.048704306978258956,
+     "status": "data",
+     "input": 0.17208494598912524,
+     "achieved": 0.04870039989147189
+    },
+    {
+     "field": "spendAdministration",
+     "target": 0.21165033381485965,
+     "status": "data",
+     "input": 0.21278937467768577,
+     "achieved": 0.21164796163098576
+    },
+    {
+     "field": "spendSocial",
+     "target": 0.13545046198910035,
+     "status": "data",
+     "input": 0.13923565415076902,
+     "achieved": 0.1354488432143009
+    },
+    {
+     "field": "spendMilitary",
+     "target": 0.013700169407113194,
+     "status": "data",
+     "input": 0.013775100921481523,
+     "achieved": 0.013700013552926268
+    },
+    {
+     "field": "spendInfrastructure",
+     "target": 0.031255088641153075,
+     "status": "data",
+     "input": 0.03141427655525572,
+     "achieved": 0.03125472870770833
+    },
+    {
+     "field": "debtToGdp",
+     "target": 0.45899999999999996,
+     "status": "data",
+     "input": 0.45899999999999996,
+     "achieved": 0.45879499219104175
+    },
+    {
+     "field": "tariffRevenue",
+     "target": 0,
+     "status": "data",
+     "input": 0,
+     "achieved": 0
+    },
+    {
+     "field": "netLending",
+     "target": -0.0034395643218525654,
+     "status": "data",
+     "input": null,
+     "achieved": -0.003484190920701592
+    },
+    {
+     "field": "dividends",
+     "target": 0.002003555740082447,
+     "status": "reported (fitted scenario-wide)",
+     "input": null,
+     "achieved": 0.002012379182102712
+    },
+    {
+     "field": "interest",
+     "target": 0.006784854870763989,
+     "status": "reported",
+     "input": null,
+     "achieved": 0.006745669842087441
+    }
+   ]
+  },
+  {
+   "id": "bel",
+   "kind": "neighbour",
+   "rows": [
+    {
+     "field": "taxIncome",
+     "target": 0.2652198090796589,
+     "status": "data",
+     "input": 0.30910623087961364,
+     "achieved": 0.2652105814089848
+    },
+    {
+     "field": "taxConsumption",
+     "target": 0.1325736775576416,
+     "status": "estimate",
+     "input": 0.2025158926910077,
+     "achieved": 0.13257184391949067
+    },
+    {
+     "field": "taxCorporate",
+     "target": 0.038571539419598976,
+     "status": "data",
+     "input": 0.13698494994081362,
+     "achieved": 0.03857179170742265
+    },
+    {
+     "field": "spendAdministration",
+     "target": 0.20289431204877928,
+     "status": "data",
+     "input": 0.20392942025193325,
+     "achieved": 0.20289224391190638
+    },
+    {
+     "field": "spendSocial",
+     "target": 0.22172571084468384,
+     "status": "data",
+     "input": 0.2259492793437838,
+     "achieved": 0.22172330840887142
+    },
+    {
+     "field": "spendMilitary",
+     "target": 0.00939447718413056,
+     "status": "data",
+     "input": 0.009443241705831874,
+     "achieved": 0.009394380425692999
+    },
+    {
+     "field": "spendInfrastructure",
+     "target": 0.027216328636592138,
+     "status": "data",
+     "input": 0.02734642359374511,
+     "achieved": 0.02721603637480939
+    },
+    {
+     "field": "debtToGdp",
+     "target": 1.023,
+     "status": "data",
+     "input": 1.023,
+     "achieved": 1.022650473120232
+    },
+    {
+     "field": "tariffRevenue",
+     "target": 0,
+     "status": "data",
+     "input": 0,
+     "achieved": 0
+    },
+    {
+     "field": "netLending",
+     "target": -0.04115169638439796,
+     "status": "data",
+     "input": null,
+     "achieved": -0.04221989988339333
+    },
+    {
+     "field": "dividends",
+     "target": 0.003156970104532667,
+     "status": "reported (fitted scenario-wide)",
+     "input": null,
+     "achieved": 0.0019876372064604377
+    },
+    {
+     "field": "interest",
+     "target": 0.0194426980330987,
+     "status": "reported",
+     "input": null,
+     "achieved": 0.019335785004471674
+    }
+   ]
+  },
+  {
+   "id": "che",
+   "kind": "neighbour",
+   "rows": [
+    {
+     "field": "taxIncome",
+     "target": 0.14591835095562183,
+     "status": "data",
+     "input": 0.17744393638291506,
+     "achieved": 0.14588134691892254
+    },
+    {
+     "field": "taxConsumption",
+     "target": 0.08396254665305189,
+     "status": "estimate",
+     "input": 0.10785381560909044,
+     "achieved": 0.08395949335504121
+    },
+    {
+     "field": "taxCorporate",
+     "target": 0.03343795380859368,
+     "status": "data",
+     "input": 0.11748362255674781,
+     "achieved": 0.03343782726086173
+    },
+    {
+     "field": "spendAdministration",
+     "target": 0.08472064750731788,
+     "status": "data",
+     "input": 0.0851885340057174,
+     "achieved": 0.08471987141196005
+    },
+    {
+     "field": "spendSocial",
+     "target": 0.14122637318269782,
+     "status": "data",
+     "input": 0.14506896185672488,
+     "achieved": 0.14122499225345433
+    },
+    {
+     "field": "spendMilitary",
+     "target": 0.008392214817299373,
+     "status": "data",
+     "input": 0.008439509248409978,
+     "achieved": 0.008392138096400296
+    },
+    {
+     "field": "spendInfrastructure",
+     "target": 0.028586300144163832,
+     "status": "data",
+     "input": 0.02873552710599186,
+     "achieved": 0.028586022520949144
+    },
+    {
+     "field": "debtToGdp",
+     "target": 0.2600763039778237,
+     "status": "unavailable",
+     "input": 0.2600763039778237,
+     "achieved": 0.2599568025539892
+    },
+    {
+     "field": "tariffRevenue",
+     "target": 0.0014188617506471547,
+     "status": "data",
+     "input": 0.0013988731195121978,
+     "achieved": 0.0014196082989485924
+    },
+    {
+     "field": "netLending",
+     "target": 0.003354152735984065,
+     "status": "data",
+     "input": null,
+     "achieved": 0.0009407704058176372
+    },
+    {
+     "field": "dividends",
+     "target": 0.004233089400038216,
+     "status": "reported (fitted scenario-wide)",
+     "input": null,
+     "achieved": 0.0018406463022516543
+    },
+    {
+     "field": "interest",
+     "target": 0.0026911141804898597,
+     "status": "reported",
+     "input": null,
+     "achieved": 0.0026751274474442967
+    }
+   ]
+  },
+  {
+   "id": "aut",
+   "kind": "neighbour",
+   "rows": [
+    {
+     "field": "taxIncome",
+     "target": 0.24677156737189934,
+     "status": "data",
+     "input": 0.28828384194787876,
+     "achieved": 0.2467134353439925
+    },
+    {
+     "field": "taxConsumption",
+     "target": 0.14695176865222864,
+     "status": "estimate",
+     "input": 0.21315888243903686,
+     "achieved": 0.14694782537882553
+    },
+    {
+     "field": "taxCorporate",
+     "target": 0.033097607498773725,
+     "status": "data",
+     "input": 0.11780038425798815,
+     "achieved": 0.03309715999262984
+    },
+    {
+     "field": "spendAdministration",
+     "target": 0.1678401559632913,
+     "status": "data",
+     "input": 0.1687241438962546,
+     "achieved": 0.1678383464829172
+    },
+    {
+     "field": "spendSocial",
+     "target": 0.23088768300911128,
+     "status": "data",
+     "input": 0.2352009003785973,
+     "achieved": 0.2308850570408415
+    },
+    {
+     "field": "spendMilitary",
+     "target": 0.0059548938358576385,
+     "status": "data",
+     "input": 0.005986808894227497,
+     "achieved": 0.0059548294113199686
+    },
+    {
+     "field": "spendInfrastructure",
+     "target": 0.03570540007893183,
+     "status": "data",
+     "input": 0.03588222343213384,
+     "achieved": 0.035705006918210325
+    },
+    {
+     "field": "debtToGdp",
+     "target": 0.774,
+     "status": "data",
+     "input": 0.774,
+     "achieved": 0.7736608314165068
+    },
+    {
+     "field": "tariffRevenue",
+     "target": 0,
+     "status": "data",
+     "input": 0,
+     "achieved": 0
+    },
+    {
+     "field": "netLending",
+     "target": -0.025524277788358512,
+     "status": "data",
+     "input": null,
+     "achieved": -0.023520733060824868
+    },
+    {
+     "field": "dividends",
+     "target": 0,
+     "status": "reported (fitted scenario-wide)",
+     "input": null,
+     "achieved": 0.001993415697754498
+    },
+    {
+     "field": "interest",
+     "target": 0.011957088424068124,
+     "status": "reported",
+     "input": null,
+     "achieved": 0.011889329620738276
+    }
+   ]
+  },
+  {
+   "id": "cze",
+   "kind": "neighbour",
+   "rows": [
+    {
+     "field": "taxIncome",
+     "target": 0.1895650652672999,
+     "status": "data",
+     "input": 0.22099625597030198,
+     "achieved": 0.18955748278115725
+    },
+    {
+     "field": "taxConsumption",
+     "target": 0.10965546098355604,
+     "status": "estimate",
+     "input": 0.15734059154454477,
+     "achieved": 0.1096535410869927
+    },
+    {
+     "field": "taxCorporate",
+     "target": 0.04193256745897824,
+     "status": "data",
+     "input": 0.1455496450785747,
+     "achieved": 0.04193407358923883
+    },
+    {
+     "field": "spendAdministration",
+     "target": 0.14751421571859308,
+     "status": "data",
+     "input": 0.14836592177237984,
+     "achieved": 0.14751263292172653
+    },
+    {
+     "field": "spendSocial",
+     "target": 0.16542755515751031,
+     "status": "data",
+     "input": 0.1694591026575198,
+     "achieved": 0.16542567344349884
+    },
+    {
+     "field": "spendMilitary",
+     "target": 0.012204074465494855,
+     "status": "data",
+     "input": 0.012276113036176381,
+     "achieved": 0.012203942988520932
+    },
+    {
+     "field": "spendInfrastructure",
+     "target": 0.04420094638727201,
+     "status": "data",
+     "input": 0.04444772221141487,
+     "achieved": 0.04420046181870858
+    },
+    {
+     "field": "debtToGdp",
+     "target": 0.42200000000000004,
+     "status": "data",
+     "input": 0.42200000000000004,
+     "achieved": 0.42179730722258457
+    },
+    {
+     "field": "tariffRevenue",
+     "target": 0,
+     "status": "data",
+     "input": 0,
+     "achieved": 0
+    },
+    {
+     "field": "netLending",
+     "target": -0.03692255068929345,
+     "status": "data",
+     "input": null,
+     "achieved": -0.03917823660128414
+    },
+    {
+     "field": "dividends",
+     "target": 0.0041324315520738205,
+     "status": "reported (fitted scenario-wide)",
+     "input": null,
+     "achieved": 0.0018008145351092624
+    },
+    {
+     "field": "interest",
+     "target": 0.012861284222331163,
+     "status": "reported",
+     "input": null,
+     "achieved": 0.012781437421327257
+    }
+   ]
+  },
+  {
+   "id": "nor",
+   "kind": "neighbour",
+   "rows": [
+    {
+     "field": "taxIncome",
+     "target": 0.18063722824319717,
+     "status": "data",
+     "input": 0.24956894611234035,
+     "achieved": 0.18062505272109644
+    },
+    {
+     "field": "taxConsumption",
+     "target": 0.10550434590332941,
+     "status": "estimate",
+     "input": 0.15805840082430062,
+     "achieved": 0.10548961733651337
+    },
+    {
+     "field": "taxCorporate",
+     "target": 0.11610420667306204,
+     "status": "data",
+     "input": 0.28826509244770304,
+     "achieved": 0.11611078664489782
+    },
+    {
+     "field": "spendAdministration",
+     "target": 0.1678482514499383,
+     "status": "data",
+     "input": 0.16847418950613402,
+     "achieved": 0.16784504018904264
+    },
+    {
+     "field": "spendSocial",
+     "target": 0.13451140562813757,
+     "status": "data",
+     "input": 0.13805896727812758,
+     "achieved": 0.13450875925976988
+    },
+    {
+     "field": "spendMilitary",
+     "target": 0.017273903033828655,
+     "status": "data",
+     "input": 0.01733870855826417,
+     "achieved": 0.017273570300033868
+    },
+    {
+     "field": "spendInfrastructure",
+     "target": 0.0432175575663243,
+     "status": "data",
+     "input": 0.04336622964593125,
+     "achieved": 0.04321673751421336
+    },
+    {
+     "field": "debtToGdp",
+     "target": 0.42700000000000005,
+     "status": "data",
+     "input": 0.42700000000000005,
+     "achieved": 0.42686568508538414
+    },
+    {
+     "field": "tariffRevenue",
+     "target": 0.0006522295222079439,
+     "status": "data",
+     "input": 0.0007217123909319294,
+     "achieved": 0.0006575909456803491
+    },
+    {
+     "field": "netLending",
+     "target": null,
+     "status": "not comparable",
+     "input": null,
+     "achieved": 0.03315755856015345
+    },
+    {
+     "field": "dividends",
+     "target": 0.12908036956908175,
+     "status": "reported (fitted scenario-wide)",
+     "input": null,
+     "achieved": 0.0032831127974700374
+    },
+    {
+     "field": "interest",
+     "target": 0.010206072483058527,
+     "status": "reported",
+     "input": null,
+     "achieved": 0.010164494622444835
+    }
+   ]
+  },
+  {
+   "id": "grc",
+   "kind": "neighbour",
+   "rows": [
+    {
+     "field": "taxIncome",
+     "target": 0.1890272485920265,
+     "status": "data",
+     "input": 0.22134259169979276,
+     "achieved": 0.18886437915817958
+    },
+    {
+     "field": "taxConsumption",
+     "target": 0.18697888317429992,
+     "status": "estimate",
+     "input": 0.27305040779091416,
+     "achieved": 0.1869578323738862
+    },
+    {
+     "field": "taxCorporate",
+     "target": 0.02704642147006876,
+     "status": "data",
+     "input": 0.11789097173222907,
+     "achieved": 0.027046869130200955
+    },
+    {
+     "field": "spendAdministration",
+     "target": 0.14163935883052112,
+     "status": "data",
+     "input": 0.1424141972224845,
+     "achieved": 0.14163883486155393
+    },
+    {
+     "field": "spendSocial",
+     "target": 0.18686780045099594,
+     "status": "data",
+     "input": 0.1909519525355083,
+     "achieved": 0.18686706054319985
+    },
+    {
+     "field": "spendMilitary",
+     "target": 0.022460926652077804,
+     "status": "data",
+     "input": 0.022584101942398876,
+     "achieved": 0.022460863192199754
+    },
+    {
+     "field": "spendInfrastructure",
+     "target": 0.036315163902558234,
+     "status": "data",
+     "input": 0.03649984394696091,
+     "achieved": 0.0363150558885106
+    },
+    {
+     "field": "debtToGdp",
+     "target": 1.64,
+     "status": "engine-limit",
+     "input": 1.64,
+     "achieved": 1.6396297259256678
+    },
+    {
+     "field": "tariffRevenue",
+     "target": 0,
+     "status": "data",
+     "input": 0,
+     "achieved": 0
+    },
+    {
+     "field": "netLending",
+     "target": -0.01477400219943792,
+     "status": "data",
+     "input": null,
+     "achieved": -0.016491892097128702
+    },
+    {
+     "field": "dividends",
+     "target": 0.003279161991935394,
+     "status": "reported (fitted scenario-wide)",
+     "input": null,
+     "achieved": 0.0015480800383112774
+    },
+    {
+     "field": "interest",
+     "target": 0.033822467591615474,
+     "status": "reported",
+     "input": null,
+     "achieved": 0.03362723831224246
+    }
+   ]
+  },
+  {
+   "id": "bgr",
+   "kind": "neighbour",
+   "rows": [
+    {
+     "field": "taxIncome",
+     "target": 0.11791766867049908,
+     "status": "data",
+     "input": 0.1339651580655062,
+     "achieved": 0.11783799639479667
+    },
+    {
+     "field": "taxConsumption",
+     "target": 0.14951772376975658,
+     "status": "estimate",
+     "input": 0.21467257149924557,
+     "achieved": 0.14951239438531116
+    },
+    {
+     "field": "taxCorporate",
+     "target": 0.028663180552065116,
+     "status": "data",
+     "input": 0.11524088272247025,
+     "achieved": 0.028662223937787206
+    },
+    {
+     "field": "spendAdministration",
+     "target": 0.14849039601014077,
+     "status": "data",
+     "input": 0.14941170028301526,
+     "achieved": 0.14848875680356094
+    },
+    {
+     "field": "spendSocial",
+     "target": 0.12234453649852634,
+     "status": "data",
+     "input": 0.12616474271213432,
+     "achieved": 0.12234309845184402
+    },
+    {
+     "field": "spendMilitary",
+     "target": 0.015046093052551442,
+     "status": "data",
+     "input": 0.01514189637046782,
+     "achieved": 0.015045926209728446
+    },
+    {
+     "field": "spendInfrastructure",
+     "target": 0.033765119436052794,
+     "status": "data",
+     "input": 0.03397069454690921,
+     "achieved": 0.03376472514762778
+    },
+    {
+     "field": "debtToGdp",
+     "target": 0.228,
+     "status": "data",
+     "input": 0.228,
+     "achieved": 0.227882274229032
+    },
+    {
+     "field": "tariffRevenue",
+     "target": 0,
+     "status": "data",
+     "input": 0,
+     "achieved": 0
+    },
+    {
+     "field": "netLending",
+     "target": -0.019805238845817766,
+     "status": "data",
+     "input": null,
+     "achieved": -0.02687867285277264
+    },
+    {
+     "field": "dividends",
+     "target": 0.008657102809536377,
+     "status": "reported (fitted scenario-wide)",
+     "input": null,
+     "achieved": 0.001633201774869814
+    },
+    {
+     "field": "interest",
+     "target": 0.004914769650403623,
+     "status": "reported",
+     "input": null,
+     "achieved": 0.00488198273277622
+    }
+   ]
+  },
+  {
+   "id": "bloc-eur",
+   "kind": "bloc",
+   "rows": [
+    {
+     "field": "taxIncome",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.10467116973942805
+    },
+    {
+     "field": "taxConsumption",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.07571566515927287
+    },
+    {
+     "field": "taxCorporate",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.053139651194465135
+    },
+    {
+     "field": "spendAdministration",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.11945289318346547
+    },
+    {
+     "field": "spendSocial",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.09950660995968592
+    },
+    {
+     "field": "spendMilitary",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.01990772383942365
+    },
+    {
+     "field": "spendInfrastructure",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.01991501573794714
+    },
+    {
+     "field": "debtToGdp",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.5000977179414622
+    },
+    {
+     "field": "tariffRevenue",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.02113008752564093
+    },
+    {
+     "field": "netLending",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": -0.002210206752743948
+    },
+    {
+     "field": "dividends",
+     "target": null,
+     "status": "reported (fitted scenario-wide)",
+     "input": null,
+     "achieved": 0.016841453842924146
+    },
+    {
+     "field": "interest",
+     "target": null,
+     "status": "reported",
+     "input": null,
+     "achieved": 0.01492599149395289
+    }
+   ]
+  },
+  {
+   "id": "bloc-eec",
+   "kind": "bloc",
+   "rows": [
+    {
+     "field": "taxIncome",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.10101856866434336
+    },
+    {
+     "field": "taxConsumption",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.07513898604219472
+    },
+    {
+     "field": "taxCorporate",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.06256434823981914
+    },
+    {
+     "field": "spendAdministration",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.11952607834454175
+    },
+    {
+     "field": "spendSocial",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.09957858998211884
+    },
+    {
+     "field": "spendMilitary",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.019921932273344038
+    },
+    {
+     "field": "spendInfrastructure",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.019934112159176384
+    },
+    {
+     "field": "debtToGdp",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.5001256539426578
+    },
+    {
+     "field": "tariffRevenue",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.01796079196120138
+    },
+    {
+     "field": "netLending",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": -0.0013434747640533784
+    },
+    {
+     "field": "dividends",
+     "target": null,
+     "status": "reported (fitted scenario-wide)",
+     "input": null,
+     "achieved": 0.01587133158488681
+    },
+    {
+     "field": "interest",
+     "target": null,
+     "status": "reported",
+     "input": null,
+     "achieved": 0.014936788497317827
+    }
+   ]
+  },
+  {
+   "id": "bloc-mea",
+   "kind": "bloc",
+   "rows": [
+    {
+     "field": "taxIncome",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.10896505052937078
+    },
+    {
+     "field": "taxConsumption",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.07415003500285351
+    },
+    {
+     "field": "taxCorporate",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.058456304922237405
+    },
+    {
+     "field": "spendAdministration",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.11950086829170298
+    },
+    {
+     "field": "spendSocial",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.09955762901247249
+    },
+    {
+     "field": "spendMilitary",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.0199176717746402
+    },
+    {
+     "field": "spendInfrastructure",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.019924070262267394
+    },
+    {
+     "field": "debtToGdp",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.5001175226757681
+    },
+    {
+     "field": "tariffRevenue",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.015062038961586473
+    },
+    {
+     "field": "netLending",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": -0.0011251808426259867
+    },
+    {
+     "field": "dividends",
+     "target": null,
+     "status": "reported (fitted scenario-wide)",
+     "input": null,
+     "achieved": 0.016075273434279825
+    },
+    {
+     "field": "interest",
+     "target": null,
+     "status": "reported",
+     "input": null,
+     "achieved": 0.014933644351870867
+    }
+   ]
+  },
+  {
+   "id": "bloc-ame",
+   "kind": "bloc",
+   "rows": [
+    {
+     "field": "taxIncome",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.12813849497265578
+    },
+    {
+     "field": "taxConsumption",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.07460426335479961
+    },
+    {
+     "field": "taxCorporate",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.04703333912139528
+    },
+    {
+     "field": "spendAdministration",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.1193971463373884
+    },
+    {
+     "field": "spendSocial",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.09946240720324614
+    },
+    {
+     "field": "spendMilitary",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.019898906543976972
+    },
+    {
+     "field": "spendInfrastructure",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.019910391869082514
+    },
+    {
+     "field": "debtToGdp",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.5000805440209702
+    },
+    {
+     "field": "tariffRevenue",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.00840988235421177
+    },
+    {
+     "field": "netLending",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": -0.0017319671165237278
+    },
+    {
+     "field": "dividends",
+     "target": null,
+     "status": "reported (fitted scenario-wide)",
+     "input": null,
+     "achieved": 0.01367026611459477
+    },
+    {
+     "field": "interest",
+     "target": null,
+     "status": "reported",
+     "input": null,
+     "achieved": 0.014919361080486923
+    }
+   ]
+  },
+  {
+   "id": "bloc-apa",
+   "kind": "bloc",
+   "rows": [
+    {
+     "field": "taxIncome",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.13478847571086136
+    },
+    {
+     "field": "taxConsumption",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.07376517987587028
+    },
+    {
+     "field": "taxCorporate",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.043733873994136904
+    },
+    {
+     "field": "spendAdministration",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.11954915163607155
+    },
+    {
+     "field": "spendSocial",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.09959557038565055
+    },
+    {
+     "field": "spendMilitary",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.019925259346151136
+    },
+    {
+     "field": "spendInfrastructure",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.01993349647042427
+    },
+    {
+     "field": "debtToGdp",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.5001322387360798
+    },
+    {
+     "field": "tariffRevenue",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": 0.006275118298458146
+    },
+    {
+     "field": "netLending",
+     "target": null,
+     "status": "unavailable",
+     "input": null,
+     "achieved": -0.0016153098969867174
+    },
+    {
+     "field": "dividends",
+     "target": null,
+     "status": "reported (fitted scenario-wide)",
+     "input": null,
+     "achieved": 0.013764855619831665
+    },
+    {
+     "field": "interest",
+     "target": null,
+     "status": "reported",
+     "input": null,
+     "achieved": 0.014939335557847573
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "id": "fra-idf",
+   "data": {
+    "food": 0.010829,
+    "energy": 0.021016,
+    "materials": 0,
+    "industrial": 0.047326,
+    "consumer": 0.003726
+   },
+   "engine": {
+    "food": 0.08627170631976924,
+    "energy": 0.13244878976971736,
+    "materials": 0.01569533006990086,
+    "industrial": 0.08831205289405776,
+    "consumer": 0.055033453615788805
+   }
+  },
+  {
+   "id": "fra-ne",
+   "data": {
+    "food": 0.056405,
+    "energy": 0.035819,
+    "materials": 0,
+    "industrial": 0.113289,
+    "consumer": 0.00892
+   },
+   "engine": {
+    "food": 0.1973605747415046,
+    "energy": 0.11829381582066863,
+    "materials": 0.012752892946213379,
+    "industrial": 0.10115427658127038,
+    "consumer": 0.06322756000155606
+   }
+  },
+  {
+   "id": "fra-oue",
+   "data": {
+    "food": 0.054126,
+    "energy": 0.02506,
+    "materials": 0,
+    "industrial": 0.11554,
+    "consumer": 0.009098
+   },
+   "engine": {
+    "food": 0.20088912001926507,
+    "energy": 0.09248979199885157,
+    "materials": 0.013616128640770038,
+    "industrial": 0.10873352506457376,
+    "consumer": 0.06790400433701459
+   }
+  },
+  {
+   "id": "fra-cen",
+   "data": {
+    "food": 0.059952,
+    "energy": 0.033944,
+    "materials": 0,
+    "industrial": 0.12023,
+    "consumer": 0.009467
+   },
+   "engine": {
+    "food": 0.20357778041676047,
+    "energy": 0.11054219366870105,
+    "materials": 0.012903198140046097,
+    "industrial": 0.10390267832642822,
+    "consumer": 0.06513806011438814
+   }
+  },
+  {
+   "id": "fra-naq",
+   "data": {
+    "food": 0.052013,
+    "energy": 0.030277,
+    "materials": 0,
+    "industrial": 0.085882,
+    "consumer": 0.006762
+   },
+   "engine": {
+    "food": 0.20434995071139414,
+    "energy": 0.1129955813113924,
+    "materials": 0.012162513830897276,
+    "industrial": 0.08789600138374125,
+    "consumer": 0.05491866582104111
+   }
+  },
+  {
+   "id": "fra-occ",
+   "data": {
+    "food": 0.031331,
+    "energy": 0.033178,
+    "materials": 0,
+    "industrial": 0.080241,
+    "consumer": 0.006318
+   },
+   "engine": {
+    "food": 0.1475740360380026,
+    "energy": 0.13851730704589077,
+    "materials": 0.01327801166967947,
+    "industrial": 0.09347975944152898,
+    "consumer": 0.0584460821446682
+   }
+  },
+  {
+   "id": "fra-ara",
+   "data": {
+    "food": 0.035215,
+    "energy": 0.037687,
+    "materials": 0,
+    "industrial": 0.114506,
+    "consumer": 0.009016
+   },
+   "engine": {
+    "food": 0.14438619802816047,
+    "energy": 0.1355369469407154,
+    "materials": 0.014065549482577681,
+    "industrial": 0.11184727967532082,
+    "consumer": 0.06995952629785764
+   }
+  },
+  {
+   "id": "fra-se",
+   "data": {
+    "food": 0.019341,
+    "energy": 0.029236,
+    "materials": 0,
+    "industrial": 0.056866,
+    "consumer": 0.004478
+   },
+   "engine": {
+    "food": 0.11468032445611373,
+    "energy": 0.1473965871656231,
+    "materials": 0.01343933068413561,
+    "industrial": 0.08182709659762544,
+    "consumer": 0.05108478111078627
+   }
+  },
+  {
+   "id": "fra-cor",
+   "data": {
+    "food": 0.017488,
+    "energy": 0.04933,
+    "materials": 0,
+    "industrial": 0.023666,
+    "consumer": 0.001863
+   },
+   "engine": {
+    "food": 0.09870327742047756,
+    "energy": 0.2389482182689231,
+    "materials": 0.009527741875577572,
+    "industrial": 0.03532094242028082,
+    "consumer": 0.0252710505990365
+   }
+  },
+  {
+   "id": "deu-nor",
+   "data": {
+    "food": 0.030648,
+    "energy": 0.031458,
+    "materials": 0.000539,
+    "industrial": 0.156764,
+    "consumer": 0.0092
+   },
+   "engine": {
+    "food": 0.12568406791245743,
+    "energy": 0.11899584560796686,
+    "materials": 0.01717092133520284,
+    "industrial": 0.1465957655590877,
+    "consumer": 0.06935457927086773
+   }
+  },
+  {
+   "id": "deu-nrw",
+   "data": {
+    "food": 0.02054,
+    "energy": 0.031033,
+    "materials": 0.000531,
+    "industrial": 0.154902,
+    "consumer": 0.009091
+   },
+   "engine": {
+    "food": 0.09812500777480625,
+    "energy": 0.1251762053974732,
+    "materials": 0.018138656288726775,
+    "industrial": 0.1541363031522423,
+    "consumer": 0.07304427914265656
+   }
+  },
+  {
+   "id": "deu-mit",
+   "data": {
+    "food": 0.020913,
+    "energy": 0.022672,
+    "materials": 0.000388,
+    "industrial": 0.162437,
+    "consumer": 0.009533
+   },
+   "engine": {
+    "food": 0.10248808698688965,
+    "energy": 0.1010348927153659,
+    "materials": 0.019143923117608794,
+    "industrial": 0.16472440688628756,
+    "consumer": 0.07797151262184664
+   }
+  },
+  {
+   "id": "deu-bw",
+   "data": {
+    "food": 0.029403,
+    "energy": 0.018329,
+    "materials": 0.000314,
+    "industrial": 0.276927,
+    "consumer": 0.016252
+   },
+   "engine": {
+    "food": 0.11041641949818565,
+    "energy": 0.0742853945741862,
+    "materials": 0.020662158660598486,
+    "industrial": 0.20271236029536369,
+    "consumer": 0.09590994413729613
+   }
+  },
+  {
+   "id": "deu-by",
+   "data": {
+    "food": 0.028422,
+    "energy": 0.019825,
+    "materials": 0.00034,
+    "industrial": 0.216418,
+    "consumer": 0.012701
+   },
+   "engine": {
+    "food": 0.11735810402052137,
+    "energy": 0.08243116735696343,
+    "materials": 0.01991674418434099,
+    "industrial": 0.18514787333034963,
+    "consumer": 0.08769924619618027
+   }
+  },
+  {
+   "id": "deu-no",
+   "data": {
+    "food": 0.017708,
+    "energy": 0.037358,
+    "materials": 0.00064,
+    "industrial": 0.078138,
+    "consumer": 0.004586
+   },
+   "engine": {
+    "food": 0.09651566824640055,
+    "energy": 0.17108602067161718,
+    "materials": 0.014540822206154037,
+    "industrial": 0.09974022693745119,
+    "consumer": 0.04720713854871326
+   }
+  },
+  {
+   "id": "deu-mo",
+   "data": {
+    "food": 0.034343,
+    "energy": 0.041096,
+    "materials": 0.000704,
+    "industrial": 0.172599,
+    "consumer": 0.01013
+   },
+   "engine": {
+    "food": 0.12730985583772303,
+    "energy": 0.1366812425873284,
+    "materials": 0.0167688322325928,
+    "industrial": 0.145702553387476,
+    "consumer": 0.06926093615604338
+   }
+  },
+  {
+   "id": "gbr-sco",
+   "data": {
+    "food": 0.047009,
+    "energy": 0.050645,
+    "materials": 0.000018,
+    "industrial": 0.063479,
+    "consumer": 0.005183
+   },
+   "engine": {
+    "food": 0.18169726994491914,
+    "energy": 0.17584539657553802,
+    "materials": 0.010141132406101738,
+    "industrial": 0.06506852682017575,
+    "consumer": 0.042014337895186736
+   }
+  },
+  {
+   "id": "gbr-nir",
+   "data": {
+    "food": 0.046908,
+    "energy": 0.024162,
+    "materials": 0.000006,
+    "industrial": 0.079278,
+    "consumer": 0.010761
+   },
+   "engine": {
+    "food": 0.1979062979616601,
+    "energy": 0.09196601832153327,
+    "materials": 0.011581101130436096,
+    "industrial": 0.08531526989137908,
+    "consumer": 0.0874713203291589
+   }
+  },
+  {
+   "id": "gbr-wls",
+   "data": {
+    "food": 0.036636,
+    "energy": 0.033576,
+    "materials": 0.000006,
+    "industrial": 0.117365,
+    "consumer": 0.009931
+   },
+   "engine": {
+    "food": 0.152448525522926,
+    "energy": 0.12364436999695264,
+    "materials": 0.014376640484438957,
+    "industrial": 0.1156384223748537,
+    "consumer": 0.07742218431497692
+   }
+  },
+  {
+   "id": "gbr-nth",
+   "data": {
+    "food": 0.025424,
+    "energy": 0.020679,
+    "materials": 0.000002,
+    "industrial": 0.103701,
+    "consumer": 0.010524
+   },
+   "engine": {
+    "food": 0.13371110775789952,
+    "energy": 0.09350779345990609,
+    "materials": 0.015242340635396263,
+    "industrial": 0.11996989782299772,
+    "consumer": 0.09471043417629024
+   }
+  },
+  {
+   "id": "gbr-mid",
+   "data": {
+    "food": 0.03145,
+    "energy": 0.023721,
+    "materials": 0.000005,
+    "industrial": 0.105847,
+    "consumer": 0.009788
+   },
+   "engine": {
+    "food": 0.14885792949688048,
+    "energy": 0.10072412700401774,
+    "materials": 0.014832639746662359,
+    "industrial": 0.11651621945688323,
+    "consumer": 0.0845567712867685
+   }
+  },
+  {
+   "id": "gbr-lon",
+   "data": {
+    "food": 0.007273,
+    "energy": 0.017903,
+    "materials": 0.000001,
+    "industrial": 0.012223,
+    "consumer": 0.002327
+   },
+   "engine": {
+    "food": 0.08081108472472036,
+    "energy": 0.13282622479141312,
+    "materials": 0.013071737309627704,
+    "industrial": 0.03349769133720728,
+    "consumer": 0.043717843906930016
+   }
+  },
+  {
+   "id": "gbr-se",
+   "data": {
+    "food": 0.018328,
+    "energy": 0.018111,
+    "materials": 0.000002,
+    "industrial": 0.069901,
+    "consumer": 0.005316
+   },
+   "engine": {
+    "food": 0.11706485928975371,
+    "energy": 0.10266269838429451,
+    "materials": 0.015616401526571996,
+    "industrial": 0.1040011600428744,
+    "consumer": 0.06282664725436399
+   }
+  },
+  {
+   "id": "gbr-sw",
+   "data": {
+    "food": 0.024312,
+    "energy": 0.019632,
+    "materials": 0.000005,
+    "industrial": 0.081222,
+    "consumer": 0.006815
+   },
+   "engine": {
+    "food": 0.13630111490586386,
+    "energy": 0.09942301489835056,
+    "materials": 0.015096302174733837,
+    "industrial": 0.10735189406026364,
+    "consumer": 0.07115221431360824
+   }
+  },
+  {
+   "id": "ita-no",
+   "data": {
+    "food": 0.03373,
+    "energy": 0.01913,
+    "materials": 0,
+    "industrial": 0.149287,
+    "consumer": 0.028336
+   },
+   "engine": {
+    "food": 0.149719371434949,
+    "energy": 0.06241677821787243,
+    "materials": 0.013029414996558658,
+    "industrial": 0.12524483611720907,
+    "consumer": 0.17076087944232168
+   }
+  },
+  {
+   "id": "ita-ne",
+   "data": {
+    "food": 0.050005,
+    "energy": 0.015688,
+    "materials": 0,
+    "industrial": 0.184102,
+    "consumer": 0.034944
+   },
+   "engine": {
+    "food": 0.17090211516600656,
+    "energy": 0.04887708344887633,
+    "materials": 0.012189018273992505,
+    "industrial": 0.12723138478294566,
+    "consumer": 0.17388316509162027
+   }
+  },
+  {
+   "id": "ita-cen",
+   "data": {
+    "food": 0.028616,
+    "energy": 0.028146,
+    "materials": 0,
+    "industrial": 0.09532,
+    "consumer": 0.018092
+   },
+   "engine": {
+    "food": 0.14245624531876536,
+    "energy": 0.09952939103222498,
+    "materials": 0.012048080661636557,
+    "industrial": 0.09958020049247669,
+    "consumer": 0.13607437020829447
+   }
+  },
+  {
+   "id": "ita-sud",
+   "data": {
+    "food": 0.047215,
+    "energy": 0.020937,
+    "materials": 0,
+    "industrial": 0.084066,
+    "consumer": 0.015956
+   },
+   "engine": {
+    "food": 0.20029880386530932,
+    "energy": 0.07674592180657178,
+    "materials": 0.011242866550929514,
+    "industrial": 0.08843090963045469,
+    "consumer": 0.12142134062845991
+   }
+  },
+  {
+   "id": "ita-sic",
+   "data": {
+    "food": 0.055398,
+    "energy": 0.018636,
+    "materials": 0,
+    "industrial": 0.04766,
+    "consumer": 0.009046
+   },
+   "engine": {
+    "food": 0.24809378539692087,
+    "energy": 0.07615577386464994,
+    "materials": 0.00973337782084211,
+    "industrial": 0.05947211545027362,
+    "consumer": 0.08177624253420694
+   }
+  },
+  {
+   "id": "ita-sar",
+   "data": {
+    "food": 0.048895,
+    "energy": 0.019499,
+    "materials": 0,
+    "industrial": 0.046294,
+    "consumer": 0.008787
+   },
+   "engine": {
+    "food": 0.22980284844301577,
+    "energy": 0.0822658554313416,
+    "materials": 0.009950022210016262,
+    "industrial": 0.06002518043787778,
+    "consumer": 0.08237200023364183
+   }
+  },
+  {
+   "id": "pol-maz",
+   "data": {
+    "food": 0.048958,
+    "energy": 0.041753,
+    "materials": 0.015176,
+    "industrial": 0.103811,
+    "consumer": 0.007682
+   },
+   "engine": {
+    "food": 0.1790409082623725,
+    "energy": 0.1388676769949997,
+    "materials": 0.04176997958486564,
+    "industrial": 0.09876031050830535,
+    "consumer": 0.058171990300439916
+   }
+  },
+  {
+   "id": "pol-pol",
+   "data": {
+    "food": 0.040495,
+    "energy": 0.05325,
+    "materials": 0.019355,
+    "industrial": 0.161389,
+    "consumer": 0.011943
+   },
+   "engine": {
+    "food": 0.1330580685643762,
+    "energy": 0.14953152415698548,
+    "materials": 0.04558049687562825,
+    "industrial": 0.12272176358456742,
+    "consumer": 0.07237613363202026
+   }
+  },
+  {
+   "id": "pol-pza",
+   "data": {
+    "food": 0.075783,
+    "energy": 0.03008,
+    "materials": 0.010933,
+    "industrial": 0.178935,
+    "consumer": 0.013241
+   },
+   "engine": {
+    "food": 0.21270076477330618,
+    "energy": 0.08802219056042672,
+    "materials": 0.029297592851595597,
+    "industrial": 0.1263520078562284,
+    "consumer": 0.07438170447508913
+   }
+  },
+  {
+   "id": "pol-pdz",
+   "data": {
+    "food": 0.057946,
+    "energy": 0.042264,
+    "materials": 0.015362,
+    "industrial": 0.208091,
+    "consumer": 0.015398
+   },
+   "engine": {
+    "food": 0.16412572858716012,
+    "energy": 0.11269023121693521,
+    "materials": 0.03648494291983572,
+    "industrial": 0.13909522746441352,
+    "consumer": 0.08199118153959073
+   }
+  },
+  {
+   "id": "pol-pn",
+   "data": {
+    "food": 0.07801,
+    "energy": 0.023553,
+    "materials": 0.008561,
+    "industrial": 0.187736,
+    "consumer": 0.013892
+   },
+   "engine": {
+    "food": 0.22052261267112946,
+    "energy": 0.07455769434595344,
+    "materials": 0.026013543370082964,
+    "industrial": 0.13306493775727737,
+    "consumer": 0.07841449003916579
+   }
+  },
+  {
+   "id": "pol-cen",
+   "data": {
+    "food": 0.075368,
+    "energy": 0.050839,
+    "materials": 0.018478,
+    "industrial": 0.164148,
+    "consumer": 0.012147
+   },
+   "engine": {
+    "food": 0.19877241893274855,
+    "energy": 0.1266340594798271,
+    "materials": 0.03886823049133002,
+    "industrial": 0.10958173951610159,
+    "consumer": 0.06474257858194259
+   }
+  },
+  {
+   "id": "pol-wsc",
+   "data": {
+    "food": 0.081043,
+    "energy": 0.030763,
+    "materials": 0.011182,
+    "industrial": 0.160948,
+    "consumer": 0.01191
+   },
+   "engine": {
+    "food": 0.23000264526535724,
+    "energy": 0.0901894011702938,
+    "materials": 0.029506025841179697,
+    "industrial": 0.11664385878234704,
+    "consumer": 0.06901969517501509
+   }
+  },
+  {
+   "id": "tur-ist",
+   "data": {
+    "food": 0.027048,
+    "energy": 0.014631,
+    "materials": 0.006382,
+    "industrial": 0.1135,
+    "consumer": 0.032528
+   },
+   "engine": {
+    "food": 0.14717568558673894,
+    "energy": 0.05023267761151103,
+    "materials": 0.01965490018408833,
+    "industrial": 0.10839769597911993,
+    "consumer": 0.20661029476088466
+   }
+  },
+  {
+   "id": "tur-mar",
+   "data": {
+    "food": 0.121637,
+    "energy": 0.022176,
+    "materials": 0.009673,
+    "industrial": 0.263558,
+    "consumer": 0.075532
+   },
+   "engine": {
+    "food": 0.2197898583861781,
+    "energy": 0.03883599856282247,
+    "materials": 0.015847449598023054,
+    "industrial": 0.1085559605684836,
+    "consumer": 0.20748084024367716
+   }
+  },
+  {
+   "id": "tur-ege",
+   "data": {
+    "food": 0.142324,
+    "energy": 0.026719,
+    "materials": 0.011654,
+    "industrial": 0.176334,
+    "consumer": 0.050535
+   },
+   "engine": {
+    "food": 0.26569506787410363,
+    "energy": 0.047219534898756396,
+    "materials": 0.017882198315854865,
+    "industrial": 0.0874898032729146,
+    "consumer": 0.1674206303472653
+   }
+  },
+  {
+   "id": "tur-ban",
+   "data": {
+    "food": 0.086983,
+    "energy": 0.021603,
+    "materials": 0.009423,
+    "industrial": 0.12034,
+    "consumer": 0.034488
+   },
+   "engine": {
+    "food": 0.23727535308574435,
+    "energy": 0.05229800109074187,
+    "materials": 0.018561048579855573,
+    "industrial": 0.08481749892014458,
+    "consumer": 0.16273276934564915
+   }
+  },
+  {
+   "id": "tur-akd",
+   "data": {
+    "food": 0.136782,
+    "energy": 0.021605,
+    "materials": 0.009423,
+    "industrial": 0.100754,
+    "consumer": 0.028875
+   },
+   "engine": {
+    "food": 0.3105752355623958,
+    "energy": 0.047414726620223425,
+    "materials": 0.017300879189450977,
+    "industrial": 0.06679437584705356,
+    "consumer": 0.1279428130375716
+   }
+  },
+  {
+   "id": "tur-oan",
+   "data": {
+    "food": 0.21169,
+    "energy": 0.032929,
+    "materials": 0.014363,
+    "industrial": 0.142927,
+    "consumer": 0.040961
+   },
+   "engine": {
+    "food": 0.3356017238923554,
+    "energy": 0.05029728267560939,
+    "materials": 0.018266077077954437,
+    "industrial": 0.06673265662099948,
+    "consumer": 0.12828446162145135
+   }
+  },
+  {
+   "id": "tur-kar",
+   "data": {
+    "food": 0.16332,
+    "energy": 0.025271,
+    "materials": 0.011023,
+    "industrial": 0.113303,
+    "consumer": 0.032471
+   },
+   "engine": {
+    "food": 0.32855697078908935,
+    "energy": 0.04907843444812221,
+    "materials": 0.017881859891984892,
+    "industrial": 0.06692425667152702,
+    "consumer": 0.12856558387436728
+   }
+  },
+  {
+   "id": "tur-dog",
+   "data": {
+    "food": 0.199297,
+    "energy": 0.02566,
+    "materials": 0.011192,
+    "industrial": 0.046728,
+    "consumer": 0.013392
+   },
+   "engine": {
+    "food": 0.42689930228030254,
+    "energy": 0.0518962717748557,
+    "materials": 0.017802280895054454,
+    "industrial": 0.03220640518916114,
+    "consumer": 0.06218084099649101
+   }
+  },
+  {
+   "id": "tur-gda",
+   "data": {
+    "food": 0.178221,
+    "energy": 0.021226,
+    "materials": 0.009258,
+    "industrial": 0.123807,
+    "consumer": 0.035481
+   },
+   "engine": {
+    "food": 0.3426655376733146,
+    "energy": 0.041171008702777526,
+    "materials": 0.015548724948650767,
+    "industrial": 0.06958180605957243,
+    "consumer": 0.134285430006599
+   }
+  },
+  {
+   "id": "irl-all",
+   "data": {
+    "food": 0.030673,
+    "energy": 0.012014,
+    "materials": 0.000372,
+    "industrial": 0.261741,
+    "consumer": 0.029521
+   },
+   "engine": {
+    "food": 0.12246045541852922,
+    "energy": 0.05127966419028382,
+    "materials": 0.017603530269635285,
+    "industrial": 0.1745201265036222,
+    "consumer": 0.15131073662362185
+   }
+  },
+  {
+   "id": "esp-all",
+   "data": {
+    "food": 0.053855,
+    "energy": 0.026632,
+    "materials": 0.00315,
+    "industrial": 0.084258,
+    "consumer": 0.010839
+   },
+   "engine": {
+    "food": 0.20733546657565127,
+    "energy": 0.09387453639782142,
+    "materials": 0.014089948045513393,
+    "industrial": 0.08412114528431001,
+    "consumer": 0.08200419703639755
+   }
+  },
+  {
+   "id": "nld-all",
+   "data": {
+    "food": 0.039333,
+    "energy": 0.028757,
+    "materials": 0,
+    "industrial": 0.091612,
+    "consumer": 0.004912
+   },
+   "engine": {
+    "food": 0.16786896753523467,
+    "energy": 0.11876065500762317,
+    "materials": 0.013824146579820963,
+    "industrial": 0.10004396253135403,
+    "consumer": 0.0435076703600587
+   }
+  },
+  {
+   "id": "bel-all",
+   "data": {
+    "food": 0.031891,
+    "energy": 0.020117,
+    "materials": 0,
+    "industrial": 0.107497,
+    "consumer": 0.006121
+   },
+   "engine": {
+    "food": 0.14913476583987945,
+    "energy": 0.09467898389344095,
+    "materials": 0.016054126508424593,
+    "industrial": 0.12304077686495869,
+    "consumer": 0.05660822416166856
+   }
+  },
+  {
+   "id": "che-all",
+   "data": {
+    "food": 0.026617,
+    "energy": 0.017649,
+    "materials": 0,
+    "industrial": 0.169235,
+    "consumer": 0.008872
+   },
+   "engine": {
+    "food": 0.12180112526881341,
+    "energy": 0.08611073015117644,
+    "materials": 0.01989379215278981,
+    "industrial": 0.17174011966136063,
+    "consumer": 0.07304240388020379
+   }
+  },
+  {
+   "id": "aut-all",
+   "data": {
+    "food": 0.034961,
+    "energy": 0.037706,
+    "materials": 0,
+    "industrial": 0.143524,
+    "consumer": 0.009211
+   },
+   "engine": {
+    "food": 0.13593604145972046,
+    "energy": 0.13213407763872198,
+    "materials": 0.015616276548659025,
+    "industrial": 0.1307999503424163,
+    "consumer": 0.06743826642745969
+   }
+  },
+  {
+   "id": "cze-all",
+   "data": {
+    "food": 0.042976,
+    "energy": 0.034479,
+    "materials": 0.004576,
+    "industrial": 0.190231,
+    "consumer": 0.012533
+   },
+   "engine": {
+    "food": 0.14751544553628773,
+    "energy": 0.11207578075707576,
+    "materials": 0.021903839312280966,
+    "industrial": 0.15033268024194985,
+    "consumer": 0.07949457960701631
+   }
+  },
+  {
+   "id": "nor-all",
+   "data": {
+    "food": 0.030127,
+    "energy": 0.294333,
+    "materials": 0.00002,
+    "industrial": 0.046899,
+    "consumer": 0.002626
+   },
+   "engine": {
+    "food": 0.08913224663348776,
+    "energy": 0.3512582982539178,
+    "materials": 0.006743919316341016,
+    "industrial": 0.03629876477702471,
+    "consumer": 0.01658338386316096
+   }
+  },
+  {
+   "id": "grc-all",
+   "data": {
+    "food": 0.077225,
+    "energy": 0.026853,
+    "materials": 0.002873,
+    "industrial": 0.068305,
+    "consumer": 0.004949
+   },
+   "engine": {
+    "food": 0.2801485912666803,
+    "energy": 0.0960082598022383,
+    "materials": 0.012645998191785883,
+    "industrial": 0.06757540375982235,
+    "consumer": 0.038998670455225364
+   }
+  },
+  {
+   "id": "bgr-all",
+   "data": {
+    "food": 0.05296,
+    "energy": 0.038761,
+    "materials": 0.014547,
+    "industrial": 0.111678,
+    "consumer": 0.017579
+   },
+   "engine": {
+    "food": 0.1813005147941863,
+    "energy": 0.11000128971391233,
+    "materials": 0.03419511213478694,
+    "industrial": 0.09312856415408731,
+    "consumer": 0.10833546797062053
+   }
+  },
+  {
+   "id": "bloc-eur-all",
+   "data": {
+    "food": 0.041261,
+    "energy": 0.002421,
+    "materials": 0.002652,
+    "industrial": 0.101128,
+    "consumer": 0.017881
+   },
+   "engine": {
+    "food": 0.19137114994183194,
+    "energy": 0.026409028113259108,
+    "materials": 0.014860103659252204,
+    "industrial": 0.10867496282471772,
+    "consumer": 0.14031457430315736
+   }
+  },
+  {
+   "id": "bloc-eec-all",
+   "data": {
+    "food": 0.061337,
+    "energy": 0.140775,
+    "materials": 0.036965,
+    "industrial": 0.093877,
+    "consumer": 0.016599
+   },
+   "engine": {
+    "food": 0.14279068253072125,
+    "energy": 0.24752221254520093,
+    "materials": 0.05245394741004184,
+    "industrial": 0.05632998864639768,
+    "consumer": 0.07242254770247594
+   }
+  },
+  {
+   "id": "bloc-mea-all",
+   "data": {
+    "food": 0.10777,
+    "energy": 0.147702,
+    "materials": 0.014385,
+    "industrial": 0.09003,
+    "consumer": 0.015919
+   },
+   "engine": {
+    "food": 0.23197186232803152,
+    "energy": 0.24905651338928114,
+    "materials": 0.023136495227030606,
+    "industrial": 0.05438669739843688,
+    "consumer": 0.06983889441556246
+   }
+  },
+  {
+   "id": "bloc-ame-all",
+   "data": {
+    "food": 0.075799,
+    "energy": 0.021088,
+    "materials": 0.034916,
+    "industrial": 0.114002,
+    "consumer": 0.020158
+   },
+   "engine": {
+    "food": 0.21803008918410158,
+    "energy": 0.05820761597358768,
+    "materials": 0.0629515901599523,
+    "industrial": 0.08488808397290268,
+    "consumer": 0.10920101820286265
+   }
+  },
+  {
+   "id": "bloc-apa-all",
+   "data": {
+    "food": 0.100131,
+    "energy": 0.006195,
+    "materials": 0.015832,
+    "industrial": 0.154814,
+    "consumer": 0.027374
+   },
+   "engine": {
+    "food": 0.2744384816823575,
+    "energy": 0.028405649792248397,
+    "materials": 0.03277548438915536,
+    "industrial": 0.10880475447533175,
+    "consumer": 0.13984339276036217
+   }
+  }
+ ]
+}

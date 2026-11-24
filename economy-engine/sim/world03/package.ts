@@ -13,6 +13,10 @@
  * 3. Writes scenarios/europe-2023/<version>/: scenario.json (regions, connectivity, countries, profiles, policy,
  *    military draft, territories), provenance.json, calibration-report.json, world-spec.json,
  *    week1.session.json and manifest.json (file hashes, content fingerprint).
+ *
+ * WORLD03_FINANCE=final builds 1.0.0-draft.2 from build-final/calibration.json (WORLD-03-FINAL: budget mapping,
+ * fitted tariffs, ownership scale, bank profit to owners, aggregate blocs, starting-debt limit 2). Without it the
+ * script rebuilds 1.0.0-draft.1 exactly as before.
  */
 import { createHash } from 'node:crypto';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -20,12 +24,13 @@ import { resolve } from 'node:path';
 import { autopilotCommands, createEconomy, hashEconomy } from '../../src/index.ts';
 import { advanceEconomyWeek, INTEGRATION_CONTRACT_VERSION, saveEconomySession, SESSION_FORMAT, SESSION_VERSION, withPlayerCountry } from '../../src/integration/index.ts';
 import type { EconomySession } from '../../src/integration/index.ts';
-import { SEED, worldSpec } from './calibrate.ts';
+import { FINAL, NON_COMPARABLE_BALANCE, SEED, worldSpec } from './calibrate.ts';
 
 export const SCENARIO_ID = 'europe-2023';
-export const SCENARIO_VERSION = '1.0.0-draft.1';
+export const SCENARIO_VERSION = FINAL ? '1.0.0-draft.2' : '1.0.0-draft.1';
 const ROOT = resolve(import.meta.dirname, '../../..');
 const BUILD = resolve(ROOT, 'scenarios/europe-2023/build');
+const CAL_DIR = FINAL ? resolve(ROOT, 'scenarios/europe-2023/build-final') : BUILD;
 const OUT = resolve(ROOT, `scenarios/europe-2023/${SCENARIO_VERSION}`);
 const read = (path: string) => JSON.parse(readFileSync(path, 'utf8'));
 const sha256 = (text: string | Buffer) => createHash('sha256').update(text).digest('hex');
@@ -33,7 +38,10 @@ const json = (value: unknown) => JSON.stringify(value, null, 1) + '\n';
 
 const inputs = read(resolve(BUILD, 'inputs.json'));
 const geo = read(resolve(BUILD, 'geography.json'));
-const cal = read(resolve(BUILD, 'calibration.json'));
+const cal = read(resolve(CAL_DIR, 'calibration.json'));
+const SOURCES = resolve(ROOT, 'scenarios/europe-2023/sources');
+/** Input name of a calibration row (the tariff row reports tariff revenue; its input is the tariff rate). */
+const inputName = (field: string) => (field === 'tariffRevenue' ? 'tariff' : field);
 
 function csv(path: string): Record<string, string>[] {
   const [head, ...lines] = readFileSync(path, 'utf8').trim().split('\n');
@@ -56,9 +64,9 @@ function main() {
   const policy: Record<string, Record<string, number>> = {};
   for (const f of cal.fiscal) {
     policy[f.id] = {};
-    for (const r of f.rows) if (r.input !== null && r.input !== undefined) policy[f.id][r.field] = r.input;
+    for (const r of f.rows) if (r.input !== null && r.input !== undefined) policy[f.id][inputName(r.field)] = r.input;
   }
-  const spec = worldSpec(technology, policy);
+  const spec = worldSpec(technology, policy, FINAL ? cal.ownershipScale : 1);
   const start = createEconomy(spec);
   const crosswalk = csv(resolve(ROOT, 'docs/world/data/world02-admin1-to-province.csv'));
   const membership = csv(resolve(ROOT, 'docs/world/data/world02-economic-membership.csv'));
@@ -94,7 +102,15 @@ function main() {
     economy: {
       regions: Object.fromEntries(inputs.zones.map((z: { id: string; population: { value: number }; advantage: { value: Record<string, number> } }) => [z.id, {
         population: z.population.value, technology: technology[z.id], populationGrowth: 0, advantage: z.advantage.value }])),
-      countries: Object.fromEntries(inputs.countries.map((c: { id: string }) => [c.id, { ...policy[c.id], stability: 'engine default (70, neutral)', tariff: 'engine default' }])),
+      countries: Object.fromEntries(inputs.countries.map((c: { id: string; kind: string }) => [c.id, FINAL
+        ? { tariff: 0.03, ...policy[c.id], stability: 'engine default (70, neutral)',
+            ...(c.kind === 'bloc' ? { economicAggregate: true } : { bankProfitToHouseholds: 1 }) }
+        : { ...policy[c.id], stability: 'engine default (70, neutral)', tariff: 'engine default' }])),
+      ...(FINAL ? {
+        world: { maxStartingDebt: spec.maxStartingDebt, holdStartingDebt: spec.holdStartingDebt, publicOwnershipScale: cal.ownershipScale,
+                 rules: 'tariff fitted to customs duties kept by national government (EU members: duties are EU revenue, tariff 0); bank profit paid to bank owners (households), not the treasury; blocs are economic aggregates without unrest or regime change; state ownership shares of the goods catalogue scaled to observed dividend income (D42)' },
+        balanceNotComparable: NON_COMPARABLE_BALANCE,
+      } : {}),
     },
     startingRelations: { rule: 'neutral: every pair of diplomatic actors at 0; blocs have no diplomacy', relations },
     military: {
@@ -119,9 +135,20 @@ function main() {
   const session = saveEconomySession(week1);
   mkdirSync(OUT, { recursive: true });
   const { config: _config, ...specWithoutConfig } = spec;
+  const budget = FINAL ? read(resolve(BUILD, 'budget.json')) : null;
+  const financing = FINAL ? read(resolve(BUILD, 'financing.json')) : null;
+  // Licence audit: every source snapshot the package's inputs name.
+  const named = new Set<string>();
+  const collect = (v: unknown) => { if (Array.isArray(v)) v.forEach(collect); else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) { if ((k === 'sources' || k === 'source') && Array.isArray(x)) x.forEach(s => typeof s === 'string' && named.add(s)); else collect(x); } };
+  collect(inputs); if (budget) collect(budget); if (financing) collect(financing);
+  const licences = [...named].sort().flatMap(id => {
+    try { const d = read(resolve(SOURCES, `${id}.json`)); return [{ id, publisher: d.publisher, licenceStatus: d.licence_status }]; } catch { return []; }
+  });
+  const unverified = licences.filter(l => !String(l.licenceStatus).startsWith('verified'));
   const files: Record<string, string> = {
     'scenario.json': scenarioText,
-    'provenance.json': json({ note: 'Every economic input with its sources, method and status; the source snapshots are in ../sources/.', ...inputs }),
+    'provenance.json': json({ note: 'Every economic input with its sources, method and status; the source snapshots are in ../sources/.', ...inputs,
+      ...(FINAL ? { budget: budget.countries, budgetIssues: budget.issues, financing, licences } : {}) }),
     'calibration-report.json': json(cal),
     'world-spec.json': json({ note: 'Engine WorldSpec without its goods config; rebuild with toCatalogueSpec(createCatalogueConfig) as in economy-engine/sim/world03/calibrate.ts', spec: specWithoutConfig }),
     'week1.session.json': session,
@@ -133,6 +160,12 @@ function main() {
     id: SCENARIO_ID, version: SCENARIO_VERSION, immutable: true, status: scenario.status, referenceYear: 2023,
     worldFingerprint, week1EconomyHash: stateHash, contentFingerprint, files: manifestFiles,
     compatibility: 'New scenario. Fictional saves are unaffected: their scenario and fingerprints are unchanged. The current startEconomyFromSave refuses this package (different world fingerprint) until the proposed scenario loader exists.',
+    ...(FINAL ? {
+      supersedes: '1.0.0-draft.1 (kept unchanged)',
+      engineRequirements: 'economy-engine with the ECON-08 options (holdStartingDebt, effectiveRate) and the WORLD-03-FINAL opt-in inputs (maxStartingDebt, economicAggregate, bankProfitToHouseholds)',
+      distributable: unverified.length === 0,
+      notDistributableBecause: unverified.map(l => `${l.id} (${l.publisher}): ${l.licenceStatus}`),
+    } : {}),
   }));
   console.log(`${SCENARIO_ID} ${SCENARIO_VERSION}: world ${worldFingerprint}, week-1 economy ${stateHash}, content ${contentFingerprint.slice(0, 16)}; session ${(Buffer.byteLength(session) / 1024).toFixed(0)} KB`);
 }

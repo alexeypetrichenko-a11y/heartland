@@ -292,7 +292,48 @@ def fetch_financing():
     es_save('es_bond_yields', 'irt_lt_mcby_a', 'EMU convergence criterion series: long-term government bond yields, annual average, % per year',
             ['time=2023'] + [f'geo={g}' for g in ES_PLAYABLE[:4] + ES_NEIGHBOURS])
 
-STEPS = {'financing': fetch_financing, 'eurostat': fetch_eurostat, 'ons': fetch_ons, 'ons_debt': fetch_ons_debt, 'oecd': fetch_oecd, 'worldbank': fetch_worldbank, 'turkey': fetch_turkey}
+ESA_BUDGET = ['TR', 'TE', 'B9', 'P2', 'D1PAY', 'D632PAY', 'D62PAY', 'P51G', 'P51C', 'D41PAY', 'D3PAY', 'D7PAY', 'D9PAY', 'D29PAY', 'D5PAY',
+              'D4PAY', 'D8', 'NP', 'P52_P53', 'D4REC', 'D42REC', 'D41REC', 'D7REC', 'D9REC', 'D91REC', 'P11_P12_P131', 'D39REC', 'D2REC',
+              'D5REC', 'D61REC', 'D995REC']
+
+def fetch_budget():
+    """WORLD-03-FINAL: complete 2023 general-government accounts (revenue, expenditure, net lending), customs duties
+    by receiving sector, and imports, for the budget reconciliation."""
+    countries = [f'geo={g}' for g in ES_PLAYABLE[:4] + ES_NEIGHBOURS]
+    es_save('es_government_accounts', 'gov_10a_main', 'Government revenue, expenditure and main aggregates (full ESA breakdown), general government, million national currency',
+            ['time=2023', 'unit=MIO_NAC', 'sector=S13'] + [f'na_item={n}' for n in ESA_BUDGET] + countries)
+    es_save('es_customs', 'gov_10a_taxag', 'Import duties (D2121) by receiving sector: S13 national general government, S13_S212 including EU institutions, million national currency',
+            ['time=2023', 'unit=MIO_NAC', 'na_item=D2121', 'sector=S13', 'sector=S13_S212'] + countries)
+    es_save('es_imports', 'nama_10_gdp', 'Imports of goods and services (P7) and of goods (P71), current prices, million national currency',
+            ['time=2023', 'unit=CP_MNAC', 'na_item=P7', 'na_item=P71'] + countries + ['geo=TR'])
+    url, rows = oecd_csv('OECD.SDD.NAD,DSD_NASEC10@DF_TABLE12,', 'A.GBR.S13..............')
+    values = {f'GBR|{r["TRANSACTION"]}|{r["ACCOUNTING_ENTRY"]}': float(r['OBS_VALUE']) for r in rows if r['UNIT_MEASURE'] == 'XDC' and r['OBS_VALUE']}
+    save('oecd_uk_government_accounts', 'oecd', 'OECD.SDD.NAD,DSD_NASEC10@DF_TABLE12', 'UK general government accounts, all transactions (C = revenue, D = expenditure, B = balance), pounds million',
+         url, values, extra={'key': 'country|transaction|accounting entry'})
+    url, rows = oecd_csv('OECD.CTP.TPS,DSD_REV_COMP_OECD@DF_RSOECD,', 'GBR+TUR+NOR+CHE.TAX_REV.S13.T_5123+_T._T.PT_B1GQ.A')
+    values = {f'{r["REF_AREA"]}|{r["STANDARD_REVENUE"]}': float(r['OBS_VALUE']) for r in rows if r['OBS_VALUE']}
+    save('oecd_customs', 'oecd', 'OECD.CTP.TPS,DSD_REV_COMP_OECD@DF_RSOECD', 'Revenue Statistics: 5123 customs and import duties, % of GDP', url, values,
+         extra={'key': 'country|revenue category'})
+    url, rows = oecd_csv('OECD.SDD.NAD,DSD_NAMAIN10@DF_TABLE1_EXPENDITURE,', 'A.GBR..........')
+    values = {f'GBR|{r["TRANSACTION"]}': float(r['OBS_VALUE']) for r in rows
+              if r.get('TRANSACTION') in ('P7', 'P71', 'B1GQ') and r.get('UNIT_MEASURE') == 'XDC' and r.get('PRICE_BASE') == 'V' and r['OBS_VALUE']}
+    save('oecd_uk_imports', 'oecd', 'OECD.SDD.NAD,DSD_NAMAIN10@DF_TABLE1_EXPENDITURE', 'UK imports of goods and services (P7), goods (P71) and GDP, pounds million', url, values,
+         extra={'key': 'country|transaction'})
+
+def fetch_che_debt():
+    """WORLD-03-FINAL: Switzerland is not in Eurostat's government debt tables. OECD government financial balance sheets
+    give the general government's debt instruments (F2 currency and deposits, F3 debt securities, F4 loans), all maturities,
+    non-consolidated, at the valuation reported by the country. Used as an estimate of the 2023 starting debt."""
+    url, rows = oecd_csv('OECD.SDD.NAD,DSD_NASEC20@DF_T720GOV_A,', 'A..CHE..S13...L..........')
+    values = {f'CHE|{r["INSTR_ASSET"]}': float(r['OBS_VALUE']) for r in rows
+              if r['INSTR_ASSET'] in ('F', 'F2', 'F3', 'F4') and r['MATURITY'] in ('T', '_Z') and r['UNIT_MEASURE'] == 'XDC'
+              and r['SECTOR'] == 'S13' and r['OBS_VALUE']}
+    save('oecd_che_debt', 'oecd', 'OECD.SDD.NAD,DSD_NASEC20@DF_T720GOV_A',
+         'Swiss general government liabilities by instrument (F = all, F2, F3, F4), all maturities, non-consolidated, francs million', url, values,
+         notes=['Non-consolidated: holdings of one government unit by another are not netted out, so it can exceed consolidated (Maastricht) debt.'],
+         extra={'key': 'country|instrument'})
+
+STEPS = {'che_debt': fetch_che_debt, 'budget': fetch_budget, 'financing': fetch_financing, 'eurostat': fetch_eurostat, 'ons': fetch_ons, 'ons_debt': fetch_ons_debt, 'oecd': fetch_oecd, 'worldbank': fetch_worldbank, 'turkey': fetch_turkey}
 
 if __name__ == '__main__':
     only = sys.argv[sys.argv.index('--only') + 1].split(',') if '--only' in sys.argv else list(STEPS)

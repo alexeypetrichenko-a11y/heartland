@@ -22,6 +22,13 @@ Checks (each reported as pass / fail / warn):
   C4  calibration: debt ratios within ±1 percentage point
   M1  military: draft values only from the approved rule; unresolved countries carry no value
   P1  package: manifest hashes match the files; content fingerprint recomputes (when a package dir is given)
+WORLD-03-FINAL packages (calibration mode 'final', e.g. 1.0.0-draft.2) add:
+  C5  2023 general-government net lending within ±1 pp where comparable (non-comparable countries listed)
+  C6  tariff revenue (customs duties kept by national government) within ±1 pp
+  C7  initial financing cost: interest paid within ±0.5 pp of GDP of the observed 2023 value
+  C8  scenario-wide dividend income (state ownership scale) within ±0.2 pp of the observed GDP-weighted D42
+  D5  every source named by the budget and financing reconciliations exists and has a licence
+  P2  the manifest's distributable flag agrees with the licence audit (no unverified licence in a distributable package)
 """
 import hashlib, json, math, os, subprocess, sys
 from collections import defaultdict
@@ -43,7 +50,12 @@ def load(name, base=BUILD):
 
 def main(package=None):
     geo, inputs = load('geography.json'), load('inputs.json')
-    cal = load('calibration.json') if os.path.exists(os.path.join(BUILD, 'calibration.json')) else None
+    if package and os.path.exists(os.path.join(package, 'calibration-report.json')):
+        cal = load('calibration-report.json', package)
+    else:
+        cal = load('calibration.json') if os.path.exists(os.path.join(BUILD, 'calibration.json')) else None
+    final = bool(cal) and cal.get('mode') == 'final'
+    REPORTED = {'netLending', 'dividends', 'interest', 'tariffRevenue'}
     zones = inputs['zones']; countries = inputs['countries']
     kinds = defaultdict(int)
     for z in zones:
@@ -125,20 +137,55 @@ def main(package=None):
         check('C1', not zr, f'worst zone output share error {max(abs(z["relativeError"]) for z in cal["zones"]):.2%}; outside ±3%: {[z["id"] for z in zr]}')
         cr = [c for c in cal['countries'] if abs(c['relativeError']) > 0.03]
         check('C2', not cr, f'worst country GDP share error {max(abs(c["relativeError"]) for c in cal["countries"]):.2%}; outside ±3%: {[c["id"] for c in cr]}')
-        flows = [(f['id'], r['field'], r['achieved'] - r['target']) for f in cal['fiscal'] for r in f['rows'] if r['target'] is not None and r['field'] != 'debtToGdp']
+        flows = [(f['id'], r['field'], r['achieved'] - r['target']) for f in cal['fiscal'] for r in f['rows'] if r['target'] is not None and r['field'] != 'debtToGdp' and r['field'] not in REPORTED]
         fbad = [f'{a}.{b} {g * 100:+.1f}' for a, b, g in flows if abs(g) > 0.01]
         check('C3', not fbad, f'{len(flows)} tax/spending ratios; outside ±1 pp: {fbad}')
         debts = [(f['id'], r['achieved'] - r['target']) for f in cal['fiscal'] for r in f['rows'] if r['target'] is not None and r['field'] == 'debtToGdp']
         dbad = [f'{a} {g * 100:+.0f}' for a, g in debts if abs(g) > 0.01]
         check('C4', not dbad, f'{len(debts)} debt ratios; outside ±1 pp: {dbad}')
+        if final:
+            rows = lambda field: [(f['id'], r) for f in cal['fiscal'] for r in f['rows'] if r['field'] == field]
+            nl = [(c, r['achieved'] - r['target']) for c, r in rows('netLending') if r['target'] is not None]
+            nbad = [f'{c} {g * 100:+.2f}' for c, g in nl if abs(g) > 0.01]
+            worst = max(nl, key=lambda x: abs(x[1]))
+            check('C5', not nbad, f'{len(nl)} net-lending balances; worst {worst[0]} {worst[1] * 100:+.2f} pp; outside ±1 pp: {nbad}; not comparable: {cal.get("nonComparableBalance")}')
+            tr = [(c, r['achieved'] - r['target']) for c, r in rows('tariffRevenue') if r['target'] is not None]
+            check('C6', all(abs(g) <= 0.01 for _, g in tr), f'{len(tr)} tariff revenues; worst {max(abs(g) for _, g in tr) * 100:.3f} pp')
+            it = [(c, r['achieved'] - r['target']) for c, r in rows('interest') if r['target'] is not None]
+            ibad = [f'{c} {g * 100:+.2f}' for c, g in it if abs(g) > 0.005]
+            check('C7', not ibad, f'{len(it)} interest bills; worst {max(abs(g) for _, g in it) * 100:.2f} pp; outside ±0.5 pp: {ibad}')
+            last = cal['ownershipRounds'][-1] if cal.get('ownershipRounds') else None
+            best = next((o for o in cal.get('ownershipRounds', []) if abs(o['scale'] - cal['ownershipScale']) < 1e-12), last)
+            check('C8', best is not None and abs(best['achieved'] - best['target']) <= 0.002,
+                  f'ownership scale {cal["ownershipScale"]:.4f}: dividends {best["achieved"] * 100:.2f}% vs observed {best["target"] * 100:.2f}% of GDP (GDP-weighted, excluding non-comparable)' if best else 'no ownership fit')
     else:
         check('C1', False, 'no calibration.json')
     mil = inputs['military']['countries']
     unresolved = [c for c, v in mil.items() if v['status'] == 'unresolved']
     check('M1', all(v['divisions'] is None for v in mil.values() if v['status'] == 'unresolved') and all(v['status'] in ('draft', 'unresolved') for v in mil.values()),
           f'draft: {sorted(c for c, v in mil.items() if v["status"] == "draft")}; unresolved (no value inserted): {unresolved}')
+    if final:
+        named, missing, no_lic = set(), [], []
+        def grab(node):
+            if isinstance(node, dict):
+                for k, v in node.items():
+                    if k in ('sources', 'source') and isinstance(v, list): named.update(x for x in v if isinstance(x, str))
+                    else: grab(v)
+            elif isinstance(node, list):
+                for v in node: grab(v)
+        grab(load('budget.json')); grab(load('financing.json'))
+        for sid in sorted(named):
+            path = os.path.join(SRC, f'{sid}.json')
+            if not os.path.exists(path): missing.append(sid)
+            elif not json.load(open(path, encoding='utf-8')).get('licence'): no_lic.append(sid)
+        check('D5', not missing and not no_lic, f'{len(named)} sources named by budget/financing; missing {missing}; without licence {no_lic}')
     if package:
         manifest = json.load(open(os.path.join(package, 'manifest.json'), encoding='utf-8'))
+        if 'distributable' in manifest:
+            prov = json.load(open(os.path.join(package, 'provenance.json'), encoding='utf-8'))
+            unverified = [l['id'] for l in prov.get('licences', []) if not str(l['licenceStatus']).startswith('verified')]
+            check('P2', manifest['distributable'] == (not unverified),
+                  f'distributable={manifest["distributable"]}; unverified licences: {unverified}; reasons in manifest: {manifest.get("notDistributableBecause")}')
         mism = [f['path'] for f in manifest['files'] if hashlib.sha256(open(os.path.join(package, f['path']), 'rb').read()).hexdigest() != f['sha256']]
         fp = hashlib.sha256(''.join(f'{f["path"]}:{f["sha256"]}\n' for f in sorted(manifest['files'], key=lambda f: f['path'])).encode()).hexdigest()
         check('P1', not mism and fp == manifest['contentFingerprint'], f'files {len(manifest["files"])}; hash mismatches {mism}; fingerprint {fp[:16]}')

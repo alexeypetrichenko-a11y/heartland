@@ -30,9 +30,26 @@ const geo = JSON.parse(readFileSync(resolve(BUILD, 'geography.json'), 'utf8'));
  * stock, the spread parameters fitted to euro-area yields) and the builder's starting-balance-sheet hold. Outputs
  * then go to build-econ08/ so the WORLD-03 1.0.0-draft.1 build is not touched.
  */
-export const FINANCE = process.env.WORLD03_FINANCE === 'econ08';
+export const FINAL = process.env.WORLD03_FINANCE === 'final';
+export const FINANCE = process.env.WORLD03_FINANCE === 'econ08' || FINAL;
 const financing = FINANCE ? JSON.parse(readFileSync(resolve(BUILD, 'financing.json'), 'utf8')) : null;
-const OUT_DIR = FINANCE ? resolve(ROOT, 'scenarios/europe-2023/build-econ08') : BUILD;
+/**
+ * WORLD-03-FINAL (opt-in: WORLD03_FINANCE=final, package 1.0.0-draft.2): the ECON-08 financing plus
+ *   - fiscal targets from build/budget.json (cash-basis administration; social = cash benefits + every flow the engine
+ *     has no line for; tariff revenue = customs duties kept by national government; 2023 net lending as a check);
+ *   - a per-country tariff fitted to that customs revenue (EU members keep almost none: duties are EU revenue);
+ *   - one scenario-wide scale on the catalogue's state-ownership shares, fitted to observed dividend income (D42);
+ *   - CountrySpec.bankProfitToHouseholds = 1 (bank profit goes to bank owners, not the treasury) for real countries,
+ *     CountrySpec.economicAggregate for the five blocs, WorldSpec.maxStartingDebt = 2 (Greece starts at 1.64).
+ * Outputs go to build-final/.
+ */
+const budget = FINAL ? JSON.parse(readFileSync(resolve(BUILD, 'budget.json'), 'utf8')).countries : null;
+/** Countries whose 2023 net lending is not comparable with the engine's budget (Norway: wealth-fund property income). */
+export const NON_COMPARABLE_BALANCE = ['nor'];
+const OUT_DIR = FINAL ? resolve(ROOT, 'scenarios/europe-2023/build-final') : FINANCE ? resolve(ROOT, 'scenarios/europe-2023/build-econ08') : BUILD;
+export const MAX_STARTING_DEBT_FINAL = 2;
+/** Tariff revenue fit tolerance (share of GDP): 0.03 percentage points. */
+const TARIFF_TOL = 0.0003;
 
 export const SEED = 2401;
 const MAX_ROUNDS = Number(process.env.WORLD03_ROUNDS ?? 12);
@@ -59,18 +76,43 @@ function targets(country: Country): Record<string, number> {
   }
   const debt = country.fiscal.debt;
   if (debt && debt.value !== null && debt.status !== 'unavailable') out.debtToGdp = debt.value;
+  const b = budget?.[country.id];
+  if (b) {
+    const t = b.targets;
+    const k = t.tax_scale_to_national_accounts;   // 1 except the UK (Revenue Statistics -> national-accounts total)
+    if (out.taxIncome !== undefined) out.taxIncome *= k;
+    if (out.taxCorporate !== undefined) out.taxCorporate *= k;
+    out.taxConsumption = (country.fiscal.tax_consumption_engine.value as number) * k - t.customs_inside_taxes;
+    out.spendAdministration = t.spend_administration;
+    out.spendSocial = t.spend_social;
+    out.spendMilitary = t.spend_military;
+    out.spendInfrastructure = t.spend_infrastructure;
+    out.tariffRevenue = t.tariff_revenue;
+    if (!NON_COMPARABLE_BALANCE.includes(country.id)) out.netLending = t.net_lending;
+    const data = (debt as unknown as { data_value?: number }).data_value;
+    if (typeof data === 'number' && data <= MAX_STARTING_DEBT_FINAL) out.debtToGdp = data;
+    if (out.debtToGdp === undefined && b.starting_debt) out.debtToGdp = b.starting_debt.value;   // Switzerland (estimate)
+  }
   return out;
 }
+/** Targets that are checks only (no instrument of their own). */
+const CHECK_ONLY = new Set(['netLending']);
+/** Target -> the policy input that moves it. */
+const INSTRUMENT: Record<string, string> = { tariffRevenue: 'tariff' };
 
 const lanes: LaneSpec[] = [
   ...geo.land.map((l: { a: string; b: string; distance: number }) => ({ id: `land-${l.a}|${l.b}`, from: l.a, to: l.b, distance: l.distance })),
   ...geo.maritime.map((l: { a: string; b: string; distance: number }) => ({ id: `sea-${l.a}|${l.b}`, from: l.a, to: l.b, distance: l.distance })),
 ];
 
-export function worldSpec(technology: Record<string, number>, policy: Record<string, Record<string, number>>): WorldSpec {
+export function worldSpec(technology: Record<string, number>, policy: Record<string, Record<string, number>>, ownershipScale = 1): WorldSpec {
   const countrySpecs: CountrySpec[] = countries.map(c => {
-    const effective = financing?.countries[c.id]?.effective_rate;
-    return { id: c.id, name: c.name, ...policy[c.id], ...(typeof effective === 'number' ? { effectiveRate: effective } : {}) };
+    const effective = financing?.countries[c.id]?.effective_rate ?? (FINAL ? budget?.[c.id]?.effective_rate : undefined);
+    const { tariffRevenue: _t, netLending: _n, ...inputs } = policy[c.id] ?? {};
+    return {
+      id: c.id, name: c.name, ...inputs, ...(typeof effective === 'number' ? { effectiveRate: effective } : {}),
+      ...(FINAL ? (c.kind === 'bloc' ? { economicAggregate: true } : { bankProfitToHouseholds: 1 }) : {}),
+    };
   });
   const zoneSpecs: ZoneSpec[] = zones.map(z => ({
     id: z.id, name: z.name, countryId: z.country, population: z.population.value, technology: technology[z.id], advantage: { ...z.advantage.value },
@@ -79,6 +121,10 @@ export function worldSpec(technology: Record<string, number>, policy: Record<str
   if (financing) {
     spec.config = { ...spec.config!, params: { ...spec.config!.params, ...financing.fit.fitted_params } };
     spec.holdStartingDebt = true;
+  }
+  if (FINAL) {
+    spec.maxStartingDebt = MAX_STARTING_DEBT_FINAL;
+    spec.config = { ...spec.config!, sectors: spec.config!.sectors.map(x => ({ ...x, publicShare: x.publicShare * ownershipScale, mixedShare: x.mixedShare * ownershipScale })) };
   }
   return spec;
 }
@@ -107,7 +153,17 @@ function measure(state: EconomyState, report: TurnReport) {
     const b = c.budget as unknown as Record<string, number>;
     const g = c.gdpNominal;
     const row: Record<string, number> = { gdpReal: c.gdpReal, gdpNominal: g };
-    for (const [, field, budget] of [...TAXES, ...SPEND]) row[field] = g > 0 ? b[budget] / g : 0;
+    for (const [, field, line] of [...TAXES, ...SPEND]) row[field] = g > 0 ? b[line] / g : 0;
+    row.tariffRevenue = g > 0 ? b.tariffs / g : 0;
+    row.dividends = g > 0 ? (b.firmDividends + b.centralBankProfit) / g : 0;
+    row.centralBankProfit = g > 0 ? b.centralBankProfit / g : 0;
+    // Net lending on the national-accounts basis: money creation, reserve sales, ownership sales/purchases,
+    // central-bank capital and strategic-reserve trades are financial or asset transactions, not revenue/expenditure.
+    const actualRevenue = b.revenue - b.moneyCreation - b.reserveSales - b.ownershipSales;
+    const actualSpending = b.spending - b.reservePurchases - b.ownershipPurchases - b.centralBankCapital;
+    row.netLending = g > 0 ? (actualRevenue - actualSpending) / g : 0;
+    row.nonRevenueReceipts = g > 0 ? (b.moneyCreation + b.reserveSales + b.ownershipSales) / g : 0;
+    row.interest = g > 0 ? b.interest / g : 0;
     const cs = state.country;
     const ci = state.countries.findIndex(x => x.id === c.countryId);
     row.debtToGdp = cs.gdp[ci] > 0 ? cs.debt[ci] / (cs.gdp[ci] * 52) : 0;
@@ -126,15 +182,21 @@ function main() {
   let technology = Object.fromEntries(zones.map(z => [z.id, PROVINCE_TECH_MEAN * perCapita[z.id] / provMean]));
   const goal = Object.fromEntries(countries.map(c => [c.id, targets(c)]));
   let policy: Record<string, Record<string, number>> = JSON.parse(JSON.stringify(goal));
+  // Instruments that are not themselves targets: the tariff starts low (0 where nothing is kept nationally).
+  for (const c of countries) if (goal[c.id].tariffRevenue !== undefined) policy[c.id].tariff = goal[c.id].tariffRevenue > 1e-5 ? 0.01 : 0;
+  // Dividend target (scenario-wide): GDP-weighted 2023 property income D42 of the real countries with comparable data.
+  const dividendSet = countries.filter(c => budget?.[c.id] && !NON_COMPARABLE_BALANCE.includes(c.id)).map(c => c.id);
+  let ownershipScale = 1;
+  const ownershipRounds: { round: number; scale: number; target: number; achieved: number }[] = [];
   const rounds: unknown[] = [];
-  let best: { score: number; technology: typeof technology; policy: typeof policy; state: EconomyState; report: TurnReport; m: ReturnType<typeof measure> } | null = null;
+  let best: { score: number; technology: typeof technology; policy: typeof policy; state: EconomyState; report: TurnReport; m: ReturnType<typeof measure>; ownershipScale: number } | null = null;
   let previous: { technology: typeof technology; policy: typeof policy } | null = null;
   let failures = 0;
   for (let round = 1; round <= MAX_ROUNDS; round++) {
     const t0 = performance.now();
     let start: EconomyState;
     try {
-      start = createEconomy(worldSpec(technology, policy));
+      start = createEconomy(worldSpec(technology, policy, ownershipScale));
     } catch (error) {
       // The builder refuses worlds it cannot bring to a resting point. Step back halfway towards the last
       // accepted inputs and try again (never more than 4 times in a row).
@@ -173,8 +235,27 @@ function main() {
     rounds.push({ round, seconds: (performance.now() - t0) / 1000, worstZoneShareRelative: worstZone, worstTaxSpendPoints: worstFlow, worstFiscalPoints: worstFiscal, failing });
     if (round % 5 === 0) console.log('   failing (pp):', failing.join(', '));
     console.log(`round ${round}: worst zone share ${(worstZone * 100).toFixed(2)}% | worst tax/spending ${(worstFlow * 100).toFixed(2)} pp | worst incl. debt ${(worstFiscal * 100).toFixed(2)} pp | ${((performance.now() - t0) / 1000).toFixed(1)} s`);
-    if (!best || score < best.score) best = { score, technology, policy, state, report, m };
-    if (worstZone <= TOL.outputShareRelative && worstFiscal <= TOL.fiscalPoints) break;
+    let dividendTarget = 0, dividendAchieved = 0;
+    if (FINAL) {
+      let weight = 0;
+      for (const id of dividendSet) {
+        const g = m.country[id].gdpNominal;
+        dividendTarget += budget[id].targets.dividends_and_bank_profit * g;
+        dividendAchieved += m.country[id].dividends * g;
+        weight += g;
+      }
+      dividendTarget /= weight; dividendAchieved /= weight;
+      ownershipRounds.push({ round, scale: ownershipScale, target: dividendTarget, achieved: dividendAchieved });
+      if (Math.abs(dividendAchieved - dividendTarget) > 0.002) { missed++; }
+      console.log(`   dividends: scale ${ownershipScale.toFixed(3)} engine ${(dividendAchieved * 100).toFixed(2)}% target ${(dividendTarget * 100).toFixed(2)}% of GDP`);
+    }
+    // Tariff revenue is small (0-0.6% of GDP): it must also settle within TARIFF_TOL before the fit stops.
+    let worstTariff = 0;
+    if (FINAL) for (const c of countries) if (goal[c.id].tariffRevenue !== undefined) worstTariff = Math.max(worstTariff, Math.abs(m.country[c.id].tariffRevenue - goal[c.id].tariffRevenue));
+    const finalScore = FINAL ? missed + Math.min(0.999, Math.max(worstZone / TOL.outputShareRelative, worstFlow / TOL.fiscalPoints, worstTariff / TARIFF_TOL) / 1000) : score;
+    if (!best || finalScore < best.score) best = { score: finalScore, technology, policy, state, report, m, ownershipScale };
+    if (worstZone <= TOL.outputShareRelative && worstFiscal <= TOL.fiscalPoints && (!FINAL || (Math.abs(dividendAchieved - dividendTarget) <= 0.002 && worstTariff <= TARIFF_TOL))) break;
+    if (FINAL && dividendAchieved > 1e-6) ownershipScale = Math.min(1, ownershipScale * Math.min(1.5, Math.max(1 / 3, Math.pow(dividendTarget / dividendAchieved, 0.9))));
     // Updates: damped, multiplicative, each step bounded to a factor of 1.5, within the engine's own limits.
     const bound = (x: number) => Math.min(1.5, Math.max(1 / 1.5, x));
     const next = { ...technology };
@@ -192,6 +273,13 @@ function main() {
         // would misstate the starting position, so the residual is reported instead (owner decision W3-D1).
         if (field === 'debtToGdp') {
           nextPolicy[c.id][field] = target;
+        } else if (CHECK_ONLY.has(field)) {
+          // a check: no instrument
+        } else if (INSTRUMENT[field]) {
+          const input = INSTRUMENT[field];
+          if (target <= 1e-5) nextPolicy[c.id][input] = 0;
+          else if (achieved > 1e-7) nextPolicy[c.id][input] = Math.min(0.3, policy[c.id][input] * bound(Math.pow(target / achieved, 0.8)));
+          else nextPolicy[c.id][input] = Math.min(0.3, policy[c.id][input] * 1.5);
         } else if (achieved > 1e-6) nextPolicy[c.id][field] = Math.min(field.startsWith('tax') ? 0.7 : 0.5, policy[c.id][field] * bound(Math.pow(target / achieved, 0.8)));
       }
     }
@@ -208,8 +296,14 @@ function main() {
   for (const z of zoneTable) { countryTarget[z.country] = (countryTarget[z.country] ?? 0) + z.targetShare; countryAchieved[z.country] = (countryAchieved[z.country] ?? 0) + z.achievedShare; }
   const fiscalTable = countries.map(c => ({
     id: c.id, kind: c.kind,
-    rows: [...TAXES, ...SPEND].map(([key, field]) => ({ field: field as string, target: goal[c.id][field] ?? null, status: c.fiscal[key]?.status ?? 'unavailable', input: b.policy[c.id][field] ?? null, achieved: b.m.country[c.id][field] }))
-      .concat([{ field: 'debtToGdp', target: goal[c.id].debtToGdp ?? null, status: c.fiscal.debt?.status ?? 'unavailable', input: b.policy[c.id].debtToGdp ?? null, achieved: b.m.country[c.id].debtToGdp }]),
+    rows: [...TAXES, ...SPEND].map(([key, field]): { field: string; target: number | null; status: string; input: number | null; achieved: number } => ({ field: field as string, target: goal[c.id][field] ?? null, status: c.fiscal[key]?.status ?? 'unavailable', input: b.policy[c.id][field] ?? null, achieved: b.m.country[c.id][field] }))
+      .concat([{ field: 'debtToGdp', target: goal[c.id].debtToGdp ?? null, status: c.fiscal.debt?.status ?? 'unavailable', input: b.policy[c.id].debtToGdp ?? null, achieved: b.m.country[c.id].debtToGdp }])
+      .concat(FINAL ? [
+        { field: 'tariffRevenue', target: goal[c.id].tariffRevenue ?? null, status: budget?.[c.id] ? 'data' : 'unavailable', input: b.policy[c.id].tariff ?? null, achieved: b.m.country[c.id].tariffRevenue },
+        { field: 'netLending', target: goal[c.id].netLending ?? null, status: budget?.[c.id] ? (NON_COMPARABLE_BALANCE.includes(c.id) ? 'not comparable' : 'data') : 'unavailable', input: null, achieved: b.m.country[c.id].netLending },
+        { field: 'dividends', target: budget?.[c.id]?.targets.dividends_and_bank_profit ?? null, status: 'reported (fitted scenario-wide)', input: null, achieved: b.m.country[c.id].dividends },
+        { field: 'interest', target: financing?.countries[c.id]?.interest_paid_pct_gdp ?? null, status: 'reported', input: null, achieved: b.m.country[c.id].interest },
+      ] : []),
   }));
   // Sector groups: achieved output shares by engine group vs data (informational, advantages are not fitted).
   const goods = b.state.config.goods;
@@ -229,14 +323,15 @@ function main() {
     return { id: zr.zoneId, data: z.groups.value, engine: Object.fromEntries(['food', 'energy', 'materials', 'industrial', 'consumer'].map(k => [k, (totals[k] ?? 0) / sum])) };
   });
   mkdirSync(OUT_DIR, { recursive: true });
-  const spec = worldSpec(b.technology, b.policy);
+  const spec = worldSpec(b.technology, b.policy, b.ownershipScale);
   const { config: _config, ...specWithoutConfig } = spec;
   writeFileSync(resolve(OUT_DIR, 'world-spec.json'), JSON.stringify({ note: 'Engine WorldSpec without its goods config: rebuild with toCatalogueSpec() from the legacy zone advantages, or use createCatalogueConfig().',
     legacyZones: zones.map(z => ({ id: z.id, advantage: z.advantage.value })), spec: specWithoutConfig }, null, 1) + '\n');
   writeFileSync(resolve(OUT_DIR, 'week1.economy.json'), serializeEconomy(b.state));
   writeFileSync(resolve(OUT_DIR, 'calibration.json'), JSON.stringify({
-    engine: FINANCE ? 'economy-engine with ECON-08 options (effectiveRate, holdStartingDebt) and the 2023 spread fit' : 'economy-engine (unchanged)', seed: SEED, provinceTechnologyMean: PROVINCE_TECH_MEAN, tolerances: TOL, rounds,
+    engine: FINAL ? 'economy-engine with ECON-08 and WORLD-03-FINAL opt-in inputs; 2023 spread fit; budget mapping draft.2' : FINANCE ? 'economy-engine with ECON-08 options (effectiveRate, holdStartingDebt) and the 2023 spread fit' : 'economy-engine (unchanged)', seed: SEED, provinceTechnologyMean: PROVINCE_TECH_MEAN, tolerances: TOL, rounds,
     met: b.score < 1, targetsMissed: Math.floor(b.score), week1StateHash: hashEconomy(b.state),
+    ...(FINAL ? { mode: 'final', ownershipScale: b.ownershipScale, ownershipRounds, maxStartingDebt: MAX_STARTING_DEBT_FINAL, nonComparableBalance: NON_COMPARABLE_BALANCE } : {}),
     zones: zoneTable,
     countries: Object.keys(countryTarget).map(id => ({ id, targetShare: countryTarget[id], achievedShare: countryAchieved[id], relativeError: countryAchieved[id] / countryTarget[id] - 1 })),
     fiscal: fiscalTable, groups: groupTable,

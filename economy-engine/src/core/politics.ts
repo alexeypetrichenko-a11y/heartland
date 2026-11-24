@@ -60,6 +60,8 @@ export function updatePolitics(s: EconomyState, w: Workspace, events: EconomyEve
   }
 
   for (let c = 0; c < C; c++) {
+    // WORLD-03-FINAL (opt-in): an economic aggregation has no political life (no unrest, strikes or regime change).
+    if (s.countries[c].aggregate === true) { country.unrestTier[c] = 0; continue; }
     if (!(w.politicsPopulation[c] > EPSILON)) continue;
     const taxes = w.revenueIncomeTax[c] + w.revenueConsumptionTax[c] + w.revenueCorporateTax[c] + w.revenueTariffs[c];
     const burden = w.countryNominal[c] > EPSILON ? taxes / w.countryNominal[c] : 0;

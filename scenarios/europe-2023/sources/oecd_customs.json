@@ -1,0 +1,25 @@
+{
+ "attribution": "Source: OECD",
+ "dataset": "OECD.CTP.TPS,DSD_REV_COMP_OECD@DF_RSOECD",
+ "id": "oecd_customs",
+ "key": "country|revenue category",
+ "licence": "CC BY 4.0",
+ "licence_status": "verified (search only; oecd.org blocks automated reading)",
+ "notes": [],
+ "publisher": "oecd",
+ "publisher_updated": null,
+ "query": "https://sdmx.oecd.org/public/rest/data/OECD.CTP.TPS,DSD_REV_COMP_OECD@DF_RSOECD,/GBR+TUR+NOR+CHE.TAX_REV.S13.T_5123+_T._T.PT_B1GQ.A?startPeriod=2023&endPeriod=2023&dimensionAtObservation=AllDimensions",
+ "reference_year": 2023,
+ "retrieved": "2026-11-23",
+ "title": "Revenue Statistics: 5123 customs and import duties, % of GDP",
+ "values": {
+  "CHE|T_5123": 0.147278,
+  "CHE|_T": 26.898372,
+  "GBR|T_5123": 0.191319,
+  "GBR|_T": 34.965313,
+  "NOR|T_5123": 0.072252,
+  "NOR|_T": 41.630843,
+  "TUR|T_5123": 0.54839,
+  "TUR|_T": 23.216834
+ }
+}

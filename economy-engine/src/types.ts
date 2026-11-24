@@ -340,7 +340,23 @@ export interface EconomyConfig {
 // Simulation state
 // ---------------------------------------------------------------------------
 
-export interface CountryInfo { id: CountryId; name: string }
+export interface CountryInfo {
+  id: CountryId;
+  name: string;
+  /**
+   * WORLD-03-FINAL (opt-in): an economic aggregation of many real countries (a rest-of-world bloc), not a
+   * government. It produces, consumes, trades and runs a budget as usual, but has no political life: its
+   * stability stays at its starting value, it has no unrest (so no strikes) and no regime change. Absent = a
+   * country as before.
+   */
+  aggregate?: true;
+  /**
+   * WORLD-03-FINAL (opt-in): share of the national bank's profit payout that goes to the country's households
+   * (the owners of commercial banks, which the engine's single national bank also stands for) instead of the
+   * treasury; households pay income tax on it like on dividends. Absent = 0 (everything to the treasury, as before).
+   */
+  bankProfitToHouseholds?: number;
+}
 export interface ZoneInfo { id: ZoneId; name: string }
 export interface WaypointInfo { id: string; name: string }
 
@@ -1033,6 +1049,10 @@ export interface CountrySpec {
    * refinanced (debtMaturityWeeks). Omit to start, as before, with every bond at the current market rate.
    */
   effectiveRate?: number;
+  /** WORLD-03-FINAL (opt-in): see CountryInfo.aggregate. */
+  economicAggregate?: boolean;
+  /** WORLD-03-FINAL (opt-in, 0-1): see CountryInfo.bankProfitToHouseholds. */
+  bankProfitToHouseholds?: number;
   stability?: number;
   taxConsumption?: number;
   taxCorporate?: number;
@@ -1090,4 +1110,9 @@ export interface WorldSpec {
    * equal the debt held against them and no money is created or destroyed; the game starts from this state.
    */
   holdStartingDebt?: boolean;
+  /**
+   * WORLD-03-FINAL (opt-in): highest starting debtToGdp this world accepts (default 1.5, allowed 1.5-3). Only the
+   * starting position is affected; market pressure, access and default rules during play are unchanged.
+   */
+  maxStartingDebt?: number;
 }

@@ -1,0 +1,23 @@
+{
+ "attribution": "Source: OECD",
+ "dataset": "OECD.SDD.NAD,DSD_NASEC20@DF_T720GOV_A",
+ "id": "oecd_che_debt",
+ "key": "country|instrument",
+ "licence": "CC BY 4.0",
+ "licence_status": "verified (search only; oecd.org blocks automated reading)",
+ "notes": [
+  "Non-consolidated: holdings of one government unit by another are not netted out, so it can exceed consolidated (Maastricht) debt."
+ ],
+ "publisher": "oecd",
+ "publisher_updated": null,
+ "query": "https://sdmx.oecd.org/public/rest/data/OECD.SDD.NAD,DSD_NASEC20@DF_T720GOV_A,/A..CHE..S13...L..........?startPeriod=2023&endPeriod=2023&dimensionAtObservation=AllDimensions",
+ "reference_year": 2023,
+ "retrieved": "2026-11-23",
+ "title": "Swiss general government liabilities by instrument (F = all, F2, F3, F4), all maturities, non-consolidated, francs million",
+ "values": {
+  "CHE|F": 339884.0,
+  "CHE|F2": 15868.0,
+  "CHE|F3": 133820.0,
+  "CHE|F4": 67265.0
+ }
+}
