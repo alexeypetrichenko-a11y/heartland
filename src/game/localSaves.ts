@@ -1,3 +1,4 @@
+import type { EuropeScenario } from './europeScenario.ts';
 import type { LoadedEconomy } from './economyBridge.ts';
 import { decodeGameSave, encodeGameSave, type PlayableSession, type SavedGame } from './saveFormat.ts';
 
@@ -72,7 +73,7 @@ async function accessSlot(write?: { expected: SlotValue; record: string }): Prom
   }
 }
 
-export function createLocalSaves(onStatus: (status: SaveStatus) => void) {
+export function createLocalSaves(onStatus: (status: SaveStatus) => void, loadEurope?: () => Promise<EuropeScenario>) {
   let expected: SlotValue | undefined;
   let pending: { runtime: LoadedEconomy; session: PlayableSession } | undefined;
   let timer: ReturnType<typeof setTimeout> | undefined;
@@ -90,7 +91,7 @@ export function createLocalSaves(onStatus: (status: SaveStatus) => void) {
     if (record === null) return { kind: 'empty' };
     if (record === false) return { kind: 'unreadable', message: 'The local save could not be read.' };
     try {
-      return { kind: 'found', save: await decodeGameSave(record) };
+      return { kind: 'found', save: await decodeGameSave(record, loadEurope) };
     } catch (error) {
       return { kind: 'unreadable', message: messageOf(error, 'The local save could not be read.') };
     }

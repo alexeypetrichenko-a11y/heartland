@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { CountryId, GameState, RegionId, TurnCommand } from '../game/models';
 import type { EconomyCommand, EconomySnapshot } from '../game/economyBridge';
+import { EUROPE_MILITARY_NOTICE, type EuropeScenario } from '../game/europeScenario';
+import { EuropeMap } from './EuropeMap';
 import { createInitialState } from '../game/initialState';
 import type { SaveStatus } from '../game/localSaves';
 import type { PlayerDrafts } from '../game/playerDrafts';
@@ -17,6 +19,7 @@ import { readWeeklyReport, type WeeklyReport } from './weeklyReport';
 
 type PrototypePageProps = {
   active: boolean;
+  europe?: EuropeScenario;
   state: GameState;
   drafts: PlayerDrafts;
   onChangeDrafts: (drafts: PlayerDrafts) => void;
@@ -29,18 +32,29 @@ type PrototypePageProps = {
   onSave: () => void;
 };
 
-export function CountrySetup({ busy, error, onSelectCountry, onBack }: {
+export function CountrySetup({ busy, error, onSelectCountry, onBack, europeEnabled, scenarioChoice, europe, onScenarioChoice }: {
   busy: boolean; error: string | null; onSelectCountry: (id: CountryId) => void; onBack: () => void;
+  europeEnabled: boolean; scenarioChoice: 'fictional' | 'europe-2023'; europe: EuropeScenario | null;
+  onScenarioChoice: (choice: 'fictional' | 'europe-2023') => void;
 }) {
   const [state] = useState(createInitialState);
   const [choice, setChoice] = useState('');
+  const isEurope = scenarioChoice === 'europe-2023';
+  const roster = isEurope ? europe?.countries ?? [] : state.countries;
   return (
     <div className="prototype-content country-setup">
       <h1 id="country-setup-title">Local prototype</h1>
-      <p>Explore a small illustrative, fictional test world in a local single-player scenario.</p>
+      {europeEnabled && <div><label htmlFor="scenario-choice">Scenario</label><select id="scenario-choice" value={scenarioChoice} disabled={busy} onChange={event => {
+        setChoice('');
+        onScenarioChoice(event.target.value === 'europe-2023' ? 'europe-2023' : 'fictional');
+      }}>
+        <option value="fictional">Fictional World</option>
+        <option value="europe-2023">Europe 2023 (experimental)</option>
+      </select></div>}
+      <p>{isEurope ? EUROPE_MILITARY_NOTICE : 'Explore a small illustrative, fictional test world in a local single-player scenario.'}</p>
       <section className="hud" aria-labelledby="country-choice-title">
         <h2 id="country-choice-title">Choose your country</h2>
-        <p>Choose one country to control. The other two make one autonomous diplomatic decision each week.</p>
+        {!isEurope && <p>Choose one country to control. The other two make one autonomous diplomatic decision each week.</p>}
         <form onSubmit={event => {
           event.preventDefault();
           if (choice && !busy) onSelectCountry(choice);
@@ -48,14 +62,15 @@ export function CountrySetup({ busy, error, onSelectCountry, onBack }: {
           <label htmlFor="player-country">Player country</label>
           <select id="player-country" value={choice} onChange={event => setChoice(event.target.value)} disabled={busy} required>
             <option value="" disabled>Select a country</option>
-            {state.countries.map(country => <option key={country.id} value={country.id}>{country.name}</option>)}
+            {roster.map(country => <option key={country.id} value={country.id}>{country.name}</option>)}
           </select>
           <button type="submit" disabled={!choice || busy}>Start local scenario</button>
         </form>
         {busy && <p role="status">Preparing the economy…</p>}
         {error && <p className="turn-error" role="alert">{error}</p>}
+        {isEurope && error && !europe && <button type="button" disabled={busy} onClick={() => onScenarioChoice('europe-2023')}>Retry Europe 2023</button>}
       </section>
-      <RegionMap state={state} />
+      {isEurope ? europe && <EuropeMap scenario={europe} state={europe.fixture} /> : <RegionMap state={state} />}
       <button type="button" onClick={onBack}>Back to globe</button>
     </div>
   );
@@ -71,7 +86,7 @@ const sections = [
 type Section = typeof sections[number]['id'];
 const RECENT_REPORT_LIMIT = 4;
 
-export function PrototypePage({ active, state, drafts, onChangeDrafts, onAdvanceTurn, turnError, onBack, economy, fiscalApi, saveStatus, onSave }: PrototypePageProps) {
+export function PrototypePage({ active, europe, state, drafts, onChangeDrafts, onAdvanceTurn, turnError, onBack, economy, fiscalApi, saveStatus, onSave }: PrototypePageProps) {
   const [showScenario, setShowScenario] = useState(false);
   const [activeSection, setActiveSection] = useState<Section>('world');
   const [reportWeek, setReportWeek] = useState<number | 'latest' | null>(null);
@@ -155,7 +170,7 @@ export function PrototypePage({ active, state, drafts, onChangeDrafts, onAdvance
         {/* Mounted, hidden views retain map selection, unfinished forms and staged commands. */}
         <div className="game-workspace" hidden={showScenario || Boolean(report)}>
           <div id="section-world" className="section-view" hidden={activeSection !== 'world'}>
-            <RegionMap state={state} inspect={regionInspection} />
+            {europe ? <EuropeMap scenario={europe} state={state} inspect={regionInspection} /> : <RegionMap state={state} inspect={regionInspection} />}
           </div>
           <div id="section-politics" className="section-view" hidden={activeSection !== 'politics'}>
             <section className="overview" aria-labelledby="politics-title">
@@ -170,12 +185,12 @@ export function PrototypePage({ active, state, drafts, onChangeDrafts, onAdvance
               fiscal={fiscal} onFiscalChange={(field, value) => onChangeDrafts({ ...drafts, fiscal: { ...proposedFiscal, [field]: value } })} />
           </div>
           <div id="section-diplomacy" className="section-view" hidden={activeSection !== 'diplomacy'}>
-            <DiplomacyPanel state={state} pendingAction={diplomacy} onStageAction={action => onChangeDrafts({ ...drafts, diplomacy: action })} />
+            <DiplomacyPanel europe={Boolean(europe)} state={state} pendingAction={diplomacy} onStageAction={action => onChangeDrafts({ ...drafts, diplomacy: action })} />
           </div>
           <div id="section-military" className="section-view" hidden={activeSection !== 'military'}>
-            <MilitaryPanel state={state} pendingOrders={military}
+            {europe ? <p className="turn-status">{EUROPE_MILITARY_NOTICE}</p> : <MilitaryPanel state={state} pendingOrders={military}
               onStageOrder={command => onChangeDrafts({ ...drafts, military: [...military.filter(order => order.divisionId !== command.divisionId), command] })}
-              onDiscardOrders={() => onChangeDrafts({ ...drafts, military: [] })} />
+              onDiscardOrders={() => onChangeDrafts({ ...drafts, military: [] })} />}
           </div>
         </div>
         {report && latestReport && <WeeklyReportPanel key={report.week} active={active} report={report}
@@ -184,14 +199,16 @@ export function PrototypePage({ active, state, drafts, onChangeDrafts, onAdvance
           onOpenRegion={id => { setActiveSection('world'); setRegionInspection({ id }); setReportWeek(null); }} />}
         <DetailPanel id="scenario-details" title="Scenario information" open={showScenario} onClose={() => setShowScenario(false)}>
           {latestReport && <button type="button" onClick={openLatestReport}>Open weekly report</button>}
-          <p>Local single-player prototype · Fictional test world. Temporary statistics and provisional rules, not balanced game values.</p>
+          <p>{europe ? 'Europe 2023 · Restricted local review · ' + europe.identity.version
+            : 'Local single-player prototype · Fictional test world. Temporary statistics and provisional rules, not balanced game values.'}</p>
+          {europe && <p>{EUROPE_MILITARY_NOTICE} Source attribution and licence details are in the scenario’s <a href={`${import.meta.env.BASE_URL}review/${europe.identity.id}/${europe.identity.version}/provenance.json`}>provenance record</a>.</p>}
           <p>Next week resolves diplomacy and military orders, then applies fiscal drafts and advances the economy for the same week. Captured regions enter economic occupation and retain their legal owner. An invalid order rejects the entire week and retains every draft.</p>
           <p>Heartland saves this game and its drafts in this browser. Clearing website data or Safari removing stored data can erase the save.</p>
           {saveStatus && saveStatus.kind !== 'failed' && <p role="status">
             {saveStatus.kind === 'saving' ? 'Saving locally…' : `Saved locally · Week ${saveStatus.week}`}
           </p>}
           <h3>Country control</h3>
-          <ul>{state.countries.map(country => <li key={country.id}>{country.name}: {country.controller === 'player' ? 'Player-controlled (you)' : `AI-controlled — ${AI_PRIORITIES[country.id].label}`}</li>)}</ul>
+          <ul>{state.countries.map(country => <li key={country.id}>{country.name}: {country.controller === 'player' ? 'Player-controlled (you)' : europe ? 'AI-controlled' : `AI-controlled — ${AI_PRIORITIES[country.id].label}`}</li>)}</ul>
           <h3>Your regions</h3><ul>{regions.map(region => <li key={region.id}>{region.name}</li>)}</ul>
           <div className="scenario-save-actions">
             <button type="button" onClick={onSave}>Save now</button>

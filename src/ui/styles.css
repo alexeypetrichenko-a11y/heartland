@@ -1313,3 +1313,38 @@ li {
     background: var(--color-surface);
   }
 }
+
+.europe-map {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  max-width: 64rem;
+  margin-inline: auto;
+  padding: 0.65rem;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.europe-map-controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.europe-map-controls select {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+}
+
+.europe-provinces {
+  display: block;
+  width: 100%;
+  height: clamp(10rem, 48dvh, 35rem);
+  margin-block: 0.65rem;
+  background: #142533;
+}
+
+.europe-provinces [data-province] {
+  cursor: pointer;
+}

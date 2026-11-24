@@ -477,3 +477,8 @@ Historical first implementation/validation follows. The physical-iPhone-feedback
 - The latest report is reconstructed from the saved session and its optional prior-week comparison. Original SAVE-01 saves open with the comparisons available to them. Up to four recent reports are available in the current session.
 - The production build, 156 game tests, 205 engine tests, the 10,000-week engine check, and production browser checks passed. All three fictional countries completed a 52-turn simulation with an identical save-and-resume continuation.
 - Physical iPhone Safari review is pending. [Test results and iPhone acceptance](docs/economy/GAME-UX-01.md)
+
+## WORLD-04 — First Playable Europe
+
+- Review branch integrates the six playable countries and 46 provinces from the immutable Europe draft.2 package. The experimental scenario uses the existing weekly turn, dashboard, diplomacy and local save flows.
+- Europe is limited to a restricted local build. Physical iPhone Safari review, military starting data and redistribution clearance remain pending. [Review notes and test procedure](docs/world/WORLD-04-REVIEW.md)

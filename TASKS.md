@@ -303,3 +303,8 @@ Each item above is a **feature family** to be broken into small PRs before imple
 ## Current delivery and remaining phases
 
 The owner merged the atlas through MAP-01C. MAP-01D administrative region inspection is ready for owner review and iPhone validation. The playable roster, terrain caching, scenario replacement and other gameplay phases remain deferred.
+
+### WORLD-04 — First Playable Europe
+
+- [x] Integrate immutable draft.2 in the restricted local build with scenario-aware saves, geographic province inspection and weekly play.
+- [ ] Review the separate PR and validate on a physical iPhone. [Review notes and test procedure](docs/world/WORLD-04-REVIEW.md)

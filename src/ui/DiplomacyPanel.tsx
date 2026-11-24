@@ -6,15 +6,18 @@ import { DIPLOMACY_PARAMETERS, visibleDiplomaticMessages } from '../game/diploma
 type Props = {
   state: GameState;
   pendingAction: DiplomaticCommand | null;
+  europe?: boolean;
   onStageAction: (command: DiplomaticCommand | null) => void;
 };
 
-export function DiplomacyPanel({ state, pendingAction, onStageAction }: Props) {
+export function DiplomacyPanel({ state, pendingAction, onStageAction, europe }: Props) {
   const [detail, setDetail] = useState<'compose' | 'offers' | 'history' | null>(null);
   const [targetId, setTargetId] = useState('');
   const [action, setAction] = useState<'goodwill' | 'condemnation' | 'offer'>('goodwill');
   const countryId = state.playerCountryId!;
-  const counterparts = state.countries.filter(country => country.id !== countryId);
+  const relations = europe ? state.relations.filter(relation => relation.countryIds.includes(countryId)) : state.relations;
+  const counterparts = state.countries.filter(country => country.id !== countryId
+    && (!europe || relations.some(relation => relation.countryIds.includes(country.id))));
   const target = counterparts.find(country => country.id === targetId);
   const visible = visibleDiplomaticMessages(state, countryId);
   const declarations = visible.filter(message => message.visibility === 'public');
@@ -38,7 +41,7 @@ export function DiplomacyPanel({ state, pendingAction, onStageAction }: Props) {
     <div className="overview overview-grid" hidden={detail !== null}>
       <div className="group">
         <h3>Relations</h3>
-        <ul className="card card-list" aria-label="Bilateral relationships">{state.relations.map(relation => <li className="row" key={relation.countryIds.join(':')}>
+        <ul className="card card-list" aria-label="Bilateral relationships">{relations.map(relation => <li className="row" key={relation.countryIds.join(':')}>
           <span className="row-text"><b>{relation.countryIds.map(countryName).join(' ↔ ')}</b><span>Shared relationship</span></span><span className="value">{signed(relation.value)}</span>
         </li>)}</ul>
       </div>

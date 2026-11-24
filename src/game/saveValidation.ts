@@ -4,10 +4,7 @@ import { parseMilitaryOrder } from './military.ts';
 import type { GameState } from './models.ts';
 import type { PlayerDrafts } from './playerDrafts.ts';
 
-const scenario = createInitialState();
-const countries = new Set(scenario.countries.map(country => country.id));
-const regions = new Set(scenario.regions.map(region => region.id));
-const divisions = new Set(scenario.divisions.map(division => division.id));
+const fictional = createInitialState();
 const relationshipSpan = DIPLOMACY_PARAMETERS.maxRelationship - DIPLOMACY_PARAMETERS.minRelationship;
 
 export function isSaveObject(value: unknown): value is Record<string, unknown> {
@@ -31,12 +28,12 @@ function matchesFixture<T>(value: unknown, expected: T[], valid: (entry: Record<
     isSaveObject(value[i]) && valid(value[i], entry));
 }
 
-function orderInScenario(value: unknown) {
+function orderInScenario(value: unknown, regions: Set<string>) {
   const order = parseMilitaryOrder(value);
   return order.kind === 'defend' || regions.has(order.targetRegionId);
 }
 
-function militaryResult(value: unknown) {
+function militaryResult(value: unknown, regions: Set<string>, divisions: Set<string>) {
   if (!isSaveObject(value) || !known(divisions, value.divisionId)) return false;
   if (value.kind === 'cancelled') return text(value.reason);
   if (!known(regions, value.targetRegionId)) return false;
@@ -46,7 +43,7 @@ function militaryResult(value: unknown) {
       isSaveObject(loss) && known(divisions, loss.divisionId) && integer(loss.losses, 0));
 }
 
-function diplomaticMessage(value: unknown, week: number) {
+function diplomaticMessage(value: unknown, week: number, countries: Set<string>) {
   if (!isSaveObject(value) || !text(value.id) || !integer(value.week, 1, week - 1)
     || !known(countries, value.fromId) || !known(countries, value.toId) || value.fromId === value.toId
     || !integer(value.relationshipChange, -relationshipSpan, relationshipSpan) || !text(value.reason)) return false;
@@ -58,45 +55,53 @@ function diplomaticMessage(value: unknown, week: number) {
 }
 
 /** Validate the fixed world and all persistent records before handing them to the simulation. */
-export function validateSavedGame(value: unknown): GameState {
+export function validateSavedGame(value: unknown, scenario = fictional, playable?: readonly string[]): GameState {
+  const countries = new Set(scenario.countries.map(country => country.id));
+  const regions = new Set(scenario.regions.map(region => region.id));
+  const divisions = new Set(scenario.divisions.map(division => division.id));
+  const actors = playable ? new Set(scenario.relations.flatMap(relation => relation.countryIds)) : countries;
   requireSave(isSaveObject(value) && integer(value.week, 1) && known(countries, value.playerCountryId));
   const { playerCountryId, week } = value;
+  requireSave(!playable || playable.includes(playerCountryId));
   if (value.seed !== scenario.seed) throw new Error('This local save belongs to a different scenario.');
   requireSave(matchesFixture(value.countries, scenario.countries, (entry, original) =>
     entry.id === original.id && entry.name === original.name
     && entry.controller === (entry.id === playerCountryId ? 'player' : 'ai')));
   requireSave(matchesFixture(value.regions, scenario.regions, (entry, original) =>
     entry.id === original.id && entry.name === original.name && known(countries, entry.ownerId)
+    && (!playable || entry.ownerId === original.ownerId)
     && sameArray(entry.adjacentRegionIds, original.adjacentRegionIds)));
   requireSave(matchesFixture(value.divisions, scenario.divisions, (entry, original) =>
     entry.id === original.id && entry.name === original.name && entry.ownerId === original.ownerId
-    && known(regions, entry.regionId) && integer(entry.manpower, 0) && orderInScenario(entry.order)));
+    && known(regions, entry.regionId) && integer(entry.manpower, 0) && orderInScenario(entry.order, regions)));
   requireSave(matchesFixture(value.relations, scenario.relations, (entry, original) =>
     sameArray(entry.countryIds, original.countryIds)
     && integer(entry.value, DIPLOMACY_PARAMETERS.minRelationship, DIPLOMACY_PARAMETERS.maxRelationship)));
   requireSave(Array.isArray(value.standingOrders) && value.standingOrders.every(order =>
     isSaveObject(order) && text(order.id) && known(countries, order.countryId) && order.kind === 'placeholder' && text(order.label)));
   requireSave(new Set(value.standingOrders.map(order => order.id)).size === value.standingOrders.length);
-  requireSave(Array.isArray(value.diplomaticMessages) && value.diplomaticMessages.every(message => diplomaticMessage(message, week)));
+  requireSave(Array.isArray(value.diplomaticMessages) && value.diplomaticMessages.every(message => diplomaticMessage(message, week, actors)));
   requireSave(new Set(value.diplomaticMessages.map(message => message.id)).size === value.diplomaticMessages.length);
-  requireSave(Array.isArray(value.militaryResults) && value.militaryResults.every(militaryResult));
+  requireSave(Array.isArray(value.militaryResults) && value.militaryResults.every(result => militaryResult(result, regions, divisions)));
   return value as unknown as GameState;
 }
 
-export function validateSavedDrafts(value: unknown, game: GameState): PlayerDrafts {
+export function validateSavedDrafts(value: unknown, game: GameState, europe = false): PlayerDrafts {
+  const regions = new Set(game.regions.map(region => region.id));
   requireSave(isSaveObject(value) && Array.isArray(value.military) && isSaveObject(value.fiscal)
     && Object.values(value.fiscal).every(entry => typeof entry === 'string'));
   requireSave(value.military.every(command =>
     isSaveObject(command) && command.type === 'set-military-order' && command.countryId === game.playerCountryId
     && game.divisions.some(division => division.id === command.divisionId && division.ownerId === command.countryId)
-    && orderInScenario(command.order)));
+    && orderInScenario(command.order, regions)));
   requireSave(new Set(value.military.map(command => command.divisionId)).size === value.military.length);
   if (value.diplomacy !== null) {
     const command = parseDiplomaticCommand(value.diplomacy);
     requireSave(command.countryId === game.playerCountryId);
     requireSave(command.type === 'respond-offer'
       ? game.diplomaticMessages.some(message => message.id === command.offerId && message.visibility === 'private' && message.toId === command.countryId)
-      : countries.has(command.targetId) && command.targetId !== command.countryId);
+      : game.countries.some(country => country.id === command.targetId) && command.targetId !== command.countryId
+        && (!europe || game.relations.some(relation => relation.countryIds.includes(command.countryId) && relation.countryIds.includes(command.targetId))));
   }
   return value as unknown as PlayerDrafts;
 }
