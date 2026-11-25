@@ -23,16 +23,22 @@ import type { CountrySpec, EconomyState, LaneSpec, TurnReport, WorldSpec, ZoneSp
 
 const ROOT = resolve(import.meta.dirname, '../../..');
 const BUILD = resolve(ROOT, 'scenarios/europe-2023/build');
-const inputs = JSON.parse(readFileSync(resolve(BUILD, 'inputs.json'), 'utf8'));
+/**
+ * WORLD-05-FINAL (opt-in: WORLD03_FINANCE=licensed, package 1.0.0-draft.3): exactly the WORLD-03-FINAL ('final') method,
+ * on the licence-clean inputs of build-licensed/ (scenarios/pipeline/build_*.py --licensed). Outputs go to build-licensed/.
+ */
+export const LICENSED = process.env.WORLD03_FINANCE === 'licensed';
+const BUILD_IN = LICENSED ? resolve(ROOT, 'scenarios/europe-2023/build-licensed') : BUILD;
+const inputs = JSON.parse(readFileSync(resolve(BUILD_IN, 'inputs.json'), 'utf8'));
 const geo = JSON.parse(readFileSync(resolve(BUILD, 'geography.json'), 'utf8'));
 /**
  * ECON-08 (opt-in: WORLD03_FINANCE=econ08): 2023 sovereign financing (build/financing.json: effective rates on the
  * stock, the spread parameters fitted to euro-area yields) and the builder's starting-balance-sheet hold. Outputs
  * then go to build-econ08/ so the WORLD-03 1.0.0-draft.1 build is not touched.
  */
-export const FINAL = process.env.WORLD03_FINANCE === 'final';
+export const FINAL = process.env.WORLD03_FINANCE === 'final' || LICENSED;
 export const FINANCE = process.env.WORLD03_FINANCE === 'econ08' || FINAL;
-const financing = FINANCE ? JSON.parse(readFileSync(resolve(BUILD, 'financing.json'), 'utf8')) : null;
+const financing = FINANCE ? JSON.parse(readFileSync(resolve(BUILD_IN, 'financing.json'), 'utf8')) : null;
 /**
  * WORLD-03-FINAL (opt-in: WORLD03_FINANCE=final, package 1.0.0-draft.2): the ECON-08 financing plus
  *   - fiscal targets from build/budget.json (cash-basis administration; social = cash benefits + every flow the engine
@@ -43,10 +49,10 @@ const financing = FINANCE ? JSON.parse(readFileSync(resolve(BUILD, 'financing.js
  *     CountrySpec.economicAggregate for the five blocs, WorldSpec.maxStartingDebt = 2 (Greece starts at 1.64).
  * Outputs go to build-final/.
  */
-const budget = FINAL ? JSON.parse(readFileSync(resolve(BUILD, 'budget.json'), 'utf8')).countries : null;
+const budget = FINAL ? JSON.parse(readFileSync(resolve(BUILD_IN, 'budget.json'), 'utf8')).countries : null;
 /** Countries whose 2023 net lending is not comparable with the engine's budget (Norway: wealth-fund property income). */
 export const NON_COMPARABLE_BALANCE = ['nor'];
-const OUT_DIR = FINAL ? resolve(ROOT, 'scenarios/europe-2023/build-final') : FINANCE ? resolve(ROOT, 'scenarios/europe-2023/build-econ08') : BUILD;
+const OUT_DIR = LICENSED ? BUILD_IN : FINAL ? resolve(ROOT, 'scenarios/europe-2023/build-final') : FINANCE ? resolve(ROOT, 'scenarios/europe-2023/build-econ08') : BUILD;
 export const MAX_STARTING_DEBT_FINAL = 2;
 /** Tariff revenue fit tolerance (share of GDP): 0.03 percentage points. */
 const TARIFF_TOL = 0.0003;
@@ -329,9 +335,9 @@ function main() {
     legacyZones: zones.map(z => ({ id: z.id, advantage: z.advantage.value })), spec: specWithoutConfig }, null, 1) + '\n');
   writeFileSync(resolve(OUT_DIR, 'week1.economy.json'), serializeEconomy(b.state));
   writeFileSync(resolve(OUT_DIR, 'calibration.json'), JSON.stringify({
-    engine: FINAL ? 'economy-engine with ECON-08 and WORLD-03-FINAL opt-in inputs; 2023 spread fit; budget mapping draft.2' : FINANCE ? 'economy-engine with ECON-08 options (effectiveRate, holdStartingDebt) and the 2023 spread fit' : 'economy-engine (unchanged)', seed: SEED, provinceTechnologyMean: PROVINCE_TECH_MEAN, tolerances: TOL, rounds,
+    engine: FINAL ? (LICENSED ? 'economy-engine with ECON-08 and WORLD-03-FINAL opt-in inputs; 2023 spread fit; budget mapping draft.2; licence-clean inputs (WORLD-05-FINAL)' : 'economy-engine with ECON-08 and WORLD-03-FINAL opt-in inputs; 2023 spread fit; budget mapping draft.2') : FINANCE ? 'economy-engine with ECON-08 options (effectiveRate, holdStartingDebt) and the 2023 spread fit' : 'economy-engine (unchanged)', seed: SEED, provinceTechnologyMean: PROVINCE_TECH_MEAN, tolerances: TOL, rounds,
     met: b.score < 1, targetsMissed: Math.floor(b.score), week1StateHash: hashEconomy(b.state),
-    ...(FINAL ? { mode: 'final', ownershipScale: b.ownershipScale, ownershipRounds, maxStartingDebt: MAX_STARTING_DEBT_FINAL, nonComparableBalance: NON_COMPARABLE_BALANCE } : {}),
+    ...(FINAL ? { mode: LICENSED ? 'licensed' : 'final', ownershipScale: b.ownershipScale, ownershipRounds, maxStartingDebt: MAX_STARTING_DEBT_FINAL, nonComparableBalance: NON_COMPARABLE_BALANCE } : {}),
     zones: zoneTable,
     countries: Object.keys(countryTarget).map(id => ({ id, targetShare: countryTarget[id], achievedShare: countryAchieved[id], relativeError: countryAchieved[id] / countryTarget[id] - 1 })),
     fiscal: fiscalTable, groups: groupTable,

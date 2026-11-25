@@ -1,0 +1,135 @@
+{
+ "scenario": "europe-2023",
+ "results": [
+  {
+   "check": "G1",
+   "result": "pass",
+   "detail": "61 zones: {'province': 46, 'neighbour': 10, 'bloc': 5}; region/country id overlap: []"
+  },
+  {
+   "check": "G2",
+   "result": "pass",
+   "detail": "all checks passed"
+  },
+  {
+   "check": "G3",
+   "result": "pass",
+   "detail": "Corsica land links []; maritime links ['bloc-ame-all', 'bloc-apa-all', 'bloc-eec-all', 'bloc-eur-all', 'bloc-mea-all', 'fra-se', 'ita-cen', 'ita-sar']"
+  },
+  {
+   "check": "G4",
+   "result": "pass",
+   "detail": "132 land, 180 maritime; overlap []"
+  },
+  {
+   "check": "G5",
+   "result": "pass",
+   "detail": "74 movement links, all land links between playable provinces; islands without movement links: ['fra-cor', 'gbr-nir', 'ita-sar', 'ita-sic']"
+  },
+  {
+   "check": "G6",
+   "result": "pass",
+   "detail": "whole graph connected: True; countries not connected internally: []"
+  },
+  {
+   "check": "G7",
+   "result": "pass",
+   "detail": "curated WORLD-02 neighbour borders missing from geometry: []; borders found by geometry beyond the curated list: ['aut-all/deu-bw', 'che-all/fra-cen', 'che-all/ita-ne']"
+  },
+  {
+   "check": "D1",
+   "result": "pass",
+   "detail": "playable mandatory fiscal inputs unavailable: []"
+  },
+  {
+   "check": "D2",
+   "result": "pass",
+   "detail": "30 sources cited; unknown []; values without source []; snapshots without licence []"
+  },
+  {
+   "check": "D3",
+   "result": "pass",
+   "detail": "36 snapshots cited by this package; publishers ['eurostat', 'oecd', 'ons', 'worldbank']; not cleared in the licence register: {}"
+  },
+  {
+   "check": "D4",
+   "result": "pass",
+   "detail": "zones with invalid inputs: []"
+  },
+  {
+   "check": "C1",
+   "result": "pass",
+   "detail": "worst zone output share error 0.45%; outside ±3%: []"
+  },
+  {
+   "check": "C2",
+   "result": "pass",
+   "detail": "worst country GDP share error 0.09%; outside ±3%: []"
+  },
+  {
+   "check": "C3",
+   "result": "pass",
+   "detail": "112 tax/spending ratios; outside ±1 pp: []"
+  },
+  {
+   "check": "C4",
+   "result": "pass",
+   "detail": "16 debt ratios; outside ±1 pp: []"
+  },
+  {
+   "check": "C5",
+   "result": "pass",
+   "detail": "15 net-lending balances; worst bgr -0.71 pp; outside ±1 pp: []; not comparable: ['nor']"
+  },
+  {
+   "check": "C6",
+   "result": "pass",
+   "detail": "16 tariff revenues; worst 0.022 pp"
+  },
+  {
+   "check": "C7",
+   "result": "pass",
+   "detail": "16 interest bills; worst 0.02 pp; outside ±0.5 pp: []"
+  },
+  {
+   "check": "C8",
+   "result": "pass",
+   "detail": "ownership scale 0.0541: dividends 0.18% vs observed 0.18% of GDP (GDP-weighted, excluding non-comparable)"
+  },
+  {
+   "check": "M1",
+   "result": "pass",
+   "detail": "data (Rule W): ['deu', 'fra', 'gbr', 'ita', 'pol']; gameplay assumption: {'tur': 20}; total 90"
+  },
+  {
+   "check": "M2",
+   "result": "pass",
+   "detail": "rule P-1; divisions per country match counts: True; provinces without a movement link holding divisions: []; reachable provinces without a division: []"
+  },
+  {
+   "check": "D5",
+   "result": "pass",
+   "detail": "21 sources named by budget/financing; missing []; without licence []"
+  },
+  {
+   "check": "P2",
+   "result": "pass",
+   "detail": "distributable=True; publishers not cleared: []; release checks: 1"
+  },
+  {
+   "check": "N1",
+   "result": "pass",
+   "detail": "NOTICE.md and ATTRIBUTION.json match the manifest: True; publishers without their attribution in NOTICE.md: []"
+  },
+  {
+   "check": "P1",
+   "result": "pass",
+   "detail": "files 5; hash mismatches []; fingerprint c796f615f0c46840"
+  }
+ ],
+ "summary": {
+  "pass": 25,
+  "warn": 0,
+  "fail": 0
+ }
+}

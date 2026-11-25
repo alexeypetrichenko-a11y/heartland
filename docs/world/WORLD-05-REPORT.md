@@ -1,240 +1,219 @@
-# WORLD-05 — Data licensing and military initialisation (review only)
+# WORLD-05 / WORLD-05-FINAL — Licensed European scenario and military initialisation (review only)
 
-**Status:** review only. Nothing is merged or deployed. **No scenario package was created or changed:** `1.0.0-draft.1` and `1.0.0-draft.2` are byte-for-byte unchanged, and no game, UI or engine file was touched. Every proposal below needs an owner decision before a new package (`1.0.0-draft.3`) is built.
+**Status:** review only. Nothing is merged, deployed or sent.
+- **New package:** `scenarios/europe-2023/1.0.0-draft.3/`, licence-clean, with manifest `distributable: true`.
+- **Earlier packages:** `1.0.0-draft.1` and `1.0.0-draft.2` are byte-for-byte unchanged and remain restricted review drafts.
+- **Untouched:** no game, UI, movement-rule or engine file, and none of PR #36's files (`STATUS.md` and `TASKS.md` included).
 
-**Standard used throughout:** commercial distribution of the game and its scenario packages (WORLD-02 decision L-1). This report is a technical risk assessment, **not legal advice**.
+This is a technical licensing assessment, **not legal advice**. The standard throughout is commercial distribution (WORLD-02 L-1).
 
 **In short.**
-1. **Türkiye's public finances cannot yet be redistributed commercially from any verified source with the detail the scenario needs.** The best replacement for the Court of Accounts report is its own primary source, the Ministry of Treasury and Finance's general government fiscal statistics (GFS). It also has no published reuse licence, so the clean routes are **written permission** (a draft request is in [WORLD-05-PERMISSION-REQUEST.md](WORLD-05-PERMISSION-REQUEST.md)) or **licence-clean aggregates with documented estimates** (§1.4).
-2. **Audit of all 38 source snapshots:** 28 are clear for commercial redistribution, 8 (OECD) need one manual licence check in a browser, and 2 (the Turkish sources) are restricted. Neither package carries the attribution notice that CC BY 4.0 and the Open Government Licence require (§2).
-3. **Türkiye's military:** the approved Rule W gives **16 divisions** (about 407,500 personnel equivalents). It needs three documented substitutions and the same Ministry licence clearance before it can enter a package (§3).
-4. **Placement proposal:** one division in every reachable province, the rest by population with frontier provinces weighted double. **86 divisions** in total. Under the current movement rules, only France, Germany, Italy and Poland can ever fight each other. The UK and Türkiye are cut off, and so are four islands (§4).
-5. **Exposure:** ten aggregate Turkish figures and the values derived from them have been in the public repository since 22 November 2026. No source document was ever committed, and nothing restricted is in the public GitHub Pages build. Remediation options that need no history rewrite are in §6.
+1. **Türkiye now comes only from licence-clean sources.**
+   - Balance and taxes come from the OECD.
+   - Interest comes from the World Bank's CC BY 4.0 government-finance series.
+   - Debt and government consumption come from Eurostat.
+   - Administration, defence and infrastructure follow the structure of the other five playable countries. Social spending closes the budget identity.
+   - **No value comes from the Court of Accounts, the Treasury debt report or the Ministry tables.**
+2. **The OECD is verified (W5-L3).** Its Terms allow commercial redistribution of Data with a citation, unless a dataset has its own terms or third-party ownership. None of the six OECD datasets used carries such a notice in its published metadata.
+3. **draft.3 is calibrated and stable.**
+   - All validator checks pass (25/25).
+   - The 156-week baseline has no default, lost market access, unrest or regime change.
+   - Stress runs still trigger crises.
+   - Only Türkiye's targets changed (§3.2).
+4. **Military:**
+   - The approved Rule W counts stay unchanged for five countries.
+   - Türkiye gets **20 divisions by a documented gameplay assumption.** The approved Rule W figure (16) needs the Ministry's permission.
+   - The P-1 placement is applied to all 46 provinces, 90 divisions in total.
+   - Specification: [WORLD-05-SCENARIO-SPEC.md](WORLD-05-SCENARIO-SPEC.md). Codex handoff: [WORLD-05-CODEX-HANDOFF.md](WORLD-05-CODEX-HANDOFF.md).
+5. **Permission letters are prepared but not sent** ([WORLD-05-PERMISSION-REQUEST.md](WORLD-05-PERMISSION-REQUEST.md)). draft.3 does not depend on them.
 
 ---
 
-## 1. Türkiye's public-finance data
+## 1. Owner decisions applied
 
-### 1.1 What draft.2 takes from the restricted sources
-
-| Package value (Türkiye) | Source | Status |
+| ID | Decision | How it was applied |
 |---|---|---|
-| Social, military, infrastructure and administration spending, other expense, the 2023 balance reconciliation and financing | Court of Accounts (Sayıştay), *2023 Yılı Mali İstatistikleri Değerlendirme Raporu* (Sep 2024): 10 aggregates | **No reuse terms** (W3-L1) |
-| General government gross debt, end-2023 (29.6% of GDP) | Ministry of Treasury and Finance, *Public Debt Management Report* | "May not be copied or duplicated, in whole or in part without reference." **Commercial use not addressed** (W5-L2) |
-| Taxes (income, corporate, consumption) | OECD Revenue Statistics | Probably CC BY 4.0 (§2.2, W5-L3) |
+| W5-L1 | Licence-clean sources first; open aggregates and documented estimates as fallback; permission request in parallel | §2.3; letters prepared, not sent |
+| W5-L2 | Include Turkish debt | Debt from Eurostat in draft.3; the debt report is covered by letter B |
+| W5-L3 | Verify all OECD snapshots | §2.2: six datasets, nine snapshots |
+| W5-F1 | Deficit concept consistent with the licensed source | OECD Economic Outlook general government net lending, **−4.48%**: national accounts, the same concept as the other 15 countries. The Ministry's revised GFS balance is not licensed, so it is not used |
+| M-2 | 25,000 personnel equivalents per division | `military.parameter` |
+| M-3 | Türkiye by Rule W, subject to clearance | Not cleared, so a gameplay assumption is used (§4) |
+| P-1 | Frontier-weighted placement, provisional | `military.placement` |
+| P-2 | Isolation acceptable for the prototype only | Recorded in the package; options for the mobility study are in the handoff |
+| R-1 | Keep history; stop further distribution | §6: restricted values removed from the PR branch head, nothing restricted added |
 
-Source: `docs/world/data/world05-licence-audit.json` (6 values in draft.1 and 8 in draft.2 cite a restricted source).
+## 2. Licensing
 
-### 1.2 Alternatives checked
+### 2.1 Final audit
 
-Evidence for every row: [`data/world05-licence-evidence.json`](data/world05-licence-evidence.json). Values: [`data/world05-turkiye-inputs.json`](data/world05-turkiye-inputs.json) (`tools/world05_turkiye_inputs.py`).
+`python3 docs/world/tools/world05_licence_audit.py`: [`data/world05-licence-audit.json`](data/world05-licence-audit.json). Verdicts come from the licence register [`scenarios/europe-2023/licences.json`](../../scenarios/europe-2023/licences.json). Evidence: [`data/world05-licence-evidence.json`](data/world05-licence-evidence.json).
 
-| Source | Coverage for Türkiye 2023 | Reuse terms | Usable? |
-|---|---|---|---|
-| **Ministry of Treasury and Finance (Muhasebat), general government GFS workbook 2008–2026** (revised 30 Sep 2026) | Complete: revenue by type, expense by economic type, defence by function, net lending | **None published.** Searched the Muhasebat and hmb.gov.tr sites and the table metadata | Same licence gap as the Court of Accounts. It is the **primary producer** and the newer vintage |
-| **TurkStat (TÜİK)** | General government accounts not reached: the data portal and SDMX service require an account login | **Verified:** "data obtained from our website, publications or databases may be reused, with the source cited, without the need for any permission" | Licence is clean. **Data access needs an owner account** (§1.4 route B) |
-| **Eurostat** | No Turkish government finance (0 values in `gov_10a_main`, `gov_10a_exp`, `gov_10dd_edpt1`, `gov_10a_taxag`). Has national accounts and Labour Force Survey data | **Verified:** commercial reuse allowed for candidate countries, Türkiye included | Yes, for GDP, compensation of employees and employees (§3) |
-| **OECD** | Revenue Statistics (taxes, already used). Economic Outlook: general government net lending **−4.48%** of GDP. No receipts or spending split; Tables 11 and 12 have no Türkiye 2023 | Probably CC BY 4.0. The data section could not be read (§2.2) | Yes, for taxes and the balance, after the manual check |
-| **IMF** (receives the Ministry's GFS) | Full GFS | Search only: reuse with attribution, but "for any potential commercial reuse [...] request permission" | Not without permission |
-| **World Bank WDI** | Revenue and expense totals (from IMF GFS) | CC BY 4.0 per indicator | Totals only; the split would be an assumption |
+| Publisher | Snapshots | Status | Commercial redistribution | Evidence |
+|---|---:|---|---|---|
+| Eurostat | 16 | cleared | yes, with acknowledgement. Covers EU and EFTA members and candidate countries, **Türkiye included**; never UK data from Eurostat | publisher page, read 2026-11-25 |
+| ONS | 3 | cleared | yes (Open Government Licence v3.0) | publisher page |
+| World Bank WDI | 12 | cleared | yes (CC BY 4.0, **labelled per indicator**). SIPRI-sourced series are labelled with SIPRI terms and are not used | World Bank API metadata, every series |
+| OECD | 9 | cleared | yes, with the dataset citation (§2.2) | Terms via search; metadata primary |
+| Natural Earth | — | cleared | public domain | publisher page (WORLD-02) |
+| Court of Accounts (Sayıştay) | 1 | **restricted** | no terms | used only by draft.1/draft.2 |
+| Treasury debt report | 1 | **restricted** | "May not be copied … without reference"; commercial use not addressed | used only by draft.1/draft.2 |
+| Ministry GFS and budget tables (Muhasebat) | 0 | **restricted** | no reuse licence | research only; values kept out of the repository |
 
-**Legal background** (official legislation portal, read 2026-11-25):
-- The Statistics Law (No. 5429) makes official statistics public (Art. 4) but grants no reuse licence.
-- The Copyright Law (No. 5846) frees officially published laws, decrees, regulations and court decisions (Art. 31). Statistics and audit reports are not in that list.
-- Database protection "cannot be extended to the data" in a database (Art. 6(11)).
-- A separate 15-year database right covers extracting **a substantial part or the whole** of a database (Additional Art. 8).
+- **draft.3** cites 36 snapshots from four cleared publishers plus Natural Earth, and **no restricted source**. It also carries `NOTICE.md`, `ATTRIBUTION.json` and the manifest fields `licences`, `notDistributableBecause` and `releaseChecks`.
+- **draft.1/draft.2** stay not distributable. draft.1 has no `distributable` field, so public packaging must treat a missing flag as `false`.
 
-So reusing about ten aggregates with attribution is low risk, but it is **not** a licence.
+### 2.2 OECD datasets (W5-L3)
 
-### 1.3 The Court of Accounts figures are an older vintage of the Ministry's statistics
+**The OECD Terms (Data section; search-based reading, because oecd.org refuses automated access) say:**
+- Data may be extracted, copied, adapted, distributed and embedded "for any purpose, even for commercial use", with credit using the dataset's citation.
+- Data may have "restrictions beyond the scope of these Terms", through dataset-specific terms or third-party ownership. The user should check the metadata.
+- CC BY 4.0 covers OECD *written content*, not Data.
 
-Same items, 2023, % of GDP (GDP 27,091,469 million TRY, Eurostat):
+| Dataflow (version) | Snapshots: series key | Use | Dataset-specific terms in metadata | Third-party ownership | Citation |
+|---|---|---|---|---|---|
+| `OECD.CTP.TPS,DSD_REV_COMP_OECD@DF_RSOECD` (2.0) | `oecd_revenue`: GBR+TUR taxes 1100, 1200, 2000, 5110, 5120, 5000, total · `oecd_customs`: GBR+TUR+NOR+CHE 5123 | taxes (UK, Türkiye), customs kept | none | none indicated | OECD (2026), Revenue Statistics in OECD member countries – Comparative tax revenues |
+| `OECD.SDD.NAD,DSD_NAMAIN10@DF_TABLE1_EXPENDITURE` (2.0) | `oecd_gdp` GBR+TUR · `oecd_uk_imports` GBR | GDP, UK imports | none | none indicated; UK figures originate with the ONS (OGL) | OECD (2026), Annual GDP and components – expenditure approach |
+| `OECD.SDD.NAD,DSD_NASEC10@DF_TABLE11` (1.1) | `oecd_uk_defence` GBR COFOG 02 OTE, P51G, D1, P2 | UK defence | none | none indicated; ONS origin | OECD (2026), Annual government expenditure by function (COFOG) |
+| `OECD.SDD.NAD,DSD_NASEC10@DF_TABLE12` (1.1) | `oecd_uk_government`, `oecd_uk_government_accounts` GBR S13 | UK government accounts | none | none indicated; ONS origin | OECD (2026), Annual government non-financial accounts and key indicators |
+| `OECD.SDD.NAD,DSD_NASEC20@DF_T720GOV_A` (1.1) | `oecd_che_debt` CHE S13 liabilities F, F2, F3, F4 | Swiss starting debt (estimate) | none | none indicated | OECD (2026), Government Annual Financial Balance Sheets (stocks), non-consolidated |
+| `OECD.ECO.MAD,DSD_EO@DF_EO` (1.5) | `oecd_eo_tur` TUR NLG, NLGQ, CG, GDP | **Türkiye balance target (draft.3)** | none | none indicated | OECD (2026), Economic Outlook 119 |
 
-| 2023, % of GDP | Court of Accounts report (Sep 2024) | Ministry GFS (revised Sep 2026) | Change |
-|---|---:|---:|---:|
-| Compensation of employees | 7.25 | 7.92 | +0.68 pp |
-| Goods and services | 4.34 | 4.16 | −0.17 pp |
-| Interest | 3.87 | 3.75 | −0.11 pp |
-| Subsidies | 2.01 | 2.03 | +0.02 pp |
-| Social benefits | 9.73 | 9.74 | +0.01 pp |
-| Other expense | 4.14 | 5.86 | +1.71 pp |
-| Total expense | 33.46 | 35.64 | +2.18 pp |
-| Net investment in non-financial assets | 1.04 | 1.14 | +0.10 pp |
-| Defence (COFOG 02) | 1.29 | 1.65 | +0.36 pp |
-| Net lending | −4.83 (draft.2 target) | **−2.44** | |
+**Required attribution:** the citations above, printed in every package's `NOTICE.md`. The dataset metadata (names, descriptions, annotations and their SHA-256) is recorded in the evidence file.
 
-**Switching sources is therefore not a paperwork change.** Under the revised Ministry series, Türkiye's starting deficit roughly halves and defence rises by a quarter. Any switch needs a full recalibration in a new package version. It also settles WORLD-03-FINAL decision 3 (ESA −4.83% vs GFS −2.44%). For comparison, the OECD's −4.48% is close to the ESA basis.
+**One release check remains:** read the Data section of the OECD Terms in a browser before a public release. It is listed in draft.3's manifest under `releaseChecks`. It is not a licence blocker, because the terms permit the use.
 
-### 1.4 Options (decision W5-L1)
+### 2.3 Türkiye: sources selected and rejected
 
-| Route | What it takes | Effect on draft.3 | Recommendation |
-|---|---|---|---|
-| **A. Written permission from the Ministry (Muhasebat, Fiscal Statistics Department)** | Send the draft request ([WORLD-05-PERMISSION-REQUEST.md](WORLD-05-PERMISSION-REQUEST.md)); optionally ask the Court of Accounts as well | Ministry GFS 2023 replaces the Court of Accounts. Full split, newest vintage, deficit concept per decision W5-F1 | **Recommended**: the only route with full detail and a clean licence. It also covers the existing public repository retroactively (§6) |
-| **B. TurkStat tables** | The owner registers on TurkStat's data portal and downloads the general government tables; TurkStat's reuse notice then applies (Law 5429 Art. 6 lets TurkStat distribute other institutions' official statistics) | Same as A if TurkStat publishes the same detail; **coverage not verified** (portal needs a login) | Try in parallel with A |
-| **C. Licence-clean aggregates only** | OECD Revenue Statistics (taxes) + OECD Economic Outlook balance (−4.48%) + estimated split of spending (documented assumption, flagged `estimate`) | Distributable after the OECD check, but Türkiye's spending lines become assumptions | Fallback if A and B fail |
-| D. Keep the Court of Accounts | — | Never distributable | Not recommended |
-
-Whichever route is chosen, the debt figure (W5-L2) needs the same clearance. Alternatives are Eurostat's or the OECD's general government debt, if they carry Türkiye. A permission request under route A should cover the debt report too.
-
----
-
-## 2. Redistribution audit of all inputs and packages
-
-Generated by `python3 docs/world/tools/world05_licence_audit.py` → [`data/world05-licence-audit.json`](data/world05-licence-audit.json). The tool also checks that no Eurostat snapshot contains UK data (excluded from commercial reuse) and that every package value cites a known source. **No problems found.**
-
-### 2.1 Sources
-
-| Publisher | Snapshots | Licence (evidence) | Verdict |
+| Input (2023) | draft.3 value | Source and status | Why |
 |---|---:|---|---|
-| Eurostat | 14 | Reuse "for commercial or non-commercial purposes [...] provided the source is acknowledged"; exception for countries outside EU/EFTA/candidates. **Re-verified 2026-11-25.** No UK data taken from Eurostat | **clear** |
-| ONS | 3 | Open Government Licence v3.0 | **clear** |
-| World Bank WDI | 11 (+3 in WORLD-02 data) | **CC BY 4.0 for every series**, checked indicator by indicator in the API metadata (2026-11-25); none is a third-party restricted series | **clear** |
-| OECD | 8 | CC BY 4.0 is the default for OECD content since 1 July 2024, but the *data* section of the terms says data "may be subject to restrictions". oecd.org blocks automated reading | **confirm** (W5-L3) |
-| Ministry of Treasury and Finance (debt) | 1 | Reuse with reference; commercial use not addressed | **restricted** (W5-L2) |
-| Court of Accounts | 1 | No terms | **restricted** (W3-L1) |
-| Natural Earth (geometry, all builds) | — | Public domain | **clear** |
+| Taxes (income, consumption, corporate) | unchanged | OECD Revenue Statistics: **data** | OECD Data terms |
+| Customs kept | 0.548% of GDP | OECD: **data** | as above |
+| Net lending (balance target) | **−4.48%** | OECD Economic Outlook: **data** | W5-F1: the licensed source, and the same national-accounts concept as the other 15 countries |
+| Interest | 3.65% | World Bank WDI interest share × expense (IMF GFS, consolidated central government): **derived** | CC BY 4.0 label per series. Interest is almost entirely central government |
+| Debt | **27.80%** | Eurostat consolidated general government liabilities F2+F3+F4 / GDP: **derived** (market value; EDP debt is at face value) | Eurostat terms cover candidate countries |
+| Government final consumption | 13.24% | Eurostat `nama_10_gdp` P3_S13 (TurkStat data): **data** | basis for administration |
+| Administration | 10.59% | final consumption × mean cash-administration ratio of FRA, DEU, GBR, ITA, POL (0.800): **estimate** | no licence-clean split for Türkiye |
+| Defence | 1.72% | mean COFOG 02 share of the five: **estimate** | no licence-clean Turkish defence figure exists |
+| Infrastructure | 3.29% | mean of the five: **estimate** | as above |
+| Social | 8.46% | budget identity: **derived** | the same closing rule as every country |
+| Dividends | 0 | **assumption**, as in draft.2 | no cleared source |
 
-OECD supplies **Türkiye's taxes** as well as the UK's government accounts. A one-minute manual reading of the [OECD Terms and Conditions](https://www.oecd.org/en/about/terms-conditions.html) "Data" section in a browser is therefore needed before any public release.
+**Not used:**
 
-### 2.2 Packages
-
-| Package | `distributable` | Restricted sources | Attribution notice file |
-|---|---|---|---|
-| `1.0.0-draft.1` | **field missing** | Court of Accounts, Treasury debt | none |
-| `1.0.0-draft.2` | `false` | Court of Accounts, Treasury debt | none |
-
-- **Every value-bearing file is derived from all sources:** `scenario.json`, `world-spec.json`, `week1.session.json`, `provenance.json` and `calibration-report.json`. Neither draft can be distributed, and both stay restricted review drafts.
-- **draft.1 has no `distributable` field.** Public packaging must treat a missing flag as `false`. WORLD-04 already keeps both drafts out of the public build.
-- **A distributable version needs a `NOTICE.md`.** It would list the required attribution statements (Eurostat, ONS OGL v3, World Bank CC BY 4.0, OECD, Natural Earth courtesy credit) and state that values were transformed. That is required by CC BY 4.0 and OGL v3. Specified in [WORLD-05-SCENARIO-SPEC.md](WORLD-05-SCENARIO-SPEC.md) §3.
-
----
-
-## 3. Türkiye's military inputs (Rule W)
-
-**Rule W (approved D3):** divisions = round(defence compensation of employees ÷ the country's own average pay ÷ X), with X = 25,000 (still provisional, M-2). Computed by `python3 docs/world/tools/world05_military.py`, which also reproduces the five existing draft.2 counts exactly.
-
-| 2023 | Value | Source | Licence |
-|---|---:|---|---|
-| Defence personnel spending | 122,046 m TRY | Central government budget outturn, function × economic type, December cumulative ("Savunma Hizmetleri" × "Personel Giderleri") | Ministry: **not verified** |
-| State social security contributions (employer) | 18,014 m TRY | same table ("Sosyal Güvenlik Kurumlarına Ödemeler") | Ministry: **not verified** |
-| **Defence pay** | **140,060 m TRY** | sum (the budget equivalent of ESA D1) | |
-| Whole-economy compensation of employees | 7,755,515 m TRY | Eurostat `nama_10_gdp` D1 (TurkStat data) | **verified** |
-| Employees | 22,566.7 thousand | Eurostat `lfsa_eegan2`, age 15+ (Labour Force Survey) | **verified** |
-| Average pay | 343.67 thousand TRY | ratio | |
-| **Personnel equivalents → divisions** | **407,542 → 16** | Rule W, X = 25,000 | |
-| Cross-check, Rule P (PPP spending, Y = 4.65 bn intl $) | 13 | General government defence by function, 447,072 m TRY (Ministry GFS) at the WDI PPP | |
-
-**Substitutions that need approval (decision M-3):**
-1. **Central government budget (cash) instead of general government COFOG 02 × D1 (ESA).** Defence is a central government function. The budget's defence total (336,910 m TRY) is below the GFS total (447,072 m TRY) mainly because of extra-budgetary procurement, which is not pay.
-2. **Labour Force Survey employees instead of national-accounts employees.** Eurostat has no national-accounts employee count for Türkiye.
-3. **The Ministry table's licence is unverified (W5-L1).** Values stay in the review data file until route A or B clears them.
-
-**Limitation (unchanged from WORLD-02):** Rule W counts pay, so conscripts, who are paid far less than the average wage, are under-represented. Türkiye is the only country of the six with conscription in 2023. Its 16 divisions are close to France and Italy (15), although its real forces are larger. A correction would need licensed personnel data, and the open candidate (NATO's annual report) has unverified terms.
-
----
-
-## 4. Division placement proposal (decision P-1)
-
-Full proposal with both variants and per-frontier totals: [`data/world05-military-proposal.json`](data/world05-military-proposal.json). Specification for the next package: [WORLD-05-SCENARIO-SPEC.md](WORLD-05-SCENARIO-SPEC.md) §1.
-
-**Rule P-1 (recommended).** It follows WORLD-01's "simple rule, near the capital and border provinces, labelled illustrative":
-1. A country's **reachable** provinces are those in its main land-movement area. Islands without a movement link get **no division**: sea links are not army paths (S-1), so a division there could never leave.
-2. Each reachable province gets **one division**, so no province can be taken by walking into it on the first turn.
-3. The remaining divisions follow **population**, with provinces on a frontier with another playable country **weighted double** (largest-remainder rounding, deterministic tie-breaks). **P-0** is the same without the frontier weight.
-4. Every division has the same manpower (25,000 personnel equivalents). Placement is **illustrative**, not a real order of battle.
-
-| Country | Total | P-1 placement (province = divisions) |
-|---|---:|---|
-| France | 15 | NE 3 · IDF 2 · OUE 2 · NAQ 2 · ARA 2 · SE 2 · CEN 1 · OCC 1 · **COR 0** |
-| Germany | 13 | NRW 2 · NOR 2 · MIT 2 · BW 2 · MO 2 · NO 2 · BY 1 |
-| United Kingdom | 14 | NTH 3 · SE 3 · LON 2 · MID 2 · SW 2 · SCO 1 · WLS 1 · **NIR 0** |
-| Italy | 15 | NO 6 · CEN 3 · NE 3 · SUD 3 · **SIC 0** · **SAR 0** |
-| Poland | 13 | MAZ 2 · POL 2 · PN 2 · PZA 2 · PDZ 2 · WSC 2 · CEN 1 |
-| Türkiye | 16 (proposed) | IST 2 · MAR 2 · EGE 2 · AKD 2 · BAN 2 · GDA 2 · KAR 2 · DOG 1 · OAN 1 |
-| **Total** | **86** | |
-
-**Frontier balance** (divisions on each side of every land frontier between playable countries):
-
-| Frontier | P-1 | P-0 |
-|---|---|---|
-| Germany – France | 4 – 3 | 4 – 2 |
-| Germany – Poland | 4 – 4 | 3 – 4 |
-| France – Italy | 4 – 6 | 3 – 4 |
-
-Note: under P-1 France holds 4 divisions on its Italian frontier (ARA 2, SE 2) against Italy's 6 in Nord-Ovest. Italy has only one frontier and four reachable provinces, so the frontier weight concentrates its army. P-0 is more even there; P-1 is more even on the two German frontiers.
-
-**Balance findings for the owner (decision P-2):**
-- **Only one theatre exists.** Land movement connects France (8 provinces), Germany (7), Italy (4) and Poland (7): 26 provinces and 56 divisions.
-- **The UK (7 reachable provinces, 14 divisions) and Türkiye (9, 16) can never fight anyone.** The Channel link is not a movement link, and Türkiye's land neighbours are simulated countries without military. That is **30 of 86 divisions**.
-- **Corsica, Northern Ireland, Sicily and Sardinia can neither be reached nor defended.**
-- **Possible remedies are game-rule changes, not data:** a Channel Tunnel movement link, naval transport, or military for selected neighbours. They are listed for a future decision and **not proposed here**.
-
----
-
-## 5. Scenario packages
-
-- **No new package was built, because every input change depends on an open decision:**
-  - the Turkish source and licence route (W5-L1/L2);
-  - the deficit concept (W5-F1);
-  - X (M-2) and Türkiye's method (M-3);
-  - the placement rule (P-1).
-
-  Building `1.0.0-draft.3` now would fix choices that belong to the owner, and it would still not be distributable.
-- **`1.0.0-draft.1` and `1.0.0-draft.2` are unchanged** and were re-validated (§7).
-- **The build plan for `1.0.0-draft.3` is in [WORLD-05-SCENARIO-SPEC.md](WORLD-05-SCENARIO-SPEC.md) §4,** once the decisions are made: new source snapshots, recalibration in `final` mode, the validator, save compatibility, the 156-week reference and stress runs, benchmarks, and the iPhone thresholds.
-
----
-
-## 6. Exposure of restricted data in the public repository
-
-### 6.1 Facts
-
-| Item | Finding |
+| Source | Reason |
 |---|---|
-| Repository | Public; 0 forks and 0 stars (GitHub API, 2026-11-25) |
-| What is exposed | **10 aggregate figures** from the Court of Accounts report and **1** debt figure (`scenarios/europe-2023/sources/tr_*.json`, with source URL and the PDF's SHA-256); values derived from them in `scenarios/europe-2023/build/{inputs,budget,financing}.json`, both packages (`scenario.json`, `provenance.json`, `world-spec.json`, `week1.session.json`, `calibration-report.json`, `validation-report.json`) and quoted figures in `docs/world/WORLD-03-FINAL-REPORT.md` and the package `REPORT.md` files |
-| Not exposed | **No source document (PDF or spreadsheet) was ever committed**, in any branch or commit. The public GitHub Pages build (1,047 files) contains no scenario package and no Turkish figure |
-| Since | First pushed on 2026-11-22 (WORLD-03, `28ead75`); on `main` since 2026-11-23. Also in the PR branches and refs of PRs #33–#36 |
-| Nature and risk | Aggregate statistical facts, which are not protected as a work (Law 5846 Art. 6(11)). They are a small extract from a database whose substantial-part right is unlikely to be engaged. They come from public official statistics. **Low legal risk in the repository; the real exposure is a future commercial release built on them** |
+| Court of Accounts report | no terms |
+| Ministry GFS and budget tables | no licence; and estimates are not derived from them |
+| TurkStat | its reuse terms are verified, but its data portal and SDMX service need an account |
+| IMF directly | commercial reuse by permission |
+| WDI government-finance split | central-government coverage; components overlap |
+| SIPRI | third-party terms |
+| NATO | no published terms |
+| IISS | proprietary |
 
-### 6.2 Remediation options (none rewrites history or changes visibility)
+## 3. Package `1.0.0-draft.3`
 
-| Option | Effect | Cost | Recommendation |
-|---|---|---|---|
-| **R1. Written permission** (route A, covering past publication and future distribution) | Resolves the past exposure and the release blocker | One letter; response time unknown | **Do first** |
-| **R2. Supersede** with a licence-clean `1.0.0-draft.3`; keep draft.1/draft.2 as restricted review drafts outside every public build (already the case) | Stops new dependence on restricted data | Part of the draft.3 work | **Do** |
-| R3. Forward-only removal of the restricted snapshots and derived build files from `main` | The files leave the current tree but stay in history, so the effect is small. The immutable packages would remain, and deleting them would break exact-version saves | Low | Only if the rights holder asks |
-| R4. History rewrite and GitHub cache purge *(owner decision; not done)* | Removes the data from GitHub's history but not from existing clones; changes every SHA cited in PRs #31–#36 and the reports | High, disruptive | Only on a takedown request |
-| R5. Make the repository private *(owner decision; not done)* | Stops new public access; past copies remain. **GitHub Pages on a private repository needs a paid plan, so the public fictional game could stop being served** | Medium | Not recommended |
+### 3.1 Contents
 
----
+- **Identity:**
+  - world fingerprint `12035be51198e4ee`;
+  - week-1 economy hash `ff1a2f7acb5d4af3`;
+  - content fingerprint `c796f615f0c46840…` (the manifest holds the full value).
+- **Unchanged from draft.2:** 61 economic zones, 46 playable provinces, reference year 2023 and the draft.2 method. Built with `WORLD03_FINANCE=licensed`:
+  1. `scenarios/pipeline/build_inputs.py --licensed`, `build_budget.py --licensed` and `build_financing.py --licensed`, writing `build-licensed/`;
+  2. `calibrate.ts`;
+  3. `package.ts`.
+- **Status labels:** every value carries a status in `provenance.json`:
+  - `data`: published statistics;
+  - `derived`: arithmetic on published statistics;
+  - `estimate`: modelled from other countries' structure;
+  - `assumption`: a gameplay value;
+  - `design`: a game-scale parameter.
+- **New files outside the content fingerprint:**
+  - `NOTICE.md`: attribution, OECD citations, the illustrative-content notice and the distribution status;
+  - `ATTRIBUTION.json`: the machine-readable register.
 
-## 7. Verification
+  Both have SHA-256 entries in the manifest.
+- **`distributable: true`.** Every cited publisher is cleared in the register. The one release check is OECD (§2.2).
+
+### 3.2 Deviations from draft.2's targets
+
+Only Türkiye's targets changed. **Every other country's targets are identical to draft.2.**
+
+| Türkiye, 2023 | draft.3 target | Change vs draft.2 | Calibration result |
+|---|---:|---:|---|
+| GDP share (PPP) | 1.987% | 0 | error 0.001% |
+| Net lending | −4.48% | +0.35 pp | −4.41% (C5 tolerance ±1 pp) |
+| Taxes (income / consumption / corporate) | 8.76 / 10.95 / 2.96% | 0 | within 0.01 pp |
+| Tariff revenue | 0.548% | 0 | exact |
+| Debt | 27.80% | −1.80 pp | 27.87% |
+| Defence | 1.72% | +0.43 pp | exact |
+| Administration | 10.59% | +0.29 pp | exact |
+| Infrastructure | 3.29% | +0.21 pp | exact |
+| Social | 8.46% | −1.06 pp | exact |
+| Interest (reported) | 3.65% | −0.22 pp | 3.64% |
+
+- **Effective rate:** Türkiye's effective interest rate on its debt is 13.12% (draft.2: 13.07%). It follows from interest ÷ debt.
+- **Ownership fit:** the scenario-wide ownership scale is 0.0541 (draft.2: 0.0543).
+
+## 4. Military initialisation
+
+The full specification is in [WORLD-05-SCENARIO-SPEC.md](WORLD-05-SCENARIO-SPEC.md); the Codex handoff in [WORLD-05-CODEX-HANDOFF.md](WORLD-05-CODEX-HANDOFF.md).
+
+- **Five countries (Rule W, `status: data`):** FRA 15, DEU 13, GBR 14, ITA 15, POL 13, unchanged.
+- **Türkiye: 20 divisions (`status: assumption`).** Its personnel equivalents per inhabitant equal the median of the other five, times the population of its nine provinces, giving 491,934.
+  - Inputs are licence-clean only.
+  - The value replaces the approved M-3 result (16), which depends on the uncleared Ministry inputs.
+  - Alternatives: 14 (the median count) or 16 after permission (decision W5F-M1).
+- **Placement P-1:**
+  - one division in each reachable province; the remainder by population, with frontier provinces weighted double;
+  - the four islands get 0;
+  - 90 divisions in total.
+  - Frontier totals: Germany–France 4–3, Germany–Poland 4–4, France–Italy 4–6.
+- **Labelled illustrative.** Military gameplay is not enabled, and no movement rule changed.
+- **Independent of naval transport or transit.** Placement reads only land movement links.
+
+## 5. Validation
 
 | Check | Result |
 |---|---|
-| `world05_licence_audit.py` | 38 snapshots: 28 clear, 8 confirm, 2 restricted. No problems: no UK data from Eurostat, and every cited source resolves |
-| `world05_military.py` | Reproduces draft.2's counts for all five countries exactly (the script stops if not). Türkiye 16; total 86 |
-| Determinism | Both offline tools give byte-identical output under five different Python hash seeds |
-| `world05_turkiye_inputs.py` | Re-run end to end (about 15 s): identical values on re-run, matching the manual inspection; workbook SHA-256 `40659ada…` |
-| draft.1 / draft.2 validators | 14 pass, 1 warn, 2 fail (documented C3/C4) / 22 pass, 1 warn (Türkiye licence), 0 fail: unchanged |
-| WORLD-02 validator | all checks passed |
-| Game tests / production build | 156/156 / pass |
-| Engine typecheck / engine tests | pass / 218/218 |
-| Unchanged versus `main` | both packages, `sources/`, `build/`, `scenarios/pipeline/`, `src/`, `economy-engine/`, `public/`, `.github/`, `STATUS.md`, `TASKS.md`, `package.json` |
+| Engine typecheck / engine tests / long test | pass / pass / pass (counts in the PR) |
+| Game tests / production build | pass / pass |
+| Validators: draft.1 / draft.2 / draft.3 | 14 pass, 1 warn, 2 fail (documented C3/C4) / 22 pass, 1 warn (Türkiye licence), 0 fail / **25 pass, 0 warn, 0 fail** |
+| draft.1 and draft.2 | byte-identical, including after a rebuild and re-validation with the modified scripts |
+| Default pipeline (`build_*.py` without `--licensed`) | reproduces exactly what `main`'s scripts produce |
+| Recalibration (draft.3) | 0 targets missed after 9 rounds; worst zone 0.45%, worst fiscal 0.71 pp |
+| 156-week reference (draft.3) | no default, lost market access, unrest or regime change at any of 84 checkpoints; stability 53.3–70.1; Türkiye's debt 27.9% → 27.4% |
+| Stress runs (draft.3) | crises still triggered: reckless Italy/Greece (default, access loss, unrest, regime change), repeated defaults, high-tax Poland (unrest) |
+| Determinism | baseline repeat identical (hash `27b991f6c1d57d05`); see the PR for recalibration and rebuild |
+| Save compatibility, performance | see the PR |
 
-## 8. Owner decisions
+## 6. Repository safeguards (R-1)
 
-| ID | Decision | Recommendation |
+- **The previous WORLD-05 commit (`b40b319`) put restricted figures on the public PR branch:** Ministry GFS aggregates and central-budget defence pay, in the WORLD-05 Türkiye inputs file, the military proposal file and the report.
+  - **They are removed from the branch head in this update.** A squash merge of PR #37 would therefore not carry them to `main`.
+  - **They remain in that commit's history** (R-1: no rewrite).
+- **Research copies are local only.** Restricted research copies are kept in local, non-public storage. That is this session's private scratch area, which is **temporary**; download it if it is needed after the session.
+  - The fetcher writes Ministry values only with `--restricted-out <path outside the repository>`.
+- **Nothing restricted is added by this update.**
+  - draft.3 contains no restricted value.
+  - The new Türkiye snapshots are Eurostat, OECD and World Bank data.
+  - The public GitHub Pages build contains no scenario package.
+- **Not done:**
+  - no history rewrite;
+  - no visibility change;
+  - no package deleted;
+  - no deployment, merge or letter sent.
+
+## 7. Remaining blockers and owner decisions
+
+| ID | Item | Recommendation |
 |---|---|---|
-| **W5-L1** | Türkiye fiscal source route: A (Ministry permission), B (TurkStat tables via owner account), C (licence-clean aggregates + estimates) | **A**, with B in parallel; C as fallback |
-| **W5-L2** | Türkiye debt: include it in the permission request, or switch to a licence-clean debt source | Include it in A |
-| **W5-L3** | Confirm the OECD data terms manually in a browser | Do before any release |
-| **W5-F1** | Türkiye deficit concept for draft.3: ESA-like (−4.83% Court of Accounts, −4.48% OECD) or the Ministry's revised GFS (−2.44%) | GFS if A succeeds (newest official vintage, same source as the split); otherwise the OECD balance |
-| **M-2** | X = 25,000 personnel equivalents per division | Approve |
-| **M-3** | Türkiye by Rule W with the three substitutions in §3 (16 divisions) | Approve, subject to W5-L1 |
-| **P-1** | Placement rule: P-1 (frontier-weighted) or P-0 (population only) | P-1 |
-| **P-2** | Accept that the UK, Türkiye and four islands cannot engage in v1, or schedule a rule change (Channel link, naval transport, neighbour military) | Accept for v1; decide later |
-| **R-1** | Exposure remediation | R1 + R2 |
-
-WORLD-04 (draft PR #36) is unaffected: WORLD-05 changes no file it changes. WORLD-05 entries in `STATUS.md` and `TASKS.md` are deferred so they do not conflict with PR #36, which appends to the same place.
+| Release check | Read the OECD Terms' Data section in a browser and confirm the wording (§2.2) | Before any public release |
+| W5F-M1 | Türkiye's starting count until M-3 is cleared: 20 (current), 14 or other | Keep 20 for the prototype |
+| W5F-L4 | Send letters A and B (C optional) | Send. A positive answer allows Türkiye's spending and Rule W (16) from the Ministry in a later version |
+| P-2 | Isolation of the UK, Türkiye and the islands in the complete game | Codex mobility study (options in the handoff) |
+| W5F-R2 | Commit `b40b319` stays in the public PR branch history | Keep (R-1), or request removal only if a rights holder asks |
+| W5F-D1 | `STATUS.md` / `TASKS.md` entries for WORLD-05 | Add after PR #36 lands, to avoid a conflict |
+| Release | Public packaging needs an owner allow-list for `1.0.0-draft.3`, a separate deployment authorisation, and the WORLD-04 loader admitting the version | Separate task |

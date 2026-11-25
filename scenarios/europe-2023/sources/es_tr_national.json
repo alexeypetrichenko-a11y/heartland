@@ -1,0 +1,21 @@
+{
+ "attribution": "Source: Eurostat",
+ "dataset": "nama_10_gdp",
+ "flags": {},
+ "id": "es_tr_national",
+ "key": "na_item|geo",
+ "licence": "Eurostat copyright notice: reuse authorised, commercial or not, provided the source is acknowledged (UK data excluded from commercial reuse; none is taken from Eurostat)",
+ "licence_status": "verified (primary)",
+ "notes": [],
+ "publisher": "eurostat",
+ "publisher_updated": "2026-11-24T23:00:00+0100",
+ "query": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_gdp?time=2023&unit=CP_MNAC&geo=TR&na_item=B1GQ&na_item=D1&na_item=P3_S13",
+ "reference_year": 2023,
+ "retrieved": "2026-11-25",
+ "title": "Türkiye: GDP, compensation of employees and government final consumption, current prices, million TRY",
+ "values": {
+  "B1GQ|TR": 27091469.1,
+  "D1|TR": 7755515.4,
+  "P3_S13|TR": 3585843.1
+ }
+}

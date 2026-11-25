@@ -1,93 +1,90 @@
-# WORLD-05 — Scenario specification for the next europe-2023 version (proposal)
+# WORLD-05-FINAL — Military initialisation specification (europe-2023 1.0.0-draft.3)
 
-**Status:** proposal for owner approval; nothing here is implemented. It specifies what `europe-2023/1.0.0-draft.3` should contain once decisions W5-L1, W5-L2, W5-F1, M-2, M-3 and P-1 ([WORLD-05-REPORT.md](WORLD-05-REPORT.md) §8) are made. It is the coordination point between the scenario pipeline and the game: the game reads these fields and implements no rule that is not listed here. `1.0.0-draft.1` and `1.0.0-draft.2` stay unchanged.
+**Status:** implemented as scenario data in `scenarios/europe-2023/1.0.0-draft.3/scenario.json`, section `military`. **Military gameplay is not enabled** by this package, and no movement rule changes. This document is the contract between the scenario pipeline and the game. For the hand-off to Codex's military mobility study, see [WORLD-05-CODEX-HANDOFF.md](WORLD-05-CODEX-HANDOFF.md).
 
-## 1. `scenario.json` → `military`
+All starting forces and their placement are an **illustrative gameplay configuration, not a historical order of battle**. The game must label them so.
 
-Today (draft.2) the section holds draft counts for five countries and `tur: unresolved`, and no placement. The proposal:
+## 1. Approved rules
+
+| Decision | Rule | In draft.3 |
+|---|---|---|
+| D3, M-2 | **Rule W:** divisions = round(defence compensation of employees, COFOG 02 D1 ÷ the country's own whole-economy average pay ÷ 25,000) | FRA 15, DEU 13, GBR 14, ITA 15, POL 13: unchanged from draft.2, `status: data` |
+| M-3 | Türkiye by Rule W with the Ministry budget inputs, **subject to licence clearance** | **Not cleared**, so not used. See §2 |
+| P-1 | Frontier-weighted placement (provisional gameplay configuration) | applied to all 46 provinces |
+| P-2 | The UK, Türkiye and four islands cannot engage under current movement rules | accepted for the prototype only, recorded in `placement.isolation` |
+
+## 2. Türkiye: gameplay assumption until M-3 is cleared
+
+No licence-clean 2023 source gives Türkiye's defence pay or defence spending:
+- SIPRI (through the World Bank) carries third-party terms;
+- NATO publishes no reuse terms;
+- the Ministry tables have no reuse licence;
+- Eurostat and the OECD have no Turkish defence data.
+
+The 16 divisions of the approved M-3 calculation therefore stay out of the package.
+
+**Assumption (`status: assumption`).** Türkiye's personnel equivalents per inhabitant equal the **median of the other five countries' Rule W values**, multiplied by the population of its nine provinces (Eurostat). That gives 491,934 personnel equivalents, or **20 divisions**.
+- **Why this proxy:**
+  - It uses only licence-clean inputs.
+  - It keeps Rule W's scale.
+  - It is close to the size of Türkiye's forces in public reporting, which Rule W undercounts because conscripts earn far less than the average wage.
+- **Alternatives** (owner decision W5F-M1):
+  - median of the five counts: 14 divisions;
+  - Rule W once route C clears the Ministry inputs: 16 divisions.
+- **Effect on balance in the prototype: none,** because Türkiye has no movement link to another playable country (P-2).
+
+## 3. Data contract (`scenario.json` → `military`)
 
 ```jsonc
 "military": {
-  "status": "illustrative starting forces (approved D3, M-2, M-3, P-1)",
-  "parameter": { "personnelEquivalentsPerDivision": 25000, "status": "approved (M-2)" },
+  "status": "illustrative starting forces ... Not a historical order of battle. Military gameplay is not enabled by this package.",
+  "parameter": { "value": 25000, "status": "design", "method": "Game-scale parameter approved by the owner (M-2)" },
   "countries": {
-    "tur": {
-      "divisions": 16,
-      "personnelEquivalents": 407542,
-      "method": "Rule W: defence pay / (whole-economy compensation / employees) / 25,000",
-      "sources": ["<central budget defence snapshot>", "es_national_d1_tr", "es_lfs_employees_tr"],
-      "substitutions": ["central government budget (cash) for COFOG 02 x D1", "LFS employees"],
-      "status": "data"
+    "<country id>": {
+      "divisions": 15,                    // integer > 0, the starting count
+      "personnel_equivalents": 382086,    // integer; divisions = round(personnel_equivalents / 25000)
+      "status": "data" | "assumption",    // data = Rule W from cleared sources; assumption = documented gameplay value
+      "method": "...", "sources": ["..."] // snapshot ids (scenarios/europe-2023/sources) and review extracts
+      // Türkiye adds "reason" and "replaces"
     }
-    // fra 15, deu 13, gbr 14, ita 15, pol 13: unchanged values from draft.2
   },
   "placement": {
     "rule": "P-1",
-    "byRegion": { "fra-idf": 2, "fra-ne": 3, "fra-cor": 0 /* ... all 46 provinces ... */ },
-    "notes": { "fra-cor": "no movement link: no starting division" }
+    "status": "provisional gameplay configuration (owner decision P-1); illustrative, not a historical order of battle",
+    "byRegion": { "<province id>": 2 },   // all 46 playable provinces, integer >= 0
+    "regions": { "<province id>": { "reachable": true, "frontierWith": ["fra"] } },
+    "isolation": "..."
   }
 }
 ```
 
-**Rules the data guarantees** (checked by the validator, new check M2):
-- **Counts.** For every playable country, `sum(placement.byRegion) = countries[c].divisions`.
-- **No stranded divisions.** A province gets ≥ 1 division if, and only if, it is in its country's main land-movement area. Today that excludes `fra-cor`, `gbr-nir`, `ita-sic` and `ita-sar`, which get 0.
-- **Deterministic.** Placement is computed by [`tools/world05_military.py`](tools/world05_military.py) (rule P-1 or P-0), never edited by hand.
-- **Uniform manpower.** Every division has `personnelEquivalentsPerDivision` manpower. Divisions have manpower only, as in the current model.
+**Guaranteed by the data** (validator checks M1 and M2, both pass for draft.3):
+- **Totals.** For every country, `sum(byRegion over its provinces) == countries[c].divisions`. Total 90.
+- **No province is stranded or empty.** A province holds at least one division if, and only if, it is `reachable`, meaning it belongs to its country's main land-movement area (`links.movement`). Corsica, Northern Ireland, Sicily and Sardinia hold 0.
+- **Uniform manpower.** Every division has the same manpower, `parameter.value` personnel equivalents. Divisions have manpower only, as in the current model.
+- **Deterministic.** The placement is computed by `scenarios/pipeline/military_placement.py`, never by hand, and the validator recomputes the totals.
 
-**What the game does with it (Codex, after approval):**
-- **Start.** Create `divisions[c]` divisions owned by country `c` in the listed provinces when a European game starts.
-- **Rules.** Use the existing move, defend and attack rules on `links.movement`, which is land only.
-- **Labelling.** Label the forces "illustrative".
-- **Not in scope.** No new mechanic: no equipment, upkeep, readiness or naval transport.
+**Independence from future mobility rules.** The placement depends only on `links.movement` (land). It does not read maritime links, ports or transit, so a future naval transport or transit rule needs no change here:
+- A new rule may change which provinces are reachable, and therefore which can be attacked. Starting positions stay valid until a new package version recomputes them.
+- If such a rule makes islands reachable, the next package version's placement would give them a garrison by the same rule.
 
-Until the section is approved, WORLD-04's "military operations unavailable" state stays as it is.
+## 4. P-1 placement (draft.3)
 
-## 2. Türkiye's fiscal inputs (route A or B of W5-L1)
+| Country | Total | Divisions per province |
+|---|---:|---|
+| France | 15 | NE 3 · IDF 2 · OUE 2 · NAQ 2 · ARA 2 · SE 2 · CEN 1 · OCC 1 · COR 0 |
+| Germany | 13 | NRW 2 · NOR 2 · MIT 2 · BW 2 · MO 2 · NO 2 · BY 1 |
+| United Kingdom | 14 | NTH 3 · SE 3 · LON 2 · MID 2 · SW 2 · SCO 1 · WLS 1 · NIR 0 |
+| Italy | 15 | NO 6 · CEN 3 · NE 3 · SUD 3 · SIC 0 · SAR 0 |
+| Poland | 13 | MAZ 2 · POL 2 · PN 2 · PZA 2 · PDZ 2 · WSC 2 · CEN 1 |
+| Türkiye | 20 (assumption) | IST 3 · MAR 3 · EGE 2 · AKD 2 · BAN 2 · GDA 2 · KAR 2 · DOG 2 · OAN 2 |
 
-The new snapshots go in `scenarios/europe-2023/sources/`, fetched by `scenarios/pipeline/fetch_sources.py`. Their licence fields are filled from the permission letter (route A) or from TurkStat's reuse notice (route B).
+**Frontier divisions:**
 
-| Engine input | Mapping (unchanged from draft.2) | Ministry GFS 2023 line (`docs/world/data/world05-turkiye-inputs.json`) |
+| Frontier | P-1 | P-0 (population only) |
 |---|---|---|
-| `spendSocial` | social benefits / GDP | 27 Sosyal Yardımlar |
-| `spendMilitary` | defence by function / GDP | 702 Savunma Hizmetleri |
-| `spendInfrastructure` | gross investment ≈ net investment in non-financial assets + consumption of fixed capital | 31 + 23 |
-| `spendAdministration` | compensation + goods and services − defence (defence is not split by economic type) | 21 + 22 − 702 |
-| outside the engine | subsidies, interest and other expense (draft.2) | 25 + 24 + 28; **proposed:** add 26 grants paid (0.09% of GDP; not in the Court of Accounts extract) |
-| balance target (C5) | net lending (W5-F1) | NBV/NBA, or the OECD Economic Outlook balance |
-| debt | general government gross debt | per W5-L2 |
+| Germany – France | 4 – 3 | 4 – 2 |
+| Germany – Poland | 4 – 4 | 3 – 4 |
+| France – Italy | 4 – 6 | 3 – 4 |
 
-Under route C, only the OECD aggregates are data. The four spending lines become documented estimates, marked `status: estimate`.
-
-## 3. Distribution metadata
-
-**`manifest.json`, three fields:**
-- **`distributable`:** a boolean that must be present. A missing field means `false`; draft.1 has none.
-- **`notDistributableBecause`:** the existing field.
-- **`licences`:** new. One entry per publisher, with the licence name, URL, attribution statement and verification date, generated from [`data/world05-licence-evidence.json`](data/world05-licence-evidence.json).
-
-**`NOTICE.md`, a new package file outside the content fingerprint.** It lists the attribution statements required by:
-- Eurostat ("Source: Eurostat");
-- ONS (the OGL v3 statement);
-- the World Bank (CC BY 4.0, with the licence link);
-- the OECD;
-- TurkStat or the Ministry, per W5-L1.
-
-It adds Natural Earth as a courtesy and says that "values were transformed (calibrated) by Heartland".
-
-**Public packaging rule (for the release build, after deployment authorisation):**
-- **Allow-list.** Include a version only if it is explicitly allow-listed by the owner **and** its manifest says `distributable: true`.
-- **No exceptions.** Restricted drafts never enter `dist/`.
-
-## 4. Build and acceptance plan for `1.0.0-draft.3`
-
-1. Fetch the new snapshots (§2). Run `world05_licence_audit.py`: it must show **no `restricted` verdict** in draft.3's citations, and no `confirm` verdict once W5-L3 is done.
-2. Run `build_inputs.py`, `build_budget.py` and `build_financing.py`, then `WORLD03_FINANCE=final WORLD03_ROUNDS=24 calibrate.ts` writing to a new build folder.
-3. Build `package.ts` into a **new folder** `1.0.0-draft.3`. draft.1 and draft.2 must stay byte-identical; `git diff` must be empty for both.
-4. Run `validate_scenario.py` on draft.3 with C1–C8, the existing checks and the new M2. Then:
-   - P2: `distributable` must agree with the audit;
-   - save compatibility (`sim/econ08/compat.ts`);
-   - engine and game tests;
-   - `final-runs.ts`: the 156-week baseline must have **no default, lost market access, unrest or regime change**, while stress runs still produce them;
-   - benchmarks and the physical-iPhone thresholds (F-1).
-5. Write the WORLD-05 report section for draft.3 and present it for review. Nothing is deployed without a separate authorisation.
+Full data, including the P-0 comparison: [`data/world05-military-proposal.json`](data/world05-military-proposal.json), written by `tools/world05_military.py`.

@@ -15,7 +15,8 @@ Sources (WORLD-05 report §1 and §3):
   4. Ministry of Treasury and Finance (Muhasebat), central government budget outturn 2023 by function x economic
      type (December, cumulative): defence personnel and state social security contributions (NOT VERIFIED).
 
-Run from the repository root:  python3 docs/world/tools/world05_turkiye_inputs.py
+Run from the repository root:  python3 docs/world/tools/world05_turkiye_inputs.py [--restricted-out <path outside the repository>]
+Without --restricted-out the Ministry tables are not downloaded and no restricted value is produced.
 Standard library only, plus LibreOffice (soffice) to read the one legacy .xls table (source 4).
 """
 import csv, datetime, hashlib, importlib.util, io, json, os, re, subprocess, sys, tempfile, urllib.parse, urllib.request
@@ -152,16 +153,22 @@ def budget_table(folder):
             'unit': 'million TRY (published in thousand TRY)', 'defence': values}
 
 
+VALUE_KEYS = {'operations', 'functions', 'defence'}   # Ministry values: never written to the public file (R-1, W5-L1)
+
+
 def main():
+    restricted_out = sys.argv[sys.argv.index('--restricted-out') + 1] if '--restricted-out' in sys.argv else None
     with tempfile.TemporaryDirectory() as tmp:
         d1 = eurostat('nama_10_gdp', 'unit=CP_MNAC&na_item=D1')
         gdp = eurostat('nama_10_gdp', 'unit=CP_MNAC&na_item=B1GQ')
         emp = eurostat('lfsa_eegan2', 'sex=T&age=Y_GE15&nace_r2=TOTAL')
         eo = list(csv.DictReader(io.StringIO(get(OECD_EO, {'Accept': 'application/vnd.sdmx.data+csv; charset=utf-8'}).decode('utf-8'))))
-        gg = gg_workbook(tmp)
-        bud = budget_table(tmp)
+        gg = gg_workbook(tmp) if restricted_out else None
+        bud = budget_table(tmp) if restricted_out else None
     out = {
-        'note': 'WORLD-05 candidate inputs for Türkiye, 2023. Not used by any scenario package. See docs/world/WORLD-05-REPORT.md.',
+        'note': ('WORLD-05 inputs for Türkiye, 2023. Only licence-clean values are kept in the repository. The Ministry of Treasury and '
+                 'Finance tables have no published reuse licence (W5-L1): their values are written only to a local, access-controlled '
+                 'file with --restricted-out <path> and are not used by any committed package. See docs/world/WORLD-05-REPORT.md.'),
         'retrieved': TODAY,
         'reference_year': 2023,
         'eurostat': {'licence': LIC['eurostat'][0], 'attribution': LIC['eurostat'][1], 'licence_status': LIC['eurostat'][2],
@@ -172,16 +179,27 @@ def main():
         'oecd_economic_outlook': {'licence': LIC['oecd'][0], 'attribution': LIC['oecd'][1], 'licence_status': LIC['oecd'][2],
                                   'query': OECD_EO, 'net_lending_pct_gdp': float(eo[0]['OBS_VALUE']),
                                   'dataflow': eo[0]['DATAFLOW']},
-        'muhasebat_general_government_gfs': {'licence': LIC['muhasebat'][0], 'attribution': LIC['muhasebat'][1],
-                                             'licence_status': LIC['muhasebat'][2], **gg},
-        'muhasebat_central_budget_defence': {'licence': LIC['muhasebat'][0], 'attribution': LIC['muhasebat'][1],
-                                             'licence_status': LIC['muhasebat'][2], **bud},
+        'muhasebat_tables_restricted': {
+            'licence': LIC['muhasebat'][0], 'licence_status': LIC['muhasebat'][2],
+            'tables': [{'title': 'General government GFS workbook 2008-2026 (2023 statement of operations, functions)', 'listing': GG_LISTING},
+                       {'title': 'Central government budget outturn 2023, function x economic type (defence row)', 'listing': BUDGET_LISTING}],
+            'values': 'withheld from the repository (no published reuse licence); kept in local access-controlled storage only'},
     }
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, 'w', encoding='utf-8') as f:
         json.dump(out, f, indent=1, ensure_ascii=False, sort_keys=True)
         f.write('\n')
     print(f'wrote {os.path.relpath(OUT, ROOT)}')
+    if restricted_out:
+        full = {**out, 'muhasebat_general_government_gfs': {'licence': LIC['muhasebat'][0], 'licence_status': LIC['muhasebat'][2], **gg},
+                'muhasebat_central_budget_defence': {'licence': LIC['muhasebat'][0], 'licence_status': LIC['muhasebat'][2], **bud}}
+        if os.path.abspath(restricted_out).startswith(ROOT + os.sep):
+            raise SystemExit('--restricted-out must be outside the repository')
+        with open(restricted_out, 'w', encoding='utf-8') as f:
+            json.dump(full, f, indent=1, ensure_ascii=False, sort_keys=True)
+            f.write('\n')
+        os.chmod(restricted_out, 0o600)
+        print(f'wrote restricted values to {restricted_out} (outside the repository)')
 
 
 if __name__ == '__main__':

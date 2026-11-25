@@ -20,13 +20,18 @@ fitted by grid search (least squares) to the euro-area spreads over Germany, wit
 spreadQuad (0.25) kept at the engine defaults. The central-bank policy rate is NOT an input here: in the engine
 it applies to central-bank loans and firm credit, not to bonds.
 
-Run from the repository root:  python3 scenarios/pipeline/build_financing.py
+Run from the repository root:  python3 scenarios/pipeline/build_financing.py [--licensed]
+
+--licensed (WORLD-05-FINAL, package 1.0.0-draft.3) writes build-licensed/financing.json; Türkiye's debt and interest then
+come from Eurostat (balance sheet) and the World Bank (IMF GFS, CC BY-4.0 label) instead of the restricted Treasury and Court
+of Accounts snapshots. Every other country, and the spread fit, are unchanged.
 """
-import json, os
+import json, os, sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 SRC = os.path.join(ROOT, 'scenarios', 'europe-2023', 'sources')
-BUILD = os.path.join(ROOT, 'scenarios', 'europe-2023', 'build')
+LICENSED = '--licensed' in sys.argv
+BUILD = os.path.join(ROOT, 'scenarios', 'europe-2023', 'build-licensed' if LICENSED else 'build')
 S = lambda n: json.load(open(os.path.join(SRC, f'{n}.json'), encoding='utf-8'))['values']
 EURO_AREA = {'DE', 'FR', 'IT', 'ES', 'NL', 'BE', 'AT', 'IE', 'EL'}   # members in 2023 among the scenario's countries
 GEO = {'fra': 'FR', 'deu': 'DE', 'ita': 'IT', 'pol': 'PL', 'irl': 'IE', 'esp': 'ES', 'nld': 'NL', 'bel': 'BE', 'che': 'CH',
@@ -51,9 +56,16 @@ def main():
     out['gbr'] = {'debt': S('ons_uk_debt')['GBR|gross_consolidated_debt_pct_GDP'] / 100, 'interest_paid_pct_gdp': S('oecd_uk_government')['GBR|D41'] / uk_gdp,
                   'deficit': None, 'yield_10y': None, 'euro_area': False, 'sources': ['oecd_uk_government', 'oecd_gdp', 'ons_uk_debt']}
     out['gbr']['effective_rate'] = out['gbr']['interest_paid_pct_gdp'] / out['gbr']['debt']
-    tr_gdp = S('oecd_gdp')['TUR'] * 1000
-    out['tur'] = {'debt': S('tr_treasury_debt')['TUR|EU_defined_GG_debt_pct_GDP'] / 100, 'interest_paid_pct_gdp': S('tr_sayistay_government')['TUR|interest'] / tr_gdp,
-                  'deficit': None, 'yield_10y': None, 'euro_area': False, 'sources': ['tr_sayistay_government', 'oecd_gdp', 'tr_treasury_debt']}
+    if LICENSED:
+        nat, liab, wdi = S('es_tr_national'), S('es_tr_gov_liabilities'), S('wdi_tur_gfs')
+        out['tur'] = {'debt': (liab['F2|TR'] + liab['F3|TR'] + liab['F4|TR']) / nat['B1GQ|TR'],
+                      'interest_paid_pct_gdp': wdi['TUR|GC.XPN.INTP.ZS'] / 100 * wdi['TUR|GC.XPN.TOTL.GD.ZS'] / 100,
+                      'deficit': None, 'yield_10y': None, 'euro_area': False, 'sources': ['es_tr_gov_liabilities', 'es_tr_national', 'wdi_tur_gfs'],
+                      'method': 'debt: consolidated general government liabilities F2+F3+F4 (market value) / GDP (Eurostat); interest: WDI interest share x expense (IMF GFS, central government)'}
+    else:
+        tr_gdp = S('oecd_gdp')['TUR'] * 1000
+        out['tur'] = {'debt': S('tr_treasury_debt')['TUR|EU_defined_GG_debt_pct_GDP'] / 100, 'interest_paid_pct_gdp': S('tr_sayistay_government')['TUR|interest'] / tr_gdp,
+                      'deficit': None, 'yield_10y': None, 'euro_area': False, 'sources': ['tr_sayistay_government', 'oecd_gdp', 'tr_treasury_debt']}
     out['tur']['effective_rate'] = out['tur']['interest_paid_pct_gdp'] / out['tur']['debt']
     # Fit on the euro area.
     ref = out['deu']['yield_10y']

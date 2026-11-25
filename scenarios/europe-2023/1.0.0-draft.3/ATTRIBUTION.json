@@ -1,0 +1,215 @@
+{
+ "scenario": "europe-2023",
+ "version": "1.0.0-draft.3",
+ "publishers": [
+  {
+   "publisher": "eurostat",
+   "status": "cleared",
+   "licence": "Eurostat copyright notice: reuse for commercial or non-commercial purposes authorised provided the source is acknowledged; Commission Decision 2011/833/EU",
+   "url": "https://ec.europa.eu/eurostat/help/copyright-notice",
+   "attribution": "Source: Eurostat",
+   "conditions": [
+    "acknowledge the source",
+    "commercial reuse only for EU and EFTA members and official EU acceding and candidate countries (Türkiye included); never UK data from Eurostat",
+    "no logos"
+   ],
+   "evidence": "primary page read 2026-11-25 (world05-licence-evidence.json: eurostat)",
+   "snapshots": [
+    "es_bond_yields",
+    "es_customs",
+    "es_debt",
+    "es_debt_quarterly",
+    "es_defence",
+    "es_government",
+    "es_government_accounts",
+    "es_national_a64",
+    "es_national_gdp",
+    "es_national_population",
+    "es_regional_gva",
+    "es_regional_population",
+    "es_tax",
+    "es_tr_gov_liabilities",
+    "es_tr_national",
+    "world02-defence-cofog-2023"
+   ]
+  },
+  {
+   "publisher": "oecd",
+   "status": "cleared",
+   "licence": "OECD Terms and Conditions, Data: data may be extracted, downloaded, copied, adapted, printed, distributed, shared and embedded for any purpose, including commercial use, with credit to the OECD using the dataset's citation; subject to dataset-specific terms and third-party ownership shown in metadata or source information",
+   "url": "https://www.oecd.org/en/about/terms-conditions.html",
+   "attribution": "Source: OECD (see the dataset citations in NOTICE.md). Values were transformed for the game.",
+   "conditions": [
+    "credit the OECD with the dataset citation",
+    "respect dataset-specific terms and third-party ownership (none indicated for the datasets used: see oecd_datasets)",
+    "no OECD logo; no endorsement"
+   ],
+   "evidence": "secondary for the Terms (search-engine reading of the publisher's page, 2026-11-25; oecd.org refuses automated reading); primary for each dataset's metadata (OECD SDMX API, 2026-11-25: no licence, restriction or third-party notice)",
+   "snapshots": [
+    "oecd_che_debt",
+    "oecd_customs",
+    "oecd_eo_tur",
+    "oecd_gdp",
+    "oecd_revenue",
+    "oecd_uk_defence",
+    "oecd_uk_government",
+    "oecd_uk_government_accounts",
+    "world02-defence-cofog-2023"
+   ]
+  },
+  {
+   "publisher": "ons",
+   "status": "cleared",
+   "licence": "Open Government Licence v3.0",
+   "url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+   "attribution": "Source: Office for National Statistics licensed under the Open Government Licence v.3.0",
+   "conditions": [
+    "include the attribution statement",
+    "do not suggest endorsement"
+   ],
+   "evidence": "primary (WORLD-02, WORLD-03)",
+   "snapshots": [
+    "ons_regional_gva",
+    "ons_regional_population",
+    "ons_uk_debt"
+   ]
+  },
+  {
+   "publisher": "worldbank",
+   "status": "cleared",
+   "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0), as labelled in each indicator's metadata (License_Type)",
+   "url": "https://creativecommons.org/licenses/by/4.0/",
+   "attribution": "Source: World Bank, World Development Indicators, licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Values were transformed for the game.",
+   "conditions": [
+    "attribution",
+    "link to the licence",
+    "indicate that values were changed",
+    "only series labelled CC BY-4.0 (not those labelled with SIPRI or other third-party terms)"
+   ],
+   "evidence": "primary: World Bank API series metadata for every series used, 2026-11-25 (world05-licence-evidence.json: worldbank; snapshot wdi_tur_gfs records the label per series)",
+   "snapshots": [
+    "wdi_nv_agr_totl_zs",
+    "wdi_nv_ind_manf_zs",
+    "wdi_ny_gdp_coal_rt_zs",
+    "wdi_ny_gdp_minr_rt_zs",
+    "wdi_ny_gdp_mktp_cd",
+    "wdi_ny_gdp_mktp_pp_cd",
+    "wdi_ny_gdp_ngas_rt_zs",
+    "wdi_ny_gdp_petr_rt_zs",
+    "wdi_sp_pop_totl",
+    "wdi_tur_gfs"
+   ]
+  }
+ ],
+ "other": [
+  {
+   "publisher": "natural_earth",
+   "status": "cleared",
+   "licence": "Public domain",
+   "url": "https://www.naturalearthdata.com/about/terms-of-use/",
+   "conditions": [],
+   "attribution": "Made with Natural Earth (courtesy credit; not required)",
+   "evidence": "primary (WORLD-02)"
+  },
+  {
+   "publisher": "heartland",
+   "status": "cleared",
+   "licence": "Heartland project's own work",
+   "url": "",
+   "conditions": [],
+   "attribution": "",
+   "evidence": "WORLD-02 provinces, crosswalk, sea links, territory rules and the gameplay assumptions in this package were written for the project. They are built from Natural Earth (public domain), Wikidata (CC0) and official statistical unit codes; ferry routes are facts, no data copied"
+  }
+ ],
+ "derivedExtracts": {
+  "world02-defence-cofog-2023": {
+   "path": "docs/world/data/world02-defence-cofog-2023.json",
+   "publishers": [
+    "oecd",
+    "eurostat"
+   ],
+   "content": "WORLD-02 review extract: COFOG 02 defence by transaction (OECD Table 11, identical to Eurostat gov_10a_exp for FR, DE, IT, PL), whole-economy compensation of employees and employees (Eurostat nama_10_gdp, nama_10_a10_e; OECD national accounts for the UK); no Türkiye"
+  }
+ },
+ "oecdDatasets": [
+  {
+   "dataflow": "OECD.CTP.TPS,DSD_REV_COMP_OECD@DF_RSOECD",
+   "version": "2.0",
+   "title": "Revenue Statistics in OECD member countries - Comparative tax revenues",
+   "snapshots": {
+    "oecd_revenue": "GBR+TUR.TAX_REV.S13.T_1100+T_1200+T_2000+T_5110+T_5120+T_5000+_T._T.PT_B1GQ.A",
+    "oecd_customs": "GBR+TUR+NOR+CHE.TAX_REV.S13.T_5123+_T._T.PT_B1GQ.A"
+   },
+   "use": "UK and Türkiye taxes by category; customs duties kept by national government (GBR, TUR, NOR, CHE)",
+   "dataset_restrictions": "none in the dataflow metadata",
+   "third_party": "none indicated; compiled by the OECD from member countries' tax data",
+   "citation": "OECD (2026), Revenue Statistics in OECD member countries - Comparative tax revenues, OECD Data Explorer (DSD_REV_COMP_OECD@DF_RSOECD), accessed 2026-11-22"
+  },
+  {
+   "dataflow": "OECD.SDD.NAD,DSD_NAMAIN10@DF_TABLE1_EXPENDITURE",
+   "version": "2.0",
+   "title": "Annual GDP and components - expenditure approach",
+   "snapshots": {
+    "oecd_gdp": "A.GBR+TUR..........",
+    "oecd_uk_imports": "A.GBR.........."
+   },
+   "use": "GDP in national currency (GBR, TUR); UK imports",
+   "dataset_restrictions": "none in the dataflow metadata",
+   "third_party": "none indicated; UK figures originate with the ONS (Open Government Licence)",
+   "citation": "OECD (2026), Annual GDP and components - expenditure approach, OECD Data Explorer (DSD_NAMAIN10@DF_TABLE1_EXPENDITURE), accessed 2026-11-22"
+  },
+  {
+   "dataflow": "OECD.SDD.NAD,DSD_NASEC10@DF_TABLE11",
+   "version": "1.1",
+   "title": "Annual government expenditure by function (COFOG)",
+   "snapshots": {
+    "oecd_uk_defence": "A.GBR.S13._Z.D.OTE+P51G+D1+P2..GF02.XDC.S.V.N.T1100"
+   },
+   "use": "UK defence (COFOG 02) by transaction",
+   "dataset_restrictions": "none in the dataflow metadata",
+   "third_party": "none indicated; UK figures originate with the ONS (Open Government Licence)",
+   "citation": "OECD (2026), Annual government expenditure by function (COFOG), OECD Data Explorer (DSD_NASEC10@DF_TABLE11), accessed 2026-11-22"
+  },
+  {
+   "dataflow": "OECD.SDD.NAD,DSD_NASEC10@DF_TABLE12",
+   "version": "1.1",
+   "title": "Annual government non-financial accounts and key indicators",
+   "snapshots": {
+    "oecd_uk_government": "A.GBR.S13..............",
+    "oecd_uk_government_accounts": "A.GBR.S13.............."
+   },
+   "use": "UK general government accounts (budget reconciliation)",
+   "dataset_restrictions": "none in the dataflow metadata",
+   "third_party": "none indicated; UK figures originate with the ONS (Open Government Licence)",
+   "citation": "OECD (2026), Annual government non-financial accounts and key indicators, OECD Data Explorer (DSD_NASEC10@DF_TABLE12), accessed 2026-11-22"
+  },
+  {
+   "dataflow": "OECD.SDD.NAD,DSD_NASEC20@DF_T720GOV_A",
+   "version": "1.1",
+   "title": "Government Annual Financial Balance Sheets (stocks), non-consolidated",
+   "snapshots": {
+    "oecd_che_debt": "A..CHE..S13...L.........."
+   },
+   "use": "Swiss general government debt instruments (estimate of starting debt)",
+   "dataset_restrictions": "none in the dataflow metadata",
+   "third_party": "none indicated; compiled from Swiss national data",
+   "citation": "OECD (2026), Government Annual Financial Balance Sheets (stocks), non-consolidated, OECD Data Explorer (DSD_NASEC20@DF_T720GOV_A), accessed 2026-11-22"
+  },
+  {
+   "dataflow": "OECD.ECO.MAD,DSD_EO@DF_EO",
+   "version": "1.5",
+   "title": "Economic Outlook 119",
+   "snapshots": {
+    "oecd_eo_tur": "TUR.NLG+NLGQ+CG+GDP.A"
+   },
+   "use": "Türkiye 2023 general government net lending (balance target), government consumption, GDP (draft.3)",
+   "dataset_restrictions": "none in the dataflow metadata",
+   "third_party": "none indicated; OECD estimates from national sources",
+   "citation": "OECD (2026), Economic Outlook 119, OECD Data Explorer (DSD_EO@DF_EO), accessed 2026-11-25"
+  }
+ ],
+ "blockers": [],
+ "releaseChecks": [
+  "Before a public release, read the 'Data' section of the OECD Terms and Conditions in a browser and confirm the wording above (decision W5-L3, primary confirmation)."
+ ]
+}

@@ -21,6 +21,10 @@
      "es_regional_gva": 153,
      "es_regional_population": 38,
      "es_tax": 84,
+     "oecd_gdp": 10,
+     "oecd_revenue": 12,
+     "oecd_uk_defence": 6,
+     "oecd_uk_government": 5,
      "ons_regional_gva": 32,
      "ons_regional_population": 8,
      "ons_uk_debt": 1,
@@ -32,13 +36,7 @@
      "wdi_ny_gdp_mktp_pp_cd": 82,
      "wdi_ny_gdp_ngas_rt_zs": 122,
      "wdi_ny_gdp_petr_rt_zs": 122,
-     "wdi_sp_pop_totl": 5
-    },
-    "confirm": {
-     "oecd_gdp": 10,
-     "oecd_revenue": 12,
-     "oecd_uk_defence": 6,
-     "oecd_uk_government": 5,
+     "wdi_sp_pop_totl": 5,
      "world02-defence-cofog-2023": 5
     },
     "restricted": {
@@ -91,6 +89,13 @@
      "es_regional_gva": 153,
      "es_regional_population": 38,
      "es_tax": 98,
+     "oecd_che_debt": 1,
+     "oecd_customs": 2,
+     "oecd_gdp": 14,
+     "oecd_revenue": 13,
+     "oecd_uk_defence": 7,
+     "oecd_uk_government": 6,
+     "oecd_uk_government_accounts": 1,
      "ons_regional_gva": 32,
      "ons_regional_population": 8,
      "ons_uk_debt": 2,
@@ -102,16 +107,7 @@
      "wdi_ny_gdp_mktp_pp_cd": 82,
      "wdi_ny_gdp_ngas_rt_zs": 122,
      "wdi_ny_gdp_petr_rt_zs": 122,
-     "wdi_sp_pop_totl": 5
-    },
-    "confirm": {
-     "oecd_che_debt": 1,
-     "oecd_customs": 2,
-     "oecd_gdp": 14,
-     "oecd_revenue": 13,
-     "oecd_uk_defence": 7,
-     "oecd_uk_government": 6,
-     "oecd_uk_government_accounts": 1,
+     "wdi_sp_pop_totl": 5,
      "world02-defence-cofog-2023": 5
     },
     "restricted": {
@@ -150,6 +146,67 @@
     "/countries/tur/fiscal/spend_social",
     "/financing/countries/tur"
    ]
+  },
+  "1.0.0-draft.3": {
+   "attribution_notice_in_package": true,
+   "citations_by_verdict": {
+    "clear": {
+     "es_bond_yields": 14,
+     "es_customs": 18,
+     "es_debt": 25,
+     "es_debt_quarterly": 2,
+     "es_defence": 93,
+     "es_government": 102,
+     "es_government_accounts": 18,
+     "es_national_a64": 106,
+     "es_national_gdp": 187,
+     "es_national_population": 10,
+     "es_regional_gva": 153,
+     "es_regional_population": 39,
+     "es_tax": 102,
+     "es_tr_gov_liabilities": 2,
+     "es_tr_national": 10,
+     "oecd_che_debt": 1,
+     "oecd_customs": 7,
+     "oecd_eo_tur": 8,
+     "oecd_gdp": 11,
+     "oecd_revenue": 20,
+     "oecd_uk_defence": 12,
+     "oecd_uk_government": 10,
+     "oecd_uk_government_accounts": 5,
+     "ons_regional_gva": 32,
+     "ons_regional_population": 8,
+     "ons_uk_debt": 2,
+     "wdi_nv_agr_totl_zs": 10,
+     "wdi_nv_ind_manf_zs": 10,
+     "wdi_ny_gdp_coal_rt_zs": 122,
+     "wdi_ny_gdp_minr_rt_zs": 122,
+     "wdi_ny_gdp_mktp_cd": 10,
+     "wdi_ny_gdp_mktp_pp_cd": 82,
+     "wdi_ny_gdp_ngas_rt_zs": 122,
+     "wdi_ny_gdp_petr_rt_zs": 122,
+     "wdi_sp_pop_totl": 5,
+     "wdi_tur_gfs": 9,
+     "world02-defence-cofog-2023": 6
+    }
+   },
+   "distributable": true,
+   "files": [
+    "ATTRIBUTION.json",
+    "NOTICE.md",
+    "benchmark-node.json",
+    "calibration-report.json",
+    "manifest.json",
+    "provenance.json",
+    "scenario.json",
+    "validation-report.json",
+    "week1.session.json",
+    "world-spec.json"
+   ],
+   "immutable": true,
+   "not_distributable_because": [],
+   "restricted_sources": [],
+   "values_from_restricted_sources": []
   }
  },
  "problems": [],
@@ -557,10 +614,51 @@
    "values": 56,
    "verdict": "clear"
   },
+  "es_tr_gov_liabilities": {
+   "attribution": "Source: Eurostat",
+   "dataset": "nasa_10_f_bs",
+   "evidence_status": "verified",
+   "geos": [
+    "F",
+    "F2",
+    "F3",
+    "F4"
+   ],
+   "licence": "Eurostat copyright notice: reuse authorised, commercial or not, provided the source is acknowledged (UK data excluded from commercial reuse; none is taken from Eurostat)",
+   "licence_status_recorded": "verified (primary)",
+   "publisher": "eurostat",
+   "query": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_f_bs?time=2023&unit=MIO_NAC&geo=TR&sector=S13&finpos=LIAB&co_nco=CO&na_item=F&na_item=F2&na_item=F3&na_item=F4",
+   "retrieved": "2026-11-25",
+   "sha256": "4e944a2807dabb0c3069f7a6bbb237df178a1bc74717ba3f937db0b38bacc166",
+   "source_organization": null,
+   "title": "Türkiye: general government (S13) consolidated liabilities, debt instruments F2, F3, F4 and total F, million TRY, end-2023",
+   "values": 4,
+   "verdict": "clear"
+  },
+  "es_tr_national": {
+   "attribution": "Source: Eurostat",
+   "dataset": "nama_10_gdp",
+   "evidence_status": "verified",
+   "geos": [
+    "B1GQ",
+    "D1",
+    "P3_S13"
+   ],
+   "licence": "Eurostat copyright notice: reuse authorised, commercial or not, provided the source is acknowledged (UK data excluded from commercial reuse; none is taken from Eurostat)",
+   "licence_status_recorded": "verified (primary)",
+   "publisher": "eurostat",
+   "query": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_gdp?time=2023&unit=CP_MNAC&geo=TR&na_item=B1GQ&na_item=D1&na_item=P3_S13",
+   "retrieved": "2026-11-25",
+   "sha256": "f9aea0828f79000c3d916e2c4687646cad7b3aa2a1e12e236c1a3d6bd5a3d98f",
+   "source_organization": null,
+   "title": "Türkiye: GDP, compensation of employees and government final consumption, current prices, million TRY",
+   "values": 3,
+   "verdict": "clear"
+  },
   "oecd_che_debt": {
    "attribution": "Source: OECD",
    "dataset": "OECD.SDD.NAD,DSD_NASEC20@DF_T720GOV_A",
-   "evidence_status": "unconfirmed for data: read the Data section of the Terms and Conditions in a browser before release (decision W5-L3)",
+   "evidence_status": "cleared (W5-L3): Terms via search (secondary), dataset metadata primary. Release check: read the Data section in a browser before a public release.",
    "geos": [
     "CHE"
    ],
@@ -573,12 +671,12 @@
    "source_organization": null,
    "title": "Swiss general government liabilities by instrument (F = all, F2, F3, F4), all maturities, non-consolidated, francs million",
    "values": 4,
-   "verdict": "confirm"
+   "verdict": "clear"
   },
   "oecd_customs": {
    "attribution": "Source: OECD",
    "dataset": "OECD.CTP.TPS,DSD_REV_COMP_OECD@DF_RSOECD",
-   "evidence_status": "unconfirmed for data: read the Data section of the Terms and Conditions in a browser before release (decision W5-L3)",
+   "evidence_status": "cleared (W5-L3): Terms via search (secondary), dataset metadata primary. Release check: read the Data section in a browser before a public release.",
    "geos": [
     "CHE",
     "GBR",
@@ -594,12 +692,30 @@
    "source_organization": null,
    "title": "Revenue Statistics: 5123 customs and import duties, % of GDP",
    "values": 8,
-   "verdict": "confirm"
+   "verdict": "clear"
+  },
+  "oecd_eo_tur": {
+   "attribution": "Source: OECD",
+   "dataset": "OECD.ECO.MAD,DSD_EO@DF_EO",
+   "evidence_status": "cleared (W5-L3): Terms via search (secondary), dataset metadata primary. Release check: read the Data section in a browser before a public release.",
+   "geos": [
+    "TUR"
+   ],
+   "licence": "CC BY 4.0",
+   "licence_status_recorded": "verified (search only; oecd.org blocks automated reading)",
+   "publisher": "oecd",
+   "query": "https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO,/TUR.NLG+NLGQ+CG+GDP.A?startPeriod=2023&endPeriod=2023&dimensionAtObservation=AllDimensions",
+   "retrieved": "2026-11-25",
+   "sha256": "5a10ae546f4b4d10cb1dcbefda5568fe08e97d8484558cca98e1601ead93ec70",
+   "source_organization": null,
+   "title": "Economic Outlook: Türkiye general government net lending (TRY, % of GDP), government final consumption and GDP (TRY)",
+   "values": 4,
+   "verdict": "clear"
   },
   "oecd_gdp": {
    "attribution": "Source: OECD",
    "dataset": "OECD.SDD.NAD,DSD_NAMAIN10@DF_TABLE1_EXPENDITURE",
-   "evidence_status": "unconfirmed for data: read the Data section of the Terms and Conditions in a browser before release (decision W5-L3)",
+   "evidence_status": "cleared (W5-L3): Terms via search (secondary), dataset metadata primary. Release check: read the Data section in a browser before a public release.",
    "geos": [
     "GBR",
     "TUR"
@@ -613,12 +729,12 @@
    "source_organization": null,
    "title": "GDP at current prices, national currency, million",
    "values": 2,
-   "verdict": "confirm"
+   "verdict": "clear"
   },
   "oecd_revenue": {
    "attribution": "Source: OECD",
    "dataset": "OECD.CTP.TPS,DSD_REV_COMP_OECD@DF_RSOECD",
-   "evidence_status": "unconfirmed for data: read the Data section of the Terms and Conditions in a browser before release (decision W5-L3)",
+   "evidence_status": "cleared (W5-L3): Terms via search (secondary), dataset metadata primary. Release check: read the Data section in a browser before a public release.",
    "geos": [
     "GBR",
     "TUR"
@@ -632,12 +748,12 @@
    "source_organization": null,
    "title": "Revenue Statistics: tax revenue by category, general government, % of GDP",
    "values": 14,
-   "verdict": "confirm"
+   "verdict": "clear"
   },
   "oecd_uk_defence": {
    "attribution": "Source: OECD",
    "dataset": "OECD.SDD.NAD,DSD_NASEC10@DF_TABLE11",
-   "evidence_status": "unconfirmed for data: read the Data section of the Terms and Conditions in a browser before release (decision W5-L3)",
+   "evidence_status": "cleared (W5-L3): Terms via search (secondary), dataset metadata primary. Release check: read the Data section in a browser before a public release.",
    "geos": [
     "GBR"
    ],
@@ -650,12 +766,12 @@
    "source_organization": null,
    "title": "Government expenditure by function, COFOG 02 defence, UK, pounds million",
    "values": 4,
-   "verdict": "confirm"
+   "verdict": "clear"
   },
   "oecd_uk_government": {
    "attribution": "Source: OECD",
    "dataset": "OECD.SDD.NAD,DSD_NASEC10@DF_TABLE12",
-   "evidence_status": "unconfirmed for data: read the Data section of the Terms and Conditions in a browser before release (decision W5-L3)",
+   "evidence_status": "cleared (W5-L3): Terms via search (secondary), dataset metadata primary. Release check: read the Data section in a browser before a public release.",
    "geos": [
     "GBR"
    ],
@@ -668,12 +784,12 @@
    "source_organization": null,
    "title": "Government deficit/surplus, revenue, expenditure and main aggregates, UK, pounds million",
    "values": 7,
-   "verdict": "confirm"
+   "verdict": "clear"
   },
   "oecd_uk_government_accounts": {
    "attribution": "Source: OECD",
    "dataset": "OECD.SDD.NAD,DSD_NASEC10@DF_TABLE12",
-   "evidence_status": "unconfirmed for data: read the Data section of the Terms and Conditions in a browser before release (decision W5-L3)",
+   "evidence_status": "cleared (W5-L3): Terms via search (secondary), dataset metadata primary. Release check: read the Data section in a browser before a public release.",
    "geos": [
     "GBR"
    ],
@@ -686,12 +802,12 @@
    "source_organization": null,
    "title": "UK general government accounts, all transactions (C = revenue, D = expenditure, B = balance), pounds million",
    "values": 92,
-   "verdict": "confirm"
+   "verdict": "clear"
   },
   "oecd_uk_imports": {
    "attribution": "Source: OECD",
    "dataset": "OECD.SDD.NAD,DSD_NAMAIN10@DF_TABLE1_EXPENDITURE",
-   "evidence_status": "unconfirmed for data: read the Data section of the Terms and Conditions in a browser before release (decision W5-L3)",
+   "evidence_status": "cleared (W5-L3): Terms via search (secondary), dataset metadata primary. Release check: read the Data section in a browser before a public release.",
    "geos": [
     "GBR"
    ],
@@ -704,7 +820,7 @@
    "source_organization": null,
    "title": "UK imports of goods and services (P7), goods (P71) and GDP, pounds million",
    "values": 3,
-   "verdict": "confirm"
+   "verdict": "clear"
   },
   "ons_regional_gva": {
    "attribution": "Source: Office for National Statistics licensed under the Open Government Licence v.3.0",
@@ -3673,11 +3789,28 @@
    "title": "Population, total",
    "values": 261,
    "verdict": "clear"
+  },
+  "wdi_tur_gfs": {
+   "attribution": "Source: World Bank, World Development Indicators",
+   "dataset": "GC.XPN.TOTL.GD.ZS+GC.XPN.INTP.ZS+GC.REV.XGRT.GD.ZS+GC.NLD.TOTL.GD.ZS+GC.DOD.TOTL.GD.ZS",
+   "evidence_status": "verified",
+   "geos": [
+    "TUR"
+   ],
+   "licence": "CC BY 4.0 (World Bank WDI); third-party series are not used",
+   "licence_status_recorded": "verified (primary)",
+   "publisher": "worldbank",
+   "query": "https://api.worldbank.org/v2/country/TUR/indicator/GC.XPN.TOTL.GD.ZS?date=2023&format=json https://api.worldbank.org/v2/country/TUR/indicator/GC.XPN.INTP.ZS?date=2023&format=json https://api.worldbank.org/v2/country/TUR/indicator/GC.REV.XGRT.GD.ZS?date=2023&format=json https://api.worldbank.org/v2/country/TUR/indicator/GC.NLD.TOTL.GD.ZS?date=2023&format=json https://api.worldbank.org/v2/country/TUR/indicator/GC.DOD.TOTL.GD.ZS?date=2023&format=json",
+   "retrieved": "2026-11-25",
+   "sha256": "f12e27ba249e4cb97e6529684e1fcdb02e3bf9788d6fb59ccd9018068c49013c",
+   "source_organization": null,
+   "title": "WDI government finance for Türkiye (IMF GFS, consolidated central government), 2023",
+   "values": 5,
+   "verdict": "clear"
   }
  },
  "verdicts": {
-  "clear": "verified licence allowing commercial redistribution",
-  "confirm": "believed open; publisher page not read",
+  "clear": "cleared in scenarios/europe-2023/licences.json",
   "restricted": "no verified licence for commercial redistribution"
  }
 }
