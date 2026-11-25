@@ -124,7 +124,7 @@ export function EuropeMap({ scenario, state, inspect }: { scenario: EuropeScenar
     {map ? <svg className="europe-provinces" viewBox={`${west + 180} ${90 - north} ${east - west} ${north - south}`} aria-label="Map of the 46 playable provinces" role="group">
       <path d={map.outlines} fill="#293b49" aria-hidden="true" />
       {scenario.provinces.map(region => <path key={region.id} data-province={region.id}
-        d={map.regions.get(region.id)!.parts.map(part => part.path).join('')} fill={selected === region.id ? '#e4b15e' : colors[region.ownerId]}
+        d={map.regions.get(region.id)!.parts.map(part => part.path).join('')} fill={selected === region.id ? '#e4b15e' : colors[state.regions.find(current => current.id === region.id)!.ownerId]}
         fillRule="evenodd" onClick={() => selectProvince(region.id, region.ownerId)}>
         <title>{region.name}</title>
       </path>)}

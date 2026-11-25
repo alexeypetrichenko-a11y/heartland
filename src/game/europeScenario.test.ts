@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 import * as api from '../../economy-engine/src/integration/index.ts';
@@ -7,7 +8,7 @@ import { advanceGameWeek } from './economyBridge.ts';
 import { emptyDrafts } from './playerDrafts.ts';
 import { decodeGameSave, encodeGameSave, restoreGameSave } from './saveFormat.ts';
 
-const root = new URL('../../scenarios/europe-2023/1.0.0-draft.2/', import.meta.url);
+const root = new URL('../../scenarios/europe-2023/1.0.0-draft.3/', import.meta.url);
 const read = async (name: string) => Uint8Array.from(await readFile(new URL(name, root)));
 const load = () => readEuropeScenario({ api }, read);
 const europe = await load();
@@ -20,6 +21,10 @@ test('loads the immutable opening for all six playable countries without changin
     assert.equal(game.playerCountryId, id);
     assert.equal(economy.session.playerCountryId, id);
     assert.equal(game.week, 1);
+    assert.equal(game.divisions.length, 90);
+    assert.equal(game.divisions.filter(division => division.ownerId === id).length,
+      ({ fra: 15, deu: 13, gbr: 14, ita: 15, pol: 13, tur: 20 } as Record<string, number>)[id]);
+    assert.ok(game.divisions.every(division => division.manpower === 25_000 && division.order.kind === 'defend'));
     assert.deepEqual(economy.player, { ...api.getCountryEconomy(europe.opening, id), controller: 'player' });
     const turn = advanceGameWeek(runtime, game, economy, []);
     assert.equal(turn.game.week, 2);
@@ -34,6 +39,9 @@ test('preserves distinct land, maritime and military edges, including Corsica', 
   assert.deepEqual(corsica.landAdjacentRegionIds, []);
   assert.ok(corsica.maritimeLinkedRegionIds.includes('fra-se'));
   assert.deepEqual(corsica.movementAdjacentRegionIds, []);
+  for (const id of ['fra-cor', 'gbr-nir', 'ita-sar', 'ita-sic']) {
+    assert.ok(!europe.fixture.divisions.some(division => division.regionId === id));
+  }
   for (const region of europe.provinces) {
     const legal = europe.fixture.regions.find(entry => entry.id === region.id)!.adjacentRegionIds;
     assert.deepEqual(legal, region.movementAdjacentRegionIds);
@@ -48,7 +56,7 @@ test('rejects damaged assets and an incompatible version before opening a game',
     return data;
   }), /integrity check/);
   await assert.rejects(readEuropeScenario({ api }, async name => name === 'manifest.json'
-    ? new TextEncoder().encode(JSON.stringify({ id: 'europe-2023', version: '1.0.0-draft.1' })) : read(name)), /unsupported/);
+    ? new TextEncoder().encode(JSON.stringify({ id: 'europe-2023', version: '1.0.0-draft.1' })) : read(name)), /requires 1.0.0-draft.1/);
 });
 
 test('European saves retain ownership and drafts and replay a fiscal and diplomatic week exactly', async () => {
@@ -75,4 +83,54 @@ test('European saves retain ownership and drafts and replay a fiscal and diploma
   assert.throws(() => advanceGameWeek(runtime, start.game, start.economy, [], [{ ...fiscal[0], rate: 3 }]));
   assert.equal(start.game.week, 1);
   assert.equal(start.economy.session.week, 1);
+});
+
+
+test('French land movement, German-frontier combat and occupied saves use existing atomic rules', async () => {
+  const start = startEuropeGame(runtime, 'fra');
+  const march = { type: 'set-military-order', countryId: 'fra', divisionId: 'fra-ne-division-1',
+    order: { kind: 'move', targetRegionId: 'fra-idf' } } as const;
+  const moved = advanceGameWeek(runtime, start.game, start.economy, [march]);
+  assert.equal(moved.game.militaryResults[0].kind, 'moved');
+
+  const crossing = { type: 'set-military-order', countryId: 'fra', divisionId: 'fra-se-division-1',
+    order: { kind: 'move', targetRegionId: 'fra-cor' } } as const;
+  assert.throws(() => advanceGameWeek(runtime, moved.game, moved.economy, [crossing]), /adjacent/);
+
+  const attack = { type: 'set-military-order', countryId: 'fra', divisionId: 'fra-ne-division-2',
+    order: { kind: 'attack', targetRegionId: 'deu-bw' } } as const;
+  // Stage the three starting frontier divisions together, then let standing attacks resolve.
+  const attacks = ['1', '2', '3'].map(index => ({ ...attack, divisionId: `fra-ne-division-${index}` }));
+  const drafts = { ...emptyDrafts(), military: attacks };
+  const before = restoreGameSave(runtime, await decodeGameSave(await encodeGameSave(runtime, { ...start, drafts }), load));
+  assert.deepEqual(before.drafts.military, attacks);
+  let turn = advanceGameWeek(runtime, before.game, before.economy, attacks);
+  assert.equal(turn.game.militaryResults[0].kind, 'combat');
+  for (let step = 0; step < 15 && turn.game.regions.find(region => region.id === 'deu-bw')?.ownerId !== 'fra'; step++) {
+    turn = advanceGameWeek(runtime, turn.game, turn.economy, []);
+  }
+  assert.equal(turn.game.regions.find(region => region.id === 'deu-bw')?.ownerId, 'fra');
+  const occupied = api.getRegionEconomy(turn.economy.session, 'deu-bw');
+  assert.equal(occupied.controllerId, 'fra');
+  assert.equal(occupied.legalOwnerId, 'deu');
+  const record = await encodeGameSave(runtime, { ...turn, drafts: emptyDrafts() });
+  const restored = restoreGameSave(runtime, await decodeGameSave(record, load));
+  assert.deepEqual(restored.game, turn.game);
+  assert.equal(api.economyFingerprint(restored.economy.session), api.economyFingerprint(turn.economy.session));
+});
+
+
+test('older European checkpoints are refused before fetching draft.3 and are never migrated', async () => {
+  const current = startEuropeGame(runtime, 'fra');
+  const raw = await encodeGameSave(runtime, { ...current, drafts: emptyDrafts() });
+  for (const version of ['1.0.0-draft.1', '1.0.0-draft.2']) {
+    const envelope = JSON.parse(raw);
+    const payload = JSON.parse(envelope.payload);
+    payload.scenario.version = version;
+    envelope.payload = JSON.stringify(payload);
+    envelope.checksum = createHash('sha256').update(envelope.payload).digest('hex');
+    await assert.rejects(decodeGameSave(JSON.stringify(envelope), async () => {
+      assert.fail('An incompatible checkpoint requested the draft.3 package.');
+    }), { message: `This Europe save requires ${version}. Use its original review build to resume it.` });
+  }
 });

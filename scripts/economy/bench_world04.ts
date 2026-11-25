@@ -30,6 +30,7 @@ async function benchmark() {
   const saveRestoreMs = performance.now() - checkpoint;
   if (api.economyFingerprint(restored.economy.session) !== api.economyFingerprint(session.economy.session)
     || JSON.stringify(restored.game) !== JSON.stringify(session.game)) throw new Error('Round-trip mismatch.');
+  if (session.game.divisions.length !== 90 || session.economy.session.state.zones.length !== 61) throw new Error('Expected 90 divisions and 61 economic zones.');
   const measurements = {
     startMs, saveRestoreMs,
     medianWeekMs: (times[77] + times[78]) / 2,
@@ -37,7 +38,7 @@ async function benchmark() {
     slowestWeekMs: times.at(-1)!,
   };
   const limits = { startMs: 1000, saveRestoreMs: 1000, medianWeekMs: 250, p95WeekMs: 500, slowestWeekMs: 1000 };
-  return { zones: europe.fixture.regions.length, turns: times.length, ...measurements, limits,
+  return { zones: session.economy.session.state.zones.length, divisions: session.game.divisions.length, turns: times.length, ...measurements, limits,
     passed: (Object.keys(limits) as (keyof typeof limits)[]).every(key => measurements[key] <= limits[key]) };
 }
 

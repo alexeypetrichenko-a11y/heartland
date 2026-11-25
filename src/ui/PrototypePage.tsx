@@ -188,9 +188,9 @@ export function PrototypePage({ active, europe, state, drafts, onChangeDrafts, o
             <DiplomacyPanel europe={Boolean(europe)} state={state} pendingAction={diplomacy} onStageAction={action => onChangeDrafts({ ...drafts, diplomacy: action })} />
           </div>
           <div id="section-military" className="section-view" hidden={activeSection !== 'military'}>
-            {europe ? <p className="turn-status">{EUROPE_MILITARY_NOTICE}</p> : <MilitaryPanel state={state} pendingOrders={military}
+            <MilitaryPanel state={state} pendingOrders={military} forceNote={europe ? EUROPE_MILITARY_NOTICE : undefined}
               onStageOrder={command => onChangeDrafts({ ...drafts, military: [...military.filter(order => order.divisionId !== command.divisionId), command] })}
-              onDiscardOrders={() => onChangeDrafts({ ...drafts, military: [] })} />}
+              onDiscardOrders={() => onChangeDrafts({ ...drafts, military: [] })} />
           </div>
         </div>
         {report && latestReport && <WeeklyReportPanel key={report.week} active={active} report={report}
@@ -199,9 +199,26 @@ export function PrototypePage({ active, europe, state, drafts, onChangeDrafts, o
           onOpenRegion={id => { setActiveSection('world'); setRegionInspection({ id }); setReportWeek(null); }} />}
         <DetailPanel id="scenario-details" title="Scenario information" open={showScenario} onClose={() => setShowScenario(false)}>
           {latestReport && <button type="button" onClick={openLatestReport}>Open weekly report</button>}
-          <p>{europe ? 'Europe 2023 · Restricted local review · ' + europe.identity.version
+          <p>{europe ? 'Europe 2023 · Licensed local review · ' + europe.identity.version
             : 'Local single-player prototype · Fictional test world. Temporary statistics and provisional rules, not balanced game values.'}</p>
-          {europe && <p>{EUROPE_MILITARY_NOTICE} Source attribution and licence details are in the scenario’s <a href={`${import.meta.env.BASE_URL}review/${europe.identity.id}/${europe.identity.version}/provenance.json`}>provenance record</a>.</p>}
+          {europe && <>
+            <p>{EUROPE_MILITARY_NOTICE}</p>
+            <details>
+              <summary>Sources and Licences</summary>
+              <p>Heartland transformed and calibrated source data for the game. Source publishers do not endorse the game.</p>
+              <ul>{[...europe.attribution.publishers, ...europe.attribution.other].filter(credit => credit.attribution).map(credit => (
+                <li key={credit.publisher}>{credit.attribution}{credit.url && <> · <a href={credit.url}>Licence terms</a></>}</li>
+              ))}</ul>
+              <h3>OECD dataset citations</h3>
+              <ul>{europe.attribution.oecdDatasets.map(dataset => <li key={dataset.dataflow}>
+                OECD Data Explorer, {dataset.title} ({dataset.dataflow}, version {dataset.version})
+              </li>)}</ul>
+              <p>Credit the OECD using the applicable dataset citation when reusing these data or adaptations. Require downstream users to acknowledge the OECD as the source.</p>
+              <ul>{['NOTICE.md', 'ATTRIBUTION.json', 'provenance.json'].map(file => <li key={file}>
+                <a href={`${import.meta.env.BASE_URL}review/${europe.identity.id}/${europe.identity.version}/${file}`}>{file}</a>
+              </li>)}</ul>
+            </details>
+          </>}
           <p>Next week resolves diplomacy and military orders, then applies fiscal drafts and advances the economy for the same week. Captured regions enter economic occupation and retain their legal owner. An invalid order rejects the entire week and retains every draft.</p>
           <p>Heartland saves this game and its drafts in this browser. Clearing website data or Safari removing stored data can erase the save.</p>
           {saveStatus && saveStatus.kind !== 'failed' && <p role="status">

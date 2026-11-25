@@ -6,8 +6,9 @@ const { chromium } = require(process.env.HEARTLAND_PLAYWRIGHT_MODULE || 'playwri
 
 const privateUrl = 'http://127.0.0.1:4174/heartland/';
 const publicUrl = 'http://127.0.0.1:4173/heartland/';
-const reviewPath = 'review/europe-2023/1.0.0-draft.2/';
+const reviewPath = 'review/europe-2023/1.0.0-draft.3/';
 const roster = { fra: 'France', deu: 'Germany', gbr: 'United Kingdom', ita: 'Italy', pol: 'Poland', tur: 'Türkiye' };
+const forces = { fra: 15, deu: 13, gbr: 14, ita: 15, pol: 13, tur: 20 };
 const button = (page, name) => page.getByRole('button', { name, exact: true });
 const income = page => page.locator('#fiscal-income');
 const saveStatus = (page, week) => page.getByText(`Saved locally · Week ${week}`, { exact: true });
@@ -57,9 +58,30 @@ async function play(browser, width, height, id) {
       assert.ok(box && box.y >= 0 && box.y + box.height <= height);
       await capture(page, `world04-provinces-${width}x${height}.png`);
     }
-    if (id === 'tur') {
-      await button(page, 'Military').click();
-      await page.locator('#section-military').getByText(/Türkiye’s starting force is unresolved/).waitFor();
+    await button(page, 'Military').click();
+    const military = page.locator('#section-military');
+    const rosterList = military.getByRole('list', { name: 'Your divisions' });
+    await rosterList.waitFor();
+    assert.equal(await rosterList.locator('li').count(), forces[id]);
+    await military.getByText(/Türkiye’s 20 divisions are a provisional gameplay assumption/).waitFor();
+    if (id === 'fra') {
+      await military.locator('button[aria-controls="orders-details"]').click();
+      await page.locator('#military-division').selectOption('fra-ne-division-1');
+      await page.locator('#military-order').selectOption('move');
+      await page.locator('#military-target').selectOption('fra-idf');
+      await button(page, 'Stage military order').click();
+      await button(page, 'Back from Military orders').click();
+      await button(page, 'Scenario menu').click();
+      await page.getByText('Sources and Licences', { exact: true }).click();
+      await page.getByText('OECD dataset citations', { exact: true }).waitFor();
+      for (const name of ['NOTICE.md', 'ATTRIBUTION.json']) {
+        const link = page.getByRole('link', { name, exact: true });
+        await link.waitFor();
+        const response = await page.request.get(new URL(await link.getAttribute('href'), privateUrl).href);
+        assert.ok(response.ok());
+        assert.match(await response.text(), /OECD/);
+      }
+      await button(page, 'Back from Scenario information').click();
     }
     await openFiscal(page);
     await income(page).fill('27');
@@ -93,6 +115,10 @@ async function play(browser, width, height, id) {
     assert.equal(await income(page).inputValue(), '27');
     await button(page, 'Next week').click();
     await report(page, 1).waitFor();
+    if (id === 'fra') {
+      await page.locator('#weekly-report summary').filter({ hasText: 'Military and territorial control' }).click();
+      await page.getByRole('list', { name: 'Military and territorial events' }).getByText(/moved to Île-de-France/).waitFor();
+    }
     const changes = page.locator('#weekly-report summary').filter({ hasText: 'Fiscal policy after this week' });
     await changes.click();
     assert.match(await page.locator('#weekly-report .report-current-rate').first().textContent(), /27/);
@@ -129,7 +155,7 @@ async function preservation(browser) {
   await page.getByLabel('Player country').waitFor();
   assert.equal(await page.getByLabel('Scenario', { exact: true }).count(), 0);
   assert.deepEqual(await page.locator('#player-country option').allTextContents(), ['Select a country', 'Alden', 'Belora', 'Cyrin']);
-  for (const filename of ['manifest.json', 'scenario.json', 'week1.session.json', 'provenance.json', 'world-spec.json', 'calibration-report.json']) {
+  for (const filename of ['manifest.json', 'scenario.json', 'week1.session.json', 'provenance.json', 'world-spec.json', 'calibration-report.json', 'NOTICE.md', 'ATTRIBUTION.json']) {
     const response = await page.request.get(publicUrl + reviewPath + filename);
     assert.ok(!response.ok() || response.headers()['content-type']?.includes('text/html'), filename);
   }

@@ -69,7 +69,8 @@ export function validateSavedGame(value: unknown, scenario = fictional, playable
     && entry.controller === (entry.id === playerCountryId ? 'player' : 'ai')));
   requireSave(matchesFixture(value.regions, scenario.regions, (entry, original) =>
     entry.id === original.id && entry.name === original.name && known(countries, entry.ownerId)
-    && (!playable || entry.ownerId === original.ownerId)
+    && (!playable || entry.ownerId === original.ownerId
+      || (original.adjacentRegionIds.length > 0 && playable.includes(original.ownerId) && playable.includes(entry.ownerId)))
     && sameArray(entry.adjacentRegionIds, original.adjacentRegionIds)));
   requireSave(matchesFixture(value.divisions, scenario.divisions, (entry, original) =>
     entry.id === original.id && entry.name === original.name && entry.ownerId === original.ownerId

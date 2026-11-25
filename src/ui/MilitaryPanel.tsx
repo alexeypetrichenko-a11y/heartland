@@ -4,16 +4,18 @@ import type { GameState, MilitaryCommand, MilitaryOrder } from '../game/models';
 
 type MilitaryPanelProps = {
   state: GameState;
+  forceNote?: string;
   pendingOrders: readonly MilitaryCommand[];
   onStageOrder: (command: MilitaryCommand) => void;
   onDiscardOrders: () => void;
 };
 
-export function MilitaryPanel({ state, pendingOrders, onStageOrder, onDiscardOrders }: MilitaryPanelProps) {
+export function MilitaryPanel({ state, forceNote, pendingOrders, onStageOrder, onDiscardOrders }: MilitaryPanelProps) {
   const [detail, setDetail] = useState<'orders' | 'results' | null>(null);
   const [divisionId, setDivisionId] = useState('');
   const [kind, setKind] = useState<MilitaryOrder['kind']>('defend');
   const [targetId, setTargetId] = useState('');
+  const personnel = forceNote ? 'personnel equivalents' : 'personnel';
   const divisions = state.divisions.filter(division => division.ownerId === state.playerCountryId);
   const selected = divisions.find(division => division.id === divisionId && division.manpower > 0);
   const origin = state.regions.find(region => region.id === selected?.regionId);
@@ -35,10 +37,11 @@ export function MilitaryPanel({ state, pendingOrders, onStageOrder, onDiscardOrd
       <div className="overview overview-grid" hidden={detail !== null}>
         <div className="group">
           <h3>Forces · {divisions.length} division{divisions.length === 1 ? '' : 's'}</h3>
+          {forceNote && <p>{forceNote}</p>}
           <ul className="card card-list" aria-label="Your divisions">{divisions.map(division => (
             <li key={division.id} className="force-row">
               <b>{division.name}</b>
-              <span>{division.manpower} personnel · {regionName(division.regionId)}</span>
+              <span>{division.manpower} {personnel} · {regionName(division.regionId)}</span>
               <span className="operation">{division.manpower > 0 ? orderLabel(division.order) : 'Unavailable (destroyed)'}</span>
             </li>
           ))}</ul>
@@ -69,7 +72,7 @@ export function MilitaryPanel({ state, pendingOrders, onStageOrder, onDiscardOrd
             setTargetId('');
           }}>
             <option value="" disabled>Select your division</option>
-            {divisions.map(division => <option key={division.id} value={division.id} disabled={division.manpower === 0}>{division.name} ({division.manpower} personnel)</option>)}
+            {divisions.map(division => <option key={division.id} value={division.id} disabled={division.manpower === 0}>{division.name} ({division.manpower} {personnel})</option>)}
           </select>
           <label htmlFor="military-order">Military order</label>
           <select id="military-order" value={kind} disabled={!selected} aria-describedby="military-help" onChange={event => {
