@@ -8,7 +8,7 @@ import { isSaveObject, validateSavedDrafts, validateSavedGame } from './saveVali
 const FORMAT = 'heartland-local-game';
 const VERSION = 1;
 const COMPARISON_VERSION = 1;
-const scenario = createInitialState();
+const fictional = createInitialState();
 
 export interface PlayableSession {
   game: GameState;
@@ -29,10 +29,10 @@ async function checksum(payload: string): Promise<string> {
   return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
 }
 
-function validatePayload(value: unknown): SavedGame {
+function validatePayload(value: unknown, scenario: GameState): SavedGame {
   if (!isSaveObject(value) || typeof value.economy !== 'string' || !value.economy
     || typeof value.defeated !== 'boolean') throw new Error('The local save is incomplete.');
-  const game = validateSavedGame(value.game);
+  const game = validateSavedGame(value.game, scenario);
   const drafts = validateSavedDrafts(value.drafts, game);
   const opening = value.previous;
   let previous: PreviousEconomy | null = null;
@@ -50,7 +50,7 @@ function validatePayload(value: unknown): SavedGame {
   return { game, drafts, economy: value.economy, defeated: value.defeated, previous };
 }
 
-function validateSession({ api }: LoadedEconomy, { game, economy, drafts }: PlayableSession) {
+function validateSession({ api }: LoadedEconomy, { game, economy, drafts }: PlayableSession, scenario: GameState) {
   const session = economy.session;
   if (game.week !== session.week || game.playerCountryId !== session.playerCountryId
     || session.worldFingerprint !== api.worldFingerprint(scenario)) {
@@ -72,7 +72,7 @@ function validateSession({ api }: LoadedEconomy, { game, economy, drafts }: Play
   }
 }
 
-export async function encodeGameSave(runtime: LoadedEconomy, session: PlayableSession): Promise<string> {
+export async function encodeGameSave(runtime: LoadedEconomy, session: PlayableSession, scenario = fictional): Promise<string> {
   const { game, economy, drafts } = session;
   const previous = economy.previous && {
     countryId: economy.previous.countryId,
@@ -80,14 +80,14 @@ export async function encodeGameSave(runtime: LoadedEconomy, session: PlayableSe
     comparison: { version: COMPARISON_VERSION, values: reportBaseline(economy.previous) },
   };
   const data = { game, drafts, previous, defeated: economy.defeated, economy: runtime.api.saveEconomySession(economy.session) };
-  validatePayload(data);
-  validateSession(runtime, session);
+  validatePayload(data, scenario);
+  validateSession(runtime, session, scenario);
   const payload = JSON.stringify(data);
   return JSON.stringify({ format: FORMAT, version: VERSION, checksum: await checksum(payload), payload });
 }
 
 /** Check the envelope and the game without downloading the economic engine. */
-export async function decodeGameSave(record: string): Promise<SavedGame> {
+export async function decodeGameSave(record: string, scenario = fictional): Promise<SavedGame> {
   let envelope: unknown;
   try { envelope = JSON.parse(record); }
   catch { throw new Error('The local save could not be read.'); }
@@ -96,13 +96,13 @@ export async function decodeGameSave(record: string): Promise<SavedGame> {
   if (typeof envelope.payload !== 'string' || await checksum(envelope.payload) !== envelope.checksum) {
     throw new Error('The local save is damaged.');
   }
-  return validatePayload(JSON.parse(envelope.payload));
+  return validatePayload(JSON.parse(envelope.payload), scenario);
 }
 
-export function restoreGameSave(runtime: LoadedEconomy, save: SavedGame): PlayableSession {
+export function restoreGameSave(runtime: LoadedEconomy, save: SavedGame, scenario = fictional): PlayableSession {
   const economy = economySnapshot(runtime, runtime.api.loadEconomySession(save.economy), save.previous);
   if (save.defeated !== economy.defeated) throw new Error('The local save has an inconsistent game ending.');
   const session = { game: save.game, economy, drafts: save.drafts };
-  validateSession(runtime, session);
+  validateSession(runtime, session, scenario);
   return session;
 }
