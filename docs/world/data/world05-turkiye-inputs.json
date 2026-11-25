@@ -1,0 +1,101 @@
+{
+ "eurostat": {
+  "attribution": "Source: Eurostat",
+  "compensation_of_employees_D1": {
+   "dataset": "nama_10_gdp",
+   "publisher_updated": "2026-11-24T23:00:00+0100",
+   "query": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_gdp?format=JSON&lang=EN&geo=TR&time=2023&unit=CP_MNAC&na_item=D1",
+   "unit": "million TRY",
+   "value": 7755515.4
+  },
+  "employees_lfs_15plus": {
+   "dataset": "lfsa_eegan2",
+   "note": "Labour Force Survey employees; Eurostat has no national-accounts employee count (nama_10_a10_e) for TR",
+   "publisher_updated": "2026-10-30T11:00:00+0100",
+   "query": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/lfsa_eegan2?format=JSON&lang=EN&geo=TR&time=2023&sex=T&age=Y_GE15&nace_r2=TOTAL",
+   "unit": "thousand persons",
+   "value": 22566.7
+  },
+  "gdp_B1GQ": {
+   "dataset": "nama_10_gdp",
+   "publisher_updated": "2026-11-24T23:00:00+0100",
+   "query": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_gdp?format=JSON&lang=EN&geo=TR&time=2023&unit=CP_MNAC&na_item=B1GQ",
+   "unit": "million TRY",
+   "value": 27091469.1
+  },
+  "licence": "Eurostat copyright notice: reuse \"for commercial or non-commercial purposes is authorised provided the source is acknowledged\"; the commercial-reuse exception covers data for countries other than EU and EFTA members and official EU acceding and candidate countries (Türkiye is a candidate country)",
+  "licence_status": "verified (primary, https://ec.europa.eu/eurostat/help/copyright-notice, 2026-11-25)"
+ },
+ "muhasebat_central_budget_defence": {
+  "attribution": "Source: Republic of Türkiye Ministry of Treasury and Finance, General Directorate of Public Accounts",
+  "bytes": 98304,
+  "defence": {
+   "capital_expenditure": 920.85214355,
+   "capital_transfers": 48.74456548,
+   "current_transfers": 98890.61184887,
+   "goods_and_services": 96989.54664585,
+   "personnel": 122045.83547854,
+   "state_social_security_contributions": 18014.341390039997,
+   "total": 336909.93207233
+  },
+  "licence": "No reuse licence published by the Ministry of Treasury and Finance for these tables (checked the Muhasebat and hmb.gov.tr sites and the table metadata, 2026-11-25). Official statistics under the Official Statistics Programme (Law 5429).",
+  "licence_status": "NOT VERIFIED: official statistics without a published reuse licence (WORLD-05 licensing risk W5-L1)",
+  "row": "Savunma Hizmetleri (COFOG 02, central government budget)",
+  "sha256": "e675ce30777b46675471c8cc1cbf40f6256d2d47af16c7ffdde9ff8266d5de16",
+  "sheet": "ARALIK (December, cumulative)",
+  "table_title": "2023 YILI ARALIK AYI MERKEZİ YÖNETİM FONKSİYONEL VE EKONOMİK SINIFLANDIRMA DÜZEYİNDE BÜTÇE GİDERLERİ (KÜMÜLATİF)",
+  "title": "Merkezi Yönetim Bütçe Giderleri Gerçekleşmeleri Eko_Fonk",
+  "unit": "million TRY (published in thousand TRY)",
+  "url": "https://ms.hmb.gov.tr/uploads/sites/3/2024/07/Merkezi-Yonetim-Butce-Giderleri-Gerceklesmeleri-Eko_Fonk-1.xls"
+ },
+ "muhasebat_general_government_gfs": {
+  "attribution": "Source: Republic of Türkiye Ministry of Treasury and Finance, General Directorate of Public Accounts",
+  "bytes": 3669595,
+  "column": "Genel Yönetim Sektörü 2023 YILI",
+  "functions": {
+   "civil_defence": 99060.52823979738,
+   "defence": 447071.87177831196,
+   "defence_research": 16068.16568338921,
+   "foreign_military_aid": 300.0099999998598,
+   "military_defence": 331643.1678551255
+  },
+  "licence": "No reuse licence published by the Ministry of Treasury and Finance for these tables (checked the Muhasebat and hmb.gov.tr sites and the table metadata, 2026-11-25). Official statistics under the Official Statistics Programme (Law 5429).",
+  "licence_status": "NOT VERIFIED: official statistics without a published reuse licence (WORLD-05 licensing risk W5-L1)",
+  "operations": {
+   "compensation_of_employees": 2146957.3604470696,
+   "consumption_of_fixed_capital": 564419.8528900137,
+   "expense": 9655303.374961339,
+   "goods_and_services": 1128188.1001003298,
+   "grants_paid": 24360.441337489756,
+   "grants_received": 27749.587613599375,
+   "interest": 1017214.9769966615,
+   "net_investment_nonfinancial_assets": 308542.0381773382,
+   "net_lending": -660748.5583426773,
+   "other_expense": 1586988.4696126154,
+   "other_revenue": 2598228.388863983,
+   "outlays": 9963845.413138676,
+   "revenue": 9303096.854796,
+   "social_benefits": 2638524.6188105997,
+   "social_contributions": 1687788.3800532296,
+   "subsidies": 548649.55476656,
+   "taxes": 4989330.498265188
+  },
+  "sha256": "40659adaa79f35d55d9691f5b43938efea0c5db7161ba0e7bba274a6890aac9b",
+  "sheet_functions": "HAR.FONK.SINIF.TABLOSU",
+  "sheet_operations": "FAALİYET TABLOSU",
+  "title": "Genel Yönetim Sektörü Mali İstatistikleri 2008-2026-TR",
+  "unit": "million TRY",
+  "url": "https://ms.hmb.gov.tr/uploads/sites/3/2026/11/Genel-Yonetim-Sektoru-Mali-Istatistikleri-2008-2026-TR-b1f23a36a9fd2aee.xlsx"
+ },
+ "note": "WORLD-05 candidate inputs for Türkiye, 2023. Not used by any scenario package. See docs/world/WORLD-05-REPORT.md.",
+ "oecd_economic_outlook": {
+  "attribution": "Source: OECD Economic Outlook",
+  "dataflow": "OECD.ECO.MAD:DSD_EO@DF_EO(1.5)",
+  "licence": "OECD Terms and Conditions: written content from 1 July 2024 under CC BY 4.0; the data section says data may be subject to restrictions beyond those terms",
+  "licence_status": "search only (oecd.org blocks automated reading); confirm the data section in a browser",
+  "net_lending_pct_gdp": -4.48189057931584,
+  "query": "https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO,/TUR.NLGQ.A?startPeriod=2023&endPeriod=2023"
+ },
+ "reference_year": 2023,
+ "retrieved": "2026-11-25"
+}

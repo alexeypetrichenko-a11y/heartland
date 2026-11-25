@@ -1,0 +1,1076 @@
+{
+ "counts": {
+  "deu": {
+   "divisions": 13,
+   "personnel_equivalents": 318398,
+   "rule_p_cross_check": 16,
+   "status": "draft (draft.2, unchanged)"
+  },
+  "fra": {
+   "divisions": 15,
+   "personnel_equivalents": 382086,
+   "rule_p_cross_check": 16,
+   "status": "draft (draft.2, unchanged)"
+  },
+  "gbr": {
+   "divisions": 14,
+   "personnel_equivalents": 357759,
+   "rule_p_cross_check": 20,
+   "status": "draft (draft.2, unchanged)"
+  },
+  "ita": {
+   "divisions": 15,
+   "personnel_equivalents": 362581,
+   "rule_p_cross_check": 9,
+   "status": "draft (draft.2, unchanged)"
+  },
+  "pol": {
+   "divisions": 13,
+   "personnel_equivalents": 318167,
+   "rule_p_cross_check": 8,
+   "status": "draft (draft.2, unchanged)"
+  },
+  "tur": {
+   "average_pay_thousand_lcu": 343.67078039766557,
+   "defence_pay_million_lcu": 140060.17686858,
+   "divisions": 16,
+   "personnel_equivalents": 407542,
+   "rule_p_cross_check": 13,
+   "sources": [
+    "world05-turkiye-inputs: muhasebat_central_budget_defence (NOT VERIFIED)",
+    "world05-turkiye-inputs: eurostat nama_10_gdp D1, lfsa_eegan2 (verified)"
+   ],
+   "status": "proposal (needs M-2, M-3 and licence decision W5-L1)",
+   "substitutions": [
+    "central-government budget, cash basis, instead of general government COFOG 02 x D1 (ESA)",
+    "Labour Force Survey employees instead of national-accounts employees",
+    "defence total for Rule P from the general-government GFS functional table (COFOG 702)"
+   ]
+  }
+ },
+ "frontiers": {
+  "P-0": {
+   "deu-fra": {
+    "deu_frontier_divisions": 4,
+    "deu_total": 13,
+    "fra_frontier_divisions": 2,
+    "fra_total": 15,
+    "links": [
+     "deu-bw|fra-ne",
+     "deu-mit|fra-ne"
+    ]
+   },
+   "deu-pol": {
+    "deu_frontier_divisions": 3,
+    "deu_total": 13,
+    "links": [
+     "deu-mo|pol-pdz",
+     "deu-mo|pol-pza",
+     "deu-no|pol-pza"
+    ],
+    "pol_frontier_divisions": 4,
+    "pol_total": 13
+   },
+   "fra-ita": {
+    "fra_frontier_divisions": 3,
+    "fra_total": 15,
+    "ita_frontier_divisions": 4,
+    "ita_total": 15,
+    "links": [
+     "fra-ara|ita-no",
+     "fra-se|ita-no"
+    ]
+   }
+  },
+  "P-1": {
+   "deu-fra": {
+    "deu_frontier_divisions": 4,
+    "deu_total": 13,
+    "fra_frontier_divisions": 3,
+    "fra_total": 15,
+    "links": [
+     "deu-bw|fra-ne",
+     "deu-mit|fra-ne"
+    ]
+   },
+   "deu-pol": {
+    "deu_frontier_divisions": 4,
+    "deu_total": 13,
+    "links": [
+     "deu-mo|pol-pdz",
+     "deu-mo|pol-pza",
+     "deu-no|pol-pza"
+    ],
+    "pol_frontier_divisions": 4,
+    "pol_total": 13
+   },
+   "fra-ita": {
+    "fra_frontier_divisions": 4,
+    "fra_total": 15,
+    "ita_frontier_divisions": 6,
+    "ita_total": 15,
+    "links": [
+     "fra-ara|ita-no",
+     "fra-se|ita-no"
+    ]
+   }
+  }
+ },
+ "movement_theatres": [
+  {
+   "countries": [
+    "deu",
+    "fra",
+    "ita",
+    "pol"
+   ],
+   "divisions": 56,
+   "members": null,
+   "provinces": 26
+  },
+  {
+   "countries": [
+    "tur"
+   ],
+   "divisions": null,
+   "members": null,
+   "provinces": 9
+  },
+  {
+   "countries": [
+    "gbr"
+   ],
+   "divisions": null,
+   "members": null,
+   "provinces": 7
+  },
+  {
+   "countries": [
+    "fra"
+   ],
+   "divisions": null,
+   "members": [
+    "fra-cor"
+   ],
+   "provinces": 1
+  },
+  {
+   "countries": [
+    "gbr"
+   ],
+   "divisions": null,
+   "members": [
+    "gbr-nir"
+   ],
+   "provinces": 1
+  },
+  {
+   "countries": [
+    "ita"
+   ],
+   "divisions": null,
+   "members": [
+    "ita-sar"
+   ],
+   "provinces": 1
+  },
+  {
+   "countries": [
+    "ita"
+   ],
+   "divisions": null,
+   "members": [
+    "ita-sic"
+   ],
+   "provinces": 1
+  }
+ ],
+ "note": "WORLD-05 proposal, review only. Not a scenario package and not gameplay. Placement is illustrative.",
+ "placement": {
+  "P-0": {
+   "deu-bw": {
+    "country": "deu",
+    "divisions": 2,
+    "frontier_with": [
+     "fra"
+    ],
+    "name": "Baden-Württemberg",
+    "note": "",
+    "population_m": 11.199,
+    "reachable": true
+   },
+   "deu-by": {
+    "country": "deu",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Bayern",
+    "note": "",
+    "population_m": 13.141,
+    "reachable": true
+   },
+   "deu-mit": {
+    "country": "deu",
+    "divisions": 2,
+    "frontier_with": [
+     "fra"
+    ],
+    "name": "Mitte-West (Hessen, Rheinland-Pfalz, Saarland)",
+    "note": "",
+    "population_m": 11.382,
+    "reachable": true
+   },
+   "deu-mo": {
+    "country": "deu",
+    "divisions": 2,
+    "frontier_with": [
+     "pol"
+    ],
+    "name": "Mitteldeutschland (Sachsen, Sachsen-Anhalt, Thüringen)",
+    "note": "",
+    "population_m": 8.317,
+    "reachable": true
+   },
+   "deu-no": {
+    "country": "deu",
+    "divisions": 1,
+    "frontier_with": [
+     "pol"
+    ],
+    "name": "Nordost (Berlin, Brandenburg, Mecklenburg-Vorpommern)",
+    "note": "",
+    "population_m": 7.774,
+    "reachable": true
+   },
+   "deu-nor": {
+    "country": "deu",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Norddeutschland (Schleswig-Holstein, Hamburg, Bremen, Niedersachsen)",
+    "note": "",
+    "population_m": 13.483,
+    "reachable": true
+   },
+   "deu-nrw": {
+    "country": "deu",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Nordrhein-Westfalen",
+    "note": "",
+    "population_m": 17.991,
+    "reachable": true
+   },
+   "fra-ara": {
+    "country": "fra",
+    "divisions": 2,
+    "frontier_with": [
+     "ita"
+    ],
+    "name": "Auvergne-Rhône-Alpes",
+    "note": "",
+    "population_m": 8.222,
+    "reachable": true
+   },
+   "fra-cen": {
+    "country": "fra",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Centre (Centre-Val de Loire, Bourgogne-Franche-Comté)",
+    "note": "",
+    "population_m": 5.389,
+    "reachable": true
+   },
+   "fra-cor": {
+    "country": "fra",
+    "divisions": 0,
+    "frontier_with": [],
+    "name": "Corse",
+    "note": "no movement link: an island division could never leave",
+    "population_m": 0.357,
+    "reachable": false
+   },
+   "fra-idf": {
+    "country": "fra",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Île-de-France",
+    "note": "",
+    "population_m": 12.485,
+    "reachable": true
+   },
+   "fra-naq": {
+    "country": "fra",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Nouvelle-Aquitaine",
+    "note": "",
+    "population_m": 6.166,
+    "reachable": true
+   },
+   "fra-ne": {
+    "country": "fra",
+    "divisions": 2,
+    "frontier_with": [
+     "deu"
+    ],
+    "name": "Nord-Est (Hauts-de-France, Grand Est)",
+    "note": "",
+    "population_m": 11.548,
+    "reachable": true
+   },
+   "fra-occ": {
+    "country": "fra",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Occitanie",
+    "note": "",
+    "population_m": 6.145,
+    "reachable": true
+   },
+   "fra-oue": {
+    "country": "fra",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Ouest (Normandie, Bretagne, Pays de la Loire)",
+    "note": "",
+    "population_m": 10.724,
+    "reachable": true
+   },
+   "fra-se": {
+    "country": "fra",
+    "divisions": 1,
+    "frontier_with": [
+     "ita"
+    ],
+    "name": "Provence-Alpes-Côte d'Azur",
+    "note": "",
+    "population_m": 5.236,
+    "reachable": true
+   },
+   "gbr-lon": {
+    "country": "gbr",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "London",
+    "note": "",
+    "population_m": 9.0,
+    "reachable": true
+   },
+   "gbr-mid": {
+    "country": "gbr",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Midlands (East Midlands, West Midlands)",
+    "note": "",
+    "population_m": 11.11,
+    "reachable": true
+   },
+   "gbr-nir": {
+    "country": "gbr",
+    "divisions": 0,
+    "frontier_with": [],
+    "name": "Northern Ireland",
+    "note": "no movement link: an island division could never leave",
+    "population_m": 1.92,
+    "reachable": false
+   },
+   "gbr-nth": {
+    "country": "gbr",
+    "divisions": 3,
+    "frontier_with": [],
+    "name": "North of England (North East, North West, Yorkshire and the Humber)",
+    "note": "",
+    "population_m": 15.97,
+    "reachable": true
+   },
+   "gbr-sco": {
+    "country": "gbr",
+    "divisions": 1,
+    "frontier_with": [],
+    "name": "Scotland",
+    "note": "",
+    "population_m": 5.506,
+    "reachable": true
+   },
+   "gbr-se": {
+    "country": "gbr",
+    "divisions": 3,
+    "frontier_with": [],
+    "name": "South East and East of England",
+    "note": "",
+    "population_m": 16.023,
+    "reachable": true
+   },
+   "gbr-sw": {
+    "country": "gbr",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "South West",
+    "note": "",
+    "population_m": 5.83,
+    "reachable": true
+   },
+   "gbr-wls": {
+    "country": "gbr",
+    "divisions": 1,
+    "frontier_with": [],
+    "name": "Wales",
+    "note": "",
+    "population_m": 3.167,
+    "reachable": true
+   },
+   "ita-cen": {
+    "country": "ita",
+    "divisions": 4,
+    "frontier_with": [],
+    "name": "Centro",
+    "note": "",
+    "population_m": 11.717,
+    "reachable": true
+   },
+   "ita-ne": {
+    "country": "ita",
+    "divisions": 3,
+    "frontier_with": [],
+    "name": "Nord-Est",
+    "note": "",
+    "population_m": 11.57,
+    "reachable": true
+   },
+   "ita-no": {
+    "country": "ita",
+    "divisions": 4,
+    "frontier_with": [
+     "fra"
+    ],
+    "name": "Nord-Ovest",
+    "note": "",
+    "population_m": 15.877,
+    "reachable": true
+   },
+   "ita-sar": {
+    "country": "ita",
+    "divisions": 0,
+    "frontier_with": [],
+    "name": "Sardegna",
+    "note": "no movement link: an island division could never leave",
+    "population_m": 1.574,
+    "reachable": false
+   },
+   "ita-sic": {
+    "country": "ita",
+    "divisions": 0,
+    "frontier_with": [],
+    "name": "Sicilia",
+    "note": "no movement link: an island division could never leave",
+    "population_m": 4.806,
+    "reachable": false
+   },
+   "ita-sud": {
+    "country": "ita",
+    "divisions": 4,
+    "frontier_with": [],
+    "name": "Sud",
+    "note": "",
+    "population_m": 13.44,
+    "reachable": true
+   },
+   "pol-cen": {
+    "country": "pol",
+    "divisions": 1,
+    "frontier_with": [],
+    "name": "Makroregion centralny",
+    "note": "",
+    "population_m": 3.463,
+    "reachable": true
+   },
+   "pol-maz": {
+    "country": "pol",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Makroregion województwo mazowieckie",
+    "note": "",
+    "population_m": 5.48,
+    "reachable": true
+   },
+   "pol-pdz": {
+    "country": "pol",
+    "divisions": 2,
+    "frontier_with": [
+     "deu"
+    ],
+    "name": "Makroregion południowo-zachodni",
+    "note": "",
+    "population_m": 3.703,
+    "reachable": true
+   },
+   "pol-pn": {
+    "country": "pol",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Makroregion północny",
+    "note": "",
+    "population_m": 5.533,
+    "reachable": true
+   },
+   "pol-pol": {
+    "country": "pol",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Makroregion południowy",
+    "note": "",
+    "population_m": 7.551,
+    "reachable": true
+   },
+   "pol-pza": {
+    "country": "pol",
+    "divisions": 2,
+    "frontier_with": [
+     "deu"
+    ],
+    "name": "Makroregion północno-zachodni",
+    "note": "",
+    "population_m": 5.976,
+    "reachable": true
+   },
+   "pol-wsc": {
+    "country": "pol",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Makroregion wschodni",
+    "note": "",
+    "population_m": 4.982,
+    "reachable": true
+   },
+   "tur-akd": {
+    "country": "tur",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Akdeniz",
+    "note": "",
+    "population_m": 10.936,
+    "reachable": true
+   },
+   "tur-ban": {
+    "country": "tur",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Batı Anadolu",
+    "note": "",
+    "population_m": 8.364,
+    "reachable": true
+   },
+   "tur-dog": {
+    "country": "tur",
+    "divisions": 1,
+    "frontier_with": [],
+    "name": "Doğu Anadolu (Kuzeydoğu, Ortadoğu Anadolu)",
+    "note": "",
+    "population_m": 6.076,
+    "reachable": true
+   },
+   "tur-ege": {
+    "country": "tur",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Ege",
+    "note": "",
+    "population_m": 10.917,
+    "reachable": true
+   },
+   "tur-gda": {
+    "country": "tur",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Güneydoğu Anadolu",
+    "note": "",
+    "population_m": 9.358,
+    "reachable": true
+   },
+   "tur-ist": {
+    "country": "tur",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "İstanbul",
+    "note": "",
+    "population_m": 15.782,
+    "reachable": true
+   },
+   "tur-kar": {
+    "country": "tur",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Karadeniz (Batı Karadeniz, Doğu Karadeniz)",
+    "note": "",
+    "population_m": 7.41,
+    "reachable": true
+   },
+   "tur-mar": {
+    "country": "tur",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Marmara (Batı Marmara, Doğu Marmara)",
+    "note": "",
+    "population_m": 12.331,
+    "reachable": true
+   },
+   "tur-oan": {
+    "country": "tur",
+    "divisions": 1,
+    "frontier_with": [],
+    "name": "Orta Anadolu",
+    "note": "",
+    "population_m": 4.153,
+    "reachable": true
+   }
+  },
+  "P-1": {
+   "deu-bw": {
+    "country": "deu",
+    "divisions": 2,
+    "frontier_with": [
+     "fra"
+    ],
+    "name": "Baden-Württemberg",
+    "note": "",
+    "population_m": 11.199,
+    "reachable": true
+   },
+   "deu-by": {
+    "country": "deu",
+    "divisions": 1,
+    "frontier_with": [],
+    "name": "Bayern",
+    "note": "",
+    "population_m": 13.141,
+    "reachable": true
+   },
+   "deu-mit": {
+    "country": "deu",
+    "divisions": 2,
+    "frontier_with": [
+     "fra"
+    ],
+    "name": "Mitte-West (Hessen, Rheinland-Pfalz, Saarland)",
+    "note": "",
+    "population_m": 11.382,
+    "reachable": true
+   },
+   "deu-mo": {
+    "country": "deu",
+    "divisions": 2,
+    "frontier_with": [
+     "pol"
+    ],
+    "name": "Mitteldeutschland (Sachsen, Sachsen-Anhalt, Thüringen)",
+    "note": "",
+    "population_m": 8.317,
+    "reachable": true
+   },
+   "deu-no": {
+    "country": "deu",
+    "divisions": 2,
+    "frontier_with": [
+     "pol"
+    ],
+    "name": "Nordost (Berlin, Brandenburg, Mecklenburg-Vorpommern)",
+    "note": "",
+    "population_m": 7.774,
+    "reachable": true
+   },
+   "deu-nor": {
+    "country": "deu",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Norddeutschland (Schleswig-Holstein, Hamburg, Bremen, Niedersachsen)",
+    "note": "",
+    "population_m": 13.483,
+    "reachable": true
+   },
+   "deu-nrw": {
+    "country": "deu",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Nordrhein-Westfalen",
+    "note": "",
+    "population_m": 17.991,
+    "reachable": true
+   },
+   "fra-ara": {
+    "country": "fra",
+    "divisions": 2,
+    "frontier_with": [
+     "ita"
+    ],
+    "name": "Auvergne-Rhône-Alpes",
+    "note": "",
+    "population_m": 8.222,
+    "reachable": true
+   },
+   "fra-cen": {
+    "country": "fra",
+    "divisions": 1,
+    "frontier_with": [],
+    "name": "Centre (Centre-Val de Loire, Bourgogne-Franche-Comté)",
+    "note": "",
+    "population_m": 5.389,
+    "reachable": true
+   },
+   "fra-cor": {
+    "country": "fra",
+    "divisions": 0,
+    "frontier_with": [],
+    "name": "Corse",
+    "note": "no movement link: an island division could never leave",
+    "population_m": 0.357,
+    "reachable": false
+   },
+   "fra-idf": {
+    "country": "fra",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Île-de-France",
+    "note": "",
+    "population_m": 12.485,
+    "reachable": true
+   },
+   "fra-naq": {
+    "country": "fra",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Nouvelle-Aquitaine",
+    "note": "",
+    "population_m": 6.166,
+    "reachable": true
+   },
+   "fra-ne": {
+    "country": "fra",
+    "divisions": 3,
+    "frontier_with": [
+     "deu"
+    ],
+    "name": "Nord-Est (Hauts-de-France, Grand Est)",
+    "note": "",
+    "population_m": 11.548,
+    "reachable": true
+   },
+   "fra-occ": {
+    "country": "fra",
+    "divisions": 1,
+    "frontier_with": [],
+    "name": "Occitanie",
+    "note": "",
+    "population_m": 6.145,
+    "reachable": true
+   },
+   "fra-oue": {
+    "country": "fra",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Ouest (Normandie, Bretagne, Pays de la Loire)",
+    "note": "",
+    "population_m": 10.724,
+    "reachable": true
+   },
+   "fra-se": {
+    "country": "fra",
+    "divisions": 2,
+    "frontier_with": [
+     "ita"
+    ],
+    "name": "Provence-Alpes-Côte d'Azur",
+    "note": "",
+    "population_m": 5.236,
+    "reachable": true
+   },
+   "gbr-lon": {
+    "country": "gbr",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "London",
+    "note": "",
+    "population_m": 9.0,
+    "reachable": true
+   },
+   "gbr-mid": {
+    "country": "gbr",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Midlands (East Midlands, West Midlands)",
+    "note": "",
+    "population_m": 11.11,
+    "reachable": true
+   },
+   "gbr-nir": {
+    "country": "gbr",
+    "divisions": 0,
+    "frontier_with": [],
+    "name": "Northern Ireland",
+    "note": "no movement link: an island division could never leave",
+    "population_m": 1.92,
+    "reachable": false
+   },
+   "gbr-nth": {
+    "country": "gbr",
+    "divisions": 3,
+    "frontier_with": [],
+    "name": "North of England (North East, North West, Yorkshire and the Humber)",
+    "note": "",
+    "population_m": 15.97,
+    "reachable": true
+   },
+   "gbr-sco": {
+    "country": "gbr",
+    "divisions": 1,
+    "frontier_with": [],
+    "name": "Scotland",
+    "note": "",
+    "population_m": 5.506,
+    "reachable": true
+   },
+   "gbr-se": {
+    "country": "gbr",
+    "divisions": 3,
+    "frontier_with": [],
+    "name": "South East and East of England",
+    "note": "",
+    "population_m": 16.023,
+    "reachable": true
+   },
+   "gbr-sw": {
+    "country": "gbr",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "South West",
+    "note": "",
+    "population_m": 5.83,
+    "reachable": true
+   },
+   "gbr-wls": {
+    "country": "gbr",
+    "divisions": 1,
+    "frontier_with": [],
+    "name": "Wales",
+    "note": "",
+    "population_m": 3.167,
+    "reachable": true
+   },
+   "ita-cen": {
+    "country": "ita",
+    "divisions": 3,
+    "frontier_with": [],
+    "name": "Centro",
+    "note": "",
+    "population_m": 11.717,
+    "reachable": true
+   },
+   "ita-ne": {
+    "country": "ita",
+    "divisions": 3,
+    "frontier_with": [],
+    "name": "Nord-Est",
+    "note": "",
+    "population_m": 11.57,
+    "reachable": true
+   },
+   "ita-no": {
+    "country": "ita",
+    "divisions": 6,
+    "frontier_with": [
+     "fra"
+    ],
+    "name": "Nord-Ovest",
+    "note": "",
+    "population_m": 15.877,
+    "reachable": true
+   },
+   "ita-sar": {
+    "country": "ita",
+    "divisions": 0,
+    "frontier_with": [],
+    "name": "Sardegna",
+    "note": "no movement link: an island division could never leave",
+    "population_m": 1.574,
+    "reachable": false
+   },
+   "ita-sic": {
+    "country": "ita",
+    "divisions": 0,
+    "frontier_with": [],
+    "name": "Sicilia",
+    "note": "no movement link: an island division could never leave",
+    "population_m": 4.806,
+    "reachable": false
+   },
+   "ita-sud": {
+    "country": "ita",
+    "divisions": 3,
+    "frontier_with": [],
+    "name": "Sud",
+    "note": "",
+    "population_m": 13.44,
+    "reachable": true
+   },
+   "pol-cen": {
+    "country": "pol",
+    "divisions": 1,
+    "frontier_with": [],
+    "name": "Makroregion centralny",
+    "note": "",
+    "population_m": 3.463,
+    "reachable": true
+   },
+   "pol-maz": {
+    "country": "pol",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Makroregion województwo mazowieckie",
+    "note": "",
+    "population_m": 5.48,
+    "reachable": true
+   },
+   "pol-pdz": {
+    "country": "pol",
+    "divisions": 2,
+    "frontier_with": [
+     "deu"
+    ],
+    "name": "Makroregion południowo-zachodni",
+    "note": "",
+    "population_m": 3.703,
+    "reachable": true
+   },
+   "pol-pn": {
+    "country": "pol",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Makroregion północny",
+    "note": "",
+    "population_m": 5.533,
+    "reachable": true
+   },
+   "pol-pol": {
+    "country": "pol",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Makroregion południowy",
+    "note": "",
+    "population_m": 7.551,
+    "reachable": true
+   },
+   "pol-pza": {
+    "country": "pol",
+    "divisions": 2,
+    "frontier_with": [
+     "deu"
+    ],
+    "name": "Makroregion północno-zachodni",
+    "note": "",
+    "population_m": 5.976,
+    "reachable": true
+   },
+   "pol-wsc": {
+    "country": "pol",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Makroregion wschodni",
+    "note": "",
+    "population_m": 4.982,
+    "reachable": true
+   },
+   "tur-akd": {
+    "country": "tur",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Akdeniz",
+    "note": "",
+    "population_m": 10.936,
+    "reachable": true
+   },
+   "tur-ban": {
+    "country": "tur",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Batı Anadolu",
+    "note": "",
+    "population_m": 8.364,
+    "reachable": true
+   },
+   "tur-dog": {
+    "country": "tur",
+    "divisions": 1,
+    "frontier_with": [],
+    "name": "Doğu Anadolu (Kuzeydoğu, Ortadoğu Anadolu)",
+    "note": "",
+    "population_m": 6.076,
+    "reachable": true
+   },
+   "tur-ege": {
+    "country": "tur",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Ege",
+    "note": "",
+    "population_m": 10.917,
+    "reachable": true
+   },
+   "tur-gda": {
+    "country": "tur",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Güneydoğu Anadolu",
+    "note": "",
+    "population_m": 9.358,
+    "reachable": true
+   },
+   "tur-ist": {
+    "country": "tur",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "İstanbul",
+    "note": "",
+    "population_m": 15.782,
+    "reachable": true
+   },
+   "tur-kar": {
+    "country": "tur",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Karadeniz (Batı Karadeniz, Doğu Karadeniz)",
+    "note": "",
+    "population_m": 7.41,
+    "reachable": true
+   },
+   "tur-mar": {
+    "country": "tur",
+    "divisions": 2,
+    "frontier_with": [],
+    "name": "Marmara (Batı Marmara, Doğu Marmara)",
+    "note": "",
+    "population_m": 12.331,
+    "reachable": true
+   },
+   "tur-oan": {
+    "country": "tur",
+    "divisions": 1,
+    "frontier_with": [],
+    "name": "Orta Anadolu",
+    "note": "",
+    "population_m": 4.153,
+    "reachable": true
+   }
+  }
+ },
+ "rule": {
+  "X_status": "provisional, decision M-2",
+  "X_thousand_personnel_equivalents": 25.0,
+  "Y_bn_intl_dollars_rule_p": 4.65,
+  "count": "Rule W (approved D3): round(defence pay / own average pay / X)",
+  "manpower_per_division": "uniform, X x 1,000 personnel equivalents (divisions have manpower only)",
+  "placement": "P-1: one division per reachable province, remainder by population x (1 + frontier), largest remainder",
+  "variants": {
+   "P-0": "population only",
+   "P-1": "frontier weight x2 (recommended)"
+  }
+ },
+ "total_divisions": 86
+}
