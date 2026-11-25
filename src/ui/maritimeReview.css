@@ -1,0 +1,79 @@
+.maritime-review {
+  margin: 0 auto;
+  max-width: 72rem;
+  padding-inline: max(1rem, env(safe-area-inset-left)) max(1rem, env(safe-area-inset-right));
+}
+
+.maritime-setup {
+  display: grid;
+  gap: 1rem;
+  padding-block: max(2rem, env(safe-area-inset-top)) 1rem;
+  max-width: 36rem;
+}
+
+.maritime-shell {
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.maritime-header {
+  padding-block: max(0.65rem, env(safe-area-inset-top)) 0.65rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  justify-content: space-between;
+}
+
+.maritime-review h1 {
+  font-size: clamp(1.25rem, 4vw, 1.85rem);
+}
+
+.maritime-header button {
+  flex: none;
+  background: var(--color-accent);
+  color: var(--color-background);
+  font-weight: 700;
+}
+
+.maritime-scroll {
+  min-height: 0;
+  overflow-y: auto;
+  padding-bottom: 1rem;
+}
+
+.maritime-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.45rem;
+}
+
+.maritime-grid {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.maritime-card {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  gap: 0.45rem;
+  padding: 0.75rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 0.9rem;
+}
+
+.maritime-card h2 { font-size: 1.15rem; }
+.maritime-card select { width: 100%; min-height: 44px; font-size: 1rem; }
+.maritime-card summary { min-height: 44px; padding: 0.45rem 0; cursor: pointer; }
+.maritime-card summary ~ * { margin-top: 0.45rem; }
+.maritime-list { display: grid; gap: 0.65rem; padding-left: 1.2rem; margin: 0; }
+
+@media (min-width: 42rem) {
+  .maritime-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

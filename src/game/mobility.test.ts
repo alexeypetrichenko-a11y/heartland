@@ -1,12 +1,13 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import * as api from '../../economy-engine/src/integration/index.ts';
+import { economySnapshot } from './economyBridge.ts';
 import { createInitialState } from './initialState.ts';
 import { advanceTurn } from './advanceTurn.ts';
 import { decodeGameSave } from './saveFormat.ts';
 import { selectCountry } from './selectCountry.ts';
-import type { TransportOrder } from './mobility/journeys.ts';
-import { advanceSyntheticMobility, encodeSyntheticMobility, restoreSyntheticMobility, startSyntheticMobility } from './mobility/syntheticScenario.ts';
+import { eligibleMaritimeRoutes, regionalDivisions, type TransportOrder } from './mobility/journeys.ts';
+import { advanceSyntheticMobility, encodeSyntheticMobility, restoreSyntheticMobility, startSyntheticMobility, syntheticRoutes } from './mobility/syntheticScenario.ts';
 
 const runtime = { api };
 const transport = (divisionId = 'alden-first', routeId = 'island-outbound'): TransportOrder => ({ kind: 'transport', divisionId, routeId });
@@ -104,4 +105,32 @@ test('invalid actor, duplicate orders and engine rejection preserve the last che
     { type: 'set-tax', countryId: 'alden', tax: 'income', rate: 3 },
   ]));
   assert.equal(JSON.stringify(initial), before);
+});
+
+
+test('underway units have no regional presence, route options or combat garrison', () => {
+  const sailing = advance(start(), transport());
+  assert.deepEqual(regionalDivisions(sailing.game, sailing.mobility, 'alden-vale').map(unit => unit.id), ['alden-second']);
+  assert.deepEqual(regionalDivisions(sailing.game, sailing.mobility, 'reed-coast'), []);
+  assert.deepEqual(eligibleMaritimeRoutes(sailing.game, sailing.mobility, syntheticRoutes, 'alden-first'), []);
+
+  // Simulate a defending country with its other division already on the island.
+  // Keep the sailing unit's legacy origin in its record while an opponent attacks it.
+  const switched = selectCountry({
+    ...sailing.game,
+    divisions: sailing.game.divisions.map(unit => unit.id === 'alden-second' ? { ...unit, regionId: 'reed-coast' } : unit),
+  }, 'belora');
+  const attackSession = {
+    ...sailing, game: switched,
+    economy: economySnapshot(runtime, api.withPlayerCountry(sailing.economy.session, 'belora'), null),
+    mobility: { ...sailing.mobility, closedRouteIds: ['island-outbound'] },
+  };
+  const next = advanceSyntheticMobility(runtime, attackSession, [{
+    type: 'set-military-order', divisionId: 'belora-first', countryId: 'belora', order: { kind: 'attack', targetRegionId: 'alden-vale' },
+  }]);
+  const combat = next.game.militaryResults.find(result => result.kind === 'combat');
+  assert.ok(combat?.captured);
+  assert.deepEqual(combat.defenderCasualties, []);
+  assert.equal(next.game.divisions.find(unit => unit.id === 'alden-first')?.manpower, 25_000);
+  assert.equal(next.mobility.journeys[0].status, 'waiting');
 });

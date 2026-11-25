@@ -126,3 +126,17 @@ export function settleMobility(game: GameState, mobility: MobilityState, routes:
   }
   return { mobility: { ...mobility, journeys, results }, arrivals };
 }
+
+/** A saved origin remains in the division record while a journey owns its presence. */
+export function regionalDivisions(game: GameState, mobility: MobilityState, regionId: RegionId) {
+  const underway = new Set(mobility.journeys.map(journey => journey.divisionId));
+  return game.divisions.filter(unit => unit.manpower > 0 && unit.regionId === regionId && !underway.has(unit.id));
+}
+
+export function eligibleMaritimeRoutes(game: GameState, mobility: MobilityState, routes: readonly MaritimeRoute[], divisionId: string) {
+  const unit = game.divisions.find(division => division.id === divisionId);
+  if (!unit || unit.ownerId !== game.playerCountryId || unit.manpower <= 0 || mobility.journeys.some(journey => journey.divisionId === unit.id)) return [];
+  const friendly = new Set(game.regions.filter(region => region.ownerId === unit.ownerId).map(region => region.id));
+  return routes.filter(route => route.from === unit.regionId && friendly.has(route.from) && friendly.has(route.to)
+    && !mobility.closedRouteIds.includes(route.id));
+}
