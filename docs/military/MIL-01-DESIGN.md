@@ -1,6 +1,6 @@
 # MIL-01-DESIGN · Strategic military mobility
 
-Design study for owner review. The proposed rules are for Heartland’s fictionalized strategic simulation. The owner has approved the 25,000 personnel-equivalent division scale, frontier-weighted placement, the Turkish calculation subject to licensing, and future maritime mobility and land transit. Route availability, timing, costs and diplomatic rules below require separate approval.
+Design study for owner review. The proposed rules are for Heartland’s fictionalized strategic simulation. The owner has approved the 25,000 personnel-equivalent division scale, frontier-weighted placement, the Turkish calculation subject to licensing, and future maritime mobility and land transit. The owner also approved Approach B as the target, beginning with Approach A, whole divisions, configurable one- or two-week journeys, limited capacity, zero prototype monetary cost, friendly destinations first, explicit international transit authorization, Channel Tunnel deferral, deterministic settlement, backward-compatible saves and the phased roadmap below. Individual routes and rollout gates remain review decisions.
 
 ## 1. Current architecture and dependencies
 
@@ -33,12 +33,20 @@ A coverage audit should use the actual authored graph when packages are ready. C
 
 - **One order per division.** A player selects an eligible route using a division at an active origin under its country’s control. Departure and unloading apply at the weekly boundary. One eligible division takes one slot regardless of its current manpower. No split divisions or ship management.
 - **One or two weeks as a tuning starting point.** If an order is accepted while settling Week W and its duration is one, it is traveling at the opening of W+1 and arrives during settlement of W+1. Each UI estimate uses that convention. One departure per unit and no additional land order in an arrival week prevent chain moves.
-- **Friendly-controlled destination only in the first release.** The destination must be controlled by the same actor, and permission to pass through a neutral place grants no unloading right. No landing on enemy-controlled territory. Later, permit allied staging under an explicit basing grant once combat supports friendly foreign forces, then consider a separate amphibious order under a formal war state.
-- **Limited lift and a single quoted cost.** Charge once upon accepted departure through an approved economy transaction, funded from available treasury after a stable reservation check. A full route or insufficient available funds leaves the division at origin and reports why. A failed departure costs nothing. The first cost represents transport and supply in aggregate. The engine needs a defined recipient or accounting mechanism and an audit for conservation before any monetary charge ships. A transport-only proof can use zero money cost with the same slot limit.
-- **Control can invalidate arrival.** Recheck endpoint control and route availability at settlement. A blocked destination starts a return to the origin if it is eligible. Returning takes a scheduled interval and consumes no ordinary land action. Cancellation before departure releases the reservation. Cancellation after departure requests return, with no refund for the completed departure.
-- **Unreachable endpoints require a defined outcome.** If origin and destination both become unavailable, place the division in a visible waiting state for one settlement. The player can request an eligible fallback from a small authored list. A second failure enters a visible unavailable state pending an approved recovery rule for the first release. An unavailable division has no combat presence, capture ability or repeated automatic expense. Approve the deadline, recovery and end-of-match scoring before implementation.
+- **Friendly-controlled destination only in the first release.** The destination must be controlled by the same actor, and permission to pass through a neutral place grants no unloading right. No landing on enemy-controlled territory. MIL-01C adds allied staging under an explicit grant. MIL-04 adds a distinct hostile-coast landing operation under formal war eligibility.
+- **Limited lift and zero prototype monetary cost.** One whole division uses one departure slot. Capacity contention leaves unadmitted divisions at origin with a report reason. MIL-02 considers supply and economic accounting separately.
+- **Control can invalidate arrival.** Recheck the endpoint and route at settlement. An interrupted journey can start a timed return if the origin is eligible. Withdrawal before departure discards the draft. Cancellation after departure requests return.
+- **Recoverable waiting.** If both endpoints are unavailable, retain the entire division in a reported waiting state. An eligible reopened endpoint can resume the journey. Waiting never destroys the division or permanently removes it. A waiting unit has no regional combat presence and consumes no repeated monetary charge.
 
-Returning, diverted and waiting units still occupy their single journey record. Treat departure slots separately from in-flight records for the first release. A route closure stops new departures and interrupts arrivals covered by the closure rule; its effect on a return or fallback follows the same eligibility check. No arbitrary losses occur merely because an arrival fails. Later, escorts, blockades and interception can modify route availability or emit journey events. Amphibious operations can add a distinct contested-arrival event and temporary foothold state, after approval of combat and resupply rules. Ordinary transport retains peaceful arrival semantics.
+### Shared operation types
+
+| Operation | Authorization | Arrival |
+|---|---|---|
+| Friendly transport (MIL-01A) | Own controlled origin and destination, explicit maritime route and capacity | Enter the friendly region after revalidation |
+| Allied deployment (MIL-01C) | Explicit staging rights and eligible allied destination | Enter as a guest with a separate presence and authorization check |
+| Hostile amphibious landing (MIL-04, required for the complete game) | Explicit hostile-landing operation under formal war eligibility | Emit a contested arrival for combat resolution. Provincial control changes only through a separately resolved territorial outcome. |
+
+Keep journey lifecycle, operation type, eligibility and arrival outcome distinct. The MIL-04 arrival contract must accommodate configurable landing penalties, a temporary beachhead distinct from provincial ownership, maritime supply, reinforcement and evacuation. MIL-03 escorts, interception and blockades can modify journey availability or produce interruption events. Future naval and air combat can act on those same journey and arrival events. MIL-01A implements only friendly arrival semantics.
 
 ## 4. Diplomatic land transit
 
@@ -63,7 +71,7 @@ A neutral host can grant limited peacetime passage, decline it, or withdraw it. 
 
 ### Mobile screens
 
-- **Military → Division → Transport** opens a bottom sheet. Show a short list of legal destinations with mode, earliest arrival, slots and cost. One **Stage order** button confirms. A map tap can select a destination, with the same action available from the list.
+- **Military → Division → Transport** opens a bottom sheet. Show a short list of legal destinations with mode, earliest arrival and slots. Show cost only when a later ruleset introduces one. One **Stage order** button confirms. A map tap can select a destination, with the same action available from the list.
 - **Military → In transit** displays one row per division, its arrival week and any change. A return action sits inside the division detail. The map shows an optional route overlay, with line styles and text labels that distinguish it from trade.
 - **Diplomacy → Transit** shows grant scope, expiry, and pending requests. Weekly reports group movement changes into one compact summary with expandable exceptions. Standing journeys carry forward without repeated taps.
 
@@ -85,23 +93,28 @@ Measure player decision time with two and four seats over the existing 52/104/15
 
 Recommend **B as the target**, beginning with a bounded **A** implementation on the same journey state.
 
-1. **Foundation.** Review WORLD-04 on the reference phone. Verify WORLD-05-FINAL licensing and initialization. Build synthetic validation and replay fixtures for typed routes and stable allocation before integrating a new package.
-2. **Friendly sea transport.** Prove departure, timed arrival, revalidation, capacity, cancellation, save/resume and reports. Enable European routes only after approval of the authored route list. Keep the first proof free of new monetary mechanics until settlement accounting is approved.
-3. **Transit and participation.** Add host grants and revocation, then allied staging and formal war eligibility. Test UK and Türkiye agency with AI counterparts, blocked aid and alternative routes. Review fixed crossings independently. Run two- and four-seat synchronization tests before enabling multiplayer.
-4. **Naval extension.** Evaluate escorts and blockade as journey modifiers, then propose interception, amphibious combat, and sustained supply separately.
+| Milestone | Approved sequence |
+|---|---|
+| MIL-01A | Friendly maritime transport in an independent synthetic fixture. Establish capacity, timed arrivals, recoverable waiting, replay and save compatibility. |
+| MIL-01B | Explicit diplomatic land transit and revocation. |
+| MIL-01C | Allied staging with separate authorization and foreign presence rules. |
+| MIL-02 | Military logistics and supply. |
+| MIL-03 | Naval warfare, escorts, interception and blockades. |
+| MIL-04 | Mandatory amphibious operations, contested landings, beachheads and evacuation. |
+
+European integration stays gated on validated WORLD-04 and WORLD-05-FINAL. Validate two- and four-seat synchronization before enabling multiplayer. Channel Tunnel work is deferred.
 
 ## 8. Acceptance and test plan
 
 - **Rules and regression.** Re-run engine typecheck/tests, game tests and production build. Replay the fictional fixture and prior SAVE-01 records for identical game/economy outcomes. Run unchanged GAME-UX-01 browser checks and log any known intermittent report timeout. Compare immutable package checksums and verify public packaging includes only explicitly approved distributable content.
-- **Transport and diplomacy.** Test friendly departure, shared capacity and actor contention, exact arrival week, cancellation before and after sailing, route and destination closure, occupied origin, fallback deadline, grant expiry/revocation and neutral refusal. Assert trade edges cannot authorize movement. Validate that a journey cannot attack, defend or confer territorial control. Test that monetary rejection is reported without losing the week, and that engine failure rolls back reservations, economy, game state and both players’ drafts together.
+- **Transport and diplomacy.** Test friendly departure, shared capacity and actor contention, exact arrival week, cancellation before and after sailing, route and destination closure, occupied origin, recovery when an endpoint reopens, grant expiry/revocation and neutral refusal. Assert trade edges cannot authorize movement. Validate that a journey cannot attack, defend or confer territorial control. Confirm MIL-01A incurs no monetary charge and engine failure rolls back mobility, economy, game state and staged orders together.
 - **Save and replay.** Snapshot staged orders, in-flight journeys, interruptions and expired grants. Reopen and replay to identical game/economy hashes, including duplicate submissions and reordered delivery to the canonical weekly resolver. Reject incompatible scenario versions, unknown IDs, duplicate locations and inconsistent weeks while retaining the saved record.
 - **Coverage and phone UX.** Verify each island has an approved path to friendly movement and all six playable countries have a plausible route to participate once access and staging are enabled. Exercise keyboard and touch, portrait and landscape, readable reasons, safe-area layout, reload, report visibility and two- and four-player decision pacing. Simulated mobile browser passes and physical iPhone passes are recorded separately.
 - **Performance.** Compare the 61-zone WORLD-04 baseline with 156-turn runs under expected and stressed traffic, including four actors, congested routes and simultaneous withdrawals. Record start, weekly median/p95/max, save+restore, serialized size and memory. WORLD-04’s 6× Chromium run already exceeded the max-week and save+restore targets, so investigate the baseline separately from mobility overhead. Run three times on the reference iPhone and use the existing thresholds of 250 ms median, 500 ms p95, and 1,000 ms each for slowest week, start and save+restore. Use indexed route and unit lookups and avoid per-unit global path searches.
 
-## 9. Owner decisions before gameplay coding
+## 9. Decisions for later integration and tuning
 
-1. Approve the first route inventory, first release’s friendly-only destination rule, default duration, slot count and shared-capacity priority. Decide whether any fixed crossing ships with transit.
-2. Approve cancellation, return time, fallback eligibility and the two-failure outcome, including what an unavailable unit means for scoring and later recovery.
-3. Approve the cost basis, funding rule and recipient or accounting treatment. Decide when civilian capacity or supply will interact with strategic transport.
-4. Approve peacetime and wartime grant policy, neutrality and alliance behavior, foreign staging rights and AI decision inputs. Scope any new war or combat eligibility separately.
-5. Confirm which phase must support two to four humans, the authorization and readiness model, and the pacing threshold for the first playtest. Confirm the exact licensed scenario version and device acceptance criteria before enabling European mobility.
+- Review authored routes, concrete capacities, endpoint availability and shared-capacity policy before enabling a scenario. Preserve the approved one- to two-week configuration range for MIL-01A.
+- Confirm grant scope, neutrality and wartime policy in MIL-01B, then approve foreign staging and combat eligibility in MIL-01C.
+- Review supply accounting, interception visibility, landing penalties, and beachhead control and evacuation rules within their respective milestones.
+- Confirm the multiplayer authorization and readiness model, pacing goals, exact licensed scenario version, and physical iPhone acceptance before rollout.
