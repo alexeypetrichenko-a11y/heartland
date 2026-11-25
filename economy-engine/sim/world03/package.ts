@@ -24,19 +24,21 @@ import { resolve } from 'node:path';
 import { autopilotCommands, createEconomy, hashEconomy } from '../../src/index.ts';
 import { advanceEconomyWeek, INTEGRATION_CONTRACT_VERSION, saveEconomySession, SESSION_FORMAT, SESSION_VERSION, withPlayerCountry } from '../../src/integration/index.ts';
 import type { EconomySession } from '../../src/integration/index.ts';
-import { FINAL, NON_COMPARABLE_BALANCE, SEED, worldSpec } from './calibrate.ts';
+import { FINAL, LICENSED, NON_COMPARABLE_BALANCE, SEED, worldSpec } from './calibrate.ts';
 
 export const SCENARIO_ID = 'europe-2023';
-export const SCENARIO_VERSION = FINAL ? '1.0.0-draft.2' : '1.0.0-draft.1';
+export const SCENARIO_VERSION = LICENSED ? '1.0.0-draft.3' : FINAL ? '1.0.0-draft.2' : '1.0.0-draft.1';
 const ROOT = resolve(import.meta.dirname, '../../..');
 const BUILD = resolve(ROOT, 'scenarios/europe-2023/build');
-const CAL_DIR = FINAL ? resolve(ROOT, 'scenarios/europe-2023/build-final') : BUILD;
+/** WORLD-05-FINAL: draft.3 reads the licence-clean build (inputs, budget, financing, calibration) from build-licensed/. */
+const BUILD_IN = LICENSED ? resolve(ROOT, 'scenarios/europe-2023/build-licensed') : BUILD;
+const CAL_DIR = LICENSED ? BUILD_IN : FINAL ? resolve(ROOT, 'scenarios/europe-2023/build-final') : BUILD;
 const OUT = resolve(ROOT, `scenarios/europe-2023/${SCENARIO_VERSION}`);
 const read = (path: string) => JSON.parse(readFileSync(path, 'utf8'));
 const sha256 = (text: string | Buffer) => createHash('sha256').update(text).digest('hex');
 const json = (value: unknown) => JSON.stringify(value, null, 1) + '\n';
 
-const inputs = read(resolve(BUILD, 'inputs.json'));
+const inputs = read(resolve(BUILD_IN, 'inputs.json'));
 const geo = read(resolve(BUILD, 'geography.json'));
 const cal = read(resolve(CAL_DIR, 'calibration.json'));
 const SOURCES = resolve(ROOT, 'scenarios/europe-2023/sources');
@@ -57,6 +59,51 @@ function territories() {
     const cells = line.split('|').map(c => c.trim());
     return { name: cells[1].replace(/\*\*/g, ''), naturalEarth: [...cells[5].matchAll(/`([^`]+)`/g)].map(m => m[1]).filter(c => /^[A-Z0-9-]+$/.test(c)), handling: '(b) labelled, non-playable' };
   });
+}
+
+/**
+ * WORLD-05-FINAL: licence register -> NOTICE.md, ATTRIBUTION.json and the manifest's licence fields (draft.3 only).
+ * distributable is true only when every cited snapshot's publisher is 'cleared' in scenarios/europe-2023/licences.json;
+ * anything else is a release blocker. Release checks (manual confirmations before a public release) are listed separately.
+ */
+function licenceRegister(cited: { id: string; publisher: string; licenceStatus: string }[]) {
+  const reg = read(resolve(ROOT, 'scenarios/europe-2023/licences.json'));
+  const byPublisher: Record<string, string[]> = {};
+  for (const l of cited) (byPublisher[l.publisher] ??= []).push(l.id);
+  // Review extracts cited by provenance (not source snapshots) count under every publisher they draw on.
+  const named = new Set<string>();
+  const walk = (v: unknown) => { if (Array.isArray(v)) v.forEach(walk); else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) { if ((k === 'sources' || k === 'source') && Array.isArray(x)) x.forEach(s => typeof s === 'string' && named.add(s)); else walk(x); } };
+  walk(inputs);
+  const extracts = Object.entries(reg.derived_extracts ?? {}).filter(([id]) => named.has(id)) as [string, { publishers: string[]; path: string; content: string }][];
+  for (const [id, e] of extracts) for (const pub of e.publishers) (byPublisher[pub] ??= []).push(id);
+  const known = new Set([...cited.map(c => c.id), ...Object.keys(reg.derived_extracts ?? {})]);
+  const unknownCited = [...named].filter(id => !known.has(id)).sort();
+  if (unknownCited.length) throw new Error(`Cited sources missing from the licence register and the snapshots: ${unknownCited.join(', ')}`);
+  const blockers: string[] = [];
+  const publishers = Object.entries(byPublisher).sort(([a], [b]) => a.localeCompare(b)).map(([pub, ids]) => {
+    const p = reg.publishers[pub];
+    if (!p || p.status !== 'cleared') blockers.push(`${pub} (${ids.join(', ')}): ${p ? p.status : 'not in the licence register'}`);
+    return { publisher: pub, status: p?.status ?? 'unknown', licence: p?.licence ?? null, url: p?.url ?? null, attribution: p?.attribution ?? null,
+             conditions: p?.conditions ?? [], evidence: p?.evidence ?? null, snapshots: ids.sort() };
+  });
+  const extra = ['natural_earth', 'heartland'].map(pub => ({ publisher: pub, ...reg.publishers[pub] }));
+  const releaseChecks = publishers.map(p => reg.publishers[p.publisher]?.release_check).filter(Boolean);
+  const oecd = reg.oecd_datasets.filter((d: { snapshots: Record<string, string> }) => Object.keys(d.snapshots).some(id => cited.some(c => c.id === id)));
+  const lines = [
+    `# ${SCENARIO_ID} ${SCENARIO_VERSION}: notices and attribution`, '',
+    'This scenario package contains values derived from the sources below. Values were selected, converted and calibrated for the game (Heartland); they are not the publishers\' figures and the publishers do not endorse the game.', '',
+    '## Sources and licences', '',
+    ...publishers.map(p => `- **${p.publisher}**: ${(p.attribution ?? '').replace(/\.?$/, '.')} Licence: ${p.licence}${p.url ? ` (${p.url})` : ''}. Sources: ${p.snapshots.join(', ')}.`),
+    ...extra.filter(p => p.attribution).map(p => `- **${p.publisher}**: ${p.attribution}. Licence: ${p.licence}${p.url ? ` (${p.url})` : ''}.`),
+    '', '## OECD dataset citations', '', ...oecd.map((d: { citation: string; dataflow: string }) => `- ${d.citation} (${d.dataflow}).`),
+    '', '## Gameplay assumptions and illustrative content', '',
+    '- Starting military forces and their placement are an illustrative gameplay configuration, not a historical order of battle (scenario.json, military).',
+    '- Values marked estimate, derived or assumption in provenance.json are the project\'s own estimates, not published statistics.',
+    '', `## Distribution status`, '', blockers.length ? `Not distributable: ${blockers.join('; ')}` : 'Every cited source is cleared for commercial redistribution under the terms above.',
+    ...(releaseChecks.length ? ['', 'Before a public release:', ...releaseChecks.map((r: string) => `- ${r}`)] : []), '',
+  ];
+  const attribution = json({ scenario: SCENARIO_ID, version: SCENARIO_VERSION, publishers, other: extra, derivedExtracts: Object.fromEntries(extracts), oecdDatasets: oecd, blockers, releaseChecks });
+  return { notice: lines.join('\n'), attribution, publishers, blockers, releaseChecks };
 }
 
 function main() {
@@ -113,7 +160,13 @@ function main() {
       } : {}),
     },
     startingRelations: { rule: 'neutral: every pair of diplomatic actors at 0; blocs have no diplomacy', relations },
-    military: {
+    military: LICENSED ? {
+      status: 'illustrative starting forces: counts by the approved Rule W (D3, M-2) with a documented gameplay assumption for Türkiye; '
+        + 'placement by the approved rule P-1 (provisional gameplay configuration). Not a historical order of battle. Military gameplay is not enabled by this package.',
+      parameter: inputs.military.parameter_personnel_equivalents_per_division,
+      countries: inputs.military.countries,
+      placement: inputs.military.placement,
+    } : {
       status: 'draft, not for gameplay until approved (M-2); placement of divisions is a game decision and is not set here',
       parameter: inputs.military.parameter_personnel_equivalents_per_division,
       countries: inputs.military.countries,
@@ -135,8 +188,8 @@ function main() {
   const session = saveEconomySession(week1);
   mkdirSync(OUT, { recursive: true });
   const { config: _config, ...specWithoutConfig } = spec;
-  const budget = FINAL ? read(resolve(BUILD, 'budget.json')) : null;
-  const financing = FINAL ? read(resolve(BUILD, 'financing.json')) : null;
+  const budget = FINAL ? read(resolve(BUILD_IN, 'budget.json')) : null;
+  const financing = FINAL ? read(resolve(BUILD_IN, 'financing.json')) : null;
   // Licence audit: every source snapshot the package's inputs name.
   const named = new Set<string>();
   const collect = (v: unknown) => { if (Array.isArray(v)) v.forEach(collect); else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) { if ((k === 'sources' || k === 'source') && Array.isArray(x)) x.forEach(s => typeof s === 'string' && named.add(s)); else collect(x); } };
@@ -145,6 +198,7 @@ function main() {
     try { const d = read(resolve(SOURCES, `${id}.json`)); return [{ id, publisher: d.publisher, licenceStatus: d.licence_status }]; } catch { return []; }
   });
   const unverified = licences.filter(l => !String(l.licenceStatus).startsWith('verified'));
+  const register = LICENSED ? licenceRegister(licences) : null;
   const files: Record<string, string> = {
     'scenario.json': scenarioText,
     'provenance.json': json({ note: 'Every economic input with its sources, method and status; the source snapshots are in ../sources/.', ...inputs,
@@ -160,13 +214,27 @@ function main() {
     id: SCENARIO_ID, version: SCENARIO_VERSION, immutable: true, status: scenario.status, referenceYear: 2023,
     worldFingerprint, week1EconomyHash: stateHash, contentFingerprint, files: manifestFiles,
     compatibility: 'New scenario. Fictional saves are unaffected: their scenario and fingerprints are unchanged. The current startEconomyFromSave refuses this package (different world fingerprint) until the proposed scenario loader exists.',
-    ...(FINAL ? {
+    ...(LICENSED && register ? {
+      supersedes: '1.0.0-draft.1 and 1.0.0-draft.2 (kept unchanged; both are restricted review drafts)',
+      engineRequirements: 'economy-engine with the ECON-08 options (holdStartingDebt, effectiveRate) and the WORLD-03-FINAL opt-in inputs (maxStartingDebt, economicAggregate, bankProfitToHouseholds); no engine change in WORLD-05-FINAL',
+      distributable: register.blockers.length === 0,
+      notDistributableBecause: register.blockers,
+      licences: register.publishers,
+      releaseChecks: register.releaseChecks,
+      notice: { path: 'NOTICE.md', sha256: sha256(register.notice) },
+      attribution: { path: 'ATTRIBUTION.json', sha256: sha256(register.attribution) },
+    } : FINAL ? {
       supersedes: '1.0.0-draft.1 (kept unchanged)',
       engineRequirements: 'economy-engine with the ECON-08 options (holdStartingDebt, effectiveRate) and the WORLD-03-FINAL opt-in inputs (maxStartingDebt, economicAggregate, bankProfitToHouseholds)',
       distributable: unverified.length === 0,
       notDistributableBecause: unverified.map(l => `${l.id} (${l.publisher}): ${l.licenceStatus}`),
     } : {}),
   }));
+  if (LICENSED && register) {
+    writeFileSync(resolve(OUT, 'NOTICE.md'), register.notice);
+    writeFileSync(resolve(OUT, 'ATTRIBUTION.json'), register.attribution);
+    console.log(`licences: distributable=${register.blockers.length === 0}; blockers ${JSON.stringify(register.blockers)}`);
+  }
   console.log(`${SCENARIO_ID} ${SCENARIO_VERSION}: world ${worldFingerprint}, week-1 economy ${stateHash}, content ${contentFingerprint.slice(0, 16)}; session ${(Buffer.byteLength(session) / 1024).toFixed(0)} KB`);
 }
 

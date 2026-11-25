@@ -24,11 +24,14 @@ import { loadEconomySession } from '../../src/integration/index.ts';
 const ROOT = resolve(import.meta.dirname, '../../..');
 const PKG = resolve(ROOT, 'scenarios/europe-2023');
 const text = (p: string) => readFileSync(resolve(PKG, p), 'utf8');
-const budgetDoc = JSON.parse(text('build/budget.json')).countries;
+/** WORLD-05-FINAL (opt-in): WORLD05_PACKAGE=1.0.0-draft.3 runs the same baseline, repeat and stress plans on that package, compares
+ *  its week-2 budgets with draft.2 and writes docs/world/WORLD-05-FINAL-data/runs.json. Without it the WORLD-03-FINAL runs are unchanged. */
+const W5F = process.env.WORLD05_PACKAGE ?? null;
+const budgetDoc = JSON.parse(text(W5F ? 'build-licensed/budget.json' : 'build/budget.json')).countries;
 const REAL = Object.keys(budgetDoc);
 const CHECKPOINTS = [52, 104, 156];
 
-function load(which: 'draft.2' | 'draft.1' | 'econ08'): EconomyState {
+function load(which: string): EconomyState {
   if (which === 'econ08') return deserializeEconomy(text('build-econ08/week1.economy.json'));
   return loadEconomySession(text(`1.0.0-${which}/week1.session.json`)).state;
 }
@@ -126,25 +129,26 @@ function main() {
   const out: Record<string, unknown> = {};
   // 1. Budget before / after at week 2.
   const budget: Record<string, Record<string, unknown>> = {};
-  for (const which of ['draft.1', 'econ08', 'draft.2'] as const) {
+  for (const which of (W5F ? ['draft.2', W5F.replace('1.0.0-', '')] : ['draft.1', 'econ08', 'draft.2'])) {
     const s = load(which);
     const r = step(s, autopilotCommands(s, s.countries.map(c => c.id)), true);
     budget[which] = Object.fromEntries(REAL.map(id => [id, budgetRow(r.state, r.report, id)]));
   }
+  const pc = (x: number | null, d = 2) => (W5F && x === null ? null : +(100 * (x as number)).toFixed(d));
   budget.observed = Object.fromEntries(REAL.map(id => [id, {
-    revenue: +(100 * budgetDoc[id].observed.revenue).toFixed(2), spending: +(100 * budgetDoc[id].observed.expenditure).toFixed(2),
-    netLending: +(100 * budgetDoc[id].observed.net_lending).toFixed(2), taxes: +(100 * budgetDoc[id].observed.taxes_and_contributions).toFixed(2),
-    dividends: +(100 * budgetDoc[id].observed.dividends_D42).toFixed(2), interest: +(100 * budgetDoc[id].observed.interest_paid).toFixed(2),
-    tariffs: +(100 * budgetDoc[id].targets.tariff_revenue).toFixed(3),
+    revenue: pc(budgetDoc[id].observed.revenue), spending: pc(budgetDoc[id].observed.expenditure),
+    netLending: pc(budgetDoc[id].observed.net_lending), taxes: pc(budgetDoc[id].observed.taxes_and_contributions),
+    dividends: pc(budgetDoc[id].observed.dividends_D42), interest: pc(budgetDoc[id].observed.interest_paid),
+    tariffs: pc(budgetDoc[id].targets.tariff_revenue, 3),
   }]));
   out.budget = budget;
-  for (const id of REAL) {
+  for (const id of W5F ? [] : REAL) {
     const b = budget as Record<string, Record<string, { netLending: number; bankProfit?: number; dividends?: number; tariffs?: number }>>;
     console.log(`${id}: net lending observed ${b.observed[id].netLending} | draft.1 ${b['draft.1'][id].netLending} | ECON-08 ${b.econ08[id].netLending} | draft.2 ${b['draft.2'][id].netLending}`
       + ` | bank profit ${b.econ08[id].bankProfit} -> ${b['draft.2'][id].bankProfit} | dividends ${b.econ08[id].dividends} -> ${b['draft.2'][id].dividends} | tariffs ${b.econ08[id].tariffs} -> ${b['draft.2'][id].tariffs}`);
   }
   // 2-3. Runs.
-  const after = load('draft.2');
+  const after = load(W5F ? W5F.replace('1.0.0-', '') : 'draft.2');
   const runs: Record<string, unknown> = {};
   for (const plan of PLANS) {
     const result = run(after, plan, plan.country === null);
@@ -158,10 +162,10 @@ function main() {
   }
   out.runs = runs;
   out.deterministic = (runs.baseline as { finalHash: string }).finalHash === (runs['baseline-repeat'] as { finalHash: string }).finalHash;
-  const before = run(load('econ08'), { name: 'baseline-econ08', country: null, commands: () => [] }, true);
-  out.baselineEcon08 = before;
-  console.log(`deterministic ${out.deterministic}; ECON-08 baseline events ${JSON.stringify(before.events).slice(0, 400)}`);
-  const OUT = resolve(ROOT, 'docs/world/WORLD-03-FINAL-data');
+  const before = run(load(W5F ? 'draft.2' : 'econ08'), { name: W5F ? 'baseline-draft.2' : 'baseline-econ08', country: null, commands: () => [] }, true);
+  if (W5F) out.baselineDraft2 = before; else out.baselineEcon08 = before;
+  console.log(`deterministic ${out.deterministic}; ${W5F ? 'draft.2' : 'ECON-08'} baseline events ${JSON.stringify(before.events).slice(0, 400)}`);
+  const OUT = resolve(ROOT, W5F ? 'docs/world/WORLD-05-FINAL-data' : 'docs/world/WORLD-03-FINAL-data');
   mkdirSync(OUT, { recursive: true });
   writeFileSync(resolve(OUT, 'runs.json'), JSON.stringify(out, null, 1) + '\n');
 }

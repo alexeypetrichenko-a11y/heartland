@@ -1,0 +1,3 @@
+# Large intermediates; regenerate with WORLD03_FINANCE=licensed calibrate.ts (scenarios/pipeline/build_*.py --licensed first).
+week1.economy.json
+world-spec.json

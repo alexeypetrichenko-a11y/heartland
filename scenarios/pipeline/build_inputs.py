@@ -19,14 +19,25 @@ Every number carries {value, sources[], method, status}. status is one of:
   engine-limit the data value lies outside what the engine accepts; the nearest accepted value is used and flagged.
 A MANDATORY input that is missing stops the build (exit code 2) instead of being invented.
 
-Run from the repository root:  python3 scenarios/pipeline/build_inputs.py
+Run from the repository root:  python3 scenarios/pipeline/build_inputs.py [--licensed]
+
+--licensed (WORLD-05-FINAL, package 1.0.0-draft.3) writes build-licensed/inputs.json instead. It never reads the
+restricted Turkish snapshots (Court of Accounts, Treasury debt report): Türkiye's debt comes from Eurostat's financial
+balance sheet, its spending lines from the licensed budget estimates (build_budget.py --licensed), and its starting
+forces are a documented gameplay assumption until the Ministry inputs of Rule W are cleared (decision M-3).
+Without the flag the build is unchanged and ignores the snapshots added for draft.3.
 """
 import csv, json, os, sys
 from collections import defaultdict
+sys.dont_write_bytecode = True   # scenarios/pipeline/__pycache__ holds a tracked file (WORLD-03); do not rewrite it
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 SRC = os.path.join(ROOT, 'scenarios', 'europe-2023', 'sources')
 BUILD = os.path.join(ROOT, 'scenarios', 'europe-2023', 'build')
+LICENSED = '--licensed' in sys.argv
+BUILD_OUT = os.path.join(ROOT, 'scenarios', 'europe-2023', 'build-licensed') if LICENSED else BUILD
+LICENSED_ONLY = {'es_tr_national', 'es_tr_gov_liabilities', 'oecd_eo_tur', 'wdi_tur_gfs'}   # added for draft.3
+RESTRICTED = {'tr_sayistay_government', 'tr_treasury_debt'}                                  # never read in licensed mode
 W2 = os.path.join(ROOT, 'docs', 'world', 'data')
 NE = os.path.join(ROOT, 'public', 'geography', 'natural-earth-5.1.1')
 
@@ -55,7 +66,8 @@ class Missing(Exception):
 def src(name):
     return json.load(open(os.path.join(SRC, f'{name}.json'), encoding='utf-8'))
 
-S = {name[:-5]: src(name[:-5]) for name in sorted(os.listdir(SRC)) if name.endswith('.json')}
+S = {name[:-5]: src(name[:-5]) for name in sorted(os.listdir(SRC))
+     if name.endswith('.json') and name[:-5] not in (RESTRICTED if LICENSED else LICENSED_ONLY)}
 
 def val(sid, key, mandatory=True):
     v = S[sid]['values'].get(key)
@@ -313,6 +325,13 @@ def fiscal(countries):
             f['spend_infrastructure'] = item(g('P51G') - d('P51G'), srcs, 'General government P51G minus defence P51G / GDP')
             f['spend_administration'] = item(g('P3') - d('D1') - d('P2'), srcs, 'Final consumption P3 minus defence pay (D1) and purchases (P2) / GDP')
             f['outside_engine_categories'] = item(g('D3') + g('D41'), srcs, 'Subsidies D3 and interest D41 / GDP (interest is computed by the engine; subsidies have no category)')
+        elif iso3 == 'TUR' and LICENSED:
+            for k in ('spend_social', 'spend_military', 'spend_infrastructure', 'spend_administration', 'outside_engine_categories'):
+                f[k] = item(None, ['oecd_eo_tur', 'wdi_tur_gfs', 'es_tr_national', 'oecd_revenue'],
+                            'Licence-clean estimate; the value is set in build-licensed/budget.json (targets and estimates.tur), because no Turkish '
+                            'fiscal table is cleared for redistribution (WORLD-05-FINAL)', 'estimate')
+            issue('estimate', 'tur', 'Türkiye spending lines are licence-clean estimates (build-licensed/budget.json): OECD balance and taxes, '
+                                     'World Bank interest, Eurostat government consumption, and the five other playable countries\' structure.')
         elif iso3 == 'TUR':
             gdp_t = val('oecd_gdp', 'TUR') * 1000       # thousand TRY, like the report
             s = lambda k: val('tr_sayistay_government', f'TUR|{k}') / gdp_t
@@ -336,7 +355,11 @@ def fiscal(countries):
             f['spend_administration'] = item(m('P3') - d('D1') - d('P2'), srcs, 'Final consumption P3 minus defence pay (D1) and purchases (P2) / GDP')
             f['outside_engine_categories'] = item(m('D3PAY') + m('D41PAY'), srcs, 'Subsidies D3 and interest D41 / GDP')
         # debt
-        if iso3 == 'TUR':
+        if iso3 == 'TUR' and LICENSED:
+            liab = sum(val('es_tr_gov_liabilities', f'{k}|TR') for k in ('F2', 'F3', 'F4'))
+            debt = item(liab / val('es_tr_national', 'B1GQ|TR'), ['es_tr_gov_liabilities', 'es_tr_national'],
+                        'General government consolidated liabilities in debt instruments (F2 + F3 + F4, market value) / GDP, end-2023', 'derived')
+        elif iso3 == 'TUR':
             debt = item(val('tr_treasury_debt', 'TUR|EU_defined_GG_debt_pct_GDP') / 100, ['tr_treasury_debt'], 'EU-defined general government gross debt, end-2023')
         elif iso3 == 'GBR':
             debt = item(val('ons_uk_debt', 'GBR|gross_consolidated_debt_pct_GDP') / 100, ['ons_uk_debt'], 'ONS YEQJ general government gross consolidated debt (Maastricht, ESA 2010), 2023')
@@ -359,11 +382,15 @@ def fiscal(countries):
         c['fiscal'] = f
 
 # ---------------------------------------------------------------------------------------------- military
-def military():
+def military(zones=None, geo_doc=None):
     w2 = json.load(open(os.path.join(W2, 'world02-defence-cofog-2023.json'), encoding='utf-8'))
     out = {'parameter_personnel_equivalents_per_division': item(25000, [], 'Provisional game-scale parameter (WORLD-02 M-2), not a historical fact', 'design'),
            'countries': {}}
+    if LICENSED:
+        out['parameter_personnel_equivalents_per_division'] = item(25000, [], 'Game-scale parameter approved by the owner (M-2), not a historical fact', 'design')
     for iso3, (cid, name, geo) in PLAYABLE.items():
+        if iso3 == 'TUR' and LICENSED:
+            continue                                   # set below from the other five (gameplay assumption)
         d1_all = w2['compensation_of_employees_total_economy_D1']['values'].get(iso3)
         emp = w2['employees_total_economy']['values'].get(iso3)
         if iso3 == 'GBR':
@@ -387,12 +414,47 @@ def military():
         out['countries'][cid] = {'status': 'draft', 'personnel_equivalents': round(pe), 'divisions': round(pe / 25000),
                                  'sources': sorted({src_def, 'world02-defence-cofog-2023'}),
                                  'method': 'defence compensation of employees (COFOG 02, D1) / (whole-economy compensation / employees) / 25,000'}
+    if not LICENSED:
+        return out
+    # ---- WORLD-05-FINAL (draft.3): approved Rule W counts, Türkiye gameplay assumption, P-1 placement ----------------------
+    import military_placement
+    pop_country = defaultdict(float)
+    for z in zones:
+        if z['kind'] == 'province':
+            pop_country[z['country']] += z['population']['value']
+    for cid, v in out['countries'].items():
+        v['status'] = 'data'
+        v['method'] = 'Rule W (approved D3, M-2): ' + v['method']
+    per_capita = sorted(v['personnel_equivalents'] / pop_country[c] for c, v in out['countries'].items())
+    median = per_capita[len(per_capita) // 2]
+    pe_tur = median * pop_country['tur']
+    out['countries']['tur'] = {
+        'status': 'assumption', 'personnel_equivalents': round(pe_tur), 'divisions': round(pe_tur / 25000),
+        'sources': sorted({'es_regional_population'} | {s for c, v in out['countries'].items() for s in v['sources']}),
+        'method': 'Gameplay assumption (licence-clean): Türkiye\'s personnel equivalents per inhabitant = the median of the other five playable '
+                  'countries (Rule W), times the population of its nine provinces, / 25,000',
+        'replaces': 'Rule W with the Ministry of Treasury and Finance budget inputs (approved M-3), held back until that source is cleared for redistribution (W5-L1)',
+        'reason': 'No licence-clean 2023 source gives Türkiye\'s defence pay or defence spending: SIPRI (via WDI) is restricted, NATO publishes no reuse terms, '
+                  'the Ministry tables have no reuse licence, Eurostat and the OECD have no Turkish defence data.'}
+    issue('assumption', 'tur', f'Starting forces: {out["countries"]["tur"]["divisions"]} divisions by a documented gameplay assumption (median per-capita Rule W '
+                               'personnel of the other five), pending clearance of the Ministry inputs for Rule W (M-3).')
+    owner = {z['id']: z['country'] for z in zones if z['kind'] == 'province'}
+    population = {z['id']: z['population']['value'] for z in zones if z['kind'] == 'province'}
+    movement = [(l['a'], l['b']) for l in geo_doc['movement']]
+    counts = {c: v['divisions'] for c, v in out['countries'].items()}
+    alloc, details = military_placement.place(owner, population, movement, counts, frontier_bonus=1.0)
+    out['placement'] = {
+        'rule': 'P-1', 'status': 'provisional gameplay configuration (owner decision P-1); illustrative, not a historical order of battle',
+        'method': 'one division per reachable province; the remainder by population x (1 + frontier), largest remainder (scenarios/pipeline/military_placement.py)',
+        'byRegion': alloc, 'regions': details,
+        'isolation': 'Under the current movement rules the UK, Türkiye and four islands cannot engage other countries: accepted for the prototype only (P-2)',
+    }
     return out
 
 def main():
     try:
         zones, countries, geo, mean = build()
-        mil = military()
+        mil = military(zones, geo)
     except Missing as error:
         print(f'MANDATORY INPUT MISSING: {error}. Nothing written.', file=sys.stderr)
         sys.exit(2)
@@ -406,7 +468,8 @@ def main():
            'issues': sorted(issues, key=lambda i: (i['kind'], i['subject'])),
            'sources': {sid: {k: S[sid].get(k) for k in ('publisher', 'dataset', 'title', 'query', 'retrieved', 'publisher_updated', 'licence', 'licence_status', 'attribution')}
                        for sid in sorted(S)}}
-    with open(os.path.join(BUILD, 'inputs.json'), 'w', encoding='utf-8') as f:
+    os.makedirs(BUILD_OUT, exist_ok=True)
+    with open(os.path.join(BUILD_OUT, 'inputs.json'), 'w', encoding='utf-8') as f:
         json.dump(doc, f, ensure_ascii=False, indent=1)
         f.write('\n')
     kinds = defaultdict(int)

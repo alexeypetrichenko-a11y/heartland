@@ -1,0 +1,153 @@
+{
+ "id": "europe-2023",
+ "version": "1.0.0-draft.3",
+ "immutable": true,
+ "status": "review-draft",
+ "referenceYear": 2023,
+ "worldFingerprint": "12035be51198e4ee",
+ "week1EconomyHash": "ff1a2f7acb5d4af3",
+ "contentFingerprint": "c796f615f0c46840eaffd966edd7a64d2a6e7d067e351d1efb29730c11991c28",
+ "files": [
+  {
+   "path": "calibration-report.json",
+   "bytes": 87922,
+   "sha256": "f69560492a856f8184c9a56d32be1690311f631b98b984392dff7846e5f5a384"
+  },
+  {
+   "path": "provenance.json",
+   "bytes": 259603,
+   "sha256": "1c13a279f5ee28c3d005269d57a51f2349f622b8579ab5276e6a04ee58114da2"
+  },
+  {
+   "path": "scenario.json",
+   "bytes": 170356,
+   "sha256": "12035be51198e4eeebf8da27fbdd9ddbd2184df75538a07e55ed01c18982300b"
+  },
+  {
+   "path": "week1.session.json",
+   "bytes": 1712667,
+   "sha256": "c9d1c82ba55b15b8039be00095fa4992d851255b3c193ebdc2fe26e4dbb292d4"
+  },
+  {
+   "path": "world-spec.json",
+   "bytes": 100867,
+   "sha256": "be90bb45bf9ddd19daef2f4ce60612bb9482a93f631a888e452a4587dc90df52"
+  }
+ ],
+ "compatibility": "New scenario. Fictional saves are unaffected: their scenario and fingerprints are unchanged. The current startEconomyFromSave refuses this package (different world fingerprint) until the proposed scenario loader exists.",
+ "supersedes": "1.0.0-draft.1 and 1.0.0-draft.2 (kept unchanged; both are restricted review drafts)",
+ "engineRequirements": "economy-engine with the ECON-08 options (holdStartingDebt, effectiveRate) and the WORLD-03-FINAL opt-in inputs (maxStartingDebt, economicAggregate, bankProfitToHouseholds); no engine change in WORLD-05-FINAL",
+ "distributable": true,
+ "notDistributableBecause": [],
+ "licences": [
+  {
+   "publisher": "eurostat",
+   "status": "cleared",
+   "licence": "Eurostat copyright notice: reuse for commercial or non-commercial purposes authorised provided the source is acknowledged; Commission Decision 2011/833/EU",
+   "url": "https://ec.europa.eu/eurostat/help/copyright-notice",
+   "attribution": "Source: Eurostat",
+   "conditions": [
+    "acknowledge the source",
+    "commercial reuse only for EU and EFTA members and official EU acceding and candidate countries (Türkiye included); never UK data from Eurostat",
+    "no logos"
+   ],
+   "evidence": "primary page read 2026-11-25 (world05-licence-evidence.json: eurostat)",
+   "snapshots": [
+    "es_bond_yields",
+    "es_customs",
+    "es_debt",
+    "es_debt_quarterly",
+    "es_defence",
+    "es_government",
+    "es_government_accounts",
+    "es_national_a64",
+    "es_national_gdp",
+    "es_national_population",
+    "es_regional_gva",
+    "es_regional_population",
+    "es_tax",
+    "es_tr_gov_liabilities",
+    "es_tr_national",
+    "world02-defence-cofog-2023"
+   ]
+  },
+  {
+   "publisher": "oecd",
+   "status": "cleared",
+   "licence": "OECD Terms and Conditions, Data: data may be extracted, downloaded, copied, adapted, printed, distributed, shared and embedded for any purpose, including commercial use, with credit to the OECD using the dataset's citation; subject to dataset-specific terms and third-party ownership shown in metadata or source information",
+   "url": "https://www.oecd.org/en/about/terms-conditions.html",
+   "attribution": "Source: OECD (see the dataset citations in NOTICE.md). Values were transformed for the game.",
+   "conditions": [
+    "credit the OECD with the dataset citation",
+    "respect dataset-specific terms and third-party ownership (none indicated for the datasets used: see oecd_datasets)",
+    "no OECD logo; no endorsement"
+   ],
+   "evidence": "secondary for the Terms (search-engine reading of the publisher's page, 2026-11-25; oecd.org refuses automated reading); primary for each dataset's metadata (OECD SDMX API, 2026-11-25: no licence, restriction or third-party notice)",
+   "snapshots": [
+    "oecd_che_debt",
+    "oecd_customs",
+    "oecd_eo_tur",
+    "oecd_gdp",
+    "oecd_revenue",
+    "oecd_uk_defence",
+    "oecd_uk_government",
+    "oecd_uk_government_accounts",
+    "world02-defence-cofog-2023"
+   ]
+  },
+  {
+   "publisher": "ons",
+   "status": "cleared",
+   "licence": "Open Government Licence v3.0",
+   "url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+   "attribution": "Source: Office for National Statistics licensed under the Open Government Licence v.3.0",
+   "conditions": [
+    "include the attribution statement",
+    "do not suggest endorsement"
+   ],
+   "evidence": "primary (WORLD-02, WORLD-03)",
+   "snapshots": [
+    "ons_regional_gva",
+    "ons_regional_population",
+    "ons_uk_debt"
+   ]
+  },
+  {
+   "publisher": "worldbank",
+   "status": "cleared",
+   "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0), as labelled in each indicator's metadata (License_Type)",
+   "url": "https://creativecommons.org/licenses/by/4.0/",
+   "attribution": "Source: World Bank, World Development Indicators, licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Values were transformed for the game.",
+   "conditions": [
+    "attribution",
+    "link to the licence",
+    "indicate that values were changed",
+    "only series labelled CC BY-4.0 (not those labelled with SIPRI or other third-party terms)"
+   ],
+   "evidence": "primary: World Bank API series metadata for every series used, 2026-11-25 (world05-licence-evidence.json: worldbank; snapshot wdi_tur_gfs records the label per series)",
+   "snapshots": [
+    "wdi_nv_agr_totl_zs",
+    "wdi_nv_ind_manf_zs",
+    "wdi_ny_gdp_coal_rt_zs",
+    "wdi_ny_gdp_minr_rt_zs",
+    "wdi_ny_gdp_mktp_cd",
+    "wdi_ny_gdp_mktp_pp_cd",
+    "wdi_ny_gdp_ngas_rt_zs",
+    "wdi_ny_gdp_petr_rt_zs",
+    "wdi_sp_pop_totl",
+    "wdi_tur_gfs"
+   ]
+  }
+ ],
+ "releaseChecks": [
+  "Before a public release, read the 'Data' section of the OECD Terms and Conditions in a browser and confirm the wording above (decision W5-L3, primary confirmation)."
+ ],
+ "notice": {
+  "path": "NOTICE.md",
+  "sha256": "ba269759228983164b070170fab3583aaf794509e1f2ffa9344fe1274c5b5473"
+ },
+ "attribution": {
+  "path": "ATTRIBUTION.json",
+  "sha256": "e6892f05e673149433c5c44193468cb426182e0539625dbf18b82f3157080f36"
+ }
+}

@@ -24,13 +24,18 @@ For each of the 6 playable countries and 10 simulated neighbours, all as % of GD
   correction WORLD-03 (1.0.0-draft.1) mapped administration to P3, which includes consumption of fixed capital
              (P51C, a non-cash cost) and is not the cash concept the engine pays; draft.2 uses the cash concept.
 
-Run from the repository root:  python3 scenarios/pipeline/build_budget.py
+Run from the repository root:  python3 scenarios/pipeline/build_budget.py [--licensed]
+
+--licensed (WORLD-05-FINAL, package 1.0.0-draft.3) reads build-licensed/inputs.json, writes build-licensed/budget.json and
+replaces the Court of Accounts block for Türkiye with licence-clean values (turkey_licensed below). Every other country
+is computed exactly as without the flag.
 """
-import json, os
+import json, os, sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 SRC = os.path.join(ROOT, 'scenarios', 'europe-2023', 'sources')
-BUILD = os.path.join(ROOT, 'scenarios', 'europe-2023', 'build')
+LICENSED = '--licensed' in sys.argv
+BUILD = os.path.join(ROOT, 'scenarios', 'europe-2023', 'build-licensed' if LICENSED else 'build')
 S = lambda n: json.load(open(os.path.join(SRC, f'{n}.json'), encoding='utf-8'))['values']
 GEO = {'fra': 'FR', 'deu': 'DE', 'ita': 'IT', 'pol': 'PL', 'irl': 'IE', 'esp': 'ES', 'nld': 'NL', 'bel': 'BE', 'che': 'CH',
        'aut': 'AT', 'cze': 'CZ', 'nor': 'NO', 'grc': 'EL', 'bgr': 'BG'}
@@ -112,6 +117,68 @@ def turkey():
                    'consistent with this report\'s 4.83%, but its tables need an authenticated TurkStat portal.'})
     return flows, gdp, ['tr_sayistay_government', 'oecd_revenue', 'oecd_customs', 'oecd_gdp']
 
+REFERENCE = {'fra': 'FR', 'deu': 'DE', 'gbr': None, 'ita': 'IT', 'pol': 'PL'}   # the other five playable countries
+
+def turkey_licensed(out):
+    """WORLD-05-FINAL (draft.3): Türkiye without any Turkish fiscal table (none is cleared for redistribution).
+    data      taxes (OECD Revenue Statistics), customs kept (OECD), net lending (OECD Economic Outlook, the balance concept
+              used for every other country: national accounts, general government), government final consumption and GDP
+              (Eurostat, TurkStat data).
+    derived   interest = interest share of expense x expense / GDP (World Bank WDI, IMF GFS, consolidated central
+              government; CC BY-4.0 label per series).
+    estimate  administration = Türkiye's government final consumption x the mean ratio of cash-basis administration to final
+              consumption in the five other playable countries; military and infrastructure = the mean of those five;
+              dividends = 0 (no cleared source; as in draft.2).
+    identity  social = taxes - administration - military - infrastructure - interest - net lending, the same closing rule as
+              every country (social = cash benefits + every flow the engine has no line for)."""
+    nat, eo, wdi = S('es_tr_national'), S('oecd_eo_tur'), S('wdi_tur_gfs')
+    taxes = S('oecd_revenue')['TUR|_T'] / 100
+    tariff = S('oecd_customs')['TUR|T_5123'] / 100
+    b9 = eo['TUR|NLGQ'] / 100
+    interest = wdi['TUR|GC.XPN.INTP.ZS'] / 100 * wdi['TUR|GC.XPN.TOTL.GD.ZS'] / 100
+    p3 = nat['P3_S13|TR'] / nat['B1GQ|TR']
+    def p3_share(cid, geo):
+        if cid == 'gbr':
+            return S('oecd_uk_government')['GBR|P3'] / S('oecd_gdp')['GBR']
+        return S('es_government')[f'P3|{geo}'] / S('es_national_gdp')[f'B1GQ|{geo}']
+    ref = {c: out[c]['targets'] for c in REFERENCE}
+    ratio = {c: ref[c]['spend_administration'] / p3_share(c, g) for c, g in REFERENCE.items()}
+    admin_ratio = sum(ratio.values()) / len(ratio)
+    military = sum(t['spend_military'] for t in ref.values()) / len(ref)
+    infra = sum(t['spend_infrastructure'] for t in ref.values()) / len(ref)
+    admin = p3 * admin_ratio
+    social = taxes - admin - military - infra - interest - b9
+    ref_src = ['es_government', 'es_government_accounts', 'es_defence', 'es_national_gdp', 'es_tax', 'es_customs',
+               'oecd_uk_government', 'oecd_uk_government_accounts', 'oecd_uk_defence', 'oecd_gdp', 'oecd_customs']
+    est = lambda v, status, method, srcs: {'value': v, 'status': status, 'method': method, 'sources': sorted(set(srcs))}
+    issues.append({'country': 'tur', 'item': 'all spending lines', 'text': 'Licence-clean estimates (WORLD-05-FINAL): no Turkish fiscal table is cleared for '
+                   'redistribution. Balance and taxes are data (OECD), interest is derived (World Bank, IMF GFS), administration, military and '
+                   'infrastructure follow the structure of the five other playable countries, social closes the budget identity.'})
+    return {
+        'observed': {'revenue': None, 'expenditure': None, 'net_lending': b9, 'taxes_and_contributions': taxes, 'sales': None, 'dividends_D42': 0.0,
+                     'interest_paid': interest, 'subsidies': None, 'other_current_transfers_paid': None, 'capital_transfers_paid': None,
+                     'other_current_transfers_received': None, 'capital_transfers_received_ex_capital_taxes': None,
+                     'property_income_ex_dividends': None, 'consumption_of_fixed_capital': None, 'customs_kept_by_national_government': tariff,
+                     'government_final_consumption_P3': p3},
+        'targets': {'tariff_revenue': tariff, 'dividends_and_bank_profit': 0.0, 'spend_administration': admin, 'spend_social': social,
+                    'spend_military': military, 'spend_infrastructure': infra, 'net_lending': b9, 'net_other_folded_into_social': None,
+                    'customs_inside_taxes': tariff},
+        'identity_check': (taxes - admin - social - military - infra - interest) - b9,
+        'draft1_administration_P3_basis': None,
+        'estimates': {
+            'net_lending': est(b9, 'data', 'OECD Economic Outlook NLGQ, general government net lending, % of GDP, 2023', ['oecd_eo_tur']),
+            'taxes_and_contributions': est(taxes, 'data', 'OECD Revenue Statistics, total tax revenue incl. social contributions, % of GDP', ['oecd_revenue']),
+            'tariff_revenue': est(tariff, 'data', 'OECD Revenue Statistics 5123 customs and import duties, % of GDP', ['oecd_customs']),
+            'interest': est(interest, 'derived', 'WDI GC.XPN.INTP.ZS (interest, % of expense) x GC.XPN.TOTL.GD.ZS (expense, % of GDP); IMF GFS, consolidated central government', ['wdi_tur_gfs']),
+            'spend_administration': est(admin, 'estimate', f'Eurostat P3_S13 / GDP ({p3:.4f}) x mean ratio of cash administration to P3 in FRA, DEU, GBR, ITA, POL ({admin_ratio:.4f})', ['es_tr_national'] + ref_src),
+            'spend_military': est(military, 'estimate', 'Mean COFOG 02 defence share of GDP of FRA, DEU, GBR, ITA, POL (no licence-clean Turkish defence figure)', ref_src),
+            'spend_infrastructure': est(infra, 'estimate', 'Mean infrastructure target (general government P51G minus defence P51G, % of GDP) of FRA, DEU, GBR, ITA, POL', ref_src),
+            'spend_social': est(social, 'derived', 'Budget identity: taxes - administration - military - infrastructure - interest - net lending', ['oecd_revenue', 'oecd_eo_tur', 'wdi_tur_gfs', 'es_tr_national'] + ref_src),
+            'dividends_and_bank_profit': est(0.0, 'assumption', 'No cleared source for Türkiye (D42); 0 as in draft.2', []),
+            'reference_ratios': {'administration_to_P3': ratio, 'mean': admin_ratio},
+        },
+    }
+
 def mapping(cid, flows, gdp, eu):
     f = {k: (v / gdp if isinstance(v, (int, float)) else v) for k, v in flows.items()}
     if f['def_D1'] is None:                      # Turkiye: defence not split by type
@@ -154,9 +221,13 @@ def main():
                     'licence': 'verified'}
     flows, gdp, srcs = uk()
     out['gbr'] = {**mapping('gbr', flows, gdp, False), 'sources': srcs, 'euro_customs_union': False, 'licence': 'verified'}
-    flows, gdp, srcs = turkey()
-    out['tur'] = {**mapping('tur', flows, gdp, False), 'sources': srcs, 'euro_customs_union': False,
-                  'licence': 'NOT VERIFIED (Court of Accounts report): review-only, not distributable'}
+    if LICENSED:
+        out['tur'] = {**turkey_licensed(out), 'sources': ['oecd_revenue', 'oecd_customs', 'oecd_eo_tur', 'wdi_tur_gfs', 'es_tr_national'],
+                      'euro_customs_union': False, 'licence': 'licence-clean (WORLD-05-FINAL): OECD, World Bank (CC BY 4.0), Eurostat'}
+    else:
+        flows, gdp, srcs = turkey()
+        out['tur'] = {**mapping('tur', flows, gdp, False), 'sources': srcs, 'euro_customs_union': False,
+                      'licence': 'NOT VERIFIED (Court of Accounts report): review-only, not distributable'}
     inputs = json.load(open(os.path.join(BUILD, 'inputs.json'), encoding='utf-8'))
     for c in inputs['countries']:
         if c['id'] in out:
@@ -185,9 +256,9 @@ def main():
     print('| Country | Revenue | Expenditure | Net lending | Taxes+SSC | D42 | Admin draft.1 (P3) -> cash | Social D62 + net other | Military | Infra | Customs kept | Identity |')
     for cid, v in out.items():
         o, t = v['observed'], v['targets']
-        pct = lambda x: f'{x * 100:6.2f}'
+        pct = lambda x: '     -' if x is None else f'{x * 100:6.2f}'
         print(f"| {cid} | {pct(o['revenue'])} | {pct(o['expenditure'])} | {pct(o['net_lending'])} | {pct(o['taxes_and_contributions'])} | {pct(o['dividends_D42'])} | "
-              f"{pct(v['draft1_administration_P3_basis'])} -> {pct(t['spend_administration'])} | {pct(o['dividends_D42'] * 0 + t['spend_social'] - t['net_other_folded_into_social'])} + {pct(t['net_other_folded_into_social'])} | "
+              f"{pct(v['draft1_administration_P3_basis'])} -> {pct(t['spend_administration'])} | {pct(t['spend_social'] - (t['net_other_folded_into_social'] or 0))} + {pct(t['net_other_folded_into_social'])} | "
               f"{pct(t['spend_military'])} | {pct(t['spend_infrastructure'])} | {pct(t['tariff_revenue'])} | {v['identity_check']:.1e} |")
     for i in issues:
         print('-', i['country'], i['item'], i['text'][:150])

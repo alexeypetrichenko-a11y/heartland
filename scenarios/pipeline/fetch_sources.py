@@ -333,7 +333,43 @@ def fetch_che_debt():
          notes=['Non-consolidated: holdings of one government unit by another are not netted out, so it can exceed consolidated (Maastricht) debt.'],
          extra={'key': 'country|instrument'})
 
-STEPS = {'che_debt': fetch_che_debt, 'budget': fetch_budget, 'financing': fetch_financing, 'eurostat': fetch_eurostat, 'ons': fetch_ons, 'ons_debt': fetch_ons_debt, 'oecd': fetch_oecd, 'worldbank': fetch_worldbank, 'turkey': fetch_turkey}
+def fetch_turkey_licensed():
+    """WORLD-05-FINAL (1.0.0-draft.3): licence-clean 2023 inputs for Türkiye, replacing the Court of Accounts and Treasury
+    snapshots, which stay in place unchanged for draft.1 and draft.2 but are not used by draft.3.
+      es_tr_national          Eurostat GDP, compensation of employees (D1) and government final consumption (P3_S13), TR.
+                              Eurostat allows commercial reuse for official EU candidate countries (verified 2026-11-25).
+      es_tr_gov_liabilities   Eurostat financial balance sheet of general government (S13), consolidated liabilities F2, F3,
+                              F4 (debt instruments, market value), TR.
+      oecd_eo_tur             OECD Economic Outlook: general government net lending (NLG, NLGQ), government final
+                              consumption (CG) and GDP, TUR.
+      wdi_tur_gfs             World Bank WDI government finance (IMF GFS, consolidated central government), each series
+                              labelled CC BY-4.0 in its own metadata (License_Type), TUR. Used for interest only."""
+    es_save('es_tr_national', 'nama_10_gdp', 'Türkiye: GDP, compensation of employees and government final consumption, current prices, million TRY',
+            ['time=2023', 'unit=CP_MNAC', 'geo=TR', 'na_item=B1GQ', 'na_item=D1', 'na_item=P3_S13'])
+    es_save('es_tr_gov_liabilities', 'nasa_10_f_bs', 'Türkiye: general government (S13) consolidated liabilities, debt instruments F2, F3, F4 and total F, million TRY, end-2023',
+            ['time=2023', 'unit=MIO_NAC', 'geo=TR', 'sector=S13', 'finpos=LIAB', 'co_nco=CO', 'na_item=F', 'na_item=F2', 'na_item=F3', 'na_item=F4'],
+            notes=['Financial balance sheet at market value, consolidated. EDP (Maastricht) debt is at face value; the two differ by valuation.'])
+    url, rows = oecd_csv('OECD.ECO.MAD,DSD_EO@DF_EO,', 'TUR.NLG+NLGQ+CG+GDP.A')
+    values = {f'TUR|{r["MEASURE"]}': float(r['OBS_VALUE']) for r in rows if r['OBS_VALUE']}
+    save('oecd_eo_tur', 'oecd', 'OECD.ECO.MAD,DSD_EO@DF_EO', 'Economic Outlook: Türkiye general government net lending (TRY, % of GDP), government final consumption and GDP (TRY)',
+         url, values, extra={'key': 'country|measure', 'units': {'NLG': 'TRY', 'NLGQ': '% of GDP', 'CG': 'TRY', 'GDP': 'TRY'}})
+    series = ['GC.XPN.TOTL.GD.ZS', 'GC.XPN.INTP.ZS', 'GC.REV.XGRT.GD.ZS', 'GC.NLD.TOTL.GD.ZS', 'GC.DOD.TOTL.GD.ZS']
+    values, labels, urls = {}, {}, []
+    for ind in series:
+        url = f'{WB}/country/TUR/indicator/{ind}?date=2023&format=json'
+        page = json.loads(get(url))
+        values[f'TUR|{ind}'] = (page[1] or [{}])[0].get('value')
+        meta = json.loads(get(f'{WB}/sources/2/series/{ind}/metadata?format=json'))
+        m = {c['id']: c['value'] for c in meta['source'][0]['concept'][0]['variable'][0]['metatype']}
+        labels[ind] = {'License_Type': m.get('License_Type'), 'Source': (m.get('Source') or '').split(';')[0].strip()}
+        urls.append(url)
+    save('wdi_tur_gfs', 'worldbank', '+'.join(series), 'WDI government finance for Türkiye (IMF GFS, consolidated central government), 2023', ' '.join(urls), values,
+         notes=['Coverage: consolidated central government (WDI country metadata, GovernmentAccountingconcept).',
+                'Each series is labelled CC BY-4.0 by the World Bank (License_Type in its metadata); the original compiler is the IMF.'],
+         extra={'key': 'country|indicator', 'per_series_licence': labels})
+
+STEPS = {'che_debt': fetch_che_debt, 'budget': fetch_budget, 'financing': fetch_financing, 'eurostat': fetch_eurostat, 'ons': fetch_ons, 'ons_debt': fetch_ons_debt, 'oecd': fetch_oecd, 'worldbank': fetch_worldbank, 'turkey': fetch_turkey,
+         'turkey_licensed': fetch_turkey_licensed}
 
 if __name__ == '__main__':
     only = sys.argv[sys.argv.index('--only') + 1].split(',') if '--only' in sys.argv else list(STEPS)

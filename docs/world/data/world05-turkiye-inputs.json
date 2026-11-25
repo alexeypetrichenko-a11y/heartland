@@ -1,0 +1,61 @@
+{
+ "eurostat": {
+  "attribution": "Source: Eurostat",
+  "compensation_of_employees_D1": {
+   "dataset": "nama_10_gdp",
+   "publisher_updated": "2026-11-24T23:00:00+0100",
+   "query": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_gdp?format=JSON&lang=EN&geo=TR&time=2023&unit=CP_MNAC&na_item=D1",
+   "unit": "million TRY",
+   "value": 7755515.4
+  },
+  "employees_lfs_15plus": {
+   "dataset": "lfsa_eegan2",
+   "note": "Labour Force Survey employees; Eurostat has no national-accounts employee count (nama_10_a10_e) for TR",
+   "publisher_updated": "2026-10-30T11:00:00+0100",
+   "query": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/lfsa_eegan2?format=JSON&lang=EN&geo=TR&time=2023&sex=T&age=Y_GE15&nace_r2=TOTAL",
+   "unit": "thousand persons",
+   "value": 22566.7
+  },
+  "gdp_B1GQ": {
+   "dataset": "nama_10_gdp",
+   "publisher_updated": "2026-11-24T23:00:00+0100",
+   "query": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_gdp?format=JSON&lang=EN&geo=TR&time=2023&unit=CP_MNAC&na_item=B1GQ",
+   "unit": "million TRY",
+   "value": 27091469.1
+  },
+  "licence": "Eurostat copyright notice: reuse \"for commercial or non-commercial purposes is authorised provided the source is acknowledged\"; the commercial-reuse exception covers data for countries other than EU and EFTA members and official EU acceding and candidate countries (Türkiye is a candidate country)",
+  "licence_status": "verified (primary, https://ec.europa.eu/eurostat/help/copyright-notice, 2026-11-25)"
+ },
+ "muhasebat_tables_restricted": {
+  "licence": "No reuse licence published by the Ministry of Treasury and Finance for these tables (checked the Muhasebat and hmb.gov.tr sites and the table metadata, 2026-11-25). Official statistics under the Official Statistics Programme (Law 5429).",
+  "licence_status": "NOT VERIFIED: official statistics without a published reuse licence (WORLD-05 licensing risk W5-L1)",
+  "tables": [
+   {
+    "listing": {
+     "id": "3953",
+     "name": "Genel Yönetim Sektörü Mali İstatistikleri (GFSM 2014 ile Uyumlu)"
+    },
+    "title": "General government GFS workbook 2008-2026 (2023 statement of operations, functions)"
+   },
+   {
+    "listing": {
+     "id": "3770",
+     "name": "Bütçe Gider Tabloları"
+    },
+    "title": "Central government budget outturn 2023, function x economic type (defence row)"
+   }
+  ],
+  "values": "withheld from the repository (no published reuse licence); kept in local access-controlled storage only"
+ },
+ "note": "WORLD-05 inputs for Türkiye, 2023. Only licence-clean values are kept in the repository. The Ministry of Treasury and Finance tables have no published reuse licence (W5-L1): their values are written only to a local, access-controlled file with --restricted-out <path> and are not used by any committed package. See docs/world/WORLD-05-REPORT.md.",
+ "oecd_economic_outlook": {
+  "attribution": "Source: OECD Economic Outlook",
+  "dataflow": "OECD.ECO.MAD:DSD_EO@DF_EO(1.5)",
+  "licence": "OECD Terms and Conditions: written content from 1 July 2024 under CC BY 4.0; the data section says data may be subject to restrictions beyond those terms",
+  "licence_status": "search only (oecd.org blocks automated reading); confirm the data section in a browser",
+  "net_lending_pct_gdp": -4.48189057931584,
+  "query": "https://sdmx.oecd.org/public/rest/data/OECD.ECO.MAD,DSD_EO@DF_EO,/TUR.NLGQ.A?startPeriod=2023&endPeriod=2023"
+ },
+ "reference_year": 2023,
+ "retrieved": "2026-11-25"
+}
