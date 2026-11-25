@@ -178,16 +178,19 @@ The full specification is in [WORLD-05-SCENARIO-SPEC.md](WORLD-05-SCENARIO-SPEC.
 
 | Check | Result |
 |---|---|
-| Engine typecheck / engine tests / long test | pass / pass / pass (counts in the PR) |
-| Game tests / production build | pass / pass |
+| Engine typecheck / engine tests / long test | pass / **218/218** / 1/1 |
+| Game tests / production build | **156/156** / pass |
 | Validators: draft.1 / draft.2 / draft.3 | 14 pass, 1 warn, 2 fail (documented C3/C4) / 22 pass, 1 warn (Türkiye licence), 0 fail / **25 pass, 0 warn, 0 fail** |
 | draft.1 and draft.2 | byte-identical, including after a rebuild and re-validation with the modified scripts |
 | Default pipeline (`build_*.py` without `--licensed`) | reproduces exactly what `main`'s scripts produce |
 | Recalibration (draft.3) | 0 targets missed after 9 rounds; worst zone 0.45%, worst fiscal 0.71 pp |
 | 156-week reference (draft.3) | no default, lost market access, unrest or regime change at any of 84 checkpoints; stability 53.3–70.1; Türkiye's debt 27.9% → 27.4% |
 | Stress runs (draft.3) | crises still triggered: reckless Italy/Greece (default, access loss, unrest, regime change), repeated defaults, high-tax Poland (unrest) |
-| Determinism | baseline repeat identical (hash `27b991f6c1d57d05`); see the PR for recalibration and rebuild |
-| Save compatibility, performance | see the PR |
+| Determinism | baseline repeat identical (hash `27b991f6c1d57d05`); a second full recalibration reproduces `build-licensed/calibration.json` apart from recorded run times; the draft.3 rebuild is byte-identical |
+| Default modes unchanged | WORLD-03-FINAL reference runs reproduce the committed `runs.json` apart from run times; `build_*.py` without `--licensed` reproduce `main`'s output |
+| Save compatibility | `main`'s engine and this branch's engine give identical hashes for the draft.1 package save, the v5 fixture save and the fictional world (26 weeks each); the engine source is unchanged |
+| 61-zone performance, Node | week median 44.5 ms, 95th percentile 65 ms, slowest 199 ms; load 12.7 ms (`benchmark-node.json`) |
+| 61-zone performance, Chromium (headless; CPU 1× / 4× / 6×) | week median 21 / 90 / 141 ms; 95th percentile 42 / 132 / 207 ms; slowest 169 / 489 / 911 ms; 156 weeks 3.9 / 15.2 / 23.8 s; save + restore at 6× about 160 ms (`benchmark-browser.json`). Within the iPhone thresholds F-1 even at 6×, on this engine-level harness. WORLD-04's integrated game benchmark and a physical iPhone remain separate checks |
 
 ## 6. Repository safeguards (R-1)
 
