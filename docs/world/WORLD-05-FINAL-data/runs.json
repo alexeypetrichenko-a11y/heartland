@@ -1,0 +1,4732 @@
+{
+ "budget": {
+  "draft.2": {
+   "fra": {
+    "taxes": 45.29,
+    "tariffs": 0.03,
+    "bankProfit": 0,
+    "dividends": 0.23,
+    "revenue": 45.56,
+    "administration": 18.48,
+    "social": 24.91,
+    "military": 1.81,
+    "infrastructure": 3.9,
+    "interest": 1.9,
+    "otherSpending": 0,
+    "spending": 51,
+    "netLending": -5.44
+   },
+   "deu": {
+    "taxes": 39.56,
+    "tariffs": 0,
+    "bankProfit": 0,
+    "dividends": 0.2,
+    "revenue": 39.76,
+    "administration": 17.72,
+    "social": 19.56,
+    "military": 1.24,
+    "infrastructure": 2.7,
+    "interest": 0.88,
+    "otherSpending": 0,
+    "spending": 42.1,
+    "netLending": -2.34
+   },
+   "ita": {
+    "taxes": 41.28,
+    "tariffs": 0,
+    "bankProfit": 0,
+    "dividends": 0.14,
+    "revenue": 41.42,
+    "administration": 13.76,
+    "social": 27.15,
+    "military": 1.19,
+    "infrastructure": 2.86,
+    "interest": 3.65,
+    "otherSpending": 0,
+    "spending": 48.62,
+    "netLending": -7.2
+   },
+   "pol": {
+    "taxes": 35.71,
+    "tariffs": 0,
+    "bankProfit": 0,
+    "dividends": 0.18,
+    "revenue": 35.89,
+    "administration": 15.1,
+    "social": 17.34,
+    "military": 2.19,
+    "infrastructure": 4.46,
+    "interest": 2.06,
+    "otherSpending": 0,
+    "spending": 41.15,
+    "netLending": -5.25
+   },
+   "irl": {
+    "taxes": 22.17,
+    "tariffs": 0,
+    "bankProfit": 0,
+    "dividends": 0.12,
+    "revenue": 22.29,
+    "administration": 10.67,
+    "social": 7.01,
+    "military": 0.21,
+    "infrastructure": 2.28,
+    "interest": 0.65,
+    "otherSpending": 0,
+    "spending": 20.82,
+    "netLending": 1.47
+   },
+   "esp": {
+    "taxes": 36.84,
+    "tariffs": 0.03,
+    "bankProfit": 0,
+    "dividends": 0.17,
+    "revenue": 37.04,
+    "administration": 16.55,
+    "social": 17.64,
+    "military": 0.94,
+    "infrastructure": 2.77,
+    "interest": 2.38,
+    "otherSpending": 0,
+    "spending": 40.27,
+    "netLending": -3.24
+   },
+   "nld": {
+    "taxes": 39.33,
+    "tariffs": 0,
+    "bankProfit": 0,
+    "dividends": 0.2,
+    "revenue": 39.53,
+    "administration": 21.19,
+    "social": 13.56,
+    "military": 1.37,
+    "infrastructure": 3.13,
+    "interest": 0.68,
+    "otherSpending": 0,
+    "spending": 39.94,
+    "netLending": -0.41
+   },
+   "bel": {
+    "taxes": 43.63,
+    "tariffs": 0,
+    "bankProfit": 0,
+    "dividends": 0.2,
+    "revenue": 43.83,
+    "administration": 20.33,
+    "social": 22.21,
+    "military": 0.94,
+    "infrastructure": 2.73,
+    "interest": 1.95,
+    "otherSpending": 0,
+    "spending": 48.16,
+    "netLending": -4.33
+   },
+   "che": {
+    "taxes": 26.35,
+    "tariffs": 0.14,
+    "bankProfit": 0,
+    "dividends": 0.18,
+    "revenue": 26.67,
+    "administration": 8.49,
+    "social": 14.15,
+    "military": 0.84,
+    "infrastructure": 2.86,
+    "interest": 0.27,
+    "otherSpending": 0,
+    "spending": 26.61,
+    "netLending": 0.07
+   },
+   "aut": {
+    "taxes": 42.67,
+    "tariffs": 0,
+    "bankProfit": 0,
+    "dividends": 0.2,
+    "revenue": 42.86,
+    "administration": 16.81,
+    "social": 23.13,
+    "military": 0.6,
+    "infrastructure": 3.58,
+    "interest": 1.2,
+    "otherSpending": 0,
+    "spending": 45.31,
+    "netLending": -2.45
+   },
+   "cze": {
+    "taxes": 34.11,
+    "tariffs": 0,
+    "bankProfit": 0,
+    "dividends": 0.18,
+    "revenue": 34.29,
+    "administration": 14.77,
+    "social": 16.57,
+    "military": 1.22,
+    "infrastructure": 4.43,
+    "interest": 1.28,
+    "otherSpending": 0,
+    "spending": 38.28,
+    "netLending": -3.99
+   },
+   "nor": {
+    "taxes": 40.25,
+    "tariffs": 0.07,
+    "bankProfit": 0,
+    "dividends": 0.33,
+    "revenue": 40.64,
+    "administration": 16.8,
+    "social": 13.47,
+    "military": 1.73,
+    "infrastructure": 4.33,
+    "interest": 1.02,
+    "otherSpending": 0,
+    "spending": 37.35,
+    "netLending": 3.29
+   },
+   "grc": {
+    "taxes": 40.27,
+    "tariffs": 0,
+    "bankProfit": 0,
+    "dividends": 0.16,
+    "revenue": 40.43,
+    "administration": 14.18,
+    "social": 18.71,
+    "military": 2.25,
+    "infrastructure": 3.64,
+    "interest": 3.4,
+    "otherSpending": 0,
+    "spending": 42.17,
+    "netLending": -1.75
+   },
+   "bgr": {
+    "taxes": 29.6,
+    "tariffs": 0,
+    "bankProfit": 0,
+    "dividends": 0.16,
+    "revenue": 29.76,
+    "administration": 14.87,
+    "social": 12.25,
+    "military": 1.51,
+    "infrastructure": 3.38,
+    "interest": 0.49,
+    "otherSpending": 0,
+    "spending": 32.5,
+    "netLending": -2.74
+   },
+   "gbr": {
+    "taxes": 36.58,
+    "tariffs": 0.19,
+    "bankProfit": 0,
+    "dividends": 0.26,
+    "revenue": 37.03,
+    "administration": 16.93,
+    "social": 18.35,
+    "military": 2.2,
+    "infrastructure": 2.54,
+    "interest": 3.14,
+    "otherSpending": 0,
+    "spending": 43.16,
+    "netLending": -6.12
+   },
+   "tur": {
+    "taxes": 22.69,
+    "tariffs": 0.55,
+    "bankProfit": 0,
+    "dividends": 0.08,
+    "revenue": 23.32,
+    "administration": 10.3,
+    "social": 9.52,
+    "military": 1.29,
+    "infrastructure": 3.08,
+    "interest": 3.85,
+    "otherSpending": 0,
+    "spending": 28.04,
+    "netLending": -4.73
+   }
+  },
+  "draft.3": {
+   "fra": {
+    "taxes": 45.29,
+    "tariffs": 0.03,
+    "bankProfit": 0,
+    "dividends": 0.23,
+    "revenue": 45.56,
+    "administration": 18.48,
+    "social": 24.91,
+    "military": 1.81,
+    "infrastructure": 3.9,
+    "interest": 1.9,
+    "otherSpending": 0,
+    "spending": 51,
+    "netLending": -5.44
+   },
+   "deu": {
+    "taxes": 39.56,
+    "tariffs": 0,
+    "bankProfit": 0,
+    "dividends": 0.2,
+    "revenue": 39.76,
+    "administration": 17.72,
+    "social": 19.56,
+    "military": 1.24,
+    "infrastructure": 2.7,
+    "interest": 0.88,
+    "otherSpending": 0,
+    "spending": 42.1,
+    "netLending": -2.34
+   },
+   "ita": {
+    "taxes": 41.28,
+    "tariffs": 0,
+    "bankProfit": 0,
+    "dividends": 0.14,
+    "revenue": 41.42,
+    "administration": 13.76,
+    "social": 27.15,
+    "military": 1.19,
+    "infrastructure": 2.86,
+    "interest": 3.65,
+    "otherSpending": 0,
+    "spending": 48.61,
+    "netLending": -7.2
+   },
+   "pol": {
+    "taxes": 35.71,
+    "tariffs": 0,
+    "bankProfit": 0,
+    "dividends": 0.18,
+    "revenue": 35.89,
+    "administration": 15.1,
+    "social": 17.34,
+    "military": 2.19,
+    "infrastructure": 4.46,
+    "interest": 2.06,
+    "otherSpending": 0,
+    "spending": 41.15,
+    "netLending": -5.25
+   },
+   "irl": {
+    "taxes": 22.17,
+    "tariffs": 0,
+    "bankProfit": 0,
+    "dividends": 0.12,
+    "revenue": 22.29,
+    "administration": 10.67,
+    "social": 7.01,
+    "military": 0.21,
+    "infrastructure": 2.28,
+    "interest": 0.65,
+    "otherSpending": 0,
+    "spending": 20.82,
+    "netLending": 1.47
+   },
+   "esp": {
+    "taxes": 36.84,
+    "tariffs": 0.03,
+    "bankProfit": 0,
+    "dividends": 0.17,
+    "revenue": 37.04,
+    "administration": 16.55,
+    "social": 17.64,
+    "military": 0.94,
+    "infrastructure": 2.77,
+    "interest": 2.38,
+    "otherSpending": 0,
+    "spending": 40.27,
+    "netLending": -3.24
+   },
+   "nld": {
+    "taxes": 39.33,
+    "tariffs": 0,
+    "bankProfit": 0,
+    "dividends": 0.2,
+    "revenue": 39.53,
+    "administration": 21.19,
+    "social": 13.56,
+    "military": 1.37,
+    "infrastructure": 3.13,
+    "interest": 0.68,
+    "otherSpending": 0,
+    "spending": 39.94,
+    "netLending": -0.41
+   },
+   "bel": {
+    "taxes": 43.63,
+    "tariffs": 0,
+    "bankProfit": 0,
+    "dividends": 0.2,
+    "revenue": 43.83,
+    "administration": 20.33,
+    "social": 22.21,
+    "military": 0.94,
+    "infrastructure": 2.73,
+    "interest": 1.95,
+    "otherSpending": 0,
+    "spending": 48.16,
+    "netLending": -4.33
+   },
+   "che": {
+    "taxes": 26.35,
+    "tariffs": 0.14,
+    "bankProfit": 0,
+    "dividends": 0.18,
+    "revenue": 26.67,
+    "administration": 8.49,
+    "social": 14.15,
+    "military": 0.84,
+    "infrastructure": 2.86,
+    "interest": 0.27,
+    "otherSpending": 0,
+    "spending": 26.61,
+    "netLending": 0.07
+   },
+   "aut": {
+    "taxes": 42.67,
+    "tariffs": 0,
+    "bankProfit": 0,
+    "dividends": 0.2,
+    "revenue": 42.86,
+    "administration": 16.81,
+    "social": 23.13,
+    "military": 0.6,
+    "infrastructure": 3.58,
+    "interest": 1.2,
+    "otherSpending": 0,
+    "spending": 45.31,
+    "netLending": -2.45
+   },
+   "cze": {
+    "taxes": 34.11,
+    "tariffs": 0,
+    "bankProfit": 0,
+    "dividends": 0.18,
+    "revenue": 34.29,
+    "administration": 14.78,
+    "social": 16.57,
+    "military": 1.22,
+    "infrastructure": 4.43,
+    "interest": 1.28,
+    "otherSpending": 0,
+    "spending": 38.28,
+    "netLending": -3.99
+   },
+   "nor": {
+    "taxes": 40.25,
+    "tariffs": 0.07,
+    "bankProfit": 0,
+    "dividends": 0.33,
+    "revenue": 40.64,
+    "administration": 16.8,
+    "social": 13.47,
+    "military": 1.73,
+    "infrastructure": 4.33,
+    "interest": 1.02,
+    "otherSpending": 0,
+    "spending": 37.35,
+    "netLending": 3.29
+   },
+   "grc": {
+    "taxes": 40.27,
+    "tariffs": 0,
+    "bankProfit": 0,
+    "dividends": 0.16,
+    "revenue": 40.43,
+    "administration": 14.18,
+    "social": 18.71,
+    "military": 2.25,
+    "infrastructure": 3.64,
+    "interest": 3.4,
+    "otherSpending": 0,
+    "spending": 42.17,
+    "netLending": -1.75
+   },
+   "bgr": {
+    "taxes": 29.6,
+    "tariffs": 0,
+    "bankProfit": 0,
+    "dividends": 0.16,
+    "revenue": 29.76,
+    "administration": 14.87,
+    "social": 12.25,
+    "military": 1.51,
+    "infrastructure": 3.38,
+    "interest": 0.49,
+    "otherSpending": 0,
+    "spending": 32.5,
+    "netLending": -2.74
+   },
+   "gbr": {
+    "taxes": 36.58,
+    "tariffs": 0.19,
+    "bankProfit": 0,
+    "dividends": 0.26,
+    "revenue": 37.03,
+    "administration": 16.93,
+    "social": 18.35,
+    "military": 2.2,
+    "infrastructure": 2.54,
+    "interest": 3.14,
+    "otherSpending": 0,
+    "spending": 43.16,
+    "netLending": -6.12
+   },
+   "tur": {
+    "taxes": 22.68,
+    "tariffs": 0.55,
+    "bankProfit": 0,
+    "dividends": 0.08,
+    "revenue": 23.31,
+    "administration": 10.6,
+    "social": 8.46,
+    "military": 1.72,
+    "infrastructure": 3.28,
+    "interest": 3.63,
+    "otherSpending": 0,
+    "spending": 27.69,
+    "netLending": -4.38
+   }
+  },
+  "observed": {
+   "fra": {
+    "revenue": 51.39,
+    "spending": 56.75,
+    "netLending": -5.36,
+    "taxes": 45.31,
+    "dividends": 0.23,
+    "interest": 1.88,
+    "tariffs": 0.023
+   },
+   "deu": {
+    "revenue": 45.47,
+    "spending": 47.71,
+    "netLending": -2.23,
+    "taxes": 39.55,
+    "dividends": 0.23,
+    "interest": 0.87,
+    "tariffs": 0
+   },
+   "ita": {
+    "revenue": 46.53,
+    "spending": 53.62,
+    "netLending": -7.1,
+    "taxes": 41.23,
+    "dividends": 0.25,
+    "interest": 3.63,
+    "tariffs": 0
+   },
+   "pol": {
+    "revenue": 41.66,
+    "spending": 46.86,
+    "netLending": -5.2,
+    "taxes": 35.72,
+    "dividends": 0.17,
+    "interest": 2.07,
+    "tariffs": 0
+   },
+   "irl": {
+    "revenue": 23.82,
+    "spending": 22.36,
+    "netLending": 1.46,
+    "taxes": 22.14,
+    "dividends": 0.1,
+    "interest": 0.65,
+    "tariffs": 0
+   },
+   "esp": {
+    "revenue": 42.12,
+    "spending": 45.46,
+    "netLending": -3.34,
+    "taxes": 36.86,
+    "dividends": 0,
+    "interest": 2.38,
+    "tariffs": 0.009
+   },
+   "nld": {
+    "revenue": 43.67,
+    "spending": 44.01,
+    "netLending": -0.34,
+    "taxes": 39.34,
+    "dividends": 0.2,
+    "interest": 0.68,
+    "tariffs": 0
+   },
+   "bel": {
+    "revenue": 48.63,
+    "spending": 52.74,
+    "netLending": -4.12,
+    "taxes": 43.64,
+    "dividends": 0.32,
+    "interest": 1.94,
+    "tariffs": 0
+   },
+   "che": {
+    "revenue": 32.59,
+    "spending": 32.25,
+    "netLending": 0.34,
+    "taxes": 26.47,
+    "dividends": 0.42,
+    "interest": 0.27,
+    "tariffs": 0.142
+   },
+   "aut": {
+    "revenue": 49.53,
+    "spending": 52.09,
+    "netLending": -2.55,
+    "taxes": 42.68,
+    "dividends": 0,
+    "interest": 1.2,
+    "tariffs": 0
+   },
+   "cze": {
+    "revenue": 40.29,
+    "spending": 43.99,
+    "netLending": -3.69,
+    "taxes": 34.12,
+    "dividends": 0.41,
+    "interest": 1.29,
+    "tariffs": 0
+   },
+   "nor": {
+    "revenue": 60.88,
+    "spending": 44.98,
+    "netLending": 15.89,
+    "taxes": 40.29,
+    "dividends": 12.91,
+    "interest": 1.02,
+    "tariffs": 0.065
+   },
+   "grc": {
+    "revenue": 48.01,
+    "spending": 49.49,
+    "netLending": -1.48,
+    "taxes": 40.31,
+    "dividends": 0.33,
+    "interest": 3.38,
+    "tariffs": 0
+   },
+   "bgr": {
+    "revenue": 36.64,
+    "spending": 38.62,
+    "netLending": -1.98,
+    "taxes": 29.61,
+    "dividends": 0.87,
+    "interest": 0.49,
+    "tariffs": 0
+   },
+   "gbr": {
+    "revenue": 40.34,
+    "spending": 46.45,
+    "netLending": -6.11,
+    "taxes": 36.77,
+    "dividends": 0.2,
+    "interest": 3.14,
+    "tariffs": 0.191
+   },
+   "tur": {
+    "revenue": null,
+    "spending": null,
+    "netLending": -4.48,
+    "taxes": 23.22,
+    "dividends": 0,
+    "interest": 3.65,
+    "tariffs": 0.548
+   }
+  }
+ },
+ "runs": {
+  "baseline": {
+   "country": null,
+   "weeks": 156,
+   "seconds": 7.1,
+   "path": {
+    "fra": {
+     "1": {
+      "debtToGdp": 1.095,
+      "averageRate": 0.0174,
+      "marketRate": 0.0472,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.7,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 1.109,
+      "averageRate": 0.0243,
+      "marketRate": 0.0392,
+      "balanceToGdp": 0.005,
+      "access": 1,
+      "defaults": 0,
+      "stability": 56.6,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.005
+     },
+     "104": {
+      "debtToGdp": 1.073,
+      "averageRate": 0.0284,
+      "marketRate": 0.0385,
+      "balanceToGdp": 0.007,
+      "access": 1,
+      "defaults": 0,
+      "stability": 55.9,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.029
+     },
+     "156": {
+      "debtToGdp": 1.017,
+      "averageRate": 0.0311,
+      "marketRate": 0.0373,
+      "balanceToGdp": 0.02,
+      "access": 1,
+      "defaults": 0,
+      "stability": 56.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.057
+     }
+    },
+    "deu": {
+     "1": {
+      "debtToGdp": 0.618,
+      "averageRate": 0.0143,
+      "marketRate": 0.0363,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.9,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.616,
+      "averageRate": 0.0194,
+      "marketRate": 0.0313,
+      "balanceToGdp": 0.015,
+      "access": 1,
+      "defaults": 0,
+      "stability": 64.5,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.998
+     },
+     "104": {
+      "debtToGdp": 0.582,
+      "averageRate": 0.0227,
+      "marketRate": 0.0309,
+      "balanceToGdp": 0.015,
+      "access": 1,
+      "defaults": 0,
+      "stability": 66.2,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.01
+     },
+     "156": {
+      "debtToGdp": 0.546,
+      "averageRate": 0.025,
+      "marketRate": 0.0306,
+      "balanceToGdp": 0.003,
+      "access": 1,
+      "defaults": 0,
+      "stability": 68.3,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.027
+     }
+    },
+    "gbr": {
+     "1": {
+      "debtToGdp": 0.988,
+      "averageRate": 0.0318,
+      "marketRate": 0.0462,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70.1,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 1.014,
+      "averageRate": 0.0342,
+      "marketRate": 0.0377,
+      "balanceToGdp": 0.015,
+      "access": 1,
+      "defaults": 0,
+      "stability": 60.9,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.989
+     },
+     "104": {
+      "debtToGdp": 0.978,
+      "averageRate": 0.0351,
+      "marketRate": 0.0369,
+      "balanceToGdp": 0.03,
+      "access": 1,
+      "defaults": 0,
+      "stability": 57.6,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.998
+     },
+     "156": {
+      "debtToGdp": 0.915,
+      "averageRate": 0.0354,
+      "marketRate": 0.0357,
+      "balanceToGdp": 0.04,
+      "access": 1,
+      "defaults": 0,
+      "stability": 60.5,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.01
+     }
+    },
+    "ita": {
+     "1": {
+      "debtToGdp": 1.34,
+      "averageRate": 0.0273,
+      "marketRate": 0.0528,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 1.376,
+      "averageRate": 0.0328,
+      "marketRate": 0.0435,
+      "balanceToGdp": 0.007,
+      "access": 1,
+      "defaults": 0,
+      "stability": 57.5,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.996
+     },
+     "104": {
+      "debtToGdp": 1.34,
+      "averageRate": 0.0357,
+      "marketRate": 0.0427,
+      "balanceToGdp": 0.025,
+      "access": 1,
+      "defaults": 0,
+      "stability": 55.5,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.009
+     },
+     "156": {
+      "debtToGdp": 1.273,
+      "averageRate": 0.0375,
+      "marketRate": 0.0414,
+      "balanceToGdp": 0.021,
+      "access": 1,
+      "defaults": 0,
+      "stability": 58.3,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.03
+     }
+    },
+    "pol": {
+     "1": {
+      "debtToGdp": 0.495,
+      "averageRate": 0.0418,
+      "marketRate": 0.0392,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70.1,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.501,
+      "averageRate": 0.0392,
+      "marketRate": 0.0311,
+      "balanceToGdp": 0.014,
+      "access": 1,
+      "defaults": 0,
+      "stability": 59.1,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.01
+     },
+     "104": {
+      "debtToGdp": 0.473,
+      "averageRate": 0.0369,
+      "marketRate": 0.0309,
+      "balanceToGdp": 0.011,
+      "access": 1,
+      "defaults": 0,
+      "stability": 61,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.042
+     },
+     "156": {
+      "debtToGdp": 0.437,
+      "averageRate": 0.0352,
+      "marketRate": 0.0306,
+      "balanceToGdp": 0.004,
+      "access": 1,
+      "defaults": 0,
+      "stability": 62.6,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.084
+     }
+    },
+    "tur": {
+     "1": {
+      "debtToGdp": 0.279,
+      "averageRate": 0.1303,
+      "marketRate": 0.0378,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.5,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.289,
+      "averageRate": 0.1003,
+      "marketRate": 0.0311,
+      "balanceToGdp": 0.003,
+      "access": 1,
+      "defaults": 0,
+      "stability": 61.2,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.013
+     },
+     "104": {
+      "debtToGdp": 0.282,
+      "averageRate": 0.0804,
+      "marketRate": 0.0309,
+      "balanceToGdp": 0,
+      "access": 1,
+      "defaults": 0,
+      "stability": 62,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.033
+     },
+     "156": {
+      "debtToGdp": 0.274,
+      "averageRate": 0.0659,
+      "marketRate": 0.0306,
+      "balanceToGdp": -0.002,
+      "access": 1,
+      "defaults": 0,
+      "stability": 62.9,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.058
+     }
+    },
+    "irl": {
+     "1": {
+      "debtToGdp": 0.421,
+      "averageRate": 0.0155,
+      "marketRate": 0.0359,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.5,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.414,
+      "averageRate": 0.0201,
+      "marketRate": 0.0311,
+      "balanceToGdp": -0.002,
+      "access": 1,
+      "defaults": 0,
+      "stability": 65.7,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.003
+     },
+     "104": {
+      "debtToGdp": 0.408,
+      "averageRate": 0.0233,
+      "marketRate": 0.0309,
+      "balanceToGdp": -0.002,
+      "access": 1,
+      "defaults": 0,
+      "stability": 65.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.005
+     },
+     "156": {
+      "debtToGdp": 0.398,
+      "averageRate": 0.0254,
+      "marketRate": 0.0306,
+      "balanceToGdp": -0.001,
+      "access": 1,
+      "defaults": 0,
+      "stability": 65.6,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.01
+     }
+    },
+    "esp": {
+     "1": {
+      "debtToGdp": 1.053,
+      "averageRate": 0.0227,
+      "marketRate": 0.0443,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70.1,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 1.061,
+      "averageRate": 0.0275,
+      "marketRate": 0.0385,
+      "balanceToGdp": 0.024,
+      "access": 1,
+      "defaults": 0,
+      "stability": 62.1,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.992
+     },
+     "104": {
+      "debtToGdp": 1.018,
+      "averageRate": 0.0305,
+      "marketRate": 0.0376,
+      "balanceToGdp": 0.032,
+      "access": 1,
+      "defaults": 0,
+      "stability": 58.4,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.006
+     },
+     "156": {
+      "debtToGdp": 0.953,
+      "averageRate": 0.0323,
+      "marketRate": 0.0363,
+      "balanceToGdp": 0.042,
+      "access": 1,
+      "defaults": 0,
+      "stability": 60.3,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.023
+     }
+    },
+    "nld": {
+     "1": {
+      "debtToGdp": 0.459,
+      "averageRate": 0.0149,
+      "marketRate": 0.0359,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.449,
+      "averageRate": 0.0197,
+      "marketRate": 0.0311,
+      "balanceToGdp": 0.013,
+      "access": 1,
+      "defaults": 0,
+      "stability": 64.2,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.006
+     },
+     "104": {
+      "debtToGdp": 0.433,
+      "averageRate": 0.0229,
+      "marketRate": 0.0309,
+      "balanceToGdp": 0,
+      "access": 1,
+      "defaults": 0,
+      "stability": 65.5,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.024
+     },
+     "156": {
+      "debtToGdp": 0.417,
+      "averageRate": 0.0252,
+      "marketRate": 0.0306,
+      "balanceToGdp": -0.002,
+      "access": 1,
+      "defaults": 0,
+      "stability": 65.9,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.046
+     }
+    },
+    "bel": {
+     "1": {
+      "debtToGdp": 1.023,
+      "averageRate": 0.0192,
+      "marketRate": 0.045,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 1.032,
+      "averageRate": 0.025,
+      "marketRate": 0.038,
+      "balanceToGdp": 0.016,
+      "access": 1,
+      "defaults": 0,
+      "stability": 59,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.997
+     },
+     "104": {
+      "debtToGdp": 0.989,
+      "averageRate": 0.0286,
+      "marketRate": 0.0371,
+      "balanceToGdp": 0.025,
+      "access": 1,
+      "defaults": 0,
+      "stability": 56.5,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.01
+     },
+     "156": {
+      "debtToGdp": 0.927,
+      "averageRate": 0.0308,
+      "marketRate": 0.0359,
+      "balanceToGdp": 0.025,
+      "access": 1,
+      "defaults": 0,
+      "stability": 60.2,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.031
+     }
+    },
+    "che": {
+     "1": {
+      "debtToGdp": 0.26,
+      "averageRate": 0.0105,
+      "marketRate": 0.0359,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.25,
+      "averageRate": 0.0166,
+      "marketRate": 0.0311,
+      "balanceToGdp": 0.007,
+      "access": 1,
+      "defaults": 0,
+      "stability": 68.9,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.008
+     },
+     "104": {
+      "debtToGdp": 0.241,
+      "averageRate": 0.0207,
+      "marketRate": 0.0309,
+      "balanceToGdp": -0.006,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.023
+     },
+     "156": {
+      "debtToGdp": 0.238,
+      "averageRate": 0.0238,
+      "marketRate": 0.0306,
+      "balanceToGdp": -0.006,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.039
+     }
+    },
+    "aut": {
+     "1": {
+      "debtToGdp": 0.774,
+      "averageRate": 0.0156,
+      "marketRate": 0.039,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.77,
+      "averageRate": 0.0211,
+      "marketRate": 0.0338,
+      "balanceToGdp": 0.014,
+      "access": 1,
+      "defaults": 0,
+      "stability": 60.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.008
+     },
+     "104": {
+      "debtToGdp": 0.728,
+      "averageRate": 0.0246,
+      "marketRate": 0.0329,
+      "balanceToGdp": 0.014,
+      "access": 1,
+      "defaults": 0,
+      "stability": 61.6,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.031
+     },
+     "156": {
+      "debtToGdp": 0.678,
+      "averageRate": 0.0268,
+      "marketRate": 0.0319,
+      "balanceToGdp": 0.014,
+      "access": 1,
+      "defaults": 0,
+      "stability": 65,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.062
+     }
+    },
+    "cze": {
+     "1": {
+      "debtToGdp": 0.422,
+      "averageRate": 0.0305,
+      "marketRate": 0.0379,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.42,
+      "averageRate": 0.0311,
+      "marketRate": 0.0311,
+      "balanceToGdp": 0.016,
+      "access": 1,
+      "defaults": 0,
+      "stability": 60.6,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.014
+     },
+     "104": {
+      "debtToGdp": 0.389,
+      "averageRate": 0.0311,
+      "marketRate": 0.0309,
+      "balanceToGdp": 0.01,
+      "access": 1,
+      "defaults": 0,
+      "stability": 60.7,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.049
+     },
+     "156": {
+      "debtToGdp": 0.364,
+      "averageRate": 0.031,
+      "marketRate": 0.0306,
+      "balanceToGdp": -0.001,
+      "access": 1,
+      "defaults": 0,
+      "stability": 64,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.094
+     }
+    },
+    "nor": {
+     "1": {
+      "debtToGdp": 0.427,
+      "averageRate": 0.024,
+      "marketRate": 0.0359,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.405,
+      "averageRate": 0.0263,
+      "marketRate": 0.0311,
+      "balanceToGdp": 0.014,
+      "access": 1,
+      "defaults": 0,
+      "stability": 64.1,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.01
+     },
+     "104": {
+      "debtToGdp": 0.394,
+      "averageRate": 0.0276,
+      "marketRate": 0.0309,
+      "balanceToGdp": 0.001,
+      "access": 1,
+      "defaults": 0,
+      "stability": 61.3,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.029
+     },
+     "156": {
+      "debtToGdp": 0.379,
+      "averageRate": 0.0285,
+      "marketRate": 0.0306,
+      "balanceToGdp": 0.001,
+      "access": 1,
+      "defaults": 0,
+      "stability": 62.2,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.059
+     }
+    },
+    "grc": {
+     "1": {
+      "debtToGdp": 1.64,
+      "averageRate": 0.0208,
+      "marketRate": 0.0526,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 1.631,
+      "averageRate": 0.0287,
+      "marketRate": 0.0476,
+      "balanceToGdp": 0.013,
+      "access": 1,
+      "defaults": 0,
+      "stability": 58.4,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.007
+     },
+     "104": {
+      "debtToGdp": 1.576,
+      "averageRate": 0.0339,
+      "marketRate": 0.0465,
+      "balanceToGdp": 0.019,
+      "access": 1,
+      "defaults": 0,
+      "stability": 53.3,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.034
+     },
+     "156": {
+      "debtToGdp": 1.486,
+      "averageRate": 0.0373,
+      "marketRate": 0.0449,
+      "balanceToGdp": 0.022,
+      "access": 1,
+      "defaults": 0,
+      "stability": 55.9,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.073
+     }
+    },
+    "bgr": {
+     "1": {
+      "debtToGdp": 0.228,
+      "averageRate": 0.0217,
+      "marketRate": 0.0365,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.9,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.23,
+      "averageRate": 0.0248,
+      "marketRate": 0.0311,
+      "balanceToGdp": 0,
+      "access": 1,
+      "defaults": 0,
+      "stability": 63.4,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.012
+     },
+     "104": {
+      "debtToGdp": 0.225,
+      "averageRate": 0.0266,
+      "marketRate": 0.0309,
+      "balanceToGdp": -0.005,
+      "access": 1,
+      "defaults": 0,
+      "stability": 64.1,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.033
+     },
+     "156": {
+      "debtToGdp": 0.223,
+      "averageRate": 0.0279,
+      "marketRate": 0.0306,
+      "balanceToGdp": -0.007,
+      "access": 1,
+      "defaults": 0,
+      "stability": 64.3,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.062
+     }
+    },
+    "bloc-eur": {
+     "1": {
+      "debtToGdp": 0.5,
+      "averageRate": 0.03,
+      "marketRate": 0.0359,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.504,
+      "averageRate": 0.0306,
+      "marketRate": 0.0311,
+      "balanceToGdp": -0.004,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.994
+     },
+     "104": {
+      "debtToGdp": 0.502,
+      "averageRate": 0.0307,
+      "marketRate": 0.0309,
+      "balanceToGdp": -0.003,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.995
+     },
+     "156": {
+      "debtToGdp": 0.495,
+      "averageRate": 0.0307,
+      "marketRate": 0.0306,
+      "balanceToGdp": -0.001,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.998
+     }
+    },
+    "bloc-eec": {
+     "1": {
+      "debtToGdp": 0.5,
+      "averageRate": 0.03,
+      "marketRate": 0.0359,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.506,
+      "averageRate": 0.0306,
+      "marketRate": 0.0311,
+      "balanceToGdp": -0.004,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.994
+     },
+     "104": {
+      "debtToGdp": 0.504,
+      "averageRate": 0.0307,
+      "marketRate": 0.0309,
+      "balanceToGdp": -0.002,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.995
+     },
+     "156": {
+      "debtToGdp": 0.494,
+      "averageRate": 0.0307,
+      "marketRate": 0.0306,
+      "balanceToGdp": 0,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.998
+     }
+    },
+    "bloc-mea": {
+     "1": {
+      "debtToGdp": 0.5,
+      "averageRate": 0.03,
+      "marketRate": 0.0359,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.505,
+      "averageRate": 0.0306,
+      "marketRate": 0.0311,
+      "balanceToGdp": -0.005,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.995
+     },
+     "104": {
+      "debtToGdp": 0.504,
+      "averageRate": 0.0307,
+      "marketRate": 0.0309,
+      "balanceToGdp": -0.003,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.995
+     },
+     "156": {
+      "debtToGdp": 0.496,
+      "averageRate": 0.0307,
+      "marketRate": 0.0306,
+      "balanceToGdp": -0.002,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.002
+     }
+    },
+    "bloc-ame": {
+     "1": {
+      "debtToGdp": 0.5,
+      "averageRate": 0.03,
+      "marketRate": 0.0359,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.501,
+      "averageRate": 0.0306,
+      "marketRate": 0.0311,
+      "balanceToGdp": -0.004,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.999
+     },
+     "104": {
+      "debtToGdp": 0.497,
+      "averageRate": 0.0307,
+      "marketRate": 0.0309,
+      "balanceToGdp": -0.003,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.003
+     },
+     "156": {
+      "debtToGdp": 0.488,
+      "averageRate": 0.0307,
+      "marketRate": 0.0306,
+      "balanceToGdp": -0.001,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.009
+     }
+    },
+    "bloc-apa": {
+     "1": {
+      "debtToGdp": 0.5,
+      "averageRate": 0.03,
+      "marketRate": 0.0359,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.502,
+      "averageRate": 0.0306,
+      "marketRate": 0.0311,
+      "balanceToGdp": -0.005,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.999
+     },
+     "104": {
+      "debtToGdp": 0.497,
+      "averageRate": 0.0307,
+      "marketRate": 0.0309,
+      "balanceToGdp": -0.003,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.004
+     },
+     "156": {
+      "debtToGdp": 0.488,
+      "averageRate": 0.0307,
+      "marketRate": 0.0306,
+      "balanceToGdp": -0.002,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.013
+     }
+    }
+   },
+   "events": {},
+   "audit": {
+    "worstMoneyError": 2.1100277081131935e-10,
+    "worstBondError": 1.870347054971833e-15,
+    "worstIssuedError": 7.203663000465511e-14
+   },
+   "finalHash": "27b991f6c1d57d05"
+  },
+  "baseline-repeat": {
+   "country": null,
+   "weeks": 156,
+   "seconds": 6.7,
+   "path": {
+    "fra": {
+     "1": {
+      "debtToGdp": 1.095,
+      "averageRate": 0.0174,
+      "marketRate": 0.0472,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.7,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 1.109,
+      "averageRate": 0.0243,
+      "marketRate": 0.0392,
+      "balanceToGdp": 0.005,
+      "access": 1,
+      "defaults": 0,
+      "stability": 56.6,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.005
+     },
+     "104": {
+      "debtToGdp": 1.073,
+      "averageRate": 0.0284,
+      "marketRate": 0.0385,
+      "balanceToGdp": 0.007,
+      "access": 1,
+      "defaults": 0,
+      "stability": 55.9,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.029
+     },
+     "156": {
+      "debtToGdp": 1.017,
+      "averageRate": 0.0311,
+      "marketRate": 0.0373,
+      "balanceToGdp": 0.02,
+      "access": 1,
+      "defaults": 0,
+      "stability": 56.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.057
+     }
+    },
+    "deu": {
+     "1": {
+      "debtToGdp": 0.618,
+      "averageRate": 0.0143,
+      "marketRate": 0.0363,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.9,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.616,
+      "averageRate": 0.0194,
+      "marketRate": 0.0313,
+      "balanceToGdp": 0.015,
+      "access": 1,
+      "defaults": 0,
+      "stability": 64.5,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.998
+     },
+     "104": {
+      "debtToGdp": 0.582,
+      "averageRate": 0.0227,
+      "marketRate": 0.0309,
+      "balanceToGdp": 0.015,
+      "access": 1,
+      "defaults": 0,
+      "stability": 66.2,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.01
+     },
+     "156": {
+      "debtToGdp": 0.546,
+      "averageRate": 0.025,
+      "marketRate": 0.0306,
+      "balanceToGdp": 0.003,
+      "access": 1,
+      "defaults": 0,
+      "stability": 68.3,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.027
+     }
+    },
+    "gbr": {
+     "1": {
+      "debtToGdp": 0.988,
+      "averageRate": 0.0318,
+      "marketRate": 0.0462,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70.1,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 1.014,
+      "averageRate": 0.0342,
+      "marketRate": 0.0377,
+      "balanceToGdp": 0.015,
+      "access": 1,
+      "defaults": 0,
+      "stability": 60.9,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.989
+     },
+     "104": {
+      "debtToGdp": 0.978,
+      "averageRate": 0.0351,
+      "marketRate": 0.0369,
+      "balanceToGdp": 0.03,
+      "access": 1,
+      "defaults": 0,
+      "stability": 57.6,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.998
+     },
+     "156": {
+      "debtToGdp": 0.915,
+      "averageRate": 0.0354,
+      "marketRate": 0.0357,
+      "balanceToGdp": 0.04,
+      "access": 1,
+      "defaults": 0,
+      "stability": 60.5,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.01
+     }
+    },
+    "ita": {
+     "1": {
+      "debtToGdp": 1.34,
+      "averageRate": 0.0273,
+      "marketRate": 0.0528,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 1.376,
+      "averageRate": 0.0328,
+      "marketRate": 0.0435,
+      "balanceToGdp": 0.007,
+      "access": 1,
+      "defaults": 0,
+      "stability": 57.5,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.996
+     },
+     "104": {
+      "debtToGdp": 1.34,
+      "averageRate": 0.0357,
+      "marketRate": 0.0427,
+      "balanceToGdp": 0.025,
+      "access": 1,
+      "defaults": 0,
+      "stability": 55.5,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.009
+     },
+     "156": {
+      "debtToGdp": 1.273,
+      "averageRate": 0.0375,
+      "marketRate": 0.0414,
+      "balanceToGdp": 0.021,
+      "access": 1,
+      "defaults": 0,
+      "stability": 58.3,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.03
+     }
+    },
+    "pol": {
+     "1": {
+      "debtToGdp": 0.495,
+      "averageRate": 0.0418,
+      "marketRate": 0.0392,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70.1,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.501,
+      "averageRate": 0.0392,
+      "marketRate": 0.0311,
+      "balanceToGdp": 0.014,
+      "access": 1,
+      "defaults": 0,
+      "stability": 59.1,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.01
+     },
+     "104": {
+      "debtToGdp": 0.473,
+      "averageRate": 0.0369,
+      "marketRate": 0.0309,
+      "balanceToGdp": 0.011,
+      "access": 1,
+      "defaults": 0,
+      "stability": 61,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.042
+     },
+     "156": {
+      "debtToGdp": 0.437,
+      "averageRate": 0.0352,
+      "marketRate": 0.0306,
+      "balanceToGdp": 0.004,
+      "access": 1,
+      "defaults": 0,
+      "stability": 62.6,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.084
+     }
+    },
+    "tur": {
+     "1": {
+      "debtToGdp": 0.279,
+      "averageRate": 0.1303,
+      "marketRate": 0.0378,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.5,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.289,
+      "averageRate": 0.1003,
+      "marketRate": 0.0311,
+      "balanceToGdp": 0.003,
+      "access": 1,
+      "defaults": 0,
+      "stability": 61.2,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.013
+     },
+     "104": {
+      "debtToGdp": 0.282,
+      "averageRate": 0.0804,
+      "marketRate": 0.0309,
+      "balanceToGdp": 0,
+      "access": 1,
+      "defaults": 0,
+      "stability": 62,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.033
+     },
+     "156": {
+      "debtToGdp": 0.274,
+      "averageRate": 0.0659,
+      "marketRate": 0.0306,
+      "balanceToGdp": -0.002,
+      "access": 1,
+      "defaults": 0,
+      "stability": 62.9,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.058
+     }
+    },
+    "irl": {
+     "1": {
+      "debtToGdp": 0.421,
+      "averageRate": 0.0155,
+      "marketRate": 0.0359,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.5,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.414,
+      "averageRate": 0.0201,
+      "marketRate": 0.0311,
+      "balanceToGdp": -0.002,
+      "access": 1,
+      "defaults": 0,
+      "stability": 65.7,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.003
+     },
+     "104": {
+      "debtToGdp": 0.408,
+      "averageRate": 0.0233,
+      "marketRate": 0.0309,
+      "balanceToGdp": -0.002,
+      "access": 1,
+      "defaults": 0,
+      "stability": 65.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.005
+     },
+     "156": {
+      "debtToGdp": 0.398,
+      "averageRate": 0.0254,
+      "marketRate": 0.0306,
+      "balanceToGdp": -0.001,
+      "access": 1,
+      "defaults": 0,
+      "stability": 65.6,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.01
+     }
+    },
+    "esp": {
+     "1": {
+      "debtToGdp": 1.053,
+      "averageRate": 0.0227,
+      "marketRate": 0.0443,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70.1,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 1.061,
+      "averageRate": 0.0275,
+      "marketRate": 0.0385,
+      "balanceToGdp": 0.024,
+      "access": 1,
+      "defaults": 0,
+      "stability": 62.1,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.992
+     },
+     "104": {
+      "debtToGdp": 1.018,
+      "averageRate": 0.0305,
+      "marketRate": 0.0376,
+      "balanceToGdp": 0.032,
+      "access": 1,
+      "defaults": 0,
+      "stability": 58.4,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.006
+     },
+     "156": {
+      "debtToGdp": 0.953,
+      "averageRate": 0.0323,
+      "marketRate": 0.0363,
+      "balanceToGdp": 0.042,
+      "access": 1,
+      "defaults": 0,
+      "stability": 60.3,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.023
+     }
+    },
+    "nld": {
+     "1": {
+      "debtToGdp": 0.459,
+      "averageRate": 0.0149,
+      "marketRate": 0.0359,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.449,
+      "averageRate": 0.0197,
+      "marketRate": 0.0311,
+      "balanceToGdp": 0.013,
+      "access": 1,
+      "defaults": 0,
+      "stability": 64.2,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.006
+     },
+     "104": {
+      "debtToGdp": 0.433,
+      "averageRate": 0.0229,
+      "marketRate": 0.0309,
+      "balanceToGdp": 0,
+      "access": 1,
+      "defaults": 0,
+      "stability": 65.5,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.024
+     },
+     "156": {
+      "debtToGdp": 0.417,
+      "averageRate": 0.0252,
+      "marketRate": 0.0306,
+      "balanceToGdp": -0.002,
+      "access": 1,
+      "defaults": 0,
+      "stability": 65.9,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.046
+     }
+    },
+    "bel": {
+     "1": {
+      "debtToGdp": 1.023,
+      "averageRate": 0.0192,
+      "marketRate": 0.045,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 1.032,
+      "averageRate": 0.025,
+      "marketRate": 0.038,
+      "balanceToGdp": 0.016,
+      "access": 1,
+      "defaults": 0,
+      "stability": 59,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.997
+     },
+     "104": {
+      "debtToGdp": 0.989,
+      "averageRate": 0.0286,
+      "marketRate": 0.0371,
+      "balanceToGdp": 0.025,
+      "access": 1,
+      "defaults": 0,
+      "stability": 56.5,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.01
+     },
+     "156": {
+      "debtToGdp": 0.927,
+      "averageRate": 0.0308,
+      "marketRate": 0.0359,
+      "balanceToGdp": 0.025,
+      "access": 1,
+      "defaults": 0,
+      "stability": 60.2,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.031
+     }
+    },
+    "che": {
+     "1": {
+      "debtToGdp": 0.26,
+      "averageRate": 0.0105,
+      "marketRate": 0.0359,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.25,
+      "averageRate": 0.0166,
+      "marketRate": 0.0311,
+      "balanceToGdp": 0.007,
+      "access": 1,
+      "defaults": 0,
+      "stability": 68.9,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.008
+     },
+     "104": {
+      "debtToGdp": 0.241,
+      "averageRate": 0.0207,
+      "marketRate": 0.0309,
+      "balanceToGdp": -0.006,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.023
+     },
+     "156": {
+      "debtToGdp": 0.238,
+      "averageRate": 0.0238,
+      "marketRate": 0.0306,
+      "balanceToGdp": -0.006,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.039
+     }
+    },
+    "aut": {
+     "1": {
+      "debtToGdp": 0.774,
+      "averageRate": 0.0156,
+      "marketRate": 0.039,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.77,
+      "averageRate": 0.0211,
+      "marketRate": 0.0338,
+      "balanceToGdp": 0.014,
+      "access": 1,
+      "defaults": 0,
+      "stability": 60.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.008
+     },
+     "104": {
+      "debtToGdp": 0.728,
+      "averageRate": 0.0246,
+      "marketRate": 0.0329,
+      "balanceToGdp": 0.014,
+      "access": 1,
+      "defaults": 0,
+      "stability": 61.6,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.031
+     },
+     "156": {
+      "debtToGdp": 0.678,
+      "averageRate": 0.0268,
+      "marketRate": 0.0319,
+      "balanceToGdp": 0.014,
+      "access": 1,
+      "defaults": 0,
+      "stability": 65,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.062
+     }
+    },
+    "cze": {
+     "1": {
+      "debtToGdp": 0.422,
+      "averageRate": 0.0305,
+      "marketRate": 0.0379,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.42,
+      "averageRate": 0.0311,
+      "marketRate": 0.0311,
+      "balanceToGdp": 0.016,
+      "access": 1,
+      "defaults": 0,
+      "stability": 60.6,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.014
+     },
+     "104": {
+      "debtToGdp": 0.389,
+      "averageRate": 0.0311,
+      "marketRate": 0.0309,
+      "balanceToGdp": 0.01,
+      "access": 1,
+      "defaults": 0,
+      "stability": 60.7,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.049
+     },
+     "156": {
+      "debtToGdp": 0.364,
+      "averageRate": 0.031,
+      "marketRate": 0.0306,
+      "balanceToGdp": -0.001,
+      "access": 1,
+      "defaults": 0,
+      "stability": 64,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.094
+     }
+    },
+    "nor": {
+     "1": {
+      "debtToGdp": 0.427,
+      "averageRate": 0.024,
+      "marketRate": 0.0359,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.405,
+      "averageRate": 0.0263,
+      "marketRate": 0.0311,
+      "balanceToGdp": 0.014,
+      "access": 1,
+      "defaults": 0,
+      "stability": 64.1,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.01
+     },
+     "104": {
+      "debtToGdp": 0.394,
+      "averageRate": 0.0276,
+      "marketRate": 0.0309,
+      "balanceToGdp": 0.001,
+      "access": 1,
+      "defaults": 0,
+      "stability": 61.3,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.029
+     },
+     "156": {
+      "debtToGdp": 0.379,
+      "averageRate": 0.0285,
+      "marketRate": 0.0306,
+      "balanceToGdp": 0.001,
+      "access": 1,
+      "defaults": 0,
+      "stability": 62.2,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.059
+     }
+    },
+    "grc": {
+     "1": {
+      "debtToGdp": 1.64,
+      "averageRate": 0.0208,
+      "marketRate": 0.0526,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 1.631,
+      "averageRate": 0.0287,
+      "marketRate": 0.0476,
+      "balanceToGdp": 0.013,
+      "access": 1,
+      "defaults": 0,
+      "stability": 58.4,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.007
+     },
+     "104": {
+      "debtToGdp": 1.576,
+      "averageRate": 0.0339,
+      "marketRate": 0.0465,
+      "balanceToGdp": 0.019,
+      "access": 1,
+      "defaults": 0,
+      "stability": 53.3,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.034
+     },
+     "156": {
+      "debtToGdp": 1.486,
+      "averageRate": 0.0373,
+      "marketRate": 0.0449,
+      "balanceToGdp": 0.022,
+      "access": 1,
+      "defaults": 0,
+      "stability": 55.9,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.073
+     }
+    },
+    "bgr": {
+     "1": {
+      "debtToGdp": 0.228,
+      "averageRate": 0.0217,
+      "marketRate": 0.0365,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.9,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.23,
+      "averageRate": 0.0248,
+      "marketRate": 0.0311,
+      "balanceToGdp": 0,
+      "access": 1,
+      "defaults": 0,
+      "stability": 63.4,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.012
+     },
+     "104": {
+      "debtToGdp": 0.225,
+      "averageRate": 0.0266,
+      "marketRate": 0.0309,
+      "balanceToGdp": -0.005,
+      "access": 1,
+      "defaults": 0,
+      "stability": 64.1,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.033
+     },
+     "156": {
+      "debtToGdp": 0.223,
+      "averageRate": 0.0279,
+      "marketRate": 0.0306,
+      "balanceToGdp": -0.007,
+      "access": 1,
+      "defaults": 0,
+      "stability": 64.3,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.062
+     }
+    },
+    "bloc-eur": {
+     "1": {
+      "debtToGdp": 0.5,
+      "averageRate": 0.03,
+      "marketRate": 0.0359,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.504,
+      "averageRate": 0.0306,
+      "marketRate": 0.0311,
+      "balanceToGdp": -0.004,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.994
+     },
+     "104": {
+      "debtToGdp": 0.502,
+      "averageRate": 0.0307,
+      "marketRate": 0.0309,
+      "balanceToGdp": -0.003,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.995
+     },
+     "156": {
+      "debtToGdp": 0.495,
+      "averageRate": 0.0307,
+      "marketRate": 0.0306,
+      "balanceToGdp": -0.001,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.998
+     }
+    },
+    "bloc-eec": {
+     "1": {
+      "debtToGdp": 0.5,
+      "averageRate": 0.03,
+      "marketRate": 0.0359,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.506,
+      "averageRate": 0.0306,
+      "marketRate": 0.0311,
+      "balanceToGdp": -0.004,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.994
+     },
+     "104": {
+      "debtToGdp": 0.504,
+      "averageRate": 0.0307,
+      "marketRate": 0.0309,
+      "balanceToGdp": -0.002,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.995
+     },
+     "156": {
+      "debtToGdp": 0.494,
+      "averageRate": 0.0307,
+      "marketRate": 0.0306,
+      "balanceToGdp": 0,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.998
+     }
+    },
+    "bloc-mea": {
+     "1": {
+      "debtToGdp": 0.5,
+      "averageRate": 0.03,
+      "marketRate": 0.0359,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.505,
+      "averageRate": 0.0306,
+      "marketRate": 0.0311,
+      "balanceToGdp": -0.005,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.995
+     },
+     "104": {
+      "debtToGdp": 0.504,
+      "averageRate": 0.0307,
+      "marketRate": 0.0309,
+      "balanceToGdp": -0.003,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.995
+     },
+     "156": {
+      "debtToGdp": 0.496,
+      "averageRate": 0.0307,
+      "marketRate": 0.0306,
+      "balanceToGdp": -0.002,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.002
+     }
+    },
+    "bloc-ame": {
+     "1": {
+      "debtToGdp": 0.5,
+      "averageRate": 0.03,
+      "marketRate": 0.0359,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.501,
+      "averageRate": 0.0306,
+      "marketRate": 0.0311,
+      "balanceToGdp": -0.004,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.999
+     },
+     "104": {
+      "debtToGdp": 0.497,
+      "averageRate": 0.0307,
+      "marketRate": 0.0309,
+      "balanceToGdp": -0.003,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.003
+     },
+     "156": {
+      "debtToGdp": 0.488,
+      "averageRate": 0.0307,
+      "marketRate": 0.0306,
+      "balanceToGdp": -0.001,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.009
+     }
+    },
+    "bloc-apa": {
+     "1": {
+      "debtToGdp": 0.5,
+      "averageRate": 0.03,
+      "marketRate": 0.0359,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.502,
+      "averageRate": 0.0306,
+      "marketRate": 0.0311,
+      "balanceToGdp": -0.005,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.999
+     },
+     "104": {
+      "debtToGdp": 0.497,
+      "averageRate": 0.0307,
+      "marketRate": 0.0309,
+      "balanceToGdp": -0.003,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.004
+     },
+     "156": {
+      "debtToGdp": 0.488,
+      "averageRate": 0.0307,
+      "marketRate": 0.0306,
+      "balanceToGdp": -0.002,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.013
+     }
+    }
+   },
+   "events": {},
+   "audit": {
+    "worstMoneyError": 2.1100277081131935e-10,
+    "worstBondError": 1.870347054971833e-15,
+    "worstIssuedError": 7.203663000465511e-14
+   },
+   "finalHash": "27b991f6c1d57d05"
+  },
+  "passive-tur": {
+   "country": "tur",
+   "weeks": 156,
+   "seconds": 6.5,
+   "path": {
+    "tur": {
+     "1": {
+      "debtToGdp": 0.279,
+      "averageRate": 0.1303,
+      "marketRate": 0.0378,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.5,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.308,
+      "averageRate": 0.0955,
+      "marketRate": 0.0313,
+      "balanceToGdp": -0.028,
+      "access": 1,
+      "defaults": 0,
+      "stability": 65.4,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.019
+     },
+     "104": {
+      "debtToGdp": 0.324,
+      "averageRate": 0.0737,
+      "marketRate": 0.031,
+      "balanceToGdp": -0.021,
+      "access": 1,
+      "defaults": 0,
+      "stability": 63.4,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.034
+     },
+     "156": {
+      "debtToGdp": 0.333,
+      "averageRate": 0.0598,
+      "marketRate": 0.0307,
+      "balanceToGdp": -0.017,
+      "access": 1,
+      "defaults": 0,
+      "stability": 62.6,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.056
+     }
+    }
+   },
+   "events": {},
+   "audit": {
+    "worstMoneyError": 1.8917489796876907e-10,
+    "worstBondError": 1.3755408391497207e-15,
+    "worstIssuedError": 7.203663000465511e-14
+   },
+   "finalHash": "5119cae6e7632469"
+  },
+  "mismanage-ita": {
+   "country": "ita",
+   "weeks": 156,
+   "seconds": 7,
+   "path": {
+    "ita": {
+     "1": {
+      "debtToGdp": 1.34,
+      "averageRate": 0.0273,
+      "marketRate": 0.0528,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 1.437,
+      "averageRate": 0.0402,
+      "marketRate": 0.0638,
+      "balanceToGdp": -0.215,
+      "access": 1,
+      "defaults": 0,
+      "stability": 75.9,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.036
+     },
+     "104": {
+      "debtToGdp": 1.632,
+      "averageRate": 0.0505,
+      "marketRate": 0.0694,
+      "balanceToGdp": -0.242,
+      "access": 1,
+      "defaults": 0,
+      "stability": 76.6,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.03
+     },
+     "156": {
+      "debtToGdp": 1.879,
+      "averageRate": 0.0605,
+      "marketRate": 0.0877,
+      "balanceToGdp": -0.278,
+      "access": 1,
+      "defaults": 0,
+      "stability": 73.6,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.035
+     }
+    }
+   },
+   "events": {},
+   "audit": {
+    "worstMoneyError": 1.7462298274040222e-10,
+    "worstBondError": 9.848726346631776e-16,
+    "worstIssuedError": 7.488623479620084e-14
+   },
+   "finalHash": "6a866f39d12a05eb"
+  },
+  "mismanage-gbr": {
+   "country": "gbr",
+   "weeks": 156,
+   "seconds": 6.9,
+   "path": {
+    "gbr": {
+     "1": {
+      "debtToGdp": 0.988,
+      "averageRate": 0.0318,
+      "marketRate": 0.0462,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70.1,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 1.112,
+      "averageRate": 0.0413,
+      "marketRate": 0.0578,
+      "balanceToGdp": -0.204,
+      "access": 1,
+      "defaults": 0,
+      "stability": 78.3,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.026
+     },
+     "104": {
+      "debtToGdp": 1.301,
+      "averageRate": 0.049,
+      "marketRate": 0.0626,
+      "balanceToGdp": -0.225,
+      "access": 1,
+      "defaults": 0,
+      "stability": 79.3,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.016
+     },
+     "156": {
+      "debtToGdp": 1.529,
+      "averageRate": 0.0556,
+      "marketRate": 0.0683,
+      "balanceToGdp": -0.249,
+      "access": 1,
+      "defaults": 0,
+      "stability": 77,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.017
+     }
+    }
+   },
+   "events": {},
+   "audit": {
+    "worstMoneyError": 1.2369127944111824e-10,
+    "worstBondError": 1.443604464393497e-15,
+    "worstIssuedError": 8.055340114195389e-14
+   },
+   "finalHash": "b2c48f8a7522cb80"
+  },
+  "reckless-ita": {
+   "country": "ita",
+   "weeks": 312,
+   "seconds": 14.9,
+   "path": {
+    "ita": {
+     "1": {
+      "debtToGdp": 1.34,
+      "averageRate": 0.0273,
+      "marketRate": 0.0528,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 1.493,
+      "averageRate": 0.0487,
+      "marketRate": 0.082,
+      "balanceToGdp": -0.374,
+      "access": 1,
+      "defaults": 0,
+      "stability": 74.6,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.054
+     },
+     "104": {
+      "debtToGdp": 1.829,
+      "averageRate": 0.0663,
+      "marketRate": 0.0987,
+      "balanceToGdp": -0.43,
+      "access": 1,
+      "defaults": 0,
+      "stability": 78.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.056
+     },
+     "156": {
+      "debtToGdp": 2.323,
+      "averageRate": 0.0969,
+      "marketRate": 0.2063,
+      "balanceToGdp": 0.148,
+      "access": 0,
+      "defaults": 0,
+      "stability": 69.6,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.869
+     },
+     "312": {
+      "debtToGdp": 1.653,
+      "averageRate": 0.0825,
+      "marketRate": 0.1173,
+      "balanceToGdp": -0.435,
+      "access": 1,
+      "defaults": 1,
+      "stability": 75.8,
+      "unrestTier": 0,
+      "regime": 3,
+      "realGdpIndex": 1.06
+     }
+    }
+   },
+   "events": {
+    "market-access-lost": {
+     "ita": [
+      152
+     ]
+    },
+    "sovereign-default": {
+     "ita": [
+      158
+     ]
+    },
+    "unrest-started": {
+     "ita": [
+      164,
+      193,
+      218
+     ]
+    },
+    "regime-change": {
+     "ita": [
+      188,
+      214,
+      240
+     ]
+    },
+    "market-access-restored": {
+     "ita": [
+      236
+     ]
+    }
+   },
+   "audit": {
+    "worstMoneyError": 1.8917489796876907e-10,
+    "worstBondError": 1.8276586157405436e-15,
+    "worstIssuedError": 7.352583348574856e-14
+   },
+   "finalHash": "4dd5186b004934e6"
+  },
+  "reckless-grc": {
+   "country": "grc",
+   "weeks": 312,
+   "seconds": 13,
+   "path": {
+    "grc": {
+     "1": {
+      "debtToGdp": 1.64,
+      "averageRate": 0.0208,
+      "marketRate": 0.0526,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 1.682,
+      "averageRate": 0.0378,
+      "marketRate": 0.0699,
+      "balanceToGdp": -0.247,
+      "access": 1,
+      "defaults": 0,
+      "stability": 76.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.055
+     },
+     "104": {
+      "debtToGdp": 1.903,
+      "averageRate": 0.0534,
+      "marketRate": 0.0908,
+      "balanceToGdp": -0.289,
+      "access": 1,
+      "defaults": 0,
+      "stability": 74.3,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.068
+     },
+     "156": {
+      "debtToGdp": 2.231,
+      "averageRate": 0.0813,
+      "marketRate": 0.1661,
+      "balanceToGdp": -0.37,
+      "access": 1,
+      "defaults": 0,
+      "stability": 71.7,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.089
+     },
+     "312": {
+      "debtToGdp": 1.271,
+      "averageRate": 0.0604,
+      "marketRate": 0.0935,
+      "balanceToGdp": -0.261,
+      "access": 1,
+      "defaults": 1,
+      "stability": 74,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.173
+     }
+    }
+   },
+   "events": {
+    "market-access-lost": {
+     "grc": [
+      169
+     ]
+    },
+    "sovereign-default": {
+     "grc": [
+      175
+     ]
+    },
+    "unrest-started": {
+     "grc": [
+      181
+     ]
+    },
+    "market-access-restored": {
+     "grc": [
+      253
+     ]
+    }
+   },
+   "audit": {
+    "worstMoneyError": 1.8189894035458565e-10,
+    "worstBondError": 1.8485507125422505e-15,
+    "worstIssuedError": 7.792678274313465e-14
+   },
+   "finalHash": "4a6b20501437ba0a"
+  },
+  "high-tax-fra": {
+   "country": "fra",
+   "weeks": 156,
+   "seconds": 6.8,
+   "path": {
+    "fra": {
+     "1": {
+      "debtToGdp": 1.095,
+      "averageRate": 0.0174,
+      "marketRate": 0.0472,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.7,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 1.083,
+      "averageRate": 0.025,
+      "marketRate": 0.046,
+      "balanceToGdp": 0.054,
+      "access": 1,
+      "defaults": 0,
+      "stability": 41.5,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.995
+     },
+     "104": {
+      "debtToGdp": 0.992,
+      "averageRate": 0.0301,
+      "marketRate": 0.0405,
+      "balanceToGdp": 0.048,
+      "access": 1,
+      "defaults": 0,
+      "stability": 46.2,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.014
+     },
+     "156": {
+      "debtToGdp": 0.896,
+      "averageRate": 0.0321,
+      "marketRate": 0.0354,
+      "balanceToGdp": 0.041,
+      "access": 1,
+      "defaults": 0,
+      "stability": 52.6,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.048
+     }
+    }
+   },
+   "events": {},
+   "audit": {
+    "worstMoneyError": 1.964508555829525e-10,
+    "worstBondError": 1.4119857714900924e-15,
+    "worstIssuedError": 7.619481526480947e-14
+   },
+   "finalHash": "6d50048d9e3d5227"
+  },
+  "high-tax-pol": {
+   "country": "pol",
+   "weeks": 156,
+   "seconds": 6.9,
+   "path": {
+    "pol": {
+     "1": {
+      "debtToGdp": 0.495,
+      "averageRate": 0.0418,
+      "marketRate": 0.0392,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 70.1,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.433,
+      "averageRate": 0.0426,
+      "marketRate": 0.0507,
+      "balanceToGdp": 0.126,
+      "access": 1,
+      "defaults": 0,
+      "stability": 25.5,
+      "unrestTier": 1,
+      "regime": 0,
+      "realGdpIndex": 0.943
+     },
+     "104": {
+      "debtToGdp": 0.291,
+      "averageRate": 0.0445,
+      "marketRate": 0.0478,
+      "balanceToGdp": 0.138,
+      "access": 1,
+      "defaults": 0,
+      "stability": 29.1,
+      "unrestTier": 1,
+      "regime": 0,
+      "realGdpIndex": 0.962
+     },
+     "156": {
+      "debtToGdp": 0.141,
+      "averageRate": 0.0447,
+      "marketRate": 0.042,
+      "balanceToGdp": 0.138,
+      "access": 1,
+      "defaults": 0,
+      "stability": 36.2,
+      "unrestTier": 1,
+      "regime": 0,
+      "realGdpIndex": 0.993
+     }
+    }
+   },
+   "events": {
+    "unrest-started": {
+     "pol": [
+      13
+     ]
+    }
+   },
+   "audit": {
+    "worstMoneyError": 2.4010660126805305e-10,
+    "worstBondError": 1.2782845825960106e-15,
+    "worstIssuedError": 7.1437029065307e-14
+   },
+   "finalHash": "91be807ca4833104"
+  },
+  "austerity-grc": {
+   "country": "grc",
+   "weeks": 156,
+   "seconds": 6.9,
+   "path": {
+    "grc": {
+     "1": {
+      "debtToGdp": 1.64,
+      "averageRate": 0.0208,
+      "marketRate": 0.0526,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 1.693,
+      "averageRate": 0.0291,
+      "marketRate": 0.0506,
+      "balanceToGdp": 0.088,
+      "access": 1,
+      "defaults": 0,
+      "stability": 48.5,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.938
+     },
+     "104": {
+      "debtToGdp": 1.541,
+      "averageRate": 0.0344,
+      "marketRate": 0.0461,
+      "balanceToGdp": 0.089,
+      "access": 1,
+      "defaults": 0,
+      "stability": 56.3,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.979
+     },
+     "156": {
+      "debtToGdp": 1.374,
+      "averageRate": 0.0373,
+      "marketRate": 0.0431,
+      "balanceToGdp": 0.09,
+      "access": 1,
+      "defaults": 0,
+      "stability": 64.5,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.003
+     }
+    }
+   },
+   "events": {},
+   "audit": {
+    "worstMoneyError": 1.8189894035458565e-10,
+    "worstBondError": 1.1056306314977513e-15,
+    "worstIssuedError": 7.235503782364538e-14
+   },
+   "finalHash": "c37694ab0a7e4550"
+  },
+  "default-ita": {
+   "country": "ita",
+   "weeks": 156,
+   "seconds": 6.9,
+   "path": {
+    "ita": {
+     "1": {
+      "debtToGdp": 1.34,
+      "averageRate": 0.0273,
+      "marketRate": 0.0528,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.661,
+      "averageRate": 0.0287,
+      "marketRate": 0.0972,
+      "balanceToGdp": -0.001,
+      "access": 0,
+      "defaults": 1,
+      "stability": 58.5,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.898
+     },
+     "104": {
+      "debtToGdp": 0.646,
+      "averageRate": 0.0287,
+      "marketRate": 0.0845,
+      "balanceToGdp": 0.001,
+      "access": 0,
+      "defaults": 1,
+      "stability": 54.3,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.954
+     },
+     "156": {
+      "debtToGdp": 0.677,
+      "averageRate": 0.0475,
+      "marketRate": 0.078,
+      "balanceToGdp": -0.058,
+      "access": 1,
+      "defaults": 1,
+      "stability": 68.4,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1
+     }
+    }
+   },
+   "events": {
+    "sovereign-default": {
+     "ita": [
+      10
+     ]
+    },
+    "market-access-restored": {
+     "ita": [
+      108
+     ]
+    }
+   },
+   "audit": {
+    "worstMoneyError": 1.8917489796876907e-10,
+    "worstBondError": 1.6252079053297879e-15,
+    "worstIssuedError": 7.203663000465511e-14
+   },
+   "finalHash": "dbf2fa8a03bba444"
+  },
+  "default-grc": {
+   "country": "grc",
+   "weeks": 156,
+   "seconds": 7,
+   "path": {
+    "grc": {
+     "1": {
+      "debtToGdp": 1.64,
+      "averageRate": 0.0208,
+      "marketRate": 0.0526,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.793,
+      "averageRate": 0.0224,
+      "marketRate": 0.0987,
+      "balanceToGdp": -0.018,
+      "access": 0,
+      "defaults": 1,
+      "stability": 56.7,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.924
+     },
+     "104": {
+      "debtToGdp": 0.755,
+      "averageRate": 0.0224,
+      "marketRate": 0.0862,
+      "balanceToGdp": -0.004,
+      "access": 0,
+      "defaults": 1,
+      "stability": 56.3,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.985
+     },
+     "156": {
+      "debtToGdp": 0.741,
+      "averageRate": 0.0402,
+      "marketRate": 0.0762,
+      "balanceToGdp": -0.02,
+      "access": 1,
+      "defaults": 1,
+      "stability": 61.6,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 1.042
+     }
+    }
+   },
+   "events": {
+    "sovereign-default": {
+     "grc": [
+      10
+     ]
+    },
+    "market-access-restored": {
+     "grc": [
+      108
+     ]
+    }
+   },
+   "audit": {
+    "worstMoneyError": 1.7462298274040222e-10,
+    "worstBondError": 1.47989648607665e-15,
+    "worstIssuedError": 7.614097744206692e-14
+   },
+   "finalHash": "815930240fe805cd"
+  },
+  "repeat-ita": {
+   "country": "ita",
+   "weeks": 156,
+   "seconds": 6.7,
+   "path": {
+    "ita": {
+     "1": {
+      "debtToGdp": 1.34,
+      "averageRate": 0.0273,
+      "marketRate": 0.0528,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.8,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.661,
+      "averageRate": 0.0287,
+      "marketRate": 0.0972,
+      "balanceToGdp": -0.001,
+      "access": 0,
+      "defaults": 1,
+      "stability": 58.5,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.898
+     },
+     "104": {
+      "debtToGdp": 0.7,
+      "averageRate": 0.0287,
+      "marketRate": 0.1702,
+      "balanceToGdp": 0,
+      "access": 0,
+      "defaults": 2,
+      "stability": 45.5,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.873
+     },
+     "156": {
+      "debtToGdp": 0.75,
+      "averageRate": 0.0287,
+      "marketRate": 0.2669,
+      "balanceToGdp": 0,
+      "access": 0,
+      "defaults": 3,
+      "stability": 39.4,
+      "unrestTier": 1,
+      "regime": 1,
+      "realGdpIndex": 0.804
+     }
+    }
+   },
+   "events": {
+    "sovereign-default": {
+     "ita": [
+      10,
+      60,
+      110
+     ]
+    },
+    "unrest-started": {
+     "ita": [
+      60,
+      149
+     ]
+    },
+    "regime-change": {
+     "ita": [
+      113
+     ]
+    }
+   },
+   "audit": {
+    "worstMoneyError": 1.8917489796876907e-10,
+    "worstBondError": 1.6476832427995942e-15,
+    "worstIssuedError": 7.203663000465511e-14
+   },
+   "finalHash": "664bfa2fde475e2b"
+  },
+  "repeat-tur": {
+   "country": "tur",
+   "weeks": 156,
+   "seconds": 7.1,
+   "path": {
+    "tur": {
+     "1": {
+      "debtToGdp": 0.279,
+      "averageRate": 0.1303,
+      "marketRate": 0.0378,
+      "balanceToGdp": null,
+      "access": 1,
+      "defaults": 0,
+      "stability": 69.5,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": null
+     },
+     "52": {
+      "debtToGdp": 0.138,
+      "averageRate": 0.03,
+      "marketRate": 0.0956,
+      "balanceToGdp": -0.018,
+      "access": 0,
+      "defaults": 1,
+      "stability": 57.1,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.921
+     },
+     "104": {
+      "debtToGdp": 0.145,
+      "averageRate": 0.03,
+      "marketRate": 0.1698,
+      "balanceToGdp": 0,
+      "access": 0,
+      "defaults": 2,
+      "stability": 43.6,
+      "unrestTier": 0,
+      "regime": 0,
+      "realGdpIndex": 0.889
+     },
+     "156": {
+      "debtToGdp": 0.158,
+      "averageRate": 0.03,
+      "marketRate": 0.2696,
+      "balanceToGdp": 0,
+      "access": 0,
+      "defaults": 3,
+      "stability": 32.7,
+      "unrestTier": 1,
+      "regime": 0,
+      "realGdpIndex": 0.817
+     }
+    }
+   },
+   "events": {
+    "sovereign-default": {
+     "tur": [
+      10,
+      60,
+      110
+     ]
+    },
+    "unrest-started": {
+     "tur": [
+      60
+     ]
+    }
+   },
+   "audit": {
+    "worstMoneyError": 2.473825588822365e-10,
+    "worstBondError": 1.5479958407020433e-15,
+    "worstIssuedError": 7.291820122501681e-14
+   },
+   "finalHash": "281b58a39a1518b7"
+  }
+ },
+ "deterministic": true,
+ "baselineDraft2": {
+  "country": null,
+  "weeks": 156,
+  "seconds": 7,
+  "path": {
+   "fra": {
+    "1": {
+     "debtToGdp": 1.095,
+     "averageRate": 0.0174,
+     "marketRate": 0.0472,
+     "balanceToGdp": null,
+     "access": 1,
+     "defaults": 0,
+     "stability": 69.7,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": null
+    },
+    "52": {
+     "debtToGdp": 1.109,
+     "averageRate": 0.0243,
+     "marketRate": 0.0392,
+     "balanceToGdp": 0.005,
+     "access": 1,
+     "defaults": 0,
+     "stability": 56.6,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.005
+    },
+    "104": {
+     "debtToGdp": 1.074,
+     "averageRate": 0.0284,
+     "marketRate": 0.0385,
+     "balanceToGdp": 0.007,
+     "access": 1,
+     "defaults": 0,
+     "stability": 55.9,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.029
+    },
+    "156": {
+     "debtToGdp": 1.018,
+     "averageRate": 0.0311,
+     "marketRate": 0.0373,
+     "balanceToGdp": 0.02,
+     "access": 1,
+     "defaults": 0,
+     "stability": 56.7,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.057
+    }
+   },
+   "deu": {
+    "1": {
+     "debtToGdp": 0.618,
+     "averageRate": 0.0143,
+     "marketRate": 0.0363,
+     "balanceToGdp": null,
+     "access": 1,
+     "defaults": 0,
+     "stability": 69.9,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": null
+    },
+    "52": {
+     "debtToGdp": 0.616,
+     "averageRate": 0.0194,
+     "marketRate": 0.0313,
+     "balanceToGdp": 0.015,
+     "access": 1,
+     "defaults": 0,
+     "stability": 64.5,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 0.998
+    },
+    "104": {
+     "debtToGdp": 0.582,
+     "averageRate": 0.0227,
+     "marketRate": 0.0308,
+     "balanceToGdp": 0.015,
+     "access": 1,
+     "defaults": 0,
+     "stability": 66.2,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.01
+    },
+    "156": {
+     "debtToGdp": 0.546,
+     "averageRate": 0.025,
+     "marketRate": 0.0306,
+     "balanceToGdp": 0.003,
+     "access": 1,
+     "defaults": 0,
+     "stability": 68.3,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.027
+    }
+   },
+   "gbr": {
+    "1": {
+     "debtToGdp": 0.988,
+     "averageRate": 0.0318,
+     "marketRate": 0.0462,
+     "balanceToGdp": null,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70.1,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": null
+    },
+    "52": {
+     "debtToGdp": 1.014,
+     "averageRate": 0.0342,
+     "marketRate": 0.0377,
+     "balanceToGdp": 0.015,
+     "access": 1,
+     "defaults": 0,
+     "stability": 60.9,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 0.989
+    },
+    "104": {
+     "debtToGdp": 0.978,
+     "averageRate": 0.0351,
+     "marketRate": 0.0369,
+     "balanceToGdp": 0.03,
+     "access": 1,
+     "defaults": 0,
+     "stability": 57.6,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 0.998
+    },
+    "156": {
+     "debtToGdp": 0.915,
+     "averageRate": 0.0355,
+     "marketRate": 0.0357,
+     "balanceToGdp": 0.04,
+     "access": 1,
+     "defaults": 0,
+     "stability": 60.5,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.01
+    }
+   },
+   "ita": {
+    "1": {
+     "debtToGdp": 1.34,
+     "averageRate": 0.0273,
+     "marketRate": 0.0528,
+     "balanceToGdp": null,
+     "access": 1,
+     "defaults": 0,
+     "stability": 69.8,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": null
+    },
+    "52": {
+     "debtToGdp": 1.376,
+     "averageRate": 0.0328,
+     "marketRate": 0.0435,
+     "balanceToGdp": 0.007,
+     "access": 1,
+     "defaults": 0,
+     "stability": 57.5,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 0.996
+    },
+    "104": {
+     "debtToGdp": 1.34,
+     "averageRate": 0.0357,
+     "marketRate": 0.0427,
+     "balanceToGdp": 0.025,
+     "access": 1,
+     "defaults": 0,
+     "stability": 55.5,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.009
+    },
+    "156": {
+     "debtToGdp": 1.274,
+     "averageRate": 0.0375,
+     "marketRate": 0.0414,
+     "balanceToGdp": 0.021,
+     "access": 1,
+     "defaults": 0,
+     "stability": 58.4,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.03
+    }
+   },
+   "pol": {
+    "1": {
+     "debtToGdp": 0.495,
+     "averageRate": 0.0418,
+     "marketRate": 0.0392,
+     "balanceToGdp": null,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70.1,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": null
+    },
+    "52": {
+     "debtToGdp": 0.501,
+     "averageRate": 0.0393,
+     "marketRate": 0.0311,
+     "balanceToGdp": 0.014,
+     "access": 1,
+     "defaults": 0,
+     "stability": 59.1,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.01
+    },
+    "104": {
+     "debtToGdp": 0.473,
+     "averageRate": 0.0369,
+     "marketRate": 0.0308,
+     "balanceToGdp": 0.011,
+     "access": 1,
+     "defaults": 0,
+     "stability": 61,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.042
+    },
+    "156": {
+     "debtToGdp": 0.437,
+     "averageRate": 0.0352,
+     "marketRate": 0.0306,
+     "balanceToGdp": 0.004,
+     "access": 1,
+     "defaults": 0,
+     "stability": 62.6,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.084
+    }
+   },
+   "tur": {
+    "1": {
+     "debtToGdp": 0.297,
+     "averageRate": 0.1298,
+     "marketRate": 0.0381,
+     "balanceToGdp": null,
+     "access": 1,
+     "defaults": 0,
+     "stability": 69.6,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": null
+    },
+    "52": {
+     "debtToGdp": 0.308,
+     "averageRate": 0.1,
+     "marketRate": 0.0311,
+     "balanceToGdp": 0.003,
+     "access": 1,
+     "defaults": 0,
+     "stability": 62.8,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.012
+    },
+    "104": {
+     "debtToGdp": 0.3,
+     "averageRate": 0.0803,
+     "marketRate": 0.0308,
+     "balanceToGdp": 0,
+     "access": 1,
+     "defaults": 0,
+     "stability": 64,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.031
+    },
+    "156": {
+     "debtToGdp": 0.291,
+     "averageRate": 0.066,
+     "marketRate": 0.0306,
+     "balanceToGdp": -0.001,
+     "access": 1,
+     "defaults": 0,
+     "stability": 64.8,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.052
+    }
+   },
+   "irl": {
+    "1": {
+     "debtToGdp": 0.421,
+     "averageRate": 0.0155,
+     "marketRate": 0.036,
+     "balanceToGdp": null,
+     "access": 1,
+     "defaults": 0,
+     "stability": 69.5,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": null
+    },
+    "52": {
+     "debtToGdp": 0.414,
+     "averageRate": 0.0201,
+     "marketRate": 0.0311,
+     "balanceToGdp": -0.002,
+     "access": 1,
+     "defaults": 0,
+     "stability": 65.7,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.003
+    },
+    "104": {
+     "debtToGdp": 0.408,
+     "averageRate": 0.0233,
+     "marketRate": 0.0308,
+     "balanceToGdp": -0.002,
+     "access": 1,
+     "defaults": 0,
+     "stability": 65.8,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.005
+    },
+    "156": {
+     "debtToGdp": 0.398,
+     "averageRate": 0.0254,
+     "marketRate": 0.0306,
+     "balanceToGdp": -0.001,
+     "access": 1,
+     "defaults": 0,
+     "stability": 65.6,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.01
+    }
+   },
+   "esp": {
+    "1": {
+     "debtToGdp": 1.053,
+     "averageRate": 0.0227,
+     "marketRate": 0.0444,
+     "balanceToGdp": null,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70.1,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": null
+    },
+    "52": {
+     "debtToGdp": 1.061,
+     "averageRate": 0.0275,
+     "marketRate": 0.0385,
+     "balanceToGdp": 0.024,
+     "access": 1,
+     "defaults": 0,
+     "stability": 62.1,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 0.992
+    },
+    "104": {
+     "debtToGdp": 1.018,
+     "averageRate": 0.0305,
+     "marketRate": 0.0376,
+     "balanceToGdp": 0.032,
+     "access": 1,
+     "defaults": 0,
+     "stability": 58.4,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.006
+    },
+    "156": {
+     "debtToGdp": 0.954,
+     "averageRate": 0.0324,
+     "marketRate": 0.0363,
+     "balanceToGdp": 0.042,
+     "access": 1,
+     "defaults": 0,
+     "stability": 60.3,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.023
+    }
+   },
+   "nld": {
+    "1": {
+     "debtToGdp": 0.459,
+     "averageRate": 0.0149,
+     "marketRate": 0.036,
+     "balanceToGdp": null,
+     "access": 1,
+     "defaults": 0,
+     "stability": 69.8,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": null
+    },
+    "52": {
+     "debtToGdp": 0.449,
+     "averageRate": 0.0197,
+     "marketRate": 0.0311,
+     "balanceToGdp": 0.013,
+     "access": 1,
+     "defaults": 0,
+     "stability": 64.2,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.006
+    },
+    "104": {
+     "debtToGdp": 0.433,
+     "averageRate": 0.0229,
+     "marketRate": 0.0308,
+     "balanceToGdp": 0,
+     "access": 1,
+     "defaults": 0,
+     "stability": 65.5,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.024
+    },
+    "156": {
+     "debtToGdp": 0.417,
+     "averageRate": 0.0252,
+     "marketRate": 0.0306,
+     "balanceToGdp": -0.002,
+     "access": 1,
+     "defaults": 0,
+     "stability": 65.9,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.046
+    }
+   },
+   "bel": {
+    "1": {
+     "debtToGdp": 1.023,
+     "averageRate": 0.0192,
+     "marketRate": 0.045,
+     "balanceToGdp": null,
+     "access": 1,
+     "defaults": 0,
+     "stability": 69.8,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": null
+    },
+    "52": {
+     "debtToGdp": 1.032,
+     "averageRate": 0.025,
+     "marketRate": 0.038,
+     "balanceToGdp": 0.016,
+     "access": 1,
+     "defaults": 0,
+     "stability": 59,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 0.997
+    },
+    "104": {
+     "debtToGdp": 0.989,
+     "averageRate": 0.0286,
+     "marketRate": 0.0371,
+     "balanceToGdp": 0.025,
+     "access": 1,
+     "defaults": 0,
+     "stability": 56.5,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.01
+    },
+    "156": {
+     "debtToGdp": 0.928,
+     "averageRate": 0.0308,
+     "marketRate": 0.0359,
+     "balanceToGdp": 0.025,
+     "access": 1,
+     "defaults": 0,
+     "stability": 60.2,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.031
+    }
+   },
+   "che": {
+    "1": {
+     "debtToGdp": 0.26,
+     "averageRate": 0.0105,
+     "marketRate": 0.036,
+     "balanceToGdp": null,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": null
+    },
+    "52": {
+     "debtToGdp": 0.25,
+     "averageRate": 0.0166,
+     "marketRate": 0.0311,
+     "balanceToGdp": 0.007,
+     "access": 1,
+     "defaults": 0,
+     "stability": 68.9,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.008
+    },
+    "104": {
+     "debtToGdp": 0.241,
+     "averageRate": 0.0207,
+     "marketRate": 0.0308,
+     "balanceToGdp": -0.006,
+     "access": 1,
+     "defaults": 0,
+     "stability": 69,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.023
+    },
+    "156": {
+     "debtToGdp": 0.238,
+     "averageRate": 0.0238,
+     "marketRate": 0.0306,
+     "balanceToGdp": -0.006,
+     "access": 1,
+     "defaults": 0,
+     "stability": 69,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.039
+    }
+   },
+   "aut": {
+    "1": {
+     "debtToGdp": 0.774,
+     "averageRate": 0.0156,
+     "marketRate": 0.039,
+     "balanceToGdp": null,
+     "access": 1,
+     "defaults": 0,
+     "stability": 69.8,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": null
+    },
+    "52": {
+     "debtToGdp": 0.77,
+     "averageRate": 0.0211,
+     "marketRate": 0.0338,
+     "balanceToGdp": 0.014,
+     "access": 1,
+     "defaults": 0,
+     "stability": 60.8,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.008
+    },
+    "104": {
+     "debtToGdp": 0.729,
+     "averageRate": 0.0246,
+     "marketRate": 0.0329,
+     "balanceToGdp": 0.014,
+     "access": 1,
+     "defaults": 0,
+     "stability": 61.6,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.031
+    },
+    "156": {
+     "debtToGdp": 0.679,
+     "averageRate": 0.0268,
+     "marketRate": 0.0319,
+     "balanceToGdp": 0.014,
+     "access": 1,
+     "defaults": 0,
+     "stability": 65,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.062
+    }
+   },
+   "cze": {
+    "1": {
+     "debtToGdp": 0.422,
+     "averageRate": 0.0305,
+     "marketRate": 0.0379,
+     "balanceToGdp": null,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": null
+    },
+    "52": {
+     "debtToGdp": 0.42,
+     "averageRate": 0.0311,
+     "marketRate": 0.0311,
+     "balanceToGdp": 0.016,
+     "access": 1,
+     "defaults": 0,
+     "stability": 60.6,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.014
+    },
+    "104": {
+     "debtToGdp": 0.389,
+     "averageRate": 0.0311,
+     "marketRate": 0.0308,
+     "balanceToGdp": 0.01,
+     "access": 1,
+     "defaults": 0,
+     "stability": 60.7,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.049
+    },
+    "156": {
+     "debtToGdp": 0.364,
+     "averageRate": 0.031,
+     "marketRate": 0.0306,
+     "balanceToGdp": -0.001,
+     "access": 1,
+     "defaults": 0,
+     "stability": 64,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.094
+    }
+   },
+   "nor": {
+    "1": {
+     "debtToGdp": 0.427,
+     "averageRate": 0.024,
+     "marketRate": 0.036,
+     "balanceToGdp": null,
+     "access": 1,
+     "defaults": 0,
+     "stability": 69.8,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": null
+    },
+    "52": {
+     "debtToGdp": 0.405,
+     "averageRate": 0.0263,
+     "marketRate": 0.0311,
+     "balanceToGdp": 0.014,
+     "access": 1,
+     "defaults": 0,
+     "stability": 64.1,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.01
+    },
+    "104": {
+     "debtToGdp": 0.394,
+     "averageRate": 0.0276,
+     "marketRate": 0.0308,
+     "balanceToGdp": 0.001,
+     "access": 1,
+     "defaults": 0,
+     "stability": 61.3,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.029
+    },
+    "156": {
+     "debtToGdp": 0.379,
+     "averageRate": 0.0285,
+     "marketRate": 0.0306,
+     "balanceToGdp": 0.001,
+     "access": 1,
+     "defaults": 0,
+     "stability": 62.2,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.059
+    }
+   },
+   "grc": {
+    "1": {
+     "debtToGdp": 1.64,
+     "averageRate": 0.0208,
+     "marketRate": 0.0526,
+     "balanceToGdp": null,
+     "access": 1,
+     "defaults": 0,
+     "stability": 69.8,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": null
+    },
+    "52": {
+     "debtToGdp": 1.631,
+     "averageRate": 0.0287,
+     "marketRate": 0.0476,
+     "balanceToGdp": 0.013,
+     "access": 1,
+     "defaults": 0,
+     "stability": 58.4,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.007
+    },
+    "104": {
+     "debtToGdp": 1.576,
+     "averageRate": 0.0339,
+     "marketRate": 0.0465,
+     "balanceToGdp": 0.019,
+     "access": 1,
+     "defaults": 0,
+     "stability": 53.3,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.034
+    },
+    "156": {
+     "debtToGdp": 1.487,
+     "averageRate": 0.0373,
+     "marketRate": 0.0449,
+     "balanceToGdp": 0.019,
+     "access": 1,
+     "defaults": 0,
+     "stability": 56,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.074
+    }
+   },
+   "bgr": {
+    "1": {
+     "debtToGdp": 0.228,
+     "averageRate": 0.0217,
+     "marketRate": 0.0365,
+     "balanceToGdp": null,
+     "access": 1,
+     "defaults": 0,
+     "stability": 69.9,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": null
+    },
+    "52": {
+     "debtToGdp": 0.231,
+     "averageRate": 0.0248,
+     "marketRate": 0.0311,
+     "balanceToGdp": 0,
+     "access": 1,
+     "defaults": 0,
+     "stability": 63.4,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.012
+    },
+    "104": {
+     "debtToGdp": 0.226,
+     "averageRate": 0.0266,
+     "marketRate": 0.0308,
+     "balanceToGdp": -0.005,
+     "access": 1,
+     "defaults": 0,
+     "stability": 64.1,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.033
+    },
+    "156": {
+     "debtToGdp": 0.223,
+     "averageRate": 0.0279,
+     "marketRate": 0.0306,
+     "balanceToGdp": -0.007,
+     "access": 1,
+     "defaults": 0,
+     "stability": 64.3,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.062
+    }
+   },
+   "bloc-eur": {
+    "1": {
+     "debtToGdp": 0.5,
+     "averageRate": 0.03,
+     "marketRate": 0.036,
+     "balanceToGdp": null,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": null
+    },
+    "52": {
+     "debtToGdp": 0.504,
+     "averageRate": 0.0306,
+     "marketRate": 0.0311,
+     "balanceToGdp": -0.004,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 0.994
+    },
+    "104": {
+     "debtToGdp": 0.502,
+     "averageRate": 0.0307,
+     "marketRate": 0.0308,
+     "balanceToGdp": -0.003,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 0.995
+    },
+    "156": {
+     "debtToGdp": 0.495,
+     "averageRate": 0.0307,
+     "marketRate": 0.0306,
+     "balanceToGdp": -0.001,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 0.998
+    }
+   },
+   "bloc-eec": {
+    "1": {
+     "debtToGdp": 0.5,
+     "averageRate": 0.03,
+     "marketRate": 0.036,
+     "balanceToGdp": null,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": null
+    },
+    "52": {
+     "debtToGdp": 0.506,
+     "averageRate": 0.0306,
+     "marketRate": 0.0311,
+     "balanceToGdp": -0.004,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 0.994
+    },
+    "104": {
+     "debtToGdp": 0.504,
+     "averageRate": 0.0307,
+     "marketRate": 0.0308,
+     "balanceToGdp": -0.002,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 0.995
+    },
+    "156": {
+     "debtToGdp": 0.494,
+     "averageRate": 0.0307,
+     "marketRate": 0.0306,
+     "balanceToGdp": 0,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 0.999
+    }
+   },
+   "bloc-mea": {
+    "1": {
+     "debtToGdp": 0.5,
+     "averageRate": 0.03,
+     "marketRate": 0.036,
+     "balanceToGdp": null,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": null
+    },
+    "52": {
+     "debtToGdp": 0.505,
+     "averageRate": 0.0306,
+     "marketRate": 0.0311,
+     "balanceToGdp": -0.005,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 0.995
+    },
+    "104": {
+     "debtToGdp": 0.504,
+     "averageRate": 0.0307,
+     "marketRate": 0.0308,
+     "balanceToGdp": -0.003,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 0.995
+    },
+    "156": {
+     "debtToGdp": 0.496,
+     "averageRate": 0.0307,
+     "marketRate": 0.0306,
+     "balanceToGdp": -0.002,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.002
+    }
+   },
+   "bloc-ame": {
+    "1": {
+     "debtToGdp": 0.5,
+     "averageRate": 0.03,
+     "marketRate": 0.036,
+     "balanceToGdp": null,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": null
+    },
+    "52": {
+     "debtToGdp": 0.501,
+     "averageRate": 0.0306,
+     "marketRate": 0.0311,
+     "balanceToGdp": -0.004,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 0.999
+    },
+    "104": {
+     "debtToGdp": 0.497,
+     "averageRate": 0.0307,
+     "marketRate": 0.0308,
+     "balanceToGdp": -0.003,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.003
+    },
+    "156": {
+     "debtToGdp": 0.488,
+     "averageRate": 0.0307,
+     "marketRate": 0.0306,
+     "balanceToGdp": -0.001,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.009
+    }
+   },
+   "bloc-apa": {
+    "1": {
+     "debtToGdp": 0.5,
+     "averageRate": 0.03,
+     "marketRate": 0.036,
+     "balanceToGdp": null,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": null
+    },
+    "52": {
+     "debtToGdp": 0.502,
+     "averageRate": 0.0306,
+     "marketRate": 0.0311,
+     "balanceToGdp": -0.005,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 0.999
+    },
+    "104": {
+     "debtToGdp": 0.497,
+     "averageRate": 0.0307,
+     "marketRate": 0.0308,
+     "balanceToGdp": -0.003,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.004
+    },
+    "156": {
+     "debtToGdp": 0.488,
+     "averageRate": 0.0307,
+     "marketRate": 0.0306,
+     "balanceToGdp": -0.002,
+     "access": 1,
+     "defaults": 0,
+     "stability": 70,
+     "unrestTier": 0,
+     "regime": 0,
+     "realGdpIndex": 1.013
+    }
+   }
+  },
+  "events": {},
+  "audit": {
+   "worstMoneyError": 1.5279510989785194e-10,
+   "worstBondError": 1.0076207491399805e-15,
+   "worstIssuedError": 7.716591455273763e-15
+  },
+  "finalHash": "2d9eb7e14dc893d9"
+ }
+}

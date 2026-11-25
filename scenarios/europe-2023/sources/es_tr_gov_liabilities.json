@@ -1,0 +1,24 @@
+{
+ "attribution": "Source: Eurostat",
+ "dataset": "nasa_10_f_bs",
+ "flags": {},
+ "id": "es_tr_gov_liabilities",
+ "key": "na_item|geo",
+ "licence": "Eurostat copyright notice: reuse authorised, commercial or not, provided the source is acknowledged (UK data excluded from commercial reuse; none is taken from Eurostat)",
+ "licence_status": "verified (primary)",
+ "notes": [
+  "Financial balance sheet at market value, consolidated. EDP (Maastricht) debt is at face value; the two differ by valuation."
+ ],
+ "publisher": "eurostat",
+ "publisher_updated": "2026-11-17T11:00:00+0100",
+ "query": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_f_bs?time=2023&unit=MIO_NAC&geo=TR&sector=S13&finpos=LIAB&co_nco=CO&na_item=F&na_item=F2&na_item=F3&na_item=F4",
+ "reference_year": 2023,
+ "retrieved": "2026-11-25",
+ "title": "Türkiye: general government (S13) consolidated liabilities, debt instruments F2, F3, F4 and total F, million TRY, end-2023",
+ "values": {
+  "F2|TR": 12386.6,
+  "F3|TR": 6642579.2,
+  "F4|TR": 877286.9,
+  "F|TR": 8708399.5
+ }
+}

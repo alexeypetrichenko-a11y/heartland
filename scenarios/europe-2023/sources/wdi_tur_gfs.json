@@ -1,0 +1,47 @@
+{
+ "attribution": "Source: World Bank, World Development Indicators",
+ "dataset": "GC.XPN.TOTL.GD.ZS+GC.XPN.INTP.ZS+GC.REV.XGRT.GD.ZS+GC.NLD.TOTL.GD.ZS+GC.DOD.TOTL.GD.ZS",
+ "id": "wdi_tur_gfs",
+ "key": "country|indicator",
+ "licence": "CC BY 4.0 (World Bank WDI); third-party series are not used",
+ "licence_status": "verified (primary)",
+ "notes": [
+  "Coverage: consolidated central government (WDI country metadata, GovernmentAccountingconcept).",
+  "Each series is labelled CC BY-4.0 by the World Bank (License_Type in its metadata); the original compiler is the IMF."
+ ],
+ "per_series_licence": {
+  "GC.DOD.TOTL.GD.ZS": {
+   "License_Type": "CC BY-4.0",
+   "Source": "Government Finance Statistics Yearbook and data files, International Monetary Fund (IMF)"
+  },
+  "GC.NLD.TOTL.GD.ZS": {
+   "License_Type": "CC BY-4.0",
+   "Source": "Government Finance Statistics Yearbook and data files, International Monetary Fund (IMF)"
+  },
+  "GC.REV.XGRT.GD.ZS": {
+   "License_Type": "CC BY-4.0",
+   "Source": "Government Finance Statistics Yearbook and data files, International Monetary Fund (IMF)"
+  },
+  "GC.XPN.INTP.ZS": {
+   "License_Type": "CC BY-4.0",
+   "Source": "Government Finance Statistics Yearbook and data files, International Monetary Fund (IMF)"
+  },
+  "GC.XPN.TOTL.GD.ZS": {
+   "License_Type": "CC BY-4.0",
+   "Source": "Government Finance Statistics Yearbook and data files, International Monetary Fund (IMF)"
+  }
+ },
+ "publisher": "worldbank",
+ "publisher_updated": null,
+ "query": "https://api.worldbank.org/v2/country/TUR/indicator/GC.XPN.TOTL.GD.ZS?date=2023&format=json https://api.worldbank.org/v2/country/TUR/indicator/GC.XPN.INTP.ZS?date=2023&format=json https://api.worldbank.org/v2/country/TUR/indicator/GC.REV.XGRT.GD.ZS?date=2023&format=json https://api.worldbank.org/v2/country/TUR/indicator/GC.NLD.TOTL.GD.ZS?date=2023&format=json https://api.worldbank.org/v2/country/TUR/indicator/GC.DOD.TOTL.GD.ZS?date=2023&format=json",
+ "reference_year": 2023,
+ "retrieved": "2026-11-25",
+ "title": "WDI government finance for Türkiye (IMF GFS, consolidated central government), 2023",
+ "values": {
+  "TUR|GC.DOD.TOTL.GD.ZS": 31.1237728765421,
+  "TUR|GC.NLD.TOTL.GD.ZS": -2.16757579367707,
+  "TUR|GC.REV.XGRT.GD.ZS": 33.0413461477558,
+  "TUR|GC.XPN.INTP.ZS": 11.0423652945442,
+  "TUR|GC.XPN.TOTL.GD.ZS": 33.0277530817277
+ }
+}

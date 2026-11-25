@@ -1,0 +1,220 @@
+{
+ "note": "WORLD-05 and WORLD-05-FINAL licence evidence: what was checked, where, how and with what result. Standard applied: commercial distribution (WORLD-02 decision L-1). Quotes are verbatim; English translations of Turkish text are WORLD-05's own. page_sha256 is the hash of the bytes retrieved on the check date (dynamic pages change). Not legal advice.",
+ "standard": "commercial distribution of the game and its scenario packages (WORLD-02 L-1)",
+ "publishers": {
+  "eurostat": {
+   "used_by": "national and regional statistics for FR, DE, IT, PL, the neighbours and Türkiye; never for the UK",
+   "url": "https://ec.europa.eu/eurostat/help/copyright-notice",
+   "checked": "2026-11-25",
+   "method": "primary page read",
+   "page_sha256": "aac12f0575b294e56254d96a63bdd7dd5447969758500ce024e851ede61809a1",
+   "quote": "Reuse of statistical data, metadata, publications, and other dissemination tools published on this website for commercial or non-commercial purposes is authorised provided the source is acknowledged.",
+   "exception_quote": "The following Eurostat data and documents may not be reused for commercial purposes, but non-commercial reuse is possible without restriction: [...] Data for countries other than: Member States of the European Union (EU) Member States of the European Free Trade Association (EFTA) official EU acceding and candidate countries.",
+   "commercial_reuse": "yes for EU and EFTA members and candidate countries (Türkiye included); no for UK data or any other country",
+   "attribution": "Source: Eurostat",
+   "status": "verified"
+  },
+  "ons": {
+   "used_by": "UK regional output and population, UK debt",
+   "url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+   "checked": "2026-11-22 (WORLD-03, recorded in every ONS snapshot)",
+   "method": "primary page read",
+   "quote": "Open Government Licence v3.0",
+   "commercial_reuse": "yes, with the attribution statement",
+   "attribution": "Source: Office for National Statistics licensed under the Open Government Licence v.3.0",
+   "status": "verified"
+  },
+  "worldbank": {
+   "used_by": "sector shares, resource rents, GDP (US$, PPP), population for blocs and cross-checks",
+   "url": "https://api.worldbank.org/v2/sources/2/series/<series>/metadata",
+   "checked": "2026-11-25",
+   "method": "per-indicator metadata (License_Type) from the World Bank API, for all 14 WDI series used by the scenario and WORLD-02",
+   "series_checked": [
+    "GC.DOD.TOTL.GD.ZS",
+    "GC.NLD.TOTL.GD.ZS",
+    "GC.REV.XGRT.GD.ZS",
+    "GC.XPN.INTP.ZS",
+    "GC.XPN.TOTL.GD.ZS",
+    "NV.AGR.TOTL.ZS",
+    "NV.IND.MANF.ZS",
+    "NV.IND.TOTL.ZS",
+    "NV.SRV.TOTL.ZS",
+    "NY.GDP.COAL.RT.ZS",
+    "NY.GDP.MINR.RT.ZS",
+    "NY.GDP.MKTP.CD",
+    "NY.GDP.MKTP.CN",
+    "NY.GDP.MKTP.PP.CD",
+    "NY.GDP.NGAS.RT.ZS",
+    "NY.GDP.PETR.RT.ZS",
+    "PA.NUS.PPP",
+    "SP.POP.TOTL"
+   ],
+   "quote": "License_Type: CC BY-4.0 for every series used; for contrast MS.MIL.XPND.GD.ZS and MS.MIL.XPND.CN (SIPRI) are labelled \"SIPRI terms and conditions\" and are not used",
+   "commercial_reuse": "yes (CC BY 4.0: attribution, licence link, indicate changes)",
+   "attribution": "Source: World Bank, World Development Indicators (CC BY 4.0)",
+   "status": "verified",
+   "third_party_note": "GC.* government finance series are compiled by the IMF from Turkish national data (consolidated central government for Türkiye, WDI country metadata); the World Bank labels them CC BY-4.0. MS.MIL.TOTL.P1 (IISS) is also labelled CC BY-4.0 but is IISS-sourced and ends in 2020: not used."
+  },
+  "oecd": {
+   "used_by": "taxes for the UK and Türkiye (Revenue Statistics), customs kept (GBR, TUR, NOR, CHE), GDP (GBR, TUR), UK government accounts and defence, Swiss debt, Türkiye net lending (Economic Outlook, draft.3)",
+   "url": "https://www.oecd.org/en/about/terms-conditions.html",
+   "checked": "2026-11-25",
+   "method": "Terms: web search only (oecd.org returns HTTP 403 to automated reading, also through a fetch agent; a headless browser was not used). Dataset metadata: primary, OECD SDMX API dataflow structures for every dataset used.",
+   "quote": "Data section (search-engine reading of the page): you can extract from, download, copy, adapt, print, distribute, share and embed Data for any purpose, even for commercial use; you must give appropriate credit to the OECD by using the citation associated with the relevant Data. Data may be subject to restrictions beyond the scope of these Terms and Conditions, either because specific terms apply to those Data or because third parties may have ownership interests. CC BY 4.0 applies to OECD written content published as of 1 July 2024, not to Data.",
+   "dataset_metadata": [
+    {
+     "dataflow": "OECD.CTP.TPS,DSD_REV_COMP_OECD@DF_RSOECD",
+     "version": "2.0",
+     "title": "Revenue Statistics in OECD member countries - Comparative tax revenues",
+     "licence_or_restriction_notices": "none",
+     "structure_sha256": "396157c856af8e071332279034f942d9be8c39b263138e132282fe51caa31951"
+    },
+    {
+     "dataflow": "OECD.SDD.NAD,DSD_NAMAIN10@DF_TABLE1_EXPENDITURE",
+     "version": "2.0",
+     "title": "Annual GDP and components - expenditure approach",
+     "licence_or_restriction_notices": "none",
+     "structure_sha256": "c4b48418a0fddb562c950e7fda2d8471a7784ee44379a09c48d7176b130d18ba"
+    },
+    {
+     "dataflow": "OECD.SDD.NAD,DSD_NASEC10@DF_TABLE11",
+     "version": "1.1",
+     "title": "Annual government expenditure by function (COFOG)",
+     "licence_or_restriction_notices": "none",
+     "structure_sha256": "7cf30f0ffea3b737d8e83754d161bb2342d8a0a5f46956280cfb617eaace324d"
+    },
+    {
+     "dataflow": "OECD.SDD.NAD,DSD_NASEC10@DF_TABLE12",
+     "version": "1.1",
+     "title": "Annual government non-financial accounts and key indicators (for 'Developer API')",
+     "licence_or_restriction_notices": "none",
+     "structure_sha256": "119ae2339cad87940b41870713104fe3a65c22ef05b035d43736d66e732a0a27"
+    },
+    {
+     "dataflow": "OECD.SDD.NAD,DSD_NASEC20@DF_T720GOV_A",
+     "version": "1.1",
+     "title": "Government Annual Financial Balance Sheets (stocks), non-consolidated",
+     "licence_or_restriction_notices": "none",
+     "structure_sha256": "e45b2bf05f1810e58167359b7fb9735cd5d125c746bc25162c657991a09ad019"
+    },
+    {
+     "dataflow": "OECD.ECO.MAD,DSD_EO@DF_EO",
+     "version": "1.5",
+     "title": "Economic Outlook 119",
+     "licence_or_restriction_notices": "none",
+     "structure_sha256": "51a6969eab56315d16eafa11866f890556a08a8299fc2000067ea684f38d9e27"
+    }
+   ],
+   "commercial_reuse": "yes, with the dataset citation, unless dataset-specific terms or third-party ownership apply; none is indicated for the datasets used",
+   "attribution": "OECD (2026), <dataset title>, OECD Data Explorer, accessed <date> (citations in each package NOTICE.md)",
+   "status": "cleared (W5-L3): Terms via search (secondary), dataset metadata primary. Release check: read the Data section in a browser before a public release."
+  },
+  "tuik": {
+   "used_by": "not used directly (its portal and SDMX service require a login); Eurostat redistributes TurkStat national accounts and LFS data",
+   "url": "https://www.tuik.gov.tr/Kurumsal/Yasal_Uyari",
+   "checked": "2026-11-25",
+   "method": "primary page read",
+   "page_sha256": "f15f3f5b810b1008355c1186e015cdfb5934ec53f44c4ce8a162b18abe51c33d",
+   "quote": "İnternet sitemizden, yayınlarımızdan veya veri tabanlarımızdan elde edilen verilerin, kaynak gösterilmek suretiyle herhangi bir izine gerek duymaksızın yeniden kullanımı mümkündür.",
+   "translation": "Data obtained from our website, publications or databases may be reused, with the source cited, without the need for any permission.",
+   "commercial_reuse": "not excluded",
+   "attribution": "Source: Turkish Statistical Institute (TÜİK)",
+   "status": "verified (reuse with attribution); data access needs a TÜİK account"
+  },
+  "tr_muhasebat": {
+   "used_by": "WORLD-05 candidate inputs only (general government GFS 2023, central government budget defence 2023); no package",
+   "url": "https://muhasebat.hmb.gov.tr/ (files on https://ms.hmb.gov.tr/uploads/)",
+   "checked": "2026-11-25",
+   "method": "searched the Muhasebat and hmb.gov.tr content APIs for legal notices, terms, copyright and reuse pages; read the table metadata PDF (sha256 d6873e4f1ae7f32b7c8c1a16228b0a7aaee0627e2a1761cd8bb4655c96642098)",
+   "quote": "Veri dağıtım politikası: Mali istatistik tabloları, Ulusal Veri Yayınlama Takviminde belirtilen tarihlerde [...] resmi web adresinde yayımlanmaktadır. (no reuse terms)",
+   "translation": "Dissemination policy: the fiscal statistics tables are published on the official website on the dates in the national release calendar.",
+   "commercial_reuse": "not addressed",
+   "attribution": "Source: Republic of Türkiye Ministry of Treasury and Finance, General Directorate of Public Accounts",
+   "status": "NOT VERIFIED: official statistics without a published reuse licence (W5-L1)"
+  },
+  "tr_treasury": {
+   "used_by": "Türkiye general government gross debt (draft.1, draft.2)",
+   "url": "https://ms.hmb.gov.tr/ (Public Debt Management Report)",
+   "checked": "2026-11-22 (WORLD-03)",
+   "method": "primary document read",
+   "quote": "May not be copied or duplicated, in whole or in part without reference.",
+   "commercial_reuse": "not addressed",
+   "attribution": "Source: Republic of Türkiye Ministry of Treasury and Finance, Public Debt Management Report",
+   "status": "partly verified: reuse with reference; commercial use not addressed (W5-L2)"
+  },
+  "tr_sayistay": {
+   "used_by": "Türkiye spending lines, 2023 balance and financing (draft.1, draft.2)",
+   "url": "https://www.sayistay.gov.tr/",
+   "checked": "2026-11-22 (WORLD-03); unchanged in WORLD-05",
+   "method": "primary site read",
+   "quote": "No reuse terms published on sayistay.gov.tr",
+   "commercial_reuse": "unknown",
+   "status": "NOT VERIFIED (W3-L1). The report reproduces an earlier vintage of the Ministry's GFS (tr_muhasebat): WORLD-05 §1.3"
+  },
+  "imf": {
+   "used_by": "nothing",
+   "url": "https://www.imf.org/external/terms.htm",
+   "checked": "2026-11-25",
+   "method": "web search only: imf.org and data.imf.org return 'Access Denied' to automated reading",
+   "quote": "You may download, extract, copy, create derivative works, publish, distribute, and use Data obtained from IMF Sites, subject to the following conditions [...] for any potential commercial reuse of IMF Data, please email copyright@imf.org to request permission (search-result summary)",
+   "commercial_reuse": "by permission",
+   "status": "not a clean commercial route without written permission"
+  },
+  "nato": {
+   "used_by": "nothing",
+   "url": "https://www.nato.int/",
+   "checked": "2026-11-25",
+   "method": "primary: site home page and footer read; common terms paths (/en/terms-of-use, /en/copyright, /en/legal-notice, /en/disclaimer) return 404",
+   "quote": "footer links only to Google Privacy Policy and Terms of Service (reCAPTCHA); no reuse terms for NATO data",
+   "commercial_reuse": "unknown",
+   "status": "not used"
+  },
+  "natural_earth": {
+   "used_by": "all geometry (public/geography, scenario geography)",
+   "url": "https://www.naturalearthdata.com/about/terms-of-use/",
+   "checked": "2026-11-22 (WORLD-02)",
+   "method": "primary page read (WORLD-02)",
+   "quote": "All versions of Natural Earth raster + vector map data found on this website are in the public domain.",
+   "commercial_reuse": "yes",
+   "status": "verified"
+  },
+  "sipri": {
+   "used_by": "nothing",
+   "url": "https://api.worldbank.org/v2/sources/2/series/MS.MIL.XPND.GD.ZS/metadata",
+   "checked": "2026-11-25",
+   "method": "World Bank API label",
+   "quote": "License_Type: SIPRI terms and conditions",
+   "status": "not used (third-party terms)"
+  }
+ },
+ "turkish_law": {
+  "source": "https://www.mevzuat.gov.tr/ (official legislation portal), read 2026-11-25",
+  "law_5846_art_31": {
+   "page_sha256": "4cc6d64814ffacb5592aa3a786be76e03ab8ca593321c71216b44701b946037c",
+   "quote": "Resmen yayımlanan veya ilan olunan kanun, Cumhurbaşkanlığı kararnamesi, yönetmelik, tebliğ, genelge ve kazai kararların çoğaltılması, yayılması, işlenmesi veya her hangi bir suretle bunlardan faydalanma serbesttir.",
+   "translation": "Reproducing, distributing, adapting or otherwise using officially published laws, presidential decrees, regulations, communiqués, circulars and court decisions is free.",
+   "relevance": "statistics and audit reports are not in the list"
+  },
+  "law_5846_art_6_11": {
+   "quote": "Ancak, burada sağlanan koruma, veri tabanı içinde bulunan veri ve materyalin korunması için genişletilemez",
+   "translation": "However, this protection cannot be extended to the data and material contained in the database.",
+   "relevance": "individual statistical facts are not protected as a work"
+  },
+  "law_5846_additional_art_8": {
+   "quote": "veri tabanının içeriğinin önemli bir kısmının veya tamamının [...] başka bir ortama aktarılması [...] dağıtılması [...] hususlarında [...] izin vermek veya yasaklamak hakkına sahiptir. [...] Veri tabanı yapımcısına sağlanan koruma aleniyet tarihinden itibaren onbeş yıldır.",
+   "translation": "The database maker may authorise or prohibit the transfer or distribution of a substantial part or the whole of the database contents. The protection lasts fifteen years from publication.",
+   "relevance": "a sui generis right covers substantial extraction; the scenario takes about ten aggregates per source"
+  },
+  "law_5429_art_4": {
+   "page_sha256": "42b38296bd2c7d859cf0e188df721f1cda5a04860e0e54f87052c87bcc83e36b",
+   "quote": "Resmî istatistiklerin gerçekleri yansıtmasının sağlanması, tüm kullanıcılara tarafsız ve eş zamanlı olarak sunulması, gizlilik ilkesine riayet edilmesi, kamuoyunun bilgi edinme hakkının gözetilmesi temel esaslardır.",
+   "translation": "Ensuring that official statistics reflect the facts, presenting them impartially and simultaneously to all users, respecting confidentiality and observing the public's right to information are the basic principles.",
+   "relevance": "official statistics are public; the law grants no reuse licence"
+  },
+  "law_5429_art_6": {
+   "quote": "Başkanlık, kurum ve kuruluşlar tarafından derlenen resmî istatistikleri de yayımlayabilir ve dağıtabilir.",
+   "translation": "TurkStat may also publish and distribute official statistics compiled by other institutions.",
+   "relevance": "data obtained from TurkStat falls under TurkStat's reuse notice"
+  }
+ }
+}

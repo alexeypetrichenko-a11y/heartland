@@ -36,6 +36,7 @@ from collections import defaultdict
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 BUILD = os.path.join(ROOT, 'scenarios', 'europe-2023', 'build')
 SRC = os.path.join(ROOT, 'scenarios', 'europe-2023', 'sources')
+BUILD_IN = BUILD   # WORLD-05-FINAL: set per package in main() (build-licensed/ for a licensed package)
 CURATED_NEIGHBOUR_LAND = {
     'irl': ['gbr-nir'], 'esp': ['fra-naq', 'fra-occ'], 'nld': ['deu-nrw', 'deu-nor'], 'bel': ['fra-ne', 'deu-nrw', 'deu-mit'],
     'che': ['fra-ara', 'fra-ne', 'deu-bw', 'ita-no'], 'aut': ['deu-by', 'ita-ne'], 'cze': ['deu-by', 'deu-mo', 'pol-pdz', 'pol-pol'],
@@ -49,12 +50,16 @@ def load(name, base=BUILD):
     return json.load(open(os.path.join(base, name), encoding='utf-8'))
 
 def main(package=None):
-    geo, inputs = load('geography.json'), load('inputs.json')
+    global BUILD_IN
     if package and os.path.exists(os.path.join(package, 'calibration-report.json')):
         cal = load('calibration-report.json', package)
     else:
         cal = load('calibration.json') if os.path.exists(os.path.join(BUILD, 'calibration.json')) else None
-    final = bool(cal) and cal.get('mode') == 'final'
+    # WORLD-05-FINAL: a 'licensed' package (1.0.0-draft.3) is checked against its own licence-clean build (build-licensed/).
+    licensed = bool(cal) and cal.get('mode') == 'licensed'
+    BUILD_IN = os.path.join(ROOT, 'scenarios', 'europe-2023', 'build-licensed') if licensed else BUILD
+    geo, inputs = load('geography.json'), load('inputs.json', BUILD_IN)
+    final = bool(cal) and cal.get('mode') in ('final', 'licensed')
     REPORTED = {'netLending', 'dividends', 'interest', 'tariffRevenue'}
     zones = inputs['zones']; countries = inputs['countries']
     kinds = defaultdict(int)
@@ -124,9 +129,24 @@ def main(package=None):
     unknown = sorted(cited - snapshots - {'world02-defence-cofog-2023'})
     no_licence = [s for s in snapshots if not load(f'{s}.json', SRC).get('licence')]
     check('D2', not unknown and not uncited and not no_licence, f'{len(cited)} sources cited; unknown {unknown}; values without source {uncited[:5]}; snapshots without licence {no_licence}')
-    statuses = {s: load(f'{s}.json', SRC)['licence_status'] for s in sorted(snapshots)}
-    unverified = {s: v for s, v in statuses.items() if not v.startswith('verified')}
-    check('D3', not unverified, f'snapshots with a licence that is not verified for commercial reuse: {unverified}', level='warn')
+    if licensed:
+        register = json.load(open(os.path.join(ROOT, 'scenarios', 'europe-2023', 'licences.json'), encoding='utf-8'))['publishers']
+        used = set(cited)
+        def grab_sources(node):
+            if isinstance(node, dict):
+                for k, v in node.items():
+                    if k in ('sources', 'source') and isinstance(v, list): used.update(x for x in v if isinstance(x, str))
+                    else: grab_sources(v)
+            elif isinstance(node, list):
+                for v in node: grab_sources(v)
+        grab_sources(load('budget.json', BUILD_IN)); grab_sources(load('financing.json', BUILD_IN)); grab_sources(inputs['military'])
+        pubs = {s: load(f'{s}.json', SRC)['publisher'] for s in sorted(used & snapshots)}
+        blocked = {s: register.get(p, {}).get('status', 'unknown') for s, p in pubs.items() if register.get(p, {}).get('status') != 'cleared'}
+        check('D3', not blocked, f'{len(pubs)} snapshots cited by this package; publishers {sorted(set(pubs.values()))}; not cleared in the licence register: {blocked}')
+    else:
+        statuses = {s: load(f'{s}.json', SRC)['licence_status'] for s in sorted(snapshots)}
+        unverified = {s: v for s, v in statuses.items() if not v.startswith('verified')}
+        check('D3', not unverified, f'snapshots with a licence that is not verified for commercial reuse: {unverified}', level='warn')
     lo, hi = 0.1, 4.0
     bad = [z['id'] for z in zones if not (z['population']['value'] > 0 and z['output_target']['value'] > 0
            and all(lo - 1e-9 <= v <= hi + 1e-9 for k, v in z['advantage']['value'].items()))]
@@ -162,8 +182,24 @@ def main(package=None):
         check('C1', False, 'no calibration.json')
     mil = inputs['military']['countries']
     unresolved = [c for c, v in mil.items() if v['status'] == 'unresolved']
-    check('M1', all(v['divisions'] is None for v in mil.values() if v['status'] == 'unresolved') and all(v['status'] in ('draft', 'unresolved') for v in mil.values()),
-          f'draft: {sorted(c for c, v in mil.items() if v["status"] == "draft")}; unresolved (no value inserted): {unresolved}')
+    if licensed:
+        playable = sorted(c['id'] for c in countries if c['kind'] == 'playable')
+        ok = sorted(mil) == playable and all(isinstance(v['divisions'], int) and v['divisions'] > 0 and v['status'] in ('data', 'assumption') and v.get('sources') for v in mil.values())
+        check('M1', ok, f'data (Rule W): {sorted(c for c, v in mil.items() if v["status"] == "data")}; gameplay assumption: '
+                        f'{ {c: v["divisions"] for c, v in mil.items() if v["status"] == "assumption"} }; total {sum(v["divisions"] for v in mil.values())}')
+        place = inputs['military']['placement']
+        alloc = place['byRegion']
+        owner = {z['id']: z['country'] for z in zones if z['kind'] == 'province'}
+        moved = {x for a, b in move for x in (a, b)}
+        sums = {c: sum(n for p, n in alloc.items() if owner[p] == c) for c in playable}
+        stranded = sorted(p for p in owner if p not in moved and alloc.get(p, 0) != 0)
+        empty = sorted(p for p in owner if place['regions'][p]['reachable'] and alloc.get(p, 0) < 1)
+        check('M2', set(alloc) == set(owner) and all(sums[c] == mil[c]['divisions'] for c in playable) and not stranded and not empty and place['rule'] == 'P-1',
+              f'rule {place["rule"]}; divisions per country match counts: {all(sums[c] == mil[c]["divisions"] for c in playable)}; '
+              f'provinces without a movement link holding divisions: {stranded}; reachable provinces without a division: {empty}')
+    else:
+        check('M1', all(v['divisions'] is None for v in mil.values() if v['status'] == 'unresolved') and all(v['status'] in ('draft', 'unresolved') for v in mil.values()),
+              f'draft: {sorted(c for c, v in mil.items() if v["status"] == "draft")}; unresolved (no value inserted): {unresolved}')
     if final:
         named, missing, no_lic = set(), [], []
         def grab(node):
@@ -173,7 +209,7 @@ def main(package=None):
                     else: grab(v)
             elif isinstance(node, list):
                 for v in node: grab(v)
-        grab(load('budget.json')); grab(load('financing.json'))
+        grab(load('budget.json', BUILD_IN)); grab(load('financing.json', BUILD_IN))
         for sid in sorted(named):
             path = os.path.join(SRC, f'{sid}.json')
             if not os.path.exists(path): missing.append(sid)
@@ -181,7 +217,17 @@ def main(package=None):
         check('D5', not missing and not no_lic, f'{len(named)} sources named by budget/financing; missing {missing}; without licence {no_lic}')
     if package:
         manifest = json.load(open(os.path.join(package, 'manifest.json'), encoding='utf-8'))
-        if 'distributable' in manifest:
+        if licensed:
+            reg_blockers = [l['publisher'] for l in manifest.get('licences', []) if l['status'] != 'cleared']
+            check('P2', manifest.get('distributable') is (not reg_blockers) and len(manifest.get('notDistributableBecause', [])) == len(reg_blockers),
+                  f'distributable={manifest.get("distributable")}; publishers not cleared: {reg_blockers}; release checks: {len(manifest.get("releaseChecks", []))}')
+            notice_ok = all(os.path.exists(os.path.join(package, manifest[k]['path'])) and
+                            hashlib.sha256(open(os.path.join(package, manifest[k]['path']), 'rb').read()).hexdigest() == manifest[k]['sha256']
+                            for k in ('notice', 'attribution'))
+            notice = open(os.path.join(package, 'NOTICE.md'), encoding='utf-8').read() if notice_ok else ''
+            missing_attr = [l['publisher'] for l in manifest.get('licences', []) if (l.get('attribution') or '') not in notice]
+            check('N1', notice_ok and not missing_attr, f'NOTICE.md and ATTRIBUTION.json match the manifest: {notice_ok}; publishers without their attribution in NOTICE.md: {missing_attr}')
+        elif 'distributable' in manifest:
             prov = json.load(open(os.path.join(package, 'provenance.json'), encoding='utf-8'))
             unverified = [l['id'] for l in prov.get('licences', []) if not str(l['licenceStatus']).startswith('verified')]
             check('P2', manifest['distributable'] == (not unverified),
