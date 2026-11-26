@@ -13,7 +13,11 @@ type MilitaryPanelProps = {
 };
 
 export function MilitaryPanel({ state, forceNote, pendingOrders, onStageOrder, onRemoveOrder, onDiscardOrders }: MilitaryPanelProps) {
-  const [detail, setDetail] = useState<'orders' | 'results' | null>(null);
+  const [panel, setPanel] = useState<{ kind: 'orders' | 'results'; week: number } | null>(null);
+  const detail = panel?.week === state.week ? panel.kind : null;
+  function setDetail(kind: 'orders' | 'results' | null) {
+    setPanel(kind ? { kind, week: state.week } : null);
+  }
   const [divisionId, setDivisionId] = useState('');
   const [kind, setKind] = useState<MilitaryOrder['kind']>('defend');
   const [targetId, setTargetId] = useState('');
@@ -27,7 +31,8 @@ export function MilitaryPanel({ state, forceNote, pendingOrders, onStageOrder, o
   const regionName = (id: string) => state.regions.find(region => region.id === id)?.name ?? id;
   const divisionName = (id: string) => state.divisions.find(division => division.id === id)?.name ?? id;
   const orderLabel = (order: MilitaryOrder) => order.kind === 'defend' ? 'Defend current region' : `${order.kind === 'move' ? 'Move to' : 'Attack'} ${regionName(order.targetRegionId)}`;
-  const activeAttacks = divisions.filter(division => division.manpower > 0 && division.order.kind === 'attack');
+  const activeAttacks = divisions.flatMap(division => division.manpower > 0 && division.order.kind === 'attack'
+    ? [{ division, targetId: division.order.targetRegionId }] : []);
   const briefing = kind === 'attack' && target ? militaryBriefing(state, target.id) : null;
   const persistence = kind === 'attack' ? 'Persistent · repeats each week until capture, destruction or replacement.'
     : kind === 'move' ? 'One-time · move during settlement, then defend at the destination.'
@@ -41,7 +46,27 @@ export function MilitaryPanel({ state, forceNote, pendingOrders, onStageOrder, o
   return (
     <section className="compact-section" aria-labelledby="military-title">
       <h2 id="military-title" className="sr-only">Military</h2>
-      <div className="overview overview-grid" hidden={detail !== null}>
+      <div key={state.week} className="overview overview-grid military-overview" hidden={detail !== null}>
+        <section className="military-active card" aria-label="Active attacks">
+          <h3>Continuing attacks</h3>
+          {activeAttacks.length === 0 ? <p>No attacks are currently active.</p> :
+            <ul>{activeAttacks.map(({ division, targetId }) => {
+              const replacement = pendingOrders.find(command => command.divisionId === division.id);
+              return <li key={division.id}>
+                <strong>{division.name}</strong>
+                <dl className="military-attack-details">
+                  <div><dt>Origin</dt><dd>{regionName(division.regionId)}</dd></div>
+                  <div><dt>Destination</dt><dd>{regionName(targetId)}</dd></div>
+                  <div><dt>Current strength</dt><dd>{division.manpower.toLocaleString()} {personnel}</dd></div>
+                </dl>
+                <p>{replacement ? `Pending replacement for Week ${state.week} · ${orderLabel(replacement.order)}`
+                  : `Continues when Week ${state.week} settles.`}</p>
+                <button type="button" disabled={replacement?.order.kind === 'defend'} onClick={() => {
+                  onStageOrder({ type: 'set-military-order', divisionId: division.id, countryId: division.ownerId, order: { kind: 'defend' } });
+                }}>Stage stop for {division.name}</button>
+              </li>;
+            })}</ul>}
+        </section>
         <div className="group">
           <h3>Forces · {divisions.length} division{divisions.length === 1 ? '' : 's'}</h3>
           {forceNote && <p>{forceNote}</p>}
@@ -59,20 +84,6 @@ export function MilitaryPanel({ state, forceNote, pendingOrders, onStageOrder, o
             <button type="button" className="row" onClick={() => setDetail('orders')} aria-controls="orders-details" aria-expanded={detail === 'orders'}>
               <span className="row-text"><b>Military orders</b><span>{pendingOrders.length ? `${pendingOrders.length} pending for Week ${state.week}` : 'Move, defend or attack'}</span></span><span className="chevron" aria-hidden="true">›</span>
             </button>
-            {activeAttacks.length > 0 && <section className="military-active" aria-label="Active attacks">
-              <h4>Continuing attacks</h4>
-              <ul>{activeAttacks.map(division => {
-                const replacement = pendingOrders.find(command => command.divisionId === division.id);
-                return <li key={division.id}>
-                  <strong>{division.name} · {orderLabel(division.order)}</strong>
-                  <span>{replacement ? `Pending replacement for Week ${state.week} · ${orderLabel(replacement.order)}`
-                    : `Continues when Week ${state.week} settles.`}</span>
-                  <button type="button" disabled={replacement?.order.kind === 'defend'} onClick={() => {
-                    onStageOrder({ type: 'set-military-order', divisionId: division.id, countryId: division.ownerId, order: { kind: 'defend' } });
-                  }}>Stage stop for {division.name}</button>
-                </li>;
-              })}</ul>
-            </section>}
             <button type="button" className="row" onClick={() => setDetail('results')} aria-controls="combat-details" aria-expanded={detail === 'results'}>
               <span className="row-text"><b>Latest military results</b><span>{state.week > 1 && `Week ${state.week - 1} · `}{resultSummary}</span></span><span className="chevron" aria-hidden="true">›</span>
             </button>
@@ -129,7 +140,10 @@ export function MilitaryPanel({ state, forceNote, pendingOrders, onStageOrder, o
             </dl>
             <p>Remove a pending order before advancing, or stage another order for this division to replace it. To stop an active attack, stage Defend and advance the week.</p>
           </section>}
-          <button type="submit" disabled={!selected || (kind !== 'defend' && !target)}>Stage military order</button>
+          <div className="military-confirmation">
+            <p id="military-execution"><strong>Executes in Week {state.week}</strong><br />When you tap Next week.</p>
+            <button type="submit" aria-describedby="military-execution" disabled={!selected || (kind !== 'defend' && !target)}>Stage military order</button>
+          </div>
           <details><summary>Order rules</summary><p id="military-help">Staged orders apply with Next week. Defend holds position and stops an attack. Moves finish in one week; attacks repeat weekly until capture, destruction or replacement. Enemy units defend in place without making decisions. Combat and headcounts are provisional; units at zero personnel are unavailable.</p></details>
         </form>
         {pendingOrders.length > 0 && <div role="status">
@@ -152,7 +166,7 @@ export function MilitaryPanel({ state, forceNote, pendingOrders, onStageOrder, o
                     {' '}Defender casualties: {result.defenderCasualties.length ? result.defenderCasualties.map(loss => `${divisionName(loss.divisionId)}: ${loss.losses}`).join('; ') : '0 (undefended)'}.
                     {' '}{result.captured ? `Captured ${regionName(result.targetRegionId)}.` : 'Territory not captured.'}
                     {state.divisions.find(division => division.id === result.divisionId)?.manpower === 0 && ' Attacking division destroyed.'}
-                    {activeAttacks.some(division => division.id === result.divisionId) && ' Attack remains active.'}
+                    {activeAttacks.some(({ division }) => division.id === result.divisionId) && ' Attack remains active.'}
                   </>}
             </li>)}
           </ul>}

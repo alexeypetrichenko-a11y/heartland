@@ -1,5 +1,5 @@
 const assert = require('node:assert/strict');
-const { chromium } = require(process.env.HEARTLAND_PLAYWRIGHT_MODULE || 'playwright');
+const { chromium, webkit } = require(process.env.HEARTLAND_PLAYWRIGHT_MODULE || 'playwright');
 const url = 'http://127.0.0.1:4174/heartland/';
 const button = (page, name) => page.getByRole('button', { name, exact: true });
 
@@ -62,31 +62,39 @@ async function check(browser, width, height) {
     assert.match(await preview.innerText(), /No recent defender report/);
     assert.match(await preview.innerText(), /Unknown · current defender strength/);
     assert.match(await preview.innerText(), /There is no automatic retreat/);
+    const confirm = page.locator('.military-confirmation');
+    await confirm.getByText('Executes in Week 1', { exact: true }).waitFor();
+    assert.equal(await confirm.getByRole('button', { name: 'Stage military order' }).getAttribute('aria-describedby'), 'military-execution');
     await button(page, 'Stage military order').click();
     await page.getByText('Pending military orders for Week 1').waitFor();
     await page.getByRole('button', { name: /Remove pending order for/ }).click();
     assert.equal(await page.getByText('Pending military orders for Week 1').count(), 0);
     await button(page, 'Stage military order').click();
-    await button(page, 'Back from Military orders').click();
+    // Settle while the order sheet is still open, as on the physical phone.
     await button(page, 'Next week').click();
     await page.getByRole('heading', { name: 'Week 1 report', exact: true }).waitFor();
     await indicator.getByText('Saved locally · Week 2', { exact: true }).waitFor();
     await button(page, 'Back from Week 1 report').click();
     const attacks = page.getByRole('region', { name: 'Active attacks' });
     await attacks.getByText('Continues when Week 2 settles.', { exact: true }).waitFor();
+    assert.match(await attacks.innerText(), /Origin[\s\S]+Nord-Est[\s\S]+Destination[\s\S]+Baden-Württemberg[\s\S]+Current strength[\s\S]+12,500 personnel equivalents/);
+    const top = await attacks.boundingBox();
+    assert.ok(top && top.y >= 0 && top.y < height / 2, 'continuing attacks starts in the visible overview');
     await attacks.getByRole('button', { name: /Stage stop/ }).click();
     await attacks.getByText(/Pending replacement for Week 2 · Defend/).waitFor();
     await button(page, 'Next week').click();
     await page.getByRole('heading', { name: 'Week 2 report', exact: true }).waitFor();
     await button(page, 'Back from Week 2 report').click();
-    assert.equal(await attacks.count(), 0);
+    await attacks.getByText('No attacks are currently active.', { exact: true }).waitFor();
+    assert.equal(await attacks.getByRole('button', { name: /Stage stop/ }).count(), 0);
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1));
     console.log(`PASS ${width}×${height} · order preview, persistent attack, cancellation, committed save and quota failure`);
   } finally { await page.context().close(); }
 }
 
 (async () => {
-  const browser = await chromium.launch({ executablePath: process.env.HEARTLAND_CHROMIUM });
+  const browser = process.env.HEARTLAND_BROWSER === 'webkit' ? await webkit.launch()
+    : await chromium.launch({ executablePath: process.env.HEARTLAND_CHROMIUM });
   try {
     await check(browser, 390, 844);
     await check(browser, 844, 390);

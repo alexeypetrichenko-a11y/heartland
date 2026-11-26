@@ -1363,8 +1363,23 @@ li {
 .save-indicator:empty { display: none; }
 .save-receipt { display: inline-flex; flex-wrap: wrap; gap: .15rem .6rem; }
 .save-failed { color: var(--color-accent); }
-.military-active { margin-top: .65rem; }
-.military-active li { display: grid; gap: .3rem; padding: .5rem; }
+.military-overview { grid-auto-rows: max-content; }
+.military-active {
+  flex: none;
+  grid-column: 1 / -1;
+  align-self: start;
+  padding: .75rem;
+  border-color: var(--color-accent);
+}
+.military-active ul { display: grid; gap: .6rem; padding: 0; margin: .55rem 0 0; list-style: none; }
+.military-active li { display: grid; gap: .35rem; padding-block-start: .5rem; border-top: 1px solid var(--color-border); }
+.military-active button { justify-self: start; }
+.military-attack-details { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr)); gap: .25rem .65rem; margin: 0; }
+.military-attack-details dt { color: var(--color-muted); font-size: .8rem; }
+.military-attack-details dd { margin: 0; overflow-wrap: anywhere; }
+.military-confirmation { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .7rem; padding-block: .4rem; }
+.military-confirmation p { margin: 0; }
+.military-confirmation strong { color: var(--color-accent); }
 .military-preview { margin: .6rem 0; padding: .65rem; border: 1px solid var(--color-border); border-radius: .55rem; }
 .military-preview dl { margin-block: .35rem; }
 .military-preview dd { margin-inline-start: 0; }
