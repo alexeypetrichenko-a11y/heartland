@@ -477,3 +477,12 @@ Historical first implementation/validation follows. The physical-iPhone-feedback
 - The latest report is reconstructed from the saved session and its optional prior-week comparison. Original SAVE-01 saves open with the comparisons available to them. Up to four recent reports are available in the current session.
 - The production build, 156 game tests, 205 engine tests, the 10,000-week engine check, and production browser checks passed. All three fictional countries completed a 52-turn simulation with an identical save-and-resume continuation.
 - Physical iPhone Safari review is pending. [Test results and iPhone acceptance](docs/economy/GAME-UX-01.md)
+
+## WORLD-05-FINAL — Licensed Europe data
+
+- Merged in PR #37 at `a8257a70fa1640ef72aa7c2b0d99d64b1ae1fb22`. The approved immutable draft.3 provides 46 playable provinces, 61 zones, and 90 illustrative starting divisions with P-1 placement. Türkiye’s 20 divisions are a gameplay assumption. [Handoff](docs/world/WORLD-05-CODEX-HANDOFF.md)
+
+## WORLD-04 — First Playable Europe
+
+- Draft PR #36 integrates licensed draft.3 in the local review build, including land military orders, weekly reporting, scenario-specific saves, and Sources and Licences.
+- Physical iPhone acceptance and any preview publication require separate review. [Review notes and test procedure](docs/world/WORLD-04-FINAL-REVIEW.md)

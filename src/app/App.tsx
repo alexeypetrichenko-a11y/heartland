@@ -5,11 +5,13 @@ import { advanceGameWeek, startEconomy, type EconomyCommand, type LoadedEconomy 
 import type { createLocalSaves, SaveAvailability, SaveStatus } from '../game/localSaves';
 import type { CountryId, TurnCommand } from '../game/models';
 import { emptyDrafts, type PlayerDrafts } from '../game/playerDrafts';
+import type { EuropeScenario } from '../game/europeScenario';
 import type { PlayableSession } from '../game/saveFormat';
 
 const AtlasMap = lazy(() => import('../ui/AtlasMap'));
 const PrototypePage = lazy(() => import('../ui/PrototypePage').then(module => ({ default: module.PrototypePage })));
 const CountrySetup = lazy(() => import('../ui/PrototypePage').then(module => ({ default: module.CountrySetup })));
+const europeEnabled = import.meta.env.PROD && import.meta.env.MODE === 'world04-local';
 const storageUnavailable = { kind: 'unavailable', message: 'Local storage is unavailable.' } as const;
 
 class ScreenBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
@@ -22,11 +24,19 @@ class ScreenBoundary extends Component<{ children: ReactNode }, { failed: boolea
 
 export function App() {
   const [view, setView] = useState<'atlas' | 'setup' | 'game'>('atlas');
+  const [setupEurope, setSetupEurope] = useState<EuropeScenario | null>(null);
+  const [scenarioChoice, setScenarioChoice] = useState<'fictional' | 'europe-2023'>('fictional');
   const [playing, setPlaying] = useState<PlayableSession | null>(null);
   const [gameKey, setGameKey] = useState(0);
   const [turnError, setTurnError] = useState<string | null>(null);
   const [availability, setAvailability] = useState<SaveAvailability | null>(null);
   const [saveStatus, setSaveStatus] = useState<SaveStatus | null>(null);
+  const [lastSaved, setLastSaved] = useState<Extract<SaveStatus, { kind: 'saved' }> | null>(null);
+
+  const reportSaveStatus = useCallback((status: SaveStatus) => {
+    setSaveStatus(status);
+    if (status.kind === 'saved') setLastSaved(status);
+  }, []);
   const [busy, setBusy] = useState(false);
   const [openingError, setOpeningError] = useState<string | null>(null);
   const sessionRef = useRef<PlayableSession | null>(null);
@@ -38,7 +48,10 @@ export function App() {
 
   const inspectSave = useCallback(() => {
     probeRef.current ??= import('../game/localSaves').then(async ({ createLocalSaves }) => {
-      managerRef.current = createLocalSaves(setSaveStatus);
+      managerRef.current = createLocalSaves(reportSaveStatus, europeEnabled ? async () => {
+        const { loadEuropeRuntime } = await import('../game/economyRuntime');
+        return (await loadEuropeRuntime()).europe;
+      } : undefined);
       const result = await managerRef.current.lookup();
       return result.kind === 'found' ? { kind: 'found' as const } : result;
     }).catch(() => storageUnavailable).then(result => {
@@ -46,7 +59,7 @@ export function App() {
       return result;
     });
     return probeRef.current;
-  }, []);
+  }, [reportSaveStatus]);
   const atlasSettled = useCallback(() => { void inspectSave(); }, [inspectSave]);
 
   useEffect(() => {
@@ -96,7 +109,25 @@ export function App() {
     if ((sessionRef.current || known.kind === 'found' || known.kind === 'unreadable')
       && !window.confirm('Start a new game and replace the local save when the game starts?')) return;
     setOpeningError(null);
+    setScenarioChoice('fictional');
     setView('setup');
+  }
+
+  async function chooseScenario(choice: 'fictional' | 'europe-2023') {
+    setScenarioChoice(choice);
+    setOpeningError(null);
+    if (choice === 'fictional' || setupEurope) return;
+    const token = ++opening.current;
+    setBusy(true);
+    try {
+      const { loadEuropeRuntime } = await import('../game/economyRuntime');
+      const runtime = await loadEuropeRuntime();
+      if (token === opening.current) setSetupEurope(runtime.europe);
+    } catch (error) {
+      if (token === opening.current) setOpeningError(error instanceof Error ? error.message : 'Europe 2023 could not load.');
+    } finally {
+      if (token === opening.current) setBusy(false);
+    }
   }
 
   async function beginNewGame(countryId: CountryId) {
@@ -104,15 +135,24 @@ export function App() {
     setBusy(true);
     setOpeningError(null);
     try {
-      const { loadEconomyRuntime } = await import('../game/economyRuntime');
-      const runtime = await loadEconomyRuntime();
+      const { loadEconomyRuntime, loadEuropeRuntime } = await import('../game/economyRuntime');
+      const start = async () => {
+        if (scenarioChoice === 'europe-2023') {
+          const [runtime, { startEuropeGame }] = await Promise.all([loadEuropeRuntime(), import('../game/europeScenario')]);
+          return { runtime, ...startEuropeGame(runtime, countryId) };
+        }
+        const runtime = await loadEconomyRuntime();
+        const game = selectCountry(createInitialState(), countryId);
+        return { runtime, game, economy: startEconomy(runtime, game) };
+      };
+      const { runtime, game, economy } = await start();
       if (token !== opening.current) return;
-      const game = selectCountry(createInitialState(), countryId);
-      const session = { game, economy: startEconomy(runtime, game), drafts: emptyDrafts() };
+      const session = { game, economy, drafts: emptyDrafts() };
       openGame(runtime, session);
       save(session);
-    } catch {
-      if (token === opening.current) setOpeningError('The fictional game could not start. Check your connection and try again.');
+    } catch (error) {
+      if (token === opening.current) setOpeningError(scenarioChoice === 'europe-2023' && error instanceof Error ? error.message
+        : 'The local game could not start. Check your connection and try again.');
     } finally {
       if (token === opening.current) setBusy(false);
     }
@@ -132,14 +172,14 @@ export function App() {
         if (found?.kind === 'empty') setOpeningError('The local save is no longer available.');
         return;
       }
-      const [{ loadEconomyApi }, { restoreGameSave }] = await Promise.all([
+      const [{ loadEconomyApi, loadEuropeRuntime }, { restoreGameSave }] = await Promise.all([
         import('../game/economyRuntime'),
         import('../game/saveFormat'),
       ]);
-      const runtime = { api: await loadEconomyApi() };
+      const runtime = found.save.scenario ? await loadEuropeRuntime() : { api: await loadEconomyApi() };
       try {
         openGame(runtime, restoreGameSave(runtime, found.save));
-        setSaveStatus({ kind: 'saved', week: found.save.game.week });
+        reportSaveStatus({ kind: 'saved', week: found.save.game.week, savedAt: found.save.savedAt });
       } catch (error) {
         setAvailability({ kind: 'unreadable', message: error instanceof Error ? error.message : 'The local save could not be restored.' });
       }
@@ -201,7 +241,7 @@ export function App() {
           <div className="game-title"><p className="brand">Heartland</p><h1 id="atlas-home-title">World</h1></div>
           {canResume && <button type="button" disabled={busy} onClick={() => void resumeGame()}>{busy ? 'Resuming…' : 'Resume game'}</button>}
           <button type="button" disabled={busy} onClick={() => void openSetup()}>
-            {canResume || availability?.kind === 'unreadable' ? 'New game' : 'Fictional game'}
+            {europeEnabled || canResume || availability?.kind === 'unreadable' ? 'New game' : 'Fictional game'}
           </button>
         </header>
         <div className="game-main">
@@ -211,12 +251,14 @@ export function App() {
           </Suspense></ScreenBoundary>
         </div>
       </div>
-      {view === 'setup' && <ScreenBoundary><Suspense fallback={<div className="atlas-startup" role="status">Opening fictional game…</div>}>
-        <CountrySetup busy={busy} error={openingError} onSelectCountry={id => void beginNewGame(id)} onBack={returnToGlobe} />
+      {view === 'setup' && <ScreenBoundary><Suspense fallback={<div className="atlas-startup" role="status">Opening local game…</div>}>
+        <CountrySetup busy={busy} error={openingError} onSelectCountry={id => void beginNewGame(id)} onBack={returnToGlobe}
+          europeEnabled={europeEnabled} scenarioChoice={scenarioChoice} europe={setupEurope} onScenarioChoice={choice => void chooseScenario(choice)} />
       </Suspense></ScreenBoundary>}
       {/* Mount gameplay only on request, then retain all state and drafts. */}
       {playing && runtime && <div key={gameKey} hidden={view !== 'game'}>
-        <ScreenBoundary><Suspense fallback={<div className="atlas-startup" role="status">Opening fictional game…</div>}><PrototypePage
+        <ScreenBoundary><Suspense fallback={<div className="atlas-startup" role="status">Opening local game…</div>}><PrototypePage
+          europe={runtime.europe}
           active={view === 'game'}
           state={playing.game}
           drafts={playing.drafts}
@@ -226,6 +268,7 @@ export function App() {
           economy={playing.economy}
           fiscalApi={runtime.api}
           saveStatus={saveStatus}
+          lastSaved={lastSaved}
           onSave={() => { if (sessionRef.current) save(sessionRef.current); }}
           onBack={returnToGlobe}
         /></Suspense></ScreenBoundary>

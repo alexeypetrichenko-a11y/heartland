@@ -303,3 +303,12 @@ Each item above is a **feature family** to be broken into small PRs before imple
 ## Current delivery and remaining phases
 
 The owner merged the atlas through MAP-01C. MAP-01D administrative region inspection is ready for owner review and iPhone validation. The playable roster, terrain caching, scenario replacement and other gameplay phases remain deferred.
+
+### WORLD-05-FINAL — Licensed Europe data
+
+- [x] Merge and verify immutable Europe 2023 draft.3, licence and attribution metadata, and approved illustrative starting forces. [WORLD-05 handoff](docs/world/WORLD-05-CODEX-HANDOFF.md)
+
+### WORLD-04 — First Playable Europe
+
+- [x] Integrate licensed draft.3, its existing land combat graph, illustrative divisions, and versioned saves in the local review build.
+- [ ] Review draft PR #36 and validate the build on a physical iPhone before any separately authorized preview publication. [Review notes](docs/world/WORLD-04-FINAL-REVIEW.md)

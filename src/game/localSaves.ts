@@ -1,3 +1,4 @@
+import type { EuropeScenario } from './europeScenario.ts';
 import type { LoadedEconomy } from './economyBridge.ts';
 import { decodeGameSave, encodeGameSave, type PlayableSession, type SavedGame } from './saveFormat.ts';
 
@@ -13,7 +14,8 @@ export type SaveAvailability =
 
 type SaveLookup = Exclude<SaveAvailability, { kind: 'found' }> | { kind: 'found'; save: SavedGame };
 export type SaveStatus =
-  | { kind: 'saving' | 'saved'; week: number }
+  | { kind: 'saving'; week: number }
+  | { kind: 'saved'; week: number; savedAt?: number }
   | { kind: 'failed'; message: string };
 
 class SaveConflict extends Error {}
@@ -72,7 +74,7 @@ async function accessSlot(write?: { expected: SlotValue; record: string }): Prom
   }
 }
 
-export function createLocalSaves(onStatus: (status: SaveStatus) => void) {
+export function createLocalSaves(onStatus: (status: SaveStatus) => void, loadEurope?: () => Promise<EuropeScenario>) {
   let expected: SlotValue | undefined;
   let pending: { runtime: LoadedEconomy; session: PlayableSession } | undefined;
   let timer: ReturnType<typeof setTimeout> | undefined;
@@ -90,7 +92,7 @@ export function createLocalSaves(onStatus: (status: SaveStatus) => void) {
     if (record === null) return { kind: 'empty' };
     if (record === false) return { kind: 'unreadable', message: 'The local save could not be read.' };
     try {
-      return { kind: 'found', save: await decodeGameSave(record) };
+      return { kind: 'found', save: await decodeGameSave(record, loadEurope) };
     } catch (error) {
       return { kind: 'unreadable', message: messageOf(error, 'The local save could not be read.') };
     }
@@ -105,10 +107,11 @@ export function createLocalSaves(onStatus: (status: SaveStatus) => void) {
       const week = session.game.week;
       onStatus({ kind: 'saving', week });
       try {
-        const record = await encodeGameSave(runtime, session);
+        const savedAt = Date.now();
+        const record = await encodeGameSave(runtime, session, savedAt);
         await accessSlot({ expected: expected ?? null, record });
         expected = record;
-        onStatus({ kind: 'saved', week });
+        onStatus({ kind: 'saved', week, savedAt });
       } catch (error) {
         const message = error instanceof SaveConflict ? error.message
           : error instanceof DOMException && error.name === 'QuotaExceededError' ? 'Local storage is full.'

@@ -10,10 +10,12 @@ export const AI_PRIORITIES: Record<string, { label: string; preferStrongest: boo
 
 export interface AIDecision { command: DiplomaticCommand; reason: string }
 
+const SCENARIO_PRIORITY = AI_PRIORITIES.cyrin;
+
 /** Choose exactly one local action from visible diplomacy. No hidden bilateral reads. */
-export function decideDiplomacy(state: GameState, countryId: CountryId): AIDecision {
+export function decideDiplomacy(state: GameState, countryId: CountryId, scenarioDiplomacy = false): AIDecision {
   const country = state.countries.find(country => country.id === countryId);
-  const priority = AI_PRIORITIES[countryId];
+  const priority = scenarioDiplomacy ? SCENARIO_PRIORITY : AI_PRIORITIES[countryId];
   if (!country || country.controller !== 'ai' || !priority) throw new Error('AI decision requires a fictional AI country.');
   const visible = visibleDiplomaticMessages(state, countryId);
   const incoming = visible.filter(message => message.visibility === 'private' && message.toId === countryId && message.status === 'pending')
@@ -32,7 +34,8 @@ export function decideDiplomacy(state: GameState, countryId: CountryId): AIDecis
     return { command: { type: 'declare', countryId, targetId: statement.fromId, stance: statement.stance },
       reason: `Responding to ${statement.stance === 'goodwill' ? 'public goodwill' : 'public condemnation'} from ${statement.fromId}.` };
   }
-  const targets = state.countries.filter(other => other.id !== countryId).sort((a, b) => {
+  const targets = state.countries.filter(other => other.id !== countryId && (!scenarioDiplomacy
+    || state.relations.some(relation => relation.countryIds.includes(countryId) && relation.countryIds.includes(other.id)))).sort((a, b) => {
     const difference = relationshipValue(state, countryId, a.id) - relationshipValue(state, countryId, b.id);
     return (priority.preferStrongest ? -difference : difference) || compareId(a.id, b.id);
   });
@@ -47,10 +50,11 @@ export function decideDiplomacy(state: GameState, countryId: CountryId): AIDecis
 const compareId = (a: string, b: string) => a < b ? -1 : a > b ? 1 : 0;
 
 /** Stable sequential decisions avoid conflicting bilateral offers in this local prototype. */
-export function resolveAIDiplomacy(state: GameState): GameState {
+export function resolveAIDiplomacy(state: GameState, scenarioDiplomacy = false): GameState {
   let next = state;
-  for (const country of state.countries.filter(country => country.controller === 'ai').sort((a, b) => compareId(a.id, b.id))) {
-    const decision = decideDiplomacy(next, country.id);
+  for (const country of state.countries.filter(country => country.controller === 'ai'
+    && (!scenarioDiplomacy || state.relations.some(relation => relation.countryIds.includes(country.id)))).sort((a, b) => compareId(a.id, b.id))) {
+    const decision = decideDiplomacy(next, country.id, scenarioDiplomacy);
     next = applyDiplomaticCommand(next, decision.command, decision.reason);
   }
   return next;

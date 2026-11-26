@@ -1,5 +1,6 @@
 import type * as EconomyApi from '../../economy-engine/src/integration/index.ts';
 import type { CountryEconomyView, EconomyCommand, EconomyNotice, EconomySession, RegionEconomyView } from '../../economy-engine/src/integration/index.ts';
+import type { EuropeScenario } from './europeScenario.ts';
 import { advanceTurn } from './advanceTurn.ts';
 import type { CountryId, GameState, TurnCommand } from './models.ts';
 import type { ReportBaseline } from './reportBaseline.ts';
@@ -13,7 +14,7 @@ import type { ReportBaseline } from './reportBaseline.ts';
  *
  * Only types are imported from the engine here, so importing this file loads nothing:
  * the engine itself arrives with the `EconomyRuntime`, which `economyRuntime.ts` loads
- * lazily when a fictional game starts.
+ * lazily for a game or a restricted scenario review.
  */
 export type { CountryEconomyView, EconomyCommand, EconomyNotice, EconomySession, RegionEconomyView };
 
@@ -23,7 +24,7 @@ export interface EconomyRuntime {
   startingSave: string;
 }
 
-export type LoadedEconomy = Pick<EconomyRuntime, 'api'>;
+export type LoadedEconomy = Pick<EconomyRuntime, 'api'> & { europe?: EuropeScenario };
 export type PreviousEconomy = Pick<CountryEconomyView, 'countryId' | 'treasury'> & ReportBaseline;
 
 /** Everything the interface needs after a resolved week. */
@@ -72,7 +73,7 @@ export function advanceGameWeek(runtime: LoadedEconomy, game: GameState, economy
   commands: readonly TurnCommand[], economyCommands: readonly EconomyCommand[] = []): { game: GameState; economy: EconomySnapshot } {
   if (economy.defeated) throw new Error('The game is over: your regime has been overthrown.');
   const next = runtime.api.advanceWeekTogether({
-    game, session: economy.session, advanceGame: state => advanceTurn(state, commands), economyCommands,
+    game, session: economy.session, advanceGame: state => advanceTurn(state, commands, Boolean(runtime.europe)), economyCommands,
   });
   return { game: next.game, economy: economySnapshot(runtime, next.session, economy.player) };
 }

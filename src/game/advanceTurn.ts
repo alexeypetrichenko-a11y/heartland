@@ -45,7 +45,7 @@ function validateCommand(value: unknown): TurnCommand {
  * lack of funds (INT-01, decision A1).
  * No clock, randomness, React, storage or network access; the seed is untouched.
  */
-export function advanceTurn(state: GameState, commands: readonly TurnCommand[] = []): GameState {
+export function advanceTurn(state: GameState, commands: readonly TurnCommand[] = [], scenarioDiplomacy = false): GameState {
   const player = state.countries.find(country => country.id === state.playerCountryId);
   if (!player || player.controller !== 'player') {
     throw new Error('Select a player country before advancing a week.');
@@ -86,7 +86,7 @@ export function advanceTurn(state: GameState, commands: readonly TurnCommand[] =
     }
   }
 
-  diplomacy = resolveAIDiplomacy(diplomacy);
+  diplomacy = resolveAIDiplomacy(diplomacy, scenarioDiplomacy);
   const military = resolveMilitary({ ...state, divisions });
   return { ...state, week: state.week + 1, standingOrders: orders, ...military,
     relations: diplomacy.relations, diplomaticMessages: diplomacy.diplomaticMessages };
