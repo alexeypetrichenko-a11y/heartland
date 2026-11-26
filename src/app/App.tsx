@@ -31,6 +31,12 @@ export function App() {
   const [turnError, setTurnError] = useState<string | null>(null);
   const [availability, setAvailability] = useState<SaveAvailability | null>(null);
   const [saveStatus, setSaveStatus] = useState<SaveStatus | null>(null);
+  const [lastSaved, setLastSaved] = useState<Extract<SaveStatus, { kind: 'saved' }> | null>(null);
+
+  const reportSaveStatus = useCallback((status: SaveStatus) => {
+    setSaveStatus(status);
+    if (status.kind === 'saved') setLastSaved(status);
+  }, []);
   const [busy, setBusy] = useState(false);
   const [openingError, setOpeningError] = useState<string | null>(null);
   const sessionRef = useRef<PlayableSession | null>(null);
@@ -42,7 +48,7 @@ export function App() {
 
   const inspectSave = useCallback(() => {
     probeRef.current ??= import('../game/localSaves').then(async ({ createLocalSaves }) => {
-      managerRef.current = createLocalSaves(setSaveStatus, europeEnabled ? async () => {
+      managerRef.current = createLocalSaves(reportSaveStatus, europeEnabled ? async () => {
         const { loadEuropeRuntime } = await import('../game/economyRuntime');
         return (await loadEuropeRuntime()).europe;
       } : undefined);
@@ -53,7 +59,7 @@ export function App() {
       return result;
     });
     return probeRef.current;
-  }, []);
+  }, [reportSaveStatus]);
   const atlasSettled = useCallback(() => { void inspectSave(); }, [inspectSave]);
 
   useEffect(() => {
@@ -173,7 +179,7 @@ export function App() {
       const runtime = found.save.scenario ? await loadEuropeRuntime() : { api: await loadEconomyApi() };
       try {
         openGame(runtime, restoreGameSave(runtime, found.save));
-        setSaveStatus({ kind: 'saved', week: found.save.game.week });
+        reportSaveStatus({ kind: 'saved', week: found.save.game.week, savedAt: found.save.savedAt });
       } catch (error) {
         setAvailability({ kind: 'unreadable', message: error instanceof Error ? error.message : 'The local save could not be restored.' });
       }
@@ -262,6 +268,7 @@ export function App() {
           economy={playing.economy}
           fiscalApi={runtime.api}
           saveStatus={saveStatus}
+          lastSaved={lastSaved}
           onSave={() => { if (sessionRef.current) save(sessionRef.current); }}
           onBack={returnToGlobe}
         /></Suspense></ScreenBoundary>

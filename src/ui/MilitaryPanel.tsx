@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { DetailPanel } from './DetailPanel';
+import { militaryBriefing } from './militaryBriefing';
 import type { GameState, MilitaryCommand, MilitaryOrder } from '../game/models';
 
 type MilitaryPanelProps = {
@@ -7,10 +8,11 @@ type MilitaryPanelProps = {
   forceNote?: string;
   pendingOrders: readonly MilitaryCommand[];
   onStageOrder: (command: MilitaryCommand) => void;
+  onRemoveOrder: (id: string) => void;
   onDiscardOrders: () => void;
 };
 
-export function MilitaryPanel({ state, forceNote, pendingOrders, onStageOrder, onDiscardOrders }: MilitaryPanelProps) {
+export function MilitaryPanel({ state, forceNote, pendingOrders, onStageOrder, onRemoveOrder, onDiscardOrders }: MilitaryPanelProps) {
   const [detail, setDetail] = useState<'orders' | 'results' | null>(null);
   const [divisionId, setDivisionId] = useState('');
   const [kind, setKind] = useState<MilitaryOrder['kind']>('defend');
@@ -25,6 +27,11 @@ export function MilitaryPanel({ state, forceNote, pendingOrders, onStageOrder, o
   const regionName = (id: string) => state.regions.find(region => region.id === id)?.name ?? id;
   const divisionName = (id: string) => state.divisions.find(division => division.id === id)?.name ?? id;
   const orderLabel = (order: MilitaryOrder) => order.kind === 'defend' ? 'Defend current region' : `${order.kind === 'move' ? 'Move to' : 'Attack'} ${regionName(order.targetRegionId)}`;
+  const activeAttacks = divisions.filter(division => division.manpower > 0 && division.order.kind === 'attack');
+  const briefing = kind === 'attack' && target ? militaryBriefing(state, target.id) : null;
+  const persistence = kind === 'attack' ? 'Persistent · repeats each week until capture, destruction or replacement.'
+    : kind === 'move' ? 'One-time · move during settlement, then defend at the destination.'
+    : 'Persistent · hold the current region and stop any continuing attack when this order takes effect.';
   const latest = state.militaryResults[0];
   const resultSummary = !latest ? (state.week === 1 ? 'No weeks resolved yet' : 'No movement or combat')
     : latest.kind === 'moved' ? `Moved to ${regionName(latest.targetRegionId)}`
@@ -42,7 +49,7 @@ export function MilitaryPanel({ state, forceNote, pendingOrders, onStageOrder, o
             <li key={division.id} className="force-row">
               <b>{division.name}</b>
               <span>{division.manpower} {personnel} · {regionName(division.regionId)}</span>
-              <span className="operation">{division.manpower > 0 ? orderLabel(division.order) : 'Unavailable (destroyed)'}</span>
+              <span className="operation">{division.manpower > 0 ? `Active · ${orderLabel(division.order)}` : 'Unavailable (destroyed)'}</span>
             </li>
           ))}</ul>
         </div>
@@ -50,8 +57,22 @@ export function MilitaryPanel({ state, forceNote, pendingOrders, onStageOrder, o
           <h3>Operations</h3>
           <div className="card">
             <button type="button" className="row" onClick={() => setDetail('orders')} aria-controls="orders-details" aria-expanded={detail === 'orders'}>
-              <span className="row-text"><b>Military orders</b><span>{pendingOrders.length ? `${pendingOrders.length} staged for next week` : 'Move, defend or attack'}</span></span><span className="chevron" aria-hidden="true">›</span>
+              <span className="row-text"><b>Military orders</b><span>{pendingOrders.length ? `${pendingOrders.length} pending for Week ${state.week}` : 'Move, defend or attack'}</span></span><span className="chevron" aria-hidden="true">›</span>
             </button>
+            {activeAttacks.length > 0 && <section className="military-active" aria-label="Active attacks">
+              <h4>Continuing attacks</h4>
+              <ul>{activeAttacks.map(division => {
+                const replacement = pendingOrders.find(command => command.divisionId === division.id);
+                return <li key={division.id}>
+                  <strong>{division.name} · {orderLabel(division.order)}</strong>
+                  <span>{replacement ? `Pending replacement for Week ${state.week} · ${orderLabel(replacement.order)}`
+                    : `Continues when Week ${state.week} settles.`}</span>
+                  <button type="button" disabled={replacement?.order.kind === 'defend'} onClick={() => {
+                    onStageOrder({ type: 'set-military-order', divisionId: division.id, countryId: division.ownerId, order: { kind: 'defend' } });
+                  }}>Stage stop for {division.name}</button>
+                </li>;
+              })}</ul>
+            </section>}
             <button type="button" className="row" onClick={() => setDetail('results')} aria-controls="combat-details" aria-expanded={detail === 'results'}>
               <span className="row-text"><b>Latest military results</b><span>{state.week > 1 && `Week ${state.week - 1} · `}{resultSummary}</span></span><span className="chevron" aria-hidden="true">›</span>
             </button>
@@ -92,12 +113,30 @@ export function MilitaryPanel({ state, forceNote, pendingOrders, onStageOrder, o
             </select>
             {selected && targets.length === 0 && <p>No adjacent {kind === 'move' ? 'friendly' : 'enemy'} regions are available.</p>}
           </>}
+          {selected && <section className="military-preview" aria-label="Order preview">
+            <h3>Before staging</h3>
+            <dl className="data-list">
+              <div><dt>Division and strength</dt><dd>{selected.name} · {selected.manpower.toLocaleString()} {personnel}</dd></div>
+              <div><dt>Origin</dt><dd>{origin?.name}</dd></div>
+              <div><dt>Destination</dt><dd>{kind === 'defend' ? origin?.name : target?.name ?? 'Select a target'}</dd></div>
+              <div><dt>Execution</dt><dd>Week {state.week} · when you tap Next week</dd></div>
+              <div><dt>Duration and effect</dt><dd>{persistence}</dd></div>
+              {kind === 'attack' && <>
+                <div><dt>Enemy information</dt><dd>{briefing?.enemy ?? 'Select a target to review available intelligence.'}</dd></div>
+                <div><dt>Estimated force ratio</dt><dd>{briefing?.ratio ?? 'Select a target.'}</dd></div>
+                <div><dt>Combat risk</dt><dd>{briefing?.risk ?? 'Select a target.'}</dd></div>
+              </>}
+            </dl>
+            <p>Remove a pending order before advancing, or stage another order for this division to replace it. To stop an active attack, stage Defend and advance the week.</p>
+          </section>}
           <button type="submit" disabled={!selected || (kind !== 'defend' && !target)}>Stage military order</button>
           <details><summary>Order rules</summary><p id="military-help">Staged orders apply with Next week. Defend holds position and stops an attack. Moves finish in one week; attacks repeat weekly until capture, destruction or replacement. Enemy units defend in place without making decisions. Combat and headcounts are provisional; units at zero personnel are unavailable.</p></details>
         </form>
         {pendingOrders.length > 0 && <div role="status">
-          <p>Staged military orders for next week:</p>
-          <ul>{pendingOrders.map(command => <li key={command.divisionId}>{divisionName(command.divisionId)}: {orderLabel(command.order)}</li>)}</ul>
+          <p>Pending military orders for Week {state.week}</p>
+          <ul>{pendingOrders.map(command => <li key={command.divisionId}>{divisionName(command.divisionId)} · {orderLabel(command.order)}
+            <button type="button" onClick={() => onRemoveOrder(command.divisionId)}>Remove pending order for {divisionName(command.divisionId)}</button>
+          </li>)}</ul>
           <button type="button" onClick={onDiscardOrders}>Discard staged military orders</button>
         </div>}
       </DetailPanel>
@@ -113,6 +152,7 @@ export function MilitaryPanel({ state, forceNote, pendingOrders, onStageOrder, o
                     {' '}Defender casualties: {result.defenderCasualties.length ? result.defenderCasualties.map(loss => `${divisionName(loss.divisionId)}: ${loss.losses}`).join('; ') : '0 (undefended)'}.
                     {' '}{result.captured ? `Captured ${regionName(result.targetRegionId)}.` : 'Territory not captured.'}
                     {state.divisions.find(division => division.id === result.divisionId)?.manpower === 0 && ' Attacking division destroyed.'}
+                    {activeAttacks.some(division => division.id === result.divisionId) && ' Attack remains active.'}
                   </>}
             </li>)}
           </ul>}

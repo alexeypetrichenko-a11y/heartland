@@ -1348,3 +1348,24 @@ li {
 .europe-provinces [data-province] {
   cursor: pointer;
 }
+
+.save-indicator {
+  flex: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .2rem .6rem;
+  padding: .22rem 1rem;
+  color: var(--color-muted);
+  font-size: .75rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.save-indicator:empty { display: none; }
+.save-receipt { display: inline-flex; flex-wrap: wrap; gap: .15rem .6rem; }
+.save-failed { color: var(--color-accent); }
+.military-active { margin-top: .65rem; }
+.military-active li { display: grid; gap: .3rem; padding: .5rem; }
+.military-preview { margin: .6rem 0; padding: .65rem; border: 1px solid var(--color-border); border-radius: .55rem; }
+.military-preview dl { margin-block: .35rem; }
+.military-preview dd { margin-inline-start: 0; }
+.military-preview dt { color: var(--color-muted); }

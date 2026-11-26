@@ -23,6 +23,7 @@ export interface SavedGame {
   economy: string;
   previous: PreviousEconomy | null;
   defeated: boolean;
+  savedAt?: number;
   scenario?: EuropeIdentity & { economyFingerprint: string };
 }
 
@@ -58,7 +59,9 @@ function validatePayload(value: unknown, europe?: EuropeScenario): SavedGame {
     const baseline = isSaveObject(comparison) && comparison.version === COMPARISON_VERSION ? reportBaseline(comparison.values) : {};
     previous = { countryId: opening.countryId, treasury: opening.treasury, ...baseline };
   }
-  return { game, drafts, economy: value.economy, defeated: value.defeated, previous, ...(identity && { scenario: identity }) };
+  const savedAt = typeof value.savedAt === 'number' && Number.isSafeInteger(value.savedAt)
+    && value.savedAt > 0 && value.savedAt <= 8.64e15 ? value.savedAt : undefined;
+  return { game, drafts, economy: value.economy, defeated: value.defeated, previous, ...(savedAt && { savedAt }), ...(identity && { scenario: identity }) };
 }
 
 function validateSession({ api, europe }: LoadedEconomy, { game, economy, drafts }: PlayableSession) {
@@ -94,14 +97,14 @@ function validateSession({ api, europe }: LoadedEconomy, { game, economy, drafts
   }
 }
 
-export async function encodeGameSave(runtime: LoadedEconomy, session: PlayableSession): Promise<string> {
+export async function encodeGameSave(runtime: LoadedEconomy, session: PlayableSession, savedAt?: number): Promise<string> {
   const { game, economy, drafts } = session;
   const previous = economy.previous && {
     countryId: economy.previous.countryId,
     treasury: economy.previous.treasury,
     comparison: { version: COMPARISON_VERSION, values: reportBaseline(economy.previous) },
   };
-  const data = { game, drafts, previous, defeated: economy.defeated, economy: runtime.api.saveEconomySession(economy.session),
+  const data = { game, drafts, previous, ...(savedAt !== undefined && { savedAt }), defeated: economy.defeated, economy: runtime.api.saveEconomySession(economy.session),
     ...(runtime.europe && { scenario: { ...runtime.europe.identity, economyFingerprint: runtime.api.economyFingerprint(economy.session) } }) };
   validatePayload(data, runtime.europe);
   validateSession(runtime, session);

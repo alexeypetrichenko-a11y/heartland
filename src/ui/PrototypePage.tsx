@@ -29,6 +29,7 @@ type PrototypePageProps = {
   economy: EconomySnapshot;
   fiscalApi: FiscalApi;
   saveStatus: SaveStatus | null;
+  lastSaved: Extract<SaveStatus, { kind: 'saved' }> | null;
   onSave: () => void;
 };
 
@@ -86,7 +87,7 @@ const sections = [
 type Section = typeof sections[number]['id'];
 const RECENT_REPORT_LIMIT = 4;
 
-export function PrototypePage({ active, europe, state, drafts, onChangeDrafts, onAdvanceTurn, turnError, onBack, economy, fiscalApi, saveStatus, onSave }: PrototypePageProps) {
+export function PrototypePage({ active, europe, state, drafts, onChangeDrafts, onAdvanceTurn, turnError, onBack, economy, fiscalApi, saveStatus, lastSaved, onSave }: PrototypePageProps) {
   const [showScenario, setShowScenario] = useState(false);
   const [activeSection, setActiveSection] = useState<Section>('world');
   const [reportWeek, setReportWeek] = useState<number | 'latest' | null>(null);
@@ -156,12 +157,23 @@ export function PrototypePage({ active, europe, state, drafts, onChangeDrafts, o
         </button>
       </header>
 
+      <div className="save-indicator" role="status" aria-atomic="true">
+        {saveStatus?.kind === 'saving' && <span>Saving locally…</span>}
+        {saveStatus?.kind === 'failed' && <span className="save-failed" role="alert">Save failed. {saveStatus.message}</span>}
+        {lastSaved && <span className="save-receipt">
+          <span>{saveStatus?.kind === 'saved' ? 'Saved locally' : 'Last saved'} · Week {lastSaved.week}</span>
+          {lastSaved.savedAt !== undefined
+            ? <time dateTime={new Date(lastSaved.savedAt).toISOString()}>
+              {new Date(lastSaved.savedAt).toLocaleString([], { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', second: '2-digit' })}
+            </time>
+            : <span>Time unavailable for this save</span>}
+        </span>}
+      </div>
       <div className="game-main">
         {defeated && !report?.defeated && <p className="turn-error" role="alert">
           <b>Your regime has been overthrown. The game is over.</b> {headline?.severity === 'defeat' ? headline.message : ''} You can still review the final state.
         </p>}
         {!defeated && !report && headline && <p className="turn-status" role="status"><b>{headline.title}.</b> {headline.message}</p>}
-        {saveStatus?.kind === 'failed' && <p className="turn-error" role="alert">{saveStatus.message}</p>}
         {!report && draftSummary && <p className="turn-status" role="status">Drafts · {draftSummary}</p>}
         {turnError && <p className="turn-error" ref={errorRef} tabIndex={-1} role="alert">
           {turnError} Week not advanced. Your drafts are retained; review your orders, then try again.
@@ -190,6 +202,7 @@ export function PrototypePage({ active, europe, state, drafts, onChangeDrafts, o
           <div id="section-military" className="section-view" hidden={activeSection !== 'military'}>
             <MilitaryPanel state={state} pendingOrders={military} forceNote={europe ? EUROPE_MILITARY_NOTICE : undefined}
               onStageOrder={command => onChangeDrafts({ ...drafts, military: [...military.filter(order => order.divisionId !== command.divisionId), command] })}
+              onRemoveOrder={id => onChangeDrafts({ ...drafts, military: military.filter(order => order.divisionId !== id) })}
               onDiscardOrders={() => onChangeDrafts({ ...drafts, military: [] })} />
           </div>
         </div>
@@ -221,9 +234,6 @@ export function PrototypePage({ active, europe, state, drafts, onChangeDrafts, o
           </>}
           <p>Next week resolves diplomacy and military orders, then applies fiscal drafts and advances the economy for the same week. Captured regions enter economic occupation and retain their legal owner. An invalid order rejects the entire week and retains every draft.</p>
           <p>Heartland saves this game and its drafts in this browser. Clearing website data or Safari removing stored data can erase the save.</p>
-          {saveStatus && saveStatus.kind !== 'failed' && <p role="status">
-            {saveStatus.kind === 'saving' ? 'Saving locally…' : `Saved locally · Week ${saveStatus.week}`}
-          </p>}
           <h3>Country control</h3>
           <ul>{state.countries.map(country => <li key={country.id}>{country.name}: {country.controller === 'player' ? 'Player-controlled (you)' : europe ? 'AI-controlled' : `AI-controlled — ${AI_PRIORITIES[country.id].label}`}</li>)}</ul>
           <h3>Your regions</h3><ul>{regions.map(region => <li key={region.id}>{region.name}</li>)}</ul>

@@ -128,3 +128,13 @@ test('damaged, unsupported and inconsistent saves are rejected before play', asy
   wrongControl.game.regions[0].ownerId = 'belora';
   await assert.rejects(() => encodeGameSave(runtime, wrongControl), /territorial control/);
 });
+
+test('successful checkpoint metadata preserves its saved time without changing legacy payloads', async () => {
+  const session = begin();
+  const savedAt = 1795718400123;
+  const legacy = await decodeGameSave(await encodeGameSave(runtime, session));
+  assert.equal(legacy.savedAt, undefined);
+  const current = await decodeGameSave(await encodeGameSave(runtime, session, savedAt));
+  assert.equal(current.savedAt, savedAt);
+  assert.deepEqual(restoreGameSave(runtime, current).game, session.game);
+});

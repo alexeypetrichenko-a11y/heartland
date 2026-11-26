@@ -14,7 +14,8 @@ export type SaveAvailability =
 
 type SaveLookup = Exclude<SaveAvailability, { kind: 'found' }> | { kind: 'found'; save: SavedGame };
 export type SaveStatus =
-  | { kind: 'saving' | 'saved'; week: number }
+  | { kind: 'saving'; week: number }
+  | { kind: 'saved'; week: number; savedAt?: number }
   | { kind: 'failed'; message: string };
 
 class SaveConflict extends Error {}
@@ -106,10 +107,11 @@ export function createLocalSaves(onStatus: (status: SaveStatus) => void, loadEur
       const week = session.game.week;
       onStatus({ kind: 'saving', week });
       try {
-        const record = await encodeGameSave(runtime, session);
+        const savedAt = Date.now();
+        const record = await encodeGameSave(runtime, session, savedAt);
         await accessSlot({ expected: expected ?? null, record });
         expected = record;
-        onStatus({ kind: 'saved', week });
+        onStatus({ kind: 'saved', week, savedAt });
       } catch (error) {
         const message = error instanceof SaveConflict ? error.message
           : error instanceof DOMException && error.name === 'QuotaExceededError' ? 'Local storage is full.'
