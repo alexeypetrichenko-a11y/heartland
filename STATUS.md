@@ -482,7 +482,7 @@ Historical first implementation/validation follows. The physical-iPhone-feedback
 
 - Merged in PR #37 at `a8257a70fa1640ef72aa7c2b0d99d64b1ae1fb22`. The approved immutable draft.3 provides 46 playable provinces, 61 zones, and 90 illustrative starting divisions with P-1 placement. Türkiye’s 20 divisions are a gameplay assumption. [Handoff](docs/world/WORLD-05-CODEX-HANDOFF.md)
 
-## WORLD-04 — First Playable Europe
+## WORLD-04-FINAL — Licensed playable Europe
 
-- Draft PR #36 integrates licensed draft.3 in the local review build, including land military orders, weekly reporting, scenario-specific saves, and Sources and Licences.
-- Physical iPhone acceptance and any preview publication require separate review. [Review notes and test procedure](docs/world/WORLD-04-FINAL-REVIEW.md)
+- PR #36 is merged. The owner accepted the draft.3 review build on iPhone SE (2022), iOS 26.2. The approved two physical 156-turn runs with 61 zones and 90 divisions passed all five thresholds. [Measurements and accepted baseline](docs/military/MIL-00-DESIGN.md#existing-architecture-and-accepted-baseline)
+- MIL-01-DESIGN is merged in PR #38. PR #39 remains separate. MIL-00-DESIGN records the approved Model B and initial calibration. Safeguard defaults remain under review. [Design and calibration](docs/military/MIL-00-DESIGN.md)

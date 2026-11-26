@@ -311,4 +311,9 @@ The owner merged the atlas through MAP-01C. MAP-01D administrative region inspec
 ### WORLD-04 — First Playable Europe
 
 - [x] Integrate licensed draft.3, its existing land combat graph, illustrative divisions, and versioned saves in the local review build.
-- [ ] Review draft PR #36 and validate the build on a physical iPhone before any separately authorized preview publication. [Review notes](docs/world/WORLD-04-FINAL-REVIEW.md)
+- [x] Accept WORLD-04-FINAL on a physical iPhone and merge PR #36. Record the two approved 156-turn benchmark runs. [Accepted baseline](docs/military/MIL-00-DESIGN.md#existing-architecture-and-accepted-baseline)
+
+### MIL-00 — Strategic land combat
+
+- [x] Record owner approval of Model B and the initial calibration. [Design](docs/military/MIL-00-DESIGN.md)
+- [ ] Review proposed safeguards, then sequence MIL-00-ENGINE, GEO-01, MIL-00-UX and MIL-01A. Retest Continuing attacks during MIL-00-UX. Keep PR #39 separate during design review.
