@@ -203,7 +203,7 @@ export function App() {
     const current = sessionRef.current;
     if (!current || !runtime) return false;
     try {
-      const next = { ...advanceGameWeek(runtime, current.game, current.economy, commands, economyCommands), drafts: emptyDrafts() };
+      const next = { ...advanceGameWeek(runtime, current.game, current.economy, commands, economyCommands, current.drafts.collective), drafts: emptyDrafts() };
       commit(next);
       save(next);
       setTurnError(null);

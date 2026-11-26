@@ -1,3 +1,4 @@
+import type { CollectiveOrder } from './strategicLand.ts';
 import type * as EconomyApi from '../../economy-engine/src/integration/index.ts';
 import type { CountryEconomyView, EconomyCommand, EconomyNotice, EconomySession, RegionEconomyView } from '../../economy-engine/src/integration/index.ts';
 import type { EuropeScenario } from './europeScenario.ts';
@@ -70,10 +71,10 @@ export function startEconomy(runtime: EconomyRuntime, game: GameState): EconomyS
  * together; if any step throws, nothing is returned and the caller keeps both old states.
  */
 export function advanceGameWeek(runtime: LoadedEconomy, game: GameState, economy: EconomySnapshot,
-  commands: readonly TurnCommand[], economyCommands: readonly EconomyCommand[] = []): { game: GameState; economy: EconomySnapshot } {
+  commands: readonly TurnCommand[], economyCommands: readonly EconomyCommand[] = [], collective: readonly CollectiveOrder[] = []): { game: GameState; economy: EconomySnapshot } {
   if (economy.defeated) throw new Error('The game is over: your regime has been overthrown.');
   const next = runtime.api.advanceWeekTogether({
-    game, session: economy.session, advanceGame: state => advanceTurn(state, commands, Boolean(runtime.europe)), economyCommands,
+    game, session: economy.session, advanceGame: state => advanceTurn(state, commands, Boolean(runtime.europe), collective), economyCommands,
   });
   return { game: next.game, economy: economySnapshot(runtime, next.session, economy.player) };
 }

@@ -1,3 +1,4 @@
+import { resolveStrategicLand, type CollectiveOrder } from './strategicLand.ts';
 import type { GameState, TurnCommand } from './models.ts';
 import { parseMilitaryOrder, resolveMilitary, validateMilitaryOrder } from './military.ts';
 import { applyDiplomaticCommand, DIPLOMACY_PARAMETERS, parseDiplomaticCommand } from './diplomacy.ts';
@@ -45,7 +46,7 @@ function validateCommand(value: unknown): TurnCommand {
  * lack of funds (INT-01, decision A1).
  * No clock, randomness, React, storage or network access; the seed is untouched.
  */
-export function advanceTurn(state: GameState, commands: readonly TurnCommand[] = [], scenarioDiplomacy = false): GameState {
+export function advanceTurn(state: GameState, commands: readonly TurnCommand[] = [], scenarioDiplomacy = false, collective: readonly CollectiveOrder[] = []): GameState {
   const player = state.countries.find(country => country.id === state.playerCountryId);
   if (!player || player.controller !== 'player') {
     throw new Error('Select a player country before advancing a week.');
@@ -69,6 +70,7 @@ export function advanceTurn(state: GameState, commands: readonly TurnCommand[] =
       continue;
     }
     if (command.type === 'set-military-order') {
+      if (state.strategicLand) continue;
       validateMilitaryOrder({ ...state, divisions }, countryId, command.divisionId, command.order);
       divisions = divisions.map(division => division.id === command.divisionId ? { ...division, order: command.order } : division);
       continue;
@@ -87,7 +89,17 @@ export function advanceTurn(state: GameState, commands: readonly TurnCommand[] =
   }
 
   diplomacy = resolveAIDiplomacy(diplomacy, scenarioDiplomacy);
-  const military = resolveMilitary({ ...state, divisions });
+  if (!state.strategicLand && collective.length) throw new Error('Collective orders require strategic land rules.');
+  if (state.strategicLand && collective.some(order => order.countryId !== player.id)) {
+    throw new Error('Collective orders must belong to the selected player country.');
+  }
+  const converted = state.strategicLand ? commands.flatMap(command => command.type === 'set-military-order' ? [{
+    id: command.divisionId, countryId: command.countryId, divisionIds: [command.divisionId], week: state.week,
+    action: command.order,
+  }] : []) : [];
+  const military = state.strategicLand
+    ? resolveStrategicLand(diplomacy, [...collective, ...converted])
+    : resolveMilitary({ ...state, divisions });
   return { ...state, week: state.week + 1, standingOrders: orders, ...military,
     relations: diplomacy.relations, diplomaticMessages: diplomacy.diplomaticMessages };
 }

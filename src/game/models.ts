@@ -1,3 +1,5 @@
+import type { StrategicLand } from './strategicLand.ts';
+
 /** Plain data only; IDs refer to entries in the corresponding GameState arrays. */
 export type CountryId = string;
 export type RegionId = string;
@@ -102,5 +104,6 @@ export interface GameState {
   divisions: Division[];
   standingOrders: StandingOrder[];
   militaryResults: MilitaryResult[];
+  strategicLand?: StrategicLand;
   diplomaticMessages: DiplomaticMessage[];
 }

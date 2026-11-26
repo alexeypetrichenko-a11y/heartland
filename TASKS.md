@@ -316,4 +316,10 @@ The owner merged the atlas through MAP-01C. MAP-01D administrative region inspec
 ### MIL-00 — Strategic land combat
 
 - [x] Record owner approval of Model B and the initial calibration. [Design](docs/military/MIL-00-DESIGN.md)
-- [ ] Review proposed safeguards, then sequence MIL-00-ENGINE, GEO-01, MIL-00-UX and MIL-01A. Retest Continuing attacks during MIL-00-UX. Keep PR #39 separate during design review.
+- [x] Record owner approval of the MIL-00 safeguards.
+- [ ] Review MIL-00-ENGINE, then sequence GEO-01, MIL-00-UX and MIL-01A. Retest Continuing attacks during MIL-00-UX. Keep PR #39 separate.
+
+### MIL-00R — Recovery and replenishment
+
+- [ ] Design depleted division recovery, recruitment constraints, manpower replenishment, recovery duration, budget impacts and future logistics integration.
+- [ ] Validate military sustainability at 52, 104 and 156 weeks. The current engine retains personnel and readiness state indefinitely unless a later approved rule changes it.

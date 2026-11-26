@@ -1,3 +1,4 @@
+import { collectiveReasons, STRATEGIC_LAND, type CollectiveOrder } from './strategicLand.ts';
 import { DIPLOMACY_PARAMETERS, parseDiplomaticCommand } from './diplomacy.ts';
 import { createInitialState } from './initialState.ts';
 import { parseMilitaryOrder } from './military.ts';
@@ -55,6 +56,67 @@ function diplomaticMessage(value: unknown, week: number, countries: Set<string>)
 }
 
 /** Validate the fixed world and all persistent records before handing them to the simulation. */
+function validateStrategicLand(game: GameState) {
+  const land = game.strategicLand;
+  if (land === undefined) return;
+  if (!isSaveObject(land) || land.rules !== STRATEGIC_LAND) throw new Error('Unsupported combat rules.');
+  const units = new Map(game.divisions.map(unit => [unit.id, unit]));
+  const areas = new Map(game.regions.map(region => [region.id, region]));
+  const actors = new Set(game.countries.map(country => country.id));
+  requireSave(isSaveObject(land.readiness) && Object.keys(land.readiness).length === units.size);
+  for (const unit of units.values()) {
+    const readiness = land.readiness[unit.id];
+    requireSave(isSaveObject(readiness) && integer(readiness.baseline, unit.manpower)
+      && integer(readiness.eligibleWeek, 1, game.week + 1)
+      && integer(readiness.prisoners, 0, readiness.baseline)
+      && (!readiness.prisoners || unit.manpower === 0));
+  }
+  requireSave(Array.isArray(land.fronts) && Array.isArray(land.events));
+  const committed = new Set<string>();
+  const fronts = new Set<string>();
+  for (const front of land.fronts) {
+    requireSave(isSaveObject(front) && text(front.id) && !fronts.has(front.id)
+      && (front.kind === 'assault' || front.kind === 'clash') && areas.has(front.target)
+      && integer(front.progress, -100, 100) && integer(front.rounds, 1, game.week - 1)
+      && (front.suspended === undefined || integer(front.suspended, 1, game.week - 1))
+      && Array.isArray(front.countries) && front.countries.length === 2
+      && front.countries.every(actor => actors.has(actor)) && front.countries[0] !== front.countries[1]
+      && Array.isArray(front.sides) && front.sides.length === 2);
+    fronts.add(front.id);
+    requireSave(Array.isArray(front.blocked) && front.blocked.length === 2
+      && front.blocked.every(n => integer(n, 0, game.week - 1))
+      && isSaveObject(front.enclosed) && Object.entries(front.enclosed).every(([id, n]) =>
+        front.sides.some(side => side.includes(id)) && integer(n, 1, 1)));
+    for (const side of [0, 1] as const) {
+      requireSave(Array.isArray(front.sides[side]) && front.sides[side].length);
+      for (const id of front.sides[side]) {
+        const unit = units.get(id);
+        requireSave(unit && unit.ownerId === front.countries[side] && unit.manpower > 0 && !committed.has(id));
+        committed.add(id);
+      }
+    }
+  }
+  for (const event of land.events) {
+    requireSave(isSaveObject(event) && actors.has(event.countryId)
+      && ['loss', 'prisoners', 'retreat', 'capture', 'moved', 'suspended', 'blocked', 'rejected', 'contested'].includes(event.kind)
+      && (event.divisionId === undefined || units.get(event.divisionId)?.ownerId === event.countryId)
+      && (event.regionId === undefined || areas.has(event.regionId))
+      && (event.amount === undefined || integer(event.amount, 0))
+      && (event.reason === undefined || text(event.reason)));
+  }
+}
+
+function validateCollectiveDraft(value: unknown, game: GameState): asserts value is CollectiveOrder {
+  requireSave(isSaveObject(value) && text(value.id) && value.countryId === game.playerCountryId
+    && value.week === game.week && Array.isArray(value.divisionIds) && value.divisionIds.every(text)
+    && isSaveObject(value.action));
+  const action = value.action;
+  if (action.kind === 'reinforce') requireSave(text(action.engagementId));
+  else if (action.kind === 'disengage') requireSave(action.fallbackRegionId === undefined || text(action.fallbackRegionId));
+  else parseMilitaryOrder(action);
+  requireSave(collectiveReasons(game, value as unknown as CollectiveOrder).length === 0);
+}
+
 export function validateSavedGame(value: unknown, scenario = fictional, playable?: readonly string[]): GameState {
   const countries = new Set(scenario.countries.map(country => country.id));
   const regions = new Set(scenario.regions.map(region => region.id));
@@ -84,7 +146,9 @@ export function validateSavedGame(value: unknown, scenario = fictional, playable
   requireSave(Array.isArray(value.diplomaticMessages) && value.diplomaticMessages.every(message => diplomaticMessage(message, week, actors)));
   requireSave(new Set(value.diplomaticMessages.map(message => message.id)).size === value.diplomaticMessages.length);
   requireSave(Array.isArray(value.militaryResults) && value.militaryResults.every(result => militaryResult(result, regions, divisions)));
-  return value as unknown as GameState;
+  const game = value as unknown as GameState;
+  validateStrategicLand(game);
+  return game;
 }
 
 export function validateSavedDrafts(value: unknown, game: GameState, europe = false): PlayerDrafts {
@@ -96,6 +160,17 @@ export function validateSavedDrafts(value: unknown, game: GameState, europe = fa
     && game.divisions.some(division => division.id === command.divisionId && division.ownerId === command.countryId)
     && orderInScenario(command.order, regions)));
   requireSave(new Set(value.military.map(command => command.divisionId)).size === value.military.length);
+  if (value.collective !== undefined) {
+    requireSave(game.strategicLand && Array.isArray(value.collective));
+    const ids = new Set<string>();
+    const divisions = new Set(value.military.map(command => command.divisionId));
+    for (const draft of value.collective) {
+      validateCollectiveDraft(draft, game);
+      requireSave(!ids.has(draft.id) && draft.divisionIds.every(id => !divisions.has(id)));
+      ids.add(draft.id);
+      for (const id of draft.divisionIds) divisions.add(id);
+    }
+  }
   if (value.diplomacy !== null) {
     const command = parseDiplomaticCommand(value.diplomacy);
     requireSave(command.countryId === game.playerCountryId);

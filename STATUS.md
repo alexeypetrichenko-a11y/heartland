@@ -485,4 +485,9 @@ Historical first implementation/validation follows. The physical-iPhone-feedback
 ## WORLD-04-FINAL — Licensed playable Europe
 
 - PR #36 is merged. The owner accepted the draft.3 review build on iPhone SE (2022), iOS 26.2. The approved two physical 156-turn runs with 61 zones and 90 divisions passed all five thresholds. [Measurements and accepted baseline](docs/military/MIL-00-DESIGN.md#existing-architecture-and-accepted-baseline)
-- MIL-01-DESIGN is merged in PR #38. PR #39 remains separate. MIL-00-DESIGN records the approved Model B and initial calibration. Safeguard defaults remain under review. [Design and calibration](docs/military/MIL-00-DESIGN.md)
+- MIL-01-DESIGN is merged in PR #38. PR #39 remains separate. MIL-00-DESIGN records the approved Model B and initial calibration. The owner approved the safeguards for MIL-00-ENGINE. [Design and calibration](docs/military/MIL-00-DESIGN.md)
+
+## MIL-00-ENGINE and MIL-00R
+
+- The strategic ruleset is ready for engine review through an explicit new-match initializer. Existing matches and the current interface retain legacy combat entry behavior. [Engine review and reproduction](docs/military/MIL-00-ENGINE.md)
+- MIL-00R will address manpower replenishment, recruitment and recovery duration, budget and logistics integration, and military sustainability. MIL-00-ENGINE records depletion and recovery eligibility without regenerating manpower.
