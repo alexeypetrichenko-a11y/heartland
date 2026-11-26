@@ -315,5 +315,5 @@ The owner merged the atlas through MAP-01C. MAP-01D administrative region inspec
 
 ### MIL-00 — Strategic land combat
 
-- [ ] Review the design and synthetic calibration. Obtain owner approval of the rules and balance before gameplay coding. [Design](docs/military/MIL-00-DESIGN.md)
-- [ ] Retest Continuing attacks during implementation. Keep PR #39 separate.
+- [x] Record owner approval of Model B and the initial calibration. [Design](docs/military/MIL-00-DESIGN.md)
+- [ ] Review proposed safeguards, then sequence MIL-00-ENGINE, GEO-01, MIL-00-UX and MIL-01A. Retest Continuing attacks during MIL-00-UX. Keep PR #39 separate during design review.

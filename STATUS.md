@@ -485,4 +485,4 @@ Historical first implementation/validation follows. The physical-iPhone-feedback
 ## WORLD-04-FINAL — Licensed playable Europe
 
 - PR #36 is merged. The owner accepted the draft.3 review build on iPhone SE (2022), iOS 26.2. The approved two physical 156-turn runs with 61 zones and 90 divisions passed all five thresholds. [Measurements and accepted baseline](docs/military/MIL-00-DESIGN.md#existing-architecture-and-accepted-baseline)
-- MIL-01-DESIGN is merged in PR #38. PR #39 remains separate. MIL-00-DESIGN proposes strategic land combat for owner review. [Design and calibration](docs/military/MIL-00-DESIGN.md)
+- MIL-01-DESIGN is merged in PR #38. PR #39 remains separate. MIL-00-DESIGN records the approved Model B and initial calibration. Safeguard defaults remain under review. [Design and calibration](docs/military/MIL-00-DESIGN.md)
