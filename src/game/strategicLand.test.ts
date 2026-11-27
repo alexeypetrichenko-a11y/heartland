@@ -230,3 +230,102 @@ test('displaced units can withdraw to a friendly region without reopening a sett
   assert.equal(withdrawn.divisions[0].manpower, 25000);
   assert.equal(withdrawn.strategicLand!.readiness.a0.eligibleWeek, 3);
 });
+
+test('synthetic sustained load preserves simultaneous fronts across checkpoint and repeated rotations', async t => {
+  const roster = selectCountry(createInitialState(), 'alden');
+  const frontCount = 8;
+  const additions = Array.from({ length: frontCount }, (_, index) => {
+    const origin = `origin-${index}`, target = `target-${index}`, exit = `exit-${index}`;
+    const regions = [
+      { id: origin, name: origin, ownerId: 'alden', adjacentRegionIds: [target, exit] },
+      { id: target, name: target, ownerId: 'belora', adjacentRegionIds: [origin, exit] },
+      { id: exit, name: exit, ownerId: 'belora', adjacentRegionIds: [origin, target] },
+    ];
+    const units = (prefix: string, count: number, ownerId: string, regionId: string) => Array.from({ length: count }, (_, i) => ({
+      id: `${prefix}-${index}-${i}`, name: `${prefix} ${index} ${i}`, ownerId, regionId,
+      manpower: 25000, order: { kind: 'defend' } as const,
+    }));
+    const ids = (units: { id: string }[]) => units.map(unit => unit.id);
+    const initial = units('initial', 12, 'alden', origin);
+    const reserve = units('reserve', 12, 'alden', origin);
+    const garrison = units('garrison', index === 0 ? 4 : 12, 'belora', target);
+    const blockers = units('blocker', 12, 'alden', origin);
+    const exitGuards = units('exit-guard', 12, 'belora', exit);
+    return { regions, units: [...initial, ...reserve, ...garrison, ...blockers, ...exitGuards],
+      initial: ids(initial), reserve: ids(reserve), blockers: ids(blockers), target, exit };
+  });
+  roster.regions.push(...additions.flatMap(part => part.regions));
+  roster.divisions.push(...additions.flatMap(part => part.units));
+  let game = startStrategicLand(roster);
+  const started = performance.now();
+  const attack = (ids: string[], targetRegionId: string) => order(game, ids, { kind: 'attack', targetRegionId });
+  game = week(game, additions.flatMap(part => [attack(part.initial, part.target), attack(part.blockers, part.exit)]));
+  assert.equal(game.strategicLand!.fronts.length, 16);
+
+  const sharedReserve = additions.flatMap(part => part.reserve.slice(0, 3));
+  const defend = order(game, sharedReserve, { kind: 'defend' });
+  assert.equal(stageCollective(game, [], defend).drafts[0].divisionIds.length, 24);
+
+  let activeWeeks = 1;
+  let reinforcementWeeks = 0;
+  let rotationWeeks = 0;
+  for (let round = 2; round <= 12; round++) {
+    const commands = additions.flatMap((part, index) => {
+      if (index === 0) return round === 7 ? [order(game, part.blockers, { kind: 'disengage' })] : [];
+      const front = game.strategicLand!.fronts.find(item => item.target === part.target && item.suspended === undefined);
+      if (!front) return [];
+      const actions: CollectiveOrder[] = [];
+      if (round >= 2 && round <= 5) {
+        actions.push(order(game, part.reserve.slice((round - 2) * 3, (round - 1) * 3),
+          { kind: 'reinforce', engagementId: front.id }));
+        const withdrawing = part.initial.slice((round - 2) * 2, (round - 1) * 2).filter(id => front.sides[0].includes(id));
+        if (withdrawing.length) actions.push(order(game, withdrawing, { kind: 'disengage' }));
+      }
+      return actions;
+    });
+    if (commands.some(bundle => bundle.action.kind === 'reinforce')) reinforcementWeeks++;
+    const previous = game;
+    game = week(game, commands);
+    if (round <= 5 && game.strategicLand!.events.some(event => event.kind === 'retreat')) rotationWeeks++;
+    if (round === 6) assert.equal(game.strategicLand!.fronts.find(front => front.target === additions[0].target)?.suspended, 6);
+    if (round === 7) {
+      assert.ok(!game.strategicLand!.fronts.some(front => front.target === additions[0].target));
+      assert.ok(game.strategicLand!.events.some(event => event.kind === 'retreat' && event.regionId === additions[0].exit));
+    }
+    if (game.strategicLand!.fronts.some(front => front.suspended === undefined)) activeWeeks++;
+    if (round === 3) {
+      const encoded = JSON.stringify(game);
+      const { validateSavedGame } = await import('./saveValidation.ts');
+      const resumed = validateSavedGame(JSON.parse(encoded), roster);
+      assert.ok(resumed.strategicLand!.fronts.length >= 8);
+      assert.deepEqual(week(resumed), week(game));
+      game = resumed;
+    }
+    for (const unit of game.divisions) {
+      assert.ok(unit.manpower <= previous.divisions.find(prior => prior.id === unit.id)!.manpower);
+      assert.equal(game.strategicLand!.readiness[unit.id].baseline, roster.divisions.find(opening => opening.id === unit.id)!.manpower);
+    }
+  }
+  assert.ok(activeWeeks >= 7);
+  assert.equal(reinforcementWeeks, 4);
+  assert.equal(rotationWeeks, 4);
+  t.diagnostic(`${game.divisions.length} divisions, 16 peak fronts, ${activeWeeks} consecutive active weeks, ${(performance.now() - started).toFixed(1)} ms including assertions and checkpoint`);
+});
+
+test('withdrawal never uses an exit captured simultaneously', () => {
+  let game = fixture(1, 1);
+  game = week(game, [order(game, ['a0'])]);
+  const defender = game.divisions[1];
+  const origin = game.regions[2];
+  const cyan = { ...defender, id: 'fresh-cyrin', ownerId: 'cyrin', regionId: 'dawn-ridge' };
+  game.divisions.push(cyan);
+  game.strategicLand!.readiness[cyan.id] = { baseline: cyan.manpower, eligibleWeek: 1, prisoners: 0 };
+  assert.ok(origin.adjacentRegionIds.includes('silver-hills'));
+  game = week(game, [
+    order(game, ['d0'], { kind: 'disengage', fallbackRegionId: 'silver-hills' }),
+    order(game, [cyan.id], { kind: 'attack', targetRegionId: 'silver-hills' }),
+  ]);
+  assert.equal(game.regions[3].ownerId, 'cyrin');
+  assert.equal(game.divisions.find(unit => unit.id === 'd0')!.regionId, 'amber-plain');
+  assert.ok(militaryEvents(game, 'belora').some(event => event.kind === 'blocked'));
+});

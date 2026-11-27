@@ -15,7 +15,7 @@ export async function benchmarkStrategicLand(read: (name: string) => Promise<Uin
   const times: number[] = [];
   let engagementWeeks = 0;
   let maxFronts = 0;
-  const exhaustion: Record<number, number> = {};
+  const exhaustion: Record<number, { depleted: number; surrendered: number }> = {};
   for (let step = 1; step <= 156; step++) {
     const tick = performance.now();
     const { game } = session;
@@ -36,9 +36,12 @@ export async function benchmarkStrategicLand(read: (name: string) => Promise<Uin
     if (fronts) engagementWeeks++;
     maxFronts = Math.max(maxFronts, fronts);
     if ([52, 104, 156].includes(step)) {
-      exhaustion[step] = session.game.countries.reduce((count, country) => count +
-        militarySelection(session.game, country.id, session.game.divisions.map(d => d.id))
-          .filter(d => d.status === 'depleted' || d.status === 'surrendered').length, 0);
+      const ids = session.game.divisions.map(d => d.id);
+      const formations = session.game.countries.flatMap(country => militarySelection(session.game, country.id, ids));
+      exhaustion[step] = {
+        depleted: formations.filter(d => d.status === 'depleted').length,
+        surrendered: formations.filter(d => d.status === 'surrendered').length,
+      };
     }
     times.push(performance.now() - tick);
   }
@@ -58,11 +61,12 @@ export async function benchmarkStrategicLand(read: (name: string) => Promise<Uin
     passed: (Object.keys(limits) as (keyof typeof limits)[]).every(key => milliseconds[key] <= limits[key]) };
 }
 
-export async function browserBenchmarkStrategicLand() {
+export async function browserBenchmarkStrategicLand(heavy?: boolean) {
   const read = async (name: string) => {
     const response = await fetch(`review/${EUROPE_ID}/${EUROPE_VERSION}/${name}`, { cache: 'no-store' });
     if (!response.ok) throw new Error(`Could not read ${name}.`);
     return new Uint8Array(await response.arrayBuffer());
   };
+  if (heavy !== undefined) return [await benchmarkStrategicLand(read, heavy)];
   return [await benchmarkStrategicLand(read, false), await benchmarkStrategicLand(read, true)];
 }
