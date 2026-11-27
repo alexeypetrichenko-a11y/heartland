@@ -2,7 +2,7 @@
 
 **Design study for owner review.** This PR changes no production code, scenario package, PR #39 or PR #41. Nothing is merged or deployed.
 - **Baseline main:** `6f41cdcb43bd60646e2114eb50327ce9f92d589d`.
-- **Combat reference:** PR #41 (MIL-00-ENGINE) at `e24a6136b`.
+- **Combat reference:** PR #41 (MIL-00-ENGINE) at `e24a6136b`. The cross-check gives byte-identical results on its later head `388b69653`, whose resolver (`strategicLand.ts`) is unchanged.
 - **P0 numbers:** illustrative proposals. None is adopted until the owner decides (section 7).
 
 ## Summary
@@ -541,7 +541,7 @@ python3 docs/military/tools/mil00r_calibrate.py --json docs/military/MIL-00R-dat
 node --experimental-strip-types docs/military/tools/mil00r_economy_check.ts docs/military/MIL-00R-data/economy.json
 ```
 
-The engine cross-check needs the PR #41 source tree:
+The engine cross-check needs the PR #41 source tree (`e24a6136b` or `388b69653`; the resolver is the same in both):
 
 ```bash
 git worktree add /tmp/pr41 e24a6136b && cp docs/military/tools/mil00r_engine_check.ts /tmp/pr41/docs/military/tools/

@@ -2,7 +2,7 @@
  * MIL-00R-DESIGN cross-check against the MIL-00-ENGINE resolver (PR #41).
  *
  * This file needs the PR #41 source tree: it is not runnable on main, where `strategicLand.ts` does not
- * exist yet. In a checkout of PR #41 at e24a6136b (or later, if the resolver is unchanged):
+ * exist yet. In a checkout of PR #41 at e24a6136b or 388b69653 (same resolver; later heads if it is unchanged):
  *
  *   node --experimental-strip-types docs/military/tools/mil00r_engine_check.ts [mil00r-results.json] [out.json]
  *
