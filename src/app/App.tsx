@@ -1,4 +1,5 @@
 import { Component, lazy, Suspense, useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 import { createInitialState } from '../game/initialState';
 import { selectCountry } from '../game/selectCountry';
 import { advanceGameWeek, startEconomy, type EconomyCommand, type LoadedEconomy } from '../game/economyBridge';
@@ -11,7 +12,8 @@ import type { PlayableSession } from '../game/saveFormat';
 const AtlasMap = lazy(() => import('../ui/AtlasMap'));
 const PrototypePage = lazy(() => import('../ui/PrototypePage').then(module => ({ default: module.PrototypePage })));
 const CountrySetup = lazy(() => import('../ui/PrototypePage').then(module => ({ default: module.CountrySetup })));
-const europeEnabled = import.meta.env.PROD && import.meta.env.MODE === 'world04-local';
+const isolatedReview = import.meta.env.PROD && import.meta.env.MODE === 'geo01-local';
+const europeEnabled = import.meta.env.PROD && (import.meta.env.MODE === 'world04-local' || isolatedReview);
 const storageUnavailable = { kind: 'unavailable', message: 'Local storage is unavailable.' } as const;
 
 class ScreenBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
@@ -23,6 +25,20 @@ class ScreenBoundary extends Component<{ children: ReactNode }, { failed: boolea
 }
 
 export function App() {
+  const [atlasHost] = useState(() => {
+    const host = document.createElement('div');
+    host.className = 'atlas-host';
+    return host;
+  });
+  const atlasSlot = useCallback((element: HTMLDivElement | null) => {
+    if (element && atlasHost.parentElement !== element) element.append(atlasHost);
+  }, [atlasHost]);
+  const [gameAtlasVisible, setGameAtlasVisible] = useState(false);
+  const [europeChoice, setEuropeChoice] = useState('');
+  const [selectedUnits, setSelectedUnits] = useState<string[]>([]);
+  const [locate, setLocate] = useState<{ id: string } | null>(null);
+  const toggleUnit = useCallback((id: string) => setSelectedUnits(ids => ids.includes(id) ? ids.filter(item => item !== id) : [...ids, id]), []);
+  const requestLocate = useCallback((id: string) => setLocate({ id }), []);
   const [view, setView] = useState<'atlas' | 'setup' | 'game'>('atlas');
   const [setupEurope, setSetupEurope] = useState<EuropeScenario | null>(null);
   const [scenarioChoice, setScenarioChoice] = useState<'fictional' | 'europe-2023'>('fictional');
@@ -47,6 +63,7 @@ export function App() {
   const mainRef = useRef<HTMLElement>(null);
 
   const inspectSave = useCallback(() => {
+    if (isolatedReview) return Promise.resolve({ kind: 'empty' as const });
     probeRef.current ??= import('../game/localSaves').then(async ({ createLocalSaves }) => {
       managerRef.current = createLocalSaves(reportSaveStatus, europeEnabled ? async () => {
         const { loadEuropeRuntime } = await import('../game/economyRuntime');
@@ -91,6 +108,7 @@ export function App() {
   }
 
   function save(session: PlayableSession, delay = 0) {
+    if (isolatedReview) return;
     if (managerRef.current && runtimeRef.current) managerRef.current.schedule(runtimeRef.current, session, delay);
     else setSaveStatus({ kind: 'failed', message: storageUnavailable.message });
   }
@@ -99,6 +117,8 @@ export function App() {
     runtimeRef.current = runtime;
     commit(session);
     setGameKey(key => key + 1);
+    setSelectedUnits([]);
+    setLocate(null);
     setTurnError(null);
     setView('game');
   }
@@ -109,12 +129,15 @@ export function App() {
     if ((sessionRef.current || known.kind === 'found' || known.kind === 'unreadable')
       && !window.confirm('Start a new game and replace the local save when the game starts?')) return;
     setOpeningError(null);
-    setScenarioChoice('fictional');
+    setScenarioChoice(isolatedReview ? 'europe-2023' : 'fictional');
+    setEuropeChoice('');
+    if (isolatedReview) void chooseScenario('europe-2023');
     setView('setup');
   }
 
   async function chooseScenario(choice: 'fictional' | 'europe-2023') {
     setScenarioChoice(choice);
+    setEuropeChoice('');
     setOpeningError(null);
     if (choice === 'fictional' || setupEurope) return;
     const token = ++opening.current;
@@ -228,6 +251,13 @@ export function App() {
     : !playing && saveProblem ? availability.message : null);
   const runtime = runtimeRef.current;
 
+  const setupAtlas = view === 'setup' && scenarioChoice === 'europe-2023' && setupEurope;
+  const campaign = view === 'game' && playing && runtime?.europe ? {
+    scenario: runtime.europe, state: playing.game, drafts: playing.drafts, selectedUnits, toggleUnit,
+    selectUnits: (ids: string[]) => setSelectedUnits(current => [...new Set([...current, ...ids])]),
+    locate, matchKey: gameKey, fixtures: isolatedReview,
+    markerStress: isolatedReview && new URLSearchParams(window.location.search).get('marker-stress') === '90',
+  } : undefined;
   return (
     <main
       ref={mainRef}
@@ -245,15 +275,15 @@ export function App() {
           </button>
         </header>
         <div className="game-main">
+      {isolatedReview && <p className="geo-review-build">GEO-01 owner review · {import.meta.env.VITE_GEO_REVIEW_COMMIT ?? 'local build'} · Saves disabled</p>}
           {atlasError && <p className="turn-error" role="alert">{atlasError}</p>}
-          <ScreenBoundary><Suspense fallback={<div className="atlas-startup" role="status">Loading Earth…</div>}>
-            <AtlasMap active={view === 'atlas'} onSettled={atlasSettled} />
-          </Suspense></ScreenBoundary>
+          <div className="atlas-slot" ref={view === 'atlas' ? atlasSlot : undefined} />
         </div>
       </div>
       {view === 'setup' && <ScreenBoundary><Suspense fallback={<div className="atlas-startup" role="status">Opening local game…</div>}>
         <CountrySetup busy={busy} error={openingError} onSelectCountry={id => void beginNewGame(id)} onBack={returnToGlobe}
-          europeEnabled={europeEnabled} scenarioChoice={scenarioChoice} europe={setupEurope} onScenarioChoice={choice => void chooseScenario(choice)} />
+          europeEnabled={europeEnabled} scenarioChoice={scenarioChoice} europe={setupEurope} onScenarioChoice={choice => void chooseScenario(choice)}
+          atlasSlot={atlasSlot} europeChoice={europeChoice} onEuropeChoice={setEuropeChoice} />
       </Suspense></ScreenBoundary>}
       {/* Mount gameplay only on request, then retain all state and drafts. */}
       {playing && runtime && <div key={gameKey} hidden={view !== 'game'}>
@@ -269,10 +299,17 @@ export function App() {
           fiscalApi={runtime.api}
           saveStatus={saveStatus}
           lastSaved={lastSaved}
-          onSave={() => { if (sessionRef.current) save(sessionRef.current); }}
+          onSave={isolatedReview ? undefined : () => { if (sessionRef.current) save(sessionRef.current); }}
+          atlasSlot={atlasSlot} onAtlasVisible={setGameAtlasVisible} onLocate={requestLocate}
+          selectedUnits={selectedUnits} onToggleUnit={toggleUnit}
           onBack={returnToGlobe}
         /></Suspense></ScreenBoundary>
       </div>}
+      {createPortal(<ScreenBoundary><Suspense fallback={<div className="atlas-startup" role="status">Loading Earth…</div>}>
+        <AtlasMap active={view === 'atlas' || Boolean(setupAtlas) || Boolean(campaign && gameAtlasVisible)}
+          onSettled={atlasSettled} campaign={campaign} terrainStorage={!isolatedReview}
+          setup={setupAtlas ? { scenario: setupAtlas, choice: europeChoice, onChoose: setEuropeChoice } : undefined} />
+      </Suspense></ScreenBoundary>, atlasHost)}
     </main>
   );
 }

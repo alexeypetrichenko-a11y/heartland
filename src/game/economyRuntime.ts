@@ -18,7 +18,7 @@ export async function loadEconomyRuntime(): Promise<EconomyRuntime> {
   return { api, startingSave: save.default };
 }
 
-const europeReviewEnabled = import.meta.env.PROD && import.meta.env.MODE === 'world04-local';
+const europeReviewEnabled = import.meta.env.PROD && (import.meta.env.MODE === 'world04-local' || import.meta.env.MODE === 'geo01-local');
 let europeRequest: Promise<import('./europeScenario.ts').EuropeScenario> | undefined;
 
 export async function loadEuropeRuntime() {
