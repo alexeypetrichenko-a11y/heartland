@@ -1,0 +1,5009 @@
+{
+ "campaign_fresh_1v1": [
+  {
+   "attack_at": 100,
+   "defender": "fresh",
+   "j": 1,
+   "k": 1,
+   "model": "none",
+   "offensive_bar": 80,
+   "policy": "replace",
+   "w104": {
+    "assaults": 1,
+    "captures": 0,
+    "x_cost_gdp": 0.0,
+    "x_cost_military_budget": 0.0,
+    "x_depot": 0,
+    "x_ready": false,
+    "x_recruited": 0,
+    "x_replaced": 0,
+    "x_share_of_full": 0.777,
+    "y_share_of_full": null
+   },
+   "w156": {
+    "assaults": 1,
+    "captures": 0,
+    "x_cost_gdp": 0.0,
+    "x_cost_military_budget": 0.0,
+    "x_depot": 0,
+    "x_ready": false,
+    "x_recruited": 0,
+    "x_replaced": 0,
+    "x_share_of_full": 0.777,
+    "y_share_of_full": null
+   },
+   "w52": {
+    "assaults": 1,
+    "captures": 0,
+    "x_cost_gdp": 0.0,
+    "x_cost_military_budget": 0.0,
+    "x_depot": 0,
+    "x_ready": false,
+    "x_recruited": 0,
+    "x_replaced": 0,
+    "x_share_of_full": 0.777,
+    "y_share_of_full": null
+   }
+  },
+  {
+   "attack_at": 100,
+   "defender": "fresh",
+   "j": 1,
+   "k": 1,
+   "model": "A",
+   "offensive_bar": 90,
+   "policy": "replace",
+   "w104": {
+    "assaults": 7,
+    "captures": 0,
+    "x_cost_gdp": 0.001866,
+    "x_cost_military_budget": 0.1028,
+    "x_depot": 0,
+    "x_ready": true,
+    "x_recruited": 0,
+    "x_replaced": 38545,
+    "x_share_of_full": 0.979,
+    "y_share_of_full": null
+   },
+   "w156": {
+    "assaults": 11,
+    "captures": 0,
+    "x_cost_gdp": 0.002703,
+    "x_cost_military_budget": 0.1489,
+    "x_depot": 0,
+    "x_ready": false,
+    "x_recruited": 0,
+    "x_replaced": 55830,
+    "x_share_of_full": 0.806,
+    "y_share_of_full": null
+   },
+   "w52": {
+    "assaults": 4,
+    "captures": 0,
+    "x_cost_gdp": 0.000811,
+    "x_cost_military_budget": 0.0447,
+    "x_depot": 0,
+    "x_ready": false,
+    "x_recruited": 0,
+    "x_replaced": 16749,
+    "x_share_of_full": 0.777,
+    "y_share_of_full": null
+   }
+  },
+  {
+   "attack_at": 100,
+   "defender": "fresh",
+   "j": 1,
+   "k": 1,
+   "model": "B",
+   "offensive_bar": 90,
+   "policy": "off",
+   "w104": {
+    "assaults": 2,
+    "captures": 0,
+    "x_cost_gdp": 0.0,
+    "x_cost_military_budget": 0.0,
+    "x_depot": 0,
+    "x_ready": false,
+    "x_recruited": 0,
+    "x_replaced": 7500,
+    "x_share_of_full": 0.853,
+    "y_share_of_full": null
+   },
+   "w156": {
+    "assaults": 2,
+    "captures": 0,
+    "x_cost_gdp": 0.0,
+    "x_cost_military_budget": 0.0,
+    "x_depot": 0,
+    "x_ready": false,
+    "x_recruited": 0,
+    "x_replaced": 7500,
+    "x_share_of_full": 0.853,
+    "y_share_of_full": null
+   },
+   "w52": {
+    "assaults": 2,
+    "captures": 0,
+    "x_cost_gdp": 0.0,
+    "x_cost_military_budget": 0.0,
+    "x_depot": 0,
+    "x_ready": false,
+    "x_recruited": 0,
+    "x_replaced": 7500,
+    "x_share_of_full": 0.853,
+    "y_share_of_full": null
+   }
+  },
+  {
+   "attack_at": 100,
+   "defender": "fresh",
+   "j": 1,
+   "k": 1,
+   "model": "B",
+   "offensive_bar": 90,
+   "policy": "replace",
+   "w104": {
+    "assaults": 11,
+    "captures": 0,
+    "x_cost_gdp": 0.002825,
+    "x_cost_military_budget": 0.1556,
+    "x_depot": 2779,
+    "x_ready": false,
+    "x_recruited": 58349,
+    "x_replaced": 55830,
+    "x_share_of_full": 0.867,
+    "y_share_of_full": null
+   },
+   "w156": {
+    "assaults": 16,
+    "captures": 0,
+    "x_cost_gdp": 0.004252,
+    "x_cost_military_budget": 0.2342,
+    "x_depot": 4436,
+    "x_ready": false,
+    "x_recruited": 87835,
+    "x_replaced": 83745,
+    "x_share_of_full": 0.806,
+    "y_share_of_full": null
+   },
+   "w52": {
+    "assaults": 6,
+    "captures": 0,
+    "x_cost_gdp": 0.001393,
+    "x_cost_military_budget": 0.0767,
+    "x_depot": 1917,
+    "x_ready": false,
+    "x_recruited": 28777,
+    "x_replaced": 27915,
+    "x_share_of_full": 0.932,
+    "y_share_of_full": null
+   }
+  },
+  {
+   "attack_at": 100,
+   "defender": "fresh",
+   "j": 1,
+   "k": 1,
+   "model": "B",
+   "offensive_bar": 90,
+   "policy": "surge",
+   "w104": {
+    "assaults": 11,
+    "captures": 0,
+    "x_cost_gdp": 0.00625,
+    "x_cost_military_budget": 0.3443,
+    "x_depot": 21529,
+    "x_ready": false,
+    "x_recruited": 77099,
+    "x_replaced": 55830,
+    "x_share_of_full": 0.867,
+    "y_share_of_full": null
+   },
+   "w156": {
+    "assaults": 16,
+    "captures": 0,
+    "x_cost_gdp": 0.008744,
+    "x_cost_military_budget": 0.4817,
+    "x_depot": 23186,
+    "x_ready": false,
+    "x_recruited": 106585,
+    "x_replaced": 83745,
+    "x_share_of_full": 0.806,
+    "y_share_of_full": null
+   },
+   "w52": {
+    "assaults": 6,
+    "captures": 0,
+    "x_cost_gdp": 0.00375,
+    "x_cost_military_budget": 0.2066,
+    "x_depot": 20667,
+    "x_ready": false,
+    "x_recruited": 47527,
+    "x_replaced": 27915,
+    "x_share_of_full": 0.932,
+    "y_share_of_full": null
+   }
+  },
+  {
+   "attack_at": 100,
+   "defender": "fresh",
+   "j": 1,
+   "k": 1,
+   "model": "C",
+   "offensive_bar": 90,
+   "policy": "replace",
+   "w104": {
+    "assaults": 11,
+    "captures": 0,
+    "x_cost_gdp": 0.001838,
+    "x_cost_military_budget": 0.1013,
+    "x_depot": 4428,
+    "x_ready": false,
+    "x_recruited": 37969,
+    "x_replaced": 55830,
+    "x_share_of_full": 0.867,
+    "y_share_of_full": null
+   },
+   "w156": {
+    "assaults": 16,
+    "captures": 0,
+    "x_cost_gdp": 0.002767,
+    "x_cost_military_budget": 0.1524,
+    "x_depot": 5506,
+    "x_ready": false,
+    "x_recruited": 57156,
+    "x_replaced": 83745,
+    "x_share_of_full": 0.806,
+    "y_share_of_full": null
+   },
+   "w52": {
+    "assaults": 6,
+    "captures": 0,
+    "x_cost_gdp": 0.000907,
+    "x_cost_military_budget": 0.0499,
+    "x_depot": 3346,
+    "x_ready": false,
+    "x_recruited": 18726,
+    "x_replaced": 27915,
+    "x_share_of_full": 0.932,
+    "y_share_of_full": null
+   }
+  }
+ ],
+ "campaign_fresh_3v2": [
+  {
+   "attack_at": 100,
+   "defender": "fresh",
+   "j": 2,
+   "k": 3,
+   "model": "none",
+   "offensive_bar": 80,
+   "policy": "replace",
+   "w104": {
+    "assaults": 1,
+    "captures": 1,
+    "x_cost_gdp": 0.0,
+    "x_cost_military_budget": 0.0,
+    "x_depot": 0,
+    "x_ready": true,
+    "x_recruited": 0,
+    "x_replaced": 0,
+    "x_share_of_full": 0.875,
+    "y_share_of_full": null
+   },
+   "w156": {
+    "assaults": 1,
+    "captures": 1,
+    "x_cost_gdp": 0.0,
+    "x_cost_military_budget": 0.0,
+    "x_depot": 0,
+    "x_ready": true,
+    "x_recruited": 0,
+    "x_replaced": 0,
+    "x_share_of_full": 0.875,
+    "y_share_of_full": null
+   },
+   "w52": {
+    "assaults": 1,
+    "captures": 1,
+    "x_cost_gdp": 0.0,
+    "x_cost_military_budget": 0.0,
+    "x_depot": 0,
+    "x_ready": true,
+    "x_recruited": 0,
+    "x_replaced": 0,
+    "x_share_of_full": 0.875,
+    "y_share_of_full": null
+   }
+  },
+  {
+   "attack_at": 100,
+   "defender": "fresh",
+   "j": 2,
+   "k": 3,
+   "model": "A",
+   "offensive_bar": 90,
+   "policy": "replace",
+   "w104": {
+    "assaults": 6,
+    "captures": 6,
+    "x_cost_gdp": 0.002368,
+    "x_cost_military_budget": 0.1304,
+    "x_depot": 0,
+    "x_ready": true,
+    "x_recruited": 0,
+    "x_replaced": 48915,
+    "x_share_of_full": 0.904,
+    "y_share_of_full": null
+   },
+   "w156": {
+    "assaults": 9,
+    "captures": 8,
+    "x_cost_gdp": 0.003621,
+    "x_cost_military_budget": 0.1995,
+    "x_depot": 0,
+    "x_ready": false,
+    "x_recruited": 0,
+    "x_replaced": 74808,
+    "x_share_of_full": 0.913,
+    "y_share_of_full": null
+   },
+   "w52": {
+    "assaults": 3,
+    "captures": 3,
+    "x_cost_gdp": 0.001184,
+    "x_cost_military_budget": 0.0652,
+    "x_depot": 0,
+    "x_ready": true,
+    "x_recruited": 0,
+    "x_replaced": 24462,
+    "x_share_of_full": 0.952,
+    "y_share_of_full": null
+   }
+  },
+  {
+   "attack_at": 100,
+   "defender": "fresh",
+   "j": 2,
+   "k": 3,
+   "model": "B",
+   "offensive_bar": 90,
+   "policy": "off",
+   "w104": {
+    "assaults": 1,
+    "captures": 1,
+    "x_cost_gdp": 0.0,
+    "x_cost_military_budget": 0.0,
+    "x_depot": 0,
+    "x_ready": true,
+    "x_recruited": 0,
+    "x_replaced": 7500,
+    "x_share_of_full": 0.975,
+    "y_share_of_full": null
+   },
+   "w156": {
+    "assaults": 1,
+    "captures": 1,
+    "x_cost_gdp": 0.0,
+    "x_cost_military_budget": 0.0,
+    "x_depot": 0,
+    "x_ready": true,
+    "x_recruited": 0,
+    "x_replaced": 7500,
+    "x_share_of_full": 0.975,
+    "y_share_of_full": null
+   },
+   "w52": {
+    "assaults": 1,
+    "captures": 1,
+    "x_cost_gdp": 0.0,
+    "x_cost_military_budget": 0.0,
+    "x_depot": 0,
+    "x_ready": true,
+    "x_recruited": 0,
+    "x_replaced": 7500,
+    "x_share_of_full": 0.975,
+    "y_share_of_full": null
+   }
+  },
+  {
+   "attack_at": 100,
+   "defender": "fresh",
+   "j": 2,
+   "k": 3,
+   "model": "B",
+   "offensive_bar": 90,
+   "policy": "replace",
+   "w104": {
+    "assaults": 7,
+    "captures": 7,
+    "x_cost_gdp": 0.003169,
+    "x_cost_military_budget": 0.1746,
+    "x_depot": 1,
+    "x_ready": true,
+    "x_recruited": 65457,
+    "x_replaced": 64542,
+    "x_share_of_full": 0.988,
+    "y_share_of_full": null
+   },
+   "w156": {
+    "assaults": 11,
+    "captures": 11,
+    "x_cost_gdp": 0.004754,
+    "x_cost_military_budget": 0.2619,
+    "x_depot": 5645,
+    "x_ready": false,
+    "x_recruited": 98195,
+    "x_replaced": 93510,
+    "x_share_of_full": 0.875,
+    "y_share_of_full": null
+   },
+   "w52": {
+    "assaults": 4,
+    "captures": 4,
+    "x_cost_gdp": 0.00163,
+    "x_cost_military_budget": 0.0898,
+    "x_depot": 0,
+    "x_ready": true,
+    "x_recruited": 33675,
+    "x_replaced": 34635,
+    "x_share_of_full": 0.963,
+    "y_share_of_full": null
+   }
+  },
+  {
+   "attack_at": 100,
+   "defender": "fresh",
+   "j": 2,
+   "k": 3,
+   "model": "B",
+   "offensive_bar": 90,
+   "policy": "surge",
+   "w104": {
+    "assaults": 13,
+    "captures": 12,
+    "x_cost_gdp": 0.01037,
+    "x_cost_military_budget": 0.5712,
+    "x_depot": 16899,
+    "x_ready": false,
+    "x_recruited": 134343,
+    "x_replaced": 112212,
+    "x_share_of_full": 0.934,
+    "y_share_of_full": null
+   },
+   "w156": {
+    "assaults": 19,
+    "captures": 19,
+    "x_cost_gdp": 0.015218,
+    "x_cost_military_budget": 0.8383,
+    "x_depot": 12780,
+    "x_ready": true,
+    "x_recruited": 196419,
+    "x_replaced": 175818,
+    "x_share_of_full": 0.975,
+    "y_share_of_full": null
+   },
+   "w52": {
+    "assaults": 6,
+    "captures": 6,
+    "x_cost_gdp": 0.005708,
+    "x_cost_military_budget": 0.3144,
+    "x_depot": 12780,
+    "x_ready": true,
+    "x_recruited": 74856,
+    "x_replaced": 54255,
+    "x_share_of_full": 0.975,
+    "y_share_of_full": null
+   }
+  },
+  {
+   "attack_at": 100,
+   "defender": "fresh",
+   "j": 2,
+   "k": 3,
+   "model": "C",
+   "offensive_bar": 90,
+   "policy": "replace",
+   "w104": {
+    "assaults": 10,
+    "captures": 9,
+    "x_cost_gdp": 0.002831,
+    "x_cost_military_budget": 0.1559,
+    "x_depot": 4230,
+    "x_ready": false,
+    "x_recruited": 58477,
+    "x_replaced": 84159,
+    "x_share_of_full": 0.894,
+    "y_share_of_full": null
+   },
+   "w156": {
+    "assaults": 14,
+    "captures": 14,
+    "x_cost_gdp": 0.004121,
+    "x_cost_military_budget": 0.227,
+    "x_depot": 1416,
+    "x_ready": true,
+    "x_recruited": 85134,
+    "x_replaced": 128250,
+    "x_share_of_full": 0.964,
+    "y_share_of_full": null
+   },
+   "w52": {
+    "assaults": 5,
+    "captures": 5,
+    "x_cost_gdp": 0.001472,
+    "x_cost_military_budget": 0.0811,
+    "x_depot": 0,
+    "x_ready": true,
+    "x_recruited": 30405,
+    "x_replaced": 45048,
+    "x_share_of_full": 0.977,
+    "y_share_of_full": null
+   }
+  }
+ ],
+ "campaign_fresh_3v2_attack_when_eligible": [
+  {
+   "attack_at": 0,
+   "defender": "fresh",
+   "j": 2,
+   "k": 3,
+   "model": "none",
+   "offensive_bar": 80,
+   "policy": "replace",
+   "w104": {
+    "assaults": 2,
+    "captures": 1,
+    "x_cost_gdp": 0.0,
+    "x_cost_military_budget": 0.0,
+    "x_depot": 0,
+    "x_ready": false,
+    "x_recruited": 0,
+    "x_replaced": 0,
+    "x_share_of_full": 0.788,
+    "y_share_of_full": null
+   },
+   "w156": {
+    "assaults": 2,
+    "captures": 1,
+    "x_cost_gdp": 0.0,
+    "x_cost_military_budget": 0.0,
+    "x_depot": 0,
+    "x_ready": false,
+    "x_recruited": 0,
+    "x_replaced": 0,
+    "x_share_of_full": 0.788,
+    "y_share_of_full": null
+   },
+   "w52": {
+    "assaults": 2,
+    "captures": 1,
+    "x_cost_gdp": 0.0,
+    "x_cost_military_budget": 0.0,
+    "x_depot": 0,
+    "x_ready": false,
+    "x_recruited": 0,
+    "x_replaced": 0,
+    "x_share_of_full": 0.788,
+    "y_share_of_full": null
+   }
+  },
+  {
+   "attack_at": 0,
+   "defender": "fresh",
+   "j": 2,
+   "k": 3,
+   "model": "A",
+   "offensive_bar": 90,
+   "policy": "replace",
+   "w104": {
+    "assaults": 7,
+    "captures": 1,
+    "x_cost_gdp": 0.0023,
+    "x_cost_military_budget": 0.1267,
+    "x_depot": 0,
+    "x_ready": false,
+    "x_recruited": 0,
+    "x_replaced": 47520,
+    "x_share_of_full": 0.83,
+    "y_share_of_full": null
+   },
+   "w156": {
+    "assaults": 10,
+    "captures": 1,
+    "x_cost_gdp": 0.003555,
+    "x_cost_military_budget": 0.1958,
+    "x_depot": 0,
+    "x_ready": false,
+    "x_recruited": 0,
+    "x_replaced": 73440,
+    "x_share_of_full": 0.837,
+    "y_share_of_full": null
+   },
+   "w52": {
+    "assaults": 4,
+    "captures": 1,
+    "x_cost_gdp": 0.001081,
+    "x_cost_military_budget": 0.0595,
+    "x_depot": 0,
+    "x_ready": false,
+    "x_recruited": 0,
+    "x_replaced": 22320,
+    "x_share_of_full": 0.853,
+    "y_share_of_full": null
+   }
+  },
+  {
+   "attack_at": 0,
+   "defender": "fresh",
+   "j": 2,
+   "k": 3,
+   "model": "B",
+   "offensive_bar": 90,
+   "policy": "off",
+   "w104": {
+    "assaults": 2,
+    "captures": 2,
+    "x_cost_gdp": 0.0,
+    "x_cost_military_budget": 0.0,
+    "x_depot": 0,
+    "x_ready": false,
+    "x_recruited": 0,
+    "x_replaced": 7500,
+    "x_share_of_full": 0.85,
+    "y_share_of_full": null
+   },
+   "w156": {
+    "assaults": 2,
+    "captures": 2,
+    "x_cost_gdp": 0.0,
+    "x_cost_military_budget": 0.0,
+    "x_depot": 0,
+    "x_ready": false,
+    "x_recruited": 0,
+    "x_replaced": 7500,
+    "x_share_of_full": 0.85,
+    "y_share_of_full": null
+   },
+   "w52": {
+    "assaults": 2,
+    "captures": 2,
+    "x_cost_gdp": 0.0,
+    "x_cost_military_budget": 0.0,
+    "x_depot": 0,
+    "x_ready": false,
+    "x_recruited": 0,
+    "x_replaced": 7500,
+    "x_share_of_full": 0.85,
+    "y_share_of_full": null
+   }
+  },
+  {
+   "attack_at": 0,
+   "defender": "fresh",
+   "j": 2,
+   "k": 3,
+   "model": "B",
+   "offensive_bar": 90,
+   "policy": "replace",
+   "w104": {
+    "assaults": 11,
+    "captures": 2,
+    "x_cost_gdp": 0.004672,
+    "x_cost_military_budget": 0.2574,
+    "x_depot": 1,
+    "x_ready": false,
+    "x_recruited": 96511,
+    "x_replaced": 92766,
+    "x_share_of_full": 0.893,
+    "y_share_of_full": null
+   },
+   "w156": {
+    "assaults": 17,
+    "captures": 2,
+    "x_cost_gdp": 0.007031,
+    "x_cost_military_budget": 0.3873,
+    "x_depot": 1874,
+    "x_ready": false,
+    "x_recruited": 145235,
+    "x_replaced": 139617,
+    "x_share_of_full": 0.863,
+    "y_share_of_full": null
+   },
+   "w52": {
+    "assaults": 6,
+    "captures": 2,
+    "x_cost_gdp": 0.002313,
+    "x_cost_military_budget": 0.1274,
+    "x_depot": 0,
+    "x_ready": false,
+    "x_recruited": 47787,
+    "x_replaced": 44043,
+    "x_share_of_full": 0.873,
+    "y_share_of_full": null
+   }
+  },
+  {
+   "attack_at": 0,
+   "defender": "fresh",
+   "j": 2,
+   "k": 3,
+   "model": "B",
+   "offensive_bar": 90,
+   "policy": "surge",
+   "w104": {
+    "assaults": 15,
+    "captures": 10,
+    "x_cost_gdp": 0.011609,
+    "x_cost_military_budget": 0.6395,
+    "x_depot": 16002,
+    "x_ready": false,
+    "x_recruited": 152085,
+    "x_replaced": 129375,
+    "x_share_of_full": 0.926,
+    "y_share_of_full": null
+   },
+   "w156": {
+    "assaults": 22,
+    "captures": 16,
+    "x_cost_gdp": 0.016943,
+    "x_cost_military_budget": 0.9333,
+    "x_depot": 23076,
+    "x_ready": false,
+    "x_recruited": 220869,
+    "x_replaced": 189375,
+    "x_share_of_full": 0.81,
+    "y_share_of_full": null
+   },
+   "w52": {
+    "assaults": 8,
+    "captures": 5,
+    "x_cost_gdp": 0.006379,
+    "x_cost_military_budget": 0.3514,
+    "x_depot": 16380,
+    "x_ready": false,
+    "x_recruited": 84720,
+    "x_replaced": 61875,
+    "x_share_of_full": 0.923,
+    "y_share_of_full": null
+   }
+  },
+  {
+   "attack_at": 0,
+   "defender": "fresh",
+   "j": 2,
+   "k": 3,
+   "model": "C",
+   "offensive_bar": 90,
+   "policy": "replace",
+   "w104": {
+    "assaults": 11,
+    "captures": 3,
+    "x_cost_gdp": 0.003037,
+    "x_cost_military_budget": 0.1673,
+    "x_depot": 8056,
+    "x_ready": true,
+    "x_recruited": 62726,
+    "x_replaced": 89250,
+    "x_share_of_full": 0.904,
+    "y_share_of_full": null
+   },
+   "w156": {
+    "assaults": 16,
+    "captures": 3,
+    "x_cost_gdp": 0.004363,
+    "x_cost_military_budget": 0.2403,
+    "x_depot": 8640,
+    "x_ready": false,
+    "x_recruited": 90121,
+    "x_replaced": 128250,
+    "x_share_of_full": 0.852,
+    "y_share_of_full": null
+   },
+   "w52": {
+    "assaults": 7,
+    "captures": 3,
+    "x_cost_gdp": 0.001867,
+    "x_cost_military_budget": 0.1029,
+    "x_depot": 12153,
+    "x_ready": false,
+    "x_recruited": 38576,
+    "x_replaced": 46500,
+    "x_share_of_full": 0.799,
+    "y_share_of_full": null
+   }
+  }
+ ],
+ "campaign_rotating_3v2": [
+  {
+   "attack_at": 100,
+   "defender": "rotating",
+   "j": 2,
+   "k": 3,
+   "model": "none",
+   "offensive_bar": 80,
+   "policy": "replace",
+   "w104": {
+    "assaults": 1,
+    "captures": 1,
+    "x_cost_gdp": 0.0,
+    "x_cost_military_budget": 0.0,
+    "x_depot": 0,
+    "x_ready": true,
+    "x_recruited": 0,
+    "x_replaced": 0,
+    "x_share_of_full": 0.875,
+    "y_share_of_full": 0.889
+   },
+   "w156": {
+    "assaults": 1,
+    "captures": 1,
+    "x_cost_gdp": 0.0,
+    "x_cost_military_budget": 0.0,
+    "x_depot": 0,
+    "x_ready": true,
+    "x_recruited": 0,
+    "x_replaced": 0,
+    "x_share_of_full": 0.875,
+    "y_share_of_full": 0.889
+   },
+   "w52": {
+    "assaults": 1,
+    "captures": 1,
+    "x_cost_gdp": 0.0,
+    "x_cost_military_budget": 0.0,
+    "x_depot": 0,
+    "x_ready": true,
+    "x_recruited": 0,
+    "x_replaced": 0,
+    "x_share_of_full": 0.875,
+    "y_share_of_full": 0.889
+   }
+  },
+  {
+   "attack_at": 100,
+   "defender": "rotating",
+   "j": 2,
+   "k": 3,
+   "model": "A",
+   "offensive_bar": 90,
+   "policy": "replace",
+   "w104": {
+    "assaults": 6,
+    "captures": 6,
+    "x_cost_gdp": 0.002368,
+    "x_cost_military_budget": 0.1304,
+    "x_depot": 0,
+    "x_ready": true,
+    "x_recruited": 0,
+    "x_replaced": 48915,
+    "x_share_of_full": 0.904,
+    "y_share_of_full": 0.911
+   },
+   "w156": {
+    "assaults": 9,
+    "captures": 8,
+    "x_cost_gdp": 0.003621,
+    "x_cost_military_budget": 0.1995,
+    "x_depot": 0,
+    "x_ready": false,
+    "x_recruited": 0,
+    "x_replaced": 74808,
+    "x_share_of_full": 0.913,
+    "y_share_of_full": 0.925
+   },
+   "w52": {
+    "assaults": 3,
+    "captures": 3,
+    "x_cost_gdp": 0.001184,
+    "x_cost_military_budget": 0.0652,
+    "x_depot": 0,
+    "x_ready": true,
+    "x_recruited": 0,
+    "x_replaced": 24462,
+    "x_share_of_full": 0.952,
+    "y_share_of_full": 0.947
+   }
+  },
+  {
+   "attack_at": 100,
+   "defender": "rotating",
+   "j": 2,
+   "k": 3,
+   "model": "B",
+   "offensive_bar": 90,
+   "policy": "off",
+   "w104": {
+    "assaults": 1,
+    "captures": 1,
+    "x_cost_gdp": 0.0,
+    "x_cost_military_budget": 0.0,
+    "x_depot": 0,
+    "x_ready": true,
+    "x_recruited": 0,
+    "x_replaced": 7500,
+    "x_share_of_full": 0.975,
+    "y_share_of_full": 0.964
+   },
+   "w156": {
+    "assaults": 1,
+    "captures": 1,
+    "x_cost_gdp": 0.0,
+    "x_cost_military_budget": 0.0,
+    "x_depot": 0,
+    "x_ready": true,
+    "x_recruited": 0,
+    "x_replaced": 7500,
+    "x_share_of_full": 0.975,
+    "y_share_of_full": 0.964
+   },
+   "w52": {
+    "assaults": 1,
+    "captures": 1,
+    "x_cost_gdp": 0.0,
+    "x_cost_military_budget": 0.0,
+    "x_depot": 0,
+    "x_ready": true,
+    "x_recruited": 0,
+    "x_replaced": 7500,
+    "x_share_of_full": 0.975,
+    "y_share_of_full": 0.964
+   }
+  },
+  {
+   "attack_at": 100,
+   "defender": "rotating",
+   "j": 2,
+   "k": 3,
+   "model": "B",
+   "offensive_bar": 90,
+   "policy": "replace",
+   "w104": {
+    "assaults": 7,
+    "captures": 7,
+    "x_cost_gdp": 0.003169,
+    "x_cost_military_budget": 0.1746,
+    "x_depot": 1,
+    "x_ready": true,
+    "x_recruited": 65457,
+    "x_replaced": 64542,
+    "x_share_of_full": 0.988,
+    "y_share_of_full": 0.974
+   },
+   "w156": {
+    "assaults": 11,
+    "captures": 11,
+    "x_cost_gdp": 0.004754,
+    "x_cost_military_budget": 0.2619,
+    "x_depot": 5645,
+    "x_ready": false,
+    "x_recruited": 98195,
+    "x_replaced": 93510,
+    "x_share_of_full": 0.875,
+    "y_share_of_full": 0.889
+   },
+   "w52": {
+    "assaults": 4,
+    "captures": 4,
+    "x_cost_gdp": 0.00163,
+    "x_cost_military_budget": 0.0898,
+    "x_depot": 0,
+    "x_ready": true,
+    "x_recruited": 33675,
+    "x_replaced": 34635,
+    "x_share_of_full": 0.963,
+    "y_share_of_full": 0.938
+   }
+  },
+  {
+   "attack_at": 100,
+   "defender": "rotating",
+   "j": 2,
+   "k": 3,
+   "model": "B",
+   "offensive_bar": 90,
+   "policy": "surge",
+   "w104": {
+    "assaults": 13,
+    "captures": 12,
+    "x_cost_gdp": 0.01037,
+    "x_cost_military_budget": 0.5712,
+    "x_depot": 16899,
+    "x_ready": false,
+    "x_recruited": 134343,
+    "x_replaced": 112212,
+    "x_share_of_full": 0.934,
+    "y_share_of_full": 0.943
+   },
+   "w156": {
+    "assaults": 19,
+    "captures": 19,
+    "x_cost_gdp": 0.015218,
+    "x_cost_military_budget": 0.8383,
+    "x_depot": 12780,
+    "x_ready": true,
+    "x_recruited": 196419,
+    "x_replaced": 175818,
+    "x_share_of_full": 0.975,
+    "y_share_of_full": 0.939
+   },
+   "w52": {
+    "assaults": 6,
+    "captures": 6,
+    "x_cost_gdp": 0.005708,
+    "x_cost_military_budget": 0.3144,
+    "x_depot": 12780,
+    "x_ready": true,
+    "x_recruited": 74856,
+    "x_replaced": 54255,
+    "x_share_of_full": 0.975,
+    "y_share_of_full": 0.939
+   }
+  },
+  {
+   "attack_at": 100,
+   "defender": "rotating",
+   "j": 2,
+   "k": 3,
+   "model": "C",
+   "offensive_bar": 90,
+   "policy": "replace",
+   "w104": {
+    "assaults": 10,
+    "captures": 10,
+    "x_cost_gdp": 0.002731,
+    "x_cost_military_budget": 0.1504,
+    "x_depot": 1432,
+    "x_ready": true,
+    "x_recruited": 56415,
+    "x_replaced": 86754,
+    "x_share_of_full": 1.0,
+    "y_share_of_full": 0.855
+   },
+   "w156": {
+    "assaults": 33,
+    "captures": 33,
+    "x_cost_gdp": 0.003864,
+    "x_cost_military_budget": 0.2128,
+    "x_depot": 1041,
+    "x_ready": true,
+    "x_recruited": 79812,
+    "x_replaced": 122733,
+    "x_share_of_full": 0.983,
+    "y_share_of_full": 0.719
+   },
+   "w52": {
+    "assaults": 5,
+    "captures": 5,
+    "x_cost_gdp": 0.001472,
+    "x_cost_military_budget": 0.0811,
+    "x_depot": 0,
+    "x_ready": true,
+    "x_recruited": 30405,
+    "x_replaced": 45048,
+    "x_share_of_full": 0.977,
+    "y_share_of_full": 0.949
+   }
+  }
+ ],
+ "complexity": [
+  {
+   "alternative": "A",
+   "country_state": 1,
+   "division_state": 1,
+   "new_data": "none",
+   "parameters": 4,
+   "player_controls": 2
+  },
+  {
+   "alternative": "B",
+   "country_state": 4,
+   "division_state": 1,
+   "new_data": "none",
+   "parameters": 10,
+   "player_controls": 2
+  },
+  {
+   "alternative": "C",
+   "country_state": 9,
+   "division_state": 4,
+   "new_data": "age structure (Eurostat, cleared); equipment inventories and reserve strengths (IISS, SIPRI: restricted)",
+   "parameters": 18,
+   "player_controls": 5
+  }
+ ],
+ "countries": {
+  "deu": {
+   "defence_pay_share": 0.32,
+   "divisions": 13,
+   "forces_status": "data",
+   "military_share_gdp": 0.012442342958627249,
+   "population_m": 83.287,
+   "rule_w_personnel_equivalents": 318398
+  },
+  "fra": {
+   "defence_pay_share": 0.401,
+   "divisions": 15,
+   "forces_status": "data",
+   "military_share_gdp": 0.018153870625408634,
+   "population_m": 66.273,
+   "rule_w_personnel_equivalents": 382086
+  },
+  "gbr": {
+   "defence_pay_share": 0.273,
+   "divisions": 14,
+   "forces_status": "data",
+   "military_share_gdp": 0.0220299658036154,
+   "population_m": 68.526,
+   "rule_w_personnel_equivalents": 357759
+  },
+  "ita": {
+   "defence_pay_share": 0.584,
+   "divisions": 15,
+   "forces_status": "data",
+   "military_share_gdp": 0.011928589641488184,
+   "population_m": 58.984,
+   "rule_w_personnel_equivalents": 362581
+  },
+  "pol": {
+   "defence_pay_share": 0.407,
+   "divisions": 13,
+   "forces_status": "data",
+   "military_share_gdp": 0.021984297209040136,
+   "population_m": 36.687,
+   "rule_w_personnel_equivalents": 318167
+  },
+  "tur": {
+   "defence_pay_share": null,
+   "divisions": 20,
+   "forces_status": "assumption",
+   "military_share_gdp": 0.017237921514109907,
+   "population_m": 85.326,
+   "rule_w_personnel_equivalents": 491934
+  }
+ },
+ "national_attrition": {
+  "deu": [
+   {
+    "fronts": 1,
+    "model": "A",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.055,
+     "cost_gdp_per_year": 0.00124,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.783
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.083,
+     "cost_gdp_per_year": 0.00124,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.783
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.028,
+     "cost_gdp_per_year": 0.00124,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.783
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "A",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.566,
+     "cost_gdp_per_year": 0.00124,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.261
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.849,
+     "cost_gdp_per_year": 0.00124,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.261
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.283,
+     "cost_gdp_per_year": 0.00124,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.261
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "A",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 1.332,
+     "cost_gdp_per_year": 0.00124,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.131
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.998,
+     "cost_gdp_per_year": 0.00124,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.131
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.666,
+     "cost_gdp_per_year": 0.00124,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.131
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "B",
+    "policy": "off",
+    "w104": {
+     "backlog_share_of_establishment": 0.235,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.078
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.363,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.052
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.108,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.157
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "B",
+    "policy": "off",
+    "w104": {
+     "backlog_share_of_establishment": 0.746,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.026
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.129,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.017
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.363,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.052
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "B",
+    "policy": "off",
+    "w104": {
+     "backlog_share_of_establishment": 1.512,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.013
+    },
+    "w156": {
+     "backlog_share_of_establishment": 2.278,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.009
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.746,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.026
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "B",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.012,
+     "cost_gdp_per_year": 0.00157,
+     "cost_military_budget_per_year": 0.1265,
+     "labour_withdrawn_share": 0.00206,
+     "pool_left_share": 0.901,
+     "replaced_share": 0.953
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.012,
+     "cost_gdp_per_year": 0.00158,
+     "cost_military_budget_per_year": 0.1269,
+     "labour_withdrawn_share": 0.00309,
+     "pool_left_share": 0.851,
+     "replaced_share": 0.969
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.012,
+     "cost_gdp_per_year": 0.00156,
+     "cost_military_budget_per_year": 0.1252,
+     "labour_withdrawn_share": 0.00102,
+     "pool_left_share": 0.951,
+     "replaced_share": 0.907
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "B",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.519,
+     "cost_gdp_per_year": 0.0016,
+     "cost_military_budget_per_year": 0.1287,
+     "labour_withdrawn_share": 0.00209,
+     "pool_left_share": 0.9,
+     "replaced_share": 0.323
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.772,
+     "cost_gdp_per_year": 0.00161,
+     "cost_military_budget_per_year": 0.1291,
+     "labour_withdrawn_share": 0.00315,
+     "pool_left_share": 0.849,
+     "replaced_share": 0.328
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.266,
+     "cost_gdp_per_year": 0.00159,
+     "cost_military_budget_per_year": 0.1274,
+     "labour_withdrawn_share": 0.00104,
+     "pool_left_share": 0.95,
+     "replaced_share": 0.307
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "B",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 1.285,
+     "cost_gdp_per_year": 0.0016,
+     "cost_military_budget_per_year": 0.1287,
+     "labour_withdrawn_share": 0.00209,
+     "pool_left_share": 0.9,
+     "replaced_share": 0.161
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.921,
+     "cost_gdp_per_year": 0.00161,
+     "cost_military_budget_per_year": 0.1291,
+     "labour_withdrawn_share": 0.00315,
+     "pool_left_share": 0.849,
+     "replaced_share": 0.164
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.649,
+     "cost_gdp_per_year": 0.00159,
+     "cost_military_budget_per_year": 0.1274,
+     "labour_withdrawn_share": 0.00104,
+     "pool_left_share": 0.95,
+     "replaced_share": 0.153
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "B",
+    "policy": "surge",
+    "w104": {
+     "backlog_share_of_establishment": 0.0,
+     "cost_gdp_per_year": 0.003,
+     "cost_military_budget_per_year": 0.241,
+     "labour_withdrawn_share": 0.00246,
+     "pool_left_share": 0.941,
+     "replaced_share": 1.0
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.0,
+     "cost_gdp_per_year": 0.00286,
+     "cost_military_budget_per_year": 0.2295,
+     "labour_withdrawn_share": 0.0035,
+     "pool_left_share": 0.916,
+     "replaced_share": 1.0
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.0,
+     "cost_gdp_per_year": 0.00342,
+     "cost_military_budget_per_year": 0.2752,
+     "labour_withdrawn_share": 0.00142,
+     "pool_left_share": 0.966,
+     "replaced_share": 1.0
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "B",
+    "policy": "surge",
+    "w104": {
+     "backlog_share_of_establishment": 0.286,
+     "cost_gdp_per_year": 0.00485,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00423,
+     "pool_left_share": 0.899,
+     "replaced_share": 0.627
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.409,
+     "cost_gdp_per_year": 0.00485,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00634,
+     "pool_left_share": 0.848,
+     "replaced_share": 0.644
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.163,
+     "cost_gdp_per_year": 0.00485,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00211,
+     "pool_left_share": 0.949,
+     "replaced_share": 0.574
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "B",
+    "policy": "surge",
+    "w104": {
+     "backlog_share_of_establishment": 1.052,
+     "cost_gdp_per_year": 0.00485,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00423,
+     "pool_left_share": 0.899,
+     "replaced_share": 0.313
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.558,
+     "cost_gdp_per_year": 0.00485,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00634,
+     "pool_left_share": 0.848,
+     "replaced_share": 0.322
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.546,
+     "cost_gdp_per_year": 0.00485,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00211,
+     "pool_left_share": 0.949,
+     "replaced_share": 0.287
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "C",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.017,
+     "cost_gdp_per_year": 0.00102,
+     "cost_military_budget_per_year": 0.0822,
+     "labour_withdrawn_share": 0.00134,
+     "pool_left_share": 0.936,
+     "replaced_share": 0.932
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.041,
+     "cost_gdp_per_year": 0.00103,
+     "cost_military_budget_per_year": 0.0825,
+     "labour_withdrawn_share": 0.00201,
+     "pool_left_share": 0.903,
+     "replaced_share": 0.893
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.007,
+     "cost_gdp_per_year": 0.00101,
+     "cost_military_budget_per_year": 0.0814,
+     "labour_withdrawn_share": 0.00066,
+     "pool_left_share": 0.968,
+     "replaced_share": 0.947
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "C",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.528,
+     "cost_gdp_per_year": 0.0016,
+     "cost_military_budget_per_year": 0.1287,
+     "labour_withdrawn_share": 0.00209,
+     "pool_left_share": 0.9,
+     "replaced_share": 0.311
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.807,
+     "cost_gdp_per_year": 0.00161,
+     "cost_military_budget_per_year": 0.1291,
+     "labour_withdrawn_share": 0.00315,
+     "pool_left_share": 0.849,
+     "replaced_share": 0.298
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.249,
+     "cost_gdp_per_year": 0.00159,
+     "cost_military_budget_per_year": 0.1274,
+     "labour_withdrawn_share": 0.00104,
+     "pool_left_share": 0.95,
+     "replaced_share": 0.35
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "C",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 1.294,
+     "cost_gdp_per_year": 0.0016,
+     "cost_military_budget_per_year": 0.1287,
+     "labour_withdrawn_share": 0.00209,
+     "pool_left_share": 0.9,
+     "replaced_share": 0.155
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.956,
+     "cost_gdp_per_year": 0.00161,
+     "cost_military_budget_per_year": 0.1291,
+     "labour_withdrawn_share": 0.00315,
+     "pool_left_share": 0.849,
+     "replaced_share": 0.149
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.632,
+     "cost_gdp_per_year": 0.00159,
+     "cost_military_budget_per_year": 0.1274,
+     "labour_withdrawn_share": 0.00104,
+     "pool_left_share": 0.95,
+     "replaced_share": 0.175
+    }
+   }
+  ],
+  "fra": [
+   {
+    "fronts": 1,
+    "model": "A",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.021,
+     "cost_gdp_per_year": 0.00181,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.904
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.032,
+     "cost_gdp_per_year": 0.00181,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.904
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.011,
+     "cost_gdp_per_year": 0.00181,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.904
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "A",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.464,
+     "cost_gdp_per_year": 0.00181,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.301
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.696,
+     "cost_gdp_per_year": 0.00181,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.301
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.232,
+     "cost_gdp_per_year": 0.00181,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.301
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "A",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 1.128,
+     "cost_gdp_per_year": 0.00181,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.151
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.692,
+     "cost_gdp_per_year": 0.00181,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.151
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.564,
+     "cost_gdp_per_year": 0.00181,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.151
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "B",
+    "policy": "off",
+    "w104": {
+     "backlog_share_of_establishment": 0.201,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.09
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.312,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.06
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.091,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.181
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "B",
+    "policy": "off",
+    "w104": {
+     "backlog_share_of_establishment": 0.644,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.03
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.976,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.02
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.312,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.06
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "B",
+    "policy": "off",
+    "w104": {
+     "backlog_share_of_establishment": 1.308,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.015
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.972,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.01
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.644,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.03
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "B",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.008,
+     "cost_gdp_per_year": 0.00199,
+     "cost_military_budget_per_year": 0.1096,
+     "labour_withdrawn_share": 0.00258,
+     "pool_left_share": 0.876,
+     "replaced_share": 0.965
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.008,
+     "cost_gdp_per_year": 0.002,
+     "cost_military_budget_per_year": 0.1099,
+     "labour_withdrawn_share": 0.00389,
+     "pool_left_share": 0.813,
+     "replaced_share": 0.977
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.008,
+     "cost_gdp_per_year": 0.00197,
+     "cost_military_budget_per_year": 0.1085,
+     "labour_withdrawn_share": 0.00128,
+     "pool_left_share": 0.939,
+     "replaced_share": 0.931
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "B",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.417,
+     "cost_gdp_per_year": 0.00234,
+     "cost_military_budget_per_year": 0.1287,
+     "labour_withdrawn_share": 0.00303,
+     "pool_left_share": 0.854,
+     "replaced_share": 0.373
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.619,
+     "cost_gdp_per_year": 0.00234,
+     "cost_military_budget_per_year": 0.1291,
+     "labour_withdrawn_share": 0.00457,
+     "pool_left_share": 0.781,
+     "replaced_share": 0.379
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.215,
+     "cost_gdp_per_year": 0.00231,
+     "cost_military_budget_per_year": 0.1274,
+     "labour_withdrawn_share": 0.0015,
+     "pool_left_share": 0.928,
+     "replaced_share": 0.354
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "B",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 1.08,
+     "cost_gdp_per_year": 0.00234,
+     "cost_military_budget_per_year": 0.1287,
+     "labour_withdrawn_share": 0.00303,
+     "pool_left_share": 0.854,
+     "replaced_share": 0.186
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.614,
+     "cost_gdp_per_year": 0.00234,
+     "cost_military_budget_per_year": 0.1291,
+     "labour_withdrawn_share": 0.00457,
+     "pool_left_share": 0.781,
+     "replaced_share": 0.189
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.546,
+     "cost_gdp_per_year": 0.00231,
+     "cost_military_budget_per_year": 0.1274,
+     "labour_withdrawn_share": 0.0015,
+     "pool_left_share": 0.928,
+     "replaced_share": 0.177
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "B",
+    "policy": "surge",
+    "w104": {
+     "backlog_share_of_establishment": 0.0,
+     "cost_gdp_per_year": 0.00398,
+     "cost_military_budget_per_year": 0.2195,
+     "labour_withdrawn_share": 0.00317,
+     "pool_left_share": 0.924,
+     "replaced_share": 1.0
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.0,
+     "cost_gdp_per_year": 0.00378,
+     "cost_military_budget_per_year": 0.208,
+     "labour_withdrawn_share": 0.00448,
+     "pool_left_share": 0.893,
+     "replaced_share": 1.0
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.0,
+     "cost_gdp_per_year": 0.00461,
+     "cost_military_budget_per_year": 0.2537,
+     "labour_withdrawn_share": 0.00187,
+     "pool_left_share": 0.955,
+     "replaced_share": 1.0
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "B",
+    "policy": "surge",
+    "w104": {
+     "backlog_share_of_establishment": 0.184,
+     "cost_gdp_per_year": 0.00708,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00613,
+     "pool_left_share": 0.853,
+     "replaced_share": 0.723
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.256,
+     "cost_gdp_per_year": 0.00708,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00919,
+     "pool_left_share": 0.779,
+     "replaced_share": 0.743
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.112,
+     "cost_gdp_per_year": 0.00708,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00306,
+     "pool_left_share": 0.926,
+     "replaced_share": 0.663
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "B",
+    "policy": "surge",
+    "w104": {
+     "backlog_share_of_establishment": 0.848,
+     "cost_gdp_per_year": 0.00708,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00613,
+     "pool_left_share": 0.853,
+     "replaced_share": 0.361
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.252,
+     "cost_gdp_per_year": 0.00708,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00919,
+     "pool_left_share": 0.779,
+     "replaced_share": 0.372
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.444,
+     "cost_gdp_per_year": 0.00708,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00306,
+     "pool_left_share": 0.926,
+     "replaced_share": 0.331
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "C",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.003,
+     "cost_gdp_per_year": 0.00129,
+     "cost_military_budget_per_year": 0.0713,
+     "labour_withdrawn_share": 0.00168,
+     "pool_left_share": 0.919,
+     "replaced_share": 0.986
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.003,
+     "cost_gdp_per_year": 0.0013,
+     "cost_military_budget_per_year": 0.0715,
+     "labour_withdrawn_share": 0.00253,
+     "pool_left_share": 0.879,
+     "replaced_share": 0.99
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.003,
+     "cost_gdp_per_year": 0.00128,
+     "cost_military_budget_per_year": 0.0706,
+     "labour_withdrawn_share": 0.00083,
+     "pool_left_share": 0.96,
+     "replaced_share": 0.971
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "C",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.426,
+     "cost_gdp_per_year": 0.00234,
+     "cost_military_budget_per_year": 0.1287,
+     "labour_withdrawn_share": 0.00303,
+     "pool_left_share": 0.854,
+     "replaced_share": 0.358
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.654,
+     "cost_gdp_per_year": 0.00234,
+     "cost_military_budget_per_year": 0.1291,
+     "labour_withdrawn_share": 0.00457,
+     "pool_left_share": 0.781,
+     "replaced_share": 0.343
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.198,
+     "cost_gdp_per_year": 0.00231,
+     "cost_military_budget_per_year": 0.1274,
+     "labour_withdrawn_share": 0.0015,
+     "pool_left_share": 0.928,
+     "replaced_share": 0.404
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "C",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 1.09,
+     "cost_gdp_per_year": 0.00234,
+     "cost_military_budget_per_year": 0.1287,
+     "labour_withdrawn_share": 0.00303,
+     "pool_left_share": 0.854,
+     "replaced_share": 0.179
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.65,
+     "cost_gdp_per_year": 0.00234,
+     "cost_military_budget_per_year": 0.1291,
+     "labour_withdrawn_share": 0.00457,
+     "pool_left_share": 0.781,
+     "replaced_share": 0.172
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.53,
+     "cost_gdp_per_year": 0.00231,
+     "cost_military_budget_per_year": 0.1274,
+     "labour_withdrawn_share": 0.0015,
+     "pool_left_share": 0.928,
+     "replaced_share": 0.202
+    }
+   }
+  ],
+  "gbr": [
+   {
+    "fronts": 1,
+    "model": "A",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.037,
+     "cost_gdp_per_year": 0.0022,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.843
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.056,
+     "cost_gdp_per_year": 0.0022,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.843
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.019,
+     "cost_gdp_per_year": 0.0022,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.843
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "A",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.511,
+     "cost_gdp_per_year": 0.0022,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.281
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.767,
+     "cost_gdp_per_year": 0.0022,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.281
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.256,
+     "cost_gdp_per_year": 0.0022,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.281
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "A",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 1.223,
+     "cost_gdp_per_year": 0.0022,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.141
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.834,
+     "cost_gdp_per_year": 0.0022,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.141
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.611,
+     "cost_gdp_per_year": 0.0022,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.141
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "B",
+    "policy": "off",
+    "w104": {
+     "backlog_share_of_establishment": 0.217,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.084
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.336,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.056
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.099,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.169
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "B",
+    "policy": "off",
+    "w104": {
+     "backlog_share_of_establishment": 0.691,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.028
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.047,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.019
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.336,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.056
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "B",
+    "policy": "off",
+    "w104": {
+     "backlog_share_of_establishment": 1.403,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.014
+    },
+    "w156": {
+     "backlog_share_of_establishment": 2.114,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.009
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.691,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.028
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "B",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.01,
+     "cost_gdp_per_year": 0.00259,
+     "cost_military_budget_per_year": 0.1174,
+     "labour_withdrawn_share": 0.0025,
+     "pool_left_share": 0.88,
+     "replaced_share": 0.959
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.01,
+     "cost_gdp_per_year": 0.0026,
+     "cost_military_budget_per_year": 0.1178,
+     "labour_withdrawn_share": 0.00376,
+     "pool_left_share": 0.819,
+     "replaced_share": 0.973
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.01,
+     "cost_gdp_per_year": 0.00256,
+     "cost_military_budget_per_year": 0.1163,
+     "labour_withdrawn_share": 0.00124,
+     "pool_left_share": 0.941,
+     "replaced_share": 0.919
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "B",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.464,
+     "cost_gdp_per_year": 0.00284,
+     "cost_military_budget_per_year": 0.1288,
+     "labour_withdrawn_share": 0.00274,
+     "pool_left_share": 0.868,
+     "replaced_share": 0.348
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.69,
+     "cost_gdp_per_year": 0.00285,
+     "cost_military_budget_per_year": 0.1292,
+     "labour_withdrawn_share": 0.00412,
+     "pool_left_share": 0.802,
+     "replaced_share": 0.354
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.238,
+     "cost_gdp_per_year": 0.00281,
+     "cost_military_budget_per_year": 0.1275,
+     "labour_withdrawn_share": 0.00136,
+     "pool_left_share": 0.935,
+     "replaced_share": 0.33
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "B",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 1.175,
+     "cost_gdp_per_year": 0.00284,
+     "cost_military_budget_per_year": 0.1288,
+     "labour_withdrawn_share": 0.00274,
+     "pool_left_share": 0.868,
+     "replaced_share": 0.174
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.757,
+     "cost_gdp_per_year": 0.00285,
+     "cost_military_budget_per_year": 0.1292,
+     "labour_withdrawn_share": 0.00412,
+     "pool_left_share": 0.802,
+     "replaced_share": 0.177
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.594,
+     "cost_gdp_per_year": 0.00281,
+     "cost_military_budget_per_year": 0.1275,
+     "labour_withdrawn_share": 0.00136,
+     "pool_left_share": 0.935,
+     "replaced_share": 0.165
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "B",
+    "policy": "surge",
+    "w104": {
+     "backlog_share_of_establishment": 0.0,
+     "cost_gdp_per_year": 0.00497,
+     "cost_military_budget_per_year": 0.2255,
+     "labour_withdrawn_share": 0.00303,
+     "pool_left_share": 0.927,
+     "replaced_share": 1.0
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.0,
+     "cost_gdp_per_year": 0.00471,
+     "cost_military_budget_per_year": 0.214,
+     "labour_withdrawn_share": 0.00429,
+     "pool_left_share": 0.897,
+     "replaced_share": 1.0
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.0,
+     "cost_gdp_per_year": 0.00573,
+     "cost_military_budget_per_year": 0.2601,
+     "labour_withdrawn_share": 0.00177,
+     "pool_left_share": 0.958,
+     "replaced_share": 1.0
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "B",
+    "policy": "surge",
+    "w104": {
+     "backlog_share_of_establishment": 0.231,
+     "cost_gdp_per_year": 0.00859,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00553,
+     "pool_left_share": 0.867,
+     "replaced_share": 0.675
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.327,
+     "cost_gdp_per_year": 0.00859,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.0083,
+     "pool_left_share": 0.801,
+     "replaced_share": 0.694
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.136,
+     "cost_gdp_per_year": 0.00859,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00277,
+     "pool_left_share": 0.934,
+     "replaced_share": 0.619
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "B",
+    "policy": "surge",
+    "w104": {
+     "backlog_share_of_establishment": 0.943,
+     "cost_gdp_per_year": 0.00859,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00553,
+     "pool_left_share": 0.867,
+     "replaced_share": 0.337
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.394,
+     "cost_gdp_per_year": 0.00859,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.0083,
+     "pool_left_share": 0.801,
+     "replaced_share": 0.347
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.491,
+     "cost_gdp_per_year": 0.00859,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00277,
+     "pool_left_share": 0.934,
+     "replaced_share": 0.309
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "C",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.005,
+     "cost_gdp_per_year": 0.00168,
+     "cost_military_budget_per_year": 0.0764,
+     "labour_withdrawn_share": 0.00163,
+     "pool_left_share": 0.922,
+     "replaced_share": 0.98
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.014,
+     "cost_gdp_per_year": 0.00169,
+     "cost_military_budget_per_year": 0.0766,
+     "labour_withdrawn_share": 0.00245,
+     "pool_left_share": 0.883,
+     "replaced_share": 0.962
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.005,
+     "cost_gdp_per_year": 0.00167,
+     "cost_military_budget_per_year": 0.0756,
+     "labour_withdrawn_share": 0.0008,
+     "pool_left_share": 0.961,
+     "replaced_share": 0.959
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "C",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.473,
+     "cost_gdp_per_year": 0.00284,
+     "cost_military_budget_per_year": 0.1288,
+     "labour_withdrawn_share": 0.00274,
+     "pool_left_share": 0.868,
+     "replaced_share": 0.335
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.725,
+     "cost_gdp_per_year": 0.00285,
+     "cost_military_budget_per_year": 0.1292,
+     "labour_withdrawn_share": 0.00412,
+     "pool_left_share": 0.802,
+     "replaced_share": 0.321
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.222,
+     "cost_gdp_per_year": 0.00281,
+     "cost_military_budget_per_year": 0.1275,
+     "labour_withdrawn_share": 0.00136,
+     "pool_left_share": 0.935,
+     "replaced_share": 0.377
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "C",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 1.185,
+     "cost_gdp_per_year": 0.00284,
+     "cost_military_budget_per_year": 0.1288,
+     "labour_withdrawn_share": 0.00274,
+     "pool_left_share": 0.868,
+     "replaced_share": 0.167
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.792,
+     "cost_gdp_per_year": 0.00285,
+     "cost_military_budget_per_year": 0.1292,
+     "labour_withdrawn_share": 0.00412,
+     "pool_left_share": 0.802,
+     "replaced_share": 0.16
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.577,
+     "cost_gdp_per_year": 0.00281,
+     "cost_military_budget_per_year": 0.1275,
+     "labour_withdrawn_share": 0.00136,
+     "pool_left_share": 0.935,
+     "replaced_share": 0.188
+    }
+   }
+  ],
+  "ita": [
+   {
+    "fronts": 1,
+    "model": "A",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.021,
+     "cost_gdp_per_year": 0.00119,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.904
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.032,
+     "cost_gdp_per_year": 0.00119,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.904
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.011,
+     "cost_gdp_per_year": 0.00119,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.904
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "A",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.464,
+     "cost_gdp_per_year": 0.00119,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.301
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.696,
+     "cost_gdp_per_year": 0.00119,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.301
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.232,
+     "cost_gdp_per_year": 0.00119,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.301
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "A",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 1.128,
+     "cost_gdp_per_year": 0.00119,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.151
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.692,
+     "cost_gdp_per_year": 0.00119,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.151
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.564,
+     "cost_gdp_per_year": 0.00119,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.151
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "B",
+    "policy": "off",
+    "w104": {
+     "backlog_share_of_establishment": 0.201,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.09
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.312,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.06
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.091,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.181
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "B",
+    "policy": "off",
+    "w104": {
+     "backlog_share_of_establishment": 0.644,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.03
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.976,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.02
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.312,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.06
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "B",
+    "policy": "off",
+    "w104": {
+     "backlog_share_of_establishment": 1.308,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.015
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.972,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.01
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.644,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.03
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "B",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.008,
+     "cost_gdp_per_year": 0.00131,
+     "cost_military_budget_per_year": 0.1096,
+     "labour_withdrawn_share": 0.0029,
+     "pool_left_share": 0.861,
+     "replaced_share": 0.965
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.008,
+     "cost_gdp_per_year": 0.00131,
+     "cost_military_budget_per_year": 0.1099,
+     "labour_withdrawn_share": 0.00437,
+     "pool_left_share": 0.79,
+     "replaced_share": 0.977
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.008,
+     "cost_gdp_per_year": 0.00129,
+     "cost_military_budget_per_year": 0.1085,
+     "labour_withdrawn_share": 0.00144,
+     "pool_left_share": 0.931,
+     "replaced_share": 0.931
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "B",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.417,
+     "cost_gdp_per_year": 0.00153,
+     "cost_military_budget_per_year": 0.1287,
+     "labour_withdrawn_share": 0.00341,
+     "pool_left_share": 0.836,
+     "replaced_share": 0.373
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.619,
+     "cost_gdp_per_year": 0.00154,
+     "cost_military_budget_per_year": 0.1291,
+     "labour_withdrawn_share": 0.00513,
+     "pool_left_share": 0.754,
+     "replaced_share": 0.379
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.215,
+     "cost_gdp_per_year": 0.00152,
+     "cost_military_budget_per_year": 0.1274,
+     "labour_withdrawn_share": 0.00169,
+     "pool_left_share": 0.919,
+     "replaced_share": 0.354
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "B",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 1.08,
+     "cost_gdp_per_year": 0.00153,
+     "cost_military_budget_per_year": 0.1287,
+     "labour_withdrawn_share": 0.00341,
+     "pool_left_share": 0.836,
+     "replaced_share": 0.186
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.614,
+     "cost_gdp_per_year": 0.00154,
+     "cost_military_budget_per_year": 0.1291,
+     "labour_withdrawn_share": 0.00513,
+     "pool_left_share": 0.754,
+     "replaced_share": 0.189
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.546,
+     "cost_gdp_per_year": 0.00152,
+     "cost_military_budget_per_year": 0.1274,
+     "labour_withdrawn_share": 0.00169,
+     "pool_left_share": 0.919,
+     "replaced_share": 0.177
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "B",
+    "policy": "surge",
+    "w104": {
+     "backlog_share_of_establishment": 0.0,
+     "cost_gdp_per_year": 0.00271,
+     "cost_military_budget_per_year": 0.2275,
+     "labour_withdrawn_share": 0.00357,
+     "pool_left_share": 0.914,
+     "replaced_share": 1.0
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.0,
+     "cost_gdp_per_year": 0.00258,
+     "cost_military_budget_per_year": 0.2163,
+     "labour_withdrawn_share": 0.00503,
+     "pool_left_share": 0.879,
+     "replaced_share": 1.0
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.0,
+     "cost_gdp_per_year": 0.00311,
+     "cost_military_budget_per_year": 0.261,
+     "labour_withdrawn_share": 0.0021,
+     "pool_left_share": 0.95,
+     "replaced_share": 1.0
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "B",
+    "policy": "surge",
+    "w104": {
+     "backlog_share_of_establishment": 0.184,
+     "cost_gdp_per_year": 0.00465,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00689,
+     "pool_left_share": 0.835,
+     "replaced_share": 0.723
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.256,
+     "cost_gdp_per_year": 0.00465,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.01033,
+     "pool_left_share": 0.752,
+     "replaced_share": 0.743
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.112,
+     "cost_gdp_per_year": 0.00465,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00344,
+     "pool_left_share": 0.917,
+     "replaced_share": 0.663
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "B",
+    "policy": "surge",
+    "w104": {
+     "backlog_share_of_establishment": 0.848,
+     "cost_gdp_per_year": 0.00465,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00689,
+     "pool_left_share": 0.835,
+     "replaced_share": 0.361
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.252,
+     "cost_gdp_per_year": 0.00465,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.01033,
+     "pool_left_share": 0.752,
+     "replaced_share": 0.372
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.444,
+     "cost_gdp_per_year": 0.00465,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00344,
+     "pool_left_share": 0.917,
+     "replaced_share": 0.331
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "C",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.003,
+     "cost_gdp_per_year": 0.00085,
+     "cost_military_budget_per_year": 0.0713,
+     "labour_withdrawn_share": 0.00189,
+     "pool_left_share": 0.909,
+     "replaced_share": 0.986
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.003,
+     "cost_gdp_per_year": 0.00085,
+     "cost_military_budget_per_year": 0.0715,
+     "labour_withdrawn_share": 0.00284,
+     "pool_left_share": 0.864,
+     "replaced_share": 0.99
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.003,
+     "cost_gdp_per_year": 0.00084,
+     "cost_military_budget_per_year": 0.0706,
+     "labour_withdrawn_share": 0.00093,
+     "pool_left_share": 0.955,
+     "replaced_share": 0.971
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "C",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.426,
+     "cost_gdp_per_year": 0.00153,
+     "cost_military_budget_per_year": 0.1287,
+     "labour_withdrawn_share": 0.00341,
+     "pool_left_share": 0.836,
+     "replaced_share": 0.358
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.654,
+     "cost_gdp_per_year": 0.00154,
+     "cost_military_budget_per_year": 0.1291,
+     "labour_withdrawn_share": 0.00513,
+     "pool_left_share": 0.754,
+     "replaced_share": 0.343
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.198,
+     "cost_gdp_per_year": 0.00152,
+     "cost_military_budget_per_year": 0.1274,
+     "labour_withdrawn_share": 0.00169,
+     "pool_left_share": 0.919,
+     "replaced_share": 0.404
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "C",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 1.09,
+     "cost_gdp_per_year": 0.00153,
+     "cost_military_budget_per_year": 0.1287,
+     "labour_withdrawn_share": 0.00341,
+     "pool_left_share": 0.836,
+     "replaced_share": 0.179
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.65,
+     "cost_gdp_per_year": 0.00154,
+     "cost_military_budget_per_year": 0.1291,
+     "labour_withdrawn_share": 0.00513,
+     "pool_left_share": 0.754,
+     "replaced_share": 0.172
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.53,
+     "cost_gdp_per_year": 0.00152,
+     "cost_military_budget_per_year": 0.1274,
+     "labour_withdrawn_share": 0.00169,
+     "pool_left_share": 0.919,
+     "replaced_share": 0.202
+    }
+   }
+  ],
+  "pol": [
+   {
+    "fronts": 1,
+    "model": "A",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.055,
+     "cost_gdp_per_year": 0.0022,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.783
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.083,
+     "cost_gdp_per_year": 0.0022,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.783
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.028,
+     "cost_gdp_per_year": 0.0022,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.783
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "A",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.566,
+     "cost_gdp_per_year": 0.0022,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.261
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.849,
+     "cost_gdp_per_year": 0.0022,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.261
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.283,
+     "cost_gdp_per_year": 0.0022,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.261
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "A",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 1.332,
+     "cost_gdp_per_year": 0.0022,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.131
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.998,
+     "cost_gdp_per_year": 0.0022,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.131
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.666,
+     "cost_gdp_per_year": 0.0022,
+     "cost_military_budget_per_year": 0.1,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.131
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "B",
+    "policy": "off",
+    "w104": {
+     "backlog_share_of_establishment": 0.235,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.078
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.363,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.052
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.108,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.157
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "B",
+    "policy": "off",
+    "w104": {
+     "backlog_share_of_establishment": 0.746,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.026
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.129,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.017
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.363,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.052
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "B",
+    "policy": "off",
+    "w104": {
+     "backlog_share_of_establishment": 1.512,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.013
+    },
+    "w156": {
+     "backlog_share_of_establishment": 2.278,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.009
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.746,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.026
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "B",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.012,
+     "cost_gdp_per_year": 0.00278,
+     "cost_military_budget_per_year": 0.1265,
+     "labour_withdrawn_share": 0.00467,
+     "pool_left_share": 0.776,
+     "replaced_share": 0.953
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.012,
+     "cost_gdp_per_year": 0.00279,
+     "cost_military_budget_per_year": 0.1269,
+     "labour_withdrawn_share": 0.00702,
+     "pool_left_share": 0.663,
+     "replaced_share": 0.969
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.012,
+     "cost_gdp_per_year": 0.00275,
+     "cost_military_budget_per_year": 0.1252,
+     "labour_withdrawn_share": 0.00231,
+     "pool_left_share": 0.889,
+     "replaced_share": 0.907
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "B",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.519,
+     "cost_gdp_per_year": 0.00283,
+     "cost_military_budget_per_year": 0.1287,
+     "labour_withdrawn_share": 0.00475,
+     "pool_left_share": 0.772,
+     "replaced_share": 0.323
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.772,
+     "cost_gdp_per_year": 0.00284,
+     "cost_military_budget_per_year": 0.1291,
+     "labour_withdrawn_share": 0.00715,
+     "pool_left_share": 0.657,
+     "replaced_share": 0.328
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.266,
+     "cost_gdp_per_year": 0.0028,
+     "cost_military_budget_per_year": 0.1274,
+     "labour_withdrawn_share": 0.00235,
+     "pool_left_share": 0.887,
+     "replaced_share": 0.307
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "B",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 1.285,
+     "cost_gdp_per_year": 0.00283,
+     "cost_military_budget_per_year": 0.1287,
+     "labour_withdrawn_share": 0.00475,
+     "pool_left_share": 0.772,
+     "replaced_share": 0.161
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.921,
+     "cost_gdp_per_year": 0.00284,
+     "cost_military_budget_per_year": 0.1291,
+     "labour_withdrawn_share": 0.00715,
+     "pool_left_share": 0.657,
+     "replaced_share": 0.164
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.649,
+     "cost_gdp_per_year": 0.0028,
+     "cost_military_budget_per_year": 0.1274,
+     "labour_withdrawn_share": 0.00235,
+     "pool_left_share": 0.887,
+     "replaced_share": 0.153
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "B",
+    "policy": "surge",
+    "w104": {
+     "backlog_share_of_establishment": 0.0,
+     "cost_gdp_per_year": 0.00538,
+     "cost_military_budget_per_year": 0.2447,
+     "labour_withdrawn_share": 0.00559,
+     "pool_left_share": 0.866,
+     "replaced_share": 1.0
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.0,
+     "cost_gdp_per_year": 0.00513,
+     "cost_military_budget_per_year": 0.2334,
+     "labour_withdrawn_share": 0.00795,
+     "pool_left_share": 0.809,
+     "replaced_share": 1.0
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.0,
+     "cost_gdp_per_year": 0.00612,
+     "cost_military_budget_per_year": 0.2785,
+     "labour_withdrawn_share": 0.00323,
+     "pool_left_share": 0.922,
+     "replaced_share": 1.0
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "B",
+    "policy": "surge",
+    "w104": {
+     "backlog_share_of_establishment": 0.286,
+     "cost_gdp_per_year": 0.00857,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.0096,
+     "pool_left_share": 0.77,
+     "replaced_share": 0.627
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.409,
+     "cost_gdp_per_year": 0.00857,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.0144,
+     "pool_left_share": 0.655,
+     "replaced_share": 0.644
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.163,
+     "cost_gdp_per_year": 0.00857,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.0048,
+     "pool_left_share": 0.885,
+     "replaced_share": 0.574
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "B",
+    "policy": "surge",
+    "w104": {
+     "backlog_share_of_establishment": 1.052,
+     "cost_gdp_per_year": 0.00857,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.0096,
+     "pool_left_share": 0.77,
+     "replaced_share": 0.313
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.558,
+     "cost_gdp_per_year": 0.00857,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.0144,
+     "pool_left_share": 0.655,
+     "replaced_share": 0.322
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.546,
+     "cost_gdp_per_year": 0.00857,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.0048,
+     "pool_left_share": 0.885,
+     "replaced_share": 0.287
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "C",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.017,
+     "cost_gdp_per_year": 0.00181,
+     "cost_military_budget_per_year": 0.0822,
+     "labour_withdrawn_share": 0.00304,
+     "pool_left_share": 0.854,
+     "replaced_share": 0.932
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.041,
+     "cost_gdp_per_year": 0.00181,
+     "cost_military_budget_per_year": 0.0825,
+     "labour_withdrawn_share": 0.00457,
+     "pool_left_share": 0.781,
+     "replaced_share": 0.893
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.007,
+     "cost_gdp_per_year": 0.00179,
+     "cost_military_budget_per_year": 0.0814,
+     "labour_withdrawn_share": 0.0015,
+     "pool_left_share": 0.928,
+     "replaced_share": 0.947
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "C",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.528,
+     "cost_gdp_per_year": 0.00283,
+     "cost_military_budget_per_year": 0.1287,
+     "labour_withdrawn_share": 0.00475,
+     "pool_left_share": 0.772,
+     "replaced_share": 0.311
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.807,
+     "cost_gdp_per_year": 0.00284,
+     "cost_military_budget_per_year": 0.1291,
+     "labour_withdrawn_share": 0.00715,
+     "pool_left_share": 0.657,
+     "replaced_share": 0.298
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.249,
+     "cost_gdp_per_year": 0.0028,
+     "cost_military_budget_per_year": 0.1274,
+     "labour_withdrawn_share": 0.00235,
+     "pool_left_share": 0.887,
+     "replaced_share": 0.35
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "C",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 1.294,
+     "cost_gdp_per_year": 0.00283,
+     "cost_military_budget_per_year": 0.1287,
+     "labour_withdrawn_share": 0.00475,
+     "pool_left_share": 0.772,
+     "replaced_share": 0.155
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.956,
+     "cost_gdp_per_year": 0.00284,
+     "cost_military_budget_per_year": 0.1291,
+     "labour_withdrawn_share": 0.00715,
+     "pool_left_share": 0.657,
+     "replaced_share": 0.149
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.632,
+     "cost_gdp_per_year": 0.0028,
+     "cost_military_budget_per_year": 0.1274,
+     "labour_withdrawn_share": 0.00235,
+     "pool_left_share": 0.887,
+     "replaced_share": 0.175
+    }
+   }
+  ],
+  "small": [
+   {
+    "fronts": 1,
+    "model": "A",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.907,
+     "cost_gdp_per_year": 0.0018,
+     "cost_military_budget_per_year": 0.0998,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.18
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.36,
+     "cost_gdp_per_year": 0.0018,
+     "cost_military_budget_per_year": 0.0998,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.18
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.453,
+     "cost_gdp_per_year": 0.0018,
+     "cost_military_budget_per_year": 0.0998,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.18
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "A",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 3.12,
+     "cost_gdp_per_year": 0.0018,
+     "cost_military_budget_per_year": 0.0998,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.06
+    },
+    "w156": {
+     "backlog_share_of_establishment": 4.68,
+     "cost_gdp_per_year": 0.0018,
+     "cost_military_budget_per_year": 0.0998,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.06
+    },
+    "w52": {
+     "backlog_share_of_establishment": 1.56,
+     "cost_gdp_per_year": 0.0018,
+     "cost_military_budget_per_year": 0.0998,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.06
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "A",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 6.44,
+     "cost_gdp_per_year": 0.0018,
+     "cost_military_budget_per_year": 0.0998,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.03
+    },
+    "w156": {
+     "backlog_share_of_establishment": 9.66,
+     "cost_gdp_per_year": 0.0018,
+     "cost_military_budget_per_year": 0.0998,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.03
+    },
+    "w52": {
+     "backlog_share_of_establishment": 3.22,
+     "cost_gdp_per_year": 0.0018,
+     "cost_military_budget_per_year": 0.0998,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.03
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "B",
+    "policy": "off",
+    "w104": {
+     "backlog_share_of_establishment": 1.087,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.018
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.64,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.012
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.533,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.036
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "B",
+    "policy": "off",
+    "w104": {
+     "backlog_share_of_establishment": 3.3,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.006
+    },
+    "w156": {
+     "backlog_share_of_establishment": 4.96,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.004
+    },
+    "w52": {
+     "backlog_share_of_establishment": 1.64,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.012
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "B",
+    "policy": "off",
+    "w104": {
+     "backlog_share_of_establishment": 6.619,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.003
+    },
+    "w156": {
+     "backlog_share_of_establishment": 9.939,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.002
+    },
+    "w52": {
+     "backlog_share_of_establishment": 3.3,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.006
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "B",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.86,
+     "cost_gdp_per_year": 0.00231,
+     "cost_military_budget_per_year": 0.1284,
+     "labour_withdrawn_share": 0.00467,
+     "pool_left_share": 0.776,
+     "replaced_share": 0.223
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.283,
+     "cost_gdp_per_year": 0.00232,
+     "cost_military_budget_per_year": 0.1288,
+     "labour_withdrawn_share": 0.00702,
+     "pool_left_share": 0.663,
+     "replaced_share": 0.227
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.436,
+     "cost_gdp_per_year": 0.00229,
+     "cost_military_budget_per_year": 0.1272,
+     "labour_withdrawn_share": 0.00231,
+     "pool_left_share": 0.889,
+     "replaced_share": 0.212
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "B",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 3.073,
+     "cost_gdp_per_year": 0.00231,
+     "cost_military_budget_per_year": 0.1284,
+     "labour_withdrawn_share": 0.00467,
+     "pool_left_share": 0.776,
+     "replaced_share": 0.074
+    },
+    "w156": {
+     "backlog_share_of_establishment": 4.603,
+     "cost_gdp_per_year": 0.00232,
+     "cost_military_budget_per_year": 0.1288,
+     "labour_withdrawn_share": 0.00702,
+     "pool_left_share": 0.663,
+     "replaced_share": 0.076
+    },
+    "w52": {
+     "backlog_share_of_establishment": 1.543,
+     "cost_gdp_per_year": 0.00229,
+     "cost_military_budget_per_year": 0.1272,
+     "labour_withdrawn_share": 0.00231,
+     "pool_left_share": 0.889,
+     "replaced_share": 0.071
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "B",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 6.392,
+     "cost_gdp_per_year": 0.00231,
+     "cost_military_budget_per_year": 0.1284,
+     "labour_withdrawn_share": 0.00467,
+     "pool_left_share": 0.776,
+     "replaced_share": 0.037
+    },
+    "w156": {
+     "backlog_share_of_establishment": 9.582,
+     "cost_gdp_per_year": 0.00232,
+     "cost_military_budget_per_year": 0.1288,
+     "labour_withdrawn_share": 0.00702,
+     "pool_left_share": 0.663,
+     "replaced_share": 0.038
+    },
+    "w52": {
+     "backlog_share_of_establishment": 3.202,
+     "cost_gdp_per_year": 0.00229,
+     "cost_military_budget_per_year": 0.1272,
+     "labour_withdrawn_share": 0.00231,
+     "pool_left_share": 0.889,
+     "replaced_share": 0.035
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "B",
+    "policy": "surge",
+    "w104": {
+     "backlog_share_of_establishment": 0.627,
+     "cost_gdp_per_year": 0.00702,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00945,
+     "pool_left_share": 0.773,
+     "replaced_share": 0.434
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.92,
+     "cost_gdp_per_year": 0.00702,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.01417,
+     "pool_left_share": 0.66,
+     "replaced_share": 0.446
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.333,
+     "cost_gdp_per_year": 0.00702,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00472,
+     "pool_left_share": 0.887,
+     "replaced_share": 0.398
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "B",
+    "policy": "surge",
+    "w104": {
+     "backlog_share_of_establishment": 2.84,
+     "cost_gdp_per_year": 0.00702,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00945,
+     "pool_left_share": 0.773,
+     "replaced_share": 0.145
+    },
+    "w156": {
+     "backlog_share_of_establishment": 4.24,
+     "cost_gdp_per_year": 0.00702,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.01417,
+     "pool_left_share": 0.66,
+     "replaced_share": 0.149
+    },
+    "w52": {
+     "backlog_share_of_establishment": 1.44,
+     "cost_gdp_per_year": 0.00702,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00472,
+     "pool_left_share": 0.887,
+     "replaced_share": 0.133
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "B",
+    "policy": "surge",
+    "w104": {
+     "backlog_share_of_establishment": 6.159,
+     "cost_gdp_per_year": 0.00702,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00945,
+     "pool_left_share": 0.773,
+     "replaced_share": 0.072
+    },
+    "w156": {
+     "backlog_share_of_establishment": 9.219,
+     "cost_gdp_per_year": 0.00702,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.01417,
+     "pool_left_share": 0.66,
+     "replaced_share": 0.074
+    },
+    "w52": {
+     "backlog_share_of_establishment": 3.1,
+     "cost_gdp_per_year": 0.00702,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00472,
+     "pool_left_share": 0.887,
+     "replaced_share": 0.066
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "C",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.869,
+     "cost_gdp_per_year": 0.00231,
+     "cost_military_budget_per_year": 0.1284,
+     "labour_withdrawn_share": 0.00467,
+     "pool_left_share": 0.776,
+     "replaced_share": 0.215
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.318,
+     "cost_gdp_per_year": 0.00232,
+     "cost_military_budget_per_year": 0.1288,
+     "labour_withdrawn_share": 0.00702,
+     "pool_left_share": 0.663,
+     "replaced_share": 0.206
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.419,
+     "cost_gdp_per_year": 0.00229,
+     "cost_military_budget_per_year": 0.1272,
+     "labour_withdrawn_share": 0.00231,
+     "pool_left_share": 0.889,
+     "replaced_share": 0.242
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "C",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 3.082,
+     "cost_gdp_per_year": 0.00231,
+     "cost_military_budget_per_year": 0.1284,
+     "labour_withdrawn_share": 0.00467,
+     "pool_left_share": 0.776,
+     "replaced_share": 0.072
+    },
+    "w156": {
+     "backlog_share_of_establishment": 4.638,
+     "cost_gdp_per_year": 0.00232,
+     "cost_military_budget_per_year": 0.1288,
+     "labour_withdrawn_share": 0.00702,
+     "pool_left_share": 0.663,
+     "replaced_share": 0.069
+    },
+    "w52": {
+     "backlog_share_of_establishment": 1.526,
+     "cost_gdp_per_year": 0.00229,
+     "cost_military_budget_per_year": 0.1272,
+     "labour_withdrawn_share": 0.00231,
+     "pool_left_share": 0.889,
+     "replaced_share": 0.081
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "C",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 6.401,
+     "cost_gdp_per_year": 0.00231,
+     "cost_military_budget_per_year": 0.1284,
+     "labour_withdrawn_share": 0.00467,
+     "pool_left_share": 0.776,
+     "replaced_share": 0.036
+    },
+    "w156": {
+     "backlog_share_of_establishment": 9.617,
+     "cost_gdp_per_year": 0.00232,
+     "cost_military_budget_per_year": 0.1288,
+     "labour_withdrawn_share": 0.00702,
+     "pool_left_share": 0.663,
+     "replaced_share": 0.034
+    },
+    "w52": {
+     "backlog_share_of_establishment": 3.186,
+     "cost_gdp_per_year": 0.00229,
+     "cost_military_budget_per_year": 0.1272,
+     "labour_withdrawn_share": 0.00231,
+     "pool_left_share": 0.889,
+     "replaced_share": 0.04
+    }
+   }
+  ],
+  "tur": [
+   {
+    "fronts": 1,
+    "model": "A",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.0,
+     "cost_gdp_per_year": 0.00143,
+     "cost_military_budget_per_year": 0.083,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 1.0
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.0,
+     "cost_gdp_per_year": 0.00143,
+     "cost_military_budget_per_year": 0.083,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 1.0
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.0,
+     "cost_gdp_per_year": 0.00143,
+     "cost_military_budget_per_year": 0.083,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 1.0
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "A",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.298,
+     "cost_gdp_per_year": 0.00172,
+     "cost_military_budget_per_year": 0.0999,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.401
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.447,
+     "cost_gdp_per_year": 0.00172,
+     "cost_military_budget_per_year": 0.0999,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.401
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.149,
+     "cost_gdp_per_year": 0.00172,
+     "cost_military_budget_per_year": 0.0999,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.401
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "A",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.796,
+     "cost_gdp_per_year": 0.00172,
+     "cost_military_budget_per_year": 0.0999,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.201
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.194,
+     "cost_gdp_per_year": 0.00172,
+     "cost_military_budget_per_year": 0.0999,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.201
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.398,
+     "cost_gdp_per_year": 0.00172,
+     "cost_military_budget_per_year": 0.0999,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": null,
+     "replaced_share": 0.201
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "B",
+    "policy": "off",
+    "w104": {
+     "backlog_share_of_establishment": 0.146,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.12
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.229,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.08
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.063,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.241
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "B",
+    "policy": "off",
+    "w104": {
+     "backlog_share_of_establishment": 0.478,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.04
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.727,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.027
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.229,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.08
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "B",
+    "policy": "off",
+    "w104": {
+     "backlog_share_of_establishment": 0.976,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.02
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.474,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.013
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.478,
+     "cost_gdp_per_year": 0.0,
+     "cost_military_budget_per_year": 0.0,
+     "labour_withdrawn_share": 0.0,
+     "pool_left_share": 1.0,
+     "replaced_share": 0.04
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "B",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.001,
+     "cost_gdp_per_year": 0.00142,
+     "cost_military_budget_per_year": 0.0822,
+     "labour_withdrawn_share": 0.00201,
+     "pool_left_share": 0.904,
+     "replaced_share": 0.995
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.001,
+     "cost_gdp_per_year": 0.00142,
+     "cost_military_budget_per_year": 0.0825,
+     "labour_withdrawn_share": 0.00302,
+     "pool_left_share": 0.855,
+     "replaced_share": 0.997
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.001,
+     "cost_gdp_per_year": 0.0014,
+     "cost_military_budget_per_year": 0.0814,
+     "labour_withdrawn_share": 0.00099,
+     "pool_left_share": 0.952,
+     "replaced_share": 0.991
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "B",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.25,
+     "cost_gdp_per_year": 0.00222,
+     "cost_military_budget_per_year": 0.1288,
+     "labour_withdrawn_share": 0.00314,
+     "pool_left_share": 0.849,
+     "replaced_share": 0.497
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.369,
+     "cost_gdp_per_year": 0.00223,
+     "cost_military_budget_per_year": 0.1292,
+     "labour_withdrawn_share": 0.00473,
+     "pool_left_share": 0.773,
+     "replaced_share": 0.505
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.131,
+     "cost_gdp_per_year": 0.0022,
+     "cost_military_budget_per_year": 0.1275,
+     "labour_withdrawn_share": 0.00156,
+     "pool_left_share": 0.925,
+     "replaced_share": 0.472
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "B",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.748,
+     "cost_gdp_per_year": 0.00222,
+     "cost_military_budget_per_year": 0.1288,
+     "labour_withdrawn_share": 0.00314,
+     "pool_left_share": 0.849,
+     "replaced_share": 0.249
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.116,
+     "cost_gdp_per_year": 0.00223,
+     "cost_military_budget_per_year": 0.1292,
+     "labour_withdrawn_share": 0.00473,
+     "pool_left_share": 0.773,
+     "replaced_share": 0.253
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.38,
+     "cost_gdp_per_year": 0.0022,
+     "cost_military_budget_per_year": 0.1275,
+     "labour_withdrawn_share": 0.00156,
+     "pool_left_share": 0.925,
+     "replaced_share": 0.236
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "B",
+    "policy": "surge",
+    "w104": {
+     "backlog_share_of_establishment": 0.0,
+     "cost_gdp_per_year": 0.00304,
+     "cost_military_budget_per_year": 0.1765,
+     "labour_withdrawn_share": 0.00262,
+     "pool_left_share": 0.937,
+     "replaced_share": 1.0
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.0,
+     "cost_gdp_per_year": 0.00284,
+     "cost_military_budget_per_year": 0.1648,
+     "labour_withdrawn_share": 0.00363,
+     "pool_left_share": 0.913,
+     "replaced_share": 1.0
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.0,
+     "cost_gdp_per_year": 0.00365,
+     "cost_military_budget_per_year": 0.2116,
+     "labour_withdrawn_share": 0.0016,
+     "pool_left_share": 0.962,
+     "replaced_share": 1.0
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "B",
+    "policy": "surge",
+    "w104": {
+     "backlog_share_of_establishment": 0.018,
+     "cost_gdp_per_year": 0.00679,
+     "cost_military_budget_per_year": 0.3938,
+     "labour_withdrawn_share": 0.00635,
+     "pool_left_share": 0.848,
+     "replaced_share": 0.964
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.007,
+     "cost_gdp_per_year": 0.00682,
+     "cost_military_budget_per_year": 0.3958,
+     "labour_withdrawn_share": 0.00952,
+     "pool_left_share": 0.771,
+     "replaced_share": 0.991
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.029,
+     "cost_gdp_per_year": 0.00676,
+     "cost_military_budget_per_year": 0.3919,
+     "labour_withdrawn_share": 0.00317,
+     "pool_left_share": 0.924,
+     "replaced_share": 0.884
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "B",
+    "policy": "surge",
+    "w104": {
+     "backlog_share_of_establishment": 0.516,
+     "cost_gdp_per_year": 0.00672,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00635,
+     "pool_left_share": 0.848,
+     "replaced_share": 0.482
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.754,
+     "cost_gdp_per_year": 0.00672,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00952,
+     "pool_left_share": 0.771,
+     "replaced_share": 0.495
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.278,
+     "cost_gdp_per_year": 0.00672,
+     "cost_military_budget_per_year": 0.39,
+     "labour_withdrawn_share": 0.00317,
+     "pool_left_share": 0.924,
+     "replaced_share": 0.442
+    }
+   },
+   {
+    "fronts": 1,
+    "model": "C",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.0,
+     "cost_gdp_per_year": 0.00092,
+     "cost_military_budget_per_year": 0.0535,
+     "labour_withdrawn_share": 0.00131,
+     "pool_left_share": 0.937,
+     "replaced_share": 1.0
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.0,
+     "cost_gdp_per_year": 0.00092,
+     "cost_military_budget_per_year": 0.0536,
+     "labour_withdrawn_share": 0.00196,
+     "pool_left_share": 0.906,
+     "replaced_share": 1.0
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.0,
+     "cost_gdp_per_year": 0.00091,
+     "cost_military_budget_per_year": 0.0529,
+     "labour_withdrawn_share": 0.00065,
+     "pool_left_share": 0.969,
+     "replaced_share": 1.0
+    }
+   },
+   {
+    "fronts": 3,
+    "model": "C",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.26,
+     "cost_gdp_per_year": 0.00222,
+     "cost_military_budget_per_year": 0.1288,
+     "labour_withdrawn_share": 0.00314,
+     "pool_left_share": 0.849,
+     "replaced_share": 0.478
+    },
+    "w156": {
+     "backlog_share_of_establishment": 0.405,
+     "cost_gdp_per_year": 0.00223,
+     "cost_military_budget_per_year": 0.1292,
+     "labour_withdrawn_share": 0.00473,
+     "pool_left_share": 0.773,
+     "replaced_share": 0.458
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.115,
+     "cost_gdp_per_year": 0.0022,
+     "cost_military_budget_per_year": 0.1275,
+     "labour_withdrawn_share": 0.00156,
+     "pool_left_share": 0.925,
+     "replaced_share": 0.538
+    }
+   },
+   {
+    "fronts": 6,
+    "model": "C",
+    "policy": "replace",
+    "w104": {
+     "backlog_share_of_establishment": 0.758,
+     "cost_gdp_per_year": 0.00222,
+     "cost_military_budget_per_year": 0.1288,
+     "labour_withdrawn_share": 0.00314,
+     "pool_left_share": 0.849,
+     "replaced_share": 0.239
+    },
+    "w156": {
+     "backlog_share_of_establishment": 1.152,
+     "cost_gdp_per_year": 0.00223,
+     "cost_military_budget_per_year": 0.1292,
+     "labour_withdrawn_share": 0.00473,
+     "pool_left_share": 0.773,
+     "replaced_share": 0.229
+    },
+    "w52": {
+     "backlog_share_of_establishment": 0.364,
+     "cost_gdp_per_year": 0.0022,
+     "cost_military_budget_per_year": 0.1275,
+     "labour_withdrawn_share": 0.00156,
+     "pool_left_share": 0.925,
+     "replaced_share": 0.269
+    }
+   }
+  ]
+ },
+ "params_P0": {
+  "absorb": 0.1,
+  "budget_a": 0.1,
+  "cost": 1.0,
+  "default_pay_share": 0.35,
+  "depot": 0.02,
+  "equipment": 0.03,
+  "equipment_rate": 0.002,
+  "intake": 0.0025,
+  "offensive": 90,
+  "pool": 0.01,
+  "surge_cost": 1.5,
+  "surge_depot": 0.05,
+  "surge_intake": 0.005,
+  "surge_pool": 0.02,
+  "training_weeks": 12,
+  "wounded": 0.35,
+  "wounded_weeks": 8
+ },
+ "principal_cases": [
+  {
+   "attacker_loss": 5583,
+   "case": "1v1",
+   "defender_loss": 4102,
+   "outcome": "repelled",
+   "weeks": 7
+  },
+  {
+   "attacker_loss": 5480,
+   "case": "1v2",
+   "defender_loss": 2372,
+   "outcome": "repelled",
+   "weeks": 4
+  },
+  {
+   "attacker_loss": 5480,
+   "case": "1v3",
+   "defender_loss": 2367,
+   "outcome": "repelled",
+   "weeks": 4
+  },
+  {
+   "attacker_loss": 11166,
+   "case": "2v2",
+   "defender_loss": 8204,
+   "outcome": "repelled",
+   "weeks": 7
+  },
+  {
+   "attacker_loss": 3132,
+   "case": "3v1",
+   "defender_loss": 5480,
+   "outcome": "captured",
+   "weeks": 4
+  },
+  {
+   "attacker_loss": 9351,
+   "case": "3v2",
+   "defender_loss": 11078,
+   "outcome": "captured",
+   "weeks": 6
+  }
+ ],
+ "reentry": [
+  {
+   "attacker_loss": 862,
+   "defender_loss": 520,
+   "outcome": "repelled",
+   "progress": -8,
+   "reentry": 20001,
+   "share": 80.0,
+   "weeks_fought": 1
+  },
+  {
+   "attacker_loss": 1702,
+   "defender_loss": 1082,
+   "outcome": "repelled",
+   "progress": -13,
+   "reentry": 21250,
+   "share": 85.0,
+   "weeks_fought": 2
+  },
+  {
+   "attacker_loss": 2523,
+   "defender_loss": 1689,
+   "outcome": "repelled",
+   "progress": -16,
+   "reentry": 22500,
+   "share": 90.0,
+   "weeks_fought": 3
+  },
+  {
+   "attacker_loss": 4101,
+   "defender_loss": 2868,
+   "outcome": "repelled",
+   "progress": -22,
+   "reentry": 23750,
+   "share": 95.0,
+   "weeks_fought": 5
+  },
+  {
+   "attacker_loss": 5583,
+   "defender_loss": 4102,
+   "outcome": "repelled",
+   "progress": -23,
+   "reentry": 25000,
+   "share": 100.0,
+   "weeks_fought": 7
+  }
+ ],
+ "repelled_formation": [
+  {
+   "cost_share_of_annual_military_budget": 0.0,
+   "cost_share_of_gdp": 0.0,
+   "depot_start": 0,
+   "model": "none",
+   "policy": "replace",
+   "recruited": 0,
+   "repelled_strength": 19417,
+   "repelled_week": 7,
+   "w104": {
+    "can_attack_now": false,
+    "can_attack_proposed": false,
+    "manpower": 19417
+   },
+   "w156": {
+    "can_attack_now": false,
+    "can_attack_proposed": false,
+    "manpower": 19417
+   },
+   "w52": {
+    "can_attack_now": false,
+    "can_attack_proposed": false,
+    "manpower": 19417
+   }
+  },
+  {
+   "cost_share_of_annual_military_budget": 0.01489,
+   "cost_share_of_gdp": 0.0002703,
+   "depot_start": 0,
+   "full": 16,
+   "model": "A",
+   "policy": "replace",
+   "ready_80": 9,
+   "ready_85": 11,
+   "ready_90": 13,
+   "recruited": 0,
+   "repelled_strength": 19417,
+   "repelled_week": 7,
+   "w104": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   },
+   "w156": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   },
+   "w52": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   }
+  },
+  {
+   "cost_share_of_annual_military_budget": 0.0,
+   "cost_share_of_gdp": 0.0,
+   "depot_start": 7500,
+   "full": 11,
+   "model": "B",
+   "policy": "off",
+   "ready_80": 9,
+   "ready_85": 9,
+   "ready_90": 10,
+   "recruited": 0,
+   "repelled_strength": 19417,
+   "repelled_week": 7,
+   "w104": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   },
+   "w156": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   },
+   "w52": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   }
+  },
+  {
+   "cost_share_of_annual_military_budget": 0.01489,
+   "cost_share_of_gdp": 0.0002703,
+   "depot_start": 7500,
+   "full": 11,
+   "model": "B",
+   "policy": "replace",
+   "ready_80": 9,
+   "ready_85": 9,
+   "ready_90": 10,
+   "recruited": 5583,
+   "repelled_strength": 19417,
+   "repelled_week": 7,
+   "w104": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   },
+   "w156": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   },
+   "w52": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   }
+  },
+  {
+   "cost_share_of_annual_military_budget": 0.15443,
+   "cost_share_of_gdp": 0.0028035,
+   "depot_start": 7500,
+   "full": 11,
+   "model": "B",
+   "policy": "surge",
+   "ready_80": 9,
+   "ready_85": 9,
+   "ready_90": 10,
+   "recruited": 24333,
+   "repelled_strength": 19417,
+   "repelled_week": 7,
+   "w104": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   },
+   "w156": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   },
+   "w52": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   }
+  },
+  {
+   "cost_share_of_annual_military_budget": 0.00969,
+   "cost_share_of_gdp": 0.0001759,
+   "depot_start": 7500,
+   "full": 11,
+   "model": "C",
+   "policy": "replace",
+   "ready_80": 9,
+   "ready_85": 9,
+   "ready_90": 10,
+   "recruited": 3633,
+   "repelled_strength": 19417,
+   "repelled_week": 7,
+   "w104": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   },
+   "w156": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   },
+   "w52": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   }
+  }
+ ],
+ "repelled_formation_by_country": {
+  "deu": {
+   "cost_share_of_annual_military_budget": 0.01718,
+   "cost_share_of_gdp": 0.0002137,
+   "depot_start": 6500,
+   "full": 11,
+   "model": "B",
+   "policy": "replace",
+   "ready_80": 9,
+   "ready_85": 9,
+   "ready_90": 10,
+   "recruited": 5583,
+   "repelled_strength": 19417,
+   "repelled_week": 7,
+   "w104": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   },
+   "w156": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   },
+   "w52": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   }
+  },
+  "fra": {
+   "cost_share_of_annual_military_budget": 0.01489,
+   "cost_share_of_gdp": 0.0002703,
+   "depot_start": 7500,
+   "full": 11,
+   "model": "B",
+   "policy": "replace",
+   "ready_80": 9,
+   "ready_85": 9,
+   "ready_90": 10,
+   "recruited": 5583,
+   "repelled_strength": 19417,
+   "repelled_week": 7,
+   "w104": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   },
+   "w156": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   },
+   "w52": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   }
+  },
+  "gbr": {
+   "cost_share_of_annual_military_budget": 0.01595,
+   "cost_share_of_gdp": 0.0003514,
+   "depot_start": 7000,
+   "full": 11,
+   "model": "B",
+   "policy": "replace",
+   "ready_80": 9,
+   "ready_85": 9,
+   "ready_90": 10,
+   "recruited": 5583,
+   "repelled_strength": 19417,
+   "repelled_week": 7,
+   "w104": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   },
+   "w156": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   },
+   "w52": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   }
+  },
+  "ita": {
+   "cost_share_of_annual_military_budget": 0.01489,
+   "cost_share_of_gdp": 0.0001776,
+   "depot_start": 7500,
+   "full": 11,
+   "model": "B",
+   "policy": "replace",
+   "ready_80": 9,
+   "ready_85": 9,
+   "ready_90": 10,
+   "recruited": 5583,
+   "repelled_strength": 19417,
+   "repelled_week": 7,
+   "w104": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   },
+   "w156": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   },
+   "w52": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   }
+  },
+  "pol": {
+   "cost_share_of_annual_military_budget": 0.01718,
+   "cost_share_of_gdp": 0.0003777,
+   "depot_start": 6500,
+   "full": 11,
+   "model": "B",
+   "policy": "replace",
+   "ready_80": 9,
+   "ready_85": 9,
+   "ready_90": 10,
+   "recruited": 5583,
+   "repelled_strength": 19417,
+   "repelled_week": 7,
+   "w104": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   },
+   "w156": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   },
+   "w52": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   }
+  },
+  "small": {
+   "cost_share_of_annual_military_budget": 0.07444,
+   "cost_share_of_gdp": 0.0013399,
+   "depot_start": 1500,
+   "full": 36,
+   "model": "B",
+   "policy": "replace",
+   "ready_80": 9,
+   "ready_85": 16,
+   "ready_90": 23,
+   "recruited": 5583,
+   "repelled_strength": 19417,
+   "repelled_week": 7,
+   "w104": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   },
+   "w156": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   },
+   "w52": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   }
+  },
+  "tur": {
+   "cost_share_of_annual_military_budget": 0.01117,
+   "cost_share_of_gdp": 0.0001925,
+   "depot_start": 10000,
+   "full": 11,
+   "model": "B",
+   "policy": "replace",
+   "ready_80": 9,
+   "ready_85": 9,
+   "ready_90": 10,
+   "recruited": 5583,
+   "repelled_strength": 19417,
+   "repelled_week": 7,
+   "w104": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   },
+   "w156": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   },
+   "w52": {
+    "can_attack_now": true,
+    "can_attack_proposed": true,
+    "manpower": 25000
+   }
+  }
+ },
+ "sensitivity_fra": [
+  {
+   "fresh_captures_52_104_156": [
+    4,
+    7,
+    11
+   ],
+   "fresh_cost_military_budget_156": 0.2619,
+   "repelled_full_week": 11,
+   "repelled_ready_week": 10,
+   "rotating_captures_52_104_156": [
+    4,
+    7,
+    11
+   ],
+   "three_fronts_cost_gdp_per_year": 0.00234,
+   "three_fronts_replaced_156": 0.379,
+   "variant": "proposal P0"
+  },
+  {
+   "fresh_captures_52_104_156": [
+    5,
+    10,
+    16
+   ],
+   "fresh_cost_military_budget_156": 0.3873,
+   "repelled_full_week": 11,
+   "repelled_ready_week": 10,
+   "rotating_captures_52_104_156": [
+    5,
+    18,
+    44
+   ],
+   "three_fronts_cost_gdp_per_year": 0.00234,
+   "three_fronts_replaced_156": 0.394,
+   "variant": "training 6 weeks"
+  },
+  {
+   "fresh_captures_52_104_156": [
+    2,
+    4,
+    6
+   ],
+   "fresh_cost_military_budget_156": 0.1496,
+   "repelled_full_week": 11,
+   "repelled_ready_week": 10,
+   "rotating_captures_52_104_156": [
+    2,
+    4,
+    6
+   ],
+   "three_fronts_cost_gdp_per_year": 0.00234,
+   "three_fronts_replaced_156": 0.344,
+   "variant": "training 26 weeks"
+  },
+  {
+   "fresh_captures_52_104_156": [
+    4,
+    7,
+    11
+   ],
+   "fresh_cost_military_budget_156": 0.2619,
+   "repelled_full_week": 13,
+   "repelled_ready_week": 11,
+   "rotating_captures_52_104_156": [
+    4,
+    7,
+    11
+   ],
+   "three_fronts_cost_gdp_per_year": 0.00234,
+   "three_fronts_replaced_156": 0.379,
+   "variant": "absorb 5% / week"
+  },
+  {
+   "fresh_captures_52_104_156": [
+    4,
+    7,
+    11
+   ],
+   "fresh_cost_military_budget_156": 0.2619,
+   "repelled_full_week": 10,
+   "repelled_ready_week": 9,
+   "rotating_captures_52_104_156": [
+    4,
+    7,
+    11
+   ],
+   "three_fronts_cost_gdp_per_year": 0.00234,
+   "three_fronts_replaced_156": 0.379,
+   "variant": "absorb 20% / week"
+  },
+  {
+   "fresh_captures_52_104_156": [
+    3,
+    5,
+    7
+   ],
+   "fresh_cost_military_budget_156": 0.1746,
+   "repelled_full_week": 21,
+   "repelled_ready_week": 18,
+   "rotating_captures_52_104_156": [
+    3,
+    5,
+    7
+   ],
+   "three_fronts_cost_gdp_per_year": 0.00234,
+   "three_fronts_replaced_156": 0.359,
+   "variant": "no starting depot"
+  },
+  {
+   "fresh_captures_52_104_156": [
+    6,
+    11,
+    16
+   ],
+   "fresh_cost_military_budget_156": 0.3873,
+   "repelled_full_week": 11,
+   "repelled_ready_week": 10,
+   "rotating_captures_52_104_156": [
+    6,
+    21,
+    47
+   ],
+   "three_fronts_cost_gdp_per_year": 0.00234,
+   "three_fronts_replaced_156": 0.409,
+   "variant": "depot 5%"
+  },
+  {
+   "fresh_captures_52_104_156": [
+    3,
+    6,
+    8
+   ],
+   "fresh_cost_military_budget_156": 0.1934,
+   "repelled_full_week": 11,
+   "repelled_ready_week": 10,
+   "rotating_captures_52_104_156": [
+    3,
+    6,
+    10
+   ],
+   "three_fronts_cost_gdp_per_year": 0.00117,
+   "three_fronts_replaced_156": 0.199,
+   "variant": "intake 0.125% / week"
+  },
+  {
+   "fresh_captures_52_104_156": [
+    4,
+    7,
+    11
+   ],
+   "fresh_cost_military_budget_156": 0.2706,
+   "repelled_full_week": 11,
+   "repelled_ready_week": 10,
+   "rotating_captures_52_104_156": [
+    4,
+    7,
+    11
+   ],
+   "three_fronts_cost_gdp_per_year": 0.00469,
+   "three_fronts_replaced_156": 0.738,
+   "variant": "intake 0.5% / week"
+  },
+  {
+   "fresh_captures_52_104_156": [
+    4,
+    7,
+    11
+   ],
+   "fresh_cost_military_budget_156": 0.2619,
+   "repelled_full_week": 11,
+   "repelled_ready_week": 9,
+   "rotating_captures_52_104_156": [
+    4,
+    7,
+    11
+   ],
+   "three_fronts_cost_gdp_per_year": 0.00234,
+   "three_fronts_replaced_156": 0.379,
+   "variant": "offensive bar 80%"
+  },
+  {
+   "fresh_captures_52_104_156": [
+    4,
+    7,
+    11
+   ],
+   "fresh_cost_military_budget_156": 0.2619,
+   "repelled_full_week": 11,
+   "repelled_ready_week": 9,
+   "rotating_captures_52_104_156": [
+    4,
+    7,
+    11
+   ],
+   "three_fronts_cost_gdp_per_year": 0.00234,
+   "three_fronts_replaced_156": 0.379,
+   "variant": "offensive bar 85%"
+  },
+  {
+   "fresh_captures_52_104_156": [
+    4,
+    7,
+    11
+   ],
+   "fresh_cost_military_budget_156": 0.1309,
+   "repelled_full_week": 11,
+   "repelled_ready_week": 10,
+   "rotating_captures_52_104_156": [
+    4,
+    7,
+    11
+   ],
+   "three_fronts_cost_gdp_per_year": 0.00117,
+   "three_fronts_replaced_156": 0.379,
+   "variant": "cost 0.5 years"
+  },
+  {
+   "fresh_captures_52_104_156": [
+    4,
+    7,
+    11
+   ],
+   "fresh_cost_military_budget_156": 0.5237,
+   "repelled_full_week": 11,
+   "repelled_ready_week": 10,
+   "rotating_captures_52_104_156": [
+    4,
+    7,
+    11
+   ],
+   "three_fronts_cost_gdp_per_year": 0.00469,
+   "three_fronts_replaced_156": 0.379,
+   "variant": "cost 2 years"
+  }
+ ],
+ "sustainable_fronts": {
+  "deu": {
+   "depot_start": 6500,
+   "intake_per_week_replace": 812,
+   "replace": 1.02,
+   "replacement_cost_gdp_per_division": 0.000957,
+   "surge": 2.04
+  },
+  "fra": {
+   "depot_start": 7500,
+   "intake_per_week_replace": 937,
+   "replace": 1.17,
+   "replacement_cost_gdp_per_division": 0.00121,
+   "surge": 2.35
+  },
+  "gbr": {
+   "depot_start": 7000,
+   "intake_per_week_replace": 875,
+   "replace": 1.1,
+   "replacement_cost_gdp_per_division": 0.001574,
+   "surge": 2.19
+  },
+  "ita": {
+   "depot_start": 7500,
+   "intake_per_week_replace": 937,
+   "replace": 1.17,
+   "replacement_cost_gdp_per_division": 0.000795,
+   "surge": 2.35
+  },
+  "pol": {
+   "depot_start": 6500,
+   "intake_per_week_replace": 812,
+   "replace": 1.02,
+   "replacement_cost_gdp_per_division": 0.001691,
+   "surge": 2.04
+  },
+  "small": {
+   "depot_start": 1500,
+   "intake_per_week_replace": 187,
+   "replace": 0.23,
+   "replacement_cost_gdp_per_division": 0.006,
+   "surge": 0.47
+  },
+  "tur": {
+   "depot_start": 10000,
+   "intake_per_week_replace": 1250,
+   "replace": 1.57,
+   "replacement_cost_gdp_per_division": 0.000862,
+   "surge": 3.13
+  }
+ },
+ "synthetic_small": {
+  "defence_pay_share": null,
+  "divisions": 3,
+  "forces_status": "synthetic",
+  "military_share_gdp": 0.018,
+  "population_m": 8.6,
+  "rule_w_personnel_equivalents": 75000
+ }
+}

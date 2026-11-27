@@ -1,0 +1,67 @@
+{
+ "engine": "PR #41 strategic-land-v1 (resolver unchanged)",
+ "first": {
+  "weeks": 7,
+  "attacker_remaining": 19417,
+  "captured": false
+ },
+ "stalled": {
+  "week52": {
+   "manpower": 19417,
+   "engineAccepts": false,
+   "reason": "Division is recovering or depleted."
+  },
+  "week104": {
+   "manpower": 19417,
+   "engineAccepts": false,
+   "reason": "Division is recovering or depleted."
+  },
+  "week156": {
+   "manpower": 19417,
+   "engineAccepts": false,
+   "reason": "Division is recovering or depleted."
+  }
+ },
+ "reentry": [
+  {
+   "reentry": 20001,
+   "weeks_fought": 1,
+   "attacker_loss": 862,
+   "outcome": "repelled"
+  },
+  {
+   "reentry": 21250,
+   "weeks_fought": 2,
+   "attacker_loss": 1702,
+   "outcome": "repelled"
+  },
+  {
+   "reentry": 22500,
+   "weeks_fought": 3,
+   "attacker_loss": 2523,
+   "outcome": "repelled"
+  },
+  {
+   "reentry": 23750,
+   "weeks_fought": 5,
+   "attacker_loss": 4101,
+   "outcome": "repelled"
+  },
+  {
+   "reentry": 25000,
+   "weeks_fought": 7,
+   "attacker_loss": 5583,
+   "outcome": "repelled"
+  }
+ ],
+ "recovery_B_P0": {
+  "ready80": 9,
+  "ready90": 10,
+  "full": 11
+ },
+ "second_assault_after_refit": {
+  "weeks": 7,
+  "attacker_loss": 5583,
+  "captured": false
+ }
+}
