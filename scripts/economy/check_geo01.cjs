@@ -90,6 +90,7 @@ async function run(browser, width, height, rate) {
   for (const entry of (await roster.all()).slice(0, 2)) if (await entry.getAttribute('aria-pressed') === 'false') await entry.click();
   const selected = await page.locator('.geo-counter-detail li button[aria-pressed=true]').count();
   assert.ok(selected >= 1);
+  await screenshot(page, `geo01-selection-${width}x${height}`);
   await button(page, 'Close formations').click();
   await button(page, 'Show orders').click();
   assert.ok(await page.locator('[data-geo-order=reinforce]').count());
@@ -109,6 +110,9 @@ async function run(browser, width, height, rate) {
   const zoomOutMs = performance.now() - beforeZoom;
   assert.equal(await page.locator('[data-geo-counter]').count(), 0);
   assert.equal(await button(page, 'Show orders').count(), 0);
+  await screenshot(page, `geo01-globe-near-${width}x${height}`);
+  await button(page, 'Reset atlas view').click();
+  await wait(page, () => document.querySelector('.atlas-viewport')?.getAttribute('data-zoom') === '1');
   await screenshot(page, `geo01-globe-${width}x${height}`);
 
   await button(page, 'Military').click();

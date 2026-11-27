@@ -176,7 +176,7 @@ export default function AtlasMap({ active, onSettled, campaign, setup, terrainSt
     if (country) centerOn(country.label, true);
   }
 
-  const inspectedCampaignCountry = campaign?.scenario.countries.find(country => geographicCountry(country.id) === selectedId);
+  const inspectedCampaignCountry = (campaign?.scenario ?? setup?.scenario)?.countries.find(country => geographicCountry(country.id) === selectedId);
   const initialized = useRef<number | null>(null);
   useEffect(() => {
     if (!campaign || !visible || initialLoading || !viewport.current?.clientWidth || initialized.current === campaign.matchKey) return;
@@ -423,7 +423,9 @@ export default function AtlasMap({ active, onSettled, campaign, setup, terrainSt
       </div>
       {selectedCountry && !markersVisible && (inspectedRegion ? <AtlasRegionPanel region={inspectedRegion} country={selectedCountry} onClear={clearSelection} /> :
         <AtlasCountryPanel country={selectedCountry} geography={selectedGeography} onClear={clearSelection}
-          onRegions={openRegions} regionUnavailable={regionUnavailable} />)}
+          onRegions={campaign ? inspectedCampaignCountry && (() => centerCountry(inspectedCampaignCountry.id)) : openRegions}
+          regionUnavailable={campaign ? undefined : regionUnavailable} regionLabel={campaign ? "Provinces" : "Regions"}
+          playability={campaign || setup ? inspectedCampaignCountry ? 'playable' : 'unavailable' : undefined} />)}
       <p className="sr-only" role="status">{inspectedRegion ? `${regionName(inspectedRegion)}, ${selectedCountry?.name} selected` : selectedCountry ? `${selectedCountry.name} selected` : ''}</p>
     </div>
     {markersVisible && <div className="geo-map-actions">

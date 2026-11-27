@@ -25,22 +25,24 @@ function AtlasInspectionPanel({ name, kind, onClear, action, children }: {
   </section>;
 }
 
-export function AtlasCountryPanel({ country, geography, onClear, onRegions, regionUnavailable }: {
+export function AtlasCountryPanel({ country, geography, onClear, onRegions, regionUnavailable, playability, regionLabel = "Regions" }: {
   country: AtlasCountry;
   geography?: CountryGeography;
   onClear: () => void;
-  onRegions: () => void;
+  onRegions?: () => void;
+  playability?: ReturnType<typeof countryPlayability>;
+  regionLabel?: string;
   regionUnavailable?: string;
 }) {
   const [longitude, latitude] = country.label;
   const coordinates = `${Math.abs(latitude).toFixed(2)}° ${latitude < 0 ? 'S' : 'N'}, ${Math.abs(longitude).toFixed(2)}° ${longitude < 0 ? 'W' : 'E'}`;
-  return <AtlasInspectionPanel kind="country" name={country.name} onClear={onClear} action={
+  return <AtlasInspectionPanel kind="country" name={country.name} onClear={onClear} action={onRegions &&
     <button type="button" className="atlas-regions-action" onClick={onRegions} disabled={Boolean(regionUnavailable)}
-      aria-describedby={regionUnavailable ? 'atlas-regions-unavailable' : undefined}>Regions</button>
+      aria-describedby={regionUnavailable ? 'atlas-regions-unavailable' : undefined}>{regionLabel}</button>
   }>
     <p>{geography?.subregion || geography?.continent || `Map point ${coordinates}`}</p>
     <p className="atlas-inspection-id"><span className="sr-only">Geographic ID </span><code>{country.id}</code></p>
-    <p>{playabilityLabels[countryPlayability(country.id)]}</p>
+    <p>{playabilityLabels[playability ?? countryPlayability(country.id)]}</p>
     {regionUnavailable && <p id="atlas-regions-unavailable">{regionUnavailable}</p>}
   </AtlasInspectionPanel>;
 }
