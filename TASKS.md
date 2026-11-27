@@ -317,7 +317,8 @@ The owner merged the atlas through MAP-01C. MAP-01D administrative region inspec
 
 - [x] Record owner approval of Model B and the initial calibration. [Design](docs/military/MIL-00-DESIGN.md)
 - [x] Record owner approval of the MIL-00 safeguards.
-- [ ] Review MIL-00-ENGINE, then sequence GEO-01, MIL-00-UX and MIL-01A. Retest Continuing attacks during MIL-00-UX. Keep PR #39 separate.
+- [x] Accept MIL-00-ENGINE on physical iPhone Safari and merge PR #41. [Measurements and loading anomaly](docs/military/MIL-00-ENGINE.md#benchmark-measurements)
+- [ ] Review GEO-01 on physical iPhone Safari. Sequence MIL-00-UX and MIL-01A after approval. Retest Continuing attacks during MIL-00-UX. Keep PR #39 separate.
 
 ### MIL-00R — Recovery and replenishment
 

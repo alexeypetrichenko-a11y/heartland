@@ -56,7 +56,8 @@ All values are milliseconds for 156 turns with 61 economic zones and 90 division
 | Chromium with 6× CPU throttle, calm | 518 | 175 | 310 | **1,165** | **1,750** |
 | Chromium with 6× CPU throttle, heavy orders | 417 | 186 | 330 | 651 | 978 |
 | Physical Safari, WORLD-04 baseline | 415–524 | 19 | 75 | 156–158 | 139–141 |
-| Physical Safari, MIL-00-ENGINE | Pending | Pending | Pending | Pending | Pending |
+| Physical Safari, MIL-00-ENGINE calm | 554 | 19 | 75 | 164 | 164 |
+| Physical Safari, MIL-00-ENGINE heavy orders | 413 | 31 | 77 | 190 | 170 |
 
 The throttled calm run exceeded the maximum-turn and save/restore thresholds. Keep the acceptance limits and repeat on the reference iPhone before rollout. Save checkpoint sizes were 2,545,097 bytes in the calm case and 2,545,183 bytes in the heavy-order case.
 
@@ -65,3 +66,5 @@ The throttled calm run exceeded the maximum-turn and save/restore thresholds. Ke
 The separate synthetic fixture exercises 475 divisions, 16 simultaneous fronts, seven consecutive active weeks, a 24-division collective selection, four reinforcement and withdrawal rounds, and a blocked front whose exit becomes available when the adjacent attack disengages. It round-trips several live fronts through JSON and the game save validator using its own fixture. The existing SAVE-01 envelope tests cover active and suspended saves with economy state. A separate test verifies that a simultaneous capture prevents withdrawal to that destination. No production strength regeneration is involved.
 
 The owner benchmark is a separate static page. It starts a fresh in-memory session for each mode and measures checkpoint serialization and restore without opening browser storage. It displays the commit, all five performance metrics, engagement weeks, peak fronts, checkpoint size, and separate depleted and surrendered counts at 52, 104 and 156 weeks. Generate it from a clean checkout after the standard and local review builds with `node scripts/economy/build_mil00_review.cjs <new-output-directory>`.
+
+The owner accepted the two MIL-00-ENGINE runs on iPhone SE (2022), iOS 26.2 Safari. Both met all five thresholds. The first calm attempt took 4,128 ms to initialize. Its cause remains unconfirmed. The prior CPU-throttled browser limitations above remain part of the record.

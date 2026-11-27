@@ -1384,3 +1384,27 @@ li {
 .military-preview dl { margin-block: .35rem; }
 .military-preview dd { margin-inline-start: 0; }
 .military-preview dt { color: var(--color-muted); }
+
+.geo-map-actions { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; margin: .5rem 0 1rem; }
+.geo-map-actions button, .geo-counter-detail button, .geo-military-selection button { min-height: 44px; }
+.geo-counters, .geo-orders { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.geo-counters button { position: absolute; transform: translate(-50%, -50%); pointer-events: auto; min-width: 44px; min-height: 44px; padding: 0 .35rem; background: #132a42; color: #fff; border: 2px solid #d4ebff; border-radius: 8px; font-weight: 700; }
+.geo-counters button[aria-pressed=true], .geo-counter-detail button[aria-pressed=true] { outline: 2px solid #f8cc76; outline-offset: 1px; }
+.geo-orders path { stroke: #fff5d5; stroke-width: 3; fill: none; }
+.geo-orders text { fill: #fff5d5; stroke: #1a2231; paint-order: stroke; stroke-width: 4; font-size: 22px; font-weight: 800; }
+.geo-counter-detail { position: absolute; left: .5rem; bottom: 3.6rem; width: min(19rem, calc(100% - 5rem)); max-height: 46%; overflow: auto; overscroll-behavior: contain; touch-action: pan-y; background: #142639; color: #fff; padding: .5rem; border-radius: .5rem; border: 1px solid #819cb3; }
+.geo-counter-detail ul, .geo-military-selection ul { margin: .5rem 0; padding-left: 1.2rem; }
+.geo-counter-detail button { width: 100%; text-align: left; }
+.geo-military-selection { margin-bottom: .75rem; }
+.geo-military-selection summary, .geo-military-selection label { display: inline-flex; align-items: center; min-height: 44px; }
+.geo-military-selection li { margin-bottom: .5rem; }
+.geo-orders-key { flex-basis: 100%; margin: 0; }
+.geo-review-build { overflow-wrap: anywhere; font-size: .85rem; padding: .5rem max(1rem, env(safe-area-inset-left)); }
+.atlas-slot, .atlas-host { flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+.setup-atlas-slot { min-height: 300px; height: 52dvh; flex: none; }
+.campaign-atlas-slot { overflow: auto; overscroll-behavior: contain; }
+.campaign-atlas { flex: none; overflow: visible; }
+.campaign-atlas .atlas-frame { flex: none; height: clamp(220px, 54dvh, 650px); }
+.campaign-atlas .geo-map-actions { padding-inline: 16px; }
+.campaign-atlas .europe-map { flex: none; }
+.campaign-atlas .region-summary button { min-height: 44px; }

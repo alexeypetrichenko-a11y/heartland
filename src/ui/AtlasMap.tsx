@@ -4,8 +4,8 @@ import { regionName } from '../geography/atlasRegions';
 import { borderStyle, countryDetailAmount, smoothDetail } from '../geography/borderRendering';
 import { pickAtlasCountry, pickAtlasFeature, type ContainsAtlasPart } from '../geography/countrySelection';
 import { regionCameraTarget, type ScreenRect } from '../geography/regionFraming';
-import { globeViewportBounds, projectWorld, worldLayout, type WorldCamera } from '../geography/worldCamera';
-import type { GeographicBounds, GeographicCountryId, GeographicRegion } from '../geography/types';
+import { globeViewportBounds, positionWorldCamera, projectWorld, transitionZoom, worldLayout, type WorldCamera } from '../geography/worldCamera';
+import type { GeographicBounds, GeographicCountryId, GeographicPosition, GeographicRegion, GeographicRegionId } from '../geography/types';
 import { useAtlasCamera } from './useAtlasCamera';
 import { useAtlasData } from './useAtlasData';
 import { useProjectionTransition } from './useProjectionTransition';
@@ -18,6 +18,8 @@ import { readTerrainPreference, writeTerrainPreference } from './atlasPreference
 import { AtlasCountryPanel, AtlasRegionPanel } from './AtlasCountryPanel';
 import { AtlasRegions } from './AtlasRegions';
 import { useAtlasRegions } from './useAtlasRegions';
+import { CampaignMarkers, CampaignUnitList, OrdersKey, ProvinceDetails, ProvincePaths, provinceAnchor, useEuropeMap, type Campaign } from './EuropeMap';
+import type { EuropeScenario } from '../game/europeScenario';
 
 const WORLD_SIZE: AtlasSize = { width: 360, height: 180 };
 const WORLD_VIEW: AtlasView = { zoom: 1, center: { x: 180, y: 90 } };
@@ -38,7 +40,10 @@ function labels(catalog: AtlasCatalog | null, camera: WorldCamera, size: AtlasSi
   });
 }
 
-export default function AtlasMap({ active, onSettled }: { active: boolean; onSettled: () => void }) {
+export default function AtlasMap({ active, onSettled, campaign, setup, terrainStorage = true }: {
+  active: boolean; onSettled: () => void; campaign?: Campaign; terrainStorage?: boolean;
+  setup?: { scenario: EuropeScenario; choice: string; onChoose: (id: string) => void };
+}) {
   const [revision, setRevision] = useState(0);
   const [showHelp, setShowHelp] = useState(false);
   const visible = active && !showHelp;
@@ -54,18 +59,28 @@ export default function AtlasMap({ active, onSettled }: { active: boolean; onSet
   const [selectedRegion, setSelectedRegion] = useState<GeographicRegion | null>(null);
   const [showRegions, setShowRegions] = useState(true);
   const [focusedCountry, setFocusedCountry] = useState<GeographicCountryId | null>(null);
-  const [terrainVisible, setTerrainVisible] = useState(readTerrainPreference);
-  useEffect(() => { writeTerrainPreference(terrainVisible); }, [terrainVisible]);
+  const [terrainVisible, setTerrainVisible] = useState(() => terrainStorage ? readTerrainPreference() : false);
+  useEffect(() => { if (terrainStorage) writeTerrainPreference(terrainVisible); }, [terrainVisible, terrainStorage]);
   const [flatTerrainStatus, setFlatTerrainStatus] = useState('');
   const [globeTerrainStatus, setGlobeTerrainStatus] = useState('');
   const [globeReady, setGlobeReady] = useState(false);
   const flatBlend = useProjectionTransition(view.projection === 'flat', visible, globeReady || view.flatOnly, view.flatOnly);
   const needsFlat = view.projection === 'flat' || flatBlend > 0;
+  const { map: campaignMap, error: campaignError, retry: retryCampaign } = useEuropeMap(campaign?.scenario ?? setup?.scenario);
+  const [provinceId, setProvinceId] = useState('');
+  const [orderOverlay, setOrderOverlay] = useState(false);
+  const [openUnits, setOpenUnits] = useState<string[]>([]);
+  const campaignAnchors = useMemo(() => new Map([...campaignMap?.regions ?? []].map(([id, shape]) => [id, provinceAnchor(shape)])), [campaignMap]);
+  const provinceShapes = useMemo(() => [...campaignMap?.regions ?? []].map(([id, shape]) => ({
+    id: `ne:admin1:${id}` as GeographicRegionId, parts: shape.parts,
+  })), [campaignMap]);
+  const detailVisible = Boolean(campaign && needsFlat);
+  const markersVisible = detailVisible && view.projection === 'flat' && flatBlend >= .5;
   const globeVisible = !view.flatOnly && (view.projection === 'globe' || flatBlend < 1);
   const loadBounds = needsFlat ? layout.bounds : WORLD_BOUNDS;
   const mediumOverview = needsFlat ? layout.view.zoom >= 2.5 : view.zoom >= 2.5;
   const shortcutCountry = selectedId !== null && regionShortcut?.id === selectedId;
-  const explicitRegions = visible && showRegions && shortcutCountry;
+  const explicitRegions = !campaign && visible && showRegions && shortcutCountry;
   // A fitted view can already have useful local resolution before the normal
   // projection-relative LOD reaches 1, especially in landscape.
   const localScale = Math.min(layout.scale, 2 * layout.scale * layout.longitudeScale);
@@ -73,7 +88,7 @@ export default function AtlasMap({ active, onSettled }: { active: boolean; onSet
   const detailAmount = Math.max(countryDetailAmount(view, size), fitDetail);
   const detailEnabled = !flying && view.projection === 'flat' && flatBlend === 1 && detailAmount > 0;
   const regionalZoom = detailEnabled && detailAmount === 1;
-  const automaticRegions = visible && regionalZoom && showRegions && !explicitRegions;
+  const automaticRegions = !campaign && visible && regionalZoom && showRegions && !explicitRegions;
   const detailCountryId = shortcutCountry && fitDetail === 1 ? selectedId ?? undefined : undefined;
   const options = useMemo(() => ({
     bounds: loadBounds, overviewOnly: !needsFlat, overviewScale: mediumOverview ? '50m' as const : '110m' as const, detailEnabled, detailCountryId,
@@ -139,6 +154,68 @@ export default function AtlasMap({ active, onSettled }: { active: boolean; onSet
     observer.observe(panel);
     return () => { window.clearTimeout(timer); observer.disconnect(); };
   }, [visible, regionShortcut, selectedCountry, viewport, fitCountry]);
+
+  function geographicCountry(id: string) {
+    const country = (campaign?.scenario ?? setup?.scenario)?.countries.find(country => country.id === id);
+    return country ? `ne:admin0:${country.iso3}` as GeographicCountryId : null;
+  }
+
+  function centerOn(position: GeographicPosition, detail: boolean) {
+    stopRefitting();
+    const reference = { ...view, focus: position };
+    const zoom = detail ? Math.max(8, transitionZoom(reference, size) * 1.17) : Math.max(view.zoom, 1);
+    flyTo(positionWorldCamera(view, size, position, zoom));
+  }
+
+  function centerCountry(id: string) {
+    const geo = geographicCountry(id);
+    if (!geo) return;
+    setSelectedId(geo);
+    setSelectedRegion(null);
+    const country = data.catalog?.countries.find(country => country.id === geo);
+    if (country) centerOn(country.label, true);
+  }
+
+  const inspectedCampaignCountry = (campaign?.scenario ?? setup?.scenario)?.countries.find(country => geographicCountry(country.id) === selectedId);
+  const initialized = useRef<number | null>(null);
+  useEffect(() => {
+    if (!campaign || !visible || initialLoading || !viewport.current?.clientWidth || initialized.current === campaign.matchKey) return;
+    const rect = viewport.current.getBoundingClientRect();
+    if (Math.abs(rect.width - size.width) > 1 || Math.abs(rect.height - size.height) > 1) return;
+    const player = campaign.state.playerCountryId;
+    if (!player || !data.catalog?.countries.some(country => country.id === geographicCountry(player))) return;
+    initialized.current = campaign.matchKey;
+    setProvinceId(campaign.scenario.provinces.find(province => province.ownerId === player)?.id ?? '');
+    setOpenUnits([]);
+    setOrderOverlay(false);
+    centerCountry(player);
+  });
+
+  useEffect(() => {
+    if (!setup?.choice) return;
+    const country = setup.scenario.countries.find(country => country.id === setup.choice);
+    if (country) setSelectedId(`ne:admin0:${country.iso3}`);
+  }, [setup?.choice, setup?.scenario]);
+
+  const lastLocate = useRef<Campaign['locate']>(null);
+  function selectProvince(id: string, center = false) {
+    if (!campaign) return;
+    const province = campaign.scenario.provinces.find(province => province.id === id);
+    if (!province) return;
+    setProvinceId(id);
+    setSelectedId(geographicCountry(province.ownerId));
+    if (center) {
+      const anchor = campaignAnchors.get(id);
+      if (anchor) centerOn(anchor, true);
+    }
+  }
+
+  useEffect(() => {
+    if (!visible || !campaign?.locate || campaign.locate === lastLocate.current || !campaignAnchors.has(campaign.locate.id)) return;
+    lastLocate.current = campaign.locate;
+    setOpenUnits([]);
+    selectProvince(campaign.locate.id, true);
+  });
 
   const containsPart: ContainsAtlasPart = useCallback((part, point) => {
     if (!pickContext.current) {
@@ -219,6 +296,13 @@ export default function AtlasMap({ active, onSettled }: { active: boolean; onSet
   function inspect(point: AtlasPoint, touch: boolean) {
     if (!visible || initialLoading || flying || !data.catalog) return;
     const camera = { ...view, projection: usingFlat ? 'flat' as const : 'globe' as const };
+    if (campaign && usingFlat) {
+      const province = pickAtlasFeature(camera, size, point, provinceShapes, containsPart, touch);
+      if (province) {
+        selectProvince(province.slice('ne:admin1:'.length));
+        return;
+      }
+    }
     const shapes = usingFlat ? flatShapes : data.overview;
     const directCountry = pickAtlasCountry(camera, size, point, shapes, containsPart, false);
     if (regionalParent && regional?.entries.length && (!directCountry || directCountry === regionalParent.id)) {
@@ -237,6 +321,8 @@ export default function AtlasMap({ active, onSettled }: { active: boolean; onSet
       if (country !== selectedId) setRegionShortcut(null);
       setSelectedId(country);
       setSelectedRegion(null);
+      const playable = setup?.scenario.countries.find(entry => geographicCountry(entry.id) === country);
+      if (playable) setup?.onChoose(playable.id);
     }
   }
 
@@ -271,16 +357,16 @@ export default function AtlasMap({ active, onSettled }: { active: boolean; onSet
     navigation.events.onKeyDown(event);
   }
 
-  return <section className="atlas-view" aria-label="World atlas">
+  return <section className={campaign ? "atlas-view campaign-atlas" : "atlas-view"} aria-label="World atlas">
     <div className="atlas-heading" hidden={showHelp}>
-      <div><h2>World atlas</h2><p>Geographic reference</p></div>
+      <div><h2>{campaign ? "Campaign map" : "World atlas"}</h2><p>{campaign ? "Europe 2023" : "Geographic reference"}</p></div>
       <button type="button" ref={helpButton} onClick={() => setShowHelp(true)} aria-label="About the world atlas">ⓘ</button>
     </div>
     <div className="atlas-frame" hidden={showHelp} aria-busy={initialLoading}>
       {(initialLoading || !data.overview.length) && <div className="atlas-loading" role="status">{data.error ? 'Earth data unavailable' : 'Loading Earth…'}</div>}
       <div className="atlas-viewport" ref={navigation.ref} tabIndex={0} role="group" aria-label="World geographic map" aria-describedby="atlas-help atlas-status"
         data-projection={view.flatOnly ? 'flat-fallback' : view.projection} data-zoom={view.zoom} data-longitude={layout.focus[0]} data-latitude={layout.focus[1]} data-bearing={layout.bearing}
-        data-flat-blend={flatBlend} data-border-width={borders.width} data-border-opacity={borders.opacity} data-detail-blend={detailAmount}
+        data-flat-blend={flatBlend} data-campaign={campaign ? "" : undefined} data-border-width={borders.width} data-border-opacity={borders.opacity} data-detail-blend={detailAmount}
         data-region-status={regionalCountry ? regionStatus : undefined}
         {...navigation.events} onPointerUp={pointerUp} onKeyDown={keyDown}>
         {!view.flatOnly && <div className="atlas-globe-layer" style={{ opacity: 1 - flatBlend, visibility: globeVisible ? 'visible' : 'hidden' }}>
@@ -288,7 +374,8 @@ export default function AtlasMap({ active, onSettled }: { active: boolean; onSet
             regions={globeRegions} selectedRegion={globeRegions?.find(region => region.id === inspectedRegion?.id)}
             revision={revision} onUnavailable={navigation.fallbackToFlat} onReady={setGlobeReady} onStatus={setGlobeTerrainStatus} />
         </div>}
-        <svg className="atlas-svg" aria-hidden="true" viewBox={`0 0 ${size.width} ${size.height}`} style={{ opacity: flatBlend, visibility: needsFlat ? 'visible' : 'hidden' }}>
+        <svg className={detailVisible ? 'atlas-svg europe-provinces' : 'atlas-svg'} aria-hidden={!detailVisible || undefined}
+          role={detailVisible && campaignMap ? 'group' : undefined} aria-label={detailVisible && campaignMap ? 'Map of the 46 playable provinces' : undefined} viewBox={`0 0 ${size.width} ${size.height}`} style={{ opacity: flatBlend, visibility: needsFlat ? 'visible' : 'hidden' }}>
           <defs><pattern id="atlas-graticule" width="30" height="30" patternUnits="userSpaceOnUse">
             <path d="M30 0H0V30" fill="none" stroke="#80a5bd" strokeWidth=".16" opacity=".16" />
           </pattern></defs>
@@ -300,12 +387,24 @@ export default function AtlasMap({ active, onSettled }: { active: boolean; onSet
             {!flying && needsFlat && flatRegionParent && regional && regional.entries.length > 0 && <AtlasRegions entries={regional.entries} parent={flatRegionParent}
               bounds={layout.bounds} offsets={layout.offsets} selectedId={inspectedRegion?.id} />}
             {needsFlat && <AtlasPolitical phase="borders" layers={layers} offsets={layout.offsets} detail={detailAmount} selectedId={inspectedRegion ? null : selectedId} {...borders} />}
+            {detailVisible && campaignMap && <ProvincePaths shapes={campaignMap.regions} state={campaign!.state} selected={provinceId} />}
           </g>
           <g className="atlas-labels" pointerEvents="none">
-            {countryLabels.map(c => <text key={c.id} x={c.x} y={c.y} textAnchor="middle">{c.name}</text>)}
+            {!detailVisible && countryLabels.map(c => <text key={c.id} x={c.x} y={c.y} textAnchor="middle">{c.name}</text>)}
+            {detailVisible && flatBlend >= .5 && view.zoom >= transitionZoom(view, size) * 1.45 &&
+              campaign!.scenario.provinces.map(province => {
+                const anchor = campaignAnchors.get(province.id);
+                if (!anchor) return null;
+                const point = projectWorld(view, size, anchor, 'flat')!;
+                if (point.x < 25 || point.y < 20 || point.x > size.width - 25 || point.y > size.height - 20) return null;
+                return <text key={province.id} x={point.x} y={point.y + 23} textAnchor="middle">{province.name}</text>;
+              })}
           </g>
         </svg>
+        {markersVisible && <CampaignMarkers campaign={campaign!} view={view} size={size} anchors={campaignAnchors}
+          orders={orderOverlay} onInspect={selectProvince} onOpen={setOpenUnits} />}
       </div>
+      {markersVisible && <CampaignUnitList campaign={campaign!} open={openUnits} onClose={() => setOpenUnits([])} />}
       <div className="map-controls atlas-controls" role="group" aria-label="Atlas view controls">
         <button type="button" aria-label="Zoom in atlas" onClick={() => navigation.zoomBy(1.5)} disabled={view.zoom >= ATLAS_MAX_ZOOM}>+</button>
         <button type="button" aria-label="Zoom out atlas" onClick={() => navigation.zoomBy(1 / 1.5)} disabled={view.zoom <= 1}>−</button>
@@ -322,11 +421,29 @@ export default function AtlasMap({ active, onSettled }: { active: boolean; onSet
         }}>Regions</button>}
         {regionalCountry && regionStatus === 'error' && <button type="button" aria-label="Retry region data" onClick={() => setRevision(n => n + 1)}>Retry</button>}
       </div>
-      {selectedCountry && (inspectedRegion ? <AtlasRegionPanel region={inspectedRegion} country={selectedCountry} onClear={clearSelection} /> :
+      {selectedCountry && !markersVisible && (inspectedRegion ? <AtlasRegionPanel region={inspectedRegion} country={selectedCountry} onClear={clearSelection} /> :
         <AtlasCountryPanel country={selectedCountry} geography={selectedGeography} onClear={clearSelection}
-          onRegions={openRegions} regionUnavailable={regionUnavailable} />)}
+          onRegions={campaign ? inspectedCampaignCountry && (() => centerCountry(inspectedCampaignCountry.id)) : openRegions}
+          regionUnavailable={campaign ? undefined : regionUnavailable} regionLabel={campaign ? "Provinces" : "Regions"}
+          playability={campaign || setup ? inspectedCampaignCountry ? 'playable' : 'unavailable' : undefined} />)}
       <p className="sr-only" role="status">{inspectedRegion ? `${regionName(inspectedRegion)}, ${selectedCountry?.name} selected` : selectedCountry ? `${selectedCountry.name} selected` : ''}</p>
     </div>
+    {markersVisible && <div className="geo-map-actions">
+      <button type="button" aria-pressed={orderOverlay} onClick={() => setOrderOverlay(value => !value)}>{orderOverlay ? 'Hide orders' : 'Show orders'}</button>
+      <button type="button" onClick={() => campaign!.state.playerCountryId && centerCountry(campaign!.state.playerCountryId)}>Home territory</button>
+      {campaign!.markerStress && <p>Synthetic marker stress fixture · 90 formations</p>}
+      {orderOverlay && <OrdersKey fixtures={campaign!.fixtures} />}
+    </div>}
+    {campaign && campaignError && <p role="alert">{campaignError} <button type="button" onClick={retryCampaign}>Retry provinces</button></p>}
+    {markersVisible && !campaignMap && !campaignError && <p role="status">Loading province boundaries…</p>}
+    {campaign && view.projection === 'globe' && <div className="geo-map-actions">
+      <button type="button" onClick={() => campaign.state.playerCountryId && centerCountry(campaign.state.playerCountryId)}>Home territory</button>
+      {inspectedCampaignCountry && <span>{inspectedCampaignCountry.name} · {
+        campaign.scenario.provinces.filter(province => campaign.state.regions.some(region =>
+          region.id === province.id && region.ownerId === inspectedCampaignCountry.id)).length
+      } playable provinces controlled</span>}
+    </div>}
+    {campaign && <ProvinceDetails campaign={campaign} selected={provinceId} onProvince={id => selectProvince(id, true)} onCountry={centerCountry} />}
     <div className={regionCaption ? 'atlas-caption atlas-region-caption' : 'atlas-caption'} hidden={showHelp}>
       <p id="atlas-status" role="status">{flying ? 'Opening regions…' : regionCaption ? `${projectionLabel} · ${regionCaption}` :
         data.error || terrainStatus || (data.loading ? 'Loading map detail…' : `${projectionLabel} · Natural Earth · ${terrainVisible ? 'Physical reference' : 'Country colors'}`)}</p>

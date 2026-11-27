@@ -9,7 +9,7 @@ const digest = (bytes: Buffer) => createHash('sha256').update(bytes).digest('hex
 
 // The regular Pages build has no route that copies a scenario package.
 export default defineConfig(({ mode }) => {
-  const privateReview = mode === 'world04-local';
+  const privateReview = mode === 'world04-local' || mode === 'geo01-local';
   return {
     base: '/heartland/',
     build: { outDir: privateReview ? 'dist-world04.local' : 'dist' },

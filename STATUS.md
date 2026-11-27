@@ -489,5 +489,9 @@ Historical first implementation/validation follows. The physical-iPhone-feedback
 
 ## MIL-00-ENGINE and MIL-00R
 
-- The strategic ruleset is ready for engine review through an explicit new-match initializer. Existing matches and the current interface retain legacy combat entry behavior. [Engine review and reproduction](docs/military/MIL-00-ENGINE.md)
+- The owner accepted MIL-00-ENGINE on physical iPhone Safari and PR #41 is merged. The accepted runs passed all five simulation limits. A first calm run took 4,128 ms to initialize, and its cause remains unconfirmed. The strategic ruleset is available through an explicit new-match initializer. Existing matches and the current interface retain legacy combat entry behavior. [Engine review and reproduction](docs/military/MIL-00-ENGINE.md)
 - MIL-00R will address manpower replenishment, recruitment and recovery duration, budget and logistics integration, and military sustainability. MIL-00-ENGINE records depletion and recovery eligibility without regenerating manpower.
+
+## GEO-01 — Unified geography
+
+- Europe uses one interactive atlas across exploration, country selection and the campaign map. Geography review runs use a dedicated no-save build. [GEO-01 review](docs/world/GEO-01.md)

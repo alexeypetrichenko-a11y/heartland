@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type RefCallback } from 'react';
 import type { CountryId, GameState, RegionId, TurnCommand } from '../game/models';
 import type { EconomyCommand, EconomySnapshot } from '../game/economyBridge';
 import { EUROPE_MILITARY_NOTICE, type EuropeScenario } from '../game/europeScenario';
-import { EuropeMap } from './EuropeMap';
+import { campaignUnits } from './EuropeMap';
 import { createInitialState } from '../game/initialState';
 import type { SaveStatus } from '../game/localSaves';
 import type { PlayerDrafts } from '../game/playerDrafts';
@@ -30,17 +30,27 @@ type PrototypePageProps = {
   fiscalApi: FiscalApi;
   saveStatus: SaveStatus | null;
   lastSaved: Extract<SaveStatus, { kind: 'saved' }> | null;
-  onSave: () => void;
+  onSave?: () => void;
+  atlasSlot?: RefCallback<HTMLDivElement>;
+  onAtlasVisible: (visible: boolean) => void;
+  onLocate: (id: RegionId) => void;
+  selectedUnits: readonly string[];
+  onToggleUnit: (id: string) => void;
 };
 
-export function CountrySetup({ busy, error, onSelectCountry, onBack, europeEnabled, scenarioChoice, europe, onScenarioChoice }: {
+export function CountrySetup({ busy, error, onSelectCountry, onBack, europeEnabled, scenarioChoice, europe, onScenarioChoice, atlasSlot, europeChoice, onEuropeChoice }: {
   busy: boolean; error: string | null; onSelectCountry: (id: CountryId) => void; onBack: () => void;
   europeEnabled: boolean; scenarioChoice: 'fictional' | 'europe-2023'; europe: EuropeScenario | null;
   onScenarioChoice: (choice: 'fictional' | 'europe-2023') => void;
+  atlasSlot: RefCallback<HTMLDivElement>;
+  europeChoice: string;
+  onEuropeChoice: (id: string) => void;
 }) {
   const [state] = useState(createInitialState);
-  const [choice, setChoice] = useState('');
+  const [fictionalChoice, setFictionalChoice] = useState('');
   const isEurope = scenarioChoice === 'europe-2023';
+  const choice = isEurope ? europeChoice : fictionalChoice;
+  const setChoice = isEurope ? onEuropeChoice : setFictionalChoice;
   const roster = isEurope ? europe?.countries ?? [] : state.countries;
   return (
     <div className="prototype-content country-setup">
@@ -71,7 +81,7 @@ export function CountrySetup({ busy, error, onSelectCountry, onBack, europeEnabl
         {error && <p className="turn-error" role="alert">{error}</p>}
         {isEurope && error && !europe && <button type="button" disabled={busy} onClick={() => onScenarioChoice('europe-2023')}>Retry Europe 2023</button>}
       </section>
-      {isEurope ? europe && <EuropeMap scenario={europe} state={europe.fixture} /> : <RegionMap state={state} />}
+      {isEurope ? europe && <div className="atlas-slot setup-atlas-slot" ref={atlasSlot} /> : <RegionMap state={state} />}
       <button type="button" onClick={onBack}>Back to globe</button>
     </div>
   );
@@ -87,7 +97,7 @@ const sections = [
 type Section = typeof sections[number]['id'];
 const RECENT_REPORT_LIMIT = 4;
 
-export function PrototypePage({ active, europe, state, drafts, onChangeDrafts, onAdvanceTurn, turnError, onBack, economy, fiscalApi, saveStatus, lastSaved, onSave }: PrototypePageProps) {
+export function PrototypePage({ active, europe, state, drafts, onChangeDrafts, onAdvanceTurn, turnError, onBack, economy, fiscalApi, saveStatus, lastSaved, onSave, atlasSlot, onAtlasVisible, onLocate, selectedUnits, onToggleUnit }: PrototypePageProps) {
   const [showScenario, setShowScenario] = useState(false);
   const [activeSection, setActiveSection] = useState<Section>('world');
   const [reportWeek, setReportWeek] = useState<number | 'latest' | null>(null);
@@ -136,6 +146,9 @@ export function PrototypePage({ active, europe, state, drafts, onChangeDrafts, o
     if (active) dashboardRef.current?.focus({ preventScroll: true });
   }, [state.playerCountryId, activeSection, active]);
 
+  const showAtlas = Boolean(active && europe && activeSection === 'world' && !showScenario && !report);
+  useEffect(() => { onAtlasVisible(showAtlas); }, [showAtlas, onAtlasVisible]);
+
   if (!country || !fiscal) throw new Error('The game has no matching player economy.');
 
   return (
@@ -182,7 +195,7 @@ export function PrototypePage({ active, europe, state, drafts, onChangeDrafts, o
         {/* Mounted, hidden views retain map selection, unfinished forms and staged commands. */}
         <div className="game-workspace" hidden={showScenario || Boolean(report)}>
           <div id="section-world" className="section-view" hidden={activeSection !== 'world'}>
-            {europe ? <EuropeMap scenario={europe} state={state} inspect={regionInspection} /> : <RegionMap state={state} inspect={regionInspection} />}
+            {europe ? <div className="atlas-slot campaign-atlas-slot" ref={showAtlas ? atlasSlot : undefined} /> : <RegionMap state={state} inspect={regionInspection} />}
           </div>
           <div id="section-politics" className="section-view" hidden={activeSection !== 'politics'}>
             <section className="overview" aria-labelledby="politics-title">
@@ -200,6 +213,16 @@ export function PrototypePage({ active, europe, state, drafts, onChangeDrafts, o
             <DiplomacyPanel europe={Boolean(europe)} state={state} pendingAction={diplomacy} onStageAction={action => onChangeDrafts({ ...drafts, diplomacy: action })} />
           </div>
           <div id="section-military" className="section-view" hidden={activeSection !== 'military'}>
+            {europe && <details className="card geo-military-selection">
+              <summary>Map selection · {selectedUnits.length}</summary>
+              <ul>{campaignUnits(state).map(unit => {
+                const division = state.divisions.find(division => division.id === unit.id)!;
+                return <li key={unit.id}>
+                  <label><input type="checkbox" checked={selectedUnits.includes(unit.id)} onChange={() => onToggleUnit(unit.id)} /> {division.name}</label>
+                  {unit.regionId && <button type="button" onClick={() => { onLocate(unit.regionId!); setActiveSection('world'); }}>Locate {division.name}</button>}
+                </li>;
+              })}</ul>
+            </details>}
             <MilitaryPanel state={state} pendingOrders={military} forceNote={europe ? EUROPE_MILITARY_NOTICE : undefined}
               onStageOrder={command => onChangeDrafts({ ...drafts, military: [...military.filter(order => order.divisionId !== command.divisionId), command] })}
               onRemoveOrder={id => onChangeDrafts({ ...drafts, military: military.filter(order => order.divisionId !== id) })}
@@ -209,7 +232,7 @@ export function PrototypePage({ active, europe, state, drafts, onChangeDrafts, o
         {report && latestReport && <WeeklyReportPanel key={report.week} active={active} report={report}
           availableWeeks={[latestReport.week, ...earlierReports.map(entry => entry.week)]}
           onSelectWeek={setReportWeek} onClose={() => setReportWeek(null)}
-          onOpenRegion={id => { setActiveSection('world'); setRegionInspection({ id }); setReportWeek(null); }} />}
+          onOpenRegion={id => { setActiveSection('world'); if (europe) onLocate(id); else setRegionInspection({ id }); setReportWeek(null); }} />}
         <DetailPanel id="scenario-details" title="Scenario information" open={showScenario} onClose={() => setShowScenario(false)}>
           {latestReport && <button type="button" onClick={openLatestReport}>Open weekly report</button>}
           <p>{europe ? 'Europe 2023 · Licensed local review · ' + europe.identity.version
@@ -238,7 +261,7 @@ export function PrototypePage({ active, europe, state, drafts, onChangeDrafts, o
           <ul>{state.countries.map(country => <li key={country.id}>{country.name}: {country.controller === 'player' ? 'Player-controlled (you)' : europe ? 'AI-controlled' : `AI-controlled — ${AI_PRIORITIES[country.id].label}`}</li>)}</ul>
           <h3>Your regions</h3><ul>{regions.map(region => <li key={region.id}>{region.name}</li>)}</ul>
           <div className="scenario-save-actions">
-            <button type="button" onClick={onSave}>Save now</button>
+            {onSave && <button type="button" onClick={onSave}>Save now</button>}
             <button type="button" onClick={() => { setShowScenario(false); onBack(); }}>Return to globe</button>
           </div>
         </DetailPanel>
