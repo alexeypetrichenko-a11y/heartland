@@ -1,0 +1,465 @@
+{
+ "package": "1.0.0-draft.3",
+ "country": "fra",
+ "establishment": 375000,
+ "militaryYearPerPe": 0.00014351754860671918,
+ "equipmentMix": {
+  "small_arms": 0.3,
+  "munitions": 0.3,
+  "military_vehicles": 0.4
+ },
+ "runs": [
+  {
+   "variant": "baseline",
+   "w52": {
+    "realGdp": 68.44348088403157,
+    "unemployment": 0.078,
+    "debtToGdp": 1.1274,
+    "balanceToGdp": -0.0614,
+    "militaryToGdp": 0.01791,
+    "stability": 67.8,
+    "wage": 1.2739780844611837,
+    "armsDelivered": 0.10973350563110117,
+    "recruited": 0,
+    "labourWithdrawn": 0
+   },
+   "w104": {
+    "realGdp": 69.70156354830111,
+    "unemployment": 0.0979,
+    "debtToGdp": 1.1522,
+    "balanceToGdp": -0.0712,
+    "militaryToGdp": 0.01795,
+    "stability": 66.2,
+    "wage": 1.275129325211466,
+    "armsDelivered": 0.11195874486393186,
+    "recruited": 0,
+    "labourWithdrawn": 0
+   },
+   "w156": {
+    "realGdp": 71.55710933884744,
+    "unemployment": 0.1005,
+    "debtToGdp": 1.1818,
+    "balanceToGdp": -0.0822,
+    "militaryToGdp": 0.01802,
+    "stability": 66.5,
+    "wage": 1.2700170553117214,
+    "armsDelivered": 0.11372559006286613,
+    "recruited": 0,
+    "labourWithdrawn": 0
+   },
+   "audit": 2.1100277081131935e-10,
+   "hash": "7cd735c749cac3c8"
+  },
+  {
+   "variant": "replace (937/week)",
+   "w52": {
+    "realGdp": 68.43031595512717,
+    "unemployment": 0.0769,
+    "debtToGdp": 1.1298,
+    "balanceToGdp": -0.0638,
+    "militaryToGdp": 0.02019,
+    "stability": 68,
+    "wage": 1.2745002597847082,
+    "armsDelivered": 0.16558386178572201,
+    "recruited": 47787,
+    "labourWithdrawn": 0.0015
+   },
+   "w104": {
+    "realGdp": 69.66798289146536,
+    "unemployment": 0.0958,
+    "debtToGdp": 1.1573,
+    "balanceToGdp": -0.0736,
+    "militaryToGdp": 0.02015,
+    "stability": 66.5,
+    "wage": 1.2770790286232767,
+    "armsDelivered": 0.16675171241300824,
+    "recruited": 96511,
+    "labourWithdrawn": 0.00303
+   },
+   "w156": {
+    "realGdp": 71.46848843012089,
+    "unemployment": 0.0979,
+    "debtToGdp": 1.1898,
+    "balanceToGdp": -0.0845,
+    "militaryToGdp": 0.02013,
+    "stability": 66.8,
+    "wage": 1.2739626144047878,
+    "armsDelivered": 0.16707116478881884,
+    "recruited": 145235,
+    "labourWithdrawn": 0.00457
+   },
+   "audit": 1.6007106751203537e-10,
+   "hash": "cf67ba64d083f621"
+  },
+  {
+   "variant": "replace: labour only",
+   "w52": {
+    "realGdp": 68.43312240486877,
+    "unemployment": 0.0769,
+    "debtToGdp": 1.1275,
+    "balanceToGdp": -0.0614,
+    "militaryToGdp": 0.01791,
+    "stability": 68,
+    "wage": 1.2744415980118602,
+    "armsDelivered": 0.10971805408191701,
+    "recruited": 47787,
+    "labourWithdrawn": 0.0015
+   },
+   "w104": {
+    "realGdp": 69.6710009857086,
+    "unemployment": 0.0957,
+    "debtToGdp": 1.1525,
+    "balanceToGdp": -0.0711,
+    "militaryToGdp": 0.01795,
+    "stability": 66.5,
+    "wage": 1.2770581353302968,
+    "armsDelivered": 0.11191530592214485,
+    "recruited": 96511,
+    "labourWithdrawn": 0.00303
+   },
+   "w156": {
+    "realGdp": 71.47390626170248,
+    "unemployment": 0.0978,
+    "debtToGdp": 1.1826,
+    "balanceToGdp": -0.0818,
+    "militaryToGdp": 0.01802,
+    "stability": 66.8,
+    "wage": 1.2740225152978575,
+    "armsDelivered": 0.11361274632893455,
+    "recruited": 145235,
+    "labourWithdrawn": 0.00457
+   },
+   "audit": 1.382431946694851e-10,
+   "hash": "21e1562fd0aa0607"
+  },
+  {
+   "variant": "replace: money only",
+   "w52": {
+    "realGdp": 68.44066659290228,
+    "unemployment": 0.0781,
+    "debtToGdp": 1.1297,
+    "balanceToGdp": -0.0638,
+    "militaryToGdp": 0.02019,
+    "stability": 67.8,
+    "wage": 1.2740367555791625,
+    "armsDelivered": 0.16559894710325349,
+    "recruited": 47787,
+    "labourWithdrawn": 0
+   },
+   "w104": {
+    "realGdp": 69.6984817371123,
+    "unemployment": 0.098,
+    "debtToGdp": 1.157,
+    "balanceToGdp": -0.0738,
+    "militaryToGdp": 0.02014,
+    "stability": 66.2,
+    "wage": 1.2751502794114404,
+    "armsDelivered": 0.1667933238381125,
+    "recruited": 96511,
+    "labourWithdrawn": 0
+   },
+   "w156": {
+    "realGdp": 71.55163948993955,
+    "unemployment": 0.1006,
+    "debtToGdp": 1.189,
+    "balanceToGdp": -0.0848,
+    "militaryToGdp": 0.02013,
+    "stability": 66.4,
+    "wage": 1.2699567815093342,
+    "armsDelivered": 0.16717907933792445,
+    "recruited": 145235,
+    "labourWithdrawn": 0
+   },
+   "audit": 1.8917489796876907e-10,
+   "hash": "550049831e1284a4"
+  },
+  {
+   "variant": "surge (1,875/week, cost x1.5)",
+   "w52": {
+    "realGdp": 68.41175772728245,
+    "unemployment": 0.0758,
+    "debtToGdp": 1.1346,
+    "balanceToGdp": -0.0687,
+    "militaryToGdp": 0.02475,
+    "stability": 68.1,
+    "wage": 1.2750428278886607,
+    "armsDelivered": 0.27490469804008266,
+    "recruited": 95625,
+    "labourWithdrawn": 0.00301
+   },
+   "w104": {
+    "realGdp": 69.62855789445041,
+    "unemployment": 0.0937,
+    "debtToGdp": 1.1671,
+    "balanceToGdp": -0.0786,
+    "militaryToGdp": 0.02454,
+    "stability": 66.7,
+    "wage": 1.279101728329055,
+    "armsDelivered": 0.27422496519741885,
+    "recruited": 193125,
+    "labourWithdrawn": 0.00607
+   },
+   "w156": {
+    "realGdp": 71.37623971470042,
+    "unemployment": 0.0953,
+    "debtToGdp": 1.2049,
+    "balanceToGdp": -0.0895,
+    "militaryToGdp": 0.02436,
+    "stability": 67.1,
+    "wage": 1.2780470589607669,
+    "armsDelivered": 0.2720803669269551,
+    "recruited": 290625,
+    "labourWithdrawn": 0.00914
+   },
+   "audit": 1.673470251262188e-10,
+   "hash": "5d13e11f52b5acd2"
+  },
+  {
+   "variant": "illustration: 5,000/week",
+   "w52": {
+    "realGdp": 68.3555060736158,
+    "unemployment": 0.0721,
+    "debtToGdp": 1.147,
+    "balanceToGdp": -0.081,
+    "militaryToGdp": 0.03614,
+    "stability": 68.4,
+    "wage": 1.2766544493042562,
+    "armsDelivered": 0.5353339088325351,
+    "recruited": 255000,
+    "labourWithdrawn": 0.00802
+   },
+   "w104": {
+    "realGdp": 69.50962454202184,
+    "unemployment": 0.0863,
+    "debtToGdp": 1.192,
+    "balanceToGdp": -0.0913,
+    "militaryToGdp": 0.03554,
+    "stability": 67.7,
+    "wage": 1.285858562718835,
+    "armsDelivered": 0.5319848664298678,
+    "recruited": 515000,
+    "labourWithdrawn": 0.01619
+   },
+   "w156": {
+    "realGdp": 71.11478688530731,
+    "unemployment": 0.0859,
+    "debtToGdp": 1.2434,
+    "balanceToGdp": -0.1022,
+    "militaryToGdp": 0.03498,
+    "stability": 68.4,
+    "wage": 1.2921983767572356,
+    "armsDelivered": 0.5262383278674257,
+    "recruited": 775000,
+    "labourWithdrawn": 0.02436
+   },
+   "audit": 1.6007106751203537e-10,
+   "hash": "e20af14994ee1fff"
+  }
+ ],
+ "table": [
+  {
+   "variant": "baseline",
+   "w52": {
+    "realGdpVsBaselinePct": 0,
+    "unemploymentPp": 0,
+    "debtToGdpPp": 0,
+    "balanceToGdpPp": 0,
+    "militaryToGdpPp": 0,
+    "wageVsBaselinePct": 0,
+    "stabilityDiff": 0,
+    "labourWithdrawnPct": 0
+   },
+   "w104": {
+    "realGdpVsBaselinePct": 0,
+    "unemploymentPp": 0,
+    "debtToGdpPp": 0,
+    "balanceToGdpPp": 0,
+    "militaryToGdpPp": 0,
+    "wageVsBaselinePct": 0,
+    "stabilityDiff": 0,
+    "labourWithdrawnPct": 0
+   },
+   "w156": {
+    "realGdpVsBaselinePct": 0,
+    "unemploymentPp": 0,
+    "debtToGdpPp": 0,
+    "balanceToGdpPp": 0,
+    "militaryToGdpPp": 0,
+    "wageVsBaselinePct": 0,
+    "stabilityDiff": 0,
+    "labourWithdrawnPct": 0
+   },
+   "audit": 2.1100277081131935e-10
+  },
+  {
+   "variant": "replace (937/week)",
+   "w52": {
+    "realGdpVsBaselinePct": -0.019,
+    "unemploymentPp": -0.11,
+    "debtToGdpPp": 0.24,
+    "balanceToGdpPp": -0.24,
+    "militaryToGdpPp": 0.228,
+    "wageVsBaselinePct": 0.041,
+    "stabilityDiff": 0.2,
+    "labourWithdrawnPct": 0.15
+   },
+   "w104": {
+    "realGdpVsBaselinePct": -0.048,
+    "unemploymentPp": -0.21,
+    "debtToGdpPp": 0.51,
+    "balanceToGdpPp": -0.24,
+    "militaryToGdpPp": 0.22,
+    "wageVsBaselinePct": 0.153,
+    "stabilityDiff": 0.3,
+    "labourWithdrawnPct": 0.303
+   },
+   "w156": {
+    "realGdpVsBaselinePct": -0.124,
+    "unemploymentPp": -0.26,
+    "debtToGdpPp": 0.8,
+    "balanceToGdpPp": -0.23,
+    "militaryToGdpPp": 0.211,
+    "wageVsBaselinePct": 0.311,
+    "stabilityDiff": 0.3,
+    "labourWithdrawnPct": 0.457
+   },
+   "audit": 1.6007106751203537e-10
+  },
+  {
+   "variant": "replace: labour only",
+   "w52": {
+    "realGdpVsBaselinePct": -0.015,
+    "unemploymentPp": -0.11,
+    "debtToGdpPp": 0.01,
+    "balanceToGdpPp": 0,
+    "militaryToGdpPp": 0,
+    "wageVsBaselinePct": 0.036,
+    "stabilityDiff": 0.2,
+    "labourWithdrawnPct": 0.15
+   },
+   "w104": {
+    "realGdpVsBaselinePct": -0.044,
+    "unemploymentPp": -0.22,
+    "debtToGdpPp": 0.03,
+    "balanceToGdpPp": 0.01,
+    "militaryToGdpPp": 0,
+    "wageVsBaselinePct": 0.151,
+    "stabilityDiff": 0.3,
+    "labourWithdrawnPct": 0.303
+   },
+   "w156": {
+    "realGdpVsBaselinePct": -0.116,
+    "unemploymentPp": -0.27,
+    "debtToGdpPp": 0.08,
+    "balanceToGdpPp": 0.04,
+    "militaryToGdpPp": 0,
+    "wageVsBaselinePct": 0.315,
+    "stabilityDiff": 0.3,
+    "labourWithdrawnPct": 0.457
+   },
+   "audit": 1.382431946694851e-10
+  },
+  {
+   "variant": "replace: money only",
+   "w52": {
+    "realGdpVsBaselinePct": -0.004,
+    "unemploymentPp": 0.01,
+    "debtToGdpPp": 0.23,
+    "balanceToGdpPp": -0.24,
+    "militaryToGdpPp": 0.228,
+    "wageVsBaselinePct": 0.005,
+    "stabilityDiff": 0,
+    "labourWithdrawnPct": 0
+   },
+   "w104": {
+    "realGdpVsBaselinePct": -0.004,
+    "unemploymentPp": 0.01,
+    "debtToGdpPp": 0.48,
+    "balanceToGdpPp": -0.26,
+    "militaryToGdpPp": 0.219,
+    "wageVsBaselinePct": 0.002,
+    "stabilityDiff": 0,
+    "labourWithdrawnPct": 0
+   },
+   "w156": {
+    "realGdpVsBaselinePct": -0.008,
+    "unemploymentPp": 0.01,
+    "debtToGdpPp": 0.72,
+    "balanceToGdpPp": -0.26,
+    "militaryToGdpPp": 0.211,
+    "wageVsBaselinePct": -0.005,
+    "stabilityDiff": -0.1,
+    "labourWithdrawnPct": 0
+   },
+   "audit": 1.8917489796876907e-10
+  },
+  {
+   "variant": "surge (1,875/week, cost x1.5)",
+   "w52": {
+    "realGdpVsBaselinePct": -0.046,
+    "unemploymentPp": -0.22,
+    "debtToGdpPp": 0.72,
+    "balanceToGdpPp": -0.73,
+    "militaryToGdpPp": 0.684,
+    "wageVsBaselinePct": 0.084,
+    "stabilityDiff": 0.3,
+    "labourWithdrawnPct": 0.301
+   },
+   "w104": {
+    "realGdpVsBaselinePct": -0.105,
+    "unemploymentPp": -0.42,
+    "debtToGdpPp": 1.49,
+    "balanceToGdpPp": -0.74,
+    "militaryToGdpPp": 0.659,
+    "wageVsBaselinePct": 0.312,
+    "stabilityDiff": 0.5,
+    "labourWithdrawnPct": 0.607
+   },
+   "w156": {
+    "realGdpVsBaselinePct": -0.253,
+    "unemploymentPp": -0.52,
+    "debtToGdpPp": 2.31,
+    "balanceToGdpPp": -0.73,
+    "militaryToGdpPp": 0.634,
+    "wageVsBaselinePct": 0.632,
+    "stabilityDiff": 0.6,
+    "labourWithdrawnPct": 0.914
+   },
+   "audit": 1.673470251262188e-10
+  },
+  {
+   "variant": "illustration: 5,000/week",
+   "w52": {
+    "realGdpVsBaselinePct": -0.129,
+    "unemploymentPp": -0.59,
+    "debtToGdpPp": 1.96,
+    "balanceToGdpPp": -1.96,
+    "militaryToGdpPp": 1.823,
+    "wageVsBaselinePct": 0.21,
+    "stabilityDiff": 0.6,
+    "labourWithdrawnPct": 0.802
+   },
+   "w104": {
+    "realGdpVsBaselinePct": -0.275,
+    "unemploymentPp": -1.16,
+    "debtToGdpPp": 3.98,
+    "balanceToGdpPp": -2.01,
+    "militaryToGdpPp": 1.759,
+    "wageVsBaselinePct": 0.841,
+    "stabilityDiff": 1.5,
+    "labourWithdrawnPct": 1.619
+   },
+   "w156": {
+    "realGdpVsBaselinePct": -0.618,
+    "unemploymentPp": -1.46,
+    "debtToGdpPp": 6.16,
+    "balanceToGdpPp": -2,
+    "militaryToGdpPp": 1.696,
+    "wageVsBaselinePct": 1.747,
+    "stabilityDiff": 1.9,
+    "labourWithdrawnPct": 2.436
+   },
+   "audit": 1.6007106751203537e-10
+  }
+ ]
+}
