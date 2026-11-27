@@ -57,7 +57,7 @@ export async function benchmarkStrategicLand(read: (name: string) => Promise<Uin
     slowestWeekMs: times[155], saveRestoreMs };
   const limits = { startMs: 1000, medianWeekMs: 250, p95WeekMs: 500, slowestWeekMs: 1000, saveRestoreMs: 1000 };
   return { mode: heavy ? 'heavy orders' : 'calm', zones: 61, divisions: 90, weeks: times.length,
-    engagementWeeks, maxFronts, exhaustion, milliseconds, bytes: new TextEncoder().encode(encoded).length,
+    engagementWeeks, maxFronts, exhaustion, milliseconds, limits, bytes: new TextEncoder().encode(encoded).length,
     passed: (Object.keys(limits) as (keyof typeof limits)[]).every(key => milliseconds[key] <= limits[key]) };
 }
 
