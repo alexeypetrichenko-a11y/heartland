@@ -20,7 +20,8 @@ if (process.argv.includes('--browser')) {
         const page = await browser.newPage();
         const client = await page.context().newCDPSession(page);
         await client.send('Emulation.setCPUThrottlingRate', { rate });
-        await page.goto('http://127.0.0.1:4174/heartland/benchmark.html');
+        const query = process.argv.includes('--mil00') ? '?mil00' : '';
+        await page.goto(`${process.env.HEARTLAND_BENCH_ORIGIN ?? "http://127.0.0.1:4174"}/heartland/benchmark.html${query}`);
         await page.getByRole('button', { name: 'Run 156 turns' }).click();
         const result = page.locator('pre[data-result]');
         await result.waitFor({ timeout: 180000 });

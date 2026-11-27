@@ -8,6 +8,7 @@ import { isSaveObject, validateSavedDrafts, validateSavedGame } from './saveVali
 
 const FORMAT = 'heartland-local-game';
 const VERSION = 1;
+const STRATEGIC_VERSION = 2;
 const COMPARISON_VERSION = 1;
 const scenario = createInitialState();
 
@@ -109,7 +110,7 @@ export async function encodeGameSave(runtime: LoadedEconomy, session: PlayableSe
   validatePayload(data, runtime.europe);
   validateSession(runtime, session);
   const payload = JSON.stringify(data);
-  return JSON.stringify({ format: FORMAT, version: VERSION, checksum: await checksum(payload), payload });
+  return JSON.stringify({ format: FORMAT, version: game.strategicLand ? STRATEGIC_VERSION : VERSION, checksum: await checksum(payload), payload });
 }
 
 /** Check the envelope and the game. Only European saves need the review package here. */
@@ -118,11 +119,15 @@ export async function decodeGameSave(record: string, loadEurope?: () => Promise<
   try { envelope = JSON.parse(record); }
   catch { throw new Error('The local save could not be read.'); }
   if (!isSaveObject(envelope) || envelope.format !== FORMAT) throw new Error('The local save format is unrecognized.');
-  if (envelope.version !== VERSION) throw new Error('This local save version is unsupported.');
+  if (envelope.version !== VERSION && envelope.version !== STRATEGIC_VERSION) throw new Error('This local save version is unsupported.');
   if (typeof envelope.payload !== 'string' || await checksum(envelope.payload) !== envelope.checksum) {
     throw new Error('The local save is damaged.');
   }
   const payload: unknown = JSON.parse(envelope.payload);
+  const strategic = isSaveObject(payload) && isSaveObject(payload.game) && payload.game.strategicLand !== undefined;
+  if (strategic !== (envelope.version === STRATEGIC_VERSION)) {
+    throw new Error('The combat rules do not match the local save version.');
+  }
   if (isSaveObject(payload) && payload.scenario !== undefined) {
     assertEuropeIdentity(payload.scenario);
     return validatePayload(payload, await loadEurope?.());
@@ -137,6 +142,10 @@ export function restoreGameSave(runtime: LoadedEconomy, save: SavedGame): Playab
     if (!runtime.europe) throw new Error('This local save requires the restricted Europe 2023 review build.');
     validateSavedGame(save.game, runtime.europe.fixture, runtime.europe.countries.map(country => country.id));
     validateSavedDrafts(save.drafts, save.game, true);
+  }
+  if (!save.scenario && save.game.strategicLand) {
+    validateSavedGame(save.game);
+    validateSavedDrafts(save.drafts, save.game);
   }
   const loaded = runtime.api.loadEconomySession(save.economy);
   if (save.scenario && save.scenario.economyFingerprint !== runtime.api.economyFingerprint(loaded)) {

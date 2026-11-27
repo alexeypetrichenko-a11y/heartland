@@ -1,3 +1,4 @@
+import { browserBenchmarkStrategicLand } from './bench_mil00.ts';
 // Browser entry point bundled for the local performance harness.
 import * as api from '../../economy-engine/src/integration/index.ts';
 import { advanceGameWeek } from '../../src/game/economyBridge.ts';
@@ -49,7 +50,7 @@ button.onclick = async () => {
   output.textContent = 'Running…';
   await new Promise(resolve => setTimeout(resolve, 50));
   try {
-    output.textContent = JSON.stringify(await benchmark(), null, 2);
+    output.textContent = JSON.stringify(await (location.search === '?mil00' ? browserBenchmarkStrategicLand() : benchmark()), null, 2);
     output.dataset.result = 'complete';
   } catch (error) {
     output.textContent = String(error);
